@@ -23,7 +23,7 @@ ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_SWARM_SH_FILE="$ES_PATH/deploy-shield.sh"
 ES_SETUP_VER="8.0.0.070817-setup"
-BRANCH="BenyH-install-scripts"
+BRANCH="master"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -202,7 +202,7 @@ function prepare_yml {
 
 function get_shield_install_files {
      echo "Getting $ES_REPO_FILE"
-     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/ericomshield-repo.sh"
+     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/ericomshield-repo1.sh"
      echo $ES_REPO_FILE
      curl -s -S -o $ES_REPO_FILE $ES_repo_setup
      #include file with files repository
@@ -315,7 +315,8 @@ if [ $UPDATE -eq 0 ]; then
   echo -n "stop shield-broker"
   docker service scale shield_broker-server=0
   wait=0
-  while [ $wait -lt 5 ] do
+  while [ $wait -lt 5 ] 
+  do
       if [ $(docker service ps shield_broker-server | wc -l) <= 1 ]; then
         echo !
         break
@@ -341,7 +342,8 @@ if [ $? == 0 ]; then
 fi
 #Check the status of the system, and clean only if running
 wait=0
-while [ $wait -lt 10 ] do
+while [ $wait -lt 10 ] 
+do
   $ES_PATH/status.sh
   if [ $? == 0 ]; then
      echo "Ericom Shield is Running!"
