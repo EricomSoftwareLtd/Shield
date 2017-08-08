@@ -30,7 +30,6 @@ DOCKER_SECRET="Ericom98765$"
 ES_DEV=false
 ES_SWARM=true
 ES_POCKET=false
-
 ES_AUTO_UPDATE=true
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
@@ -98,10 +97,10 @@ function install_docker {
     else
          echo " ******* docker-engine is already installed"
     fi
-    if [ $(sudo docker version |wc -l ) -le  1 ]; then    
+    if [ $(sudo docker version |wc -l ) -le  1 ]; then
        echo "Failed to install docker, Exiting!"
        echo "$(date): An error occured during the installation: Cannot login to docker" >> "$LOGFILE"
-       exit 1   
+       exit 1
     fi
 }
 
@@ -154,10 +153,10 @@ function update_sysctl {
 
 function create_shield_service {
     echo "**************  Creating the ericomshield service..."
-  
+
     if [ ! -f "${ES_PATH}/ericomshield.service" ]; then
       # Need to download the service file only if needed and reload only if changed
-      curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service_swarm}"    
+      curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service_swarm}"
     fi
 
    systemctl --system enable "${ES_PATH}/ericomshield.service"
@@ -181,10 +180,10 @@ function prepare_yml {
      cat "$ES_VER_FILE" | while read ver; do
           if [ ${ver:0:1} == '#' ]; then
             echo $ver
-           else 
+           else
             pattern_ver=$(echo $ver | awk '{print $1}')
             comp_ver=$(echo $ver | awk '{print $2}')
-            if [ ! -z $pattern_ver ]; then          
+            if [ ! -z $pattern_ver ]; then
                echo "Changing ver:"
                echo "  sed -i 's/$pattern_ver/$comp_ver/g' $ES_YML_FILE"
                sed -i "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
@@ -203,7 +202,7 @@ function prepare_yml {
 
 function get_shield_install_files {
      echo "Getting $ES_REPO_FILE"
-     ES_repo_setup="https://raw.githubusercontent.com/ErezPasternak/Shield/$BRANCH/Dev-Feb16/ericomshield-repo.sh"
+     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/ericomshield-setup.sh"
      echo $ES_REPO_FILE
      curl -s -S -o $ES_REPO_FILE $ES_repo_setup
      #include file with files repository
@@ -234,7 +233,11 @@ function get_shield_install_files {
      mv "shield-version-new.txt" "$ES_VER_FILE"
 
      echo "Getting $ES_YML_FILE"
-     curl -s -S -o $ES_YML_FILE $ES_repo_swarm_yml
+     curl -s -S -o $ES_YML_FILE $ES_repo_yml
+     curl -s -S -o deploy-shield.sh $ES_repo_swarm_sh
+
+     echo "Getting $ES_YML_FILE"
+     curl -s -S -o $ES_YML_FILE $ES_repo_yml
      curl -s -S -o deploy-shield.sh $ES_repo_swarm_sh
      chmod +x deploy-shield.sh
      if [ $ES_POCKET == true ]; then
@@ -350,7 +353,7 @@ while [ $wait -lt 10 ] do
      echo -n .
      sleep 60
   fi
-  wait=$[$wait+1]  
+  wait=$[$wait+1]
 done
 
 Version=`grep  SHIELD_VER $ES_YML_FILE`
