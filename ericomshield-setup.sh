@@ -202,7 +202,7 @@ function prepare_yml {
 
 function get_shield_install_files {
      echo "Getting $ES_REPO_FILE"
-     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/ericomshield-setup.sh"
+     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/ericomshield-repo.sh"
      echo $ES_REPO_FILE
      curl -s -S -o $ES_REPO_FILE $ES_repo_setup
      #include file with files repository
