@@ -23,7 +23,7 @@ ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_SWARM_SH_FILE="$ES_PATH/deploy-shield.sh"
 ES_SETUP_VER="8.0.0.070817-setup"
-BRANCH="BenyH-install-scripts"
+BRANCH="master"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
