@@ -315,7 +315,8 @@ if [ $UPDATE -eq 0 ]; then
   echo -n "stop shield-broker"
   docker service scale shield_broker-server=0
   wait=0
-  while [ $wait -lt 5 ] do
+  while [ $wait -lt 5 ] 
+  do
       if [ $(docker service ps shield_broker-server | wc -l) <= 1 ]; then
         echo !
         break
@@ -341,7 +342,8 @@ if [ $? == 0 ]; then
 fi
 #Check the status of the system, and clean only if running
 wait=0
-while [ $wait -lt 10 ] do
+while [ $wait -lt 10 ] 
+do
   $ES_PATH/status.sh
   if [ $? == 0 ]; then
      echo "Ericom Shield is Running!"
