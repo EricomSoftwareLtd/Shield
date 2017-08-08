@@ -10,7 +10,7 @@ Create a new Folder and go to this folder
 
 Type the following commands:
 
-*wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/ericomshield-setup.sh"*
+*wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/ericomshield-setup.sh"*
 
 *chmod +x ericomshield-setup.sh*
 
