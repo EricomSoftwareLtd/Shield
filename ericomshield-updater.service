@@ -1,0 +1,15 @@
+[Unit]
+Description=Ericom Shield Updater Service
+After=docker.service
+Requires=docker.service
+Conflicts=shutdown.target reboot.target halt.target
+
+[Service]
+Type=simple
+
+WorkingDirectory=/usr/local/ericomshield
+
+ExecStart=/usr/local/ericomshield/autoupdate.sh
+
+[Install]
+WantedBy=multi-user.target
