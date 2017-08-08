@@ -1,7 +1,8 @@
-# Shield
+# Ericom Shield
 ############################################
 #####   Ericom Shield Installation     #####
 #######################################BH###
+
 Pre-Requesite: Linux Ubuntu 16.04
 
 Open a Shell:
