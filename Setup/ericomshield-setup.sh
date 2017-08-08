@@ -158,7 +158,7 @@ function create_shield_service {
 
     if [ ! -f "${ES_PATH}/ericomshield.service" ]; then
       # Need to download the service file only if needed and reload only if changed
-      curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service_swarm}"
+      curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service}"
     fi
 
    systemctl --system enable "${ES_PATH}/ericomshield.service"
@@ -194,10 +194,6 @@ function prepare_yml {
      done
 
      MY_IP=IP=$(/sbin/ifconfig | grep 'inet addr:' | grep -v "127.0" | grep -v "172.1" | cut -d: -f2 | awk '{ printf $1}')
-     if [ "$ES_SWARM" == true ]; then
-        MY_IP=$MY_IP'(Swarm)'
-     fi
-
      echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
      sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 }
@@ -212,7 +208,7 @@ function get_shield_install_files {
 
      echo "Getting $ES_repo_uninstall"
      curl -s -S -o $ES_uninstall_FILE $ES_repo_uninstall
-     chmod +x deploy-shield.sh
+     chmod +x $ES_uninstall_FILE
      
      if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
@@ -247,8 +243,8 @@ function get_shield_install_files {
         curl -s -S -o $ES_YML_FILE $ES_repo_pocket_yml
      fi
      if [ "$ES_DEV" == true ]; then
-        echo "Getting $ES_repo_pocket_yml SWARM"
-        curl -s -S -o $ES_YML_FILE $ES_repo_pocket_yml
+        echo "Getting $ES_repo_dev_yml"
+        curl -s -S -o $ES_YML_FILE $ES_repo_dev_yml
      fi
 }
 
