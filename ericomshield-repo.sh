@@ -7,7 +7,7 @@ BRANCH="master"
 #BRANCH="BenyH-patch-1"
 
 # Development Repository: (Latest)
-ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/ericomshield-setup.sh"
+ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/ericomshield-setup1.sh"
 ES_repo_run="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/run.sh"
 ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/autoupdate.sh"
 ES_repo_version="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/showversion.sh"
