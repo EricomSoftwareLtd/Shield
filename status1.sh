@@ -25,7 +25,7 @@ fi
 if [ $NUM_RUNNING_SERVICES -ge  $NUM_EXPECTED_SERVICES ]; then
    echo "***************     Ericom Shield is running"
   else
-   echo " Ericom Shield (swarm) is not running properly on this system"
+   echo " Ericom Shield is not running properly on this system"
    exit 1
 fi
 
