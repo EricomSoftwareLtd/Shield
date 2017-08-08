@@ -22,6 +22,8 @@ ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_SWARM_SH_FILE="$ES_PATH/deploy-shield.sh"
+ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
+
 ES_SETUP_VER="8.0.0.070817-setup"
 BRANCH="master"
 
@@ -208,6 +210,10 @@ function get_shield_install_files {
      #include file with files repository
      source $ES_REPO_FILE
 
+     echo "Getting $ES_repo_uninstall"
+     curl -s -S -o $ES_uninstall_FILE $ES_repo_uninstall
+     chmod +x deploy-shield.sh
+     
      if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
         curl -s -S -o shield-version-new.txt $ES_repo_dev_ver
@@ -231,10 +237,6 @@ function get_shield_install_files {
      fi
 
      mv "shield-version-new.txt" "$ES_VER_FILE"
-
-     echo "Getting $ES_YML_FILE"
-     curl -s -S -o $ES_YML_FILE $ES_repo_yml
-     curl -s -S -o deploy-shield.sh $ES_repo_swarm_sh
 
      echo "Getting $ES_YML_FILE"
      curl -s -S -o $ES_YML_FILE $ES_repo_yml
