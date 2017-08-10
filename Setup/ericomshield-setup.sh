@@ -93,9 +93,8 @@ function install_docker {
          apt-get install apt-transport-https ca-certificates software-properties-common
          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
          add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-         apt-cache policy docker-engine
          apt-get update         
-         apt-get --assume-yes -y install docker-engine
+         apt-get --assume-yes -y install docker-ce
     else
          echo " ******* docker-engine is already installed"
     fi
