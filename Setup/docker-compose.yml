@@ -221,7 +221,7 @@ services:
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
     ext-proxy:
-        image: securebrowsing/extproxy:170724-21.57-269
+        image: securebrowsing/extproxy:latest
         # user: nobody
         ports:
           - "3138:3138"
