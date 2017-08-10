@@ -7,8 +7,5 @@ proxy-server:latest proxy-server:170808-14.35-341
 icap-server:latest icap-server:170808-16.49-342
 shield-cef:latest shield-cef:170808-16.49-342
 broker-server:latest broker-server:170807-03.42-331
-shield-elastic:latest shield-elastic:170612-16.04-216
 shield-collector:latest shield-collector:170807-12.00-335
-shield-kibana:latest shield-kibana:170621-13.26-72
 shield-elk:latest shield-elk:170808-14.35-341
-shield-admin-orig:latest shield-admin-orig:170219-20.17
