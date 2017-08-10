@@ -13,7 +13,7 @@ if (( $EUID != 0 )); then
 fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_VERSION="17.06"
+DOCKER_VERSION="17.0"
 DOCKER_COMPOSE_VERSION="1.15.0"
 UPDATE=0
 ES_DEV_FILE="$ES_PATH/.esdev"
@@ -340,7 +340,7 @@ fi
 wait=0
 while [ $wait -lt 10 ] 
 do
-  source $ES_PATH/status.sh
+  $ES_PATH/status.sh
   if [ $? == 0 ]; then
      echo "Ericom Shield is Running!"
      #Clean previous installed images
