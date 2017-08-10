@@ -1,5 +1,7 @@
 version: '3.2'
 
+# Ericom Shield Stack Description
+# YML File for POCKET Version
 services:
     collector:
       image: securebrowsing/shield-collector:latest
@@ -10,43 +12,61 @@ services:
         - /:/hostfs:ro
       networks:
         - shield
+      deploy:
+        replicas: 0
+        placement:
+            constraints:
+                - node.role==manager
+        resources:
+          limits:
+            memory: 2GB
+            cpus: "1"
       environment:
         - "SYSTEM_PERIOD=5m"
         - "DOCKER_PERIOD=5m"
-      deploy:
-         replicas: 0
 
     elk:
-      image: securebrowsing/shield-elastic:latest
+      image: securebrowsing/shield-elk:latest
+      ports:
+          - 5601:5601
+          - 9200:9200
+          - 5014:5014/udp
+      networks:
+          - shield
+      environment:
+        - "CONSUL_ADDRESS=consul"
+      deploy:
+        replicas: 0
+        placement:
+            constraints:
+                - node.role==manager
+        resources:
+          limits:
+            memory: 2GB
+            cpus: "1"
       volumes:
-        - "elastic:/usr/share/elasticsearch/data"
-      networks:
-        - shield
-      ports:
-        - "9200:9200"
-      deploy:
-         replicas: 0
-
-    kibana:
-      image: securebrowsing/shield-kibana:latest
-      networks:
-        - shield
-      ports:
-        - "5601:5601"
-      deploy:
-         replicas: 0
+          - elastic:/var/lib
 
     consul:
         image: securebrowsing/shield-configuration:latest
+        user: consul
         networks:
           - shield
         ports:
           - "8500:8500"
         deploy:
           mode: global
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
         environment:
           - "CONSUL_BIND_INTERFACE=eth2"
           - "NUMBER_OF_EXPECTED=1"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
 ###################################################################### Shield services part ##################################################################
     shield-admin:
@@ -57,17 +77,30 @@ services:
             - SHIELD_VER=8.0.0.latest
         volumes:
            - admin:/data/consul
+           - /var/run/docker.sock:/var/run/docker.sock
         networks:
             - shield
+        deploy:
+          replicas: 1
+          placement:
+              constraints:
+                - node.role==manager
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "0.5"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
     icap-server:
         image: securebrowsing/icap-server:latest
+        # user: nobody
         hostname: icap-server
         environment:
             - NODE_ENV=production
             - SHIELD_VER=8.0.0.latest
-            - MAX_ELASTIC_CHECK_ATTEMPTS=40
-            - NO_FOLLOW_REDIRECT=true
             - "SHIELD_IP=IP_ADDRESS"
 #           - SHIELD_WATERMARK=TRUE
         ulimits:
@@ -77,58 +110,91 @@ services:
         networks:
           - shield
         ports:
-          - 1344:1344          
+          - 1344:1344
         deploy:
           replicas: 1
           placement:
               constraints:
                 - node.role==manager
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
     broker-server:
         image: securebrowsing/broker-server:latest
+        # user: nobody
         hostname: broker-server
+        deploy:
+          replicas: 1
+          update_config:
+            parallelism: 1
+          restart_policy:
+              condition: on-failure
+          resources:
+            limits:
+              memory: 100MB
+              cpus: "1"
+            reservations:
+              memory: 50MB
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
             - NODE_ENV=production
-        deploy:
-          replicas: 1
         networks:
           - shield
         secrets:
           - shield-system-id
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
     shield-browser:
         image: securebrowsing/shield-cef:latest
+        user: user
+        ulimits:
+            nice: -20
+            rtprio: 10
+        labels:
+          - com.ericom.browser
         environment:
-             - FPS=25
+             #- FPS=25
              #- DEBUG_REMOTE_SITE=true
-             - DISPOSE_BROWSER=true
+             #- DISPOSE_BROWSER=true
              #- RUN_WITH_DEBUGGER=false
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
              - PERF_STATS=true
         networks:
             - shield
-      # ports:
-      #    - "3656:3656"
-      #  volumes:
-      #    - /home/lev/projects/SB/Containers/Docker/shield-cef/src:/app/src
         deploy:
+          replicas: 0
           update_config:
-            parallelism: 0
-          replicas: 10
+            parallelism: 2
+            delay: 10s
           restart_policy:
               condition: none
           resources:
             limits:
-              memory: 2GB
-              cpus: "100000"
-#            reservations:
-#              memory: 400MB
+              memory: 1GB
+              cpus: "2"
+            reservations:
+              memory: 150MB
         volumes:
           - type: tmpfs
             target: /dev/shm
-
+          - type: bind
+            target: /dev/shm/xorg
+            source: /tmp/containershm
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
     proxy-server:
         image: securebrowsing/proxy-server:latest
         ports:
@@ -142,11 +208,21 @@ services:
         environment:
           - SSLEXCLUSION=true
         deploy:
+          replicas: 2
           placement:
             constraints:
               - node.role==manager
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
     ext-proxy:
         image: securebrowsing/extproxy:latest
+        # user: nobody
         ports:
           - "3138:3138"
         ulimits:
@@ -160,6 +236,10 @@ services:
           placement:
             constraints:
               - node.role==manager
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
 
     ############################### Docker managment part ##############################################################
     portainer:
@@ -176,6 +256,15 @@ services:
           placement:
             constraints:
               - node.role==manager
+          resources:
+            limits:
+              memory: 100MB
+              cpus: "0.5"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
 volumes:
   elastic:
   portainer:
@@ -187,7 +276,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.0.0/24
+        - subnet: 192.168.0.0/16
 secrets:
    shield-system-id:
        external: true
