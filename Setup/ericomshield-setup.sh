@@ -336,11 +336,15 @@ if [ $? == 0 ]; then
    echo "--failed" >> "$ES_VER_FILE" # adding failed into the version file
    exit 1
 fi
+
+echo "Starting ericomshield service"
+systemctl start ericomshield.service
+  
 #Check the status of the system, and clean only if running
 wait=0
 while [ $wait -lt 10 ] 
 do
-  $ES_PATH/status.sh
+  source $ES_PATH/status.sh
   if [ $? == 0 ]; then
      echo "Ericom Shield is Running!"
      #Clean previous installed images
