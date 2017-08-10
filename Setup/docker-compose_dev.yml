@@ -1,7 +1,7 @@
 version: '3.2'
 
-#Ericom Shield Stack Description
-# YML for Dev
+# Ericom Shield Stack Description
+# 
 services:
     collector:
       image: securebrowsing/shield-collector:latest
@@ -33,6 +33,8 @@ services:
           - 5014:5014/udp
       networks:
           - shield
+      environment:
+        - "CONSUL_ADDRESS=consul"
       deploy:
         replicas: 1
         placement:
@@ -278,3 +280,4 @@ networks:
 secrets:
    shield-system-id:
        external: true
+
