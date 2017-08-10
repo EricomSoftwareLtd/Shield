@@ -204,11 +204,7 @@ function get_shield_install_files {
      curl -s -S -o $ES_REPO_FILE $ES_repo_setup
      #include file with files repository
      source $ES_REPO_FILE
-
-     echo "Getting $ES_repo_uninstall"
-     curl -s -S -o $ES_uninstall_FILE $ES_repo_uninstall
-     chmod +x $ES_uninstall_FILE
-     
+ 
      if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
         curl -s -S -o shield-version-new.txt $ES_repo_dev_ver
@@ -237,6 +233,10 @@ function get_shield_install_files {
      curl -s -S -o $ES_YML_FILE $ES_repo_yml
      curl -s -S -o deploy-shield.sh $ES_repo_swarm_sh
      chmod +x deploy-shield.sh
+     echo "Getting $ES_repo_uninstall"
+     curl -s -S -o $ES_uninstall_FILE $ES_repo_uninstall
+     chmod +x $ES_uninstall_FILE
+     
      if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
         curl -s -S -o $ES_YML_FILE $ES_repo_pocket_yml
@@ -277,13 +277,12 @@ echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
 install_docker
-echo "Starting docker service"
 service docker start
 if [ $? == 0 ]; then
-   echo "***************     Success!"
+   echo "Starting docker service ***************     Success!"
   else
-   echo "An error occured during the installation"
-   echo "$(date): An error occured during the installation: failed to install docker" >> "$LOGFILE"
+   echo "An error occured during the installation: Failed to start docker service"
+   echo "$(date): An error occured during the installation: Failed to start docker service" >> "$LOGFILE"
    exit 1
 fi
 
