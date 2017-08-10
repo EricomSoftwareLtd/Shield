@@ -1,3 +1,8 @@
+#!/bin/bash
+############################################
+#####   Ericom Shield ShowVersion      #####
+#######################################BH###
+
 #Check if we are root
 if (( $EUID != 0 )); then
 #    sudo su
@@ -5,6 +10,8 @@ if (( $EUID != 0 )); then
         echo "sudo" $0 $1 $2
         exit
 fi
+
+ES_PATH=/usr/local/ericomshield
 cd $ES_PATH
 
 NUM_EXPECTED_SERVICES=$(grep -c image docker-compose.yml)
