@@ -349,7 +349,7 @@ do
      break;
     else
      echo -n .
-     sleep 60
+     sleep 20
   fi
   wait=$[$wait+1]
 done
