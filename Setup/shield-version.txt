@@ -9,4 +9,4 @@ broker-server:latest broker-server:170726-10.35-278
 shield-collector:latest shield-collector:170704-12.55-161
 shield-elk:latest shield-elk:170704-12.55-161
 extproxy:latest extproxy:170724-21.57
-PERF_STATS=true PERF_STATS=false
+#PERF_STATS=true PERF_STATS=false
