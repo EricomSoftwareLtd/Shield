@@ -89,12 +89,12 @@ function install_docker {
          echo "***************     Installing docker-engine"
          apt-get -y install apt-transport-https
          apt-get update
-         apt-get --assume-yes install software-properties-common python-software-properties
-         apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-         apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+         apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual  
+         apt-get install apt-transport-https ca-certificates software-properties-common
+         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+         add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
          apt-cache policy docker-engine
-         apt-get --assume-yes install linux-image-extra-$(uname -r) linux-image-extra-virtual
-         apt-get update
+         apt-get update         
          apt-get --assume-yes -y install docker-engine
     else
          echo " ******* docker-engine is already installed"
