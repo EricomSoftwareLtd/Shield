@@ -107,7 +107,7 @@ function install_docker {
 }
 
 function install_docker_compose {
-    if [ $(  docker-compose version | grep $DOCKER_COMPOSE_VERSION |wc -l ) -eq 0 ]; then
+    if [ $(  docker-compose version | grep $DOCKER_COMPOSE_VERSION | wc -l ) -eq 0 ]; then
        echo "***************     Installing docker-compose"
        curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
        chmod +x /usr/local/bin/docker-compose
@@ -315,7 +315,7 @@ if [ $UPDATE -eq 0 ]; then
   wait=0
   while [ $wait -lt 5 ] 
   do
-      if [ $(docker service ps shield_broker-server | wc -l) <= 1 ]; then
+      if [ $(docker service ps shield_broker-server | wc -l) -le 1 ]; then
         echo !
         break
        else
@@ -342,7 +342,7 @@ fi
 wait=0
 while [ $wait -lt 10 ] 
 do
-  $ES_PATH/status.sh
+  source $ES_PATH/status.sh
   if [ $? == 0 ]; then
      echo "Ericom Shield is Running!"
      #Clean previous installed images
