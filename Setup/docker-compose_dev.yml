@@ -19,7 +19,7 @@ services:
                 - node.role==manager
         resources:
           limits:
-            memory: 2GB
+            memory: 1GB
             cpus: "1"
       environment:
         - "SYSTEM_PERIOD=5m"
@@ -58,7 +58,7 @@ services:
           mode: global
           resources:
             limits:
-              memory: 500MB
+              memory: 1GB
               cpus: "1"
         environment:
           - "CONSUL_BIND_INTERFACE=eth2"
