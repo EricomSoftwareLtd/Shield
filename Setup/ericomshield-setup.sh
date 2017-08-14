@@ -344,7 +344,7 @@ systemctl start ericomshield.service
 wait=0
 while [ $wait -lt 10 ] 
 do
-  source $ES_PATH/status.sh
+  $ES_PATH/status.sh
   if [ $? == 0 ]; then
      echo "Ericom Shield is Running!"
      #Clean previous installed images
