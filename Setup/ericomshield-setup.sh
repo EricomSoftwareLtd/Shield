@@ -87,7 +87,7 @@ fi
 function install_docker {
     if [ $(sudo docker version | grep $DOCKER_VERSION |wc -l ) -le  1 ]; then
          echo "***************     Installing docker-engine"
-         apt-get -y install apt-transport-https
+         apt-get --assume-yes -y install apt-transport-https
          apt-get update
          apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual  
          apt-get install apt-transport-https ca-certificates software-properties-common
