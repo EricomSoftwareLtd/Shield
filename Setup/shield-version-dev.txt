@@ -1,5 +1,5 @@
 #Build 141 on 09/08/17
-SHIELD_VER=8.0.0.latest SHIELD_VER=8.0.0.141-DEV 
+SHIELD_VER=8.0.0.latest SHIELD_VER=8.0.0.141b-DEV 
 shield-configuration:latest shield-configuration:170725-16.27-275
 shield-admin:latest shield-admin:170808-14.35-341
 shield-portainer:latest shield-portainer:170716-10.56-232
