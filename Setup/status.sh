@@ -17,14 +17,19 @@ cd $ES_PATH
 NUM_EXPECTED_SERVICES=$(grep -c image docker-compose.yml)
 NUM_RUNNING_SERVICES=$(docker service ls |wc -l)
 NUM_EXPECTED_REP=$(docker service ls | grep -c "/[1-2] ")
+NUM_EXPECTED_REP=$[$NUM_EXPECTED_REP+1]
 NUM_RUNNING_REP=$(docker service ls | grep -c "[1-2]/")
+BROWSER_NOT_RUNNING=$(docker service ls | grep browser | awk {'print $4'} | grep -c ' 0/')
+if [ ! $BROWSER_NOT_RUNNING ]; then
+NUM_RUNNING_REP=$[$NUM_RUNNING_REP+1]
+fi
+
 
 if [ "$1" == "-a" ]; then
   docker service ls
 fi
 
 if [ $NUM_RUNNING_SERVICES -ge  $NUM_EXPECTED_SERVICES ]; then
-   a=
    if [ $NUM_RUNNING_REP -ge  $NUM_EXPECTED_REP ]; then
      echo "***************     Ericom Shield is running"
     else
