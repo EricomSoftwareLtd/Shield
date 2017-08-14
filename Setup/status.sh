@@ -19,11 +19,11 @@ NUM_RUNNING_SERVICES=$(docker service ls |wc -l)
 NUM_EXPECTED_REP=$(docker service ls | grep -c "/[1-2] ")
 NUM_EXPECTED_REP=$[$NUM_EXPECTED_REP+1]
 NUM_RUNNING_REP=$(docker service ls | grep -c "[1-2]/")
-BROWSER_NOT_RUNNING=$(docker service ls | grep browser | awk {'print $4'} | grep -c ' 0/')
-if [ ! $BROWSER_NOT_RUNNING ]; then
-NUM_RUNNING_REP=$[$NUM_RUNNING_REP+1]
+BROWSER_RUNNING=$(docker service ls | grep browser | awk {'print $4'} | grep -c '0/0')
+echo $BROWSER_RUNNING
+if [ $BROWSER_RUNNING -eq 0 ]; then
+   NUM_RUNNING_REP=$[$NUM_RUNNING_REP+1]
 fi
-
 
 if [ "$1" == "-a" ]; then
   docker service ls
