@@ -17,8 +17,8 @@ STACK_NAME=shield
 
 cd $ES_PATH
 
-service ericomshield stop
-docker-compose down
+systemctl stop ericomshield
+systemctl stop ericomshield-updater
 
 docker kill $(docker ps -q)
 docker rm $(docker ps -a -q)
