@@ -26,6 +26,12 @@ fi
 
 if [ "$1" == "-a" ]; then
   docker service ls
+  echo "------------------------------------------------------------------------------"
+  echo
+  curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats 2>&1
+  echo
+  echo "------------------------------------------------------------------------------"
+  echo
 fi
 
 if [ $NUM_RUNNING_SERVICES -ge  $NUM_EXPECTED_SERVICES ]; then
