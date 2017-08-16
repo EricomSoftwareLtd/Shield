@@ -305,8 +305,6 @@ if [ $UPDATE -eq 0 ]; then
   create_shield_service
   systemctl start ericomshield-updater.service
 
-  echo "source deploy-shield.sh"
-  source deploy-shield.sh
  else     # Update
   echo -n "stop shield-broker"
   docker service scale shield_broker-server=0
@@ -323,9 +321,10 @@ if [ $UPDATE -eq 0 ]; then
     wait=$[$wait+1]
   done
 
-  echo "source deploy-shield.sh"
-  source deploy-shield.sh
 fi
+
+echo "source deploy-shield.sh"
+source deploy-shield.sh
 
 # Check the result of the last command (start, status, deploy-shield)
 if [ $? == 0 ]; then
