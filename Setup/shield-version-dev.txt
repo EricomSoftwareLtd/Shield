@@ -10,3 +10,5 @@ broker-server:latest broker-server:170817-12.31-375
 shield-collector:latest shield-collector:170815-12.59-365
 shield-elk:latest shield-elk:170815-13.08-366
 extproxy:latest extproxy:170724-21.57
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:170823-11.11-405
+shield-cdr-controller:latest shield-cdr-controller:170823-11.11-405
