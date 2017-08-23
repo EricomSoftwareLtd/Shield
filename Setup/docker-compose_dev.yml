@@ -220,6 +220,7 @@ services:
 
     proxy-server:
         image: securebrowsing/proxy-server:latest
+        hostname: proxy-server
         ports:
           - "3128:3128"
         ulimits:
@@ -251,6 +252,7 @@ services:
             syslog-address: udp://${SYS_LOG_HOST}:5014
     ext-proxy:
         image: securebrowsing/extproxy:latest
+        hostname: ext-proxy
         # user: nobody
         ports:
           - "3138:3138"
@@ -271,6 +273,7 @@ services:
               cpus: "1"
     cdr-dispatcher:
         image: securebrowsing/shield-cdr-dispatcher:latest
+        hostname: cdr-dispatcher
         ports:
           - 7777:7777
         networks:
@@ -292,6 +295,7 @@ services:
 
     cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
+        hostname: cdr-controller
         networks:
             - shield
         deploy:
