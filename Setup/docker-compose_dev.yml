@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.3'
 
 # Ericom Shield Stack Description
 # 
@@ -14,12 +14,16 @@ services:
         - shield
       deploy:
         replicas: 1
+        restart_policy:
+            condition: any
         placement:
             constraints:
                 - node.role==manager
+        update_config:
+            failure_action: rollback
         resources:
           limits:
-            memory: 1GB
+            memory: 2GB
             cpus: "1"
       environment:
         - "SYSTEM_PERIOD=5m"
@@ -37,9 +41,13 @@ services:
         - "CONSUL_ADDRESS=consul"
       deploy:
         replicas: 1
+        restart_policy:
+            condition: any
         placement:
             constraints:
                 - node.role==manager
+        update_config:
+          failure_action: rollback
         resources:
           limits:
             memory: 2GB
@@ -56,6 +64,11 @@ services:
           - "8500:8500"
         deploy:
           mode: global
+          update_config:
+            parallelism: 1
+            failure_action: rollback
+          restart_policy:
+            condition: any
           resources:
             limits:
               memory: 1GB
@@ -82,6 +95,10 @@ services:
             - shield
         deploy:
           replicas: 1
+          update_config:
+            failure_action: rollback
+          restart_policy:
+              condition: any
           placement:
               constraints:
                 - node.role==manager
@@ -113,9 +130,13 @@ services:
           - 1344:1344
         deploy:
           replicas: 1
+          update_config:
+             failure_action: rollback
+          restart_policy:
+             condition: any
           placement:
-              constraints:
-                - node.role==manager
+             constraints:
+               - node.role==manager
           resources:
             limits:
               memory: 500MB
@@ -131,10 +152,11 @@ services:
         hostname: broker-server
         deploy:
           replicas: 1
+          restart_policy:
+            condition: any
           update_config:
             parallelism: 1
-          restart_policy:
-              condition: on-failure
+            failure_action: rollback
           resources:
             limits:
               memory: 100MB
@@ -195,6 +217,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+
     proxy-server:
         image: securebrowsing/proxy-server:latest
         ports:
@@ -209,6 +232,12 @@ services:
           - SSLEXCLUSION=true
         deploy:
           replicas: 2
+          restart_policy:
+            condition: any
+          update_config:
+            parallelism: 1
+            delay: 10s
+            failure_action: rollback
           placement:
             constraints:
               - node.role==manager
@@ -253,6 +282,10 @@ services:
         networks:
           - shield
         deploy:
+          restart_policy:
+            condition: any
+          update_config:
+            failure_action: rollback
           placement:
             constraints:
               - node.role==manager
@@ -280,4 +313,3 @@ networks:
 secrets:
    shield-system-id:
        external: true
-
