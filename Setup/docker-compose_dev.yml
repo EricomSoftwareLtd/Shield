@@ -279,7 +279,7 @@ services:
         networks:
           - shield
         deploy:
-          replicas: 1
+          replicas: 2
           restart_policy:
             condition: any
           update_config:
