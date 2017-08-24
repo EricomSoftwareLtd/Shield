@@ -1,7 +1,7 @@
-#Build 152 on 24/08/17
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_152
+#Build 153 on 24/08/17
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_153
 shield-configuration:latest shield-configuration:170823-14.48-416
-shield-admin:latest shield-admin:170823-16.39-419
+shield-admin:latest shield-admin:170824-10.16-426
 shield-portainer:latest shield-portainer:170716-10.56-232
 proxy-server:latest proxy-server:170823-11.30-406
 icap-server:latest icap-server:170823-11.30-406
