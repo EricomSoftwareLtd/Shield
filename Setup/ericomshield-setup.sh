@@ -336,8 +336,8 @@ if [ $? == 0 ]; then
    exit 1
 fi
 
-echo "Starting ericomshield service"
-systemctl start ericomshield.service
+#echo "Starting ericomshield service"
+#systemctl start ericomshield.service
   
 #Check the status of the system, and clean only if running
 wait=0
