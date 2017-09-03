@@ -39,7 +39,10 @@ docker stack rm $STACK_NAME
 docker swarm leave -f
 
 docker system prune -f -a
-
-rm -rf $ES_PATH/*
-
+\
+if [ "$1" == "-a" ]; then
+  rm -rf $ES_PATH
+ else
+  rm -f $ES_PATH/*
+fi
 echo "Done!"
