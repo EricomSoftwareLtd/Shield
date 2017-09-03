@@ -40,8 +40,6 @@ docker swarm leave -f
 
 docker system prune -f -a
 
-rm -f $ES_PATH/*
-rm -f $ES_PATH/.*
-
+rm -rf $ES_PATH/*
 
 echo "Done!"
