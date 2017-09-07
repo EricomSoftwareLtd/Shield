@@ -76,6 +76,12 @@ function make_in_memory_volume {
     fi
 }
 
+function replace_syslog_host_address() {
+    echo "Setting syslog server address to $1 in $2 ..."
+    sed -i -r -e "s/(^\s*syslog-address:)(.*):5014/\1 $1/" "$2"
+    echo "... done updating $2"
+}
+
 while [ "$1" != "" ]; do
     case $1 in
         -s|--single-mode)
@@ -112,6 +118,8 @@ fi
 make_in_memory_volume
 create_uuid
  
-export SYS_LOG_HOST=$( docker node ls | grep Leader | awk '{print $3}' )
-docker stack deploy -c $ES_YML_FILE $STACK_NAME
+SYS_LOG_HOST=$( docker node ls | grep Leader | awk '{print $3}' )
+SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
+replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
 
+docker stack deploy -c $ES_YML_FILE $STACK_NAME
