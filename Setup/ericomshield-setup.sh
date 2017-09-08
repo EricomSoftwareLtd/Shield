@@ -26,6 +26,7 @@ ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 ES_SETUP_VER="8.0.0.070817-setup"
 BRANCH="master"
 
+MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_DEV=false
@@ -81,6 +82,24 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     echo "***************     Installing curl"
     sudo apt-get install curl
 fi
+
+function log_message() {
+    echo "$1"
+    echo "$(date): $1" >>"$LOGFILE"
+}
+
+function check_free_space() {
+    FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
+    FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
+    if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
+        log_message "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        exit 1
+    fi
+    if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
+        log_message "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        exit 1
+    fi
+}
 
 function install_docker() {
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
@@ -269,6 +288,8 @@ function get_shield_files() {
 }
 
 ##################      MAIN: EVERYTHING START HERE: ##########################
+
+check_free_space
 
 echo Docker Login: $DOCKER_USER $DOCKER_SECRET
 echo "dev=$ES_DEV"
