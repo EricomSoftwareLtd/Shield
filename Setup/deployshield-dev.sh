@@ -24,9 +24,9 @@ function init_swarm() {
         result=$( (docker swarm init --advertise-addr $IP_ADDRESS --task-history-limit 0) 2>&1)
     fi
 
-    if [[ "$result" =~ 'already part' ]]; then
+    if [[ $result =~ 'already part' ]]; then
         echo 2
-    elif [[ "$result" =~ 'Error' ]]; then
+    elif [[ $result =~ 'Error' ]]; then
         echo 11
     else
         echo 0

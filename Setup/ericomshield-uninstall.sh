@@ -4,7 +4,7 @@
 #######################################BH###
 
 #Check if we are root
-if (($EUID != 0)); then
+if ((EUID != 0)); then
     #    sudo su
     echo "Usage:" $0
     echo " Please run it as Root"

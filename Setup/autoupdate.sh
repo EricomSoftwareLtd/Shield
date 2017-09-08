@@ -16,7 +16,7 @@ ES_DEV_FILE="$ES_PATH/.esdev"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 
 #Check if we are root
-if (($EUID != 0)); then
+if ((EUID != 0)); then
     #    sudo su
     echo " Please run it as Root"
     echo "sudo $0 $1 $2"

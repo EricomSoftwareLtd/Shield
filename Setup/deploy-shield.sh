@@ -24,9 +24,9 @@ function init_swarm() {
         result=$( (docker swarm init --advertise-addr $IP_ADDRESS --task-history-limit 0) 2>&1)
     fi
 
-    if [[ "$result" =~ 'already part' ]]; then
+    if [[ $result =~ 'already part' ]]; then
         echo 2
-    elif [[ "$result" =~ 'Error' ]]; then
+    elif [[ $result =~ 'Error' ]]; then
         echo 11
     else
         echo 0
@@ -34,11 +34,11 @@ function init_swarm() {
 }
 
 function set_experimental() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c "\"experimental\" : true" /etc/docker/daemon.json) -eq 1 ]; then
-        echo "\"experimental\" : true in /etc/docker/daemon.json"
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental" : true' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"experimental" : true in /etc/docker/daemon.json'
     else
         echo $'{\n\"experimental\" : true\n}\n' >/etc/docker/daemon.json
-        echo "Setting: \"experimental\" : true in /etc/docker/daemon.json"
+        echo 'Setting: "experimental" : true in /etc/docker/daemon.json'
     fi
 }
 

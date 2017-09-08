@@ -6,7 +6,7 @@
 ES_PATH=/usr/local/ericomshield
 
 #Check if we are root
-if (($EUID != 0)); then
+if ((EUID != 0)); then
     #    sudo su
     echo " Please run it as Root"
     echo "sudo" $0 $1 $2
