@@ -4,11 +4,11 @@
 #######################################BH###
 
 #Check if we are root
-if (( $EUID != 0 )); then
+if (( EUID != 0 )); then
 #    sudo su
-        echo "Usage:" $0 [-force] [-noautoupdate] [-dev] [-usage] [-pocket]
+        echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-usage] [-pocket]"
         echo " Please run it as Root"
-        echo "sudo" $0 $1 $2 $3 $4 $5
+        echo "sudo $0 $1 $2 $3 $4 $5"
         exit
 fi
 ES_PATH="/usr/local/ericomshield"
@@ -21,7 +21,6 @@ ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
-ES_SWARM_SH_FILE="$ES_PATH/deploy-shield.sh"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 
 ES_SETUP_VER="8.0.0.070817-setup"
@@ -30,7 +29,6 @@ BRANCH="master"
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_DEV=false
-ES_SWARM=true
 ES_POCKET=false
 ES_AUTO_UPDATE=true
 # Create the Ericom empty dir if necessary
@@ -39,7 +37,7 @@ if [ ! -d $ES_PATH ]; then
     chmod 0755 $ES_PATH
 fi
 
-cd $ES_PATH
+cd "$ES_PATH" || exit
 
 while [ $# -ne 0 ]
 do
@@ -54,7 +52,7 @@ do
             rm -f "$ES_AUTO_UPDATE_FILE"
             ;;
         -force)
-            ES_FORCE=true
+            # ES_FORCE=true
             echo " " >> $ES_VER_FILE
             ;;
         -pocket)
@@ -63,7 +61,7 @@ do
             ;;
 #        -usage)
         *)
-            echo "Usage:" $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]
+            echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]"
             exit
             ;;
     esac
@@ -79,17 +77,17 @@ if [ "$ES_AUTO_UPDATE" == true ]; then
 fi
 
 #Check if curl is installed (-w check that the whole word is found)
-if [ $(dpkg -l | grep -w -c curl ) -eq  0 ]; then
+if [ "$(dpkg -l | grep -w -c curl )" -eq  0 ]; then
     echo "***************     Installing curl"
     sudo apt-get install curl
 fi
 
 function install_docker {
-    if [ $(sudo docker version | grep $DOCKER_VERSION |wc -l ) -le  1 ]; then
+    if [ "$(sudo docker version | grep -c $DOCKER_VERSION )" -le  1 ]; then
          echo "***************     Installing docker-engine"
          apt-get --assume-yes -y install apt-transport-https
          apt-get update
-         apt-get --assume-yes -y  install linux-image-extra-$(uname -r) linux-image-extra-virtual  
+         apt-get --assume-yes -y  install "linux-image-extra-$(uname -r)" linux-image-extra-virtual  
          apt-get --assume-yes -y  install apt-transport-https ca-certificates software-properties-common
          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
          add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -98,7 +96,7 @@ function install_docker {
     else
          echo " ******* docker-engine is already installed"
     fi
-    if [ $(sudo docker version |wc -l ) -le  1 ]; then
+    if [ "$(sudo docker version |wc -l )" -le  1 ]; then
        echo "Failed to install docker, Exiting!"
        echo "$(date): An error occured during the installation: Cannot login to docker" >> "$LOGFILE"
        exit 1
@@ -106,7 +104,7 @@ function install_docker {
 }
 
 function install_docker_compose {
-    if [ $(  docker-compose version | grep $DOCKER_COMPOSE_VERSION | wc -l ) -eq 0 ]; then
+    if [ "$(  docker-compose version | grep -c $DOCKER_COMPOSE_VERSION)" -eq 0 ]; then
        echo "***************     Installing docker-compose"
        curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
        chmod +x /usr/local/bin/docker-compose
@@ -116,7 +114,7 @@ function install_docker_compose {
 }
 
 function docker_login {
-    if [ $(docker info | grep Username |wc -l) -eq 0 ]; then
+    if [ "$(docker info | grep -c Username)" -eq 0 ]; then
        if [ "$DOCKER_USER" == " " ]; then
            echo " Please enter your login credentials to docker-hub"
            docker login
@@ -139,7 +137,7 @@ function docker_login {
 function update_sysctl {
     #check if file was not updated
     curl -s -S -o "${ES_PATH}/sysctl_shield.conf" "${ES_repo_sysctl_shield_conf}"
-    if [ $(grep EricomShield /etc/sysctl.conf | wc -l) -eq 0 ]; then
+    if [ "$(grep -c EricomShield /etc/sysctl.conf)" -eq 0 ]; then
        # append sysctl with our settings
        cat "${ES_PATH}/sysctl_shield.conf" >> /etc/sysctl.conf
        #to apply the changes:
@@ -178,19 +176,19 @@ function create_shield_service {
 
 function prepare_yml {
      echo "Preparing yml file..."
-     cat "$ES_VER_FILE" | while read ver; do
-          if [ ${ver:0:1} == '#' ]; then
-            echo $ver
+     while read -r ver; do
+          if [ "${ver:0:1}" == '#' ]; then
+            echo "$ver"
            else
-            pattern_ver=$(echo $ver | awk '{print $1}')
-            comp_ver=$(echo $ver | awk '{print $2}')
-            if [ ! -z $pattern_ver ]; then
+            pattern_ver=$(echo "$ver" | awk '{print $1}')
+            comp_ver=$(echo "$ver" | awk '{print $2}')
+            if [ ! -z "$pattern_ver" ]; then
                echo "Changing ver: $comp_ver"
                #echo "  sed -i 's/$pattern_ver/$comp_ver/g' $ES_YML_FILE"
                sed -i "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
             fi
           fi
-     done
+     done <"$ES_VER_FILE"
 
      MY_IP=IP=$(/sbin/ifconfig | grep 'inet addr:' | grep -v "127.0" | grep -v "172.1" | cut -d: -f2 | awk '{ printf $1}')
      #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
@@ -207,14 +205,14 @@ function get_shield_install_files {
  
      if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
-        curl -s -S -o shield-version-new.txt $ES_repo_dev_ver
+        curl -s -S -o shield-version-new.txt "$ES_repo_dev_ver"
       else
         echo "Getting $ES_repo_ver (prod)"
-        curl -s -S -o shield-version-new.txt $ES_repo_ver
+        curl -s -S -o shield-version-new.txt "$ES_repo_ver"
      fi
 
      if [ -f "$ES_VER_FILE" ]; then
-        if [ $( diff  "$ES_VER_FILE" shield-version-new.txt | wc -l ) -eq 0 ]; then
+        if [ "$( diff  "$ES_VER_FILE" shield-version-new.txt | wc -l )" -eq 0 ]; then
            echo "Your EricomShield System is Up to date"
            exit 0
          else
@@ -230,20 +228,20 @@ function get_shield_install_files {
      mv "shield-version-new.txt" "$ES_VER_FILE"
 
      echo "Getting $ES_YML_FILE"
-     curl -s -S -o $ES_YML_FILE $ES_repo_yml
-     curl -s -S -o deploy-shield.sh $ES_repo_swarm_sh
+     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
+     curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
      chmod +x deploy-shield.sh
      echo "Getting $ES_repo_uninstall"
-     curl -s -S -o $ES_uninstall_FILE $ES_repo_uninstall
-     chmod +x $ES_uninstall_FILE
+     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
+     chmod +x "$ES_uninstall_FILE"
      
      if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
-        curl -s -S -o $ES_YML_FILE $ES_repo_pocket_yml
+        curl -s -S -o "$ES_YML_FILE" "$ES_repo_pocket_yml"
      fi
      if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_yml"
-        curl -s -S -o $ES_YML_FILE $ES_repo_dev_yml
+        curl -s -S -o "$ES_YML_FILE" "$ES_repo_dev_yml"
      fi
 }
 
@@ -254,19 +252,19 @@ function get_shield_files {
         chmod +x ericomshield-setup.sh
      fi
 
-     curl -s -S -o run.sh $ES_repo_run
+     curl -s -S -o run.sh "$ES_repo_run"
      chmod +x run.sh
-     curl -s -S -o autoupdate.sh $ES_repo_update
+     curl -s -S -o autoupdate.sh "$ES_repo_update"
      chmod +x autoupdate.sh
-     curl -s -S -o showversion.sh $ES_repo_version
+     curl -s -S -o showversion.sh "$ES_repo_version"
      chmod +x showversion.sh
-     curl -s -S -o stop.sh $ES_repo_stop
+     curl -s -S -o stop.sh "$ES_repo_stop"
      chmod +x stop.sh
-     curl -s -S -o status.sh $ES_repo_status
+     curl -s -S -o status.sh "$ES_repo_status"
      chmod +x status.sh
-     curl -s -S -o ericomshield $ES_repo_service
+     curl -s -S -o ericomshield "$ES_repo_service"
      chmod +x ericomshield
-     curl -s -S -o ~/show-my-ip.sh $ES_repo_ip
+     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
      chmod +x ~/show-my-ip.sh
 }
 
@@ -277,8 +275,8 @@ echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
 install_docker
-service docker start
-if [ $? == 0 ]; then
+
+if systemctl start docker; then
    echo "Starting docker service ***************     Success!"
   else
    echo "An error occured during the installation: Failed to start docker service"
@@ -311,14 +309,14 @@ if [ $UPDATE -eq 0 ]; then
   wait=0
   while [ $wait -lt 5 ] 
   do
-      if [ $(docker service ps shield_broker-server | wc -l) -le 1 ]; then
+      if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
         echo !
         break
        else
         echo -n .
         sleep 10
       fi
-    wait=$[$wait+1]
+    wait=$((wait+1))
   done
 
 fi
@@ -343,8 +341,7 @@ fi
 wait=0
 while [ $wait -lt 10 ] 
 do
-  $ES_PATH/status.sh
-  if [ $? == 0 ]; then
+  if "$ES_PATH"/status.sh; then
      echo "Ericom Shield is Running!"
      #Clean previous installed images
      echo "*************** not cleaning old images for now"
@@ -354,15 +351,15 @@ do
      echo -n .
      sleep 20
   fi
-  wait=$[$wait+1]
+  wait=$((wait+1))
 done
 
-Version=`grep  SHIELD_VER $ES_YML_FILE`
+Version=$(grep  SHIELD_VER "$ES_YML_FILE")
 
-echo $Version  > .version
-grep image $ES_YML_FILE >> .version
+echo "$Version"  > .version
+grep image "$ES_YML_FILE" >> .version
 
 echo "***************     Success!"
 echo "***************"
-echo "***************     Ericom Shield Version:" $Version "is up and running"
-echo "$(date): Ericom Shield Version:" $Version "is up and running" >> "$LOGFILE"
+echo "***************     Ericom Shield Version: $Version is up and running"
+echo "$(date): Ericom Shield Version: $Version is up and running" >> "$LOGFILE"
