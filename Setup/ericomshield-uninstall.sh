@@ -4,12 +4,12 @@
 #######################################BH###
 
 #Check if we are root
-if (( $EUID != 0 )); then
-#    sudo su
-        echo "Usage:" $0
-        echo " Please run it as Root"
-        echo "sudo" $0
-        exit
+if (($EUID != 0)); then
+    #    sudo su
+    echo "Usage:" $0
+    echo " Please run it as Root"
+    echo "sudo" $0
+    exit
 fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
@@ -25,7 +25,7 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 
 echo "Uninstalling Ericom Shield"
-echo "$(date): Uninstalling Ericom Shield" >> "$LOGFILE"
+echo "$(date): Uninstalling Ericom Shield" >>"$LOGFILE"
 mv "$LOGFILE" ..
 systemctl --global disable ericomshield-updater.service
 systemctl --global disable ericomshield.service
@@ -41,8 +41,8 @@ docker swarm leave -f
 docker system prune -f -a
 
 if [ "$1" == "-a" ]; then
-  rm -rf $ES_PATH
- else
-  rm -f $ES_PATH/*
+    rm -rf $ES_PATH
+else
+    rm -f $ES_PATH/*
 fi
 echo "Done!"
