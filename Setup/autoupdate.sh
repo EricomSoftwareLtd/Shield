@@ -19,7 +19,7 @@ ES_VER_FILE="$ES_PATH/shield-version.txt"
 if ((EUID != 0)); then
     #    sudo su
     echo " Please run it as Root"
-    echo "sudo $0 $1 $2"
+    echo "sudo $0 $@"
     exit
 fi
 cd $ES_PATH

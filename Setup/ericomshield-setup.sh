@@ -8,7 +8,7 @@ if ((EUID != 0)); then
     #    sudo su
     echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-usage] [-pocket]"
     echo " Please run it as Root"
-    echo "sudo $0 $1 $2 $3 $4 $5"
+    echo "sudo $0 $@"
     exit
 fi
 ES_PATH="/usr/local/ericomshield"
@@ -31,6 +31,7 @@ DOCKER_SECRET="Ericom98765$"
 ES_DEV=false
 ES_POCKET=false
 ES_AUTO_UPDATE=true
+ES_FORCE=false
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -51,7 +52,7 @@ while [ $# -ne 0 ]; do
         rm -f "$ES_AUTO_UPDATE_FILE"
         ;;
     -force)
-        # ES_FORCE=true
+        ES_FORCE=true
         echo " " >>$ES_VER_FILE
         ;;
     -pocket)
