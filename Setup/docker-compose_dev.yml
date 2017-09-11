@@ -274,8 +274,6 @@ services:
     cdr-dispatcher:
         image: securebrowsing/shield-cdr-dispatcher:latest
         hostname: cdr-dispatcher
-        ports:
-          - 7777:7777
         networks:
           - shield
         deploy:
