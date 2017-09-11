@@ -1,7 +1,8 @@
 version: '3.2'
 
 # Ericom Shield Stack Description
-# YML File for PROD
+# YML File for Staging
+
 services:
     collector:
       image: securebrowsing/shield-collector:latest
@@ -220,6 +221,7 @@ services:
 
     proxy-server:
         image: securebrowsing/proxy-server:latest
+        hostname: proxy-server
         ports:
           - "3128:3128"
         ulimits:
@@ -251,6 +253,7 @@ services:
             syslog-address: udp://${SYS_LOG_HOST}:5014
     ext-proxy:
         image: securebrowsing/extproxy:latest
+        hostname: ext-proxy
         # user: nobody
         ports:
           - "3138:3138"
@@ -269,7 +272,45 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+    cdr-dispatcher:
+        image: securebrowsing/shield-cdr-dispatcher:latest
+        hostname: cdr-dispatcher
+        networks:
+          - shield
+        deploy:
+          replicas: 2
+          restart_policy:
+            condition: any
+          update_config:
+            parallelism: 1
+            failure_action: rollback
+          placement:
+            constraints:
+             - node.role==manager
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
+    cdr-controller:
+        image: securebrowsing/shield-cdr-controller:latest
+        hostname: cdr-controller
+        networks:
+            - shield
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: any
+          update_config:
+            parallelism: 1
+            failure_action: rollback
+          placement:
+              constraints:
+                  - node.role==manager
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
     ############################### Docker managment part ##############################################################
     portainer:
         image: securebrowsing/shield-portainer:latest
