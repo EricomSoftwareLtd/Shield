@@ -1,26 +1,7 @@
-#!/bin/bash
+#!/bin/bash -x
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-
-IS_MANAGER=
-
-
-while [ $# -ne 0 ]
-do
-    arg="$1"
-    case "$arg" in
-        -m|--manager)
-            IS_MANAGER=yes
-            ;;
-        *)
-            echo "Usage:" $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]
-            exit
-            ;;
-    esac
-    shift
-done
-
 
 function check_or_install_docker {
     if [ $(sudo docker version | grep $DOCKER_VERSION |wc -l ) -le  1 ]; then
@@ -41,7 +22,6 @@ function check_or_install_docker {
        exit 1
     fi
 }
-
 
 check_or_install_docker
 
