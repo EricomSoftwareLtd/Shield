@@ -8,13 +8,42 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
-- Remote Browser: Exit on Crash
- 
 
+## [17.37-Build:168] - 2017-09-11
+- Nicer message of activation fail with bad key
+- (*) Updating Admin text according to #750
+- (*) Admin reports links fixed #725
+- (*) Fix for idle timeout changing to 16 on upgrade 
+- (*) Remove Allow Recurring Attempts Bypass (Must be NO in Production #751
+- (*) Fixed context menu Text (capital letters)
+- (*) context menu section changes #355
+- (*) Publish shield internal pages on real url #743
+
+## [17.37-Build:167] - 2017-09-11
+- Several bug fixes for CDR
+- New strings for the download/sanitization messages (#748)
+
+## [17.37-Build:166] - 2017-09-11
+- Better Context Menu
+
+## [17.37-Build:165] - 2017-09-11
+- Activation: Improve messages
+- (*) Fixed Override policy (#681)
+- (*) Admin Report fixes (#706 #725)
+- (*) Fix downloads with # in filename (#719)
+
+## [17.37-Build:164] - 2017-09-11
+- Remote Browser: Exit on Crash
+- (*) download policy should be SANITIZE by default (#723)
+- (*) Settings are upgraded when needed (#727)
+- (*) Fix crach when pausing media
+- (*) consul UI is password protected (#706)
+ 
 ## [17.37-Build:163] - 2017-09-11
 ### Changed
 - (*) Automatic Rules Addition disabled
 - Soak Tests (4h, more than 4000 URLs)
+- (*) Protect ELK and Consul UIs with password (#706)
 
 ## [17.37-Build:162] - 2017-09-10
 ### Changed
