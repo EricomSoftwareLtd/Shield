@@ -83,6 +83,11 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     sudo apt-get install curl
 fi
 
+if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
+    echo "***************     Installing jq"
+    sudo apt-get install jq
+fi
+
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
