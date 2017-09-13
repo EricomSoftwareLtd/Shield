@@ -34,11 +34,26 @@ function init_swarm() {
 }
 
 function set_experimental() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental" : true' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"experimental" : true in /etc/docker/daemon.json'
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental"[[:space:]]*:[[:space:]]*true' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"experimental": true in /etc/docker/daemon.json'
     else
-        echo $'{\n\"experimental\" : true\n}\n' >/etc/docker/daemon.json
-        echo 'Setting: "experimental" : true in /etc/docker/daemon.json'
+        systemctl stop docker && \
+        cat /etc/docker/daemon.json | jq '. + {experimental: true}' >/etc/docker/daemon.json.shield && \
+        echo 'Setting: "experimental": true in /etc/docker/daemon.json' && \
+        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
+        systemctl start docker || exit 1
+    fi
+}
+
+function set_storage_driver() {
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
+    else
+        systemctl stop docker && \
+        cat /etc/docker/daemon.json | jq '. + {storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield && \
+        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json' && \
+        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
+        systemctl start docker || exit 1
     fi
 }
 
@@ -123,6 +138,7 @@ fi
 create_uuid
 make_in_memory_volume
 set_experimental
+set_storage_driver
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
