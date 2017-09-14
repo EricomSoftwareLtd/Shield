@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [17.37-Build:169] - 2017-09-13
+## [17.37-Build:169] - 2017-09-14
 - Licenses in use is now counting the real users #729
 - Change idle disconnect message #718 
 - Remove printjs dep. fix printing #753 
