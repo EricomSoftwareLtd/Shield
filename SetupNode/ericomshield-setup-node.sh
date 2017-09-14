@@ -4,11 +4,12 @@
 #######################################BH###
 
 
-MACHINE_USER="ozlevka"
-MACHINE_IPS="10.0.0.104 10.0.0.105"
+MACHINE_USER=
+MACHINE_IPS=
 MACHINES=
-SWARM_TOKEN="SWMTKN-1-2mu1n72c61jx0w26q44glcmoar6sm5w0i57uvj2yc3l48kr717-1968b31fzcg89bnoua7euhe01"
-LEADER_IP=10.0.0.1
+SWARM_TOKEN=
+LEADER_IP=
+CERTIFICATE_FILE=./shield_cert
 DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/jenkins/SetupNode/install-docker.sh"
 
 command_exists() {
@@ -16,13 +17,23 @@ command_exists() {
 }
 
 
-create_machines() {
+print_usage() {
+    echo "Usage: ericomshield-setup-node.sh
+        -u|--user ssl usename
+        [-t|--token] Token to join to swarm deafult will be provide from current cluster
+        -l|--leader leader ip
+        [-m|--mode] Mode to join should be worker|manager default worker
+        -ips|--machines-ip IPs of machines to append separated by ','"
+}
+
+
+create_generic_machines() {
     counter=0
     for ip in $MACHINE_IPS; do
         MACHINE_NAME="WORKER$counter"
         docker-machine create \
             -d "generic" --generic-ip-address $ip \
-            --generic-ssh-key ./shield_cert \
+            --generic-ssh-key $CERTIFICATE_FILE \
             --generic-ssh-user $MACHINE_USER \
             --engine-install-url $DOCKER_INSTALL_SCRIPT_URL  $MACHINE_NAME
         counter=$(($counter + 1))
@@ -32,6 +43,15 @@ create_machines() {
            MACHINES="$MACHINES $MACHINE_NAME"
         fi
     done
+}
+
+make_tmpfs_mount() {
+    docker-machine ssh $name "sudo mkdir -p /media/containershm"
+    docker-machine ssh $name "sudo mount -t tmpfs -o size=2G tmpfs /media/containershm"
+    docker-machine ssh $name <<- EOF
+        sudo su
+        echo 'tmpfs   /media/containershm     tmpfs   rw,size=2G      0       0' >> /etc/fstab
+EOF
 }
 
 join_machines_to_swarm() {
@@ -44,9 +64,20 @@ join_machines_to_swarm() {
 
     #should change to FS table mount
     for name in $MACHINES; do
-        docker-machine ssh $name "sudo mkdir -p /tmp/containershm"
-        docker-machine ssh $name "sudo mount -t tmpfs -o size=2G tmpfs /tmp/containershm"
+        ssh -i $CERTIFICATE_FILE -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $MACHINE_USER@$(docker-machine ip $name) [ ! -d /media/containershm ] &&  make_tmpfs_mount $name;
     done
+}
+
+fetch_join_token() {
+
+    TOKEN_MODE=$MODE
+
+    if [ -z "$TOKEN_MODE" ]; then
+        TOKEN_MODE=worker
+    fi
+
+    echo $(docker swarm join-token -q $TOKEN_MODE)
+
 }
 
 if ! command_exists docker-machine; then
@@ -63,12 +94,57 @@ while [ $# -ne 0 ]; do
         MACHINE_USER="$2"
         shift
         ;;
+    -t|--token)
+        SWARM_TOKEN="$2"
+        shift
+        ;;
+    -l|--leader)
+        LEADER_IP="$2"
+        shift
+        ;;
+    -m|--mode)
+        MODE="$2"
+        shift
+        ;;
+    -ips|--machines-ip)
+          IFS=',' read -r -a array <<< "$2"
+          MACHINE_IPS="${array[@]}"
+          shift
+        ;;
+    -c|--certificate)
+        CERTIFICATE_FILE="$2"
+        shift
+        ;;
     esac
     shift
 done
 
+if [ -z "$MACHINE_USER" ]; then
+    echo "ssh user is empty"
+    print_usage
+    exit 1
+fi
+
+if [ -z "$SWARM_TOKEN" ]; then
+    SWARM_TOKEN=$(fetch_join_token)
+fi
+
+if [ -z "$LEADER_IP" ]; then
+    echo "leader is required parameter"
+    print_usage
+    exit 1
+fi
+
+if [ -z "$MACHINE_IPS" ]; then
+    echo "IPs of nodes required at least one"
+    print_usage
+    exit 1
+fi
+
+echo "Machine IPS: $MACHINE_IPS"
+
 set -e
-create_machines
+create_generic_machines
 set +e
 join_machines_to_swarm
 
