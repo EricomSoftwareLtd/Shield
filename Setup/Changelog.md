@@ -9,7 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [17.37-Build:168] - 2017-09-11
+## [17.37-Build:169] - 2017-09-13
+- Licenses in use is now counting the real users #729
+- Change idle disconnect message #718 
+- Remove printjs dep. fix printing #753 
+- updating text according to #750
+- Integrate Votiro new eval subscription key Updated default settings (some are hardcoded..) #631 
+
+## [17.37-Build:168] - 2017-09-13
 - Nicer message of activation fail with bad key
 - (*) Updating Admin text according to #750
 - (*) Admin reports links fixed #725
@@ -19,20 +26,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - (*) context menu section changes #355
 - (*) Publish shield internal pages on real url #743
 
-## [17.37-Build:167] - 2017-09-11
+## [17.37-Build:167] - 2017-09-13
 - Several bug fixes for CDR
 - New strings for the download/sanitization messages (#748)
 
-## [17.37-Build:166] - 2017-09-11
+## [17.37-Build:166] - 2017-09-12
 - Better Context Menu
 
-## [17.37-Build:165] - 2017-09-11
+## [17.37-Build:165] - 2017-09-12
 - Activation: Improve messages
 - (*) Fixed Override policy (#681)
 - (*) Admin Report fixes (#706 #725)
 - (*) Fix downloads with # in filename (#719)
 
-## [17.37-Build:164] - 2017-09-11
+## [17.37-Build:164] - 2017-09-12
 - Remote Browser: Exit on Crash
 - (*) download policy should be SANITIZE by default (#723)
 - (*) Settings are upgraded when needed (#727)
