@@ -6,6 +6,9 @@
 #  If you are not using ericomshield service, run this script in the background
 #  sudo nohup ./autoupdate.sh > /dev/null &
 
+MAINTENANCE_START="00:00"
+MAINTENANCE_END="06:00"
+AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=true
 AUTO_UPDATE_TIME=5m
 
 UPDATE=0
@@ -26,7 +29,27 @@ cd $ES_PATH
 
 source $ES_REPO_FILE
 
+function wait_for_maintenance_time() {
+    M_START_S=$(date -d "$(date -I)T${MAINTENANCE_START}" +"%s") #"
+    M_END_S=$(date -d "$(date -I)T${MAINTENANCE_END}" +"%s")     #"
+    if ((M_END_S < M_START_S)); then
+        M_END_S=$((M_END_S + 24 * 60 * 60))
+    fi
+    CURR_S=$(date +"%s")
+    if ((M_START_S <= CURR_S)) && ((CURR_S <= M_END_S)); then
+        return
+    elif ((M_START_S > CURR_S)); then
+        sleep $((M_START_S - CURR_S))
+    else
+        sleep $((M_START_S + 24 * 60 * 60 - CURR_S))
+    fi
+}
+
 while true; do
+    if [ "$AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME" = true ]; then
+        wait_for_maintenance_time
+    fi
+
     if [ -f "$ES_DEV_FILE" ]; then
         ES_DEV=true
     fi
