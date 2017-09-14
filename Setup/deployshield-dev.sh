@@ -112,7 +112,7 @@ fi
 make_in_memory_volume
 create_uuid
 
-SYS_LOG_HOST=10.0.0.1 #$(docker node ls | grep Leader | awk '{print $3}')
+SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
 replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
 
