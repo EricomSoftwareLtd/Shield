@@ -3,6 +3,9 @@
 #####   Ericom Shield Installer        #####
 #######################################BH###
 
+###------------------Remove it --------------------
+docker swarm init --advertise-addr 10.0.0.1
+###------------------------------------------------
 
 MACHINE_USER=
 MACHINE_IPS=
@@ -11,6 +14,9 @@ SWARM_TOKEN=
 LEADER_IP=
 CERTIFICATE_FILE=./shield_cert
 DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/jenkins/SetupNode/install-docker.sh"
+ALLOW_BROWSERS=
+ALLOW_STAFF=
+ALLOW_MONITOR=
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
@@ -45,6 +51,24 @@ create_generic_machines() {
     done
 }
 
+apply-node-labels() {
+    NODE_NAME="$1"
+    LABELS=
+    if [ -n "$ALLOW_BROWSERS" ]; then
+        LABELS="--label-add browser=yes"
+    fi
+
+    if [ -n "$ALLOW_STAFF" ]; then
+        LABELS="$LABELS --label-add staff=yes"
+    fi
+
+    if [ -n "$ALLOW_MONITOR" ]; then
+        LABELS="$LABELS --label-add monitor=yes"
+    fi
+
+    docker node update $LABELS $NODE_NAME
+}
+
 make_tmpfs_mount() {
     docker-machine ssh $name "sudo mkdir -p /media/containershm"
     docker-machine ssh $name "sudo mount -t tmpfs -o size=2G tmpfs /media/containershm"
@@ -65,6 +89,10 @@ join_machines_to_swarm() {
     #should change to FS table mount
     for name in $MACHINES; do
         ssh -i $CERTIFICATE_FILE -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $MACHINE_USER@$(docker-machine ip $name) [ ! -d /media/containershm ] &&  make_tmpfs_mount $name;
+    done
+
+    for name in $MACHINES; do
+        apply-node-labels $name
     done
 }
 
@@ -114,6 +142,15 @@ while [ $# -ne 0 ]; do
     -c|--certificate)
         CERTIFICATE_FILE="$2"
         shift
+        ;;
+    -b|--browsers)
+        ALLOW_BROWSERS=yes
+        ;;
+    -s|--staff)
+        ALLOW_STAFF=yes
+        ;;
+    -mn|--monitor)
+        ALLOW_MONITOR=yes
         ;;
     esac
     shift

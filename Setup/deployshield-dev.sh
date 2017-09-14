@@ -63,13 +63,10 @@ function get_right_interface() {
 }
 
 function make_in_memory_volume() {
-    if [ ! -d "/tmp/containershm" ]; then
-        mkdir -p /tmp/containershm
-        mount -t tmpfs -o size=2G tmpfs /tmp/containershm
-    else
-        if [ ! "$(mount | grep containershm)" ]; then
-            mount -t tmpfs -o size=2G tmpfs /tmp/containershm
-        fi
+    if [ ! -d "/media/containershm" ]; then
+        mkdir -p /media/containershm
+        mount -t tmpfs -o size=2G tmpfs /media/containershm
+        echo 'tmpfs   /media/containershm     tmpfs   rw,size=2G      0       0' >> /etc/fstab
     fi
 }
 
