@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.37-Build:172] - 2017-09-14
+- (*) Broker scale bug is fixed 
+
+## [17.37-Build:171] - 2017-09-14
+- all notifications in a single dialog #671 
+- Admin pool settings messages #539
+- (*) Remote Browser log error and stack trace on uncaughtException
+- (*) Fixed refresh page on 1006 ws abnormal disconnect
+
+## [17.37-Build:170] - 2017-09-14
+- fixed broker log levels
+- Admin dashboard show licenses in use
+
 ## [17.37-Build:169] - 2017-09-14
 - Licenses in use is now counting the real users #729
 - Change idle disconnect message #718 
