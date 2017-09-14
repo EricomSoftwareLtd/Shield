@@ -213,13 +213,13 @@ services:
               memory: 150MB
           placement:
             constraints:
-              - node.role==worker
+              - node.labels.browser==yes
         volumes:
           - type: tmpfs
             target: /dev/shm
           - type: bind
             target: /dev/shm/xorg
-            source: /tmp/containershm
+            source: /media/containershm
         logging:
           driver: syslog
           options:
