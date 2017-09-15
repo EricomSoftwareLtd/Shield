@@ -28,6 +28,8 @@ function create_proxy_env_file() {
         return
     fi
 
+    touch "$PROXY_ENV_FILE"
+
     NAMESERVERS=$(grep -oP '^\s*nameserver\s+\K.*' "$RESOLV_FILE")
     SEARCH_DOMAINS=$(grep -oP '^\s*search\s+\K.*' "$RESOLV_FILE")
 
