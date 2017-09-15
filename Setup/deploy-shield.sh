@@ -13,6 +13,42 @@ ES_YML_FILE=docker-compose.yml
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
 
+RESOLV_FILE="/etc/resolv.conf"
+PROXY_ENV_FILE="proxy-server.env"
+
+function join_by() {
+    local IFS="$1"
+    shift
+    echo "$*"
+}
+
+function create_proxy_env_file() {
+
+    if [ -f "$PROXY_ENV_FILE" ]; then
+        return
+    fi
+
+    NAMESERVERS=$(grep -oP '^\s*nameserver\s+\K.*' "$RESOLV_FILE")
+    SEARCH_DOMAINS=$(grep -oP '^\s*search\s+\K.*' "$RESOLV_FILE")
+
+    if [ ! -z "${NAMESERVERS}" ]; then
+        (
+            cat <<EOF
+PROXY_NAMESERVERS=$(join_by , ${NAMESERVERS})
+EOF
+        ) >>"$PROXY_ENV_FILE"
+    fi
+
+    if [ ! -z "${SEARCH_DOMAINS}" ]; then
+        (
+            cat <<EOF
+DNSMASQ_ENABLE_SEARCH=True
+DNSMASQ_SEARCH_DOMAINS=$(join_by , ${SEARCH_DOMAINS})
+EOF
+        ) >>"$PROXY_ENV_FILE"
+    fi
+}
+
 function test_swarm_exists() {
     echo $(docker info | grep -i 'swarm: active')
 }
@@ -127,5 +163,6 @@ set_experimental
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
 replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+create_proxy_env_file
 
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
