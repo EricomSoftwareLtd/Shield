@@ -15,8 +15,8 @@ LEADER_IP=
 CERTIFICATE_FILE=./shield_cert
 DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/jenkins/SetupNode/install-docker.sh"
 ALLOW_BROWSERS=
-ALLOW_STAFF=
-ALLOW_MONITOR=
+ALLOW_SHIELD_CORE=
+ALLOW_MANAGEMENT=
 NAME_PREFIX="WORKER"
 
 command_exists() {
@@ -59,12 +59,12 @@ apply-node-labels() {
         LABELS="--label-add browser=yes"
     fi
 
-    if [ -n "$ALLOW_STAFF" ]; then
-        LABELS="$LABELS --label-add staff=yes"
+    if [ -n "$ALLOW_SHIELD_CORE" ]; then
+        LABELS="$LABELS --label-add shield_core=yes"
     fi
 
-    if [ -n "$ALLOW_MONITOR" ]; then
-        LABELS="$LABELS --label-add monitor=yes"
+    if [ -n "$ALLOW_MANAGEMENT" ]; then
+        LABELS="$LABELS --label-add management=yes"
     fi
 
     docker node update $LABELS $NODE_NAME
@@ -178,11 +178,11 @@ while [ $# -ne 0 ]; do
     -b|--browsers)
         ALLOW_BROWSERS=yes
         ;;
-    -s|--staff)
-        ALLOW_STAFF=yes
+    -sc|--shield-core)
+        ALLOW_SHIELD_CORE=yes
         ;;
-    -mn|--monitor)
-        ALLOW_MONITOR=yes
+    -mng|--management)
+        ALLOW_MANAGEMENT=yes
         ;;
     esac
     shift
