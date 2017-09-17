@@ -72,15 +72,10 @@ function get_right_interface() {
 }
 
 function make_in_memory_volume() {
-    if [ ! -d "/tmp/containershm" ]; then
-        mkdir -p /tmp/containershm
-        echo "Creating Directory /tmp/containershm for in memory volume"
-    fi
-    if [ ! "$(mount | grep containershm)" ]; then
-        echo "mount in memory volume:  /tmp/containershm "
-        mount -t tmpfs -o size=2G tmpfs /tmp/containershm
-    else
-        echo "mount in memory volume (/tmp/containershm) already exist "
+    if [ ! -d "/media/containershm" ]; then
+        mkdir -p /media/containershm
+        mount -t tmpfs -o size=2G tmpfs /media/containershm
+        echo 'tmpfs   /media/containershm     tmpfs   rw,size=2G      0       0' >> /etc/fstab
     fi
 }
 
