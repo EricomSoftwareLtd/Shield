@@ -57,7 +57,7 @@ services:
 
     consul:
         image: securebrowsing/shield-configuration:latest
-        user: consul
+        #user: consul
         networks:
           - shield
         ports:
