@@ -1,10 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
 
 ###------------------Remove it --------------------
-docker swarm init --advertise-addr 10.0.0.1
+## docker swarm init --advertise-addr 10.0.0.1
 ###------------------------------------------------
 
 MACHINE_USER=
@@ -17,6 +17,7 @@ DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/S
 ALLOW_BROWSERS=
 ALLOW_STAFF=
 ALLOW_MONITOR=
+NAME_PREFIX="WORKER"
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
@@ -36,7 +37,7 @@ print_usage() {
 create_generic_machines() {
     counter=0
     for ip in $MACHINE_IPS; do
-        MACHINE_NAME="WORKER$counter"
+        MACHINE_NAME="$NAME_PREFIX$counter"
         docker-machine create \
             -d "generic" --generic-ip-address $ip \
             --generic-ssh-key $CERTIFICATE_FILE \
@@ -81,7 +82,7 @@ EOF
 join_machines_to_swarm() {
     for name in $MACHINES; do
         eval $(docker-machine env $name)
-        docker swarm join --token $SWARM_TOKEN $LEADER_IP:2377
+        docker swarm join --token $SWARM_TOKEN $LEADER_IP
     done
 
     eval $(docker-machine env -u)
@@ -108,6 +109,33 @@ fetch_join_token() {
 
 }
 
+print-final-report() {
+    echo "########################################################### Final Report ##################################################"
+    for name in $MACHINES; do
+        machine=$(docker-machine ls | grep $name | awk '{print $5}')
+        swarm=$(docker node ls | grep $name | awk '{print $1}')
+        echo "Machine $name added to cluster at $machine and to swarm $swarm"
+    done
+}
+
+
+test-leader-port() {
+    if [[ "$1" =~ .*:.*  ]]; then
+        LEADER_IP="$1"
+    else
+        LEADER_IP="$1:2377"
+    fi
+}
+
+make-leader-ip() {
+    if [ -z "$1" ]; then
+        tmp=$( docker swarm join-token worker | grep docker | awk '{ print $6}' )
+        test-leader-port "$tmp"
+    else
+        test-leader-port "$1"
+    fi
+}
+
 if ! command_exists docker-machine; then
     echo "###################################### Install docker machine ################################"
     sudo curl -L https://github.com/docker/machine/releases/download/v0.12.2/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && \
@@ -127,7 +155,7 @@ while [ $# -ne 0 ]; do
         shift
         ;;
     -l|--leader)
-        LEADER_IP="$2"
+        make-leader-ip "$2"
         shift
         ;;
     -m|--mode)
@@ -138,6 +166,10 @@ while [ $# -ne 0 ]; do
           IFS=',' read -r -a array <<< "$2"
           MACHINE_IPS="${array[@]}"
           shift
+        ;;
+    -n|--name)
+        NAME_PREFIX=$( echo "$2" | sed -r s/[^a-zA-Z0-9]+/r/g)
+        shift
         ;;
     -c|--certificate)
         CERTIFICATE_FILE="$2"
@@ -167,9 +199,7 @@ if [ -z "$SWARM_TOKEN" ]; then
 fi
 
 if [ -z "$LEADER_IP" ]; then
-    echo "leader is required parameter"
-    print_usage
-    exit 1
+    make-leader-ip
 fi
 
 if [ -z "$MACHINE_IPS" ]; then
@@ -184,5 +214,7 @@ set -e
 create_generic_machines
 set +e
 join_machines_to_swarm
+
+print-final-report
 
 
