@@ -63,13 +63,10 @@ function get_right_interface() {
 }
 
 function make_in_memory_volume() {
-    if [ ! -d "/tmp/containershm" ]; then
-        mkdir -p /tmp/containershm
-        mount -t tmpfs -o size=2G tmpfs /tmp/containershm
-    else
-        if [ ! "$(mount | grep containershm)" ]; then
-            mount -t tmpfs -o size=2G tmpfs /tmp/containershm
-        fi
+    if [ ! -d "/media/containershm" ]; then
+        mkdir -p /media/containershm
+        mount -t tmpfs -o size=2G tmpfs /media/containershm
+        echo 'tmpfs   /media/containershm     tmpfs   rw,size=2G      0       0' >> /etc/fstab
     fi
 }
 
@@ -119,4 +116,6 @@ SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
 replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
 
-docker stack deploy -c $ES_YML_FILE $STACK_NAME
+docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+#this change for keep compatibility to current single node cluster
+docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
