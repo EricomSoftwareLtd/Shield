@@ -23,7 +23,7 @@ ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 
-ES_SETUP_VER="8.0.0.070817-setup"
+ES_SETUP_VER="17.37-setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
