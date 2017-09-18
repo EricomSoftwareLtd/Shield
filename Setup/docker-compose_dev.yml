@@ -281,7 +281,7 @@ services:
     web-service:
         image: securebrowsing/shield-web-service:latest
         ports:
-          - "1345:8888"
+          - "8888:1345"
         networks:
           - shield
         deploy:
@@ -293,6 +293,10 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
     cdr-dispatcher:
         image: securebrowsing/shield-cdr-dispatcher:latest
         hostname: cdr-dispatcher
