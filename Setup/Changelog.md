@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.38-Build:174] - 2017-09-18
+- fixes for web service (logs, code fixes, default PAC file)
+- (*) Downloading notification with loading indicator #792
+
+
 ## [17.38-Build:173] - 2017-09-18
 - **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
 - Log cleanup for ICAP, Broker and CEF
