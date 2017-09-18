@@ -261,7 +261,7 @@ function get_shield_install_files() {
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_yml"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_dev_yml"
-        curl -s -S -o "$ES_repo_swarm_sh" "$ES_repo_swarm_dev_sh"
+        curl -s -S -o deploy-shield.sh "$ES_repo_swarm_dev_sh"
     fi
 }
 
