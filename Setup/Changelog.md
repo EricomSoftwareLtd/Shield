@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.38-Build:173] - 2017-09-18
+- updated system defaults - system_capacity 40, with min_available_pool 20
+- Log cleanup for ICAP, Broker and CEF
+- (*) send all AltGr combinations as unicode - fix for @ key #783
+- (*) admin reports run button refreshes the iframe  #772
+- (*) added more built-in reports #781 #780 #761 #735      
+- (*) support non english file download  #710 
+- Removed pool section from shield-stats
+- (*) handel case of file download with 0 size  #784 #774
+- (*) Added web service component to provide certificate and PAC file #782
+
+
 ## [17.37-Build:172] - 2017-09-14
 - (*) Broker scale bug is fixed 
 
