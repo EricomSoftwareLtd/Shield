@@ -46,12 +46,11 @@ function wait_for_maintenance_time() {
 }
 
 while true; do
-    if [ "$AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME" = true ]; then
-        wait_for_maintenance_time
-    fi
-
+# Maintenance Time is only for Prod environments
     if [ -f "$ES_DEV_FILE" ]; then
         ES_DEV=true
+    elif [ "$AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME" = true ]; then
+        wait_for_maintenance_time
     fi
 
     if [ -f "$ES_AUTO_UPDATE_FILE" ]; then
