@@ -10,28 +10,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [17.38-Build:173] - 2017-09-18
-- updated system defaults - system_capacity 40, with min_available_pool 20
+- **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
 - Log cleanup for ICAP, Broker and CEF
-- (*) send all AltGr combinations as unicode - fix for @ key #783
-- (*) admin reports run button refreshes the iframe  #772
-- (*) added more built-in reports #781 #780 #761 #735      
-- (*) support non english file download  #710 
+- send all AltGr combinations as unicode - fix for @ key #783
+- Admin reports run button refreshes the iframe  #772
+- Added more built-in reports #781 #780 #761 #735      
+- **(*) Support non-english file name download  #710 **
 - Removed pool section from shield-stats
-- (*) handel case of file download with 0 size  #784 #774
-- (*) Added web service component to provide certificate and PAC file #782
+- Handle case of file download with 0 size  #784 #774
+- **(*) Added web service component to provide certificate and PAC file #782**
 
 
 ## [17.37-Build:172] - 2017-09-14
-- (*) Broker scale bug is fixed 
+- Broker scale bug is fixed 
 
 ## [17.37-Build:171] - 2017-09-14
 - all notifications in a single dialog #671 
 - Admin pool settings messages #539
-- (*) Remote Browser log error and stack trace on uncaughtException
-- (*) Fixed refresh page on 1006 ws abnormal disconnect
+- Remote Browser log error and stack trace on uncaughtException
+- Fixed refresh page on 1006 ws abnormal disconnect
 
 ## [17.37-Build:170] - 2017-09-14
-- fixed broker log levels
+- Fixed broker log levels
 - Admin dashboard show licenses in use
 
 ## [17.37-Build:169] - 2017-09-14
