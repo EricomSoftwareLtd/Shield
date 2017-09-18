@@ -278,6 +278,21 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+    web-service:
+        image: securebrowsing/shield-web-service:latest
+        ports:
+          - "1345:8888"
+        networks:
+          - shield
+        deploy:
+          replicas: 1
+          placement:
+            constraints:
+              - node.labels.shield_core==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
     cdr-dispatcher:
         image: securebrowsing/shield-cdr-dispatcher:latest
         hostname: cdr-dispatcher
