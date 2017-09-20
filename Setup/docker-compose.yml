@@ -33,8 +33,8 @@ services:
     elk:
       image: securebrowsing/shield-elk:latest
       ports:
-          - 5601:5601
-          - 9200:9200
+#          - 5601:5601
+#          - 9200:9200
           - 5014:5014/udp
       networks:
           - shield
@@ -61,8 +61,8 @@ services:
 #        user: consul
         networks:
           - shield
-        ports:
-          - "8500:8500"
+#        ports:
+#          - "8500:8500"
         deploy:
           mode: global
           update_config:
@@ -315,8 +315,8 @@ services:
     portainer:
         image: securebrowsing/shield-portainer:latest
         hostname: portainer
-        ports:
-            - "9000:9000"
+ #       ports:
+ #           - "9000:9000"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - portainer:/data
