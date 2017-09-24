@@ -53,13 +53,19 @@ function create_uuid() {
     fi
 }
 
-function update_images() {
-    echo "################## Getting images start ######################"
-    images=$(grep "image" ${ES_YML_FILE} | awk '{print $2}' | sort | uniq)
-    for image in ${images}; do
-        docker pull ${image}
-    done
-    echo "################## Getting images  end ######################"
+function pulling_images() {
+   echo "################## Pulling images  ######################"
+   filename=./shield-version.txt
+   COUNTER=0
+   while read -r line; do
+      if [ "${line:0:1}" == '#' ]; then
+         echo "$line"
+        else
+         arr=($line)
+         echo "pulling image: ${arr[1]}"
+         docker pull "securebrowsing/${arr[1]}"
+      fi
+   done < "$filename"
 }
 
 function get_right_interface() {
@@ -122,6 +128,8 @@ set_experimental
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
 replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+
+pulling_images
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 
