@@ -375,7 +375,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.20.0.0/8
+        - subnet: 172.16.20.1/8
 secrets:
    shield-system-id:
        external: true
