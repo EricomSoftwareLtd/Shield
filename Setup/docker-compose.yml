@@ -61,8 +61,8 @@ services:
 #        user: consul
         networks:
           - shield
-#        ports:
-#          - "8500:8500"
+        ports:
+          - "8500:8500"
         deploy:
           mode: global
           update_config:
