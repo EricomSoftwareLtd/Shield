@@ -1,5 +1,5 @@
-#Build Dev:176 on 25/09/17
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_176
+#Build Dev:177 on 25/09/17
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_177
 shield-configuration:latest shield-configuration:170906-13.59-481
 shield-admin:latest shield-admin:170925-14.32-61
 shield-portainer:latest shield-portainer:170716-10.56-232
