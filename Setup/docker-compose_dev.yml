@@ -1,7 +1,8 @@
-version: '3.2'
+version: '3.3'
 
 # Ericom Shield Stack Description
-# 
+# YML file for Dev
+
 services:
     collector:
       image: securebrowsing/shield-collector:latest
@@ -57,8 +58,8 @@ services:
         #user: consul
         networks:
           - shield
-        ports:
-          - "8500:8500"
+#        ports:
+#          - "8500:8500"
         deploy:
           mode: replicated
           replicas: 1
@@ -75,7 +76,7 @@ services:
               memory: 1GB
               cpus: "1"
         environment:
-          - "CONSUL_BIND_INTERFACE=eth2"
+          - "CONSUL_BIND_INTERFACE=eth1"
           - "NUMBER_OF_EXPECTED=1"
         logging:
           driver: syslog
