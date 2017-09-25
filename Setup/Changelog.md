@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.39-Build:175] - 2017-09-25
+- working with HAPI server in "stream" payload mode for better preformance
+- admin loading time on the first usage #712
+- removed the URL validation in admin/policies #788
+- reordered report columns #644
+- (*) re-structured download/sanitization reports #755
+- (*) fixed file appears twice at the sanitized report #806
+- (*) fixed report errorMessage and errorStep fields #644
+
 ## [17.38-Build:174] - 2017-09-18
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
