@@ -232,7 +232,7 @@ services:
           - shield
         environment:
           - SSLEXCLUSION=true
-        env_file: proxy-server.env
+#        env_file: proxy-server.env
         deploy:
           replicas: 2
           restart_policy:
