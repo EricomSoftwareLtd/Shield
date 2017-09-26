@@ -14,26 +14,29 @@ fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
 STACK_NAME=shield
-
 cd $ES_PATH
+
+echo "***********       Uninstalling Ericom Shield ...."
+echo "$(date): Uninstalling Ericom Shield" >>"$LOGFILE"
+mv "$LOGFILE" ..
 
 systemctl stop ericomshield
 systemctl stop ericomshield-updater
+
+echo "***********       Removing EricomShield images"
 
 docker kill $(docker ps -q)
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 
-echo "Uninstalling Ericom Shield"
-echo "$(date): Uninstalling Ericom Shield" >>"$LOGFILE"
-mv "$LOGFILE" ..
+echo "***********       Removing EricomShield Services"
 systemctl --global disable ericomshield-updater.service
 systemctl --global disable ericomshield.service
 systemctl daemon-reload
 
 rm /etc/init.d/ericomshield
 
-echo "***********       Removing EricomShield "
+echo "***********       Removing EricomShield Stack"
 echo "***********       "
 docker stack rm $STACK_NAME
 docker swarm leave -f
