@@ -99,7 +99,7 @@ function pull_images() {
          echo "$line"
         else
         arr=($line)
-         if [ "$LINE=1" ]; then
+         if [ $LINE -eq 1 ]; then
            if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
              echo "No new version detected"
              break;
