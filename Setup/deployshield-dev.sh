@@ -16,6 +16,11 @@ SECRET_UID="shield-system-id"
 RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
 
+#For bckwrd-compatibility and Jenkins
+if [ -f "$ES_YML_FILE" ]; then
+    ES_YML_FILE=docker-compose_dev.yml
+fi
+
 function join_by() {
     local IFS="$1"
     shift
