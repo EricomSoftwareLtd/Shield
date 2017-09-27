@@ -1,15 +1,15 @@
 #!/bin/bash
 
-set -ex
+# set -ex
 
 ###########################################
 #####   Ericom Shield Installer        #####
 ###################################LO##BH###
 NETWORK_INTERFACE='eth0'
-#IP_ADDRESS=
+IP_ADDRESS=
 SINGLE_MODE=true
 STACK_NAME='shield'
-ES_YML_FILE=docker-compose_dev.yml
+ES_YML_FILE=docker-compose.yml
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
 
@@ -71,6 +71,15 @@ function init_swarm() {
     fi
 }
 
+function set_experimental() {
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental" : true' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"experimental" : true in /etc/docker/daemon.json'
+    else
+        echo $'{\n\"experimental\" : true\n}\n' >/etc/docker/daemon.json
+        echo 'Setting: "experimental" : true in /etc/docker/daemon.json'
+    fi
+}
+
 function create_uuid() {
     if [ $(docker secret ls | grep -c $SECRET_UID) -eq 0 ]; then
         uuid=$(uuidgen)
@@ -82,14 +91,29 @@ function create_uuid() {
     fi
 }
 
-function update_images() {
-    echo "################## Getting images start ######################"
-    images=$(grep "image" ${ES_YML_FILE} | awk '{print $2}' | sort | uniq)
-    for image in ${images}; do
-        docker pull ${image}
-    done
-    echo "################## Getting images  end ######################"
+function pull_images() {
+   filename=./shield-version.txt
+   LINE=0
+   while read -r line; do
+      if [ "${line:0:1}" == '#' ]; then
+         echo "$line"
+        else
+        arr=($line)
+         if [ $LINE -eq 1 ]; then
+           if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+             echo "No new version detected"
+             break;
+           fi
+         else
+           echo "################## Pulling images  ######################"
+           echo "pulling image: ${arr[1]}"
+           docker pull "securebrowsing/${arr[1]}"
+         fi
+      fi
+      LINE=$(($LINE +1))
+   done < "$filename"
 }
+
 
 function get_right_interface() {
     TEST_MAC=$(uname | grep Linux)
@@ -130,13 +154,11 @@ else
     SWARM=$(test_swarm_exists)
     if [ -z "$SWARM" ]; then
         echo '#######################Start create swarm#####################'
-        if [ -z "$IP_ADDRESS" ]; then
-            NETWORK_INTERFACE=$(get_right_interface)
-            for int in $NETWORK_INTERFACE; do
-                NETWORK_INTERFACE=$int
-                break
-            done
-        fi
+        NETWORK_INTERFACE=$(get_right_interface)
+        for int in $NETWORK_INTERFACE; do
+            NETWORK_INTERFACE=$int
+            break
+        done
         SWARM_RESULT=$(init_swarm)
         if [ "$SWARM_RESULT" != "0" ]; then
             echo "Swarm init failed"
@@ -144,18 +166,20 @@ else
         fi
         echo '########################Swarm created########################'
     fi
-    #update_images
 fi
 
-make_in_memory_volume
 create_uuid
+make_in_memory_volume
+set_experimental
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
 replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
 create_proxy_env_file
 
+pull_images
+
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
+
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
-#this change for keep compatibility to current single node cluster
 
