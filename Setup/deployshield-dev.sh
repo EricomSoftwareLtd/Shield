@@ -9,7 +9,7 @@ NETWORK_INTERFACE='eth0'
 IP_ADDRESS=
 SINGLE_MODE=true
 STACK_NAME='shield'
-ES_YML_FILE=docker-compose.yml
+ES_YML_FILE=docker-compose_dev.yml
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
 
