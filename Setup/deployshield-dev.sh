@@ -9,7 +9,7 @@ NETWORK_INTERFACE='eth0'
 IP_ADDRESS=
 SINGLE_MODE=true
 STACK_NAME='shield'
-ES_YML_FILE=docker-compose_dev.yml
+ES_YML_FILE=docker-compose.yml
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
 
@@ -17,7 +17,7 @@ RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
 
 #For bckwrd-compatibility and Jenkins
-if [ -f "$ES_YML_FILE" ]; then
+if [ ! -f "$ES_YML_FILE" ]; then
     ES_YML_FILE=docker-compose_dev.yml
 fi
 
@@ -159,11 +159,13 @@ else
     SWARM=$(test_swarm_exists)
     if [ -z "$SWARM" ]; then
         echo '#######################Start create swarm#####################'
-        NETWORK_INTERFACE=$(get_right_interface)
-        for int in $NETWORK_INTERFACE; do
-            NETWORK_INTERFACE=$int
-            break
-        done
+        if [ -z "$IP_ADDRESS" ]; then
+            NETWORK_INTERFACE=$(get_right_interface)
+            for int in $NETWORK_INTERFACE; do
+                NETWORK_INTERFACE=$int
+                break
+            done
+        fi
         SWARM_RESULT=$(init_swarm)
         if [ "$SWARM_RESULT" != "0" ]; then
             echo "Swarm init failed"
