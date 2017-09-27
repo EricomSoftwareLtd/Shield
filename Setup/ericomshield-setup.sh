@@ -21,7 +21,7 @@ ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
-ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
+ES_uninstall_FILE="/ericomshield-uninstall.sh"
 
 ES_SETUP_VER="17.37-setup"
 BRANCH="master"
@@ -82,6 +82,9 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     echo "***************     Installing curl"
     sudo apt-get install curl
 fi
+
+#Install pip for Python 3 and the packages required by the utility scripts
+sudo apt install -y python3-pip && sudo pip3 install python-dateutil docker
 
 function log_message() {
     echo "$1"
@@ -272,6 +275,8 @@ function get_shield_files() {
         chmod +x ericomshield-setup.sh
     fi
 
+    curl -s -S -o clean_sb_images.py "$ES_repo_clean_sb_images"
+    chmod +x clean_sb_images.py
     curl -s -S -o run.sh "$ES_repo_run"
     chmod +x run.sh
     curl -s -S -o autoupdate.sh "$ES_repo_update"
@@ -364,8 +369,8 @@ while [ $wait -lt 10 ]; do
     if "$ES_PATH"/status.sh; then
         echo "Ericom Shield is Running!"
         #Clean previous installed images
-        echo "*************** not cleaning old images for now"
-        #   docker system prune -f -a
+        echo "*************** cleaning old images"
+        "$ES_PATH"/clean_sb_images.py
         break
     else
         echo -n .
