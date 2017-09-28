@@ -8,7 +8,7 @@ STACK_NAME=shield
 
 echo "***********       Stopping EricomShield "
 echo "***********       "
-if [ -z $(docker info | grep -i 'swarm: active') ]; then
+if [ -z "$(docker info | grep -i 'swarm: active')" ]; then
     echo "Docker swarm is not active, '$STACK_NAME' stack is not running."
     exit 0
 fi
