@@ -319,7 +319,6 @@ if [ "$UPDATE" == true ]; then
    if [ "$UPDATE_NEED_RESTART" == true ]; then
       echo " Stopping Ericom Shield for Update "
       ./stop.sh
-      sleep 5
      else
       echo -n "stop shield-broker"
       docker service scale shield_broker-server=0
