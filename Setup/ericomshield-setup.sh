@@ -15,12 +15,16 @@ ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.0"
 DOCKER_COMPOSE_VERSION="1.15.0"
-UPDATE=0
+UPDATE=false
+UPDATE_NEED_RESTART=false
+UPDATE_NEED_RESTART_TXT="#UNR#"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
+ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 
 ES_SETUP_VER="17.37-setup"
@@ -170,24 +174,6 @@ function update_sysctl() {
 }
 
 function create_shield_service() {
-    if [ "$ES_DEV" == true ]; then
-       echo "removing ericomshield service"
-       systemctl --global disable ericomshield.service
-       rm /etc/init.d/ericomshield
-       systemctl daemon-reload
-     else    
-      echo "**************  Creating the ericomshield service..."
- 
-      if [ ! -f "${ES_PATH}/ericomshield.service" ]; then
-          # Need to download the service file only if needed and reload only if changed
-          curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service}"
-      fi
-
-      systemctl --system enable "${ES_PATH}/ericomshield.service"
-      cp ericomshield /etc/init.d/
-      update-rc.d ericomshield defaults
-    fi
-
     echo "**************  Creating the ericomshield updater service..."
     if [ ! -f "${ES_PATH}/ericomshield-updater.service" ]; then
         # Need to download the service file only if needed and reload only if changed
@@ -244,16 +230,21 @@ function get_shield_install_files() {
         else
             echo "***************     Updating EricomShield ($ES_SETUP_VER)"
             echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
-            UPDATE=1
+            UPDATE=true
+            if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
+              UPDATE_NEED_RESTART=true
+            fi
         fi
     else
         echo "***************     Installing EricomShield ($ES_SETUP_VER)..."
         echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
     fi
 
+    mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
+    mv  $ES_YML_FILE  $ES_YML_FILE_BAK
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
     curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
     chmod +x deploy-shield.sh
@@ -268,7 +259,7 @@ function get_shield_install_files() {
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_yml"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_dev_yml"
-#        curl -s -S -o deploy-shield.sh "$ES_repo_swarm_dev_sh"
+        curl -s -S -o deploy-shield.sh "$ES_repo_swarm_dev_sh"
     fi
 }
 
@@ -289,10 +280,6 @@ function get_shield_files() {
     chmod +x stop.sh
     curl -s -S -o status.sh "$ES_repo_status"
     chmod +x status.sh
-    if [ "$ES_DEV" == false ]; then
-       curl -s -S -o ericomshield "$ES_repo_service"
-    fi   
-    chmod +x ericomshield
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
 }
@@ -328,17 +315,16 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-if [ $UPDATE -eq 0 ]; then
-    # New Installation
-
-    create_shield_service
-    systemctl start ericomshield-updater.service
-
-else # Update
-    echo -n "stop shield-broker"
-    docker service scale shield_broker-server=0
-    wait=0
-    while [ $wait -lt 5 ]; do
+if [ "$UPDATE" == true ]; then
+   if [ "$UPDATE_NEED_RESTART" == true ]; then
+      echo " Stopping Ericom Shield for Update "
+      ./stop.sh
+      sleep 5
+     else
+      echo -n "stop shield-broker"
+      docker service scale shield_broker-server=0
+      wait=0
+      while [ $wait -lt 5 ]; do
         if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
             echo !
             break
@@ -347,9 +333,10 @@ else # Update
             sleep 10
         fi
         wait=$((wait + 1))
-    done
-
+      done
+   fi
 fi
+systemctl start ericomshield-updater.service
 
 echo "source deploy-shield.sh"
 source deploy-shield.sh
@@ -364,18 +351,15 @@ else
     exit 1
 fi
 
-#Check the status of the system, and clean only if running
+#Check the status of the system wait 30*10 (5 mins)
 wait=0
 while [ $wait -lt 10 ]; do
     if "$ES_PATH"/status.sh; then
         echo "Ericom Shield is Running!"
-        #Clean previous installed images
-        echo "*************** not cleaning old images for now"
-        #   docker system prune -f -a
         break
     else
         echo -n .
-        sleep 20
+        sleep 30
     fi
     wait=$((wait + 1))
 done
