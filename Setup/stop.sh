@@ -6,11 +6,15 @@
 ES_PATH=/usr/local/ericomshield
 STACK_NAME=shield
 
+function exit_success() {
+    echo "***********       "
+    exit 0
+}
+
 echo "***********       Stopping EricomShield "
-echo "***********       "
 if [ -z "$(docker info | grep -i 'swarm: active')" ]; then
     echo "Docker swarm is not active, '$STACK_NAME' stack is not running."
-    exit 0
+    exit_success
 fi
 #   docker swarm leave -f
 docker stack rm $STACK_NAME
@@ -23,3 +27,4 @@ until [ -z "$(docker service ls --filter label=com.docker.stack.namespace=$STACK
     limit=$((limit - 1))
 done
 echo "done"
+exit_success
