@@ -14,8 +14,9 @@ if [ -z "$(docker info | grep -i 'swarm: active')" ]; then
 fi
 #   docker swarm leave -f
 docker stack rm $STACK_NAME
-limit=10
 echo "Waiting for $STACK_NAME to stop..."
+sleep 5
+limit=10
 until [ -z "$(docker service ls --filter label=com.docker.stack.namespace=$STACK_NAME -q)" ] || [ "$limit" -lt 1 ]; do
     echo $limit
     sleep 1
