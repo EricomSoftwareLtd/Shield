@@ -170,16 +170,23 @@ function update_sysctl() {
 }
 
 function create_shield_service() {
-    echo "**************  Creating the ericomshield service..."
+    if [ "$ES_DEV" == true ]; then
+       echo "removing ericomshield service"
+       systemctl --global disable ericomshield.service
+       rm /etc/init.d/ericomshield
+       systemctl daemon-reload
+     else    
+      echo "**************  Creating the ericomshield service..."
+ 
+      if [ ! -f "${ES_PATH}/ericomshield.service" ]; then
+          # Need to download the service file only if needed and reload only if changed
+          curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service}"
+      fi
 
-    if [ ! -f "${ES_PATH}/ericomshield.service" ]; then
-        # Need to download the service file only if needed and reload only if changed
-        curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service}"
+      systemctl --system enable "${ES_PATH}/ericomshield.service"
+      cp ericomshield /etc/init.d/
+      update-rc.d ericomshield defaults
     fi
-
-    systemctl --system enable "${ES_PATH}/ericomshield.service"
-    cp ericomshield /etc/init.d/
-    update-rc.d ericomshield defaults
 
     echo "**************  Creating the ericomshield updater service..."
     if [ ! -f "${ES_PATH}/ericomshield-updater.service" ]; then
@@ -282,7 +289,9 @@ function get_shield_files() {
     chmod +x stop.sh
     curl -s -S -o status.sh "$ES_repo_status"
     chmod +x status.sh
-    curl -s -S -o ericomshield "$ES_repo_service"
+    if [ "$ES_DEV" == false ]; then
+       curl -s -S -o ericomshield "$ES_repo_service"
+    fi   
     chmod +x ericomshield
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
@@ -354,9 +363,6 @@ else
     echo "--failed" >>"$ES_VER_FILE" # adding failed into the version file
     exit 1
 fi
-
-#echo "Starting ericomshield service"
-#systemctl start ericomshield.service
 
 #Check the status of the system, and clean only if running
 wait=0
