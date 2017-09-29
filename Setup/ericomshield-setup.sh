@@ -259,7 +259,7 @@ function get_shield_install_files() {
             echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
             UPDATE=true
             if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
-              UPDATE_NEED_RESTART=true
+                UPDATE_NEED_RESTART=true
             fi
         fi
     else
@@ -267,11 +267,11 @@ function get_shield_install_files() {
         echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
     fi
 
-    mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
+    mv "$ES_VER_FILE" "$ES_VER_FILE_BAK"
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
-    mv  $ES_YML_FILE  $ES_YML_FILE_BAK
+    mv $ES_YML_FILE $ES_YML_FILE_BAK
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
     curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
     chmod +x deploy-shield.sh
@@ -360,24 +360,24 @@ echo "Preparing yml file (Containers build number)"
 prepare_yml
 
 if [ "$UPDATE" == true ]; then
-   if [ "$UPDATE_NEED_RESTART" == true ]; then
-      echo " Stopping Ericom Shield for Update "
-      ./stop.sh
-     else
-      echo -n "stop shield-broker"
-      docker service scale shield_broker-server=0
-      wait=0
-      while [ $wait -lt 5 ]; do
-        if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
-            echo !
-            break
-        else
-            echo -n .
-            sleep 10
-        fi
-        wait=$((wait + 1))
-      done
-   fi
+    if [ "$UPDATE_NEED_RESTART" == true ]; then
+        echo " Stopping Ericom Shield for Update "
+        ./stop.sh
+    else
+        echo -n "stop shield-broker"
+        docker service scale shield_broker-server=0
+        wait=0
+        while [ $wait -lt 5 ]; do
+            if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
+                echo !
+                break
+            else
+                echo -n .
+                sleep 10
+            fi
+            wait=$((wait + 1))
+        done
+    fi
 fi
 systemctl start ericomshield-updater.service
 
