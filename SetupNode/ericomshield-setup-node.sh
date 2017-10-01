@@ -207,8 +207,7 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -z "$MACHINE_USER" ]; then
-    echo "ssh user is empty"
-    print_usage
+    MACHINE_USER="ericom"
     exit 1
 fi
 
