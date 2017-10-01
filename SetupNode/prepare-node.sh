@@ -16,7 +16,7 @@ while [ $# -ne 0 ]; do
 done
 
 
-if [ -n "$MACHINE_USER" ]; then
+if [ -z "$MACHINE_USER" ]; then
     sudo useradd ericom
     MACHINE_USER="ericom"
 fi
