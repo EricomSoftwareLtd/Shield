@@ -147,7 +147,7 @@ make_machines_ready() {
                 mkdir ~/.ssh
             fi
 EOF
-        scp $CERTIFICATE_FILE $MACHINE_USER@$ip:~/.ssh/authorized_keys
+        scp "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/.ssh/authorized_keys
         ssh -t $MACHINE_USER@$ip <<- EOF
             chmod 600 ~/.ssh/authorized_keys
 EOF
