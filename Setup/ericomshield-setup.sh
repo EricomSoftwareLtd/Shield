@@ -13,6 +13,8 @@ if ((EUID != 0)); then
 fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
+EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
+ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Ericom-EULA.txt"
 DOCKER_VERSION="17.0"
 DOCKER_COMPOSE_VERSION="1.15.0"
 UPDATE=false
@@ -90,6 +92,31 @@ fi
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
+}
+
+function accept_license() {
+    export LESSSECURE=1
+    while less -P"%pb\% Press h for help or q to quit" "$1" &&
+        read -p "Do you accept the EULA (yes/no/anything else to display it again)? " choice; do
+        case "$choice" in
+        y | Y | n | N)
+            echo 'Please, type "yes" or "no"'
+            read -n1 -r -p "Press any key to continue..." key
+            ;;
+        "yes" | "YES" | "Yes")
+            echo "yes"
+            return 0
+            ;;
+        "no" | "NO" | "No")
+            echo "no"
+            break
+            ;;
+        *) ;;
+
+        esac
+    done
+
+    return -1
 }
 
 function check_free_space() {
@@ -178,11 +205,10 @@ function create_shield_service() {
     if [ ! -f "${ES_PATH}/ericomshield-updater.service" ]; then
         # Need to download the service file only if needed and reload only if changed
         curl -s -S -o "${ES_PATH}/ericomshield-updater.service" "${ES_repo_systemd_updater_service}"
+        systemctl link ${ES_PATH}/ericomshield-updater.service
+        systemctl --system enable ${ES_PATH}/ericomshield-updater.service
+        systemctl daemon-reload
     fi
-    systemctl link ${ES_PATH}/ericomshield-updater.service
-    systemctl --system enable ${ES_PATH}/ericomshield-updater.service
-
-    systemctl daemon-reload
     echo "Done!"
 }
 
@@ -234,20 +260,18 @@ function get_shield_install_files() {
             if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
               UPDATE_NEED_RESTART=true
             fi
+            mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"            
         fi
     else
         echo "***************     Installing EricomShield ($ES_SETUP_VER)..."
         echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
     fi
 
-    if [ -f "$ES_VER_FILE" ]; then
-       mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
-    fi   
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
     if [ -f "$ES_YML_FILE" ]; then
-       mv  "$ES_YML_FILE"  "$ES_YML_FILE_BAK"
+       mv  $ES_YML_FILE  $ES_YML_FILE_BAK
     fi   
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
     curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
@@ -288,11 +312,11 @@ function get_shield_files() {
     chmod +x ~/show-my-ip.sh
 }
 
-##################      MAIN: EVERYTHING START HERE: ##########################
+##################     MAIN: EVERYTHING STARTS HERE: ##########################
 
 check_free_space
 
-echo Docker Login: $DOCKER_USER $DOCKER_SECRET
+echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
@@ -309,6 +333,23 @@ fi
 install_docker_compose
 
 get_shield_install_files
+
+if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ]; then
+    echo 'You will now be presented with the End User License Agreement.'
+    echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
+    echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
+    read -n1 -r -p "Press any key to continue..." key
+    echo
+
+    curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
+    if accept_license "$ES_PATH/Ericom-EULA.txt"; then
+        log_message "EULA has been accepted"
+        date -Iminutes >"$EULA_ACCEPTED_FILE"
+    else
+        log_message "EULA has not been accepted, exiting..."
+        exit -1
+    fi
+fi
 
 get_shield_files
 
