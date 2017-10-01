@@ -143,12 +143,14 @@ make_machines_ready() {
     for ip in $MACHINE_IPS; do
         echo '#################################################################### Prepare machine interactive #########################################'
         ssh -t $MACHINE_USER@$ip <<- EOF
+
+EOF
+        scp "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/authorized_keys
+        ssh -t $MACHINE_USER@$ip <<- EOF
             if [ ! -d ~/.ssh ]; then
                 mkdir ~/.ssh
             fi
-EOF
-        scp "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/.ssh/authorized_keys
-        ssh -t $MACHINE_USER@$ip <<- EOF
+            mv authorized_keys ~/.ssh/
             chmod 600 ~/.ssh/authorized_keys
 EOF
     done
