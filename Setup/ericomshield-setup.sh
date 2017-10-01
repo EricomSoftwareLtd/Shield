@@ -240,11 +240,15 @@ function get_shield_install_files() {
         echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
     fi
 
-    mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
+    if [ -f "$ES_VER_FILE" ]; then
+       mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
+    fi   
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
-    mv  $ES_YML_FILE  $ES_YML_FILE_BAK
+    if [ -f "$ES_YML_FILE" ]; then
+       mv  "$ES_YML_FILE"  "$ES_YML_FILE_BAK"
+    fi   
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
     curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
     chmod +x deploy-shield.sh
