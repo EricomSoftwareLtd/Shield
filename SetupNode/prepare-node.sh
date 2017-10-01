@@ -17,7 +17,8 @@ done
 
 
 if [ -n "$MACHINE_USER" ]; then
-    MACHINE_USER=ericom
+    sudo useradd ericom
+    MACHINE_USER="ericom"
 fi
 
 echo "########################## $MACHINE_USER Going to prepare super user #########################################"
