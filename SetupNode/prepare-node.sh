@@ -2,10 +2,8 @@
 
 MACHINE_USER=$(whoami)
 
-echo "########################## $MACHINE_USER Going to be super user #########################################"
+echo "########################## $MACHINE_USER Going to prepare super user #########################################"
 
-sudo su
+COMMAND="$MACHINE_USER ALL=(ALL:ALL) NOPASSWD: ALL"
 
-echo "################################################ Make sudo without password ###################################"
-
-echo "$MACHINE_USER    ALL=(ALL:ALL)   NOPASSWD: ALL" >> /etc/sudoers
+echo $COMMAND  | sudo EDITOR='tee -a' visudo
