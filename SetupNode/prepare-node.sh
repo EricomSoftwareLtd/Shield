@@ -1,6 +1,24 @@
 #!/bin/bash
 
-MACHINE_USER=$(whoami)
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -u|--user)
+        MACHINE_USE="$2"
+        shift
+     ;;
+    -os|--os-user)
+        MACHINE_USER=$(whoami)
+    ;;
+    esac
+    shift
+done
+
+
+if [ -n "$MACHINE_USER" ]; then
+    MACHINE_USER=ericom
+fi
 
 echo "########################## $MACHINE_USER Going to prepare super user #########################################"
 

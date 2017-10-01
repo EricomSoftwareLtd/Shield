@@ -13,7 +13,7 @@ MACHINES=
 SWARM_TOKEN=
 LEADER_IP=
 CERTIFICATE_FILE=./shield_crt
-DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/jenkins/SetupNode/install-docker.sh"
+DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/install-docker.sh"
 ALLOW_BROWSERS=
 ALLOW_SHIELD_CORE=
 ALLOW_MANAGEMENT=
@@ -230,10 +230,10 @@ echo "Machine IPS: $MACHINE_IPS"
 
 set -e
 make_machines_ready
-#create_generic_machines
+create_generic_machines
 set +e
-#join_machines_to_swarm
+join_machines_to_swarm
 
-#print-final-report
+print-final-report
 
 
