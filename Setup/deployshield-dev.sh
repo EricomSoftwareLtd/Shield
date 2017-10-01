@@ -34,6 +34,11 @@ function create_proxy_env_file() {
 
     touch "$PROXY_ENV_FILE"
 
+    # Skip copying configurations whith nameservers pointing to 127.*.*.*
+    if grep -E '^\s*nameserver\s+127\.[0-9]+\.[0-9]+\.[0-9]+.*' "$RESOLV_FILE"; then
+        return
+    fi
+
     NAMESERVERS=$(grep -oP '^\s*nameserver\s+\K.*' "$RESOLV_FILE")
     SEARCH_DOMAINS=$(grep -oP '^\s*search\s+\K.*' "$RESOLV_FILE")
 
