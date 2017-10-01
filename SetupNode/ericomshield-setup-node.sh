@@ -208,7 +208,6 @@ done
 
 if [ -z "$MACHINE_USER" ]; then
     MACHINE_USER="ericom"
-    exit 1
 fi
 
 if [ -z "$SWARM_TOKEN" ]; then

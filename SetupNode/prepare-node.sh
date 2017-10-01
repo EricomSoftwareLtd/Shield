@@ -17,7 +17,11 @@ done
 
 
 if [ -z "$MACHINE_USER" ]; then
+    echo '################################################### Create Ericom user #################################'
     sudo useradd ericom
+    echo '################################################### Make password for ericom user ######################'
+    sudo passwd ericom
+
     MACHINE_USER="ericom"
 fi
 
