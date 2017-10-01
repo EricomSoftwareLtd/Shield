@@ -18,7 +18,7 @@ done
 
 if [ -z "$MACHINE_USER" ]; then
     echo '################################################### Create Ericom user #################################'
-    sudo useradd ericom
+    sudo useradd -m ericom
     echo '################################################# Password #############################################'
     echo 'Password: '
     read -s password
