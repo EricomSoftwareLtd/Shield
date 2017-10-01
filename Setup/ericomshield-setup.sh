@@ -13,6 +13,8 @@ if ((EUID != 0)); then
 fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
+EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
+ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Ericom-EULA.txt"
 DOCKER_VERSION="17.0"
 DOCKER_COMPOSE_VERSION="1.15.0"
 UPDATE=false
@@ -90,6 +92,31 @@ fi
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
+}
+
+function accept_license() {
+    export LESSSECURE=1
+    while less -P"%pb\% Press h for help or q to quit" "$1" &&
+        read -p "Do you accept the EULA (yes/no/anything else to display it again)? " choice; do
+        case "$choice" in
+        y | Y | n | N)
+            echo 'Please, type "yes" or "no"'
+            read -n1 -r -p "Press any key to continue..." key
+            ;;
+        "yes" | "YES" | "Yes")
+            echo "yes"
+            return 0
+            ;;
+        "no" | "NO" | "No")
+            echo "no"
+            break
+            ;;
+        *) ;;
+
+        esac
+    done
+
+    return -1
 }
 
 function check_free_space() {
@@ -232,7 +259,7 @@ function get_shield_install_files() {
             echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
             UPDATE=true
             if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
-              UPDATE_NEED_RESTART=true
+                UPDATE_NEED_RESTART=true
             fi
         fi
     else
@@ -240,11 +267,11 @@ function get_shield_install_files() {
         echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
     fi
 
-    mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
+    mv "$ES_VER_FILE" "$ES_VER_FILE_BAK"
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
-    mv  $ES_YML_FILE  $ES_YML_FILE_BAK
+    mv $ES_YML_FILE $ES_YML_FILE_BAK
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
     curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
     chmod +x deploy-shield.sh
@@ -284,9 +311,26 @@ function get_shield_files() {
     chmod +x ~/show-my-ip.sh
 }
 
-##################      MAIN: EVERYTHING START HERE: ##########################
+##################     MAIN: EVERYTHING STARTS HERE: ##########################
 
 check_free_space
+
+if [ ! -f "$EULA_ACCEPTED_FILE" ]; then
+    echo 'You will now be presented with the End User License Agreement.'
+    echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
+    echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
+    read -n1 -r -p "Press any key to continue..." key
+    echo
+
+    curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
+    if accept_license "$ES_PATH/Ericom-EULA.txt"; then
+        log_message "EULA has been accepted"
+        date -Iminutes >"$EULA_ACCEPTED_FILE"
+    else
+        log_message "EULA has not been accepted, exiting..."
+        exit -1
+    fi
+fi
 
 echo Docker Login: $DOCKER_USER $DOCKER_SECRET
 echo "dev=$ES_DEV"
@@ -316,24 +360,24 @@ echo "Preparing yml file (Containers build number)"
 prepare_yml
 
 if [ "$UPDATE" == true ]; then
-   if [ "$UPDATE_NEED_RESTART" == true ]; then
-      echo " Stopping Ericom Shield for Update "
-      ./stop.sh
-     else
-      echo -n "stop shield-broker"
-      docker service scale shield_broker-server=0
-      wait=0
-      while [ $wait -lt 5 ]; do
-        if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
-            echo !
-            break
-        else
-            echo -n .
-            sleep 10
-        fi
-        wait=$((wait + 1))
-      done
-   fi
+    if [ "$UPDATE_NEED_RESTART" == true ]; then
+        echo " Stopping Ericom Shield for Update "
+        ./stop.sh
+    else
+        echo -n "stop shield-broker"
+        docker service scale shield_broker-server=0
+        wait=0
+        while [ $wait -lt 5 ]; do
+            if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
+                echo !
+                break
+            else
+                echo -n .
+                sleep 10
+            fi
+            wait=$((wait + 1))
+        done
+    fi
 fi
 systemctl start ericomshield-updater.service
 
