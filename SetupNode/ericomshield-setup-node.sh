@@ -138,9 +138,19 @@ make-leader-ip() {
 
 
 make_machines_ready() {
-
+    ssh-keygen -b 2048 -t rsa -f $CERTIFICATE_FILE -q -N ""
+    cert_name=$(basename $CERTIFICATE_FILE)
     for ip in $MACHINE_IPS; do
-
+        echo '#################################################################### Prepare machine interactive #########################################'
+        ssh -t $MACHINE_USER@$ip <<- EOF
+            if [ ! -d ~/.ssh ]; then
+                mkdir ~/.ssh
+            fi
+EOF
+        scp $CERTIFICATE_FILE $MACHINE_USER@$ip:~/.ssh/authorized_keys
+        ssh -t $MACHINE_USER@$ip <<- EOF
+            chmod 600 ~/.ssh/authorized_keys
+EOF
     done
 }
 
@@ -220,10 +230,10 @@ echo "Machine IPS: $MACHINE_IPS"
 
 set -e
 make_machines_ready
-create_generic_machines
+#create_generic_machines
 set +e
-join_machines_to_swarm
+#join_machines_to_swarm
 
-print-final-report
+#print-final-report
 
 
