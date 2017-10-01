@@ -18,6 +18,6 @@ Type the following commands:
 
 Prepare node for cluster:
 
-`wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/multinode/SetupNode/prepare-node.sh | sudo bash -`
+`wget -O - https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/multinode/SetupNode/prepare-node.sh | bash`
 
 Ericom Shield will be installed and ericomshield service will be available 
