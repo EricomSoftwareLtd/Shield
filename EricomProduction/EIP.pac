@@ -7,10 +7,8 @@ function FindProxyForURL(url, host) {
 	var proxy_mo = "PROXY 192.168.50.150:3128";
 	if (isPlainHostName(host) ||
 		shExpMatch(host, "*.local") ||
-		isInNet(dnsResolve(host), "192.168.35.0", "255.255.0") ||
-		isInNet(dnsResolve(host), "192.168.50.0", "255.255.255.0") ||
+		isInNet(dnsResolve(host), "192.168.0.0", "255.255.0.0") ||
 		isInNet(dnsResolve(host), "131.107.2.0", "255.255.255.0") ||
-		isInNet(dnsResolve(host), "192.168.1.0", "255.255.255.0") ||
 		isInNet(dnsResolve(host), "126.0.0.0", "255.0.0.0"))
 		return "DIRECT";
 	//Romania Proxy
@@ -33,5 +31,5 @@ function FindProxyForURL(url, host) {
 	if (isInNet(myIpAddress(), "192.168.50.0", "255.255.255.0")) {
 		return proxy_mo;
 	}
-	else return proxy_il;
+	else return "DIRECT";
 }
