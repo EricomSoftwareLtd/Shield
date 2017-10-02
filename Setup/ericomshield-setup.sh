@@ -15,15 +15,19 @@ ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.0"
 DOCKER_COMPOSE_VERSION="1.15.0"
-UPDATE=0
+UPDATE=false
+UPDATE_NEED_RESTART=false
+UPDATE_NEED_RESTART_TXT="#UNR#"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
+ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 
-ES_SETUP_VER="17.37-setup"
+ES_SETUP_VER="17.40-setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
@@ -92,16 +96,52 @@ function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
 }
+function failed_to_install() {
+   log_message "An error occured during the installation: $1, Exiting!"
+
+    if [ "$UPDATE" == true ]; then
+       if [ -f "$ES_VER_FILE" ]; then
+          mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
+       fi   
+      else
+       rm "$ES_VER_FILE"             
+    fi   
+}
+
+function accept_license() {
+    export LESSSECURE=1
+    while less -P"%pb\% Press h for help or q to quit" "$1" &&
+        read -p "Do you accept the EULA (yes/no/anything else to display it again)? " choice; do
+        case "$choice" in
+        y | Y | n | N)
+            echo 'Please, type "yes" or "no"'
+            read -n1 -r -p "Press any key to continue..." key
+            ;;
+        "yes" | "YES" | "Yes")
+            echo "yes"
+            return 0
+            ;;
+        "no" | "NO" | "No")
+            echo "no"
+            break
+            ;;
+        *) ;;
+
+        esac
+    done
+
+    return -1
+}
 
 function check_free_space() {
     FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
     FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
     if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
-        log_message "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        failed_to_install "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
         exit 1
     fi
     if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
-        log_message "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        failed_to_install "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
         exit 1
     fi
 }
@@ -121,9 +161,8 @@ function install_docker() {
         echo " ******* docker-engine is already installed"
     fi
     if [ "$(sudo docker version | wc -l)" -le 1 ]; then
-        echo "Failed to install docker, Exiting!"
-        echo "$(date): An error occured during the installation: Cannot login to docker" >>"$LOGFILE"
-        exit 1
+       failed_to_install "Failed to Install Docker"
+       exit 1
     fi
 }
 
@@ -175,33 +214,14 @@ function update_sysctl() {
 }
 
 function create_shield_service() {
-    if [ "$ES_DEV" == true ]; then
-       echo "removing ericomshield service"
-       systemctl --global disable ericomshield.service
-       rm /etc/init.d/ericomshield
-       systemctl daemon-reload
-     else    
-      echo "**************  Creating the ericomshield service..."
- 
-      if [ ! -f "${ES_PATH}/ericomshield.service" ]; then
-          # Need to download the service file only if needed and reload only if changed
-          curl -s -S -o "${ES_PATH}/ericomshield.service" "${ES_repo_systemd_service}"
-      fi
-
-      systemctl --system enable "${ES_PATH}/ericomshield.service"
-      cp ericomshield /etc/init.d/
-      update-rc.d ericomshield defaults
-    fi
-
     echo "**************  Creating the ericomshield updater service..."
     if [ ! -f "${ES_PATH}/ericomshield-updater.service" ]; then
         # Need to download the service file only if needed and reload only if changed
         curl -s -S -o "${ES_PATH}/ericomshield-updater.service" "${ES_repo_systemd_updater_service}"
-    fi
-    systemctl link ${ES_PATH}/ericomshield-updater.service
-    systemctl --system enable ${ES_PATH}/ericomshield-updater.service
-
-    systemctl daemon-reload
+        systemctl link ${ES_PATH}/ericomshield-updater.service
+        systemctl --system enable ${ES_PATH}/ericomshield-updater.service
+        systemctl daemon-reload
+	fi	
     echo "Done!"
 }
 
@@ -241,7 +261,6 @@ function get_shield_install_files() {
         echo "Getting $ES_repo_ver (prod)"
         curl -s -S -o shield-version-new.txt "$ES_repo_ver"
     fi
-
     if [ -f "$ES_VER_FILE" ]; then
         if [ "$(diff "$ES_VER_FILE" shield-version-new.txt | wc -l)" -eq 0 ]; then
             echo "Your EricomShield System is Up to date"
@@ -249,19 +268,25 @@ function get_shield_install_files() {
         else
             echo "***************     Updating EricomShield ($ES_SETUP_VER)"
             echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
-            UPDATE=1
+            UPDATE=true
+            mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
+            if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
+              UPDATE_NEED_RESTART=true
+            fi  
         fi
     else
         echo "***************     Installing EricomShield ($ES_SETUP_VER)..."
         echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
     fi
-
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
+
+    if [ -f "$ES_YML_FILE" ]; then
+       mv  "$ES_YML_FILE"  "$ES_YML_FILE_BAK"
+    fi   
+
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
-    curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
-    chmod +x deploy-shield.sh
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
@@ -270,11 +295,13 @@ function get_shield_install_files() {
         echo "Getting $ES_repo_pocket_yml"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_pocket_yml"
     fi
+    curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_yml"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_dev_yml"
-#        curl -s -S -o deploy-shield.sh "$ES_repo_swarm_dev_sh"
+        curl -s -S -o deploy-shield.sh "$ES_repo_swarm_dev_sh"
     fi
+    chmod +x deploy-shield.sh
 }
 
 #############     Getting all files from Github
@@ -294,10 +321,6 @@ function get_shield_files() {
     chmod +x stop.sh
     curl -s -S -o status.sh "$ES_repo_status"
     chmod +x status.sh
-    if [ "$ES_DEV" == false ]; then
-       curl -s -S -o ericomshield "$ES_repo_service"
-    fi   
-    chmod +x ericomshield
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
 }
@@ -315,14 +338,30 @@ install_docker
 if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
 else
-    echo "An error occured during the installation: Failed to start docker service"
-    echo "$(date): An error occured during the installation: Failed to start docker service" >>"$LOGFILE"
-    exit 1
+   failed_to_install "Failed to start docker service"
+   exit 1
 fi
 
 install_docker_compose
 
 get_shield_install_files
+
+if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ]; then
+    echo 'You will now be presented with the End User License Agreement.'
+    echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
+    echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
+    read -n1 -r -p "Press any key to continue..." key
+    echo
+
+    curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
+    if accept_license "$ES_PATH/Ericom-EULA.txt"; then
+        log_message "EULA has been accepted"
+        date -Iminutes >"$EULA_ACCEPTED_FILE"
+    else
+        failed_to_install "EULA has not been accepted, exiting..."
+        exit -1
+    fi
+fi
 
 get_shield_files
 
@@ -333,17 +372,21 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-if [ $UPDATE -eq 0 ]; then
+if [ "$UPDATE" == false ]; then
     # New Installation
 
     create_shield_service
     systemctl start ericomshield-updater.service
 
 else # Update
-    echo -n "stop shield-broker"
-    docker service scale shield_broker-server=0
-    wait=0
-    while [ $wait -lt 5 ]; do
+   if [ "$UPDATE_NEED_RESTART" == true ]; then
+      echo " Stopping Ericom Shield for Update "
+      ./stop.sh
+     else
+      echo -n "stop shield-broker"
+      docker service scale shield_broker-server=0
+      wait=0
+      while [ $wait -lt 6 ]; do
         if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
             echo !
             break
@@ -352,8 +395,8 @@ else # Update
             sleep 10
         fi
         wait=$((wait + 1))
-    done
-
+      done
+    fi
 fi
 
 echo "source deploy-shield.sh"
@@ -365,18 +408,15 @@ if [ $? == 0 ]; then
 else
     echo "An error occured during the installation"
     echo "$(date): An error occured during the installation" >>"$LOGFILE"
-    echo "--failed" >>"$ES_VER_FILE" # adding failed into the version file
+    echo "--failed?" >>"$ES_VER_FILE" # adding failed into the version file
     exit 1
 fi
 
-#Check the status of the system, and clean only if running
+#Check the status of the system wait 30*10 (5 mins)
 wait=0
 while [ $wait -lt 10 ]; do
     if "$ES_PATH"/status.sh; then
         echo "Ericom Shield is Running!"
-        #Clean previous installed images
-        echo "*************** not cleaning old images for now"
-        #   docker system prune -f -a
         break
     else
         echo -n .
