@@ -105,7 +105,9 @@ function failed_to_install() {
           mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
        fi   
       else
-       rm "$ES_VER_FILE"             
+       if [ -f "$ES_VER_FILE" ]; then
+          rm "$ES_VER_FILE"             
+       fi   
     fi   
 }
 
@@ -326,7 +328,7 @@ function get_shield_files() {
     chmod +x ~/show-my-ip.sh
 }
 
-##################      MAIN: EVERYTHING START HERE: ##########################
+##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 check_free_space
 
