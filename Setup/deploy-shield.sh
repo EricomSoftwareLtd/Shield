@@ -95,7 +95,7 @@ function set_storage_driver() {
         echo '"storage-driver": "$STORAGE_DRIVER" in /etc/docker/daemon.json'
     else
         systemctl stop docker && \
-        cat /etc/docker/daemon.json | jq '. + {storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield && \
+        cat /etc/docker/daemon.json | jq '. + {storage-driver: "$STORAGE_DRIVER"}' >/etc/docker/daemon.json.shield && \
         echo 'Setting: "storage-driver": $STORAGE_DRIVER in /etc/docker/daemon.json' && \
         mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
         systemctl start docker || exit 1
@@ -193,7 +193,7 @@ fi
 create_uuid
 make_in_memory_volume
 set_experimental
-set_storage_driver
+#set_storage_driver
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
