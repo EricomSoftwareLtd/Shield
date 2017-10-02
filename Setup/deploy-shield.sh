@@ -192,7 +192,7 @@ fi
 
 create_uuid
 make_in_memory_volume
-set_experimental
+#set_experimental
 #set_storage_driver
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
