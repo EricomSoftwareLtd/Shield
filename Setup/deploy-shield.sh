@@ -12,8 +12,8 @@ STACK_NAME='shield'
 ES_YML_FILE=docker-compose.yml
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
-# STORAGE_DRIVER="overlay2" IN DEV
-STORAGE_DRIVER="aufs" IN PROD FOR NOW
+# STORAGE_DRIVER="overlay2" #IN DEV
+STORAGE_DRIVER="aufs" #IN PROD FOR NOW
 
 RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
