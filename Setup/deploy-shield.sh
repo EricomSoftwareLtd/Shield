@@ -12,6 +12,8 @@ STACK_NAME='shield'
 ES_YML_FILE=docker-compose.yml
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
+# STORAGE_DRIVER="overlay2" IN DEV
+STORAGE_DRIVER="aufs" IN PROD FOR NOW
 
 RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
@@ -89,12 +91,12 @@ function set_experimental() {
 }
 
 function set_storage_driver() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"$STORAGE_DRIVER"' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"storage-driver": "$STORAGE_DRIVER" in /etc/docker/daemon.json'
     else
         systemctl stop docker && \
         cat /etc/docker/daemon.json | jq '. + {storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield && \
-        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json' && \
+        echo 'Setting: "storage-driver": $STORAGE_DRIVER in /etc/docker/daemon.json' && \
         mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
         systemctl start docker || exit 1
     fi
