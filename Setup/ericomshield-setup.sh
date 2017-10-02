@@ -80,12 +80,12 @@ fi
 #Check if curl is installed (-w check that the whole word is found)
 if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     echo "***************     Installing curl"
-    sudo apt-get install curl
+    apt-get --assume-yes -y install curl
 fi
 
 if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
     echo "***************     Installing jq"
-    sudo apt-get install jq
+    apt-get --assume-yes -y install jq
 fi
 
 function log_message() {
