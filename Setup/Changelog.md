@@ -9,14 +9,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [17.39-Build:180] - 2017-10-2
+- File download and sanitiztion updates #842
+- Fixed missing version in about dialogs for admin #590
+- Fixed admin disconnect issue
+- Updated default white list , removed web.whatsapp.com and added shielddocs
+- CDR bug fixes #690 #776 
+- Fixed for issues #589 #855
+- Adding Flag to Restart the system during upgrade
+- Added EULA during installation #874
+- Fixed file not found issue during installation 
+- Web Service generate PAC file based on shield IP #837
+
+## [17.39-Build:179] - 2017-09-28
+- Fixed missing version in about dialogs for admin #590
+- Using newer portainer:1.14.2
+- Auto-Calculated System Capacity #668
+- Implement a workaround for #855 (DNS issue)
+
+## [17.39-Build:178] - 2017-09-26
+- Fixed docs path for install certificate
+- Tab order for licensing #691
+- Dashboard refresh for every 5 seconds #787 
+- Logger module doesn't include component and log-level - Fixed #690 
+- Download a file - notification for small files can barely seen - Fixed #776
+
+## [17.39-Build:176] - 2017-09-26
+- CDR UI - #839 - domain instead of URL in admin strings policies
+- Fixes for #785 and #640 - cdr related changes
+- Fix update consul system-id from secret #686
+- Use settings from host's /etc/resolv.conf for DNS resolver in proxy-server
+
 ## [17.39-Build:175] - 2017-09-25
-- working with HAPI server in "stream" payload mode for better preformance
-- admin loading time on the first usage #712
-- removed the URL validation in admin/policies #788
-- reordered report columns #644
-- (*) re-structured download/sanitization reports #755
-- (*) fixed file appears twice at the sanitized report #806
-- (*) fixed report errorMessage and errorStep fields #644
+- Working with HAPI server in "stream" payload mode for better preformance
+- Admin loading time on the first usage #712
+- Removed the URL validation in admin/policies #788
+- Reordered report columns #644
+- (*) Re-structured download/sanitization reports #755
+- (*) Fixed file appears twice at the sanitized report #806
+- (*) Fixed report errorMessage and errorStep fields #644
 
 ## [17.38-Build:174] - 2017-09-18
 - fixes for web service (logs, code fixes, default PAC file)
