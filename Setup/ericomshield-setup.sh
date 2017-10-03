@@ -28,7 +28,7 @@ ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 
-ES_SETUP_VER="17.40d-Setup"
+ES_SETUP_VER="17.40e-Setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
@@ -170,8 +170,8 @@ function install_docker() {
 #        apt-get --assume-yes -y install docker-ce
 	
 	#Docker Installation of a specific Version
-        curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -
-        apt-add-repository "deb https://apt.dockerproject.org/repo debian-$(lsb_release -cs) main"
+        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 	echo -n "apt-get -qq update ..." 
         apt-get -qq update
 	echo "done"
