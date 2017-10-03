@@ -1,4 +1,4 @@
-#Build Dev:180 on 2/10/17
+#Build Dev:180b on 2/10/17
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_180
 shield-configuration:latest shield-configuration:170906-13.59-481
 shield-admin:latest shield-admin:171002-06.30-275
