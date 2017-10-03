@@ -13,7 +13,7 @@ if ((EUID != 0)); then
 fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_VERSION="17.0"
+DOCKER_VERSION="17.06.2"
 DOCKER_COMPOSE_VERSION="1.15.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
@@ -28,7 +28,7 @@ ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 
-ES_SETUP_VER="17.40-Setup"
+ES_SETUP_VER="17.40e-Setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
@@ -65,6 +65,14 @@ while [ $# -ne 0 ]; do
         ES_POCKET=true
         echo " pocket version "
         ;;
+    -restart)
+        UPDATE_NEED_RESTART=true
+        echo " Restart will be done during upgrade "	
+        ;;
+    -approve-eula)
+	log_message "EULA has been accepted from Command Line"
+        date -Iminutes >"$EULA_ACCEPTED_FILE"
+	;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]"
@@ -153,15 +161,25 @@ function install_docker() {
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https
-        apt-get update
-        apt-get --assume-yes -y install "linux-image-extra-$(uname -r)" linux-image-extra-virtual
-        apt-get --assume-yes -y install apt-transport-https ca-certificates software-properties-common
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-        apt-get update
-        apt-get --assume-yes -y install docker-ce
+#        apt-get update
+#        apt-get --assume-yes -y install "linux-image-extra-$(uname -r)" linux-image-extra-virtual
+#        apt-get --assume-yes -y install apt-transport-https ca-certificates software-properties-common
+#        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+#        apt-get update
+#        apt-get --assume-yes -y install docker-ce
+	
+	#Docker Installation of a specific Version
+        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+	echo -n "apt-get -qq update ..." 
+        apt-get -qq update
+	echo "done"
+        sudo apt-cache policy docker-ce
+	echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
+	sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
     else
-        echo " ******* docker-engine is already installed"
+        echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
     if [ "$(sudo docker version | wc -l)" -le 1 ]; then
        failed_to_install "Failed to Install Docker"
@@ -332,7 +350,7 @@ function get_shield_files() {
 
 check_free_space
 
-echo Docker Login: $DOCKER_USER $DOCKER_SECRET
+echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
