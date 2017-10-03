@@ -158,7 +158,7 @@ function check_free_space() {
 }
 
 function install_docker() {
-    if [ "$(sudo docker version | grep -c $(DOCKER_VERSION) )" -le 1 ]; then
+    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https
 #        apt-get update
@@ -175,10 +175,10 @@ function install_docker() {
         sudo apt-get update
 
         sudo apt-cache policy docker-ce
-	echo "Installing Docker: docker-ce=$(DOCKER_VERSION)~ce-2~ubuntu"
+	echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-2~ubuntu"
 	sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$(DOCKER_VERSION)~ce-2~ubuntu
     else
-        echo " ******* docker-engine $(DOCKER_VERSION) is already installed"
+        echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
     if [ "$(sudo docker version | wc -l)" -le 1 ]; then
        failed_to_install "Failed to Install Docker"
