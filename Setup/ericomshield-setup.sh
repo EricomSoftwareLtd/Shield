@@ -28,7 +28,7 @@ ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 
-ES_SETUP_VER="17.40c-Setup"
+ES_SETUP_VER="17.40d-Setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
@@ -171,12 +171,13 @@ function install_docker() {
 	
 	#Docker Installation of a specific Version
         curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -
-        sudo apt-add-repository "deb https://apt.dockerproject.org/repo debian-$(lsb_release -cs) main"
-        sudo apt-get -qq update
-
+        apt-add-repository "deb https://apt.dockerproject.org/repo debian-$(lsb_release -cs) main"
+	echo -n "apt-get -qq update ..." 
+        apt-get -qq update
+	echo "done"
         sudo apt-cache policy docker-ce
 	echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-	sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$(DOCKER_VERSION)~ce-0~ubuntu
+	sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
