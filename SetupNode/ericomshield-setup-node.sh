@@ -1,7 +1,7 @@
 #!/bin/bash
 ############################################
 #####   Ericom Shield Installer        #####
-#######################################BH###
+#######################################LO###
 
 ###------------------Remove it --------------------
 ## docker swarm init --advertise-addr 10.0.0.1
@@ -12,8 +12,9 @@ MACHINE_IPS=
 MACHINES=
 SWARM_TOKEN=
 LEADER_IP=
+INSTALL_DOCKER_BRANCH="multinode"
 CERTIFICATE_FILE=./shield_crt
-DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/install-docker.sh"
+DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$INSTALL_DOCKER_BRANCH/SetupNode/install-docker.sh"
 ALLOW_BROWSERS=
 ALLOW_SHIELD_CORE=
 ALLOW_MANAGEMENT=
