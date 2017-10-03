@@ -437,7 +437,7 @@ do_install() {
 					$sh_c 'sed -i "/deb-src.*download\.docker/d" /etc/apt/sources.list.d/docker.list'
 				fi
 				$sh_c 'apt-get update -qq >/dev/null'
-				$sh_c 'apt-get install -y -qq docker-ce=$UBUNTU_DOCKER_VERSION~ce-0~ubuntu >/dev/null'
+				$sh_c "apt-get install -y -qq docker-ce=$UBUNTU_DOCKER_VERSION~ce-0~ubuntu >/dev/null"
 			)
 			echo_docker_as_nonroot
 			exit 0
