@@ -9,10 +9,10 @@ function FindProxyForURL(url, host) {
         // Resolve IP Address
         var resolvedDestIp = dnsResolve(host);
         // If Resolved IP is null, use DIRECT
-#        if ("0.0.0.0" == resolvedDestIp) {
-#        // DIRECT means that Shield is bypassed and Direct Connection is used 
-#           return "DIRECT";
-#        }
+//        if ("0.0.0.0" == resolvedDestIp) {
+//        // DIRECT means that Shield is bypassed and Direct Connection is used 
+//           return "DIRECT";
+//        }
         // If Resolved IP is localhost, use DIRECT    
         if (resolvedDestIp && isInNet(resolvedDestIp, '127.0.0.0', '255.0.0.0')) {
            return "DIRECT";
