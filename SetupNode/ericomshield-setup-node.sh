@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################LO###
@@ -27,18 +27,38 @@ command_exists() {
 
 print_usage() {
     echo "Usage: ericomshield-setup-node.sh
-        -u|--user ssl usename
+        get help for prepare machine to join to cluster https://docs.docker.com/machine/drivers/generic
+        [-u|--user] ssl usename
         [-t|--token] Token to join to swarm deafult will be provide from current cluster
-        -l|--leader leader ip
+        [-l|--leader] leader ip
+        [-c|--certificate] path to sertificate file. Should be together private and public (file name + .pub)
+        [-t|--token] swarm join token 'docker swarm join-token -q worker|manager'
         [-m|--mode] Mode to join should be worker|manager default worker
-        -ips|--machines-ip IPs of machines to append separated by ','"
+        [-n|--name] Node name prefix. should be only letters. default WORKER. Final looks (NAME) + node number
+        -ips|--machines-ip IPs of machines to append separated by ','
+        [-b|--browser] Allow shield-browser containers to be allocated on this node
+        [-sc|--shield-core] Allow shield-core containers to be allocated on this node
+        [-mng|--management] Allow to shield managment container to be allocated on node"
+
+}
+
+check_machine_name() {
+    cnt=$2
+    TEST="1"
+    while [ -n "$TEST" ]; do
+         TEST_NAME="$1$cnt"
+         TEST=$(docker-machine ls | grep $TEST_NAME)
+         cnt=$(($cnt + 1))
+    done
+
+    echo "$TEST_NAME"
 }
 
 
 create_generic_machines() {
     counter=0
     for ip in $MACHINE_IPS; do
-        MACHINE_NAME="$NAME_PREFIX$counter"
+        MACHINE_NAME=$(check_machine_name $NAME_PREFIX $counter)
         docker-machine create \
             -d "generic" --generic-ip-address $ip \
             --generic-ssh-key $CERTIFICATE_FILE \
@@ -223,6 +243,12 @@ fi
 
 if [ -z "$MACHINE_IPS" ]; then
     echo "IPs of nodes required at least one"
+    print_usage
+    exit 1
+fi
+
+if [ -z "$ALLOW_BROWSERS"  -a -z "$ALLOW_MANAGEMENT" -a -z "$ALLOW_SHIELD_CORE" ]; then
+    echo "No allocation switches found please choose at least one"
     print_usage
     exit 1
 fi
