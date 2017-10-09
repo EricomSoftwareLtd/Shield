@@ -19,6 +19,7 @@ ALLOW_BROWSERS=
 ALLOW_SHIELD_CORE=
 ALLOW_MANAGEMENT=
 NAME_PREFIX="WORKER"
+MACHINE_USER_PASS=
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
@@ -158,16 +159,28 @@ make-leader-ip() {
 }
 
 
+append-sshpass() {
+    if ! command_exists sshpass; then
+        sudo apt-get install -y --assume-yes sshpass
+    fi
+}
+
+
+collect_machine_pass() {
+    read -s -p "Machine user Password: " MACHINE_USER_PASS
+}
+
+
 make_machines_ready() {
     ssh-keygen -b 2048 -t rsa -f $CERTIFICATE_FILE -q -N ""
     cert_name=$(basename $CERTIFICATE_FILE)
     for ip in $MACHINE_IPS; do
         echo '#################################################################### Prepare machine interactive #########################################'
-        ssh -t $MACHINE_USER@$ip <<- EOF
+        sshpass -p$MACHINE_USER_PASS ssh -o StrictHostKeyChecking=no $MACHINE_USER@$ip <<- EOF
 
 EOF
-        scp "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/authorized_keys
-        ssh -t $MACHINE_USER@$ip <<- EOF
+        sshpass -p$MACHINE_USER_PASS scp "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/authorized_keys
+        sshpass -p$MACHINE_USER_PASS ssh -o StrictHostKeyChecking=no $MACHINE_USER@$ip <<- EOF
             if [ ! -d ~/.ssh ]; then
                 mkdir ~/.ssh
             fi
@@ -183,6 +196,8 @@ if ! command_exists docker-machine; then
     sudo chmod +x /usr/local/bin/docker-machine
 fi
 
+append-sshpass
+collect_machine_pass
 
 while [ $# -ne 0 ]; do
     arg="$1"
