@@ -51,7 +51,7 @@ services:
           syslog-address: udp://${SYS_LOG_HOST}:5014
 
   elk:
-      image: securebrowsing/shield-elk:latest
+      image: securebrowsing/shield-elk:experiment
       ports:
           - 5601:5601
           - 9200:9200
@@ -171,7 +171,7 @@ services:
             syslog-address: udp://${SYS_LOG_HOST}:5014
 
   broker-server:
-        image: securebrowsing/broker-server:latest
+        image: securebrowsing/broker-server:test
         # user: nobody
         hostname: broker-server
         deploy:
@@ -198,10 +198,10 @@ services:
           - shield
         secrets:
           - shield-system-id
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+#        logging:
+#          driver: syslog
+#          options:
+#            syslog-address: udp://${SYS_LOG_HOST}:5014
 
   shield-browser:
         image: securebrowsing/shield-cef:latest
