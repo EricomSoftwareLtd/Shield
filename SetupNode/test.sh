@@ -1,10 +1,27 @@
 #!/bin/bash -x
 
+MACHINE_USER_PASS=
+
+command_exists() {
+	command -v "$@" > /dev/null 2>&1
+}
 
 
-IFS=',' read -r -a array <<< "$@"
+append-sshpass() {
+    if ! command_exists sshpass; then
+        sudo apt-get install -y --assume-yes sshpass
+    fi
+}
 
 
-for ip in "${array[@]}"; do
-    echo "$ip"
-done
+collect_machine_pass() {
+    echo "Remote machine password:"
+    read MACHINE_USER_PASS
+}
+
+
+
+append-sshpass
+
+
+sshpass -p$MACHINE_USER_PASS ssh -o StrictHostKeyChecking=no ericom@10.0.0.103 sudo cat /etc/sudoers
