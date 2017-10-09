@@ -12,7 +12,7 @@ MACHINE_IPS=
 MACHINES=
 SWARM_TOKEN=
 LEADER_IP=
-CERTIFICATE_FILE=./shield_cert
+CERTIFICATE_FILE=./shield_crt
 DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/jenkins/SetupNode/install-docker.sh"
 ALLOW_BROWSERS=
 ALLOW_SHIELD_CORE=
@@ -136,6 +136,14 @@ make-leader-ip() {
     fi
 }
 
+
+make_machines_ready() {
+
+    for ip in $MACHINE_IPS; do
+
+    done
+}
+
 if ! command_exists docker-machine; then
     echo "###################################### Install docker machine ################################"
     sudo curl -L https://github.com/docker/machine/releases/download/v0.12.2/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && \
@@ -211,6 +219,7 @@ fi
 echo "Machine IPS: $MACHINE_IPS"
 
 set -e
+make_machines_ready
 create_generic_machines
 set +e
 join_machines_to_swarm
