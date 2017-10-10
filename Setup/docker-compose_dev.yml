@@ -308,6 +308,8 @@ services:
           - "8888:1345"
         networks:
           - shield
+        environment:
+            - "SHIELD_IP=IP_ADDRESS"
         deploy:
           replicas: 1
           placement:
