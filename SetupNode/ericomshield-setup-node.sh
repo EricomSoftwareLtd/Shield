@@ -171,21 +171,32 @@ collect_machine_pass() {
 }
 
 
+make_leader_hosts_record() {
+     IFS=':' read -r -a array <<< "$LEADER_IP"
+     CLEAN_IP="${array[0]}"
+     CLEAN_HOST=$(hostname)
+
+     echo "$CLEAN_IP    $CLEAN_HOST"
+}
+
+
 make_machines_ready() {
     ssh-keygen -b 2048 -t rsa -f $CERTIFICATE_FILE -q -N ""
     cert_name=$(basename $CERTIFICATE_FILE)
     for ip in $MACHINE_IPS; do
         echo '#################################################################### Prepare machine interactive #########################################'
-        sshpass -p$MACHINE_USER_PASS ssh -o StrictHostKeyChecking=no $MACHINE_USER@$ip <<- EOF
+        sshpass -p$MACHINE_USER_PASS scp -o StrictHostKeyChecking=no "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/authorized_keys
 
-EOF
-        sshpass -p$MACHINE_USER_PASS scp "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/authorized_keys
+        HOST_NU=$(make_leader_hosts_record)
+
         sshpass -p$MACHINE_USER_PASS ssh -o StrictHostKeyChecking=no $MACHINE_USER@$ip <<- EOF
             if [ ! -d ~/.ssh ]; then
                 mkdir ~/.ssh
             fi
             mv authorized_keys ~/.ssh/
             chmod 600 ~/.ssh/authorized_keys
+            sudo su
+            echo "$HOST_NU" >> /etc/hosts
 EOF
     done
 }

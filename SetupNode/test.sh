@@ -1,27 +1,21 @@
 #!/bin/bash -x
 
-MACHINE_USER_PASS=
+LEADER_IP=10.0.0.1:2377
 
-command_exists() {
-	command -v "$@" > /dev/null 2>&1
+
+make_leader_hosts_record() {
+     IFS=':' read -r -a array <<< "$LEADER_IP"
+     CLEAN_IP="${array[0]}"
+     CLEAN_HOST=$(hostname)
+
+     echo "$CLEAN_IP    $CLEAN_HOST"
 }
 
 
-append-sshpass() {
-    if ! command_exists sshpass; then
-        sudo apt-get install -y --assume-yes sshpass
-    fi
-}
+NU=$(make_leader_hosts_record)
 
-
-collect_machine_pass() {
-    echo "Remote machine password:"
-    read MACHINE_USER_PASS
-}
-
-
-
-append-sshpass
-
-
-sshpass -p$MACHINE_USER_PASS ssh -o StrictHostKeyChecking=no ericom@10.0.0.103 sudo cat /etc/sudoers
+sshpass -pEricom123$ ssh -o StrictHostKeyChecking=no -q ericom@10.0.0.101 <<- EOF
+    sudo su
+    echo "$NU" >> /etc/hosts
+    cat /etc/hosts
+EOF
