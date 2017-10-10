@@ -185,10 +185,10 @@ set_experimental
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
-#replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
 create_proxy_env_file
 
-#pull_images
+pull_images
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
