@@ -9,5 +9,5 @@ while read -r line; do
         docker pull "securebrowsing/${arr[1]}"
         docker tag "securebrowsing/${arr[1]}" "securebrowsing/${arr[0]}"
     fi
-    COUNTER=$((COUNTER + 1))
-done <"$filename"
+    COUNTER=$(($COUNTER+1))
+done < "$filename"
