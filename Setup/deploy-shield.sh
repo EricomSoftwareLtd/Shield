@@ -12,6 +12,8 @@ STACK_NAME='shield'
 ES_YML_FILE=docker-compose.yml
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
+# STORAGE_DRIVER="overlay2" #IN DEV
+STORAGE_DRIVER="aufs" #IN PROD FOR NOW
 
 RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
@@ -77,11 +79,26 @@ function init_swarm() {
 }
 
 function set_experimental() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental" : true' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"experimental" : true in /etc/docker/daemon.json'
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental"[[:space:]]*:[[:space:]]*true' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"experimental": true in /etc/docker/daemon.json'
     else
-        echo $'{\n\"experimental\" : true\n}\n' >/etc/docker/daemon.json
-        echo 'Setting: "experimental" : true in /etc/docker/daemon.json'
+        systemctl stop docker && \
+        cat /etc/docker/daemon.json | jq '. + {experimental: true}' >/etc/docker/daemon.json.shield && \
+        echo 'Setting: "experimental": true in /etc/docker/daemon.json' && \
+        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
+        systemctl start docker || exit 1
+    fi
+}
+
+function set_storage_driver() {
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"$STORAGE_DRIVER"' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"storage-driver": "$STORAGE_DRIVER" in /etc/docker/daemon.json'
+    else
+        systemctl stop docker && \
+        cat /etc/docker/daemon.json | jq '. + {storage-driver: "$STORAGE_DRIVER"}' >/etc/docker/daemon.json.shield && \
+        echo 'Setting: "storage-driver": $STORAGE_DRIVER in /etc/docker/daemon.json' && \
+        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
+        systemctl start docker || exit 1
     fi
 }
 
@@ -105,7 +122,7 @@ function pull_images() {
         else
         arr=($line)
          if [ $LINE -eq 1 ]; then
-           if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+           if [ -f .version] && [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
              echo "No new version detected"
              break;
            fi
@@ -175,7 +192,8 @@ fi
 
 create_uuid
 make_in_memory_volume
-set_experimental
+#set_experimental
+#set_storage_driver
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"

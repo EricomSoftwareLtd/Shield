@@ -13,7 +13,7 @@ if ((EUID != 0)); then
 fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_VERSION="17.0"
+DOCKER_VERSION="17.06.2"
 DOCKER_COMPOSE_VERSION="1.15.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
@@ -26,8 +26,9 @@ ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
+EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 
-ES_SETUP_VER="17.37-setup"
+ES_SETUP_VER="17.40e-Setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
@@ -64,6 +65,14 @@ while [ $# -ne 0 ]; do
         ES_POCKET=true
         echo " pocket version "
         ;;
+    -restart)
+        UPDATE_NEED_RESTART=true
+        echo " Restart will be done during upgrade "	
+        ;;
+    -approve-eula)
+	log_message "EULA has been accepted from Command Line"
+        date -Iminutes >"$EULA_ACCEPTED_FILE"
+	;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]"
@@ -84,23 +93,66 @@ fi
 #Check if curl is installed (-w check that the whole word is found)
 if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     echo "***************     Installing curl"
-    sudo apt-get install curl
+    apt-get --assume-yes -y install curl
+fi
+
+if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
+    echo "***************     Installing jq"
+    apt-get --assume-yes -y install jq
 fi
 
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
 }
+function failed_to_install() {
+   log_message "An error occured during the installation: $1, Exiting!"
+
+    if [ "$UPDATE" == true ]; then
+       if [ -f "$ES_VER_FILE" ]; then
+          mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
+       fi   
+      else
+       if [ -f "$ES_VER_FILE" ]; then
+          rm "$ES_VER_FILE"             
+       fi   
+    fi   
+}
+
+function accept_license() {
+    export LESSSECURE=1
+    while less -P"%pb\% Press h for help or q to quit" "$1" &&
+        read -p "Do you accept the EULA (yes/no/anything else to display it again)? " choice; do
+        case "$choice" in
+        y | Y | n | N)
+            echo 'Please, type "yes" or "no"'
+            read -n1 -r -p "Press any key to continue..." key
+            ;;
+        "yes" | "YES" | "Yes")
+            echo "yes"
+            return 0
+            ;;
+        "no" | "NO" | "No")
+            echo "no"
+            break
+            ;;
+        *) ;;
+
+        esac
+    done
+
+    return -1
+}
 
 function check_free_space() {
     FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
     FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
     if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
-        log_message "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        failed_to_install "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
         exit 1
     fi
     if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
-        log_message "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        failed_to_install "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
         exit 1
     fi
 }
@@ -109,20 +161,29 @@ function install_docker() {
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https
-        apt-get update
-        apt-get --assume-yes -y install "linux-image-extra-$(uname -r)" linux-image-extra-virtual
-        apt-get --assume-yes -y install apt-transport-https ca-certificates software-properties-common
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-        apt-get update
-        apt-get --assume-yes -y install docker-ce
+#        apt-get update
+#        apt-get --assume-yes -y install "linux-image-extra-$(uname -r)" linux-image-extra-virtual
+#        apt-get --assume-yes -y install apt-transport-https ca-certificates software-properties-common
+#        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+#        apt-get update
+#        apt-get --assume-yes -y install docker-ce
+	
+	#Docker Installation of a specific Version
+        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	echo -n "apt-get -qq update ..." 
+        apt-get -qq update
+	echo "done"
+        sudo apt-cache policy docker-ce
+	echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
+	sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
     else
-        echo " ******* docker-engine is already installed"
+        echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
     if [ "$(sudo docker version | wc -l)" -le 1 ]; then
-        echo "Failed to install docker, Exiting!"
-        echo "$(date): An error occured during the installation: Cannot login to docker" >>"$LOGFILE"
-        exit 1
+       failed_to_install "Failed to Install Docker"
+       exit 1
     fi
 }
 
@@ -178,11 +239,10 @@ function create_shield_service() {
     if [ ! -f "${ES_PATH}/ericomshield-updater.service" ]; then
         # Need to download the service file only if needed and reload only if changed
         curl -s -S -o "${ES_PATH}/ericomshield-updater.service" "${ES_repo_systemd_updater_service}"
-    fi
-    systemctl link ${ES_PATH}/ericomshield-updater.service
-    systemctl --system enable ${ES_PATH}/ericomshield-updater.service
-
-    systemctl daemon-reload
+        systemctl link ${ES_PATH}/ericomshield-updater.service
+        systemctl --system enable ${ES_PATH}/ericomshield-updater.service
+        systemctl daemon-reload
+	fi	
     echo "Done!"
 }
 
@@ -222,7 +282,6 @@ function get_shield_install_files() {
         echo "Getting $ES_repo_ver (prod)"
         curl -s -S -o shield-version-new.txt "$ES_repo_ver"
     fi
-
     if [ -f "$ES_VER_FILE" ]; then
         if [ "$(diff "$ES_VER_FILE" shield-version-new.txt | wc -l)" -eq 0 ]; then
             echo "Your EricomShield System is Up to date"
@@ -231,23 +290,24 @@ function get_shield_install_files() {
             echo "***************     Updating EricomShield ($ES_SETUP_VER)"
             echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
             UPDATE=true
+            mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
             if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
               UPDATE_NEED_RESTART=true
-            fi
+            fi  
         fi
     else
         echo "***************     Installing EricomShield ($ES_SETUP_VER)..."
         echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
     fi
-
-    mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
-    mv  $ES_YML_FILE  $ES_YML_FILE_BAK
+
+    if [ -f "$ES_YML_FILE" ]; then
+       mv  "$ES_YML_FILE"  "$ES_YML_FILE_BAK"
+    fi   
+
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
-    curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
-    chmod +x deploy-shield.sh
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
@@ -256,11 +316,13 @@ function get_shield_install_files() {
         echo "Getting $ES_repo_pocket_yml"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_pocket_yml"
     fi
+    curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_yml"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_dev_yml"
         curl -s -S -o deploy-shield.sh "$ES_repo_swarm_dev_sh"
     fi
+    chmod +x deploy-shield.sh
 }
 
 #############     Getting all files from Github
@@ -284,11 +346,11 @@ function get_shield_files() {
     chmod +x ~/show-my-ip.sh
 }
 
-##################      MAIN: EVERYTHING START HERE: ##########################
+##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 check_free_space
 
-echo Docker Login: $DOCKER_USER $DOCKER_SECRET
+echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
@@ -297,14 +359,30 @@ install_docker
 if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
 else
-    echo "An error occured during the installation: Failed to start docker service"
-    echo "$(date): An error occured during the installation: Failed to start docker service" >>"$LOGFILE"
-    exit 1
+   failed_to_install "Failed to start docker service"
+   exit 1
 fi
 
 install_docker_compose
 
 get_shield_install_files
+
+if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ]; then
+    echo 'You will now be presented with the End User License Agreement.'
+    echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
+    echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
+    read -n1 -r -p "Press any key to continue..." key
+    echo
+
+    curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
+    if accept_license "$ES_PATH/Ericom-EULA.txt"; then
+        log_message "EULA has been accepted"
+        date -Iminutes >"$EULA_ACCEPTED_FILE"
+    else
+        failed_to_install "EULA has not been accepted, exiting..."
+        exit -1
+    fi
+fi
 
 get_shield_files
 
@@ -315,7 +393,13 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-if [ "$UPDATE" == true ]; then
+if [ "$UPDATE" == false ]; then
+    # New Installation
+
+    create_shield_service
+    systemctl start ericomshield-updater.service
+
+else # Update
    if [ "$UPDATE_NEED_RESTART" == true ]; then
       echo " Stopping Ericom Shield for Update "
       ./stop.sh
@@ -323,7 +407,7 @@ if [ "$UPDATE" == true ]; then
       echo -n "stop shield-broker"
       docker service scale shield_broker-server=0
       wait=0
-      while [ $wait -lt 5 ]; do
+      while [ $wait -lt 6 ]; do
         if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
             echo !
             break
@@ -333,9 +417,8 @@ if [ "$UPDATE" == true ]; then
         fi
         wait=$((wait + 1))
       done
-   fi
+    fi
 fi
-systemctl start ericomshield-updater.service
 
 echo "source deploy-shield.sh"
 source deploy-shield.sh
@@ -346,7 +429,7 @@ if [ $? == 0 ]; then
 else
     echo "An error occured during the installation"
     echo "$(date): An error occured during the installation" >>"$LOGFILE"
-    echo "--failed" >>"$ES_VER_FILE" # adding failed into the version file
+    echo "--failed?" >>"$ES_VER_FILE" # adding failed into the version file
     exit 1
 fi
 
@@ -358,7 +441,7 @@ while [ $wait -lt 10 ]; do
         break
     else
         echo -n .
-        sleep 30
+        sleep 20
     fi
     wait=$((wait + 1))
 done
