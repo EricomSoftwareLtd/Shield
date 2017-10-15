@@ -280,7 +280,7 @@ services:
               memory: 500MB
               cpus: "1"
     authproxy:
-        image: securebrowsing/authproxy:latest
+        image: securebrowsing/shield-authproxy:latest
         deploy:
             mode: global
             placement:
