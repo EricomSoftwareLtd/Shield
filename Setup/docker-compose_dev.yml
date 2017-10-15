@@ -28,7 +28,7 @@ services:
        - "DOCKER_PERIOD=5m"
 
   maintence:
-    image: securebrowsing/shield-maintenance:test
+    image: securebrowsing/shield-maintenance:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -51,7 +51,7 @@ services:
           syslog-address: udp://${SYS_LOG_HOST}:5014
 
   elk:
-      image: securebrowsing/shield-elk:experiment
+      image: securebrowsing/shield-elk:latest
       ports:
           - 5601:5601
           - 9200:9200
@@ -171,7 +171,7 @@ services:
             syslog-address: udp://${SYS_LOG_HOST}:5014
 
   broker-server:
-        image: securebrowsing/broker-server:test
+        image: securebrowsing/broker-server:latest
         # user: nobody
         hostname: broker-server
         deploy:
