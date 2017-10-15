@@ -27,7 +27,7 @@ services:
        - "SYSTEM_PERIOD=5m"
        - "DOCKER_PERIOD=5m"
 
-  maintence:
+  maintenance:
     image: securebrowsing/shield-maintenance:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
