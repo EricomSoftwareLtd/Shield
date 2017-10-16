@@ -198,10 +198,10 @@ services:
           - shield
         secrets:
           - shield-system-id
-#        logging:
-#          driver: syslog
-#          options:
-#            syslog-address: udp://${SYS_LOG_HOST}:5014
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
   shield-browser:
         image: securebrowsing/shield-cef:latest
