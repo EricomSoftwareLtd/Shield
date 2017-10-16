@@ -161,9 +161,9 @@ while [ "$1" != "" ]; do
 done
 
 if [ -z "$JENKINS" ]; then
-    ES_YML_FILE=docker-compose_dev.yml
-else
     ES_YML_FILE=docker-compose.yml
+else
+    ES_YML_FILE=docker-compose_dev.yml
 fi
 
 if [ -z "$SINGLE_MODE" ]; then
@@ -198,7 +198,9 @@ SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
 replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
 create_proxy_env_file
 
-pull_images
+if [ -z "$JENKINS" ]; then
+ pull_images
+fi
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
