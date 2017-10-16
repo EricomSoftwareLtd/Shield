@@ -14,11 +14,11 @@ fi
 
 LOGFILE="ericomshield-ova.log"
 OVA_FILE="shield_eval.ova"
-ES_repo_Vagrant=https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Vagrantfile"
-ES_repo_Vagrant_dev="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Vagrantfile_dev"
+ES_repo_Vagrant="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/VirtualAppliance/Vagrantfile"
+ES_repo_Vagrant_dev="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/VirtualAppliance/Vagrantfile_dev"
 PUSH_STRATEGY_GDRIVE="0"
 PUSH_STRATEGY_COPY="1"
-TARGET_FOLDER="/tmp/shield_ova/"
+TARGET_FOLDER="./shield_ova/"
 PUSH_STRATEGY_FTP="0"
 
 if [ "$1" == "-dev" ]; then

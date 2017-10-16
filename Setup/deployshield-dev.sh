@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# set -ex
+#set -x
 
 ###########################################
 #####   Ericom Shield Installer        #####
 ###################################LO##BH###
+JENKINS=
 NETWORK_INTERFACE='eth0'
 SINGLE_MODE=true
 STACK_NAME='shield'
-ES_YML_FILE=docker-compose.yml
+ES_YML_FILE=
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
 
@@ -152,9 +153,18 @@ while [ "$1" != "" ]; do
     -s | --single-mode)
         SINGLE_MODE=true
         ;;
+    -j | --jenkins)
+        JENKINS="yes"
+        ;;
     esac
     shift
 done
+
+if [ -z "$JENKINS" ]; then
+    ES_YML_FILE=docker-compose.yml
+else
+    ES_YML_FILE=docker-compose_dev.yml
+fi
 
 if [ -z "$SINGLE_MODE" ]; then
     echo 'Run multinode script'
@@ -185,12 +195,15 @@ set_experimental
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
-replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+if [ -z "$JENKINS" ]; then
+    replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+fi
+
 create_proxy_env_file
 
-pull_images
+if [ -z "$JENKINS" ]; then
+   pull_images
+fi
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
-
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
-
