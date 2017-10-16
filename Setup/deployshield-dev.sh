@@ -5,10 +5,11 @@
 ###########################################
 #####   Ericom Shield Installer        #####
 ###################################LO##BH###
+JENKINS=
 NETWORK_INTERFACE='eth0'
 SINGLE_MODE=true
 STACK_NAME='shield'
-ES_YML_FILE=docker-compose.yml
+ES_YML_FILE=
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
 
@@ -152,9 +153,18 @@ while [ "$1" != "" ]; do
     -s | --single-mode)
         SINGLE_MODE=true
         ;;
+    -j | --jenkins)
+        JENKINS="yes"
+        ;;
     esac
     shift
 done
+
+if [ -z "$JENKINS" ]; then
+    ES_YML_FILE=docker-compose_dev.yml
+else
+    ES_YML_FILE=docker-compose.yml
+fi
 
 if [ -z "$SINGLE_MODE" ]; then
     echo 'Run multinode script'
@@ -191,6 +201,4 @@ create_proxy_env_file
 pull_images
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
-
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
-
