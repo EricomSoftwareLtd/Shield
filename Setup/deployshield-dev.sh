@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# set -ex
+#set -x
 
 ###########################################
 #####   Ericom Shield Installer        #####
@@ -195,11 +195,14 @@ set_experimental
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
-replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+if [ -z "$JENKINS" ]; then
+    replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+fi
+
 create_proxy_env_file
 
 if [ -z "$JENKINS" ]; then
- pull_images
+   pull_images
 fi
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
