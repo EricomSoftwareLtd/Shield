@@ -10,4 +10,4 @@ echo "***********       Stopping EricomShield "
 echo "***********       "
 docker stack rm $STACK_NAME
 #   docker swarm leave -f
-umount /tmp/containershm
+#umount /tmp/containershm
