@@ -8,7 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [17.41-Build:181] - 2017-10-2
+- New keybaord code
+- ELK now work on Debian 
 - Installing Docker Version 17.06 (Upgrade/Downgrade if version is different)
+- first version of Auth Proxy and shield-maintenance continers
 
 ## [17.39-Build:180] - 2017-10-2
 - File download and sanitiztion updates #842
