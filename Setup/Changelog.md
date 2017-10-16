@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [17.41-Build:181] - 2017-10-2
+## [17.41-Build:182] - 2017-10-16
+- Fixed systemId bug #888
+- Fixed documnation link #885
+- Basic support for IE #819
+- Basic support for proxy auth 
+
+## [17.41-Build:181] - 2017-10-15
 - New keybaord code
 - ELK now work on Debian 
 - Installing Docker Version 17.06 (Upgrade/Downgrade if version is different)
