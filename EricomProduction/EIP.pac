@@ -60,10 +60,10 @@ function FindProxyForURL(url, host) {
 	if (isInNet(myIpAddress(), "192.168.50.0", "255.255.255.0")) {
 		return proxy_mo;
 	}
-	else return proxy_il;
+
 
 // DEFAULT RULE: All other traffic, use below proxy.
-//return shield_proxy;
+return proxy_il;
 
 // DEFAULT RULE: All other traffic, use below proxies, in fail-over order.
 // return "PROXY shield_server_1:3128; PROXY shield_server_2:3128";
