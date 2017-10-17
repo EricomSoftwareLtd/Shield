@@ -88,7 +88,7 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
-    cho ' ericomshield VM using Vagrant (17.36) '
+    echo ' ericomshield VM using Vagrant (17.36) '
     apt-get update > /dev/null 2 >&1
     apt-get upgrade > /dev/null 2 >&1
     apt-get install uuid-runtime > /dev/null 2 >&1
