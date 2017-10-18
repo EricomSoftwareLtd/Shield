@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.3"
 
 # Ericom Shield Stack Description
 # YML file for Dev
@@ -76,15 +76,14 @@ services:
       volumes:
          - elastic:/var/lib
     
-  consul:
-    image: securebrowsing/shield-configuration:latest
+  consul-server:
+    image: securebrowsing/shield-configuration:multi
     networks:
          - shield
-    ports:
-        - "8500:8500"
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 3
+      endpoint_mode: dnsrr
       placement:
         constraints:
             - node.labels.management==yes
@@ -98,12 +97,37 @@ services:
           memory: 1GB
           cpus: "1"
     environment:
-        - "CONSUL_BIND_INTERFACE=eth2"
+        - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=1"
-    logging:
-      driver: syslog
-      options:
-        syslog-address: udp://${SYS_LOG_HOST}:5014
+#    logging:
+#      driver: syslog
+#      options:
+#        syslog-address: udp://${SYS_LOG_HOST}:5014
+  consul:
+      image: securebrowsing/shield-configuration:multi
+      networks:
+           - shield
+      ports:
+          - "8500:8500"
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+            parallelism: 1
+            failure_action: rollback
+        restart_policy:
+            condition: any
+        resources:
+          limits:
+            memory: 1GB
+            cpus: "1"
+      environment:
+          - "CONSUL_BIND_INTERFACE=eth2"
+          - "RUN_AGENT=yes"
+#    logging:
+#      driver: syslog
+#      options:
+#        syslog-address: udp://${SYS_LOG_HOST}:5014
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:

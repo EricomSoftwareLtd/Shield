@@ -80,7 +80,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
 
 ###################################################################### Shield services part ##################################################################
     shield-admin:
@@ -110,7 +110,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
 
     icap-server:
         image: securebrowsing/icap-server:latest
@@ -145,7 +145,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
 
     broker-server:
         image: securebrowsing/broker-server:latest
@@ -175,7 +175,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
 
     shield-browser:
         image: securebrowsing/shield-cef:latest
@@ -217,7 +217,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
 
     proxy-server:
         image: securebrowsing/proxy-server:latest
@@ -251,7 +251,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
     ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy
@@ -291,7 +291,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
 
     cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
@@ -311,7 +311,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
     ############################### Docker managment part ##############################################################
     portainer:
         image: securebrowsing/shield-portainer:latest
@@ -338,7 +338,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+            syslog-address: udp://lev-hp-elitebook-850-g3:5014
 
 volumes:
   elastic:
