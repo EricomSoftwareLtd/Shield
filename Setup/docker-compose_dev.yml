@@ -99,10 +99,10 @@ services:
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=1"
-#    logging:
-#      driver: syslog
-#      options:
-#        syslog-address: udp://${SYS_LOG_HOST}:5014
+    logging:
+      driver: syslog
+      options:
+        syslog-address: udp://${SYS_LOG_HOST}:5014
   consul:
       image: securebrowsing/shield-configuration:multi
       networks:
@@ -124,10 +124,10 @@ services:
       environment:
           - "CONSUL_BIND_INTERFACE=eth2"
           - "RUN_AGENT=yes"
-#    logging:
-#      driver: syslog
-#      options:
-#        syslog-address: udp://${SYS_LOG_HOST}:5014
+    logging:
+      driver: syslog
+      options:
+        syslog-address: udp://${SYS_LOG_HOST}:5014
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:
