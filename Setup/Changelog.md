@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.41-Build:183] - 2017-10-19
+- Fixed White urls Major flickering #969
+- Fixed proxy crach #955
+
 ## [17.41-Build:182] - 2017-10-16
 - Fixed systemId bug #888
 - Fixed documnation link #885
