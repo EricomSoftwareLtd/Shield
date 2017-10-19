@@ -229,7 +229,7 @@ services:
             syslog-address: udp://${SYS_LOG_HOST}:5014
 
   shield-browser:
-        image: securebrowsing/shield-cef:171016-13.17-294
+        image: securebrowsing/shield-cef:latest
         user: user
         ulimits:
             nice: -20
