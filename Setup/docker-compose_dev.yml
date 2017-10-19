@@ -86,7 +86,7 @@ services:
       endpoint_mode: dnsrr
       placement:
         constraints:
-            - node.labels.management==yes
+            - node.labels.consul-server==yes
       update_config:
           parallelism: 1
           failure_action: rollback
@@ -98,11 +98,12 @@ services:
           cpus: "1"
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
-        - "NUMBER_OF_EXPECTED=1"
+        - "NUMBER_OF_EXPECTED=3"
     logging:
       driver: syslog
       options:
         syslog-address: udp://${SYS_LOG_HOST}:5014
+
   consul:
       image: securebrowsing/shield-configuration:multi
       networks:
@@ -124,10 +125,10 @@ services:
       environment:
           - "CONSUL_BIND_INTERFACE=eth2"
           - "RUN_AGENT=yes"
-    logging:
-      driver: syslog
-      options:
-        syslog-address: udp://${SYS_LOG_HOST}:5014
+      logging:
+        driver: syslog
+        options:
+          syslog-address: udp://${SYS_LOG_HOST}:5014
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:
@@ -228,7 +229,7 @@ services:
             syslog-address: udp://${SYS_LOG_HOST}:5014
 
   shield-browser:
-        image: securebrowsing/shield-cef:latest
+        image: securebrowsing/shield-cef:171016-13.17-294
         user: user
         ulimits:
             nice: -20
@@ -447,6 +448,7 @@ networks:
       driver: default
       config:
         - subnet: 192.168.0.0/16
+
 secrets:
    shield-system-id:
        external: true
