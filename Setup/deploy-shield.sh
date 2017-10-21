@@ -1,22 +1,26 @@
+
 #!/bin/bash
 
-# set -ex
+#set -x
 
 ###########################################
 #####   Ericom Shield Installer        #####
 ###################################LO##BH###
+JENKINS=
 NETWORK_INTERFACE='eth0'
-IP_ADDRESS=
 SINGLE_MODE=true
 STACK_NAME='shield'
-ES_YML_FILE=docker-compose.yml
+ES_YML_FILE=
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
-# STORAGE_DRIVER="overlay2" #IN DEV
-STORAGE_DRIVER="aufs" #IN PROD FOR NOW
 
 RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
+
+#For bckwrd-compatibility and Jenkins
+if [ ! -f "$ES_YML_FILE" ]; then
+    ES_YML_FILE=docker-compose_dev.yml
+fi
 
 function join_by() {
     local IFS="$1"
@@ -79,26 +83,11 @@ function init_swarm() {
 }
 
 function set_experimental() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental"[[:space:]]*:[[:space:]]*true' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"experimental": true in /etc/docker/daemon.json'
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental" : true' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"experimental" : true in /etc/docker/daemon.json'
     else
-        systemctl stop docker && \
-        cat /etc/docker/daemon.json | jq '. + {experimental: true}' >/etc/docker/daemon.json.shield && \
-        echo 'Setting: "experimental": true in /etc/docker/daemon.json' && \
-        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
-        systemctl start docker || exit 1
-    fi
-}
-
-function set_storage_driver() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"$STORAGE_DRIVER"' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"storage-driver": "$STORAGE_DRIVER" in /etc/docker/daemon.json'
-    else
-        systemctl stop docker && \
-        cat /etc/docker/daemon.json | jq '. + {storage-driver: "$STORAGE_DRIVER"}' >/etc/docker/daemon.json.shield && \
-        echo 'Setting: "storage-driver": $STORAGE_DRIVER in /etc/docker/daemon.json' && \
-        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
-        systemctl start docker || exit 1
+        echo $'{\n\"experimental\" : true\n}\n' >/etc/docker/daemon.json
+        echo 'Setting: "experimental" : true in /etc/docker/daemon.json'
     fi
 }
 
@@ -122,7 +111,7 @@ function pull_images() {
         else
         arr=($line)
          if [ $LINE -eq 1 ]; then
-           if [ -f .version] && [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+           if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
              echo "No new version detected"
              break;
            fi
@@ -165,9 +154,18 @@ while [ "$1" != "" ]; do
     -s | --single-mode)
         SINGLE_MODE=true
         ;;
+    -j | --jenkins)
+        JENKINS="yes"
+        ;;
     esac
     shift
 done
+
+if [ -z "$JENKINS" ]; then
+    ES_YML_FILE=docker-compose.yml
+else
+    ES_YML_FILE=docker-compose_dev.yml
+fi
 
 if [ -z "$SINGLE_MODE" ]; then
     echo 'Run multinode script'
@@ -176,11 +174,13 @@ else
     SWARM=$(test_swarm_exists)
     if [ -z "$SWARM" ]; then
         echo '#######################Start create swarm#####################'
-        NETWORK_INTERFACE=$(get_right_interface)
-        for int in $NETWORK_INTERFACE; do
-            NETWORK_INTERFACE=$int
-            break
-        done
+        if [ -z "$IP_ADDRESS" ]; then
+            NETWORK_INTERFACE=$(get_right_interface)
+            for int in $NETWORK_INTERFACE; do
+                NETWORK_INTERFACE=$int
+                break
+            done
+        fi
         SWARM_RESULT=$(init_swarm)
         if [ "$SWARM_RESULT" != "0" ]; then
             echo "Swarm init failed"
@@ -192,17 +192,19 @@ fi
 
 create_uuid
 make_in_memory_volume
-#set_experimental
-#set_storage_driver
+# set_experimental
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
-replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+if [ -z "$JENKINS" ]; then
+    replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
+fi
+
 create_proxy_env_file
 
-pull_images
+if [ -z "$JENKINS" ]; then
+   pull_images
+fi
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
-
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
-
