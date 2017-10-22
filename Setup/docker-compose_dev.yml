@@ -77,7 +77,7 @@ services:
          - elastic:/var/lib
 
   consul-server:
-    image: securebrowsing/shield-configuration:multi
+    image: securebrowsing/shield-configuration:latest
     networks:
          - shield
     deploy:
@@ -105,7 +105,7 @@ services:
         syslog-address: udp://${SYS_LOG_HOST}:5014
 
   consul:
-      image: securebrowsing/shield-configuration:multi
+      image: securebrowsing/shield-configuration:latest
       networks:
            - shield
       ports:
