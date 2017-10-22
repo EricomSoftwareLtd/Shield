@@ -1,9 +1,9 @@
-#Build Dev:183 on 19/10/17
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_183
-shield-configuration:latest shield-configuration:170906-13.59-481
-shield-admin:latest shield-admin:171002-06.30-275
+#Build Dev:184 on 22/10/17
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_184
+shield-configuration:latest shield-configuration:171022-12.15-358
+shield-admin:latest shield-admin:171022-04.36-351
 shield-portainer:latest shield-portainer:170926-14.37-114
-proxy-server:latest proxy-server:171016-13.53-298
+proxy-server:latest proxy-server:171022-12.15-358
 icap-server:latest icap-server:171019-11.05-327
 shield-cef:latest shield-cef:171016-13.17-294
 broker-server:latest broker-server:171016-13.47-297
