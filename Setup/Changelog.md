@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.42-Build:184] - 2017-10-22
+- white warning text modification #956
+- Admin Reports Advanced Button (R4) #840
+- System settings backup #953
+- HA for shield components: Consul #924
+- Issue with Search from Resolv.conf #968
+
 ## [17.41-Build:183] - 2017-10-19
 - Fixed White urls Major flickering #969
 - Fixed proxy crach #955
