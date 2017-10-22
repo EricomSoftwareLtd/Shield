@@ -77,7 +77,7 @@ services:
          - elastic:/var/lib
 
   consul-server:
-    image: securebrowsing/shield-configuration:latest
+    image: securebrowsing/shield-configuration:multi
     networks:
          - shield
     deploy:
@@ -86,7 +86,7 @@ services:
       endpoint_mode: dnsrr
       placement:
         constraints:
-            - node.labels.consul-server==yes
+            - node.labels.management==yes
       update_config:
           parallelism: 1
           failure_action: rollback
@@ -105,7 +105,7 @@ services:
         syslog-address: udp://${SYS_LOG_HOST}:5014
 
   consul:
-      image: securebrowsing/shield-configuration:latest
+      image: securebrowsing/shield-configuration:multi
       networks:
            - shield
       ports:
