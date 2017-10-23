@@ -14,17 +14,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New Module: Web Service 
     - Allows to download the certificate from: http:<SHIELD_SERVER>:8888/install-certificate or directly from: http://<SHIELD_SERVER>:8888/ericomshield.crt
     - Allows to download the auto-generated PAC file from: http:<SHIELD_SERVER>:8888/default.pac
-  -  - PAC File can be uploaded (currently on Consul: http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/pacfile/edit )
+    - PAC File can be uploaded (currently on Consul: http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/pacfile/edit )
 - Japanese Keyboard (basic) Support
 - New Module: shield-maintenance (Cleans old images and used Remot Browsers)
 ### Tech Preview:
 - Basic support for Proxy Authentication (User Name/Password for Proxy)
+    - Settings in Consul:
+    - http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/auth/basic/edit
 - Basic support for Internet Explorer Mode #819
-  -  - Settings in Consul:
-  -  - http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/icap/edit
-  -  - "as_address":"ACCESS_SERVER_IP","as_port":"8080","as_username":"ccadmin@cloudconnect.local","as_password":"XXXXXX"
-  -  - http://<SHIELD_SERVER>:8181/ui/#/dc1/kv/policies/policies/edit in Consul
-  -  - Replace Action for an existing Policy with access = 3
+    - Settings in Consul:
+    - http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/icap/edit
+    - "as_address":"ACCESS_SERVER_IP","as_port":"8080","as_username":"ccadmin@cloudconnect.local","as_password":"XXXXXX"
+    - http://<SHIELD_SERVER>:8181/ui/#/dc1/kv/policies/policies/edit in Consul
+    - Replace Action for an existing Policy with access = 3
 ### Enhancements:
 - Use settings from host's /etc/resolv.conf for DNS resolver in proxy-server
 - Added EULA during installation #874
