@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [17.41-Build:183] - 2017-10-22
 ### New Features:
 - New Module: Web Service 
-  -  - Allows to download the certificate from: http:<SHIELD_SERVER>:8888/install-certificate or directly from: http://<SHIELD_SERVER>:8888/ericomshield.crt
-  -  - Allows to download the auto-generated PAC file from: http:<SHIELD_SERVER>:8888/default.pac
+    - Allows to download the certificate from: http:<SHIELD_SERVER>:8888/install-certificate or directly from: http://<SHIELD_SERVER>:8888/ericomshield.crt
+    - Allows to download the auto-generated PAC file from: http:<SHIELD_SERVER>:8888/default.pac
   -  - PAC File can be uploaded (currently on Consul: http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/pacfile/edit )
 - Japanese Keyboard (basic) Support
 - New Module: shield-maintenance (Cleans old images and used Remot Browsers)
