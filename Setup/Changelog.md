@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.42-Build:185] - 2017-10-23
+- UI for IE mode
+- new keyboard code - Japanese keyboard #852
+
 ## [17.42-Build:184] - 2017-10-22
 - white warning text modification #956
 - Admin Reports Advanced Button (R4) #840
