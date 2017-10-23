@@ -4,33 +4,53 @@ version: '3.2'
 # YML File for Staging
 
 services:
-    collector:
-      image: securebrowsing/shield-collector:latest
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - /proc:/hostfs/proc:ro
-        - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-        - /:/hostfs:ro
-      networks:
-        - shield
-      deploy:
-        replicas: 1
-        restart_policy:
-            condition: any
-        placement:
-            constraints:
-                - node.role==manager
-        update_config:
-            failure_action: rollback
-        resources:
-          limits:
-            memory: 2GB
-            cpus: "1"
-      environment:
-        - "SYSTEM_PERIOD=5m"
-        - "DOCKER_PERIOD=5m"
+  collector:
+     image: securebrowsing/shield-collector:latest
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+       - /proc:/hostfs/proc:ro
+       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+       - /:/hostfs:ro
+     networks:
+       - shield
+     deploy:
+       mode: global
+       restart_policy:
+           condition: any
+       update_config:
+           failure_action: rollback
+       resources:
+         limits:
+           memory: 2GB
+           cpus: "1"
+     environment:
+       - "SYSTEM_PERIOD=5m"
+       - "DOCKER_PERIOD=5m"
 
-    elk:
+  maintenance:
+    image: securebrowsing/shield-maintenance:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - shield
+    deploy:
+      mode: global
+      restart_policy:
+          condition: any
+      update_config:
+          failure_action: rollback
+      resources:
+        limits:
+          memory: 2GB
+          cpus: "1"
+    environment:
+      - "IMAGE_CLEAN_INTERVAL=1m"
+    logging:
+        driver: syslog
+        options:
+          syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  elk:
       image: securebrowsing/shield-elk:latest
       ports:
 #          - 5601:5601
@@ -46,7 +66,7 @@ services:
             condition: any
         placement:
             constraints:
-                - node.role==manager
+              - node.labels.management==yes
         update_config:
           failure_action: rollback
         resources:
@@ -54,36 +74,39 @@ services:
             memory: 2GB
             cpus: "1"
       volumes:
-          - elastic:/var/lib
-
-    consul:
-        image: securebrowsing/shield-configuration:latest
-#        user: consul
-        networks:
-          - shield
-        ports:
-          - "8500:8500"
-        deploy:
-          mode: global
-          update_config:
-            parallelism: 1
-            failure_action: rollback
-          restart_policy:
-            condition: any
-          resources:
-            limits:
-              memory: 1GB
-              cpus: "1"
-        environment:
-          - "CONSUL_BIND_INTERFACE=eth2"
-          - "NUMBER_OF_EXPECTED=1"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+         - elastic:/var/lib
+    
+  consul:
+    image: securebrowsing/shield-configuration:latest
+    networks:
+         - shield
+    ports:
+        - "8500:8500"
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+            - node.labels.management==yes
+      update_config:
+          parallelism: 1
+          failure_action: rollback
+      restart_policy:
+          condition: any
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1"
+    environment:
+        - "CONSUL_BIND_INTERFACE=eth2"
+        - "NUMBER_OF_EXPECTED=1"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: udp://${SYS_LOG_HOST}:5014
 
 ###################################################################### Shield services part ##################################################################
-    shield-admin:
+  shield-admin:
         image: securebrowsing/shield-admin:latest
         ports:
             - 8181:8181
@@ -102,7 +125,7 @@ services:
               condition: any
           placement:
               constraints:
-                - node.role==manager
+                - node.labels.management==yes
           resources:
             limits:
               memory: 500MB
@@ -110,9 +133,9 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    icap-server:
+  icap-server:
         image: securebrowsing/icap-server:latest
         # user: nobody
         hostname: icap-server
@@ -137,7 +160,7 @@ services:
              condition: any
           placement:
              constraints:
-               - node.role==manager
+              - node.labels.shield_core==yes
           resources:
             limits:
               memory: 500MB
@@ -145,9 +168,9 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    broker-server:
+  broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
         hostname: broker-server
@@ -164,6 +187,9 @@ services:
               cpus: "1"
             reservations:
               memory: 50MB
+          placement:
+            constraints:
+              - node.labels.shield_core==yes
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
@@ -175,9 +201,9 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    shield-browser:
+  shield-browser:
         image: securebrowsing/shield-cef:latest
         user: user
         ulimits:
@@ -208,6 +234,9 @@ services:
               cpus: "2"
             reservations:
               memory: 150MB
+          placement:
+            constraints:
+              - node.labels.browser==yes
         volumes:
           - type: tmpfs
             target: /dev/shm
@@ -217,9 +246,9 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    proxy-server:
+  proxy-server:
         image: securebrowsing/proxy-server:latest
         hostname: proxy-server
         ports:
@@ -243,7 +272,7 @@ services:
             failure_action: rollback
           placement:
             constraints:
-              - node.role==manager
+              - node.labels.shield_core==yes
           resources:
             limits:
               memory: 500MB
@@ -251,8 +280,8 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
-    ext-proxy:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+  ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy
         # user: nobody
@@ -268,32 +297,75 @@ services:
           replicas: 0
           placement:
             constraints:
-              - node.role==manager
+              - node.labels.browser==yes
           resources:
             limits:
               memory: 500MB
               cpus: "1"
-    cdr-dispatcher:
-        image: securebrowsing/shield-cdr-dispatcher:latest
-        hostname: cdr-dispatcher
-        networks:
-          - shield
-        deploy:
-          replicas: 2
-          restart_policy:
-            condition: any
-          update_config:
-            parallelism: 1
-            failure_action: rollback
+  authproxy:
+      image: securebrowsing/shield-authproxy:latest
+      deploy:
+          mode: global
           placement:
             constraints:
-             - node.role==manager
+              - node.labels.shield_core==yes
+      networks:
+         - shield
+      ports:
+         - target: 3129
+           published: 3129
+           protocol: tcp
+           mode: host
+      environment:
+          - "SHIELD_IP=IP_ADDRESS"
+      logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014          
+    
+  web-service:
+        image: securebrowsing/shield-web-service:latest
+        ports:
+          - "8888:1345"
+        networks:
+          - shield
+        environment:
+            - "SHIELD_IP=IP_ADDRESS"
+        deploy:
+          replicas: 1
+          placement:
+            constraints:
+              - node.labels.shield_core==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    cdr-controller:
+  cdr-dispatcher:
+    image: securebrowsing/shield-cdr-dispatcher:latest
+    hostname: cdr-dispatcher
+    networks:
+      - shield
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: any
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+      placement:
+        constraints:
+          - node.labels.shield_core==yes
+    logging:
+      driver: syslog
+      options:
+        syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
         hostname: cdr-controller
         networks:
@@ -307,17 +379,17 @@ services:
             failure_action: rollback
           placement:
               constraints:
-                  - node.role==manager
+                - node.labels.shield_core==yes
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+            syslog-address: udp://${SYS_LOG_HOST}:5014
     ############################### Docker managment part ##############################################################
-    portainer:
+  portainer:
         image: securebrowsing/shield-portainer:latest
         hostname: portainer
- #       ports:
- #           - "9000:9000"
+#        ports:
+#            - "9000:9000"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - portainer:/data
@@ -330,7 +402,7 @@ services:
             failure_action: rollback
           placement:
             constraints:
-              - node.role==manager
+              - node.labels.management==yes
           resources:
             limits:
               memory: 100MB
@@ -338,7 +410,7 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://lev-hp-elitebook-850-g3:5014
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
 volumes:
   elastic:

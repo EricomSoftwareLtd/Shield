@@ -33,6 +33,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - shield
+    hostname: maintenance
     deploy:
       mode: global
       restart_policy:
@@ -75,9 +76,9 @@ services:
             cpus: "1"
       volumes:
          - elastic:/var/lib
-    
+
   consul-server:
-    image: securebrowsing/shield-configuration:multi
+    image: securebrowsing/shield-configuration:latest
     networks:
          - shield
     deploy:
@@ -98,7 +99,7 @@ services:
           cpus: "1"
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
-        - "NUMBER_OF_EXPECTED=1"
+        - "NUMBER_OF_EXPECTED=3"
     logging:
       driver: syslog
       options:
@@ -128,6 +129,32 @@ services:
       driver: syslog
       options:
         syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  consul:
+      image: securebrowsing/shield-configuration:latest
+      networks:
+           - shield
+      ports:
+          - "8500:8500"
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+            parallelism: 1
+            failure_action: rollback
+        restart_policy:
+            condition: any
+        resources:
+          limits:
+            memory: 1GB
+            cpus: "1"
+      environment:
+          - "CONSUL_BIND_INTERFACE=eth2"
+          - "RUN_AGENT=yes"
+      logging:
+        driver: syslog
+        options:
+          syslog-address: udp://${SYS_LOG_HOST}:5014
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:
@@ -328,6 +355,7 @@ services:
               cpus: "1"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
+      hostname: authproxy
       deploy:
           mode: global
           placement:
@@ -345,10 +373,11 @@ services:
       logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014          
-    
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
   web-service:
         image: securebrowsing/shield-web-service:latest
+        hostname: web-service
         ports:
           - "8888:1345"
         networks:
@@ -447,6 +476,7 @@ networks:
       driver: default
       config:
         - subnet: 192.168.0.0/16
+
 secrets:
    shield-system-id:
        external: true
