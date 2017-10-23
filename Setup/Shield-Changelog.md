@@ -37,9 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed SystemId bug #888
 - Fixed Documnation link #885
 - Adding Flag to Restart the system during upgrade when required
-- **(*) Support non-english file name download  #710 **
-- **(*) Added web service component to provide certificate and PAC file #782**
-
+- Support non-english file name download  #710
 
 ## [17.37-Build:172] - 2017-09-14
 - (*) New Logic for Apps based on User Agent #667 - (!) please clear automatic rules on upgrade 
