@@ -67,12 +67,12 @@ while [ $# -ne 0 ]; do
         ;;
     -restart)
         UPDATE_NEED_RESTART=true
-        echo " Restart will be done during upgrade "	
+        echo " Restart will be done during upgrade "
         ;;
     -approve-eula)
-	log_message "EULA has been accepted from Command Line"
+        log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
-	;;
+        ;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]"
@@ -106,17 +106,17 @@ function log_message() {
     echo "$(date): $1" >>"$LOGFILE"
 }
 function failed_to_install() {
-   log_message "An error occured during the installation: $1, Exiting!"
+    log_message "An error occured during the installation: $1, Exiting!"
 
     if [ "$UPDATE" == true ]; then
-       if [ -f "$ES_VER_FILE" ]; then
-          mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
-       fi   
-      else
-       if [ -f "$ES_VER_FILE" ]; then
-          rm "$ES_VER_FILE"             
-       fi   
-    fi   
+        if [ -f "$ES_VER_FILE" ]; then
+            mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
+        fi
+    else
+        if [ -f "$ES_VER_FILE" ]; then
+            rm "$ES_VER_FILE"
+        fi
+    fi
 }
 
 function accept_license() {
@@ -161,29 +161,29 @@ function install_docker() {
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https
-#        apt-get update
-#        apt-get --assume-yes -y install "linux-image-extra-$(uname -r)" linux-image-extra-virtual
-#        apt-get --assume-yes -y install apt-transport-https ca-certificates software-properties-common
-#        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-#        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-#        apt-get update
-#        apt-get --assume-yes -y install docker-ce
-	
-	#Docker Installation of a specific Version
+        #        apt-get update
+        #        apt-get --assume-yes -y install "linux-image-extra-$(uname -r)" linux-image-extra-virtual
+        #        apt-get --assume-yes -y install apt-transport-https ca-certificates software-properties-common
+        #        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        #        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        #        apt-get update
+        #        apt-get --assume-yes -y install docker-ce
+
+        #Docker Installation of a specific Version
         curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-	echo -n "apt-get -qq update ..." 
+        echo -n "apt-get -qq update ..."
         apt-get -qq update
-	echo "done"
+        echo "done"
         sudo apt-cache policy docker-ce
-	echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-	sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
+        echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
+        sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
     if [ "$(sudo docker version | wc -l)" -le 1 ]; then
-       failed_to_install "Failed to Install Docker"
-       exit 1
+        failed_to_install "Failed to Install Docker"
+        exit 1
     fi
 }
 
@@ -242,7 +242,7 @@ function create_shield_service() {
         systemctl link ${ES_PATH}/ericomshield-updater.service
         systemctl --system enable ${ES_PATH}/ericomshield-updater.service
         systemctl daemon-reload
-	fi	
+    fi
     echo "Done!"
 }
 
@@ -290,10 +290,10 @@ function get_shield_install_files() {
             echo "***************     Updating EricomShield ($ES_SETUP_VER)"
             echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
             UPDATE=true
-            mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
+            mv "$ES_VER_FILE" "$ES_VER_FILE_BAK"
             if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
-              UPDATE_NEED_RESTART=true
-            fi  
+                UPDATE_NEED_RESTART=true
+            fi
         fi
     else
         echo "***************     Installing EricomShield ($ES_SETUP_VER)..."
@@ -304,8 +304,8 @@ function get_shield_install_files() {
     echo "Getting $ES_YML_FILE"
 
     if [ -f "$ES_YML_FILE" ]; then
-       mv  "$ES_YML_FILE"  "$ES_YML_FILE_BAK"
-    fi   
+        mv "$ES_YML_FILE" "$ES_YML_FILE_BAK"
+    fi
 
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
     echo "Getting $ES_repo_uninstall"
@@ -359,8 +359,8 @@ install_docker
 if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
 else
-   failed_to_install "Failed to start docker service"
-   exit 1
+    failed_to_install "Failed to start docker service"
+    exit 1
 fi
 
 install_docker_compose
@@ -400,23 +400,23 @@ if [ "$UPDATE" == false ]; then
     systemctl start ericomshield-updater.service
 
 else # Update
-   if [ "$UPDATE_NEED_RESTART" == true ]; then
-      echo " Stopping Ericom Shield for Update "
-      ./stop.sh
-     else
-      echo -n "stop shield-broker"
-      docker service scale shield_broker-server=0
-      wait=0
-      while [ $wait -lt 6 ]; do
-        if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
-            echo !
-            break
-        else
-            echo -n .
-            sleep 10
-        fi
-        wait=$((wait + 1))
-      done
+    if [ "$UPDATE_NEED_RESTART" == true ]; then
+        echo " Stopping Ericom Shield for Update "
+        ./stop.sh
+    else
+        echo -n "stop shield-broker"
+        docker service scale shield_broker-server=0
+        wait=0
+        while [ $wait -lt 6 ]; do
+            if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
+                echo !
+                break
+            else
+                echo -n .
+                sleep 10
+            fi
+            wait=$((wait + 1))
+        done
     fi
 fi
 

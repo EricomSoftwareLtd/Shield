@@ -102,28 +102,27 @@ function create_uuid() {
 }
 
 function pull_images() {
-   filename=./shield-version.txt
-   LINE=0
-   while read -r line; do
-      if [ "${line:0:1}" == '#' ]; then
-         echo "$line"
+    filename=./shield-version.txt
+    LINE=0
+    while read -r line; do
+        if [ "${line:0:1}" == '#' ]; then
+            echo "$line"
         else
-        arr=($line)
-         if [ $LINE -eq 1 ]; then
-           if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
-             echo "No new version detected"
-             break;
-           fi
-         else
-           echo "################## Pulling images  ######################"
-           echo "pulling image: ${arr[1]}"
-           docker pull "securebrowsing/${arr[1]}"
-         fi
-      fi
-      LINE=$(($LINE +1))
-   done < "$filename"
+            arr=($line)
+            if [ $LINE -eq 1 ]; then
+                if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+                    echo "No new version detected"
+                    break
+                fi
+            else
+                echo "################## Pulling images  ######################"
+                echo "pulling image: ${arr[1]}"
+                docker pull "securebrowsing/${arr[1]}"
+            fi
+        fi
+        LINE=$((LINE + 1))
+    done <"$filename"
 }
-
 
 function get_right_interface() {
     TEST_MAC=$(uname | grep Linux)
@@ -138,7 +137,7 @@ function make_in_memory_volume() {
     if [ ! -d "/media/containershm" ]; then
         mkdir -p /media/containershm
         mount -t tmpfs -o size=2G tmpfs /media/containershm
-        echo 'tmpfs   /media/containershm     tmpfs   rw,size=2G      0       0' >> /etc/fstab
+        echo 'tmpfs   /media/containershm     tmpfs   rw,size=2G      0       0' >>/etc/fstab
     fi
 }
 
@@ -202,7 +201,7 @@ fi
 create_proxy_env_file
 
 if [ -z "$JENKINS" ]; then
-   pull_images
+    pull_images
 fi
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
