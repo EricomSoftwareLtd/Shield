@@ -3,8 +3,8 @@
 #####   Ericom Shield Installer        #####
 #######################################BH###
 
-#BRANCH="master"
-BRANCH="Install-Staging"
+BRANCH="master"
+#BRANCH="Install-Staging"
 
 # Development Repository: (Latest)
 ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-setup.sh"
