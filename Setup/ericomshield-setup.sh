@@ -364,7 +364,7 @@ function get_shield_files() {
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
-echo "***************     EricomShield Setup $(ES_CHANNEL) ..."
+echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 	
 check_free_space
 
