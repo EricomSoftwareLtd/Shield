@@ -344,6 +344,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
