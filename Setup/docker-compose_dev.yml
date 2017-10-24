@@ -104,6 +104,7 @@ services:
       driver: syslog
       options:
         syslog-address: udp://${SYS_LOG_HOST}:5014
+
   consul:
       image: securebrowsing/shield-configuration:multi
       networks:
@@ -129,32 +130,6 @@ services:
       driver: syslog
       options:
         syslog-address: udp://${SYS_LOG_HOST}:5014
-
-  consul:
-      image: securebrowsing/shield-configuration:latest
-      networks:
-           - shield
-      ports:
-          - "8500:8500"
-      deploy:
-        mode: replicated
-        replicas: 1
-        update_config:
-            parallelism: 1
-            failure_action: rollback
-        restart_policy:
-            condition: any
-        resources:
-          limits:
-            memory: 1GB
-            cpus: "1"
-      environment:
-          - "CONSUL_BIND_INTERFACE=eth2"
-          - "RUN_AGENT=yes"
-      logging:
-        driver: syslog
-        options:
-          syslog-address: udp://${SYS_LOG_HOST}:5014
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:
