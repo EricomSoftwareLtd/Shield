@@ -17,6 +17,7 @@ set -e
 # Git commit from https://github.com/docker/docker-install when
 # the script was uploaded (Should only be modified by upload job):
 SCRIPT_COMMIT_SHA=716f7ca
+UBUNTU_DOCKER_VERSION="17.06.2"
 
 
 # This value will automatically get changed for:
@@ -436,7 +437,7 @@ do_install() {
 					$sh_c 'sed -i "/deb-src.*download\.docker/d" /etc/apt/sources.list.d/docker.list'
 				fi
 				$sh_c 'apt-get update -qq >/dev/null'
-				$sh_c 'apt-get install -y -qq docker-ce >/dev/null'
+				$sh_c "apt-get install -y -qq docker-ce=$UBUNTU_DOCKER_VERSION~ce-0~ubuntu >/dev/null"
 			)
 			echo_docker_as_nonroot
 			exit 0
