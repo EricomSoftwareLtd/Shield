@@ -30,7 +30,7 @@ ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 
 ES_SETUP_VER="17.43-Setup"
-BRANCH="Install-Staging"
+BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
