@@ -36,6 +36,7 @@ MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_DEV=false
+ES_STAGING=false
 ES_POCKET=false
 ES_AUTO_UPDATE=true
 ES_FORCE=false
