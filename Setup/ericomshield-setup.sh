@@ -54,10 +54,14 @@ while [ $# -ne 0 ]; do
     -dev)
         ES_DEV=true
         echo "ES_DEV" >"$ES_DEV_FILE"
+        ES_STAGING=false
+        rm -f "$ES_STAGING_FILE"	
         ;;
     -staging)
         ES_STAGING=true
         echo "ES_STAGING" >"$ES_STAGING_FILE"
+        ES_DEV=false
+        rm -f "$ES_DEV_FILE"	
         ;;
     -noautoupdate)
         ES_AUTO_UPDATE=false
@@ -94,8 +98,6 @@ fi
 
 if [ -f "$ES_STAGING_FILE" ]; then
     ES_STAGING=true
-    ES_DEV=false
-    rm -f "$ES_DEV_FILE"
 fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
