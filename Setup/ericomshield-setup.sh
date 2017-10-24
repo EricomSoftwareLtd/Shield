@@ -105,6 +105,55 @@ function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
 }
+
+function choose_network_interface() {
+
+    local INTERFACES=($(find /sys/class/net -type l -not -lname '*virtual*' -printf '%f\n'))
+    local INTERFACE_ADDRESSES=()
+    local OPTIONS=()
+
+    for IFACE in "${INTERFACES[@]}"; do
+        OPTIONS+=("Name: \"$IFACE\", IP address: $(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
+        INTERFACE_ADDRESSES+=("$(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
+    done
+
+    if ((${#OPTIONS[@]} == 0)); then
+        log_message "No network interface cards detected. Aborting!"
+        exit 1
+    elif ((${#OPTIONS[@]} == 1)); then
+        local REPLY=1
+        log_message "Using ${INTERFACES[$((REPLY - 1))]} with address ${INTERFACE_ADDRESSES[$((REPLY - 1))]} as an interface for Shield"
+        MY_IP="${INTERFACE_ADDRESSES[$((REPLY - 1))]}"
+        return
+    fi
+
+    echo "Choose a network card to be used by Shield"
+    PS3="Enter your choice: "
+    select opt in "${OPTIONS[@]}" "Quit"; do
+
+        case "$REPLY" in
+
+        [1-$((${#OPTIONS[@]}))]*)
+            log_message "Using ${INTERFACES[$((REPLY - 1))]} with address ${INTERFACE_ADDRESSES[$((REPLY - 1))]} as an interface for Shield"
+            MY_IP="${INTERFACE_ADDRESSES[$((REPLY - 1))]}"
+            return
+            ;;
+        $((${#OPTIONS[@]} + 1)))
+            break
+            ;;
+        *)
+            echo "Invalid option. Try another one."
+            continue
+            ;;
+
+        esac
+
+    done
+
+    log_message "Aborting installation!"
+    exit 1
+}
+
 function failed_to_install() {
     log_message "An error occured during the installation: $1, Exiting!"
 
@@ -262,7 +311,6 @@ function prepare_yml() {
         fi
     done <"$ES_VER_FILE"
 
-    MY_IP=$(/sbin/ifconfig | grep 'inet addr:' | grep -v "127.0" | grep -v "172.1" | cut -d: -f2 | awk '{ printf $1}')
     #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 }
@@ -349,6 +397,7 @@ function get_shield_files() {
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 check_free_space
+choose_network_interface
 
 echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
