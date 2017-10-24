@@ -20,7 +20,6 @@ echo "***********       Uninstalling Ericom Shield ...."
 echo "$(date): Uninstalling Ericom Shield" >>"$LOGFILE"
 mv "$LOGFILE" ..
 
-systemctl stop ericomshield
 systemctl stop ericomshield-updater
 
 echo "***********       Removing EricomShield images"
@@ -31,7 +30,6 @@ docker rmi $(docker images -q)
 
 echo "***********       Removing EricomShield Services"
 systemctl --global disable ericomshield-updater.service
-systemctl --global disable ericomshield.service
 systemctl daemon-reload
 
 rm /etc/init.d/ericomshield
