@@ -1,4 +1,4 @@
-#Build Staging:172 on 18/09/17
+#Build 17.38-Build:172 on 18/09/17
 SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:17.38_Build_172
 shield-configuration:latest shield-configuration:170906-13.59-481
 shield-admin:latest shield-admin:170914-14.31-560
