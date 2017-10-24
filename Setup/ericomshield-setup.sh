@@ -35,6 +35,7 @@ BRANCH="Install-Staging"
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
+ES_CHANNEL="Production"
 ES_DEV=false
 ES_STAGING=false
 ES_POCKET=false
@@ -54,12 +55,14 @@ while [ $# -ne 0 ]; do
     -dev)
         ES_DEV=true
         echo "ES_DEV" >"$ES_DEV_FILE"
+	ES_CHANNEL="ES_DEV"	
         ES_STAGING=false
         rm -f "$ES_STAGING_FILE"	
         ;;
     -staging)
         ES_STAGING=true
         echo "ES_STAGING" >"$ES_STAGING_FILE"
+	ES_CHANNEL="ES_STAGING"
         ES_DEV=false
         rm -f "$ES_DEV_FILE"	
         ;;
@@ -93,10 +96,12 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -f "$ES_DEV_FILE" ]; then
+    ES_CHANNEL="ES_DEV"	
     ES_DEV=true
 fi
 
 if [ -f "$ES_STAGING_FILE" ]; then
+    ES_CHANNEL="ES_STAGING"	
     ES_STAGING=true
 fi
 
@@ -359,6 +364,8 @@ function get_shield_files() {
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
+echo "***************     EricomShield Setup $(ES_CHANNEL) ..."
+	
 check_free_space
 
 echo Docker Login: $DOCKER_USER
