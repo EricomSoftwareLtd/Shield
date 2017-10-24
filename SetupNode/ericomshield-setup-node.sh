@@ -1,7 +1,7 @@
 #!/bin/bash
 ############################################
 #####   Ericom Shield Installer        #####
-#######################################BH###
+#######################################LO###
 
 ###------------------Remove it --------------------
 ## docker swarm init --advertise-addr 10.0.0.1
@@ -12,12 +12,14 @@ MACHINE_IPS=
 MACHINES=
 SWARM_TOKEN=
 LEADER_IP=
+INSTALL_DOCKER_BRANCH="master"
 CERTIFICATE_FILE=./shield_crt
-DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/jenkins/SetupNode/install-docker.sh"
+DOCKER_INSTALL_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$INSTALL_DOCKER_BRANCH/SetupNode/install-docker.sh"
 ALLOW_BROWSERS=
 ALLOW_SHIELD_CORE=
 ALLOW_MANAGEMENT=
 NAME_PREFIX="WORKER"
+MACHINE_USER_PASS=
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
@@ -26,18 +28,38 @@ command_exists() {
 
 print_usage() {
     echo "Usage: ericomshield-setup-node.sh
-        -u|--user ssl usename
+        get help for prepare machine to join to cluster https://docs.docker.com/machine/drivers/generic
+        [-u|--user] ssl usename
         [-t|--token] Token to join to swarm deafult will be provide from current cluster
-        -l|--leader leader ip
+        [-l|--leader] leader ip
+        [-c|--certificate] path to sertificate file. Should be together private and public (file name + .pub)
+        [-t|--token] swarm join token 'docker swarm join-token -q worker|manager'
         [-m|--mode] Mode to join should be worker|manager default worker
-        -ips|--machines-ip IPs of machines to append separated by ','"
+        [-n|--name] Node name prefix. should be only letters. default WORKER. Final looks (NAME) + node number
+        -ips|--machines-ip IPs of machines to append separated by ','
+        [-b|--browser] Allow shield-browser containers to be allocated on this node
+        [-sc|--shield-core] Allow shield-core containers to be allocated on this node
+        [-mng|--management] Allow to shield managment container to be allocated on node"
+
+}
+
+check_machine_name() {
+    cnt=$2
+    TEST="1"
+    while [ -n "$TEST" ]; do
+         TEST_NAME="$1$cnt"
+         TEST=$(docker-machine ls | grep $TEST_NAME)
+         cnt=$(($cnt + 1))
+    done
+
+    echo "$TEST_NAME"
 }
 
 
 create_generic_machines() {
     counter=0
     for ip in $MACHINE_IPS; do
-        MACHINE_NAME="$NAME_PREFIX$counter"
+        MACHINE_NAME=$(check_machine_name $NAME_PREFIX $counter)
         docker-machine create \
             -d "generic" --generic-ip-address $ip \
             --generic-ssh-key $CERTIFICATE_FILE \
@@ -137,10 +159,45 @@ make-leader-ip() {
 }
 
 
+append-sshpass() {
+    if ! command_exists sshpass; then
+        sudo apt-get install -y --assume-yes sshpass
+    fi
+}
+
+
+collect_machine_pass() {
+    read -s -p "Machine user Password: " MACHINE_USER_PASS
+}
+
+
+make_leader_hosts_record() {
+     IFS=':' read -r -a array <<< "$LEADER_IP"
+     CLEAN_IP="${array[0]}"
+     CLEAN_HOST=$(hostname)
+
+     echo "$CLEAN_IP    $CLEAN_HOST"
+}
+
+
 make_machines_ready() {
-
+    ssh-keygen -b 2048 -t rsa -f $CERTIFICATE_FILE -q -N ""
+    cert_name=$(basename $CERTIFICATE_FILE)
     for ip in $MACHINE_IPS; do
+        echo '#################################################################### Prepare machine interactive #########################################'
+        sshpass -p$MACHINE_USER_PASS scp -o StrictHostKeyChecking=no "$CERTIFICATE_FILE.pub" $MACHINE_USER@$ip:~/authorized_keys
 
+        HOST_NU=$(make_leader_hosts_record)
+
+        sshpass -p$MACHINE_USER_PASS ssh -o StrictHostKeyChecking=no $MACHINE_USER@$ip <<- EOF
+            if [ ! -d ~/.ssh ]; then
+                mkdir ~/.ssh
+            fi
+            mv authorized_keys ~/.ssh/
+            chmod 600 ~/.ssh/authorized_keys
+            sudo su
+            echo "$HOST_NU" >> /etc/hosts
+EOF
     done
 }
 
@@ -150,6 +207,8 @@ if ! command_exists docker-machine; then
     sudo chmod +x /usr/local/bin/docker-machine
 fi
 
+append-sshpass
+collect_machine_pass
 
 while [ $# -ne 0 ]; do
     arg="$1"
@@ -197,9 +256,7 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -z "$MACHINE_USER" ]; then
-    echo "ssh user is empty"
-    print_usage
-    exit 1
+    MACHINE_USER="ericom"
 fi
 
 if [ -z "$SWARM_TOKEN" ]; then
@@ -212,6 +269,12 @@ fi
 
 if [ -z "$MACHINE_IPS" ]; then
     echo "IPs of nodes required at least one"
+    print_usage
+    exit 1
+fi
+
+if [ -z "$ALLOW_BROWSERS"  -a -z "$ALLOW_MANAGEMENT" -a -z "$ALLOW_SHIELD_CORE" ]; then
+    echo "No allocation switches found please choose at least one"
     print_usage
     exit 1
 fi
