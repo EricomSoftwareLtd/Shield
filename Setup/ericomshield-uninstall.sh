@@ -32,8 +32,6 @@ echo "***********       Removing EricomShield Services"
 systemctl --global disable ericomshield-updater.service
 systemctl daemon-reload
 
-rm /etc/init.d/ericomshield
-
 echo "***********       Removing EricomShield Stack"
 echo "***********       "
 docker stack rm $STACK_NAME
