@@ -1,0 +1,17 @@
+#Build Staging:183e on 24/10/17   #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_183
+shield-configuration:latest shield-configuration:170906-13.59-481
+shield-admin:latest shield-admin:171002-06.30-275
+shield-portainer:latest shield-portainer:170926-14.37-114
+proxy-server:latest proxy-server:171016-13.53-298
+icap-server:latest icap-server:170928-06.57-200
+shield-cef:latest shield-cef:171002-06.30-275
+broker-server:latest broker-server:171024-09.04-383
+shield-collector:latest shield-collector:170815-12.59-365
+shield-elk:latest shield-elk:171002-06.30-275
+extproxy:latest extproxy:170724-21.57
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:171002-06.30-275
+shield-cdr-controller:latest shield-cdr-controller:171002-06.30-275
+shield-web-service:latest shield-web-service:171002-07.58-278
+shield-maintenance:latest shield-maintenance:171015-11.48-270
+shield-authproxy:latest shield-authproxy:171015-11.55-271

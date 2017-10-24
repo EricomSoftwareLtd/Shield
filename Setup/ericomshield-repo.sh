@@ -4,7 +4,7 @@
 #######################################BH###
 
 BRANCH="master"
-#BRANCH="BenyH-patch-1"
+#BRANCH="Install-Staging"
 
 # Development Repository: (Latest)
 ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-setup.sh"
@@ -23,6 +23,8 @@ ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH
 
 # Production Version Repository: (Release)
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
+# Staging Version Repository: (Staging)
+ES_repo_staging_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version-staging.txt"
 # Development Version Repository: (Latest)
 ES_repo_dev_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version-dev.txt"
 
