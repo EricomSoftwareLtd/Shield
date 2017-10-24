@@ -6,7 +6,7 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-usage] [-pocket]"
+    echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-staging] [-usage] [-pocket]"
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -19,6 +19,7 @@ UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
 ES_DEV_FILE="$ES_PATH/.esdev"
+ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
@@ -28,7 +29,7 @@ ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 
-ES_SETUP_VER="17.40e-Setup"
+ES_SETUP_VER="17.43-Setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
@@ -53,6 +54,10 @@ while [ $# -ne 0 ]; do
         ES_DEV=true
         echo "ES_DEV" >"$ES_DEV_FILE"
         ;;
+    -staging)
+        ES_STAGING=true
+        echo "ES_STAGING" >"$ES_STAGING_FILE"
+        ;;
     -noautoupdate)
         ES_AUTO_UPDATE=false
         rm -f "$ES_AUTO_UPDATE_FILE"
@@ -75,7 +80,7 @@ while [ $# -ne 0 ]; do
 	;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]"
+        echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-staging] [-pocket] [-usage]"
         exit
         ;;
     esac
@@ -84,6 +89,12 @@ done
 
 if [ -f "$ES_DEV_FILE" ]; then
     ES_DEV=true
+fi
+
+if [ -f "$ES_STAGING_FILE" ]; then
+    ES_STAGING=true
+    ES_DEV=false
+    rm -f "$ES_DEV_FILE"
 fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
@@ -105,6 +116,7 @@ function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
 }
+
 function failed_to_install() {
    log_message "An error occured during the installation: $1, Exiting!"
 
@@ -114,7 +126,7 @@ function failed_to_install() {
        fi   
       else
        if [ -f "$ES_VER_FILE" ]; then
-          rm "$ES_VER_FILE"             
+          rm -f "$ES_VER_FILE"             
        fi   
     fi   
 }
@@ -161,15 +173,8 @@ function install_docker() {
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https
-#        apt-get update
-#        apt-get --assume-yes -y install "linux-image-extra-$(uname -r)" linux-image-extra-virtual
-#        apt-get --assume-yes -y install apt-transport-https ca-certificates software-properties-common
-#        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-#        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-#        apt-get update
-#        apt-get --assume-yes -y install docker-ce
-	
-	#Docker Installation of a specific Version
+
+        #Docker Installation of a specific Version
         curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 	echo -n "apt-get -qq update ..." 
@@ -278,7 +283,10 @@ function get_shield_install_files() {
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
         curl -s -S -o shield-version-new.txt "$ES_repo_dev_ver"
-    else
+     elif [ "$ES_STAGING" == true ]; then
+        echo "Getting $ES_repo_staging_ver (staging)"
+        curl -s -S -o shield-version-new.txt "$ES_repo_staging_ver"
+	  else	
         echo "Getting $ES_repo_ver (prod)"
         curl -s -S -o shield-version-new.txt "$ES_repo_ver"
     fi
