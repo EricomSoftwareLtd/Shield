@@ -34,7 +34,7 @@ def parse_command_line():
     # parser.add_argument('-t', '--token', dest='token', help='Join token token to swarm cluster. By default will be provided')
     # parser.add_argument('-l', '--leader', dest='leader_ip', help='Ip of cluster leader if you run script from another machine')
     parser.add_argument('-m', '--mode', dest='mode', default='worker', help='Mode to join should be worker|manager default worker')
-    parser.add_argument('-n', '--name', dest='machine_name', default='WORKER', help='Node name prefix. should be only letters. default WORKER. Final looks (NAME) + node number')
+    parser.add_argument('-n', '--name', dest='machine_name', default='shieldNode', help='Node name prefix. should be only letters. default shieldNode. Final looks (NAME) + node number')
     parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield-browser containers to be allocated on this node. Default false')
     parser.add_argument('-sc','--shield-core', dest='shield_core', action="store_true", default=False, help="Allow shield-core containers to be allocated on this node. Default false")
     parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield managment container to be allocated on node. Default false')
@@ -47,7 +47,6 @@ def validate_parameters(args):
     global parser
     if (not args.browser) and (not args.shield_core) and (not args.management):
         parser.error('At least one of label arguments required -b/--browser | -sc/--shield-core | -mng/--management')
-
 
 
 def make_enviroment_file(args):
@@ -76,3 +75,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
