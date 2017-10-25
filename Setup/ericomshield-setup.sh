@@ -27,6 +27,7 @@ ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
+ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
 ES_SETUP_VER="17.40e-Setup"
 BRANCH="master"
@@ -38,6 +39,7 @@ ES_DEV=false
 ES_POCKET=false
 ES_AUTO_UPDATE=true
 ES_FORCE=false
+ES_FORCE_SET_IP_ADDRESS=false
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -61,6 +63,9 @@ while [ $# -ne 0 ]; do
         ES_FORCE=true
         echo " " >>$ES_VER_FILE
         ;;
+    -force-ip-address-selection)
+        ES_FORCE_SET_IP_ADDRESS=true
+        ;;
     -pocket)
         ES_POCKET=true
         echo " pocket version "
@@ -75,7 +80,7 @@ while [ $# -ne 0 ]; do
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-pocket] [-usage]"
+        echo "Usage: $0 [-force] [-force-ip-address-selection] [-noautoupdate] [-dev] [-pocket] [-usage]"
         exit
         ;;
     esac
@@ -104,6 +109,22 @@ fi
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
+}
+
+function save_my_ip() {
+    echo "$MY_IP" >"$ES_MY_IP_FILE"
+}
+
+function restore_my_ip() {
+    if [ -s "$ES_MY_IP_FILE" ]; then
+        MY_IP="$(cat "$ES_MY_IP_FILE" | grep -oP '\d+\.\d+\.\d+\.\d+')"
+        if [[ -z $MY_IP ]]; then
+            return 1
+        else
+            return 0
+        fi
+    fi
+    return 1
 }
 
 function choose_network_interface() {
@@ -397,7 +418,11 @@ function get_shield_files() {
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 check_free_space
-choose_network_interface
+
+if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
+    choose_network_interface
+fi
+save_my_ip
 
 echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
