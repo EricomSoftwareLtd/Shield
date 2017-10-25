@@ -36,9 +36,10 @@ run_with_password() {
 echo "##################################### Setup Ericomshield nodes #############################################"
 set -e
 setup-envinronment "$@"
+set +e
+
 if [ "$MACHINE_SESSION_MODE" = "password" ]; then
     run_with_password
 else
     echo "Will run with certificate"
 fi
-set +e

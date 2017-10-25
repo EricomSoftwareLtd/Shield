@@ -128,6 +128,7 @@ def format_labels_command():
 
     return 'docker node update {0} {1}'.format(res, os.environ['REMOTE_HOST_NAME'])
 
+
 def run_join_to_swarm(command, ip):
     if os.environ['MACHINE_SESSION_MODE'] == 'password':
         run_with_password(ip)
