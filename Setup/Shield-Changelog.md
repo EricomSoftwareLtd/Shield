@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [17.41-Build:183] - 2017-10-22
+## [Build:183] - 2017-10-22
 ### New Features:
 - New Module: Web Service 
     - Allows to download the certificate from: http:<SHIELD_SERVER>:8888/install-certificate or directly from: http://<SHIELD_SERVER>:8888/ericomshield.crt
@@ -20,23 +20,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Tech Preview:
 - Basic support for Proxy Authentication (User Name/Password for Proxy)
     - Settings in Consul:
-    - http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/auth/basic/edit
+    - http://<SHIELD_SERVER>:8181/ui/#/dc1/kv/settings/auth/basic/edit
 - Basic support for Internet Explorer Mode #819
     - Settings in Consul:
-    - http://<SHIELD_SERVER:8181/ui/#/dc1/kv/settings/icap/edit
+    - http://<SHIELD_SERVER>:8181/ui/#/dc1/kv/settings/icap/edit
     - "as_address":"ACCESS_SERVER_IP","as_port":"8080","as_username":"ccadmin@cloudconnect.local","as_password":"XXXXXX"
     - http://<SHIELD_SERVER>:8181/ui/#/dc1/kv/policies/policies/edit in Consul
     - Replace Action for an existing Policy with access = 3
+- Multi-Node Support:
+    - Prepare Node with Ubuntu, Run PrepareNode script on it
+    - Run sudo ./ericomshield-setup-node.sh -ips xxx.xx.xx.xx,yy.yy.yy.yy -mng -b -sc
+    - https://github.com/EricomSoftwareLtd/Shield/blob/master/README.md
+
 ### Enhancements:
 - Use settings from host's /etc/resolv.conf for DNS resolver in proxy-server
 - Added EULA during installation #874
 - Installing Docker Version 17.06 (Upgrade/Downgrade if version is different)
 - Dashboard refresh for every 5 seconds #787 
-
+- Adding Flag to Restart the system during upgrade when required
 ### Fixed:
 - Fixed SystemId bug #888
-- Fixed Documnation link #885
-- Adding Flag to Restart the system during upgrade when required
+- Fixed Documentation link #885
+- Various Bug fixes on File Sanitization (CDR)
 - Support non-english file name download  #710
 
 ## [17.37-Build:172] - 2017-09-14
