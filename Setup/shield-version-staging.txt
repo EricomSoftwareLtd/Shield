@@ -1,4 +1,4 @@
-#Build Staging:183e on 24/10/17   #UNR#
+#Build Staging:183f on 24/10/17   #UNR#
 SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_183
 shield-configuration:latest shield-configuration:170906-13.59-481
 shield-admin:latest shield-admin:171002-06.30-275
