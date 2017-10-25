@@ -277,8 +277,6 @@ services:
   proxy-server:
         image: securebrowsing/proxy-server:latest
         hostname: proxy-server
-        ports:
-          - "3128:3128"
         ulimits:
           nofile:
             soft: 65535
@@ -339,8 +337,8 @@ services:
       networks:
          - shield
       ports:
-         - target: 3129
-           published: 3129
+         - target: 3128
+           published: 3128
            protocol: tcp
            mode: host
       environment:
@@ -450,7 +448,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.0.0/16
+        - subnet: 10.20.0.0/16
 
 secrets:
    shield-system-id:
