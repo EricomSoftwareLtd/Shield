@@ -352,7 +352,7 @@ services:
         image: securebrowsing/shield-web-service:latest
         hostname: web-service
         ports:
-          - "8888:1345"
+          - "80:1345"
         networks:
           - shield
         environment:
