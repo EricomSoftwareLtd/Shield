@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [17.42-Build:186] - 2017-10-26
+- First version that suppoer user authetication and profiles #900 #831 and #989
+- Added Admin UI for Pac file #937
+- Bug fix when zoom #960 #961
+ 
+
 ## [17.42-Build:185] - 2017-10-23
 - UI for IE mode
 - new keyboard code - Japanese keyboard #852
