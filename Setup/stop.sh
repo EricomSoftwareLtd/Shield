@@ -8,6 +8,19 @@ STACK_NAME=shield
 
 echo "***********       Stopping EricomShield "
 echo "***********       "
-docker stack rm $STACK_NAME
+if [ -z "$(docker info | grep -i 'swarm: active')" ]; then
+    echo "Docker swarm is not active, '$STACK_NAME' stack is not running."
+    exit 0
+fi
 #   docker swarm leave -f
-#umount /tmp/containershm
+docker stack rm $STACK_NAME
+echo "Waiting for $STACK_NAME to stop..."
+#Always waiting 5 seconds to make sure everything is cleaned
+sleep 5
+limit=10
+until [ -z "$(docker service ls --filter label=com.docker.stack.namespace=$STACK_NAME -q)" ] || [ "$limit" -lt 1 ]; do
+    echo $limit
+    sleep 1
+    limit=$((limit - 1))
+done
+echo "done"
