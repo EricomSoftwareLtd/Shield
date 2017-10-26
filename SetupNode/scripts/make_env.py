@@ -23,7 +23,7 @@ parser = None
 
 def parse_command_line():
     global parser
-    parser = argparse.ArgumentParser(description='''
+    parser = argparse.ArgumentParser(prog='ericomshield-setup-node.sh', description='''
         Append new node to swarm cluster.
         When you append node keep that node goal will be applyed. 
         Set at least one of label parameters.
