@@ -331,6 +331,10 @@ services:
       hostname: authproxy
       deploy:
           mode: global
+          restart_policy:
+            condition: any
+          update_config:
+            failure_action: rollback
           placement:
             constraints:
               - node.labels.shield_core==yes
@@ -370,6 +374,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
