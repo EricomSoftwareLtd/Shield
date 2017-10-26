@@ -28,7 +28,7 @@ def test_docker_on_machine():
     stdin, stdout, stderr = client.exec_command('sudo docker version')
     err_lines = stderr.readlines()
     out_lines = stdout.readlines()
-    if err_lines and len(err_lines) > 0 and ('command not found' in err_lines[0]):
+    if err_lines and len(err_lines) > 0 and ('command not found' in err_lines[-1]):
         return False
     #Apply check docker version
     return True
@@ -40,7 +40,7 @@ def install_docker():
     sftp_client.close()
     running = True
     channel = client.get_transport().open_session()
-    channel.exec_command('chmod +x install-docker.sh && sudo ./install-docker.sh')
+    channel.exec_command('chmod +x install-docker.sh && sudo ./install-docker.sh && rm -f ./install-docker.sh')
     print('Install docker please wait...')
     while running:
         if channel.recv_ready():
@@ -86,7 +86,7 @@ def prepare_machine_to_docker_node(ip):
         file.close()
 
     with open('hosts', mode='w') as file:
-        file.write('127.0.0.1\tlocalhost\n')
+        #file.write('127.0.0.1\tlocalhost\n')
         #file.write('127.0.1.1\t{}\n'.format(os.environ['REMOTE_HOST_NAME']))
         file.write("{0}\t{1}\n".format(ip, os.environ['REMOTE_HOST_NAME']))
         for manager in get_managers_ip_and_name():
@@ -99,6 +99,7 @@ def prepare_machine_to_docker_node(ip):
                     '/home/{}/hostname'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./hosts'),
                     '/home/{}/hosts'.format(os.environ['MACHINE_USER']))
+    sftp_client.put(os.path.abspath('./mount-tmpfs-volume.sh'), '/home/{}/mount-tmpfs-volume.sh'.format(os.environ['MACHINE_USER']))
     sftp_client.close()
     stdin, stdout, stderr = client.exec_command('sudo mv ./hostname /etc/hostname')
     stdout.channel.recv_exit_status()
@@ -106,7 +107,11 @@ def prepare_machine_to_docker_node(ip):
     stdin, stdout, stderr = client.exec_command('sudo hostname {}'.format(os.environ['REMOTE_HOST_NAME']))
     stdout.channel.recv_exit_status()
     logger.error(stderr.readlines())
-    stdin, stdout, stderr = client.exec_command('sudo mv ./hosts /etc/hosts')
+    stdin, stdout, stderr = client.exec_command('cat ./hosts | sudo tee -a /etc/hosts && rm -f ./hosts')
+    stdout.channel.recv_exit_status()
+    logger.error(stderr.readlines())
+
+    stdin, stdout, stderr = client.exec_command('chmod +x ./mount-tmpfs-volume.sh && sudo ./mount-tmpfs-volume.sh && rm -f ./mount-tmpfs-volume.sh')
     stdout.channel.recv_exit_status()
     logger.error(stderr.readlines())
 
