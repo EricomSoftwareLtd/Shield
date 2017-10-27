@@ -25,7 +25,8 @@ class ReportData:
                 node_row.append(node_data['Spec']['Availability'])
                 node_row.append(node_data['Spec']['Role'])
                 node_row.append('\n'.join([ key + '=' + value for key, value in node_data['Spec']['Labels'].items()]))
-                self.rows.append(node_row)
+            self.rows.append(node_row)
+            node_row = []
 
     def print(self):
         table = tt.Texttable()
