@@ -41,15 +41,19 @@ def install_docker():
     running = True
     channel = client.get_transport().open_session()
     channel.exec_command('chmod +x install-docker.sh && sudo ./install-docker.sh && rm -f ./install-docker.sh')
-    print('Install docker please wait...')
+    print('Install docker please wait...', end='')
     while running:
-        if channel.recv_ready():
-            print(channel.recv(4096).decode('ascii'))
-        if channel.recv_stderr_ready():
-            print(channel.recv_stderr(4096).decode('ascii'))
+        sys.stdout.write('.')
+        sys.stdout.flush()
+        time.sleep(1)
         if channel.exit_status_ready():
-            print("exit status: {}".format(channel.recv_exit_status()))
+            print(' ')
+            if channel.recv_exit_status() == 0:
+                print("Docker installed")
+            else:
+                print("Docker installation failed")
             running = False
+
 
     if test_docker_on_machine():
         logger.info("Docker installation success")
