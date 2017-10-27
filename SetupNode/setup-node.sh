@@ -43,5 +43,3 @@ if [ "$MACHINE_SESSION_MODE" = "password" ]; then
 else
     echo "Will run with certificate"
 fi
-
-python scripts/print_final_report.py

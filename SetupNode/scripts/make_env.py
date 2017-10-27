@@ -5,20 +5,6 @@ import logging
 
 logger = logging.getLogger("parse_arguments")
 
-
-
-
-# [-u|--user] ssl usename
-# [-t|--token] Token to join to swarm deafult will be provide from current cluster
-# [-l|--leader] leader ip
-# [-c|--certificate] path to sertificate file. Should be together private and public (file name + .pub)
-# [-t|--token] swarm join token 'docker swarm join-token -q worker|manager'
-# [-m|--mode] Mode to join should be worker|manager default worker
-# [-n|--name] Node name prefix. should be only letters. default WORKER. Final looks (NAME) + node number
-# -ips|--machines-ip IPs of machines to append separated by ','
-# [-b|--browser] Allow shield-browser containers to be allocated on this node
-# [-sc|--shield-core] Allow shield-core containers to be allocated on this node
-# [-mng|--management] Allow to shield managment container to be allocated on node"
 parser = None
 
 def parse_command_line():
