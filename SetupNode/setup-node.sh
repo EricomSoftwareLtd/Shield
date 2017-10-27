@@ -29,6 +29,7 @@ run_with_password() {
         prepare_remote_machines
     else
         echo "Password is wrong"
+        run_with_password
     fi
 }
 
@@ -43,3 +44,5 @@ if [ "$MACHINE_SESSION_MODE" = "password" ]; then
 else
     echo "Will run with certificate"
 fi
+
+python scripts/print_final_report.py
