@@ -9,5 +9,6 @@ COPY scripts /scripts
 COPY setup-node.sh /
 COPY requirements.txt /
 COPY install-docker.sh /
+COPY mount-tmpfs-volume.sh /
 
 RUN pip install -r requirements.txt
