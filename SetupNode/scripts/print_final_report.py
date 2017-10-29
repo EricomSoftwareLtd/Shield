@@ -40,15 +40,9 @@ class ReportData:
     def make_dict_entry(array):
         return {'id': array[0], 'name': array[1]}
 
-
-
-
-
-
 def main(args):
     data = ReportData()
     data.print()
-
 
 if __name__ == '__main__':
     main(sys.argv)
