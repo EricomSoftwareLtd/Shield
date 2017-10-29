@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-docker build -t securebrowsing/node-installer:1.0 .
+docker build -t securebrowsing/node-installer:latest .
