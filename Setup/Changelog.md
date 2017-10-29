@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_190] - 2017-10-29
+- (*) Updated Admin #989
+
 ## [Dev:Build_189] - 2017-10-29
 - (*) CDR support for Password Protected Files #638
 
