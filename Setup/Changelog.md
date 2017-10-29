@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_191] - 2017-10-29
+- (*) Fixed CEF crash 
 
 ## [Dev:Build_190] - 2017-10-29
 - (*) Updated Admin #989
