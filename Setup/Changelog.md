@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_188] - 2017-10-29
+- (*) Support for file upload #350
+
 ## [Dev:Build_187] - 2017-10-26
 - Remote Browser support for profiles in polices
 - Fixed default Pac file
