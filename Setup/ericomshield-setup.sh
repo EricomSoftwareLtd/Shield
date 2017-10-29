@@ -28,6 +28,7 @@ ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
+ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
 ES_SETUP_VER="17.43-Setup"
 BRANCH="master"
@@ -41,6 +42,7 @@ ES_STAGING=false
 ES_POCKET=false
 ES_AUTO_UPDATE=true
 ES_FORCE=false
+ES_FORCE_SET_IP_ADDRESS=false
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -55,16 +57,16 @@ while [ $# -ne 0 ]; do
     -dev)
         ES_DEV=true
         echo "ES_DEV" >"$ES_DEV_FILE"
-	ES_CHANNEL="ES_DEV"	
+        ES_CHANNEL="ES_DEV"
         ES_STAGING=false
-        rm -f "$ES_STAGING_FILE"	
+        rm -f "$ES_STAGING_FILE"
         ;;
     -staging)
         ES_STAGING=true
         echo "ES_STAGING" >"$ES_STAGING_FILE"
-	ES_CHANNEL="ES_STAGING"
+        ES_CHANNEL="ES_STAGING"
         ES_DEV=false
-        rm -f "$ES_DEV_FILE"	
+        rm -f "$ES_DEV_FILE"
         ;;
     -noautoupdate)
         ES_AUTO_UPDATE=false
@@ -74,21 +76,24 @@ while [ $# -ne 0 ]; do
         ES_FORCE=true
         echo " " >>$ES_VER_FILE
         ;;
+    -force-ip-address-selection)
+        ES_FORCE_SET_IP_ADDRESS=true
+        ;;
     -pocket)
         ES_POCKET=true
         echo " pocket version "
         ;;
     -restart)
         UPDATE_NEED_RESTART=true
-        echo " Restart will be done during upgrade "	
+        echo " Restart will be done during upgrade "
         ;;
     -approve-eula)
-	log_message "EULA has been accepted from Command Line"
+        log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
-	;;
+        ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-staging] [-pocket] [-usage]"
+        echo "Usage: $0 [-force] [-force-ip-address-selection] [-noautoupdate] [-dev] [-staging] [-pocket] [-usage]"
         exit
         ;;
     esac
@@ -96,12 +101,12 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -f "$ES_DEV_FILE" ]; then
-    ES_CHANNEL="ES_DEV"	
+    ES_CHANNEL="ES_DEV"
     ES_DEV=true
 fi
 
 if [ -f "$ES_STAGING_FILE" ]; then
-    ES_CHANNEL="ES_STAGING"	
+    ES_CHANNEL="ES_STAGING"
     ES_STAGING=true
 fi
 
@@ -125,18 +130,82 @@ function log_message() {
     echo "$(date): $1" >>"$LOGFILE"
 }
 
+function save_my_ip() {
+    echo "$MY_IP" >"$ES_MY_IP_FILE"
+}
+
+function restore_my_ip() {
+    if [ -s "$ES_MY_IP_FILE" ]; then
+        MY_IP="$(cat "$ES_MY_IP_FILE" | grep -oP '\d+\.\d+\.\d+\.\d+')"
+        if [[ -z $MY_IP ]]; then
+            return 1
+        else
+            return 0
+        fi
+    fi
+    return 1
+}
+
+function choose_network_interface() {
+
+    local INTERFACES=($(find /sys/class/net -type l -not -lname '*virtual*' -printf '%f\n'))
+    local INTERFACE_ADDRESSES=()
+    local OPTIONS=()
+
+    for IFACE in "${INTERFACES[@]}"; do
+        OPTIONS+=("Name: \"$IFACE\", IP address: $(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
+        INTERFACE_ADDRESSES+=("$(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
+    done
+
+    if ((${#OPTIONS[@]} == 0)); then
+        log_message "No network interface cards detected. Aborting!"
+        exit 1
+    elif ((${#OPTIONS[@]} == 1)); then
+        local REPLY=1
+        log_message "Using ${INTERFACES[$((REPLY - 1))]} with address ${INTERFACE_ADDRESSES[$((REPLY - 1))]} as an interface for Shield"
+        MY_IP="${INTERFACE_ADDRESSES[$((REPLY - 1))]}"
+        return
+    fi
+
+    echo "Choose a network card to be used by Shield"
+    PS3="Enter your choice: "
+    select opt in "${OPTIONS[@]}" "Quit"; do
+
+        case "$REPLY" in
+
+        [1-$((${#OPTIONS[@]}))]*)
+            log_message "Using ${INTERFACES[$((REPLY - 1))]} with address ${INTERFACE_ADDRESSES[$((REPLY - 1))]} as an interface for Shield"
+            MY_IP="${INTERFACE_ADDRESSES[$((REPLY - 1))]}"
+            return
+            ;;
+        $((${#OPTIONS[@]} + 1)))
+            break
+            ;;
+        *)
+            echo "Invalid option. Try another one."
+            continue
+            ;;
+
+        esac
+
+    done
+
+    log_message "Aborting installation!"
+    exit 1
+}
+
 function failed_to_install() {
-   log_message "An error occured during the installation: $1, Exiting!"
+    log_message "An error occured during the installation: $1, Exiting!"
 
     if [ "$UPDATE" == true ]; then
-       if [ -f "$ES_VER_FILE" ]; then
-          mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
-       fi   
-      else
-       if [ -f "$ES_VER_FILE" ]; then
-          rm -f "$ES_VER_FILE"             
-       fi   
-    fi   
+        if [ -f "$ES_VER_FILE" ]; then
+            mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
+        fi
+    else
+        if [ -f "$ES_VER_FILE" ]; then
+            rm -f "$ES_VER_FILE"
+        fi
+    fi
 }
 
 function accept_license() {
@@ -185,18 +254,18 @@ function install_docker() {
         #Docker Installation of a specific Version
         curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-	echo -n "apt-get -qq update ..." 
+        echo -n "apt-get -qq update ..."
         apt-get -qq update
-	echo "done"
+        echo "done"
         sudo apt-cache policy docker-ce
-	echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-	sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
+        echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
+        sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
     if [ "$(sudo docker version | wc -l)" -le 1 ]; then
-       failed_to_install "Failed to Install Docker"
-       exit 1
+        failed_to_install "Failed to Install Docker"
+        exit 1
     fi
 }
 
@@ -255,7 +324,7 @@ function create_shield_service() {
         systemctl link ${ES_PATH}/ericomshield-updater.service
         systemctl --system enable ${ES_PATH}/ericomshield-updater.service
         systemctl daemon-reload
-	fi	
+    fi
     echo "Done!"
 }
 
@@ -275,7 +344,6 @@ function prepare_yml() {
         fi
     done <"$ES_VER_FILE"
 
-    MY_IP=$(/sbin/ifconfig | grep 'inet addr:' | grep -v "127.0" | grep -v "172.1" | cut -d: -f2 | awk '{ printf $1}')
     #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 }
@@ -291,10 +359,10 @@ function get_shield_install_files() {
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
         curl -s -S -o shield-version-new.txt "$ES_repo_dev_ver"
-     elif [ "$ES_STAGING" == true ]; then
+    elif [ "$ES_STAGING" == true ]; then
         echo "Getting $ES_repo_staging_ver (staging)"
         curl -s -S -o shield-version-new.txt "$ES_repo_staging_ver"
-	  else	
+    else
         echo "Getting $ES_repo_ver (prod)"
         curl -s -S -o shield-version-new.txt "$ES_repo_ver"
     fi
@@ -306,10 +374,10 @@ function get_shield_install_files() {
             echo "***************     Updating EricomShield ($ES_SETUP_VER)"
             echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
             UPDATE=true
-            mv "$ES_VER_FILE"  "$ES_VER_FILE_BAK"
+            mv "$ES_VER_FILE" "$ES_VER_FILE_BAK"
             if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
-              UPDATE_NEED_RESTART=true
-            fi  
+                UPDATE_NEED_RESTART=true
+            fi
         fi
     else
         echo "***************     Installing EricomShield ($ES_SETUP_VER)..."
@@ -320,8 +388,8 @@ function get_shield_install_files() {
     echo "Getting $ES_YML_FILE"
 
     if [ -f "$ES_YML_FILE" ]; then
-       mv  "$ES_YML_FILE"  "$ES_YML_FILE_BAK"
-    fi   
+        mv "$ES_YML_FILE" "$ES_YML_FILE_BAK"
+    fi
 
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
     echo "Getting $ES_repo_uninstall"
@@ -365,8 +433,13 @@ function get_shield_files() {
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
-	
+
 check_free_space
+
+if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
+    choose_network_interface
+fi
+save_my_ip
 
 echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
@@ -377,8 +450,8 @@ install_docker
 if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
 else
-   failed_to_install "Failed to start docker service"
-   exit 1
+    failed_to_install "Failed to start docker service"
+    exit 1
 fi
 
 install_docker_compose
@@ -418,23 +491,23 @@ if [ "$UPDATE" == false ]; then
     systemctl start ericomshield-updater.service
 
 else # Update
-   if [ "$UPDATE_NEED_RESTART" == true ]; then
-      echo " Stopping Ericom Shield for Update "
-      ./stop.sh
-     else
-      echo -n "stop shield-broker"
-      docker service scale shield_broker-server=0
-      wait=0
-      while [ $wait -lt 6 ]; do
-        if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
-            echo !
-            break
-        else
-            echo -n .
-            sleep 10
-        fi
-        wait=$((wait + 1))
-      done
+    if [ "$UPDATE_NEED_RESTART" == true ]; then
+        echo " Stopping Ericom Shield for Update "
+        ./stop.sh
+    else
+        echo -n "stop shield-broker"
+        docker service scale shield_broker-server=0
+        wait=0
+        while [ $wait -lt 6 ]; do
+            if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
+                echo !
+                break
+            else
+                echo -n .
+                sleep 10
+            fi
+            wait=$((wait + 1))
+        done
     fi
 fi
 
