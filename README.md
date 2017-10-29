@@ -30,6 +30,8 @@ Prepare the node to join Ericom Shield Swarm Cluster:
 `curl -sS https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/multinode/SetupNode/prepare-node.sh >  prepare-node.sh  \
  && chmod +x prepare-node.sh && sudo ./prepare-node.sh`
 
+Ericom Shield will be installed and ericomshield service will be available
+=======
 On the Master Machine:
 
 Ericom Shield Setup Cluster Node:
@@ -62,3 +64,12 @@ And more commands you can use:
 [-m|--mode] Mode to join should be worker|manager default worker
 
 [-n|--name] Node name prefix. should be only letters. default WORKER. Final looks (NAME) + node number
+
+-ips|--machines-ip IPs of machines to append separated by ','
+
+[-b|--browser] Allow shield-browser containers to be allocated on this node
+
+[-sc|--shield-core] Allow shield-core containers to be allocated on this node
+
+[-mng|--management] Allow to shield managment container to be allocated on node
+
