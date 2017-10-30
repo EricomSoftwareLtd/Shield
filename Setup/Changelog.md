@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_192] - 2017-10-30
+- Added username into dashboard browsers list #1018
+- Admin - Dashboard - Remove Services section #931
+- Added comment property to policies. removed auto column #887
+- Search active directory placeholder added
+- Remove internal squid whitelist #1042
+- Ssanitize password protected archive files only if needed (Votiro settings) - #638 
+- Change upload notification  #1034
+- Fixed the case where trying to sanitize an archive file against Votiro cloud server
+- Build 190- Advanced authentication is not working #1040
+- Checking if archive file is password protected and if password i correct by using 'unzipper' #638
+
 ## [Dev:Build_191] - 2017-10-29
 - (*) Fixed CEF crash 
 
