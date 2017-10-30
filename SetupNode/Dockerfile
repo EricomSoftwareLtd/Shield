@@ -10,5 +10,6 @@ COPY setup-node.sh /
 COPY requirements.txt /
 COPY install-docker.sh /
 COPY mount-tmpfs-volume.sh /
+COPY sysctl_shield.conf /
 
 RUN pip install -r requirements.txt
