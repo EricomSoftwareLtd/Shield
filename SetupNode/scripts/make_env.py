@@ -1,15 +1,26 @@
 import argparse
 import sys
 import logging
+from argparse import HelpFormatter
 
 
 logger = logging.getLogger("parse_arguments")
 
 parser = None
 
+
+class CustomErrorPrintArgParser(argparse.ArgumentParser):
+
+    def error(self, message):
+        new_message = "{}\nPlease use {} -h/--help to print detailed usage".format(message, self.prog)
+        super().error(new_message)
+
+
+
+
 def parse_command_line():
     global parser
-    parser = argparse.ArgumentParser(prog='ericomshield-setup-node.sh', description='''
+    parser = CustomErrorPrintArgParser(prog='ericomshield-setup-node.sh', description='''
         Append new node to swarm cluster.
         When you append node keep that node goal will be applyed. 
         Set at least one of label parameters.
