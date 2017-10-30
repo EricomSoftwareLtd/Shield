@@ -104,6 +104,8 @@ def prepare_machine_to_docker_node(ip):
     sftp_client.put(os.path.abspath('./hosts'),
                     '/home/{}/hosts'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./mount-tmpfs-volume.sh'), '/home/{}/mount-tmpfs-volume.sh'.format(os.environ['MACHINE_USER']))
+    sftp_client.put(os.path.abspath('./sysctl_shield.conf'),
+                    '/home/{}/sysctl_shield.conf'.format(os.environ['MACHINE_USER']))
     sftp_client.close()
     stdin, stdout, stderr = client.exec_command('sudo mv ./hostname /etc/hostname')
     stdout.channel.recv_exit_status()
@@ -116,6 +118,10 @@ def prepare_machine_to_docker_node(ip):
     logger.error(stderr.readlines())
 
     stdin, stdout, stderr = client.exec_command('chmod +x ./mount-tmpfs-volume.sh && sudo ./mount-tmpfs-volume.sh && rm -f ./mount-tmpfs-volume.sh')
+    stdout.channel.recv_exit_status()
+    logger.error(stderr.readlines())
+
+    stdin, stdout, stderr = client.exec_command('if [ $(sudo grep -c EricomShield /etc/sysctl.conf) -eq 0 ]; then cat ./sysctl_shield.conf | sudo tee -a /etc/sysctl.conf; fi')
     stdout.channel.recv_exit_status()
     logger.error(stderr.readlines())
 
