@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_194] - 2017-10-31
+- Proxy message translation #1042 
+- Settings page reorganization #1029 
+
 ## [Dev:Build_193] - 2017-10-31
 - (*) Admin UI - Red MessageBox "user action status of undefined " #1050
 - (*) Allow as_address in authproxy conf #1067
