@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_193] - 2017-10-31
+- (*) Admin UI - Red MessageBox "user action status of undefined " #1050
+- (*) Allow as_address in authproxy conf #1067
+- DC reslove will add to etc/hosts if bind fail #1044 
+- Fixed modal dialog add profile button #1054
+- Clean ldap_cache in case the usage of AD was changed #1042
+- Change upload notification  #1034 
+- Updates to yml file for better logging 
+
 ## [Dev:Build_192] - 2017-10-30
 - Added username into dashboard browsers list #1018
 - Admin - Dashboard - Remove Services section #931
@@ -16,7 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Search active directory placeholder added
 - Remove internal squid whitelist #1042
 - Ssanitize password protected archive files only if needed (Votiro settings) - #638 
-- Change upload notification  #1034
 - Fixed the case where trying to sanitize an archive file against Votiro cloud server
 - Build 190- Advanced authentication is not working #1040
 - Checking if archive file is password protected and if password i correct by using 'unzipper' #638
