@@ -9,9 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_195] - 2017-10-31
+- Fix ctrl+x #914 #1086 
+- Fix debug panel #1051 
+
 ## [Dev:Build_194] - 2017-10-31
 - Proxy message translation #1042 
-- Settings page reorganization #1029 
+- (*) Settings page reorganization #1029 
 
 ## [Dev:Build_193] - 2017-10-31
 - (*) Admin UI - Red MessageBox "user action status of undefined " #1050
@@ -24,13 +28,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_192] - 2017-10-30
 - Added username into dashboard browsers list #1018
-- Admin - Dashboard - Remove Services section #931
+- Admin Dashboard - Remove Services section #931
 - Added comment property to policies. removed auto column #887
 - Search active directory placeholder added
 - Remove internal squid whitelist #1042
 - Ssanitize password protected archive files only if needed (Votiro settings) - #638 
 - Fixed the case where trying to sanitize an archive file against Votiro cloud server
-- Build 190- Advanced authentication is not working #1040
+- Build 190 Advanced authentication is not working #1040
 - Checking if archive file is password protected and if password i correct by using 'unzipper' #638
 
 ## [Dev:Build_191] - 2017-10-29
