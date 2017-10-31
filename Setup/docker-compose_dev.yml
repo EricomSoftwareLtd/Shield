@@ -6,6 +6,7 @@ version: "3.3"
 services:
   collector:
      image: securebrowsing/shield-collector:latest
+     hostname: collector
      volumes:
        - /var/run/docker.sock:/var/run/docker.sock
        - /proc:/hostfs/proc:ro
@@ -134,10 +135,12 @@ services:
 ###################################################################### Shield services part ##################################################################
   shield-admin:
         image: securebrowsing/shield-admin:latest
+        hostname: shield-admin
         ports:
             - 8181:8181
         environment:
             - SHIELD_VER=8.0.0.latest
+            - NODE_ENV=production
         volumes:
            - admin:/data/consul
            - /var/run/docker.sock:/var/run/docker.sock
@@ -346,7 +349,7 @@ services:
            protocol: tcp
            mode: host
       environment:
-          - "SHIELD_IP=IP_ADDRESS"
+          - NODE_ENV=production
       logging:
           driver: syslog
           options:
@@ -361,6 +364,7 @@ services:
           - shield
         environment:
             - "SHIELD_IP=IP_ADDRESS"
+            - NODE_ENV=production
         deploy:
           replicas: 1
           placement:
@@ -378,6 +382,8 @@ services:
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
+    environment:
+        - NODE_ENV=production
     networks:
       - shield
     deploy:
@@ -398,6 +404,8 @@ services:
   cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
         hostname: cdr-controller
+        environment:
+            - NODE_ENV=production
         networks:
             - shield
         deploy:
