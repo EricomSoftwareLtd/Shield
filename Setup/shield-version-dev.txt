@@ -14,4 +14,4 @@ shield-cdr-dispatcher:latest shield-cdr-dispatcher:171030-12.43-442
 shield-cdr-controller:latest shield-cdr-controller:171029-09.27-433
 shield-web-service:latest shield-web-service:171026-10.56-427
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:171031-12.34-458
+shield-authproxy:latest shield-authproxy:171031-14.37-463
