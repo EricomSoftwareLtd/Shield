@@ -12,3 +12,5 @@ shield-elk:latest shield-elk:170914-09.22-550
 extproxy:latest extproxy:170724-21.57
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:170914-15.12-562
 shield-cdr-controller:latest shield-cdr-controller:170914-06.58-547
+shield-maintenance:latest shield-maintenance:171015-11.48-270
+shield-authproxy:latest shield-authproxy:171015-11.55-271
