@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_197] - 2017-10-31
+- Write to the report the sanitization task in case the user has canceled the file's password dialog 
+- Re-implemented zip password protected testing by node-7z package - #1075
+- Browser scale parallelism incresed to 8 
+
 ## [Dev:Build_196] - 2017-11-1
 - Fix Admin - Profiles better spacing #1023
 - File upload bug - Japanese filename #1026
