@@ -253,7 +253,7 @@ services:
         deploy:
           replicas: 0
           update_config:
-            parallelism: 2
+            parallelism: 8
             delay: 10s
           restart_policy:
               condition: none
