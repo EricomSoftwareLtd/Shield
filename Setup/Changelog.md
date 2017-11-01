@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_196] - 2017-11-1
+- Fix Admin - Profiles better spacing #1023
+- File upload bug - Japanese filename #1026
+- Added tooltips for Profiles - #1093 
+- Added instant upload for pac file. Message updated #1029 
+- Clean previous added values - add profile dialog #1092
+- File upload bug - Japanese filename #1026
+- policy name for password archive is hardcoded #1079
+- added proper icon for profile  #1093
+- added message field for basic authentication - profiles
+- updated default proxy messages - Please enter your organisation 
+- CDR fixes  #1077 #1084 #1076 #1081 #1083
+- Url policies need to be removed once it's profile has been removed #1070
+- Clean previous added values - add profile dialog #1092
+
 ## [Dev:Build_195] - 2017-10-31
 - Fix ctrl+x #914 #1086 
 - Fix debug panel #1051 
