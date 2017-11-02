@@ -9,7 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_197] - 2017-10-31
+## [Dev:Build_198] - 2017-11-2
+- Last uploaded info for pacfile #937
+- Set forward headers properly &settings #1078
+- Added and rearranged Votiro settings in Admin UI  #1100 #1090
+- Fixed admin login on multi-node #911
+- Changed defualt file upload/download size to 100MB (was 10MB)
+- Moved CDR components log level settings under the "Logs" #1090
+
+## [Dev:Build_197] - 2017-11-1
 - Write to the report the sanitization task in case the user has canceled the file's password dialog 
 - Re-implemented zip password protected testing by node-7z package - #1075
 - Browser scale parallelism incresed to 8 
