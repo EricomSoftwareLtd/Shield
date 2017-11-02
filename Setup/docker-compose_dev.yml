@@ -51,31 +51,31 @@ services:
         options:
           syslog-address: udp://${SYS_LOG_HOST}:5014
 
-  elk:
-      image: securebrowsing/shield-elk:latest
-      ports:
-          - 5601:5601
-          - 9200:9200
-          - 5014:5014/udp
-      networks:
-          - shield
-      environment:
-        - "CONSUL_ADDRESS=consul"
-      deploy:
-        replicas: 1
-        restart_policy:
-            condition: any
-        placement:
-            constraints:
-              - node.labels.management==yes
-        update_config:
-          failure_action: rollback
-        resources:
-          limits:
-            memory: 2GB
-            cpus: "1"
-      volumes:
-         - elastic:/var/lib
+#  elk:
+#      image: securebrowsing/shield-elk:latest
+#      ports:
+#          - 5601:5601
+#          - 9200:9200
+#          - 5014:5014/udp
+#      networks:
+#          - shield
+#      environment:
+#        - "CONSUL_ADDRESS=consul"
+#      deploy:
+#        replicas: 1
+#        restart_policy:
+#            condition: any
+#        placement:
+#            constraints:
+#              - node.labels.management==yes
+#        update_config:
+#          failure_action: rollback
+#        resources:
+#          limits:
+#            memory: 2GB
+#            cpus: "1"
+#      volumes:
+#         - elastic:/var/lib
 
   consul-server:
     image: securebrowsing/shield-configuration:latest
