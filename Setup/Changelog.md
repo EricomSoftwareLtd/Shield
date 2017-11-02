@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_199] - 2017-11-2
+- (*) Fixed Problems with IE #1012
+
 ## [Dev:Build_198] - 2017-11-2
 - Last uploaded info for pacfile #937
 - Set forward headers properly &settings #1078
