@@ -386,15 +386,14 @@ function get_shield_install_files() {
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
-
     if [ -f "$ES_YML_FILE" ]; then
         mv "$ES_YML_FILE" "$ES_YML_FILE_BAK"
     fi
-
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
-    echo "Getting $ES_repo_uninstall"
-    curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
-    chmod +x "$ES_uninstall_FILE"
+    if [ "$ES_STAGING" == true ]; then
+        echo "Getting $ES_repo_staging_yml (staging)"
+        curl -s -S -o "$ES_YML_FILE" "$ES_repo_staging_yml"
+    fi    
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
@@ -409,6 +408,29 @@ function get_shield_install_files() {
     chmod +x deploy-shield.sh
 }
 
+function pull_images() {
+    filename=./shield-version.txt
+    LINE=0
+    while read -r line; do
+        if [ "${line:0:1}" == '#' ]; then
+            echo "$line"
+        else
+            arr=($line)
+            if [ $LINE -eq 1 ]; then
+                if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+                    echo "No new version detected"
+                    break
+                fi
+            else
+                echo "################## Pulling images  ######################"
+                echo "pulling image: ${arr[1]}"
+                docker pull "securebrowsing/${arr[1]}"
+            fi
+        fi
+        LINE=$((LINE + 1))
+    done <"$filename"
+}
+
 #############     Getting all files from Github
 function get_shield_files() {
     if [ ! -f "ericomshield-setup.sh" ]; then
@@ -416,6 +438,9 @@ function get_shield_files() {
         chmod +x ericomshield-setup.sh
     fi
 
+    echo "Getting $ES_repo_uninstall"
+    curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
+    chmod +x "$ES_uninstall_FILE"
     curl -s -S -o run.sh "$ES_repo_run"
     chmod +x run.sh
     curl -s -S -o autoupdate.sh "$ES_repo_update"
@@ -483,6 +508,9 @@ update_sysctl
 
 echo "Preparing yml file (Containers build number)"
 prepare_yml
+
+echo "pull images"  #before restarting the system for upgrade
+pull_images
 
 if [ "$UPDATE" == false ]; then
     # New Installation

@@ -1,17 +1,17 @@
-#Build Staging_17.10:Build_183f on 24/10/17   #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging_17.10:Build_183
-shield-configuration:latest shield-configuration:170906-13.59-481
-shield-admin:latest shield-admin:171002-06.30-275
+#Build Staging_17.11:Build_199 on 02/11/17   #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_199
+shield-configuration:latest shield-configuration:171022-12.15-358
+shield-admin:latest shield-admin:171102-12.11-488
 shield-portainer:latest shield-portainer:170926-14.37-114
-proxy-server:latest proxy-server:171016-13.53-298
-icap-server:latest icap-server:171019-11.05-327
-shield-cef:latest shield-cef:171016-13.17-294
-broker-server:latest broker-server:171024-09.04-383
+proxy-server:latest proxy-server:171030-14.02-445
+icap-server:latest icap-server:171102-15.48-492
+shield-cef:latest shield-cef:171101-20.15-482
+broker-server:latest broker-server:171101-14.17-476
 shield-collector:latest shield-collector:170815-12.59-365
 shield-elk:latest shield-elk:171002-06.30-275
 extproxy:latest extproxy:170724-21.57
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:171002-06.30-275
-shield-cdr-controller:latest shield-cdr-controller:171002-06.30-275
-shield-web-service:latest shield-web-service:171016-11.59-289
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:171101-14.58-480
+shield-cdr-controller:latest shield-cdr-controller:171102-10.25-486
+shield-web-service:latest shield-web-service:171026-10.56-427
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:171015-11.55-271
+shield-authproxy:latest shield-authproxy:171031-14.37-463
