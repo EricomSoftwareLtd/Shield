@@ -1,5 +1,5 @@
 #Build Staging_17.11:Build_199 on 02/11/17   #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_199
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging_17.11:Build_199
 shield-configuration:latest shield-configuration:171022-12.15-358
 shield-admin:latest shield-admin:171102-12.11-488
 shield-portainer:latest shield-portainer:170926-14.37-114
