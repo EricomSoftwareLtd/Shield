@@ -9,16 +9,63 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_199] - 2017-11-2
+- (*) Fixed Problems with IE #1012
+
+## [Dev:Build_198] - 2017-11-2
+- Last uploaded info for pacfile #937
+- Set forward headers properly &settings #1078
+- Added and rearranged Votiro settings in Admin UI  #1100 #1090
+- Fixed admin login on multi-node #911
+- Changed defualt file upload/download size to 100MB (was 10MB)
+- Moved CDR components log level settings under the "Logs" #1090
+
+## [Dev:Build_197] - 2017-11-1
+- Write to the report the sanitization task in case the user has canceled the file's password dialog 
+- Re-implemented zip password protected testing by node-7z package - #1075
+- Browser scale parallelism incresed to 8 
+
+## [Dev:Build_196] - 2017-11-1
+- Fix Admin - Profiles better spacing #1023
+- File upload bug - Japanese filename #1026
+- Added tooltips for Profiles - #1093 
+- Added instant upload for pac file. Message updated #1029 
+- Clean previous added values - add profile dialog #1092
+- File upload bug - Japanese filename #1026
+- policy name for password archive is hardcoded #1079
+- added proper icon for profile  #1093
+- added message field for basic authentication - profiles
+- updated default proxy messages - Please enter your organisation 
+- CDR fixes  #1077 #1084 #1076 #1081 #1083
+- Url policies need to be removed once it's profile has been removed #1070
+- Clean previous added values - add profile dialog #1092
+
+## [Dev:Build_195] - 2017-10-31
+- Fix ctrl+x #914 #1086 
+- Fix debug panel #1051 
+
+## [Dev:Build_194] - 2017-10-31
+- Proxy message translation #1042 
+- (*) Settings page reorganization #1029 
+
+## [Dev:Build_193] - 2017-10-31
+- (*) Admin UI - Red MessageBox "user action status of undefined " #1050
+- (*) Allow as_address in authproxy conf #1067
+- DC reslove will add to etc/hosts if bind fail #1044 
+- Fixed modal dialog add profile button #1054
+- Clean ldap_cache in case the usage of AD was changed #1042
+- Change upload notification  #1034 
+- Updates to yml file for better logging 
+
 ## [Dev:Build_192] - 2017-10-30
 - Added username into dashboard browsers list #1018
-- Admin - Dashboard - Remove Services section #931
+- Admin Dashboard - Remove Services section #931
 - Added comment property to policies. removed auto column #887
 - Search active directory placeholder added
 - Remove internal squid whitelist #1042
 - Ssanitize password protected archive files only if needed (Votiro settings) - #638 
-- Change upload notification  #1034
 - Fixed the case where trying to sanitize an archive file against Votiro cloud server
-- Build 190- Advanced authentication is not working #1040
+- Build 190 Advanced authentication is not working #1040
 - Checking if archive file is password protected and if password i correct by using 'unzipper' #638
 
 ## [Dev:Build_191] - 2017-10-29
