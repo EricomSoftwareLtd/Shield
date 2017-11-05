@@ -1,0 +1,469 @@
+version: "3.3"
+
+# Ericom Shield Stack Description
+# YML file for Staging
+
+services:
+  collector:
+     image: securebrowsing/shield-collector:latest
+     hostname: collector
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+       - /proc:/hostfs/proc:ro
+       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+       - /:/hostfs:ro
+     networks:
+       - shield
+     deploy:
+       mode: global
+       restart_policy:
+           condition: any
+       update_config:
+           failure_action: rollback
+       resources:
+         limits:
+           memory: 2GB
+           cpus: "1"
+     environment:
+       - "SYSTEM_PERIOD=5m"
+       - "DOCKER_PERIOD=5m"
+
+  maintenance:
+    image: securebrowsing/shield-maintenance:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - shield
+    hostname: maintenance
+    deploy:
+      mode: global
+      restart_policy:
+          condition: any
+      update_config:
+          failure_action: rollback
+      resources:
+        limits:
+          memory: 2GB
+          cpus: "1"
+    environment:
+      - "IMAGE_CLEAN_INTERVAL=1m"
+    logging:
+        driver: syslog
+        options:
+          syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  elk:
+      image: securebrowsing/shield-elk:latest
+      ports:
+#          - 5601:5601
+#          - 9200:9200
+          - 5014:5014/udp
+      networks:
+          - shield
+      environment:
+        - "CONSUL_ADDRESS=consul"
+      deploy:
+        replicas: 1
+        restart_policy:
+            condition: any
+        placement:
+            constraints:
+              - node.labels.management==yes
+        update_config:
+          failure_action: rollback
+        resources:
+          limits:
+            memory: 2GB
+            cpus: "1"
+      volumes:
+         - elastic:/var/lib
+
+  consul-server:
+    image: securebrowsing/shield-configuration:latest
+    networks:
+         - shield
+    deploy:
+      mode: replicated
+      replicas: 3
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+            - node.labels.management==yes
+      update_config:
+          parallelism: 1
+          delay: 10s
+          failure_action: rollback
+      restart_policy:
+          condition: any
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1"
+    environment:
+        - "CONSUL_BIND_INTERFACE=eth0"
+        - "NUMBER_OF_EXPECTED=3"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  consul:
+      image: securebrowsing/shield-configuration:latest
+      networks:
+           - shield
+#      ports:
+#          - "8500:8500"
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+            parallelism: 1
+            failure_action: rollback
+        restart_policy:
+            condition: any
+        resources:
+          limits:
+            memory: 1GB
+            cpus: "1"
+      environment:
+          - "CONSUL_BIND_INTERFACE=eth2"
+          - "RUN_AGENT=yes"
+      logging:
+        driver: syslog
+        options:
+          syslog-address: udp://${SYS_LOG_HOST}:5014
+
+###################################################################### Shield services part ##################################################################
+  shield-admin:
+        image: securebrowsing/shield-admin:latest
+        hostname: shield-admin
+        ports:
+            - 8181:8181
+        environment:
+            - SHIELD_VER=8.0.0.latest
+            - NODE_ENV=production
+        volumes:
+           - admin:/data/consul
+           - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - shield
+        deploy:
+          replicas: 1
+          update_config:
+            failure_action: rollback
+          restart_policy:
+              condition: any
+          placement:
+              constraints:
+                - node.labels.management==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "0.5"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  icap-server:
+        image: securebrowsing/icap-server:latest
+        # user: nobody
+        hostname: icap-server
+        environment:
+            - NODE_ENV=production
+            - SHIELD_VER=8.0.0.latest
+            - "SHIELD_IP=IP_ADDRESS"
+#           - SHIELD_WATERMARK=TRUE
+        ulimits:
+          nofile:
+            soft: 65535
+            hard: 65535
+        networks:
+          - shield
+        ports:
+          - 1344:1344
+        deploy:
+          replicas: 1
+          update_config:
+             failure_action: rollback
+          restart_policy:
+             condition: any
+          placement:
+             constraints:
+              - node.labels.shield_core==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  broker-server:
+        image: securebrowsing/broker-server:latest
+        # user: nobody
+        hostname: broker-server
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: any
+          update_config:
+            parallelism: 1
+            failure_action: rollback
+          resources:
+            limits:
+              memory: 100MB
+              cpus: "1"
+            reservations:
+              memory: 50MB
+          placement:
+            constraints:
+              - node.labels.shield_core==yes
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            - NODE_ENV=production
+        networks:
+          - shield
+        secrets:
+          - shield-system-id
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  shield-browser:
+        image: securebrowsing/shield-cef:latest
+        user: user
+        ulimits:
+            nice: -20
+            rtprio: 10
+        labels:
+          - com.ericom.browser
+        environment:
+             #- FPS=25
+             #- DEBUG_REMOTE_SITE=true
+             #- DISPOSE_BROWSER=true
+             #- RUN_WITH_DEBUGGER=false
+             #- EXTProxyAddress=
+             #- DEBUG_SEND_LOG_TO_AN=true
+             - PERF_STATS=true
+        networks:
+            - shield
+        deploy:
+          replicas: 0
+          update_config:
+            parallelism: 8
+            delay: 10s
+          restart_policy:
+              condition: none
+          resources:
+            limits:
+              memory: 1GB
+              cpus: "2"
+            reservations:
+              memory: 150MB
+          placement:
+            constraints:
+              - node.labels.browser==yes
+        volumes:
+          - type: tmpfs
+            target: /dev/shm
+          - type: bind
+            target: /dev/shm/xorg
+            source: /media/containershm
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  proxy-server:
+        image: securebrowsing/proxy-server:latest
+        hostname: proxy-server
+        ulimits:
+          nofile:
+            soft: 65535
+            hard: 65535
+        networks:
+          - shield
+        environment:
+          - SSLEXCLUSION=true
+        env_file: proxy-server.env
+        deploy:
+          replicas: 2
+          restart_policy:
+            condition: any
+          update_config:
+            parallelism: 1
+            delay: 10s
+            failure_action: rollback
+          placement:
+            constraints:
+              - node.labels.shield_core==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+  ext-proxy:
+        image: securebrowsing/extproxy:latest
+        hostname: ext-proxy
+        # user: nobody
+        ports:
+          - "3138:3138"
+        ulimits:
+          nofile:
+            soft: 65535
+            hard: 65535
+        networks:
+          - shield
+        deploy:
+          replicas: 0
+          placement:
+            constraints:
+              - node.labels.browser==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
+  authproxy:
+      image: securebrowsing/shield-authproxy:latest
+      hostname: authproxy
+      deploy:
+          mode: global
+          restart_policy:
+            condition: any
+          update_config:
+            failure_action: rollback
+          placement:
+            constraints:
+              - node.labels.shield_core==yes
+      networks:
+         - shield
+      ports:
+         - target: 3128
+           published: 3128
+           protocol: tcp
+           mode: host
+      environment:
+          - NODE_ENV=production
+      logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  web-service:
+        image: securebrowsing/shield-web-service:latest
+        hostname: web-service
+        ports:
+          - "80:1345"
+        networks:
+          - shield
+        environment:
+            - "SHIELD_IP=IP_ADDRESS"
+            - NODE_ENV=production
+        deploy:
+          replicas: 1
+          placement:
+            constraints:
+              - node.labels.shield_core==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+            
+  cdr-dispatcher:
+    image: securebrowsing/shield-cdr-dispatcher:latest
+    hostname: cdr-dispatcher
+    environment:
+        - NODE_ENV=production
+    networks:
+      - shield
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: any
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+      placement:
+        constraints:
+          - node.labels.shield_core==yes
+    logging:
+      driver: syslog
+      options:
+        syslog-address: udp://${SYS_LOG_HOST}:5014
+
+  cdr-controller:
+        image: securebrowsing/shield-cdr-controller:latest
+        hostname: cdr-controller
+        environment:
+            - NODE_ENV=production
+        networks:
+            - shield
+        deploy:
+          replicas: 1
+          restart_policy:
+            condition: any
+          update_config:
+            parallelism: 1
+            failure_action: rollback
+          placement:
+              constraints:
+                - node.labels.shield_core==yes
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+    ############################### Docker managment part ##############################################################
+  portainer:
+        image: securebrowsing/shield-portainer:latest
+        hostname: portainer
+#        ports:
+#            - "9000:9000"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - portainer:/data
+        networks:
+          - shield
+        deploy:
+          restart_policy:
+            condition: any
+          update_config:
+            failure_action: rollback
+          placement:
+            constraints:
+              - node.labels.management==yes
+          resources:
+            limits:
+              memory: 100MB
+              cpus: "0.5"
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
+volumes:
+  elastic:
+  portainer:
+  admin:
+
+networks:
+  shield:
+    driver: overlay
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.20.0.0/16
+
+secrets:
+   shield-system-id:
+       external: true
