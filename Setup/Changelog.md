@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_201] - 2017-11-6
+- Fixed capitalization #1155 
+- Fixed icap-polices-module logger
+- Fixed Broker typo 
+- Install certificate - link to public instructions (#1176)
+- NTLM don't send empty username
+- Flag for ntlm fallback; no proxy user; no squid restarts
+
 ## [Dev:Build_200] - 2017-11-5
 - (*) votiro settings updates# 1155
 - Consul HA fixes #1132
