@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_200] - 2017-11-5
+- (*) votiro settings updates# 1155
+- Consul HA fixes #1132
+- Policy Settings should be erased when I change the AD #1053
+- User Profiles in Shield - notification on LDAP errors #1042
+- Fix CTRL+A in JP #852
+
 ## [Dev:Build_199] - 2017-11-2
 - (*) Fixed Problems with IE #1012
 

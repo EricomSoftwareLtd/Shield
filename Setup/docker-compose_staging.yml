@@ -1,11 +1,12 @@
-version: '3.2'
+version: "3.3"
 
 # Ericom Shield Stack Description
-# YML File for Production
+# YML file for Staging
 
 services:
   collector:
      image: securebrowsing/shield-collector:latest
+     hostname: collector
      volumes:
        - /var/run/docker.sock:/var/run/docker.sock
        - /proc:/hostfs/proc:ro
@@ -33,6 +34,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - shield
+    hostname: maintenance
     deploy:
       mode: global
       restart_policy:
@@ -75,21 +77,21 @@ services:
             cpus: "1"
       volumes:
          - elastic:/var/lib
-    
-  consul:
+
+  consul-server:
     image: securebrowsing/shield-configuration:latest
     networks:
          - shield
-    ports:
-        - "8500:8500"
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 3
+      endpoint_mode: dnsrr
       placement:
         constraints:
             - node.labels.management==yes
       update_config:
           parallelism: 1
+          delay: 10s
           failure_action: rollback
       restart_policy:
           condition: any
@@ -98,20 +100,48 @@ services:
           memory: 1GB
           cpus: "1"
     environment:
-        - "CONSUL_BIND_INTERFACE=eth2"
-        - "NUMBER_OF_EXPECTED=1"
+        - "CONSUL_BIND_INTERFACE=eth0"
+        - "NUMBER_OF_EXPECTED=3"
     logging:
       driver: syslog
       options:
         syslog-address: udp://${SYS_LOG_HOST}:5014
 
+  consul:
+      image: securebrowsing/shield-configuration:latest
+      networks:
+           - shield
+#      ports:
+#          - "8500:8500"
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+            parallelism: 1
+            failure_action: rollback
+        restart_policy:
+            condition: any
+        resources:
+          limits:
+            memory: 1GB
+            cpus: "1"
+      environment:
+          - "CONSUL_BIND_INTERFACE=eth0"
+          - "RUN_AGENT=yes"
+      logging:
+        driver: syslog
+        options:
+          syslog-address: udp://${SYS_LOG_HOST}:5014
+
 ###################################################################### Shield services part ##################################################################
   shield-admin:
         image: securebrowsing/shield-admin:latest
+        hostname: shield-admin
         ports:
             - 8181:8181
         environment:
             - SHIELD_VER=8.0.0.latest
+            - NODE_ENV=production
         volumes:
            - admin:/data/consul
            - /var/run/docker.sock:/var/run/docker.sock
@@ -224,7 +254,7 @@ services:
         deploy:
           replicas: 0
           update_config:
-            parallelism: 2
+            parallelism: 8
             delay: 10s
           restart_policy:
               condition: none
@@ -251,8 +281,6 @@ services:
   proxy-server:
         image: securebrowsing/proxy-server:latest
         hostname: proxy-server
-        ports:
-          - "3128:3128"
         ulimits:
           nofile:
             soft: 65535
@@ -304,33 +332,40 @@ services:
               cpus: "1"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
+      hostname: authproxy
       deploy:
           mode: global
+          restart_policy:
+            condition: any
+          update_config:
+            failure_action: rollback
           placement:
             constraints:
               - node.labels.shield_core==yes
       networks:
          - shield
       ports:
-         - target: 3129
-           published: 3129
+         - target: 3128
+           published: 3128
            protocol: tcp
            mode: host
       environment:
-          - "SHIELD_IP=IP_ADDRESS"
+          - NODE_ENV=production
       logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014          
-    
+            syslog-address: udp://${SYS_LOG_HOST}:5014
+
   web-service:
         image: securebrowsing/shield-web-service:latest
+        hostname: web-service
         ports:
-          - "8888:1345"
+          - "80:1345"
         networks:
           - shield
         environment:
             - "SHIELD_IP=IP_ADDRESS"
+            - NODE_ENV=production
         deploy:
           replicas: 1
           placement:
@@ -344,9 +379,12 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
+    environment:
+        - NODE_ENV=production
     networks:
       - shield
     deploy:
@@ -367,6 +405,8 @@ services:
   cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
         hostname: cdr-controller
+        environment:
+            - NODE_ENV=production
         networks:
             - shield
         deploy:
@@ -422,7 +462,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.0.0/16
+        - subnet: 10.20.0.0/16
+
 secrets:
    shield-system-id:
        external: true
