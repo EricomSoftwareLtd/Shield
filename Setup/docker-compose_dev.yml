@@ -79,7 +79,7 @@ services:
          - elastic:/var/lib
 
   consul-server:
-    image: securebrowsing/shield-configuration:2
+    image: securebrowsing/shield-configuration:latest
     networks:
          - shield
     deploy:
