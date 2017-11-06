@@ -511,10 +511,11 @@ else # Update
     fi
 fi
 
-echo "source deploy-shield.sh"
-if [ -n "$ES_MY_IP_FILE" ]; then
-    export IP_ADDRESS="$ES_MY_IP_FILE"
+if [ -n "$MY_IP" ]; then
+    echo "Connect swarm to $MY_IP"
+    export IP_ADDRESS="$MY_IP"
 fi
+echo "source deploy-shield.sh"
 source deploy-shield.sh
 
 # Check the result of the last command (start, status, deploy-shield)
