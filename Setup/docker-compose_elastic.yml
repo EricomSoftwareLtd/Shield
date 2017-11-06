@@ -5,7 +5,7 @@ version: '3.2'
 
 services:
     consul-server:
-        image: securebrowsing/shield-configuration:2
+        image: securebrowsing/shield-configuration:171105-11.20-499
         networks:
              - shield
         deploy:
@@ -30,7 +30,7 @@ services:
             - "NUMBER_OF_EXPECTED=5"
 
     consul:
-        image: securebrowsing/shield-configuration:latest
+        image: securebrowsing/shield-configuration:171105-11.20-499
         networks:
               - shield
         ports:
