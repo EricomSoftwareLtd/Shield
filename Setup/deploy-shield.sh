@@ -101,29 +101,6 @@ function create_uuid() {
     fi
 }
 
-function pull_images() {
-    filename=./shield-version.txt
-    LINE=0
-    while read -r line; do
-        if [ "${line:0:1}" == '#' ]; then
-            echo "$line"
-        else
-            arr=($line)
-            if [ $LINE -eq 1 ]; then
-                if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
-                    echo "No new version detected"
-                    break
-                fi
-            else
-                echo "################## Pulling images  ######################"
-                echo "pulling image: ${arr[1]}"
-                docker pull "securebrowsing/${arr[1]}"
-            fi
-        fi
-        LINE=$((LINE + 1))
-    done <"$filename"
-}
-
 function get_right_interface() {
     TEST_MAC=$(uname | grep Linux)
     if [ ! "$TEST_MAC" ]; then
@@ -199,10 +176,7 @@ if [ -z "$JENKINS" ]; then
 fi
 
 create_proxy_env_file
-
-if [ -z "$JENKINS" ]; then
-    pull_images
-fi
+# pull_images is now done in the setup shield
 
 docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
