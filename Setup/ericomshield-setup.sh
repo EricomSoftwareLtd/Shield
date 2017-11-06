@@ -539,6 +539,10 @@ else # Update
     fi
 fi
 
+if [ -n "$MY_IP" ]; then
+    echo "Connect swarm to $MY_IP"
+    export IP_ADDRESS="$MY_IP"
+fi
 echo "source deploy-shield.sh"
 source deploy-shield.sh
 
