@@ -33,6 +33,8 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
 
+URLS_TO_CHECK='http://www.google.com/ https://www.google.com/ http://www.ericom.com/ https://www.ericom.com/'
+
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -137,6 +139,23 @@ fi
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
+}
+
+function check_url_connectivity() {
+    printf "\nChecking $1 ..."
+    if ! curl "$1" -sS -o /dev/null -w "\nResponse Code: %{http_code}\nDNS time: %{time_namelookup}\nConnection time: %{time_connect}\nPretransfer time: %{time_pretransfer}\nStarttransfer time: %{time_starttransfer}\nTotal time: %{time_total}\n"; then
+        printf "$1 check failed"
+        return 1
+    fi
+}
+
+function check_connectivity() {
+    for url in $URLS_TO_CHECK; do
+        if ! check_url_connectivity "$url"; then
+            echo "Connectivity test failed for $url"
+            return 1
+        fi
+    done
 }
 
 function save_my_ip() {
@@ -470,8 +489,11 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 check_free_space
 
-# Perform Internet connection speed test
-/usr/bin/speedtest-cli
+if [ "$ES_INTERACTIVE" == true ]; then
+    check_connectivity
+    # Perform Internet connection speed test
+    /usr/bin/speedtest-cli
+fi
 
 if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
     if [ "$ES_INTERACTIVE" == true ]; then
