@@ -27,7 +27,7 @@ Open a Shell on a New Node:
 
 Prepare the node to join Ericom Shield Swarm Cluster:
 
-`curl -sS https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/multinode/SetupNode/prepare-node.sh >  prepare-node.sh  \
+`curl -sS https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/prepare-node.sh >  prepare-node.sh  
  && chmod +x prepare-node.sh && sudo ./prepare-node.sh`
 
 Ericom Shield will be installed and ericomshield service will be available
@@ -36,8 +36,7 @@ On the Master Machine:
 
 Ericom Shield Setup Cluster Node:
 
-`curl -sS https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/multinode/SetupNode/ericomshield-setup-node.sh > ericomshield-setup-node.sh \
-&& chmod +x ericomshield-setup-node.sh`
+`curl -sS https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/ericomshield-setup-node.sh > ericomshield-setup-node.sh && chmod +x ericomshield-setup-node.sh`
 
 Run sudo ./ericomshield-setup-node.sh -ips xxx.xx.xx.xx,yy.yy.yy.yy -mng -b
 
