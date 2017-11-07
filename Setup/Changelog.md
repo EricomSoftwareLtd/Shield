@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_202] - 2017-11-7
+- Fixed capitalization #1155 
+- Filter apps in authproxy #1207
+- Fixed Retrieving typo 	
+- Fix docs url in Admin #1194
+- Internal addresses always through second proxy
+
 ## [Dev:Build_201] - 2017-11-6
 - Fixed capitalization #1155 
 - Fixed icap-polices-module logger
