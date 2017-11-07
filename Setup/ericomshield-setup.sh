@@ -33,7 +33,7 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
 
-URLS_TO_CHECK='http://www.google.com/ https://www.google.com/ http://www.ericom.com/ https://www.ericom.com/'
+URLS_TO_CHECK='http://www.google.com/ https://www.google.com/ http://www.ericom.com/ https://www.ericom.com/ https://hub.docker.com/'
 
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
@@ -136,6 +136,11 @@ if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c speedtest-cli)" -e
     apt-get --assume-yes -y install speedtest-cli
 fi
 
+if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c hdparm)" -eq 0 ]; then
+    echo "***************     Installing hdparm"
+    apt-get --assume-yes -y install hdparm
+fi
+
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
@@ -156,6 +161,10 @@ function check_connectivity() {
             return 1
         fi
     done
+}
+
+function check_storage_drive_speed() {
+    /sbin/hdparm -Tt $(df -l --output=source /var/lib | awk 'FNR == 2 {print $1}')
 }
 
 function save_my_ip() {
@@ -490,9 +499,12 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 check_free_space
 
 if [ "$ES_INTERACTIVE" == true ]; then
-    check_connectivity
+    log_message "Checking Internet connectivity..."
+    log_message "$(check_connectivity 2>&1)"
     # Perform Internet connection speed test
-    /usr/bin/speedtest-cli
+    /usr/bin/speedtest-cli 2>&1 | tee -a "$LOGFILE"
+    log_message "Checking storage drive speed..."
+    log_message "$(check_storage_drive_speed 2>&1)"
 fi
 
 if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
