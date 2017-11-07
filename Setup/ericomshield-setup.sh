@@ -393,7 +393,7 @@ function get_shield_install_files() {
     if [ "$ES_STAGING" == true ]; then
         echo "Getting $ES_repo_staging_yml (staging)"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_staging_yml"
-    fi    
+    fi
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
@@ -509,7 +509,7 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-echo "pull images"  #before restarting the system for upgrade
+echo "pull images" #before restarting the system for upgrade
 pull_images
 
 if [ "$UPDATE" == false ]; then
