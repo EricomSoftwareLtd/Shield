@@ -43,6 +43,7 @@ ES_POCKET=false
 ES_AUTO_UPDATE=true
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
+ES_INTERACTIVE=true
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -75,6 +76,9 @@ while [ $# -ne 0 ]; do
     -force)
         ES_FORCE=true
         echo " " >>$ES_VER_FILE
+        ;;
+    -noninteractive)
+        ES_INTERACTIVE=false
         ;;
     -force-ip-address-selection)
         ES_FORCE_SET_IP_ADDRESS=true
@@ -123,6 +127,11 @@ fi
 if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
     echo "***************     Installing jq"
     apt-get --assume-yes -y install jq
+fi
+
+if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c speedtest-cli)" -eq 0 ]; then
+    echo "***************     Installing speedtest-cli"
+    apt-get --assume-yes -y install speedtest-cli
 fi
 
 function log_message() {
@@ -461,8 +470,13 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 check_free_space
 
+# Perform Internet connection speed test
+/usr/bin/speedtest-cli
+
 if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
-    choose_network_interface
+    if [ "$ES_INTERACTIVE" == true ]; then
+        choose_network_interface
+    fi
 fi
 save_my_ip
 
