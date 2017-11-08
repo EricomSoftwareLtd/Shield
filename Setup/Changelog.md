@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_203] - 2017-11-8
+- NBC.com crash - CEF in half dead mode #1228
+- Limit # of retries to get browser in AN #1230
+- Decode user-agent from squid before parse #1226
+
 ## [Dev:Build_202] - 2017-11-7
 - Fixed capitalization #1155 
 - Filter apps in authproxy #1207
