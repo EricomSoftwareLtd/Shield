@@ -43,7 +43,7 @@ Ericom Shield Setup Cluster Node:
 
 *sudo chmod +x ericomshield-setup-node.sh*
 
-*sudo ./ericomshield-setup-node.sh -ips xxx.xx.xx.xx,yy.yy.yy.yy -mng -b*
+*sudo ./ericomshield-setup-node.sh -ips xx.xx.xx.xx,yy.yy.yy.yy -mng -b*
 
 And more commands you can use:
 
