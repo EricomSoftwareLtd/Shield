@@ -27,8 +27,11 @@ Open a Shell on a New Node:
 
 Prepare the node to join Ericom Shield Swarm Cluster:
 
-`curl -sS https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/prepare-node.sh >  prepare-node.sh  
- && chmod +x prepare-node.sh && sudo ./prepare-node.sh`
+*sudo wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/prepare-node.sh"*
+
+*sudo chmod +x prepare-node.sh*
+
+*sudo ./prepare-node.sh*
 
 Ericom Shield will be installed and ericomshield service will be available
 =======
@@ -36,39 +39,30 @@ On the Master Machine:
 
 Ericom Shield Setup Cluster Node:
 
-`curl -sS https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/ericomshield-setup-node.sh > ericomshield-setup-node.sh && chmod +x ericomshield-setup-node.sh`
+*sudo wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/ericomshield-setup-node.sh"*
 
-Run sudo ./ericomshield-setup-node.sh -ips xxx.xx.xx.xx,yy.yy.yy.yy -mng -b
+*sudo chmod +x ericomshield-setup-node.sh*
+
+*sudo ./ericomshield-setup-node.sh -ips xxx.xx.xx.xx,yy.yy.yy.yy -mng -b*
 
 And more commands you can use:
 
--ips|--machines-ip IPs of machines to append separated by ','
+[-ips|--machines-ip] IPs of machines to append separated by commas (',')
 
-[-b|--browser] Allow shield-browser containers to be allocated on this node
+[-b|--browser] Allow shield-browser containers to be allocated on this node. Defines the node as browsers farm component
 
-[-sc|--shield-core] Allow shield-core containers to be allocated on this node
+[-sc|--shield-core] Allow shield-core containers to be allocated on this node. Defines the node as core component
 
-[-mng|--management] Allow to shield managment container to be allocated on node
+[-mng|--management] Allow to shield managment container to be allocated on node. Defines the node as management component
 
-[-u|--user] ssl usename
-
-[-t|--token] Token to join to swarm deafult will be provide from current cluster
+[-u|--user] ssl username
 
 [-l|--leader] leader ip
 
-[-c|--certificate] path to sertificate file. Should be together private and public (file name + .pub)
-
-[-t|--token] swarm join token 'docker swarm join-token -q worker|manager'
-
-[-m|--mode] Mode to join should be worker|manager default worker
+[-m|--mode] Mode to join should be worker|manager (the default is worker)
 
 [-n|--name] Node name prefix. should be only letters. default WORKER. Final looks (NAME) + node number
 
--ips|--machines-ip IPs of machines to append separated by ','
+[-c|--certificate] path to certificate file. Should include public and private keys (file name + .pub).
 
-[-b|--browser] Allow shield-browser containers to be allocated on this node
-
-[-sc|--shield-core] Allow shield-core containers to be allocated on this node
-
-[-mng|--management] Allow to shield managment container to be allocated on node
-
+[-t|--token] Token to join the swarm deafult will be provided by current cluster ('docker swarm join-token -q worker|manager')
