@@ -42,6 +42,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use settings from host's /etc/resolv.conf for DNS resolver in proxy-server
 - Dashboard refresh for every 5 seconds #787 
 - Adding Flag to Restart the system during upgrade when required
+- Autoupdate is not set by default, run the install with -autoupdate to enable it
+- If Multi-Network Cards are detected during the install, the user is asked to select the IP to use
 
 ### Fixed:
 - Bug fix when zoom #960 #961
