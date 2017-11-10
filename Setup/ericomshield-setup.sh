@@ -118,8 +118,8 @@ fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
-  else
-   rm -f "$ES_AUTO_UPDATE_FILE" 
+else
+    rm -f "$ES_AUTO_UPDATE_FILE"
 fi
 
 #Check if curl is installed (-w check that the whole word is found)
