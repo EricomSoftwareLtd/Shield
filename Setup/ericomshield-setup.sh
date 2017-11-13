@@ -32,8 +32,10 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
 ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
+BRANCH='#1149'
 
-URLS_TO_CHECK='http://www.google.com/ https://www.google.com/ http://www.ericom.com/ https://www.ericom.com/ https://hub.docker.com/'
+ES_repo_env_test="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/env_test.sh"
+ES_repo_ipcalc="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ipcalc.py"
 
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
@@ -133,41 +135,11 @@ if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
     apt-get --assume-yes -y install jq
 fi
 
-if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c speedtest-cli)" -eq 0 ]; then
-    echo "***************     Installing speedtest-cli"
-    apt-get --assume-yes -y install speedtest-cli
-fi
-
-if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c hdparm)" -eq 0 ]; then
-    echo "***************     Installing hdparm"
-    apt-get --assume-yes -y install hdparm
-fi
-
 function log_message() {
     echo "$1"
     echo "$(date): $1" >>"$LOGFILE"
 }
 
-function check_url_connectivity() {
-    printf "\nChecking $1 ..."
-    if ! curl "$1" -sS -o /dev/null -w "\nResponse Code: %{http_code}\nDNS time: %{time_namelookup}\nConnection time: %{time_connect}\nPretransfer time: %{time_pretransfer}\nStarttransfer time: %{time_starttransfer}\nTotal time: %{time_total}\n"; then
-        printf "$1 check failed"
-        return 1
-    fi
-}
-
-function check_connectivity() {
-    for url in $URLS_TO_CHECK; do
-        if ! check_url_connectivity "$url"; then
-            echo "Connectivity test failed for $url"
-            return 1
-        fi
-    done
-}
-
-function check_storage_drive_speed() {
-    /sbin/hdparm -Tt $(df -l --output=source /var/lib | awk 'FNR == 2 {print $1}')
-}
 
 function save_my_ip() {
     echo "$MY_IP" >"$ES_MY_IP_FILE"
@@ -245,6 +217,8 @@ function failed_to_install() {
             rm -f "$ES_VER_FILE"
         fi
     fi
+
+    exit 1
 }
 
 function accept_license() {
@@ -270,19 +244,6 @@ function accept_license() {
     done
 
     return -1
-}
-
-function check_free_space() {
-    FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
-    FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
-    if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
-        exit 1
-    fi
-    if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
-        exit 1
-    fi
 }
 
 function install_docker() {
@@ -498,15 +459,13 @@ function get_shield_files() {
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
-check_free_space
-
 if [ "$ES_INTERACTIVE" == true ]; then
-    log_message "Checking Internet connectivity..."
-    log_message "$(check_connectivity 2>&1)"
-    # Perform Internet connection speed test
-    /usr/bin/speedtest-cli 2>&1 | tee -a "$LOGFILE"
-    log_message "Checking storage drive speed..."
-    log_message "$(check_storage_drive_speed 2>&1)"
+    curl -s -S "$ES_repo_ipcalc"
+    curl -s -S "$ES_repo_env_test"
+
+    source "env_test.sh"
+
+    perform_env_test
 fi
 
 if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
