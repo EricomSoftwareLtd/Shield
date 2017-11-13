@@ -32,7 +32,6 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
 ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
-BRANCH='#1149'
 
 ES_repo_env_test="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/env_test.sh"
 ES_repo_ipcalc="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ipcalc.py"
@@ -460,8 +459,8 @@ function get_shield_files() {
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 if [ "$ES_INTERACTIVE" == true ]; then
-    curl -s -S "$ES_repo_ipcalc"
-    curl -s -S "$ES_repo_env_test"
+    curl -s -S -O "$ES_repo_ipcalc"
+    curl -s -S -O "$ES_repo_env_test"
 
     source "env_test.sh"
 
