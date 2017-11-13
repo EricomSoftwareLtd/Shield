@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_204] - 2017-11-12
+- Improve alive.html healthcheck #1242 #1229 
+- Password reveal is now working for profile page
+- Message when no ad is setup - create profile #1167
+- Fixed modal error when saving invalid settings to profile page
+- Logic fix for saving profiles. added support for warning messages #1169
+- NTLM field added. #1165
+- Added proper tooltip and placeholder according to #1180
+- NTLM_fallback to be default true
+- Edit profile #1069
+- SPN update tooltip #1224
+- ADtest also verifies kerberos #1180; fixed krb5.conf realm case
+
 ## [Dev:Build_203] - 2017-11-8
 - NBC.com crash - CEF in half dead mode #1228
 - Limit # of retries to get browser in AN #1230
