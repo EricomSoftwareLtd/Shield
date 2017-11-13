@@ -139,7 +139,6 @@ function log_message() {
     echo "$(date): $1" >>"$LOGFILE"
 }
 
-
 function save_my_ip() {
     echo "$MY_IP" >"$ES_MY_IP_FILE"
 }
