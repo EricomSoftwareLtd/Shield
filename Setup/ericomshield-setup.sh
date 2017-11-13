@@ -459,7 +459,8 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 if [ "$ES_INTERACTIVE" == true ]; then
     curl -s -S -O "$ES_repo_ipcalc"
-    curl -s -S -O "$ES_repo_env_test"
+    curl -s -S -o "env_test.sh" "$ES_repo_env_test"
+    chmod a+x "env_test.sh"
 
     source "env_test.sh"
 

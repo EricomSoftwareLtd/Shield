@@ -63,10 +63,34 @@ function check_network_address_conflicts() {
 import ipcalc
 
 if ipcalc.Network("${SHIELD_NETWORK_ADDR_BLOCK}").check_collision(ipcalc.IP("${IF_ADDR}")) :
-    print("Address collision detected: ${IF_ADDR} collides with ${SHIELD_NETWORK_ADDR_BLOCK} used by Shield")
+    print("WARNING: Address collision detected: ${IF_ADDR} collides with ${SHIELD_NETWORK_ADDR_BLOCK} used by Shield!")
 END
+        check_ip_resolution "${IF_ADDR}"
     done
 
+}
+
+function check_ip_resolution() {
+    log_message "Trying to resolve $1 to a DNS name..."
+    if ! getent hosts "$1"; then
+        log_message "WARNING: Could not resolve $1!"
+    else
+        log_message "OK"
+    fi
+    return 0
+}
+
+function check_hostname_resolution() {
+    local HOSTNAME="$(hostname)"
+    log_message "Hostname is ${HOSTNAME}"
+    log_message "Trying to resolve ${HOSTNAME} to an IP address..."
+    if ! getent hosts "${HOSTNAME}"; then
+        log_message "ERROR: Could not resolve ${HOSTNAME}"
+        return 1
+    else
+        log_message "OK"
+    fi
+    return 0
 }
 
 function perform_env_test() {
@@ -102,6 +126,10 @@ function perform_env_test() {
 
     log_message "Checking network address conflicts..."
     check_network_address_conflicts
+
+    echo ""
+
+    check_hostname_resolution
 }
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
