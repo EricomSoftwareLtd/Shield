@@ -143,6 +143,10 @@ def format_labels_command():
 
     return 'docker node update {0} {1}'.format(res, os.environ['REMOTE_HOST_NAME'])
 
+def run_consul_reshafle_command():
+    output = subprocess.check_output('docker service update --force --replicas 5 shield_consul-server', shell=True)
+
+    print(output)
 
 def run_join_to_swarm(command, ip):
     if os.environ['MACHINE_SESSION_MODE'] == 'password':
@@ -161,6 +165,9 @@ def run_join_to_swarm(command, ip):
 
     output = subprocess.check_output(format_labels_command(), shell=True)
     logger.info(output)
+
+    if 'MANAGEMENT' in os.environ:
+        run_consul_reshafle_command()
 
 
 

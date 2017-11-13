@@ -30,7 +30,7 @@ ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
-ES_SETUP_VER="17.43-Setup"
+ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
 
 MIN_FREE_SPACE_GB=5
@@ -40,7 +40,7 @@ ES_CHANNEL="Production"
 ES_DEV=false
 ES_STAGING=false
 ES_POCKET=false
-ES_AUTO_UPDATE=true
+ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 # Create the Ericom empty dir if necessary
@@ -68,9 +68,9 @@ while [ $# -ne 0 ]; do
         ES_DEV=false
         rm -f "$ES_DEV_FILE"
         ;;
-    -noautoupdate)
-        ES_AUTO_UPDATE=false
-        rm -f "$ES_AUTO_UPDATE_FILE"
+    -autoupdate)
+        ES_AUTO_UPDATE=true
+        echo " " >"$ES_AUTO_UPDATE_FILE"
         ;;
     -force)
         ES_FORCE=true
@@ -93,7 +93,7 @@ while [ $# -ne 0 ]; do
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-force-ip-address-selection] [-noautoupdate] [-dev] [-staging] [-pocket] [-usage]"
+        echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
         exit
         ;;
     esac
@@ -112,6 +112,8 @@ fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
+  else
+   rm -f "$ES_AUTO_UPDATE_FILE" 
 fi
 
 #Check if curl is installed (-w check that the whole word is found)
@@ -386,15 +388,14 @@ function get_shield_install_files() {
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
-
     if [ -f "$ES_YML_FILE" ]; then
         mv "$ES_YML_FILE" "$ES_YML_FILE_BAK"
     fi
-
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
-    echo "Getting $ES_repo_uninstall"
-    curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
-    chmod +x "$ES_uninstall_FILE"
+    if [ "$ES_STAGING" == true ]; then
+        echo "Getting $ES_repo_staging_yml (staging)"
+        curl -s -S -o "$ES_YML_FILE" "$ES_repo_staging_yml"
+    fi    
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
@@ -409,6 +410,29 @@ function get_shield_install_files() {
     chmod +x deploy-shield.sh
 }
 
+function pull_images() {
+    filename=./shield-version.txt
+    LINE=0
+    while read -r line; do
+        if [ "${line:0:1}" == '#' ]; then
+            echo "$line"
+        else
+            arr=($line)
+            if [ $LINE -eq 1 ]; then
+                if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+                    echo "No new version detected"
+                    break
+                fi
+            else
+                echo "################## Pulling images  ######################"
+                echo "pulling image: ${arr[1]}"
+                docker pull "securebrowsing/${arr[1]}"
+            fi
+        fi
+        LINE=$((LINE + 1))
+    done <"$filename"
+}
+
 #############     Getting all files from Github
 function get_shield_files() {
     if [ ! -f "ericomshield-setup.sh" ]; then
@@ -416,6 +440,9 @@ function get_shield_files() {
         chmod +x ericomshield-setup.sh
     fi
 
+    echo "Getting $ES_repo_uninstall"
+    curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
+    chmod +x "$ES_uninstall_FILE"
     curl -s -S -o run.sh "$ES_repo_run"
     chmod +x run.sh
     curl -s -S -o autoupdate.sh "$ES_repo_update"
@@ -484,6 +511,9 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
+echo "pull images"  #before restarting the system for upgrade
+pull_images
+
 if [ "$UPDATE" == false ]; then
     # New Installation
 
@@ -511,6 +541,10 @@ else # Update
     fi
 fi
 
+if [ -n "$MY_IP" ]; then
+    echo "Connect swarm to $MY_IP"
+    export IP_ADDRESS="$MY_IP"
+fi
 echo "source deploy-shield.sh"
 source deploy-shield.sh
 

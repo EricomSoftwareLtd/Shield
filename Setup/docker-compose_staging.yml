@@ -1,7 +1,7 @@
 version: "3.3"
 
 # Ericom Shield Stack Description
-# YML file for Dev
+# YML file for Staging
 
 services:
   collector:
@@ -55,13 +55,13 @@ services:
   elk:
       image: securebrowsing/shield-elk:latest
       ports:
-          - 5601:5601
-          - 9200:9200
+#          - 5601:5601
+#          - 9200:9200
           - 5014:5014/udp
       networks:
           - shield
       environment:
-        - "REINDEX_RUNINNG_INTERVAL=20s"
+        - "CONSUL_ADDRESS=consul"
       deploy:
         replicas: 1
         restart_policy:
@@ -74,7 +74,7 @@ services:
         resources:
           limits:
             memory: 2GB
-            cpus: "2"
+            cpus: "1"
       volumes:
          - elastic:/var/lib
 
@@ -91,8 +91,8 @@ services:
             - node.labels.management==yes
       update_config:
           parallelism: 1
+          delay: 15s
           failure_action: rollback
-          delay: "15s"
       restart_policy:
           condition: any
       resources:
@@ -111,8 +111,8 @@ services:
       image: securebrowsing/shield-configuration:latest
       networks:
            - shield
-      ports:
-          - "8500:8500"
+#      ports:
+#          - "8500:8500"
       deploy:
         mode: replicated
         replicas: 1
@@ -126,7 +126,7 @@ services:
             memory: 1GB
             cpus: "1"
       environment:
-          - "CONSUL_BIND_INTERFACE=eth2"
+          - "CONSUL_BIND_INTERFACE=eth0"
           - "RUN_AGENT=yes"
       logging:
         driver: syslog
@@ -427,8 +427,8 @@ services:
   portainer:
         image: securebrowsing/shield-portainer:latest
         hostname: portainer
-        ports:
-            - "9000:9000"
+#        ports:
+#            - "9000:9000"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - portainer:/data
