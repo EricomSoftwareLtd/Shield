@@ -135,6 +135,7 @@ services:
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
 
+
   icap-server:
         image: securebrowsing/icap-server:latest
         # user: nobody
