@@ -31,8 +31,8 @@ cd $ES_PATH
 source $ES_REPO_FILE
 
 if [ "$1" == "-f" ]; then
-   AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
-   FORCE_CHECK=true
+    AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
+    FORCE_CHECK=true
 fi
 
 function wait_for_maintenance_time() {
@@ -85,7 +85,7 @@ while true; do
         fi
     fi
     if [ "$FORCE_CHECK" == true ]; then
-      break
+        break
     fi
     echo "."
     sleep $AUTO_UPDATE_TIME
