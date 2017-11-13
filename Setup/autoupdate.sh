@@ -11,7 +11,8 @@ MAINTENANCE_END="06:00"
 AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=true
 AUTO_UPDATE_TIME=5m
 
-UPDATE=0
+FORCE_CHECK=true
+UPDATE=false
 ES_PATH="/usr/local/ericomshield"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
@@ -29,7 +30,13 @@ cd $ES_PATH
 
 source $ES_REPO_FILE
 
+if [ "$1" == "-f" ]; then
+   AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
+   FORCE_CHECK=true
+fi
+
 function wait_for_maintenance_time() {
+    echo "Waiting for maintenance time (run with -f to run it immediately)..."
     M_START_S=$(date -d "$(date -I)T${MAINTENANCE_START}" +"%s") #"
     M_END_S=$(date -d "$(date -I)T${MAINTENANCE_END}" +"%s")     #"
     if ((M_END_S < M_START_S)); then
@@ -49,11 +56,11 @@ while true; do
     # Maintenance Time is only for Prod environments
     if [ -f "$ES_DEV_FILE" ]; then
         ES_DEV=true
-    elif [ "$AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME" = true ]; then
+    elif [ "$AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME" == true ]; then
         wait_for_maintenance_time
     fi
 
-    if [ -f "$ES_AUTO_UPDATE_FILE" ]; then
+    if [ -f "$ES_AUTO_UPDATE_FILE" ] || [ "$FORCE_CHECK" == true ]; then
         echo "Getting shield-version-new.txt"
         if [ "$ES_DEV" == true ]; then
             curl -s -S -o shield-version-new.txt $ES_repo_dev_ver
@@ -65,17 +72,20 @@ while true; do
                 echo "Your EricomShield System is Up to date"
             else
                 echo "***************     New version found!"
-                UPDATE=1
+                UPDATE=true
             fi
         else
             echo "***************     New version found!!"
-            UPDATE=1
+            UPDATE=true
         fi
-        if [ $UPDATE -eq 1 ]; then
+        if [ "$UPDATE" == true ]; then
             curl -s -S -o ericomshield-setup.sh $ES_repo_setup
             chmod +x ericomshield-setup.sh
             $ES_PATH/ericomshield-setup.sh -noninteractive
         fi
+    fi
+    if [ "$FORCE_CHECK" == true ]; then
+      break
     fi
     echo "."
     sleep $AUTO_UPDATE_TIME
