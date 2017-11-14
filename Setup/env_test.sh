@@ -94,8 +94,6 @@ function check_hostname_resolution() {
 }
 
 function perform_env_test() {
-    set -e
-
     if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c speedtest-cli)" -eq 0 ]; then
         echo "***************     Installing speedtest-cli"
         apt-get --assume-yes -y install speedtest-cli
@@ -133,5 +131,6 @@ function perform_env_test() {
 }
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
+    set -e
     perform_env_test
 fi
