@@ -1,6 +1,6 @@
 #!/usr/bin/sudo /bin/bash
 
-LOGFILE="${LOGFILE:-./env_test.log}"
+LOGFILE="${LOGFILE:-./shield_pre_install_check.log}"
 URLS_TO_CHECK='http://www.google.com/ https://www.google.com/ http://www.ericom.com/ https://www.ericom.com/ https://hub.docker.com/'
 SHIELD_NETWORK_ADDR_BLOCK='10.20.0.0/16'
 
