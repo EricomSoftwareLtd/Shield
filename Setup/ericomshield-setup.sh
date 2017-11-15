@@ -33,7 +33,7 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
 
-ES_repo_env_test="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/env_test.sh"
+ES_repo_env_test="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield_pre_install_check.sh"
 ES_repo_ipcalc="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ipcalc.py"
 
 MIN_FREE_SPACE_GB=5
@@ -459,10 +459,10 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 if [ "$ES_INTERACTIVE" == true ]; then
     curl -s -S -O "$ES_repo_ipcalc"
-    curl -s -S -o "env_test.sh" "$ES_repo_env_test"
-    chmod a+x "env_test.sh"
+    curl -s -S -o "shield_pre_install_check.sh" "$ES_repo_env_test"
+    chmod a+x "shield_pre_install_check.sh"
 
-    source "env_test.sh"
+    source "shield_pre_install_check.sh"
 
     perform_env_test
 fi
