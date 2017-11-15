@@ -83,8 +83,7 @@ services:
     networks:
          - shield
     deploy:
-      mode: replicated
-      replicas: 5
+      mode: global
       endpoint_mode: dnsrr
       placement:
         constraints:
@@ -92,7 +91,7 @@ services:
       update_config:
           parallelism: 1
           failure_action: rollback
-          delay: "15s"
+          delay: "120s"
       restart_policy:
           condition: any
       resources:
@@ -101,7 +100,6 @@ services:
           cpus: "1"
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
-        - "NUMBER_OF_EXPECTED=5"
     logging:
       driver: syslog
       options:
