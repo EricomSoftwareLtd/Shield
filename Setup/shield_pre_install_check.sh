@@ -13,7 +13,7 @@ fi
 
 if ! declare -f failed_to_install >/dev/null; then
     function failed_to_install() {
-        log_message "An error occured during the installation: $1, Exiting!"
+        log_message "Ericom Shield cannot be installed on this environment: $1, Exiting"
         exit 1
     }
 fi
