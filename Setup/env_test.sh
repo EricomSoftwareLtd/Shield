@@ -132,5 +132,6 @@ function perform_env_test() {
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
     set -e
+    ES_INTERACTIVE=true
     perform_env_test
 fi
