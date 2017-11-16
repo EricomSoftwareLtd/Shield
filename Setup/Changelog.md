@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_206] - 2017-11-16
+- Typo: Explaination instead of Explanation #1292
+- Change 'Add New Domain' to 'Add New Policy' #1280
+- Change 'Advanced Authentication' to 'Authentication Settings' #1279
+- Files and Sanitization - the text at the admin is not clear #1267
+- Policy settings warning message is not clear when policies and profiles are not relevant anymore #1255
+
 ## [Dev:Build_205] - 2017-11-15
 - When download file size is unknown, show a spinner
 - Add 'username' column to all FileTransfer reports #1028
