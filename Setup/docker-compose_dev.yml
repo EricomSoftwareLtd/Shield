@@ -62,6 +62,7 @@ services:
           - shield
       environment:
         - "REINDEX_RUNINNG_INTERVAL=20s"
+        - "CLEAN_RUNINNG_INTERVAL=30s"
       deploy:
         replicas: 1
         restart_policy:
@@ -73,8 +74,8 @@ services:
           failure_action: rollback
         resources:
           limits:
-            memory: 2GB
-            cpus: "2"
+            memory: 3GB
+            cpus: "3"
       volumes:
          - elastic:/var/lib
 
@@ -160,10 +161,10 @@ services:
             limits:
               memory: 500MB
               cpus: "0.5"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+#        logging:
+#          driver: syslog
+#          options:
+#            syslog-address: udp://${SYS_LOG_HOST}:5014
 
   icap-server:
         image: securebrowsing/icap-server:latest
