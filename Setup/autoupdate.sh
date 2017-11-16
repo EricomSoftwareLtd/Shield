@@ -81,7 +81,7 @@ while true; do
         if [ "$UPDATE" == true ]; then
             curl -s -S -o ericomshield-setup.sh $ES_repo_setup
             chmod +x ericomshield-setup.sh
-            $ES_PATH/ericomshield-setup.sh
+            $ES_PATH/ericomshield-setup.sh -noninteractive
         fi
     fi
     if [ "$FORCE_CHECK" == true ]; then
