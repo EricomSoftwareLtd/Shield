@@ -515,7 +515,7 @@ echo "pull images" #before restarting the system for upgrade
 pull_images
 
 function count_running_docker_services() {
-    services=($(docker service ls --format "{{.Replicas}}" | awk 'BEGIN {FS = "/"}; {sum1+=$1; sum2+=$2} END {print sum1; print sum2}'))
+    services=($(docker service ls --format "{{.Replicas}}" | awk 'BEGIN {FS = "/"; sum=0}; {d=$2-$1; sum+=d>0?d:-d} END {print sum}'))
 
     if ! [[ $? ]]; then
         log_message "Could not list services. Is Docker running?"
@@ -527,8 +527,8 @@ function count_running_docker_services() {
 function wait_for_docker_to_settle() {
     local wait_count=0
     count_running_docker_services
-    while ((services[0] != services[1])) && ((wait_count < 6)); do
-        log_message "${services[0]} of ${services[1]} are up. Wainting for Docker to settle..."
+    while ((services != 0)) && ((wait_count < 6)); do
+        log_message "Not all servces have reached their target scale. Wainting for Docker to settle..."
         sleep 10
         wait_count=$((wait_count + 1))
         count_running_docker_services
