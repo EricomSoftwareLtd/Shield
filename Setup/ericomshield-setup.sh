@@ -33,6 +33,8 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
 
+ES_repo_env_test="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield_pre_install_check.sh"
+
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -43,6 +45,7 @@ ES_POCKET=false
 ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
+ES_INTERACTIVE=true
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -75,6 +78,9 @@ while [ $# -ne 0 ]; do
     -force)
         ES_FORCE=true
         echo " " >>$ES_VER_FILE
+        ;;
+    -noninteractive)
+        ES_INTERACTIVE=false
         ;;
     -force-ip-address-selection)
         ES_FORCE_SET_IP_ADDRESS=true
@@ -208,6 +214,8 @@ function failed_to_install() {
             rm -f "$ES_VER_FILE"
         fi
     fi
+
+    exit 1
 }
 
 function accept_license() {
@@ -233,19 +241,6 @@ function accept_license() {
     done
 
     return -1
-}
-
-function check_free_space() {
-    FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
-    FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
-    if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
-        exit 1
-    fi
-    if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
-        exit 1
-    fi
 }
 
 function install_docker() {
@@ -461,10 +456,19 @@ function get_shield_files() {
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
-check_free_space
+if [ "$ES_INTERACTIVE" == true ]; then
+    curl -s -S -o "shield_pre_install_check.sh" "$ES_repo_env_test"
+    chmod a+x "shield_pre_install_check.sh"
+
+    source "shield_pre_install_check.sh"
+
+    perform_env_test
+fi
 
 if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
-    choose_network_interface
+    if [ "$ES_INTERACTIVE" == true ]; then
+        choose_network_interface
+    fi
 fi
 save_my_ip
 

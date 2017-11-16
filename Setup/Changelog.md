@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_205] - 2017-11-15
+- When download file size is unknown, show a spinner
+- Add 'username' column to all FileTransfer reports #1028
+- Broker will check system load on every browser update
+- Updated tooltip  #1268
+- Drop down fix  #506 #891 #982
+- Firefox keyboard copy bugfix #1150 
+- Remvoe CSP response headers preload #1000
 
 ## [Dev:Build_206] - 2017-11-16
 - Typo: Explaination instead of Explanation #1292
