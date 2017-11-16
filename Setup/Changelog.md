@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_207] - 2017-11-16
+- Check user agent major AND name for browser #1202
+
 ## [Dev:Build_206] - 2017-11-16
 - Typo: Explaination instead of Explanation #1292
 - Change 'Add New Domain' to 'Add New Policy' #1280
