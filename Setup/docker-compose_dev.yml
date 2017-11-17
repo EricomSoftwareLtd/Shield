@@ -161,10 +161,10 @@ services:
             limits:
               memory: 500MB
               cpus: "0.5"
-#        logging:
-#          driver: syslog
-#          options:
-#            syslog-address: udp://${SYS_LOG_HOST}:5014
+        logging:
+          driver: syslog
+          options:
+            syslog-address: udp://${SYS_LOG_HOST}:5014
 
   icap-server:
         image: securebrowsing/icap-server:latest
