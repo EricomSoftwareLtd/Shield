@@ -112,8 +112,8 @@ fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
-  else
-   rm -f "$ES_AUTO_UPDATE_FILE" 
+else
+    rm -f "$ES_AUTO_UPDATE_FILE"
 fi
 
 #Check if curl is installed (-w check that the whole word is found)
@@ -395,7 +395,7 @@ function get_shield_install_files() {
     if [ "$ES_STAGING" == true ]; then
         echo "Getting $ES_repo_staging_yml (staging)"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_staging_yml"
-    fi    
+    fi
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
@@ -511,7 +511,7 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-echo "pull images"  #before restarting the system for upgrade
+echo "pull images" #before restarting the system for upgrade
 pull_images
 
 if [ "$UPDATE" == false ]; then
