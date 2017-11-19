@@ -9,6 +9,58 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_207] - 2017-11-16
+- Check user agent major AND name for browser #1202
+
+## [Dev:Build_206] - 2017-11-16
+- Typo: Explaination instead of Explanation #1292
+- Change 'Add New Domain' to 'Add New Policy' #1280
+- Change 'Advanced Authentication' to 'Authentication Settings' #1279
+- Files and Sanitization - the text at the admin is not clear #1267
+- Policy settings warning message is not clear when policies and profiles are not relevant anymore #1255
+
+## [Dev:Build_205] - 2017-11-15
+- When download file size is unknown, show a spinner
+- Add 'username' column to all FileTransfer reports #1028
+- Broker will check system load on every browser update
+- Updated tooltip  #1268
+- Drop down fix  #506 #891 #982
+- Firefox keyboard copy bugfix #1150 
+- Remvoe CSP response headers preload #1000
+
+## [Dev:Build_204] - 2017-11-12
+- Improve alive.html healthcheck #1242 #1229 
+- Password reveal is now working for profile page
+- Message when no ad is setup - create profile #1167
+- Fixed modal error when saving invalid settings to profile page
+- Logic fix for saving profiles. added support for warning messages #1169
+- NTLM field added. #1165
+- Added proper tooltip and placeholder according to #1180
+- NTLM_fallback to be default true
+- Edit profile #1069
+- SPN update tooltip #1224
+- ADtest also verifies kerberos #1180; fixed krb5.conf realm case
+
+## [Dev:Build_203] - 2017-11-8
+- NBC.com crash - CEF in half dead mode #1228
+- Limit # of retries to get browser in AN #1230
+- Decode user-agent from squid before parse #1226
+
+## [Dev:Build_202] - 2017-11-7
+- Fixed capitalization #1155 
+- Filter apps in authproxy #1207
+- Fixed Retrieving typo 	
+- Fix docs url in Admin #1194
+- Internal addresses always through second proxy
+
+## [Dev:Build_201] - 2017-11-6
+- Fixed capitalization #1155 
+- Fixed icap-polices-module logger
+- Fixed Broker typo 
+- Install certificate - link to public instructions (#1176)
+- NTLM don't send empty username
+- Flag for ntlm fallback; no proxy user; no squid restarts
+
 ## [Dev:Build_200] - 2017-11-5
 - (*) votiro settings updates# 1155
 - Consul HA fixes #1132
