@@ -61,7 +61,8 @@ services:
       networks:
           - shield
       environment:
-        - "CONSUL_ADDRESS=consul"
+        - "REINDEX_RUNINNG_INTERVAL=20s"
+        - "CLEAN_RUNINNG_INTERVAL=30s"
       deploy:
         replicas: 1
         restart_policy:
@@ -73,8 +74,8 @@ services:
           failure_action: rollback
         resources:
           limits:
-            memory: 2GB
-            cpus: "1"
+            memory: 3GB
+            cpus: "3"
       volumes:
          - elastic:/var/lib
 
