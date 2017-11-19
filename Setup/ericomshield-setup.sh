@@ -40,7 +40,7 @@ ES_CHANNEL="Production"
 ES_DEV=false
 ES_STAGING=false
 ES_POCKET=false
-ES_AUTO_UPDATE=true
+ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 # Create the Ericom empty dir if necessary
@@ -68,9 +68,9 @@ while [ $# -ne 0 ]; do
         ES_DEV=false
         rm -f "$ES_DEV_FILE"
         ;;
-    -noautoupdate)
-        ES_AUTO_UPDATE=false
-        rm -f "$ES_AUTO_UPDATE_FILE"
+    -autoupdate)
+        ES_AUTO_UPDATE=true
+        echo " " >"$ES_AUTO_UPDATE_FILE"
         ;;
     -force)
         ES_FORCE=true
@@ -93,7 +93,7 @@ while [ $# -ne 0 ]; do
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-force-ip-address-selection] [-noautoupdate] [-dev] [-staging] [-pocket] [-usage]"
+        echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
         exit
         ;;
     esac
@@ -112,6 +112,8 @@ fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
+  else
+   rm -f "$ES_AUTO_UPDATE_FILE" 
 fi
 
 #Check if curl is installed (-w check that the whole word is found)
