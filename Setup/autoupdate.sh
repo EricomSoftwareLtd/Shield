@@ -31,8 +31,8 @@ cd $ES_PATH
 source $ES_REPO_FILE
 
 if [ "$1" == "-f" ]; then
-    AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
-    FORCE_CHECK=true
+   AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
+   FORCE_CHECK=true
 fi
 
 function wait_for_maintenance_time() {
@@ -81,11 +81,11 @@ while true; do
         if [ "$UPDATE" == true ]; then
             curl -s -S -o ericomshield-setup.sh $ES_repo_setup
             chmod +x ericomshield-setup.sh
-            $ES_PATH/ericomshield-setup.sh -noninteractive
+            $ES_PATH/ericomshield-setup.sh
         fi
     fi
     if [ "$FORCE_CHECK" == true ]; then
-        break
+      break
     fi
     echo "."
     sleep $AUTO_UPDATE_TIME

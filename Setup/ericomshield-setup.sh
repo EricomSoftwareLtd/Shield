@@ -33,8 +33,6 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_SETUP_VER="17.45-Setup"
 BRANCH="master"
 
-ES_repo_env_test="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield_pre_install_check.sh"
-
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -45,7 +43,6 @@ ES_POCKET=false
 ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
-ES_INTERACTIVE=true
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -78,9 +75,6 @@ while [ $# -ne 0 ]; do
     -force)
         ES_FORCE=true
         echo " " >>$ES_VER_FILE
-        ;;
-    -noninteractive)
-        ES_INTERACTIVE=false
         ;;
     -force-ip-address-selection)
         ES_FORCE_SET_IP_ADDRESS=true
@@ -118,8 +112,8 @@ fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
-else
-    rm -f "$ES_AUTO_UPDATE_FILE"
+  else
+   rm -f "$ES_AUTO_UPDATE_FILE" 
 fi
 
 #Check if curl is installed (-w check that the whole word is found)
@@ -214,8 +208,6 @@ function failed_to_install() {
             rm -f "$ES_VER_FILE"
         fi
     fi
-
-    exit 1
 }
 
 function accept_license() {
@@ -241,6 +233,19 @@ function accept_license() {
     done
 
     return -1
+}
+
+function check_free_space() {
+    FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
+    FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
+    if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
+        failed_to_install "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        exit 1
+    fi
+    if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
+        failed_to_install "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
+        exit 1
+    fi
 }
 
 function install_docker() {
@@ -390,7 +395,7 @@ function get_shield_install_files() {
     if [ "$ES_STAGING" == true ]; then
         echo "Getting $ES_repo_staging_yml (staging)"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_staging_yml"
-    fi
+    fi    
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
@@ -456,19 +461,10 @@ function get_shield_files() {
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
-if [ "$ES_INTERACTIVE" == true ]; then
-    curl -s -S -o "shield_pre_install_check.sh" "$ES_repo_env_test"
-    chmod a+x "shield_pre_install_check.sh"
-
-    source "shield_pre_install_check.sh"
-
-    perform_env_test
-fi
+check_free_space
 
 if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
-    if [ "$ES_INTERACTIVE" == true ]; then
-        choose_network_interface
-    fi
+    choose_network_interface
 fi
 save_my_ip
 
@@ -515,29 +511,8 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-echo "pull images" #before restarting the system for upgrade
+echo "pull images"  #before restarting the system for upgrade
 pull_images
-
-function count_running_docker_services() {
-    services=($(docker service ls --format "{{.Replicas}}" | awk 'BEGIN {FS = "/"; sum=0}; {d=$2-$1; sum+=d>0?d:-d} END {print sum}'))
-
-    if ! [[ $? ]]; then
-        log_message "Could not list services. Is Docker running?"
-        return 1
-    fi
-    return 0
-}
-
-function wait_for_docker_to_settle() {
-    local wait_count=0
-    count_running_docker_services
-    while ((services != 0)) && ((wait_count < 6)); do
-        log_message "Not all servces have reached their target scale. Wainting for Docker to settle..."
-        sleep 10
-        wait_count=$((wait_count + 1))
-        count_running_docker_services
-    done
-}
 
 if [ "$UPDATE" == false ]; then
     # New Installation
@@ -552,7 +527,17 @@ else # Update
     else
         echo -n "stop shield-broker"
         docker service scale shield_broker-server=0
-        wait_for_docker_to_settle
+        wait=0
+        while [ $wait -lt 6 ]; do
+            if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
+                echo !
+                break
+            else
+                echo -n .
+                sleep 10
+            fi
+            wait=$((wait + 1))
+        done
     fi
 fi
 
