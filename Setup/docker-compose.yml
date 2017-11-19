@@ -91,7 +91,7 @@ services:
             - node.labels.management==yes
       update_config:
           parallelism: 1
-          delay: 15s
+          delay: 60s
           failure_action: rollback
       restart_policy:
           condition: any
