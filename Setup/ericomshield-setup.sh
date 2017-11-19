@@ -112,8 +112,8 @@ fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
-  else
-   rm -f "$ES_AUTO_UPDATE_FILE" 
+else
+    rm -f "$ES_AUTO_UPDATE_FILE"
 fi
 
 #Check if curl is installed (-w check that the whole word is found)
@@ -395,7 +395,7 @@ function get_shield_install_files() {
     if [ "$ES_STAGING" == true ]; then
         echo "Getting $ES_repo_staging_yml (staging)"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_staging_yml"
-    fi    
+    fi
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
@@ -511,8 +511,29 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-echo "pull images"  #before restarting the system for upgrade
+echo "pull images" #before restarting the system for upgrade
 pull_images
+
+function count_running_docker_services() {
+    services=($(docker service ls --format "{{.Replicas}}" | awk 'BEGIN {FS = "/"; sum=0}; {d=$2-$1; sum+=d>0?d:-d} END {print sum}'))
+
+    if ! [[ $? ]]; then
+        log_message "Could not list services. Is Docker running?"
+        return 1
+    fi
+    return 0
+}
+
+function wait_for_docker_to_settle() {
+    local wait_count=0
+    count_running_docker_services
+    while ((services != 0)) && ((wait_count < 12)); do
+        log_message "Not all servces have reached their target scale. Wainting for Docker to settle..."
+        sleep 10
+        wait_count=$((wait_count + 1))
+        count_running_docker_services
+    done
+}
 
 if [ "$UPDATE" == false ]; then
     # New Installation
@@ -527,17 +548,9 @@ else # Update
     else
         echo -n "stop shield-broker"
         docker service scale shield_broker-server=0
-        wait=0
-        while [ $wait -lt 6 ]; do
-            if [ "$(docker service ps shield_broker-server | wc -l)" -le 1 ]; then
-                echo !
-                break
-            else
-                echo -n .
-                sleep 10
-            fi
-            wait=$((wait + 1))
-        done
+        echo -n "stop shield_shield-admin" # Admin backs up Consul configuration at shutdown
+        docker service scale shield_shield-admin=0
+        wait_for_docker_to_settle
     fi
 fi
 
