@@ -51,6 +51,7 @@ services:
         driver: syslog
         options:
           syslog-address: udp://${SYS_LOG_HOST}:5014
+          tag: "maintenance-{{.ID}}"
 
   elk:
       image: securebrowsing/shield-elk:latest
@@ -61,8 +62,8 @@ services:
       networks:
           - shield
       environment:
-        - "REINDEX_RUNINNG_INTERVAL=20s"
-        - "CLEAN_RUNINNG_INTERVAL=30s"
+        - "REINDEX_RUNINNG_INTERVAL=30s"
+        - "CLEAN_RUNINNG_INTERVAL=12h"
       deploy:
         replicas: 1
         restart_policy:
@@ -107,6 +108,7 @@ services:
       driver: syslog
       options:
         syslog-address: udp://${SYS_LOG_HOST}:5014
+        tag: "consulserver-{{.ID}}"
 
   consul:
       image: securebrowsing/shield-configuration:latest
@@ -133,6 +135,7 @@ services:
         driver: syslog
         options:
           syslog-address: udp://${SYS_LOG_HOST}:5014
+          tag: "consulclient-{{.ID}}"
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:
@@ -165,6 +168,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "admin-{{.ID}}"
 
   icap-server:
         image: securebrowsing/icap-server:latest
@@ -200,6 +204,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "icap-{{.ID}}"
 
   broker-server:
         image: securebrowsing/broker-server:latest
@@ -233,6 +238,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "broker-{{.ID}}"
 
   shield-browser:
         image: securebrowsing/shield-cef:latest
@@ -278,6 +284,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "browser{{.ID}}"
 
   proxy-server:
         image: securebrowsing/proxy-server:latest
@@ -310,6 +317,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "proxy-{{.ID}}"
   ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy
@@ -356,6 +364,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "authproxy-{{.ID}}"
 
   web-service:
         image: securebrowsing/shield-web-service:latest
@@ -380,6 +389,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "webservice-{{.ID}}"
             
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
@@ -402,6 +412,7 @@ services:
       driver: syslog
       options:
         syslog-address: udp://${SYS_LOG_HOST}:5014
+        tag: "cdrdispatcher-{{.ID}}"
 
   cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
@@ -424,6 +435,8 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "cdrcontroller-{{.ID}}"
+
     ############################### Docker managment part ##############################################################
   portainer:
         image: securebrowsing/shield-portainer:latest
@@ -451,6 +464,7 @@ services:
           driver: syslog
           options:
             syslog-address: udp://${SYS_LOG_HOST}:5014
+            tag: "portainer-{{.ID}}"
 
 volumes:
   elastic:
