@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_209] - 2017-11-19
+- Fix for ELK bug
+
+## [Dev:Build_208] - 2017-11-19
+- squid policy acl in authproxy for white listed sites #1315 #1161 #221
+- Updated reports #1064 #859
+- Some logs are saved for longer times #1010
+- Ctrl+x cut notification #1098
+- Upload notification spinner #1323
+- Configurable ttl for basic auth & policy matcher #1315 #1105
+- Specific non-browser user-agents #221;helper concurrency
+- Backup Configuration before Upgrade #1004
 
 ## [Dev:Build_207] - 2017-11-16
 - Check user agent major AND name for browser #1202
