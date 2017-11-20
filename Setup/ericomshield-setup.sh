@@ -305,15 +305,11 @@ function docker_login() {
 function update_sysctl() {
     #check if file was not updated
     curl -s -S -o "${ES_PATH}/sysctl_shield.conf" "${ES_repo_sysctl_shield_conf}"
-    if [ "$(grep -c EricomShield /etc/sysctl.conf)" -eq 0 ]; then
-        # append sysctl with our settings
-        cat "${ES_PATH}/sysctl_shield.conf" >>/etc/sysctl.conf
-        #to apply the changes:
-        sysctl -p
-        echo "file /etc/sysctl.conf Updated!!!!"
-    else
-        echo "file /etc/sysctl.conf already updated"
-    fi
+    # append sysctl with our settings
+    cat "${ES_PATH}/sysctl_shield.conf" >"/etc/sysctl.d/30-ericom-shield.conf"
+    #to apply the changes:
+    sysctl --load="/etc/sysctl.d/30-ericom-shield.conf"
+    echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!!!!"
     echo "setting sysctl fs.file=1000000"
     sysctl -w fs.file-max=1000000
     sysctl -w vm.max_map_count=262144
