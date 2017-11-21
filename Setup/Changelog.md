@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_210] - 2017-11-20
+- (*) Fix jpg quality for video #1343
+- (*) ELK Update to load faster #1339
+
 ## [Dev:Build_209] - 2017-11-19
 - Fix for ELK bug
 
