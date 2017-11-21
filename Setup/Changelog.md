@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_211] - 2017-11-21
+- Fixed issue #1358
+- (*) shield work on browser without cookie support #323 #1191
+- Added automated tests for PAC file and Install Certificate pages #1213 
+
 ## [Dev:Build_210] - 2017-11-20
 - (*) Fix jpg quality for video #1343
 - (*) ELK Update to load faster #1339
