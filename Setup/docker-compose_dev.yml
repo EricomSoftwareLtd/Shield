@@ -4,6 +4,7 @@ version: "3.3"
 # YML file for Dev
 
 services:
+
   collector:
      image: securebrowsing/shield-collector:latest
      hostname: collector
@@ -27,6 +28,7 @@ services:
      environment:
        - "SYSTEM_PERIOD=5m"
        - "DOCKER_PERIOD=5m"
+       - "LOGSPOUT=ignore"
 
   maintenance:
     image: securebrowsing/shield-maintenance:latest
@@ -50,7 +52,6 @@ services:
     logging:
         driver: syslog
         options:
-          syslog-address: udp://${SYS_LOG_HOST}:5014
           tag: "maintenance-{{.ID}}"
 
   elk:
@@ -64,6 +65,7 @@ services:
       environment:
         - "REINDEX_RUNINNG_INTERVAL=30s"
         - "CLEAN_RUNINNG_INTERVAL=12h"
+        - "LOGSPOUT=ignore"
       deploy:
         replicas: 1
         restart_policy:
@@ -79,6 +81,25 @@ services:
             cpus: "3"
       volumes:
          - elastic:/var/lib
+
+  logspout:
+    image: gliderlabs/logspout:latest
+    networks:
+        - shield
+    volumes:
+        - /etc/hostname:/etc/host_hostname:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+    command:
+        syslog://elk:5014
+    deploy:
+        mode: global
+        resources:
+            limits:
+                cpus: '0.20'
+                memory: 256M
+            reservations:
+                cpus: '0.10'
+                memory: 128M
 
   consul-server:
     image: securebrowsing/shield-configuration:latest
@@ -107,7 +128,6 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: udp://${SYS_LOG_HOST}:5014
         tag: "consulserver-{{.ID}}"
 
   consul:
@@ -134,7 +154,6 @@ services:
       logging:
         driver: syslog
         options:
-          syslog-address: udp://${SYS_LOG_HOST}:5014
           tag: "consulclient-{{.ID}}"
 
 ###################################################################### Shield services part ##################################################################
@@ -167,7 +186,6 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "admin-{{.ID}}"
 
   icap-server:
@@ -203,7 +221,6 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "icap-{{.ID}}"
 
   broker-server:
@@ -237,7 +254,6 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "broker-{{.ID}}"
 
   shield-browser:
@@ -283,7 +299,6 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "browser{{.ID}}"
 
   proxy-server:
@@ -316,7 +331,6 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "proxy-{{.ID}}"
   ext-proxy:
         image: securebrowsing/extproxy:latest
@@ -363,7 +377,6 @@ services:
       logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "authproxy-{{.ID}}"
 
   web-service:
@@ -388,9 +401,8 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "webservice-{{.ID}}"
-            
+
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
@@ -411,7 +423,6 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: udp://${SYS_LOG_HOST}:5014
         tag: "cdrdispatcher-{{.ID}}"
 
   cdr-controller:
@@ -434,7 +445,6 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "cdrcontroller-{{.ID}}"
 
     ############################### Docker managment part ##############################################################
@@ -463,7 +473,6 @@ services:
         logging:
           driver: syslog
           options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
             tag: "portainer-{{.ID}}"
 
 volumes:
