@@ -482,7 +482,7 @@ else
     exit 1
 fi
 
-install_docker_compose
+#install_docker_compose
 
 get_shield_install_files
 
