@@ -3,7 +3,7 @@
 #####   Ericom Shield Installer        #####
 #######################################BH###
 
-BRANCH="master"
+#BRANCH="issue" Not need here if set as export
 #BRANCH="Install-Staging"
 
 # Development Repository: (Latest)
