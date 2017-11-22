@@ -43,6 +43,8 @@ ES_POCKET=false
 ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
+ES_RUN_DEPLOY=true
+
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -91,6 +93,10 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
+    -no-deploy)        
+        ES_RUN_DEPLOY=false
+        echo "Install Only (No Deploy) "
+        ;;    
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
@@ -456,6 +462,8 @@ function get_shield_files() {
     chmod +x status.sh
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
+    curl -s -S -o ericomshield-setup_node.sh "$ES_repo_setup_node"
+    chmod +x ericomshield-setup_node.sh
 }
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
@@ -482,7 +490,8 @@ else
     exit 1
 fi
 
-install_docker_compose
+# No Need to Install docker compose
+# install_docker_compose
 
 get_shield_install_files
 
@@ -543,6 +552,7 @@ if [ "$UPDATE" == false ]; then
     systemctl start ericomshield-updater.service
 
 else # Update
+  if [ "$RUN_DEPLOY" == true ]; then 
     if [ "$UPDATE_NEED_RESTART" == true ]; then
         echo " Stopping Ericom Shield for Update "
         ./stop.sh
@@ -553,37 +563,43 @@ else # Update
         docker service scale shield_shield-admin=0
         wait_for_docker_to_settle
     fi
+  fi  
 fi
 
 if [ -n "$MY_IP" ]; then
     echo "Connect swarm to $MY_IP"
     export IP_ADDRESS="$MY_IP"
 fi
-echo "source deploy-shield.sh"
-source deploy-shield.sh
 
-# Check the result of the last command (start, status, deploy-shield)
-if [ $? == 0 ]; then
-    echo "***************     Success!"
-else
-    echo "An error occured during the installation"
-    echo "$(date): An error occured during the installation" >>"$LOGFILE"
-    echo "--failed?" >>"$ES_VER_FILE" # adding failed into the version file
-    exit 1
-fi
+if [ "$RUN_DEPLOY" == true ]; then 
+   echo "source deploy-shield.sh"
+   source deploy-shield.sh
 
-#Check the status of the system wait 30*10 (5 mins)
-wait=0
-while [ $wait -lt 10 ]; do
-    if "$ES_PATH"/status.sh; then
-        echo "Ericom Shield is Running!"
-        break
+   # Check the result of the last command (start, status, deploy-shield)
+   if [ $? == 0 ]; then
+      echo "***************     Success!"
     else
-        echo -n .
-        sleep 20
-    fi
-    wait=$((wait + 1))
-done
+      echo "An error occured during the installation"
+      echo "$(date): An error occured during the installation" >>"$LOGFILE"
+      echo "--failed?" >>"$ES_VER_FILE" # adding failed into the version file
+      exit 1
+   fi
+
+   #Check the status of the system wait 20*10 (~3 mins)
+   wait=0
+   while [ $wait -lt 10 ]; do
+       if "$ES_PATH"/status.sh; then
+          echo "Ericom Shield is Running!"
+          break
+        else
+          echo -n .
+          sleep 20
+       fi
+       wait=$((wait + 1))
+   done
+  else
+   echo "Installation only (no deployment)"
+fi
 
 Version=$(grep SHIELD_VER "$ES_YML_FILE")
 
