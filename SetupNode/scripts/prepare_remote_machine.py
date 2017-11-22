@@ -85,45 +85,34 @@ def extract_name_and_ip(name, return_data):
 
 
 def prepare_machine_to_docker_node(ip):
-    with open('hostname', mode='w') as file:
-        file.write(os.environ['REMOTE_HOST_NAME'])
-        file.close()
-
+    _, stdout, _ = client.exec_command('hostname')
+    hostname = (stdout.read()).decode('ascii').replace('\n', '')
     with open('hosts', mode='w') as file:
-        #file.write('127.0.0.1\tlocalhost\n')
-        #file.write('127.0.1.1\t{}\n'.format(os.environ['REMOTE_HOST_NAME']))
-        file.write("{0}\t{1}\n".format(ip, os.environ['REMOTE_HOST_NAME']))
+        file.write("{0}\t{1}\n".format(ip, hostname))
         for manager in get_managers_ip_and_name():
             file.write('{}\n'.format(manager))
         file.close()
 
     transport = client.get_transport()
     sftp_client = SFTPClient.from_transport(transport)
-    sftp_client.put(os.path.abspath('./hostname'),
-                    '/home/{}/hostname'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./hosts'),
                     '/home/{}/hosts'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./mount-tmpfs-volume.sh'), '/home/{}/mount-tmpfs-volume.sh'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./sysctl_shield.conf'),
                     '/home/{}/sysctl_shield.conf'.format(os.environ['MACHINE_USER']))
     sftp_client.close()
-    stdin, stdout, stderr = client.exec_command('sudo mv ./hostname /etc/hostname')
-    stdout.channel.recv_exit_status()
-    logger.error(stderr.readlines())
-    stdin, stdout, stderr = client.exec_command('sudo hostname {}'.format(os.environ['REMOTE_HOST_NAME']))
-    stdout.channel.recv_exit_status()
-    logger.error(stderr.readlines())
     stdin, stdout, stderr = client.exec_command('cat ./hosts | sudo tee -a /etc/hosts && rm -f ./hosts')
     stdout.channel.recv_exit_status()
-    logger.error(stderr.readlines())
+    logger.error(stderr.read())
 
     stdin, stdout, stderr = client.exec_command('chmod +x ./mount-tmpfs-volume.sh && sudo ./mount-tmpfs-volume.sh && rm -f ./mount-tmpfs-volume.sh')
     stdout.channel.recv_exit_status()
-    logger.error(stderr.readlines())
+    logger.error(stderr.read())
 
     stdin, stdout, stderr = client.exec_command('if [ $(sudo grep -c EricomShield /etc/sysctl.conf) -eq 0 ]; then cat ./sysctl_shield.conf | sudo tee -a /etc/sysctl.conf; fi')
     stdout.channel.recv_exit_status()
-    logger.error(stderr.readlines())
+    logger.error(stderr.read())
+    return hostname
 
 
 
@@ -144,7 +133,7 @@ def run_certificate_mode(ip):
     client.connect(ip, username=os.environ['MACHINE_USER'], pkey=key)
     pass
 
-def format_labels_command():
+def format_labels_command(hostname):
     res = ''
     if 'BROWSERS' in os.environ:
         res += "--label-add browser=yes"
@@ -153,7 +142,7 @@ def format_labels_command():
     if 'MANAGEMENT' in os.environ:
         res += ' --label-add management=yes'
 
-    return 'docker node update {0} {1}'.format(res, os.environ['REMOTE_HOST_NAME'])
+    return 'docker node update {0} {1}'.format(res, hostname)
 
 def run_consul_reshafle_command():
     output = subprocess.check_output('docker service update --force --replicas 5 shield_consul-server', shell=True)
@@ -166,7 +155,7 @@ def run_join_to_swarm(command, ip):
     else:
         run_certificate_mode(ip)
 
-    prepare_machine_to_docker_node(ip)
+    hostname = prepare_machine_to_docker_node(ip)
     if not test_docker_on_machine():
         install_docker()
     else:
@@ -177,7 +166,7 @@ def run_join_to_swarm(command, ip):
     logger.error(stderr.readlines())
     logger.info(stdout.readlines())
 
-    output = subprocess.check_output(format_labels_command(), shell=True)
+    output = subprocess.check_output(format_labels_command(hostname), shell=True)
     logger.info(output)
 
     if 'MANAGEMENT' in os.environ:

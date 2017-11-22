@@ -14,7 +14,6 @@ setup-envinronment() {
 prepare_remote_machines() {
     counter=1
     for ip in $MACHINE_IPS; do
-        export REMOTE_HOST_NAME="$MACHINE_NAME_PREFIX$counter"
         python scripts/prepare_remote_machine.py $ip
         counter=$(($counter + 1))
     done
