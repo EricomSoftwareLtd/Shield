@@ -127,10 +127,22 @@ def prepare_machine_to_docker_node(ip):
 
 
 
+def make_cert_pass():
+    if 'CERTIFICATE_PASS' in os.environ:
+        return os.environ['CERTIFICATE_PASS']
+    else:
+        return ''
+
 
 def run_with_password(ip):
     global client
     client.connect(ip, look_for_keys=False, username=os.environ['MACHINE_USER'], password=os.environ['MACHINE_USER_PASS'])
+
+def run_certificate_mode(ip):
+    global client
+    key = paramiko.RSAKey.from_private_key_file(filename=os.environ['MACHINE_CERTIFICATE'], password=make_cert_pass())
+    client.connect(ip, username=os.environ['MACHINE_USER'], pkey=key)
+    pass
 
 def format_labels_command():
     res = ''
@@ -151,6 +163,8 @@ def run_consul_reshafle_command():
 def run_join_to_swarm(command, ip):
     if os.environ['MACHINE_SESSION_MODE'] == 'password':
         run_with_password(ip)
+    else:
+        run_certificate_mode(ip)
 
     prepare_machine_to_docker_node(ip)
     if not test_docker_on_machine():

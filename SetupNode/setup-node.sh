@@ -42,7 +42,7 @@ set +e
 if [ "$MACHINE_SESSION_MODE" = "password" ]; then
     run_with_password
 else
-    echo "Will run with certificate"
+    prepare_remote_machines
 fi
 
 python scripts/print_final_report.py
