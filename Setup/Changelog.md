@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_212] - 2017-11-22
+- HigHJpgQuality #1376
+- Added unit tests for policy matcher #1141
+- Fixed #942
+- Admin | Policies - align upper table with lower one#1104
+- Added 2 CDR tests for archive password protected files where password contain special characters
 
 ## [Dev:Build_211] - 2017-11-21
 - Fixed issue #1358
