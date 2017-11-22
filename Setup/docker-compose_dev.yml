@@ -49,17 +49,14 @@ services:
           cpus: "1"
     environment:
       - "IMAGE_CLEAN_INTERVAL=1m"
-    logging:
-        driver: syslog
-        options:
-          tag: "maintenance-{{.ID}}"
+      - "LOGSTASH_FIELDS=service=maintenance"
 
   elk:
       image: securebrowsing/shield-elk:latest
       ports:
           - 5601:5601
           - 9200:9200
-          - 5014:5014/udp
+          - 5014:5014
       networks:
           - shield
       environment:
@@ -83,14 +80,16 @@ services:
          - elastic:/var/lib
 
   logspout:
-    image: gliderlabs/logspout:latest
+    image: securebrowsing/shield-logspout:latest
     networks:
         - shield
     volumes:
         - /etc/hostname:/etc/host_hostname:ro
         - /var/run/docker.sock:/var/run/docker.sock
-    command:
-        syslog://elk:5014
+    environment:
+        - "ROUTE_URIS=logstash+tcp://elk:5014"
+        - "RETRY_STARTUP=true"
+#        - "DEBUG=1"
     deploy:
         mode: global
         resources:
@@ -125,10 +124,7 @@ services:
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=5"
-    logging:
-      driver: syslog
-      options:
-        tag: "consulserver-{{.ID}}"
+        - "LOGSTASH_FIELDS=service=consulserver"
 
   consul:
       image: securebrowsing/shield-configuration:latest
@@ -151,10 +147,7 @@ services:
       environment:
           - "CONSUL_BIND_INTERFACE=eth2"
           - "RUN_AGENT=yes"
-      logging:
-        driver: syslog
-        options:
-          tag: "consulclient-{{.ID}}"
+          - "LOGSTASH_FIELDS=service=consulclient"
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:
@@ -163,8 +156,9 @@ services:
         ports:
             - 8181:8181
         environment:
-            - SHIELD_VER=8.0.0.latest
+            - SHIELD_VER=Dev:Build_210
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=admin"
         volumes:
            - admin:/data/consul
            - /var/run/docker.sock:/var/run/docker.sock
@@ -183,10 +177,6 @@ services:
             limits:
               memory: 500MB
               cpus: "0.5"
-        logging:
-          driver: syslog
-          options:
-            tag: "admin-{{.ID}}"
 
   icap-server:
         image: securebrowsing/icap-server:latest
@@ -194,9 +184,10 @@ services:
         hostname: icap-server
         environment:
             - NODE_ENV=production
-            - SHIELD_VER=8.0.0.latest
-            - "SHIELD_IP=IP_ADDRESS"
+            - SHIELD_VER=Dev:Build_210
+            - "SHIELD_IP=192.168.56.110"
 #           - SHIELD_WATERMARK=TRUE
+            - "LOGSTASH_FIELDS=service=icap"
         ulimits:
           nofile:
             soft: 65535
@@ -218,10 +209,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-        logging:
-          driver: syslog
-          options:
-            tag: "icap-{{.ID}}"
 
   broker-server:
         image: securebrowsing/broker-server:latest
@@ -247,14 +234,11 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=broker"
         networks:
           - shield
         secrets:
           - shield-system-id
-        logging:
-          driver: syslog
-          options:
-            tag: "broker-{{.ID}}"
 
   shield-browser:
         image: securebrowsing/shield-cef:latest
@@ -272,6 +256,7 @@ services:
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
              - PERF_STATS=true
+             - "LOGSTASH_FIELDS=service=browser"
         networks:
             - shield
         deploy:
@@ -296,10 +281,6 @@ services:
           - type: bind
             target: /dev/shm/xorg
             source: /media/containershm
-        logging:
-          driver: syslog
-          options:
-            tag: "browser{{.ID}}"
 
   proxy-server:
         image: securebrowsing/proxy-server:latest
@@ -312,6 +293,7 @@ services:
           - shield
         environment:
           - SSLEXCLUSION=true
+          - "LOGSTASH_FIELDS=service=proxy"
         env_file: proxy-server.env
         deploy:
           replicas: 2
@@ -328,12 +310,9 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-        logging:
-          driver: syslog
-          options:
-            tag: "proxy-{{.ID}}"
+
   ext-proxy:
-        image: securebrowsing/extproxy:latest
+        image: securebrowsing/extproxy:170724-21.57
         hostname: ext-proxy
         # user: nobody
         ports:
@@ -374,10 +353,7 @@ services:
            mode: host
       environment:
           - NODE_ENV=production
-      logging:
-          driver: syslog
-          options:
-            tag: "authproxy-{{.ID}}"
+          - "LOGSTASH_FIELDS=service=authproxy"
 
   web-service:
         image: securebrowsing/shield-web-service:latest
@@ -387,8 +363,9 @@ services:
         networks:
           - shield
         environment:
-            - "SHIELD_IP=IP_ADDRESS"
+            - "SHIELD_IP=192.168.56.110"
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=webservice"
         deploy:
           replicas: 1
           placement:
@@ -398,16 +375,13 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-        logging:
-          driver: syslog
-          options:
-            tag: "webservice-{{.ID}}"
 
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
     environment:
         - NODE_ENV=production
+        - "LOGSTASH_FIELDS=service=cdrdispatcher"
     networks:
       - shield
     deploy:
@@ -420,16 +394,13 @@ services:
       placement:
         constraints:
           - node.labels.shield_core==yes
-    logging:
-      driver: syslog
-      options:
-        tag: "cdrdispatcher-{{.ID}}"
 
   cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
         hostname: cdr-controller
         environment:
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=cdrcontroller"
         networks:
             - shield
         deploy:
@@ -442,10 +413,6 @@ services:
           placement:
               constraints:
                 - node.labels.shield_core==yes
-        logging:
-          driver: syslog
-          options:
-            tag: "cdrcontroller-{{.ID}}"
 
     ############################### Docker managment part ##############################################################
   portainer:
@@ -456,6 +423,8 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - portainer:/data
+        environment:
+            - "LOGSTASH_FIELDS=service=portainer"
         networks:
           - shield
         deploy:
@@ -470,10 +439,6 @@ services:
             limits:
               memory: 100MB
               cpus: "0.5"
-        logging:
-          driver: syslog
-          options:
-            tag: "portainer-{{.ID}}"
 
 volumes:
   elastic:
