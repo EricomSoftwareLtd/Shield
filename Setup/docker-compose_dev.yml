@@ -43,7 +43,6 @@ services:
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
-      - /proc:/host/proc:ro
     deploy:
       mode: global
       restart_policy:
