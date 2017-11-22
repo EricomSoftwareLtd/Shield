@@ -177,5 +177,10 @@ fi
 
 create_proxy_env_file
 
-docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
+NODES_COUNT=$(docker node ls | grep -c Active)
+if [ "$NODES_COUNT" -eq 1 ]; then
+   echo "***************     Adding Labels:browser, shield_core, management"
+   docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
+fi
+
 docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
