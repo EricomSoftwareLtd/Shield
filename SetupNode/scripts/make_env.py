@@ -35,8 +35,9 @@ def parse_command_line():
     parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield-browser containers to be allocated on this node. Default false')
     parser.add_argument('-sc','--shield-core', dest='shield_core', action="store_true", default=False, help="Allow shield-core containers to be allocated on this node. Default false")
     parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield managment container to be allocated on node. Default false')
-    parser.add_argument('-c', '--certificate', dest='certificate', default='./shield_crt', help='Path to sertificate file. Should be together private and public (file name + .pub)')
+    parser.add_argument('-c', '--certificate', dest='certificate', default='./shield', help='Path to sertificate file. Should be together private and public (file name + .pub)')
     parser.add_argument('-s', '-session-mode', dest='session_mode', default='password', help='Remote machine session mode')
+    parser.add_argument('-gc', '--generate-cert', dest='cert_gen', action='store_true', default=False, help='Flag ask to generate certificate.')
     return parser.parse_args()
 
 
@@ -61,6 +62,8 @@ def make_enviroment_file(args):
             file.write('export SHIELD_CORE=yes\n')
         if args.management:
             file.write('export MANAGEMENT=yes\n')
+        if args.cert_gen:
+            file.write('export GENERATE_CERT\n')
 
         file.close()
 
