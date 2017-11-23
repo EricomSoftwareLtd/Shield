@@ -50,6 +50,14 @@ def test_docker_on_machine():
     #Apply check docker version
     return True
 
+def test_shield_already_installed():
+    err, out = run_command_and_return_output('sudo ls -al /usr/local/ericomshield | grep ericomshield-repo')
+    if not err is None:
+        if "No such file or directory" in err:
+            return False
+    #need to analyze more ls output
+    return True
+
 def install_docker():
     transport = client.get_transport()
     sftp_client = SFTPClient.from_transport(transport)
@@ -88,11 +96,11 @@ def run_ericom_shield_setup():
         print(err)
         sys.exit(1)
 
-    _, stdout, stderr = client.exec_command('sudo export BRANCH="{}" && sudo ./ericomshield-setup.sh -no-deploy'.format(os.environ["ERICOM_SETUP_BRANCH"]))
+    _, stdout, stderr = client.exec_command("export BRANCH=\"{}\" && sudo -E bash -c './ericomshield-setup.sh -no-deploy'".format(os.environ["ERICOM_SETUP_BRANCH"]))
     while not stdout.channel.exit_status_ready():
         one_line = ''
         if stdout.channel.recv_ready():
-            one_line = stdout.channel.recv(2048)
+            one_line = stdout.channel.recv(2048).decode("ascii")
             sys.stdout.write(one_line)
             sys.stdout.flush()
 
@@ -180,8 +188,11 @@ def format_labels_command(hostname):
     return 'docker node update {0} {1}'.format(res, hostname)
 
 def run_consul_reshafle_command():
-    output = subprocess.check_output('docker service update --force --replicas 5 shield_consul-server', shell=True)
-
+    try:
+        output = subprocess.check_output('docker service update --force --replicas 5 shield_consul-server', shell=True)
+    except Exception as ex:
+        print("Error: {}".format(ex))
+        return
     print(output)
 
 def run_join_to_swarm(command, ip):
@@ -191,15 +202,16 @@ def run_join_to_swarm(command, ip):
         run_certificate_mode(ip)
 
     hostname = prepare_machine_to_docker_node(ip)
-    if not test_docker_on_machine():
+    if not test_shield_already_installed():
         run_ericom_shield_setup()
     else:
-        logger.info("Found suitable docker version")
+        logger.info("Ericomshield already installed")
 
-    stdin, stdout, stderr = client.exec_command("sudo {}".format(command))
-    stdout.channel.recv_exit_status()
-    logger.error(stderr.readlines())
-    logger.info(stdout.readlines())
+    err, out = run_command_and_return_output("sudo {}".format(command))
+    if not err is None:
+        logger.error(err)
+    else:
+        logger.info(out)
 
     output = subprocess.check_output(format_labels_command(hostname), shell=True)
     logger.info(output)
