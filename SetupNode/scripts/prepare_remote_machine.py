@@ -144,7 +144,7 @@ def prepare_machine_to_docker_node(ip):
     stdout.channel.recv_exit_status()
     logger.error(stderr.read())
 
-    stdin, stdout, stderr = client.exec_command('if [ $(sudo grep -c EricomShield /etc/sysctl.conf) -eq 0 ]; then cat ./sysctl_shield.conf | sudo tee -a /etc/sysctl.conf; fi')
+    stdin, stdout, stderr = client.exec_command('cat ./sysctl_shield.conf | sudo tee "/etc/sysctl.d/30-ericom-shield.conf"; sudo sysctl --load="/etc/sysctl.d/30-ericom-shield.conf"')
     stdout.channel.recv_exit_status()
     logger.error(stderr.read())
     return hostname
