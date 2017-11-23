@@ -312,7 +312,7 @@ services:
               cpus: "1"
 
   ext-proxy:
-        image: securebrowsing/extproxy:170724-21.57
+        image: securebrowsing/extproxy:latest
         hostname: ext-proxy
         # user: nobody
         ports:
