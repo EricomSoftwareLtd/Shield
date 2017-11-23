@@ -537,7 +537,7 @@ function wait_for_docker_to_settle() {
     local wait_count=0
     count_running_docker_services
     while ((services != 0)) && ((wait_count < 12)); do
-        log_message "Not all servces have reached their target scale. Wainting for Docker to settle..."
+        log_message "Not all services have reached their target scale. Waiting for Docker to settle..."
         sleep 10
         wait_count=$((wait_count + 1))
         count_running_docker_services
