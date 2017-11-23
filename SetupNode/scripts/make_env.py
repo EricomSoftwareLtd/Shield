@@ -1,7 +1,8 @@
 import argparse
-import sys
 import logging
-from argparse import HelpFormatter
+from shield.shieldmn import ReportDataServices
+import sys
+
 
 
 logger = logging.getLogger("parse_arguments")
@@ -15,8 +16,14 @@ class CustomErrorPrintArgParser(argparse.ArgumentParser):
         new_message = "{}\nPlease use {} -h/--help to print detailed usage".format(message, self.prog)
         super().error(new_message)
 
+class StatusAction(argparse.Action):
+    def __init__(self, option_strings, dest, nargs=None, **kwargs):
+        super(StatusAction, self).__init__(option_strings, dest,nargs, **kwargs)
 
-
+    def __call__(self, *args, **kwargs):
+        data = ReportDataServices()
+        data.print()
+        sys.exit(0)
 
 def parse_command_line():
     global parser
@@ -26,7 +33,6 @@ def parse_command_line():
         Set at least one of label parameters.
     ''')
     parser.add_argument('-ips', '--machines-ip', dest='ips', required=True, help="IpV4 of machines should be append. Ip separator is ','")
-
     parser.add_argument('-u', '--user', dest='user', default='ericom', help='User/login on remote machine/s')
     # parser.add_argument('-t', '--token', dest='token', help='Join token token to swarm cluster. By default will be provided')
     # parser.add_argument('-l', '--leader', dest='leader_ip', help='Ip of cluster leader if you run script from another machine')
@@ -39,6 +45,7 @@ def parse_command_line():
     parser.add_argument('-s', '-session-mode', dest='session_mode', default='password', help='Remote machine session mode')
     parser.add_argument('--setup-branch', dest='setup_branch', default='master', help='Use if you neeed download experimental ericomshield setup script')
     parser.add_argument('--certificate-pass', dest='cert_pass', help='Use if certificate contains passphrase')
+    parser.add_argument('--status', dest="run_status", action=StatusAction, nargs=0, help="Run status report")
     return parser.parse_args()
 
 
