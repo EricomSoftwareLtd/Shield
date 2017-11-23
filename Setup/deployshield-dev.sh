@@ -118,12 +118,6 @@ function make_in_memory_volume() {
     fi
 }
 
-function replace_syslog_host_address() {
-    echo "Setting syslog server address to $1 in $2 ..."
-    sed -i -r -e "s/(^\s*syslog-address:)(.*):5014/\1 $1/" "$2"
-    echo "... done updating $2"
-}
-
 while [ "$1" != "" ]; do
     case $1 in
     -s | --single-mode)
@@ -170,10 +164,6 @@ make_in_memory_volume
 set_experimental
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
-SYSLOG_ADDRESS="udp:\/\/$SYS_LOG_HOST:5014"
-if [ -z "$JENKINS" ]; then
-    replace_syslog_host_address "$SYSLOG_ADDRESS" "$ES_YML_FILE"
-fi
 
 create_proxy_env_file
 
