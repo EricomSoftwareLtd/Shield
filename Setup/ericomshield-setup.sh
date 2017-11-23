@@ -95,10 +95,10 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
-    -no-deploy)        
+    -no-deploy)
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
-        ;;    
+        ;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
@@ -467,7 +467,7 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 check_free_space
 
-if [ "$RUN_DEPLOY" == true ]; then
+if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
         choose_network_interface
     fi
@@ -492,7 +492,7 @@ fi
 
 get_shield_install_files
 
-if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$RUN_DEPLOY" == true ]; then
+if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
     echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
     echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
@@ -518,7 +518,7 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-if [ "$RUN_DEPLOY" == true ]; then
+if [ "$ES_RUN_DEPLOY" == true ]; then
     echo "pull images" #before restarting the system for upgrade
     pull_images
 fi
@@ -551,7 +551,7 @@ if [ "$UPDATE" == false ]; then
     systemctl start ericomshield-updater.service
 
 else # Update
-  if [ "$RUN_DEPLOY" == true ]; then 
+  if [ "$ES_RUN_DEPLOY" == true ]; then
     if [ "$UPDATE_NEED_RESTART" == true ]; then
         echo " Stopping Ericom Shield for Update "
         ./stop.sh
@@ -562,7 +562,7 @@ else # Update
         docker service scale shield_shield-admin=0
         wait_for_docker_to_settle
     fi
-  fi  
+  fi
 fi
 
 if [ -n "$MY_IP" ]; then
@@ -570,7 +570,7 @@ if [ -n "$MY_IP" ]; then
     export IP_ADDRESS="$MY_IP"
 fi
 
-if [ "$RUN_DEPLOY" == true ]; then 
+if [ "$ES_RUN_DEPLOY" == true ]; then
    echo "source deploy-shield.sh"
    source deploy-shield.sh
 
