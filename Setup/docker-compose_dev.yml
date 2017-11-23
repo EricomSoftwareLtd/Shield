@@ -4,31 +4,6 @@ version: "3.3"
 # YML file for Dev
 
 services:
-#  collector:
-#     image: securebrowsing/shield-collector:latest
-#     hostname: collector
-#     volumes:
-#       - /var/run/docker.sock:/var/run/docker.sock
-#       - /proc:/hostfs/proc:ro
-#       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-#       - /:/hostfs:ro
-#     networks:
-#       - shield
-#     deploy:
-#       mode: global
-#       restart_policy:
-#           condition: any
-#       update_config:
-#           failure_action: rollback
-#       resources:
-#         limits:
-#           memory: 2GB
-#           cpus: "1"
-#     environment:
-#       - "SYSTEM_PERIOD=5m"
-#       - "DOCKER_PERIOD=5m"
-
-
   netdata:
     image: titpetric/netdata:latest
     volumes:
@@ -73,23 +48,20 @@ services:
           cpus: "1"
     environment:
       - "IMAGE_CLEAN_INTERVAL=1m"
-    logging:
-        driver: syslog
-        options:
-          syslog-address: udp://${SYS_LOG_HOST}:5014
-          tag: "maintenance-{{.ID}}"
+      - "LOGSTASH_FIELDS=service=maintenance"
 
   elk:
       image: securebrowsing/shield-elk:latest
       ports:
           - 5601:5601
           - 9200:9200
-          - 5014:5014/udp
+          - 5014:5014
       networks:
           - shield
       environment:
         - "REINDEX_RUNINNG_INTERVAL=30s"
         - "CLEAN_RUNINNG_INTERVAL=12h"
+        - "LOGSPOUT=ignore"
       deploy:
         replicas: 1
         restart_policy:
@@ -105,6 +77,27 @@ services:
             cpus: "3"
       volumes:
          - elastic:/var/lib
+
+  logspout:
+    image: securebrowsing/shield-logspout:latest
+    networks:
+        - shield
+    volumes:
+        - /etc/hostname:/etc/host_hostname:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+        - "ROUTE_URIS=logstash+tcp://elk:5014"
+        - "RETRY_STARTUP=true"
+#        - "DEBUG=1"
+    deploy:
+        mode: global
+        resources:
+            limits:
+                cpus: '0.20'
+                memory: 256M
+            reservations:
+                cpus: '0.10'
+                memory: 128M
 
   consul-server:
     image: securebrowsing/shield-configuration:latest
@@ -130,11 +123,7 @@ services:
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=5"
-    logging:
-      driver: syslog
-      options:
-        syslog-address: udp://${SYS_LOG_HOST}:5014
-        tag: "consulserver-{{.ID}}"
+        - "LOGSTASH_FIELDS=service=consulserver"
 
   consul:
       image: securebrowsing/shield-configuration:latest
@@ -157,11 +146,7 @@ services:
       environment:
           - "CONSUL_BIND_INTERFACE=eth2"
           - "RUN_AGENT=yes"
-      logging:
-        driver: syslog
-        options:
-          syslog-address: udp://${SYS_LOG_HOST}:5014
-          tag: "consulclient-{{.ID}}"
+          - "LOGSTASH_FIELDS=service=consulclient"
 
 ###################################################################### Shield services part ##################################################################
   shield-admin:
@@ -172,6 +157,7 @@ services:
         environment:
             - SHIELD_VER=8.0.0.latest
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=admin"
         volumes:
            - admin:/data/consul
            - /var/run/docker.sock:/var/run/docker.sock
@@ -191,11 +177,6 @@ services:
             limits:
               memory: 500MB
               cpus: "0.5"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "admin-{{.ID}}"
 
   icap-server:
         image: securebrowsing/icap-server:latest
@@ -206,6 +187,7 @@ services:
             - SHIELD_VER=8.0.0.latest
             - "SHIELD_IP=IP_ADDRESS"
 #           - SHIELD_WATERMARK=TRUE
+            - "LOGSTASH_FIELDS=service=icap"
         ulimits:
           nofile:
             soft: 65535
@@ -228,11 +210,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "icap-{{.ID}}"
 
   broker-server:
         image: securebrowsing/broker-server:latest
@@ -259,15 +236,11 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=broker"
         networks:
           - shield
         secrets:
           - shield-system-id
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "broker-{{.ID}}"
 
   shield-browser:
         image: securebrowsing/shield-cef:latest
@@ -285,6 +258,7 @@ services:
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
              - PERF_STATS=true
+             - "LOGSTASH_FIELDS=service=browser"
         networks:
             - shield
         deploy:
@@ -310,11 +284,6 @@ services:
           - type: bind
             target: /dev/shm/xorg
             source: /media/containershm
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "browser{{.ID}}"
 
   proxy-server:
         image: securebrowsing/proxy-server:latest
@@ -327,6 +296,7 @@ services:
           - shield
         environment:
           - SSLEXCLUSION=true
+          - "LOGSTASH_FIELDS=service=proxy"
         env_file: proxy-server.env
         deploy:
           mode: replicated        
@@ -344,11 +314,7 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "proxy-{{.ID}}"
+
   ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy
@@ -391,11 +357,7 @@ services:
            mode: host
       environment:
           - NODE_ENV=production
-      logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "authproxy-{{.ID}}"
+          - "LOGSTASH_FIELDS=service=authproxy"
 
   web-service:
         image: securebrowsing/shield-web-service:latest
@@ -407,6 +369,7 @@ services:
         environment:
             - "SHIELD_IP=IP_ADDRESS"
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=webservice"
         deploy:
           mode: replicated                
           replicas: 1
@@ -417,17 +380,13 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "webservice-{{.ID}}"
-            
+
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
     environment:
         - NODE_ENV=production
+        - "LOGSTASH_FIELDS=service=cdrdispatcher"
     networks:
       - shield
     deploy:
@@ -441,17 +400,13 @@ services:
       placement:
         constraints:
           - node.labels.shield_core==yes
-    logging:
-      driver: syslog
-      options:
-        syslog-address: udp://${SYS_LOG_HOST}:5014
-        tag: "cdrdispatcher-{{.ID}}"
 
   cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
         hostname: cdr-controller
         environment:
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=cdrcontroller"
         networks:
             - shield
         deploy:
@@ -465,11 +420,6 @@ services:
           placement:
               constraints:
                 - node.labels.shield_core==yes
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "cdrcontroller-{{.ID}}"
 
     ############################### Docker managment part ##############################################################
   portainer:
@@ -480,6 +430,8 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - portainer:/data
+        environment:
+            - "LOGSTASH_FIELDS=service=portainer"
         networks:
           - shield
         deploy:
@@ -494,11 +446,6 @@ services:
             limits:
               memory: 100MB
               cpus: "0.5"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
-            tag: "portainer-{{.ID}}"
 
 volumes:
   elastic:
