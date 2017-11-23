@@ -156,7 +156,7 @@ services:
         ports:
             - 8181:8181
         environment:
-            - SHIELD_VER=Dev:Build_210
+            - SHIELD_VER=8.0.0.latest
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=admin"
         volumes:
@@ -184,8 +184,8 @@ services:
         hostname: icap-server
         environment:
             - NODE_ENV=production
-            - SHIELD_VER=Dev:Build_210
-            - "SHIELD_IP=192.168.56.110"
+            - SHIELD_VER=8.0.0.latest
+            - "SHIELD_IP=IP_ADDRESS"
 #           - SHIELD_WATERMARK=TRUE
             - "LOGSTASH_FIELDS=service=icap"
         ulimits:
@@ -363,7 +363,7 @@ services:
         networks:
           - shield
         environment:
-            - "SHIELD_IP=192.168.56.110"
+            - "SHIELD_IP=IP_ADDRESS"
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=webservice"
         deploy:
