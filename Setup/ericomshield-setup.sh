@@ -31,7 +31,9 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
 ES_SETUP_VER="17.45-Setup"
-BRANCH="master"
+if [ -z "$BRANCH" ]; then
+    BRANCH="master"
+fi
 
 MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"

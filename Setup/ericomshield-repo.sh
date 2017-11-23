@@ -3,7 +3,9 @@
 #####   Ericom Shield Installer        #####
 #######################################BH###
 
-BRANCH="master"
+if [ -z "$BRANCH" ]; then
+    BRANCH="master"
+fi
 #BRANCH="Install-Staging"
 
 # Development Repository: (Latest)
