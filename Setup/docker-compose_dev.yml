@@ -4,31 +4,30 @@ version: "3.3"
 # YML file for Dev
 
 services:
-
-  collector:
-     image: securebrowsing/shield-collector:latest
-     hostname: collector
-     volumes:
-       - /var/run/docker.sock:/var/run/docker.sock
-       - /proc:/hostfs/proc:ro
-       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-       - /:/hostfs:ro
-     networks:
-       - shield
-     deploy:
-       mode: global
-       restart_policy:
-           condition: any
-       update_config:
-           failure_action: rollback
-       resources:
-         limits:
-           memory: 2GB
-           cpus: "1"
-     environment:
-       - "SYSTEM_PERIOD=5m"
-       - "DOCKER_PERIOD=5m"
-       - "LOGSPOUT=ignore"
+  netdata:
+    image: titpetric/netdata:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - shield
+    hostname: netdata
+    ports:
+      - 8282:19999
+    cap_add:
+      - SYS_PTRACE
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    deploy:
+      mode: global
+      restart_policy:
+          condition: any
+      update_config:
+          failure_action: rollback
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1"
 
   maintenance:
     image: securebrowsing/shield-maintenance:latest
@@ -165,6 +164,7 @@ services:
         networks:
             - shield
         deploy:
+          mode: replicated        
           replicas: 1
           update_config:
             failure_action: rollback
@@ -197,6 +197,7 @@ services:
         ports:
           - 1344:1344
         deploy:
+          mode: replicated                
           replicas: 1
           update_config:
              failure_action: rollback
@@ -215,6 +216,7 @@ services:
         # user: nobody
         hostname: broker-server
         deploy:
+          mode: replicated                
           replicas: 1
           restart_policy:
             condition: any
@@ -229,7 +231,7 @@ services:
               memory: 50MB
           placement:
             constraints:
-              - node.labels.shield_core==yes
+                - node.labels.management==yes
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
@@ -260,6 +262,7 @@ services:
         networks:
             - shield
         deploy:
+          mode: replicated                
           replicas: 0
           update_config:
             parallelism: 8
@@ -296,6 +299,7 @@ services:
           - "LOGSTASH_FIELDS=service=proxy"
         env_file: proxy-server.env
         deploy:
+          mode: replicated        
           replicas: 2
           restart_policy:
             condition: any
@@ -314,7 +318,6 @@ services:
   ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy
-        # user: nobody
         ports:
           - "3138:3138"
         ulimits:
@@ -324,6 +327,7 @@ services:
         networks:
           - shield
         deploy:
+          mode: replicated                
           replicas: 0
           placement:
             constraints:
@@ -367,10 +371,11 @@ services:
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=webservice"
         deploy:
+          mode: replicated                
           replicas: 1
           placement:
             constraints:
-              - node.labels.shield_core==yes
+                - node.labels.management==yes
           resources:
             limits:
               memory: 500MB
@@ -385,6 +390,7 @@ services:
     networks:
       - shield
     deploy:
+      mode: replicated            
       replicas: 2
       restart_policy:
         condition: any
@@ -404,6 +410,7 @@ services:
         networks:
             - shield
         deploy:
+          mode: replicated                
           replicas: 1
           restart_policy:
             condition: any

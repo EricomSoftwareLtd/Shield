@@ -7,11 +7,25 @@ import subprocess
 import os
 import time
 
-
 logger = logging.getLogger("prepare_machine")
 
 client = SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+
+ericom_shield_setup_script = \
+        'https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/{}/Setup/ericomshield-setup.sh' \
+        .format(os.environ["ERICOM_SETUP_BRANCH"])
+
+
+def run_command_and_return_output(cmd):
+    _, stdout, stderr = client.exec_command(cmd)
+    stdout.recv_exit_status()
+    output = stdout.read().decode("ascii")
+    err = stderr.read().decode("ascii")
+
+    return err, output
+
 
 def get_docker_join_command():
     output = subprocess.check_output('docker swarm join-token {} | grep join'.format(os.environ['MACHINE_MODE']), shell=True)
@@ -60,6 +74,11 @@ def install_docker():
     else:
         logger.error("Docker installation failed")
         sys.exit(1)
+
+def run_ericom_shield_setup():
+    out, err = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))
+    pass
+
 
 def get_swarm_node_name(data):
     if '*' in data:
