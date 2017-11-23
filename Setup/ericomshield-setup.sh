@@ -310,9 +310,6 @@ function update_sysctl() {
     #to apply the changes:
     sysctl --load="/etc/sysctl.d/30-ericom-shield.conf"
     echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!!!!"
-    echo "setting sysctl fs.file=1000000"
-    sysctl -w fs.file-max=1000000
-    sysctl -w vm.max_map_count=262144
 }
 
 function create_shield_service() {
