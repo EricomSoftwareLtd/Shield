@@ -472,10 +472,12 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 check_free_space
 
-if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
-    choose_network_interface
+if [ "$RUN_DEPLOY" == true ]; then
+    if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
+        choose_network_interface
+    fi
+    save_my_ip
 fi
-save_my_ip
 
 echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
@@ -495,7 +497,7 @@ fi
 
 get_shield_install_files
 
-if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ]; then
+if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
     echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
     echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
@@ -521,8 +523,10 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-echo "pull images" #before restarting the system for upgrade
-pull_images
+if [ "$RUN_DEPLOY" == true ]; then
+    echo "pull images" #before restarting the system for upgrade
+    pull_images
+fi
 
 function count_running_docker_services() {
     services=($(docker service ls --format "{{.Replicas}}" | awk 'BEGIN {FS = "/"; sum=0}; {d=$2-$1; sum+=d>0?d:-d} END {print sum}'))
