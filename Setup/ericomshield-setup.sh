@@ -30,7 +30,7 @@ ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
-ES_SETUP_VER="17.45-Setup"
+ES_SETUP_VER="17.47-Setup"
 if [ -z "$BRANCH" ]; then
     BRANCH="master"
 fi
