@@ -20,9 +20,12 @@ ericom_shield_setup_script = \
 
 def run_command_and_return_output(cmd):
     _, stdout, stderr = client.exec_command(cmd)
-    stdout.recv_exit_status()
-    output = stdout.read().decode("ascii")
-    err = stderr.read().decode("ascii")
+    err = None
+    output = None
+    if stdout.channel.recv_exit_status() == 0:
+        output = stdout.read().decode("ascii")
+    else:
+        err = stderr.read().decode("ascii")
 
     return err, output
 
@@ -76,9 +79,22 @@ def install_docker():
         sys.exit(1)
 
 def run_ericom_shield_setup():
-    out, err = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))
-    pass
+    err, out = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))
+    if not err is None:
+        print(err)
+        sys.exit(1)
+    err, out = run_command_and_return_output('chmod +x ./ericomshield-setup.sh')
+    if not err is None:
+        print(err)
+        sys.exit(1)
 
+    _, stdout, stderr = client.exec_command('sudo export BRANCH="{}" && sudo ./ericomshield-setup.sh -no-deploy'.format(os.environ["ERICOM_SETUP_BRANCH"]))
+    while not stdout.channel.exit_status_ready():
+        one_line = ''
+        if stdout.channel.recv_ready():
+            one_line = stdout.channel.recv(2048)
+            sys.stdout.write(one_line)
+            sys.stdout.flush()
 
 def get_swarm_node_name(data):
     if '*' in data:
@@ -176,7 +192,7 @@ def run_join_to_swarm(command, ip):
 
     hostname = prepare_machine_to_docker_node(ip)
     if not test_docker_on_machine():
-        install_docker()
+        run_ericom_shield_setup()
     else:
         logger.info("Found suitable docker version")
 

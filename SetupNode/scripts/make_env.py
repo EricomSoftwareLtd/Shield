@@ -32,19 +32,20 @@ def parse_command_line():
     # parser.add_argument('-l', '--leader', dest='leader_ip', help='Ip of cluster leader if you run script from another machine')
     parser.add_argument('-m', '--mode', dest='mode', default='worker', help='Mode to join should be worker|manager default worker')
     parser.add_argument('-n', '--name', dest='machine_name', default='shieldNode', help='Node name prefix. should be only letters. default shieldNode. Final looks (NAME) + node number')
-    parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield-browser containers to be allocated on this node. Default false')
-    parser.add_argument('-sc','--shield-core', dest='shield_core', action="store_true", default=False, help="Allow shield-core containers to be allocated on this node. Default false")
-    parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield managment container to be allocated on node. Default false')
+    parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield_srt-browser containers to be allocated on this node. Default false')
+    parser.add_argument('-sc','--shield_srt-core', dest='shield_core', action="store_true", default=False, help="Allow shield_srt-core containers to be allocated on this node. Default false")
+    parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield_srt managment container to be allocated on node. Default false')
     parser.add_argument('-c', '--certificate', dest='certificate', default='./shield_crt', help='Path to sertificate file. Should be together private and public (file name + .pub)')
     parser.add_argument('-s', '-session-mode', dest='session_mode', default='password', help='Remote machine session mode')
     parser.add_argument('--setup-branch', dest='setup_branch', default='master', help='Use if you neeed download experimental ericomshield setup script')
+    parser.add_argument('--certificate-pass', dest='cert_pass', help='Use if certificate contains passphrase')
     return parser.parse_args()
 
 
 def validate_parameters(args):
     global parser
     if (not args.browser) and (not args.shield_core) and (not args.management):
-        parser.error('At least one of label arguments required -b/--browser | -sc/--shield-core | -mng/--management')
+        parser.error('At least one of label arguments required -b/--browser | -sc/--shield_srt-core | -mng/--management')
 
 
 def make_enviroment_file(args):
@@ -63,6 +64,8 @@ def make_enviroment_file(args):
             file.write('export SHIELD_CORE=yes\n')
         if args.management:
             file.write('export MANAGEMENT=yes\n')
+        if args.cert_pass:
+            file.write('export CERTIFICATE_PASS="{}"\n'.format(args.cert_pass))
 
         file.close()
 
