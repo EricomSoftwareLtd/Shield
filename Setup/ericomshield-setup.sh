@@ -490,6 +490,7 @@ fi
 # No Need to Install docker compose
 # install_docker_compose
 
+
 get_shield_install_files
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
