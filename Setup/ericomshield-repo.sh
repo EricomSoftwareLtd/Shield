@@ -3,7 +3,9 @@
 #####   Ericom Shield Installer        #####
 #######################################BH###
 
-BRANCH="master"
+if [ -z "$BRANCH" ]; then
+    BRANCH="master"
+fi
 #BRANCH="Install-Staging"
 
 # Development Repository: (Latest)
@@ -20,6 +22,7 @@ ES_repo_systemd_updater_service="https://raw.githubusercontent.com/EricomSoftwar
 ES_repo_sysctl_shield_conf="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/sysctl_shield.conf"
 ES_repo_uninstall="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-uninstall.sh"
 ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
+ES_repo_setup_node="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/SetupNode/ericomshield-setup-node.sh"
 
 # Production Version Repository: (Release)
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
