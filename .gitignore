@@ -1,5 +1,9 @@
 .idea/
 *.iml
 *shield_crt*
+<<<<<<< HEAD
 *shield
 hosts
+=======
+shield
+>>>>>>> MultinNodeFix

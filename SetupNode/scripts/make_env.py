@@ -37,7 +37,11 @@ def parse_command_line():
     parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield managment container to be allocated on node. Default false')
     parser.add_argument('-c', '--certificate', dest='certificate', default='./shield', help='Path to sertificate file. Should be together private and public (file name + .pub)')
     parser.add_argument('-s', '-session-mode', dest='session_mode', default='password', help='Remote machine session mode')
+<<<<<<< HEAD
     parser.add_argument('-cp', '--certificate-password', dest='cert_pass', help='Set if sertificate file has passphrase')
+=======
+    parser.add_argument('--setup-branch', dest='setup_branch', default='master', help='Use if you neeed download experimental ericomshield setup script')
+>>>>>>> MultinNodeFix
     return parser.parse_args()
 
 
@@ -57,6 +61,7 @@ def make_enviroment_file(args):
         file.write('export MACHINE_NAME_PREFIX={}\n'.format(args.machine_name))
         file.write('export MACHINE_MODE={}\n'.format(args.mode))
         file.write('export MACHINE_CERTIFICATE={}\n'.format(args.certificate))
+<<<<<<< HEAD
         file.write('export CERTIFICATE_PASS={}\n'.format(args.cert_pass))
 
         if args.session_mode == 'password':
@@ -64,6 +69,10 @@ def make_enviroment_file(args):
         else:
             file.write('export MACHINE_SESSION_MODE={}\n'.format(args.session_mode))
 
+=======
+        file.write('export MACHINE_SESSION_MODE={}\n'.format(args.session_mode))
+        file.write('export ERICOM_SETUP_BRANCH={}\n'.format(args.setup_branch))
+>>>>>>> MultinNodeFix
         if args.browser:
             file.write("export BROWSERS=yes\n")
         if args.shield_core:
