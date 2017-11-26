@@ -1,6 +1,4 @@
 .idea/
 *.iml
-*shield
-hosts
-shield_crt
-.env
+*shield_crt*
+shield

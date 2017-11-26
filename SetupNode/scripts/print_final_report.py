@@ -18,12 +18,13 @@ class ReportData:
         node_row = []
         for node in self.nodes:
             node_data = json.loads(subprocess.check_output('docker node inspect {}'.format(node['id']), shell=True))[0]
-            node_row.append(node['id'])
-            node_row.append(node['name'])
-            node_row.append(node_data['Status']['Addr'])
-            node_row.append(node_data['Spec']['Availability'])
-            node_row.append(node_data['Spec']['Role'])
-            node_row.append('\n'.join([key + '=' + value for key, value in node_data['Spec']['Labels'].items()]))
+            if node_data['Status']['Addr'] in os.environ['MACHINE_IPS']:
+                node_row.append(node['id'])
+                node_row.append(node['name'])
+                node_row.append(node_data['Status']['Addr'])
+                node_row.append(node_data['Spec']['Availability'])
+                node_row.append(node_data['Spec']['Role'])
+                node_row.append('\n'.join([ key + '=' + value for key, value in node_data['Spec']['Labels'].items()]))
             self.rows.append(node_row)
             node_row = []
 

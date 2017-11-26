@@ -14,6 +14,7 @@ setup-envinronment() {
 prepare_remote_machines() {
     counter=1
     for ip in $MACHINE_IPS; do
+        export REMOTE_HOST_NAME="$MACHINE_NAME_PREFIX$counter"
         python scripts/prepare_remote_machine.py $ip
         counter=$(($counter + 1))
     done
@@ -41,7 +42,7 @@ set +e
 if [ "$MACHINE_SESSION_MODE" = "password" ]; then
     run_with_password
 else
-    prepare_remote_machines
+    echo "Will run with certificate"
 fi
 
 python scripts/print_final_report.py
