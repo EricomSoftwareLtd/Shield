@@ -86,7 +86,7 @@ services:
         - /etc/hostname:/etc/host_hostname:ro
         - /var/run/docker.sock:/var/run/docker.sock
     environment:
-        - "ROUTE_URIS=logstash+tcp://elk:5014"
+        - "ROUTE_URIS=logstash+tcp://elk:5025"
         - "RETRY_STARTUP=true"
 #        - "DEBUG=1"
     deploy:
