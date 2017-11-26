@@ -15,14 +15,14 @@ ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRAN
 ES_repo_version="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/showversion.sh"
 ES_repo_stop="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/stop.sh"
 ES_repo_status="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/status.sh"
-ES_repo_service="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield"
+ES_repo_restart="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/restart.sh"
 ES_repo_ip="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/show-my-ip.sh"
-ES_repo_systemd_service="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield.service"
 ES_repo_systemd_updater_service="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-updater.service"
 ES_repo_sysctl_shield_conf="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/sysctl_shield.conf"
 ES_repo_uninstall="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-uninstall.sh"
 ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
 ES_repo_setup_node="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/SetupNode/ericomshield-setup-node.sh"
+ES_repo_shield_nodes="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-nodes.sh"
 
 # Production Version Repository: (Release)
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
