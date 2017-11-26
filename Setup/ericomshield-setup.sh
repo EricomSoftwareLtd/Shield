@@ -461,8 +461,8 @@ function get_shield_files() {
     chmod +x restart.sh    
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
-    curl -s -S -o ericomshield-setup_node.sh "$ES_repo_setup_node"
-    chmod +x ericomshield-setup_node.sh
+    curl -s -S -o ericomshield-setup-node.sh "$ES_repo_setup_node"
+    chmod +x ericomshield-setup-node.sh
     curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
     chmod +x shield-nodes.sh
 }
@@ -481,7 +481,11 @@ function wait_for_docker_to_settle() {
     local wait_count=0
     count_running_docker_services
     while ((services != 0)) && ((wait_count < 12)); do
-        log_message "Not all services have reached their target scale. Waiting for Docker to settle..."
+        if [ $wait_count == 0 ]; then
+           log_message "Not all services have reached their target scale. Waiting for Docker to settle..."          
+        fi
+        
+        echo -n .        
         sleep 10
         wait_count=$((wait_count + 1))
         count_running_docker_services
