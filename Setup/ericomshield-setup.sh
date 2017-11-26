@@ -29,8 +29,10 @@ ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
+SHIELD_VERSION=""
+SECRET_VERSION="shield-version"
 
-ES_SETUP_VER="17.47-Setup"
+ES_SETUP_VER="17.48-Setup"
 if [ -z "$BRANCH" ]; then
     BRANCH="master"
 fi
@@ -344,12 +346,20 @@ function prepare_yml() {
                 echo "Changing ver: $comp_ver"
                 #echo "  sed -i 's/$pattern_ver/$comp_ver/g' $ES_YML_FILE"
                 sed -i "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
+                if [ "$pattern_ver" == "SHIELD_VER=8.0.0.latest" ]; then
+                   SHIELD_VERSION="$comp_ver"
+                fi   
             fi
         fi
     done <"$ES_VER_FILE"
 
     #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
+    
+    if [ $(docker secret ls | grep -c $SECRET_VERSION) -eq 1 ]; then
+       docker secret rm shield-version 
+    fi     
+    echo $SHIELD_VERSION | docker secret create $SECRET_VERSION -
 }
 
 function get_shield_install_files() {
