@@ -210,6 +210,8 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+          secrets:
+            - shield-version          
 
   broker-server:
         image: securebrowsing/broker-server:latest
@@ -463,3 +465,6 @@ networks:
 secrets:
    shield-system-id:
        external: true
+   shield-version:
+       external: true
+
