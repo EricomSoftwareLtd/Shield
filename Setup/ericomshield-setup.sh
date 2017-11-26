@@ -455,10 +455,14 @@ function get_shield_files() {
     chmod +x stop.sh
     curl -s -S -o status.sh "$ES_repo_status"
     chmod +x status.sh
+    curl -s -S -o restart.sh "$ES_repo_restart"
+    chmod +x restart.sh    
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
     curl -s -S -o ericomshield-setup_node.sh "$ES_repo_setup_node"
     chmod +x ericomshield-setup_node.sh
+    curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
+    chmod +x shield-nodes.sh
 }
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
