@@ -3,6 +3,7 @@
 #####   Ericom Shield Installer        #####
 #######################################LO###
 
+
 export DOCKER_TAG=171123-17.00
 
 docker run --rm -it \
