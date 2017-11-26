@@ -101,6 +101,15 @@ function create_uuid() {
     fi
 }
 
+function set_version() {
+    SHIELD_VERSION=$(grep SHIELD_VER "$ES_YML_FILE")
+    if [ $(docker secret ls | grep -c $SECRET_VERSION) -eq 1 ]; then
+       docker secret rm shield-version 
+    fi
+    
+    echo $SHIELD_VERSION | docker secret create $SECRET_VERSION -
+}
+
 function get_right_interface() {
     TEST_MAC=$(uname | grep Linux)
     if [ ! "$TEST_MAC" ]; then
@@ -161,7 +170,9 @@ fi
 
 create_uuid
 make_in_memory_volume
-set_experimental
+#set_experimental
+
+set_version
 
 SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 
