@@ -348,6 +348,7 @@ function prepare_yml() {
                 sed -i "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
                 if [ "$pattern_ver" == "SHIELD_VER=8.0.0.latest" ]; then
                    SHIELD_VERSION="$comp_ver"
+                   echo "SHIELD_VERSION=$comp_ver"
                 fi   
             fi
         fi
@@ -475,6 +476,27 @@ function get_shield_files() {
     chmod +x shield-nodes.sh
 }
 
+function count_running_docker_services() {
+    services=($(docker service ls --format "{{.Replicas}}" | awk 'BEGIN {FS = "/"; sum=0}; {d=$2-$1; sum+=d>0?d:-d} END {print sum}'))
+
+    if ! [[ $? ]]; then
+        log_message "Could not list services. Is Docker running?"
+        return 1
+    fi
+    return 0
+}
+
+function wait_for_docker_to_settle() {
+    local wait_count=0
+    count_running_docker_services
+    while ((services != 0)) && ((wait_count < 12)); do
+        log_message "Not all services have reached their target scale. Waiting for Docker to settle..."
+        sleep 10
+        wait_count=$((wait_count + 1))
+        count_running_docker_services
+    done
+}
+
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
@@ -536,27 +558,6 @@ if [ "$ES_RUN_DEPLOY" == true ]; then
     echo "pull images" #before restarting the system for upgrade
     pull_images
 fi
-
-function count_running_docker_services() {
-    services=($(docker service ls --format "{{.Replicas}}" | awk 'BEGIN {FS = "/"; sum=0}; {d=$2-$1; sum+=d>0?d:-d} END {print sum}'))
-
-    if ! [[ $? ]]; then
-        log_message "Could not list services. Is Docker running?"
-        return 1
-    fi
-    return 0
-}
-
-function wait_for_docker_to_settle() {
-    local wait_count=0
-    count_running_docker_services
-    while ((services != 0)) && ((wait_count < 12)); do
-        log_message "Not all services have reached their target scale. Waiting for Docker to settle..."
-        sleep 10
-        wait_count=$((wait_count + 1))
-        count_running_docker_services
-    done
-}
 
 if [ "$UPDATE" == false ]; then
     # New Installation
