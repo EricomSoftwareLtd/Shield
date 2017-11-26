@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_214] - 2017-11-26
+- Write DC test results to log #1284
+- Quality_idle_fps is set to 90 , like quality_lowFPS
+- Add external syslog ability to logstash #1401
+- Reports now have Selection box for quary duraion #1396 #895
+- Authentication - primary DC address is not used when it on again #1384
+- About window show wrong version #1301
+
 ## [Dev:Build_213] - 2017-11-23
 - Quality settings in consul , detect if video is off-screen, superb quality updates when idle #1376
 - Rendering engine 1.7.9 
