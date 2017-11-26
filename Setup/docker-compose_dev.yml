@@ -13,8 +13,6 @@ services:
     hostname: netdata
     ports:
       - 8282:19999
-    cap_add:
-      - SYS_PTRACE
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
