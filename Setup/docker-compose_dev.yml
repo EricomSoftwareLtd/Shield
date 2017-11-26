@@ -208,13 +208,12 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-        secrets:
-          - shield-version          
-
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
         hostname: broker-server
+        environment:
+            - SHIELD_VER=8.0.0.latest
         deploy:
           mode: replicated                
           replicas: 1
@@ -463,6 +462,3 @@ networks:
 secrets:
    shield-system-id:
        external: true
-   shield-version:
-       external: true
-
