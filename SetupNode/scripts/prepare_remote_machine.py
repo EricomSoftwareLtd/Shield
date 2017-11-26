@@ -20,12 +20,9 @@ ericom_shield_setup_script = \
 
 def run_command_and_return_output(cmd):
     _, stdout, stderr = client.exec_command(cmd)
-    err = None
-    output = None
-    if stdout.channel.recv_exit_status() == 0:
-        output = stdout.read().decode("ascii")
-    else:
-        err = stderr.read().decode("ascii")
+    stdout.recv_exit_status()
+    output = stdout.read().decode("ascii")
+    err = stderr.read().decode("ascii")
 
     return err, output
 
@@ -48,14 +45,6 @@ def test_docker_on_machine():
     if err_lines and len(err_lines) > 0 and ('command not found' in err_lines[-1]):
         return False
     #Apply check docker version
-    return True
-
-def test_shield_already_installed():
-    err, out = run_command_and_return_output('sudo ls -al /usr/local/ericomshield | grep ericomshield-repo')
-    if not err is None:
-        if "No such file or directory" in err:
-            return False
-    #need to analyze more ls output
     return True
 
 def install_docker():
@@ -87,22 +76,9 @@ def install_docker():
         sys.exit(1)
 
 def run_ericom_shield_setup():
-    err, out = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))
-    if not err is None:
-        print(err)
-        sys.exit(1)
-    err, out = run_command_and_return_output('chmod +x ./ericomshield-setup.sh')
-    if not err is None:
-        print(err)
-        sys.exit(1)
+    out, err = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))
+    pass
 
-    _, stdout, stderr = client.exec_command("export BRANCH=\"{}\" && sudo -E bash -c './ericomshield-setup.sh -no-deploy'".format(os.environ["ERICOM_SETUP_BRANCH"]))
-    while not stdout.channel.exit_status_ready():
-        one_line = ''
-        if stdout.channel.recv_ready():
-            one_line = stdout.channel.recv(2048).decode("ascii")
-            sys.stdout.write(one_line)
-            sys.stdout.flush()
 
 def get_swarm_node_name(data):
     if '*' in data:
@@ -128,55 +104,54 @@ def extract_name_and_ip(name, return_data):
 
 
 def prepare_machine_to_docker_node(ip):
-    _, stdout, _ = client.exec_command('hostname')
-    hostname = (stdout.read()).decode('ascii').replace('\n', '')
+    with open('hostname', mode='w') as file:
+        file.write(os.environ['REMOTE_HOST_NAME'])
+        file.close()
+
     with open('hosts', mode='w') as file:
-        file.write("{0}\t{1}\n".format(ip, hostname))
+        #file.write('127.0.0.1\tlocalhost\n')
+        #file.write('127.0.1.1\t{}\n'.format(os.environ['REMOTE_HOST_NAME']))
+        file.write("{0}\t{1}\n".format(ip, os.environ['REMOTE_HOST_NAME']))
         for manager in get_managers_ip_and_name():
             file.write('{}\n'.format(manager))
         file.close()
 
     transport = client.get_transport()
     sftp_client = SFTPClient.from_transport(transport)
+    sftp_client.put(os.path.abspath('./hostname'),
+                    '/home/{}/hostname'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./hosts'),
                     '/home/{}/hosts'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./mount-tmpfs-volume.sh'), '/home/{}/mount-tmpfs-volume.sh'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./sysctl_shield.conf'),
                     '/home/{}/sysctl_shield.conf'.format(os.environ['MACHINE_USER']))
     sftp_client.close()
+    stdin, stdout, stderr = client.exec_command('sudo mv ./hostname /etc/hostname')
+    stdout.channel.recv_exit_status()
+    logger.error(stderr.readlines())
+    stdin, stdout, stderr = client.exec_command('sudo hostname {}'.format(os.environ['REMOTE_HOST_NAME']))
+    stdout.channel.recv_exit_status()
+    logger.error(stderr.readlines())
     stdin, stdout, stderr = client.exec_command('cat ./hosts | sudo tee -a /etc/hosts && rm -f ./hosts')
     stdout.channel.recv_exit_status()
-    logger.error(stderr.read())
+    logger.error(stderr.readlines())
 
     stdin, stdout, stderr = client.exec_command('chmod +x ./mount-tmpfs-volume.sh && sudo ./mount-tmpfs-volume.sh && rm -f ./mount-tmpfs-volume.sh')
     stdout.channel.recv_exit_status()
-    logger.error(stderr.read())
+    logger.error(stderr.readlines())
 
     stdin, stdout, stderr = client.exec_command('cat ./sysctl_shield.conf | sudo tee "/etc/sysctl.d/30-ericom-shield.conf"; sudo sysctl --load="/etc/sysctl.d/30-ericom-shield.conf"')
     stdout.channel.recv_exit_status()
-    logger.error(stderr.read())
-    return hostname
+    logger.error(stderr.readlines())
 
 
-
-def make_cert_pass():
-    if 'CERTIFICATE_PASS' in os.environ:
-        return os.environ['CERTIFICATE_PASS']
-    else:
-        return ''
 
 
 def run_with_password(ip):
     global client
     client.connect(ip, look_for_keys=False, username=os.environ['MACHINE_USER'], password=os.environ['MACHINE_USER_PASS'])
 
-def run_certificate_mode(ip):
-    global client
-    key = paramiko.RSAKey.from_private_key_file(filename=os.environ['MACHINE_CERTIFICATE'], password=make_cert_pass())
-    client.connect(ip, username=os.environ['MACHINE_USER'], pkey=key)
-    pass
-
-def format_labels_command(hostname):
+def format_labels_command():
     res = ''
     if 'BROWSERS' in os.environ:
         res += "--label-add browser=yes"
@@ -185,35 +160,29 @@ def format_labels_command(hostname):
     if 'MANAGEMENT' in os.environ:
         res += ' --label-add management=yes'
 
-    return 'docker node update {0} {1}'.format(res, hostname)
+    return 'docker node update {0} {1}'.format(res, os.environ['REMOTE_HOST_NAME'])
 
 def run_consul_reshafle_command():
-    try:
-        output = subprocess.check_output('docker service update --force --replicas 5 shield_consul-server', shell=True)
-    except Exception as ex:
-        print("Error: {}".format(ex))
-        return
+    output = subprocess.check_output('docker service update --force --replicas 5 shield_consul-server', shell=True)
+
     print(output)
 
 def run_join_to_swarm(command, ip):
     if os.environ['MACHINE_SESSION_MODE'] == 'password':
         run_with_password(ip)
-    else:
-        run_certificate_mode(ip)
 
-    hostname = prepare_machine_to_docker_node(ip)
-    if not test_shield_already_installed():
-        run_ericom_shield_setup()
+    prepare_machine_to_docker_node(ip)
+    if not test_docker_on_machine():
+        install_docker()
     else:
-        logger.info("Ericomshield already installed")
+        logger.info("Found suitable docker version")
 
-    err, out = run_command_and_return_output("sudo {}".format(command))
-    if not err is None:
-        logger.error(err)
-    else:
-        logger.info(out)
+    stdin, stdout, stderr = client.exec_command("sudo {}".format(command))
+    stdout.channel.recv_exit_status()
+    logger.error(stderr.readlines())
+    logger.info(stdout.readlines())
 
-    output = subprocess.check_output(format_labels_command(hostname), shell=True)
+    output = subprocess.check_output(format_labels_command(), shell=True)
     logger.info(output)
 
     if 'MANAGEMENT' in os.environ:

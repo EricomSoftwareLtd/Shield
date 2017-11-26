@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_213] - 2017-11-23
+- Quality settings in consul , detect if video is off-screen, superb quality updates when idle #1376
+- Rendering engine 1.7.9 
+- Prevent user agent helper from crashing squid #1387
+- Several updates for installation script and multi node #1097 #1136 #1305 #1335 #1354 
+
 ## [Dev:Build_212] - 2017-11-22
 - HigHJpgQuality #1376
 - Added unit tests for policy matcher #1141
