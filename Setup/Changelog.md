@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_215] - 2017-11-27
+- Set log level of "LICENSE: license is expired at" to be fatal
+- About window show wrong version #1301
 ## [Dev:Build_214] - 2017-11-26
 - Write DC test results to log #1284
 - Quality_idle_fps is set to 90 , like quality_lowFPS
