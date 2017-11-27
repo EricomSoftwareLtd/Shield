@@ -212,8 +212,7 @@ services:
         image: securebrowsing/broker-server:latest
         # user: nobody
         hostname: broker-server
-        environment:
-            - SHIELD_VER=8.0.0.latest
+        environment:    
         deploy:
           mode: replicated                
           replicas: 1
@@ -236,6 +235,7 @@ services:
         environment:
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=broker"
+            - SHIELD_VER=8.0.0.latest
         networks:
           - shield
         secrets:
