@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_217] - 2017-11-27
+- Admin - advanced authentication - when I get error, it shouldn't save the settings #1250
+- Profile management at the admin need to be editable #1069
+- Notification abot only one method of authentication is displayed when no need #1314
+- Profiles are not deleted when I delete AD settings #1334
+
 ## [Dev:Build_216] - 2017-11-27
 - (*) Clean ELK extra log #1410
 - Missing Important Time Values in the Reports #1418
