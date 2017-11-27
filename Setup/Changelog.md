@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_216] - 2017-11-27
+- (*) Clean ELK extra log #1410
+- Missing Important Time Values in the Reports #1418
+
 ## [Dev:Build_215] - 2017-11-27
 - Set log level of "LICENSE: license is expired at" to be fatal
 - About window show wrong version #1301
