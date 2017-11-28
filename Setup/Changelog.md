@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_218] - 2017-11-28
+- Fixed issue #1356 - admin behaviour when api is restarted
+- Added header forwarding options to admin - settings page #1414
+- Fixed #1398
+- ELK use named volume changes
+- Improved TestBindToAD() output #1318
+
 ## [Dev:Build_217] - 2017-11-27
 - Admin - advanced authentication - when I get error, it shouldn't save the settings #1250
 - Profile management at the admin need to be editable #1069
