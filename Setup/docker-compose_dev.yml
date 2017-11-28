@@ -74,7 +74,7 @@ services:
             memory: 3GB
             cpus: "3"
       volumes:
-         - elastic:/var/lib
+         - elastic:/opt/elasticsearch/data
 
   logspout:
     image: securebrowsing/shield-logspout:latest
