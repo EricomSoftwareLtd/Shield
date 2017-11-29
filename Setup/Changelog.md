@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_219] - 2017-11-29
+- Google Chat box - <return> does not send the text to the partner #1346
+- Writing a document with Office Online behaves oddly #1239
+- Sometimes ENTER, BACKSPACE and DELETE keys are not working #1215
+- New keyboard code - Japanese keyboard #852
+
 ## [Dev:Build_218] - 2017-11-28
 - Fixed issue #1356 - admin behaviour when api is restarted
 - Added header forwarding options to admin - settings page #1414
