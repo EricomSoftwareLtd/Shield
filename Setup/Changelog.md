@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_220] - 2017-11-29
+- Updated AN in icap 
+
 ## [Dev:Build_219] - 2017-11-29
 - Google Chat box - <return> does not send the text to the partner #1346
 - Writing a document with Office Online behaves oddly #1239
