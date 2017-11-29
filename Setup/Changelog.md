@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_221] - 2017-11-29
+- Policies - default and override rules are applied only for profile 0 #1405
+- Add new policy - default values #1365
+- (*) Keyboard fixes #852
+- (*) Need to allow to click on the message "The browser prevented opening a tab" to continue #1444
+- (*) Open link without a popup warning #1457
+- (*) Search in Online documentation does NOT work #939
+
 ## [Dev:Build_220] - 2017-11-29
 - Updated AN in icap 
 
