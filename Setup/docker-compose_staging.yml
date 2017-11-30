@@ -12,9 +12,7 @@ services:
       - shield
     hostname: netdata
     ports:
-      - 8282:19999
-    cap_add:
-      - SYS_PTRACE
+      - 8383:19999
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -52,10 +50,10 @@ services:
 
   elk:
       image: securebrowsing/shield-elk:latest
-      ports:
-          - 5601:5601
-          - 9200:9200
-          - 5014:5014
+#      ports:
+#          - 5601:5601
+#          - 9200:9200
+#          - 5014:5014
       networks:
           - shield
       environment:
@@ -76,7 +74,7 @@ services:
             memory: 3GB
             cpus: "3"
       volumes:
-         - elastic:/var/lib
+         - elastic:/opt/elasticsearch/data
 
   logspout:
     image: securebrowsing/shield-logspout:latest
@@ -86,7 +84,7 @@ services:
         - /etc/hostname:/etc/host_hostname:ro
         - /var/run/docker.sock:/var/run/docker.sock
     environment:
-        - "ROUTE_URIS=logstash+tcp://elk:5014"
+        - "ROUTE_URIS=logstash+tcp://elk:5025"
         - "RETRY_STARTUP=true"
 #        - "DEBUG=1"
     deploy:
@@ -210,7 +208,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -237,6 +234,7 @@ services:
         environment:
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=broker"
+            - SHIELD_VER=8.0.0.latest
         networks:
           - shield
         secrets:
