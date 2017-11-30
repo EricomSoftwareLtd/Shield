@@ -12,7 +12,7 @@ services:
       - shield
     hostname: netdata
     ports:
-      - 8282:19999
+      - 8383:19999
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -212,7 +212,6 @@ services:
         image: securebrowsing/broker-server:latest
         # user: nobody
         hostname: broker-server
-        environment:    
         deploy:
           mode: replicated                
           replicas: 1
