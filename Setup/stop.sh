@@ -17,7 +17,7 @@ fi
 #   docker swarm leave -f
 docker stack rm $STACK_NAME
 echo "Waiting for $STACK_NAME to stop..."
-#Always waiting 5 seconds to make sure everything is cleaned
+#Always waiting 30 seconds to make sure everything is cleaned
 sleep 30
 limit=10
 until [ -z "$(docker service ls --filter label=com.docker.stack.namespace=$STACK_NAME -q)" ] || [ "$limit" -lt 1 ]; do
