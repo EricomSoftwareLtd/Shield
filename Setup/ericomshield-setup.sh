@@ -458,7 +458,7 @@ function get_shield_files() {
     curl -s -S -o status.sh "$ES_repo_status"
     chmod +x status.sh
     curl -s -S -o restart.sh "$ES_repo_restart"
-    chmod +x restart.sh    
+    chmod +x restart.sh
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
     curl -s -S -o ericomshield-setup-node.sh "$ES_repo_setup_node"
@@ -482,10 +482,10 @@ function wait_for_docker_to_settle() {
     count_running_docker_services
     while ((services != 0)) && ((wait_count < 12)); do
         if [ $wait_count == 0 ]; then
-           log_message "Not all services have reached their target scale. Waiting for Docker to settle..."          
+            log_message "Not all services have reached their target scale. Waiting for Docker to settle..."
         fi
-        
-        echo -n .        
+
+        echo -n .
         sleep 10
         wait_count=$((wait_count + 1))
         count_running_docker_services
@@ -561,18 +561,18 @@ if [ "$UPDATE" == false ]; then
     systemctl start ericomshield-updater.service
 
 else # Update
-  if [ "$ES_RUN_DEPLOY" == true ]; then
-    if [ "$UPDATE_NEED_RESTART" == true ]; then
-        echo " Stopping Ericom Shield for Update "
-        ./stop.sh
-    else
-        echo -n "stop shield-broker"
-        docker service scale shield_broker-server=0
-        echo -n "stop shield_shield-admin" # Admin backs up Consul configuration at shutdown
-        docker service scale shield_shield-admin=0
-        wait_for_docker_to_settle
+    if [ "$ES_RUN_DEPLOY" == true ]; then
+        if [ "$UPDATE_NEED_RESTART" == true ]; then
+            echo " Stopping Ericom Shield for Update "
+            ./stop.sh
+        else
+            echo -n "stop shield-broker"
+            docker service scale shield_broker-server=0
+            echo -n "stop shield_shield-admin" # Admin backs up Consul configuration at shutdown
+            docker service scale shield_shield-admin=0
+            wait_for_docker_to_settle
+        fi
     fi
-  fi
 fi
 
 if [ -n "$MY_IP" ]; then
@@ -581,33 +581,33 @@ if [ -n "$MY_IP" ]; then
 fi
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
-   echo "source deploy-shield.sh"
-   source deploy-shield.sh
+    echo "source deploy-shield.sh"
+    source deploy-shield.sh
 
-   # Check the result of the last command (start, status, deploy-shield)
-   if [ $? == 0 ]; then
-      echo "***************     Success!"
+    # Check the result of the last command (start, status, deploy-shield)
+    if [ $? == 0 ]; then
+        echo "***************     Success!"
     else
-      echo "An error occured during the installation"
-      echo "$(date): An error occured during the installation" >>"$LOGFILE"
-      echo "--failed?" >>"$ES_VER_FILE" # adding failed into the version file
-      exit 1
-   fi
+        echo "An error occured during the installation"
+        echo "$(date): An error occured during the installation" >>"$LOGFILE"
+        echo "--failed?" >>"$ES_VER_FILE" # adding failed into the version file
+        exit 1
+    fi
 
-   #Check the status of the system wait 20*10 (~3 mins)
-   wait=0
-   while [ $wait -lt 10 ]; do
-       if "$ES_PATH"/status.sh; then
-          echo "Ericom Shield is Running!"
-          break
+    #Check the status of the system wait 20*10 (~3 mins)
+    wait=0
+    while [ $wait -lt 10 ]; do
+        if "$ES_PATH"/status.sh; then
+            echo "Ericom Shield is Running!"
+            break
         else
-          echo -n .
-          sleep 20
-       fi
-       wait=$((wait + 1))
-   done
-  else
-   echo "Installation only (no deployment)"
+            echo -n .
+            sleep 20
+        fi
+        wait=$((wait + 1))
+    done
+else
+    echo "Installation only (no deployment)"
 fi
 
 Version=$(grep SHIELD_VER "$ES_YML_FILE")
