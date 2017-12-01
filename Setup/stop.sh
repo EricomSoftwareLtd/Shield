@@ -13,7 +13,7 @@ if [ -z "$(docker info | grep -i 'swarm: active')" ]; then
     echo "Docker swarm is not active, '$STACK_NAME' stack is not running."
     exit 0
 fi
- echo "$(date): Stopping Ericom Shield" >>"$LOGFILE"
+echo "$(date): Stopping Ericom Shield" >>"$LOGFILE"
 #   docker swarm leave -f
 docker stack rm $STACK_NAME
 echo "Waiting for $STACK_NAME to stop..."
