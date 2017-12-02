@@ -27,6 +27,24 @@ function join_by() {
     echo "$*"
 }
 
+function retry_on_failure() {
+    local n=1
+    local max=5
+    local delay=10
+    while true; do
+        "$@" && break || {
+            if [[ $n -lt $max ]]; then
+                ((n++))
+                echo "The command '$@' failed. Attempt $n/$max:"
+                sleep $delay
+            else
+                echo "The command '$@' has failed after $n attempts." >&2
+                exit 1
+            fi
+        }
+    done
+}
+
 function create_proxy_env_file() {
 
     if [ -f "$PROXY_ENV_FILE" ]; then
@@ -67,9 +85,9 @@ function test_swarm_exists() {
 
 function init_swarm() {
     if [ -z "$IP_ADDRESS" ]; then
-        result=$( (docker swarm init --advertise-addr $NETWORK_INTERFACE --task-history-limit 0) 2>&1)
+        result=$( (retry_on_failure docker swarm init --advertise-addr $NETWORK_INTERFACE --task-history-limit 0) 2>&1)
     else
-        result=$( (docker swarm init --advertise-addr $IP_ADDRESS --task-history-limit 0) 2>&1)
+        result=$( (retry_on_failure docker swarm init --advertise-addr $IP_ADDRESS --task-history-limit 0) 2>&1)
     fi
 
     if [[ $result =~ 'already part' ]]; then
@@ -169,8 +187,8 @@ create_proxy_env_file
 
 NODES_COUNT=$(docker node ls | grep -c Active)
 if [ "$NODES_COUNT" -eq 1 ]; then
-   echo "***************     Adding Labels:browser, shield_core, management"
-   docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
+    echo "***************     Adding Labels:browser, shield_core, management"
+    retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 fi
 
-docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
