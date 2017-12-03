@@ -60,8 +60,7 @@ def make_enviroment_file(args):
         ips = ' '.join(args.ips.split(','))
         file.write("export MACHINE_IPS='{}'\n".format(ips))
         file.write("export MACHINE_USER={}\n".format(args.user))
-        file.write('export MACHINE_NAME_PREFIX={}\n'.format(args.machine_name))
-        file.write('export MACHINE_MODE={}\n'.format(args.mode))
+        #file.write('export MACHINE_NAME_PREFIX={}\n'.format(args.machine_name))
         file.write('export MACHINE_CERTIFICATE=/certificate/{}\n'.format(args.certificate))
         file.write('export MACHINE_SESSION_MODE={}\n'.format(args.session_mode))
         file.write('export ERICOM_SETUP_BRANCH={}\n'.format(args.setup_branch))
@@ -73,6 +72,11 @@ def make_enviroment_file(args):
             file.write('export MANAGEMENT=yes\n')
         if args.cert_pass:
             file.write('export CERTIFICATE_PASS="{}"\n'.format(args.cert_pass))
+        if args.mode == "manager" or args.management:
+            file.write('export MACHINE_MODE=manager\n')
+        else:
+            file.write('export MACHINE_MODE=worker\n')
+
 
         file.close()
 
