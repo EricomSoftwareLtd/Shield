@@ -138,16 +138,13 @@ def prepare_machine_to_docker_node(ip):
 
     transport = client.get_transport()
     sftp_client = SFTPClient.from_transport(transport)
-    sftp_client.put(os.path.abspath('./hosts'),
-                    '/home/{}/hosts'.format(os.environ['MACHINE_USER']))
+    # sftp_client.put(os.path.abspath('./hosts'),'/home/{}/hosts'.format(os.environ['MACHINE_USER']))
+    # stdin, stdout, stderr = client.exec_command('cat ./hosts | sudo tee -a /etc/hosts && rm -f ./hosts')
+    # stdout.channel.recv_exit_status()
+    # logger.error(stderr.read())
+    sftp_client.put(os.path.abspath('./sysctl_shield.conf'),'/home/{}/sysctl_shield.conf'.format(os.environ['MACHINE_USER']))
     sftp_client.put(os.path.abspath('./mount-tmpfs-volume.sh'), '/home/{}/mount-tmpfs-volume.sh'.format(os.environ['MACHINE_USER']))
-    sftp_client.put(os.path.abspath('./sysctl_shield.conf'),
-                    '/home/{}/sysctl_shield.conf'.format(os.environ['MACHINE_USER']))
     sftp_client.close()
-    stdin, stdout, stderr = client.exec_command('cat ./hosts | sudo tee -a /etc/hosts && rm -f ./hosts')
-    stdout.channel.recv_exit_status()
-    logger.error(stderr.read())
-
     stdin, stdout, stderr = client.exec_command('chmod +x ./mount-tmpfs-volume.sh && sudo ./mount-tmpfs-volume.sh && rm -f ./mount-tmpfs-volume.sh')
     stdout.channel.recv_exit_status()
     logger.error(stderr.read())
@@ -188,6 +185,10 @@ def format_labels_command(hostname):
     return 'docker node update {0} {1}'.format(res, hostname)
 
 def run_consul_reshafle_command():
+    '''
+    We not use this function until consul is global
+    :return:
+    '''
     try:
         output = subprocess.check_output('docker service update --force --replicas 5 shield_consul-server', shell=True)
     except Exception as ex:
@@ -216,8 +217,8 @@ def run_join_to_swarm(command, ip):
     output = subprocess.check_output(format_labels_command(hostname), shell=True)
     logger.info(output)
 
-    if 'MANAGEMENT' in os.environ:
-        run_consul_reshafle_command()
+    # if 'MANAGEMENT' in os.environ:
+    #     run_consul_reshafle_command()
 
 
 
