@@ -1,6 +1,7 @@
 import argparse
 import logging
 from shield.shieldmn import ReportDataServices
+from print_final_report import ReportData
 import sys
 
 
@@ -25,6 +26,15 @@ class StatusAction(argparse.Action):
         data.print()
         sys.exit(0)
 
+class NodeStatusAction(argparse.Action):
+    def __init__(self, option_strings, dest, nargs=None, **kwargs):
+        super(NodeStatusAction, self).__init__(option_strings, dest,nargs, **kwargs)
+
+    def __call__(self, *args, **kwargs):
+        data = ReportData(mode='node')
+        data.print()
+        sys.exit(0)
+
 def parse_command_line():
     global parser
     parser = CustomErrorPrintArgParser(prog='ericomshield-setup-node.sh', description='''
@@ -38,14 +48,15 @@ def parse_command_line():
     # parser.add_argument('-l', '--leader', dest='leader_ip', help='Ip of cluster leader if you run script from another machine')
     parser.add_argument('-m', '--mode', dest='mode', default='worker', help='Mode to join should be worker|manager default worker')
     #parser.add_argument('-n', '--name', dest='machine_name', default='shieldNode', help='Node name prefix. should be only letters. default shieldNode. Final looks (NAME) + node number')
-    parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield_srt-browser containers to be allocated on this node. Default false')
+    parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield-browser containers to be allocated on this node. Default false')
     parser.add_argument('-sc','--shield-core', dest='shield_core', action="store_true", default=False, help="Allow shield-core containers to be allocated on this node. Default false")
-    parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield_srt managment container to be allocated on node. Default false')
+    parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield managment container to be allocated on node. By default this node will be manager. Default false')
     parser.add_argument('-c', '--certificate', dest='certificate', default='shield_crt', help='Name of sertificate file. Certificate file should be in script directory. Default name is shield_crt')
     parser.add_argument('-s', '--session-mode', dest='session_mode', default='password', help='Remote machine session mode. Can be "password" or "certificate/cert". By default "password"')
     parser.add_argument('--setup-branch', dest='setup_branch', default='master', help='Use if you neeed download experimental ericomshield setup script')
     parser.add_argument('--certificate-pass', dest='cert_pass', help='Use if certificate contains passphrase')
-    parser.add_argument('--status', dest="run_status", action=StatusAction, nargs=0, help="Run status report")
+    parser.add_argument('--status', dest="run_status", action=StatusAction, nargs=0, help="Print status report")
+    parser.add_argument('--node-status', dest="node_status", action=NodeStatusAction, nargs=0, help="Print all nodes in cluster report")
     return parser.parse_args()
 
 
