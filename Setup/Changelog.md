@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_224] - 2017-12-05
+- Fixed file upload #1483
+- Focus input field after closing paste dialog #1459
+- Improved texts for install script 
 
 ## [Dev:Build_223] - 2017-12-04
 - Show node status (with labels) #1455
