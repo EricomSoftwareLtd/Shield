@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_223] - 2017-12-04
+- Show node status (with labels) #1455
+- Multi node - parameter for node name is not working #1447
+- shield node script usage #1439
+- Multi-machine: --certificate option doesnt work #1335
+- Reports - change labels #1475
+- Lift stuck alt key prevent some errors when closing CEF #1215
+- Automated Admin test #1473
+- Updated CDR components 
+
 ## [Dev:Build_221] - 2017-11-29
 - Policies - default and override rules are applied only for profile 0 #1405
 - Add new policy - default values #1365
@@ -25,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Writing a document with Office Online behaves oddly #1239
 - Sometimes ENTER, BACKSPACE and DELETE keys are not working #1215
 - New keyboard code - Japanese keyboard #852
+- Run/stop/restart errors due to docker/swarm errors #1415
 
 ## [Dev:Build_218] - 2017-11-28
 - Fixed issue #1356 - admin behaviour when api is restarted
