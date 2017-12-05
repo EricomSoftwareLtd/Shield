@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_225] - 2017-12-05
+- CPU usage improvment
+
 ## [Dev:Build_224] - 2017-12-05
 - Fixed file upload #1483
 - Focus input field after closing paste dialog #1459
