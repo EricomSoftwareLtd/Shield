@@ -42,21 +42,21 @@ def parse_command_line():
         When you append node keep that node goal will be applyed. 
         Set at least one of label parameters.
     ''')
-    parser.add_argument('-ips', '--machines-ip', dest='ips', required=True, help="IpV4 of machines should be append. Ip separator is ','")
+    parser.add_argument('-ips', '--machines-ip', dest='ips', required=True, help="Specify IpV4 of machines to be added to cluster, separated by (',')")
     parser.add_argument('-u', '--user', dest='user', default='ericom', help='User/login on remote machine/s')
     # parser.add_argument('-t', '--token', dest='token', help='Join token token to swarm cluster. By default will be provided')
     # parser.add_argument('-l', '--leader', dest='leader_ip', help='Ip of cluster leader if you run script from another machine')
     parser.add_argument('-m', '--mode', dest='mode', default='worker', help='Mode to join should be worker|manager default worker')
     #parser.add_argument('-n', '--name', dest='machine_name', default='shieldNode', help='Node name prefix. should be only letters. default shieldNode. Final looks (NAME) + node number')
-    parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield-browser containers to be allocated on this node. Default false')
-    parser.add_argument('-sc','--shield-core', dest='shield_core', action="store_true", default=False, help="Allow shield-core containers to be allocated on this node. Default false")
-    parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield managment container to be allocated on node. By default this node will be manager. Default false')
-    parser.add_argument('-c', '--certificate', dest='certificate', default='shield_crt', help='Name of sertificate file. Certificate file should be in script directory. Default name is shield_crt')
-    parser.add_argument('-s', '--session-mode', dest='session_mode', default='password', help='Remote machine session mode. Can be "password" or "certificate/cert". By default "password"')
-    parser.add_argument('--setup-branch', dest='setup_branch', default='master', help='Use if you neeed download experimental ericomshield setup script')
-    parser.add_argument('--certificate-pass', dest='cert_pass', help='Use if certificate contains passphrase')
-    parser.add_argument('--status', dest="run_status", action=StatusAction, nargs=0, help="Print status report")
-    parser.add_argument('--node-status', dest="node_status", action=NodeStatusAction, nargs=0, help="Print all nodes in cluster report")
+    parser.add_argument('-b', '--browser', dest='browser', default=False, action='store_true', help='Allow shield-browser containers to be allocated on this node. Default False')
+    parser.add_argument('-sc','--shield-core', dest='shield_core', action="store_true", default=False, help="Allow shield-core containers to be allocated on this node. Default False")
+    parser.add_argument('-mng', '--management', dest='management', action='store_true', default=False, help='Allow to shield managment container to be allocated on node. By default this node will be manager. Default - False')
+    parser.add_argument('-c', '--certificate', dest='certificate', default='shield_crt', help='Name of certificate file. Certificate file must be in the same directory as script. Default name is shield_crt. When using default name, no need to specify it')
+    parser.add_argument('-s', '--session-mode', dest='session_mode', default='password', help="Remote machine session mode. Values - password/(certificate/cert). Default - 'password'")
+    parser.add_argument('--setup-branch', dest='setup_branch', default='master', help='Use if you need to download experimental ericomshield setup script')
+    parser.add_argument('--certificate-pass', dest='cert_password', help='Use if certificate contains passphrase')
+    parser.add_argument('--status', dest="run_status", action=StatusAction, nargs=0, help="Print cluster status report")
+    parser.add_argument('--node-status', dest="node_status", action=NodeStatusAction, nargs=0, help="Print report contains status for all nodes in cluster")
     return parser.parse_args()
 
 
@@ -81,8 +81,8 @@ def make_enviroment_file(args):
             file.write('export SHIELD_CORE=yes\n')
         if args.management:
             file.write('export MANAGEMENT=yes\n')
-        if args.cert_pass:
-            file.write('export CERTIFICATE_PASS="{}"\n'.format(args.cert_pass))
+        if args.cert_password:
+            file.write('export CERTIFICATE_PASS="{}"\n'.format(args.cert_password))
         if args.mode == "manager" or args.management:
             file.write('export MACHINE_MODE=manager\n')
         else:
