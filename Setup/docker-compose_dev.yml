@@ -273,7 +273,7 @@ services:
               cpus: "2"
             reservations:
             reservations:
-              cpus: '0.08
+              cpus: "0.08"
               memory: 150MB
           placement:
             constraints:
@@ -347,7 +347,7 @@ services:
             failure_action: rollback
           placement:
             constraints:
-              - node.labels.management=yes
+              - node.labels.management==yes
       networks:
          - shield
       ports:
@@ -358,7 +358,6 @@ services:
       environment:
           - NODE_ENV=production
           - "LOGSTASH_FIELDS=service=authproxy"
-
   web-service:
         image: securebrowsing/shield-web-service:latest
         hostname: web-service
@@ -375,12 +374,11 @@ services:
           replicas: 1
           placement:
             constraints:
-                - node.labels.management==yes
+              - node.labels.management==yes
           resources:
             limits:
               memory: 500MB
               cpus: "1"
-
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
