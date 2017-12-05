@@ -272,6 +272,8 @@ services:
               memory: 1GB
               cpus: "2"
             reservations:
+            reservations:
+              cpus: '0.08
               memory: 150MB
           placement:
             constraints:
@@ -345,7 +347,7 @@ services:
             failure_action: rollback
           placement:
             constraints:
-              - node.labels.shield_core==yes
+              - node.labels.management=yes
       networks:
          - shield
       ports:
