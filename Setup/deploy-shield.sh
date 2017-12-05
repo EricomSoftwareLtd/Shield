@@ -31,31 +31,6 @@ function create_proxy_env_file() {
     fi
 
     touch "$PROXY_ENV_FILE"
-
-    # Skip copying configurations whith nameservers pointing to 127.*.*.*
-    if grep -E '^\s*nameserver\s+127\.[0-9]+\.[0-9]+\.[0-9]+.*' "$RESOLV_FILE"; then
-        return
-    fi
-
-    NAMESERVERS=$(grep -oP '^\s*nameserver\s+\K.*' "$RESOLV_FILE")
-    SEARCH_DOMAINS=$(grep -oP '^\s*search\s+\K.*' "$RESOLV_FILE")
-
-    if [ ! -z "${NAMESERVERS}" ]; then
-        (
-            cat <<EOF
-PROXY_NAMESERVERS=$(join_by , ${NAMESERVERS})
-EOF
-        ) >>"$PROXY_ENV_FILE"
-    fi
-
-    if [ ! -z "${SEARCH_DOMAINS}" ]; then
-        (
-            cat <<EOF
-DNSMASQ_ENABLE_SEARCH=True
-DNSMASQ_SEARCH_DOMAINS=$(join_by , ${SEARCH_DOMAINS})
-EOF
-        ) >>"$PROXY_ENV_FILE"
-    fi
 }
 
 function test_swarm_exists() {
