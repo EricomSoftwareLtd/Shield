@@ -364,6 +364,9 @@ function get_shield_install_files() {
     #include file with files repository
     source $ES_REPO_FILE
 
+    echo "Getting $ES_PRE_CHECK_FILE"
+    curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
+
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
         curl -s -S -o shield-version-new.txt "$ES_repo_dev_ver"
@@ -446,8 +449,6 @@ function get_shield_files() {
         chmod +x ericomshield-setup.sh
     fi
 
-    echo "Getting $ES_PRE_CHECK_FILE"
-    curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
