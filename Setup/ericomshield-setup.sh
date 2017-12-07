@@ -6,7 +6,7 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-noautoupdate] [-dev] [-staging] [-usage] [-pocket]"
+    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-usage] [-pocket]"
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -22,6 +22,7 @@ ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
+ES_PRE_CHECK_FILE="$ES_PATH/shield_pre_install_check.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
@@ -65,6 +66,7 @@ while [ $# -ne 0 ]; do
         echo "ES_DEV" >"$ES_DEV_FILE"
         ES_CHANNEL="ES_DEV"
         ES_STAGING=false
+        ES_AUTO_UPDATE=true    # ES_AUTO_UPDATE=true for Dev Deployments
         rm -f "$ES_STAGING_FILE"
         ;;
     -staging)
@@ -444,6 +446,8 @@ function get_shield_files() {
         chmod +x ericomshield-setup.sh
     fi
 
+    echo "Getting $ES_PRE_CHECK_FILE"
+    curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
@@ -496,7 +500,7 @@ function wait_for_docker_to_settle() {
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
-check_free_space
+#check_free_space
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
@@ -522,6 +526,9 @@ fi
 # install_docker_compose
 
 get_shield_install_files
+
+source $ES_PRE_CHECK_FILE
+perform_env_test
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
