@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_226] - 2017-12-07
+- (*) Preformance upgrade #1510
+- (*) Fixed download internal error 10 #1008 #1486 #1477 
+- (*) AD errors are not clear #1318
+- Update text message - profiles #1472
+- Admin - add new profile is not sunc with the current state #1392
+- Version is not updated after upgrade - removed log #981
+- Shield Stats: UseHuman Readable time instead of timestamp #1433
+- DNS Settings for Proxy should come from the host in the proxy #1378
+
 ## [Dev:Build_225] - 2017-12-05
 - CPU usage improvment
 
