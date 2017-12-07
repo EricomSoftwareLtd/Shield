@@ -102,8 +102,9 @@ services:
     networks:
          - shield
     deploy:
-      mode: replicated
-      replicas: 5
+      mode: replicated   #single node
+      replicas: 5        #single node
+#      mode: global       #multi node
       endpoint_mode: dnsrr
       placement:
         constraints:
@@ -271,7 +272,6 @@ services:
             limits:
               memory: 1GB
               cpus: "2"
-            reservations:
             reservations:
               cpus: "0.08"
               memory: 150MB
