@@ -6,6 +6,7 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -14,27 +15,29 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
 #  config.vm.box = "boxcutter/ubuntu1604"
 #  config.vm.box = "ubuntu/trusty64"
-#   config.vm.box = "williamyeh/ubuntu-trusty64-docker"  -- was ubuntu 14
-# now moved to ubuntu 16.04  
-  config.vm.box = "gbarbieru/xenial"
+#  config.vm.box = "williamyeh/ubuntu-trusty64-docker"  -- was ubuntu 14
+#  now moved to ubuntu 16.04  
+    config.vm.box = "ubuntu/xenial64"
+#   config.vm.box = "v0rtex/xenial64"
 
-  # Assign a friendly name to this host VM
+
+#  Assign a friendly name to this host VM
    config.vm.hostname = "es-host"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  config.vm.box_check_update = false
+    config.vm.box_check_update = false
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
   # config.vm.network "forwarded_port", guest: 22, host: 10022
-   config.vm.network "forwarded_port", guest: 9000, host:  9000
+  # config.vm.network "forwarded_port", guest: 9000, host:  9000
    config.vm.network "forwarded_port" , guest: 3128, host: 3128
-   config.vm.network "forwarded_port" , guest: 5601, host: 5601
-   config.vm.network "forwarded_port" , guest: 8500, host: 8500
+  # config.vm.network "forwarded_port" , guest: 5601, host: 5601
+  # config.vm.network "forwarded_port" , guest: 8500, host: 8500
    config.vm.network "forwarded_port" , guest: 8181, host: 8181
   
   # Create a private network, which allows host-only access to the machine
@@ -44,7 +47,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  #  config.vm.network "public_network"
+  #  config.vm.network "public_network", bridge "enp1s0f0"
 
 
   # Share an additional folder to the guest VM. The first argument is
@@ -59,21 +62,28 @@ Vagrant.configure("2") do |config|
   # Example for VirtualBox:
   #
  config.vm.provider "virtualbox" do |vb|
+vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
   #   # Display the VirtualBox GUI when booting the machine
       # vb.gui = true
       
+
+
       # set VM name
       vb.name = "shield-eval"
-#     Doesnt work:
+#      Doesnt work:
 #      vb.product = "Ericom Shield"
 #      vb.product-URL = "http://ericomshield.com/"
 #      vb.Vendor = "Ericom Software"
 
      # Customize the amount of memory on the VM:
-     vb.memory = "3072"
-     vb.cpus = 3
+     vb.memory = "8192"
+     vb.cpus = 4
    end
-  #
+ 
+
+
+
+ #
   # View the documentation for the provider you are using for more
   # information on available options.
 
@@ -87,23 +97,27 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    echo ' ericomshield VM using Vagrant (17.36) '
-    apt-get update > /dev/null 2 >&1
-    apt-get upgrade > /dev/null 2 >&1
-    apt-get install uuid-runtime > /dev/null 2 >&1
-    rm /var/lib/apt/lists/lock
-  #  apt-get install -y git tofrodos dos2unix firefox
+    
+    config.vm.provision "shell", inline: <<-SHELL
+#    echo ' ericomshield VM using Vagrant (17.49) '
+     apt-get update
+     apt-get upgrade
+     apt-get install software-properties-common
 
     wget -q "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/show-my-ip.sh"
     chmod +x "./show-my-ip.sh" 
     echo "./show-my-ip.sh" >> .bashrc
 
+    echo "========================>STARTING ERICOMSHIELD SCRIPT !!!!<==================================== "
     mkdir ericomshield
     cd ericomshield
     wget -q "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/ericomshield-setup.sh"
     chmod +x ericomshield-setup.sh
-    ./ericomshield-setup.sh -pocket
+    ./ericomshield-setup.sh -pocket -approve-eula -staging
+    rm /usr/local/ericomshield/.esstaging
+    sudo  adduser --gecos "" ericom
+    sudo  echo ericom:ericom | chpasswd
+    sudo usermod -aG sudo ericom
 
     apt-get clean
 
