@@ -1,100 +1,168 @@
-version: '3.2'
+version: "3.3"
 
 # Ericom Shield Stack Description
-# YML File for POCKET Version
+# YML file for Pocket
 
 services:
-    collector:
-      image: securebrowsing/shield-collector:latest
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - /proc:/hostfs/proc:ro
-        - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-        - /:/hostfs:ro
-      networks:
-        - shield
-      deploy:
-        replicas: 0
-        restart_policy:
-            condition: any
-        placement:
-            constraints:
-                - node.role==manager
-        update_config:
-            failure_action: rollback
-        resources:
-          limits:
-            memory: 2GB
-            cpus: "1"
-      environment:
-        - "SYSTEM_PERIOD=5m"
-        - "DOCKER_PERIOD=5m"
+  netdata:
+    image: titpetric/netdata:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - shield
+    hostname: netdata
+    ports:
+      - 8383:19999
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    deploy:
+      mode: global
+      restart_policy:
+          condition: any
+      update_config:
+          failure_action: rollback
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1"
 
-    elk:
+  maintenance:
+    image: securebrowsing/shield-maintenance:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - shield
+    hostname: maintenance
+    deploy:
+      mode: global
+      restart_policy:
+          condition: any
+      update_config:
+          failure_action: rollback
+      resources:
+        limits:
+          memory: 2GB
+          cpus: "1"
+    environment:
+      - "IMAGE_CLEAN_INTERVAL=1m"
+      - "LOGSTASH_FIELDS=service=maintenance"
+
+  elk:
       image: securebrowsing/shield-elk:latest
-      ports:
+#      ports:
 #          - 5601:5601
 #          - 9200:9200
-          - 5014:5014/udp
+#          - 5014:5014
       networks:
           - shield
       environment:
-        - "CONSUL_ADDRESS=consul"
+        - "REINDEX_RUNINNG_INTERVAL=30s"
+        - "CLEAN_RUNINNG_INTERVAL=12h"
+        - "LOGSPOUT=ignore"
       deploy:
         replicas: 0
         restart_policy:
             condition: any
         placement:
             constraints:
-                - node.role==manager
+              - node.labels.management==yes
         update_config:
           failure_action: rollback
         resources:
           limits:
-            memory: 2GB
-            cpus: "1"
+            memory: 3GB
+            cpus: "3"
       volumes:
-          - elastic:/var/lib
+         - elastic:/opt/elasticsearch/data
 
-    consul:
-        image: securebrowsing/shield-configuration:latest
-#        user: consul
-        networks:
-          - shield
-        ports:
-          - "8500:8500"
-        deploy:
-          mode: global
-          update_config:
+  logspout:
+    image: securebrowsing/shield-logspout:latest
+    networks:
+        - shield
+    volumes:
+        - /etc/hostname:/etc/host_hostname:ro
+        - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+        - "ROUTE_URIS=logstash+tcp://elk:5025"
+        - "RETRY_STARTUP=true"
+#        - "DEBUG=1"
+    deploy:
+        mode: global
+        resources:
+            limits:
+                cpus: '0.20'
+                memory: 256M
+            reservations:
+                cpus: '0.10'
+                memory: 128M
+
+  consul-server:
+    image: securebrowsing/shield-configuration:latest
+    networks:
+         - shield
+    deploy:
+      mode: replicated
+      replicas: 5
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+            - node.labels.management==yes
+      update_config:
+          parallelism: 1
+          failure_action: rollback
+          delay: "15s"
+      restart_policy:
+          condition: any
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1"
+    environment:
+        - "CONSUL_BIND_INTERFACE=eth0"
+        - "NUMBER_OF_EXPECTED=5"
+        - "LOGSTASH_FIELDS=service=consulserver"
+
+  consul:
+      image: securebrowsing/shield-configuration:latest
+      networks:
+           - shield
+#      ports:
+#          - "8500:8500"
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
             parallelism: 1
             failure_action: rollback
-          restart_policy:
+        restart_policy:
             condition: any
-          resources:
-            limits:
-              memory: 1GB
-              cpus: "1"
-        environment:
-          - "CONSUL_BIND_INTERFACE=eth2"
-          - "NUMBER_OF_EXPECTED=1"
-        logging:
-          driver: syslog
-          options:
-            syslog-address: udp://${SYS_LOG_HOST}:5014
+        resources:
+          limits:
+            memory: 1GB
+            cpus: "1"
+      environment:
+          - "CONSUL_BIND_INTERFACE=eth0"
+          - "RUN_AGENT=yes"
+          - "LOGSTASH_FIELDS=service=consulclient"
 
 ###################################################################### Shield services part ##################################################################
-    shield-admin:
+  shield-admin:
         image: securebrowsing/shield-admin:latest
+        hostname: shield-admin
         ports:
             - 8181:8181
         environment:
             - SHIELD_VER=8.0.0.latest
+            - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=admin"
         volumes:
            - admin:/data/consul
            - /var/run/docker.sock:/var/run/docker.sock
         networks:
             - shield
         deploy:
+          mode: replicated        
           replicas: 1
           update_config:
             failure_action: rollback
@@ -102,17 +170,13 @@ services:
               condition: any
           placement:
               constraints:
-                - node.role==manager
+                - node.labels.management==yes
           resources:
             limits:
               memory: 500MB
               cpus: "0.5"
-#        logging:
-#          driver: syslog
-#          options:
-#            syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    icap-server:
+  icap-server:
         image: securebrowsing/icap-server:latest
         # user: nobody
         hostname: icap-server
@@ -121,6 +185,7 @@ services:
             - SHIELD_VER=8.0.0.latest
             - "SHIELD_IP=IP_ADDRESS"
 #           - SHIELD_WATERMARK=TRUE
+            - "LOGSTASH_FIELDS=service=icap"
         ulimits:
           nofile:
             soft: 65535
@@ -130,6 +195,7 @@ services:
         ports:
           - 1344:1344
         deploy:
+          mode: replicated                
           replicas: 1
           update_config:
              failure_action: rollback
@@ -137,21 +203,17 @@ services:
              condition: any
           placement:
              constraints:
-               - node.role==manager
+              - node.labels.shield_core==yes
           resources:
             limits:
               memory: 500MB
               cpus: "1"
- #       logging:
- #         driver: syslog
- #         options:
- #           syslog-address: udp://${SYS_LOG_HOST}:5014
-
-    broker-server:
+  broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
         hostname: broker-server
         deploy:
+          mode: replicated                
           replicas: 1
           restart_policy:
             condition: any
@@ -164,20 +226,21 @@ services:
               cpus: "1"
             reservations:
               memory: 50MB
+          placement:
+            constraints:
+                - node.labels.management==yes
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
             - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=broker"
+            - SHIELD_VER=8.0.0.latest
         networks:
           - shield
         secrets:
           - shield-system-id
-  #      logging:
-  #        driver: syslog
-  #        options:
-  #          syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    shield-browser:
+  shield-browser:
         image: securebrowsing/shield-cef:latest
         user: user
         ulimits:
@@ -193,12 +256,14 @@ services:
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
              - PERF_STATS=true
+             - "LOGSTASH_FIELDS=service=browser"
         networks:
             - shield
         deploy:
+          mode: replicated                
           replicas: 0
           update_config:
-            parallelism: 2
+            parallelism: 8
             delay: 10s
           restart_policy:
               condition: none
@@ -207,23 +272,21 @@ services:
               memory: 1GB
               cpus: "2"
             reservations:
+              cpus: "0.08"
               memory: 150MB
+          placement:
+            constraints:
+              - node.labels.browser==yes
         volumes:
           - type: tmpfs
             target: /dev/shm
           - type: bind
             target: /dev/shm/xorg
             source: /media/containershm
-#        logging:
-#          driver: syslog
-#          options:
-#            syslog-address: udp://${SYS_LOG_HOST}:5014
 
-    proxy-server:
+  proxy-server:
         image: securebrowsing/proxy-server:latest
         hostname: proxy-server
-        ports:
-          - "3128:3128"
         ulimits:
           nofile:
             soft: 65535
@@ -232,8 +295,10 @@ services:
           - shield
         environment:
           - SSLEXCLUSION=true
+          - "LOGSTASH_FIELDS=service=proxy"
         env_file: proxy-server.env
         deploy:
+          mode: replicated        
           replicas: 2
           restart_policy:
             condition: any
@@ -243,19 +308,15 @@ services:
             failure_action: rollback
           placement:
             constraints:
-              - node.role==manager
+              - node.labels.shield_core==yes
           resources:
             limits:
               memory: 500MB
               cpus: "1"
- #       logging:
- #         driver: syslog
- #         options:
- #          syslog-address: udp://${SYS_LOG_HOST}:5014
-    ext-proxy:
+
+  ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy
-        # user: nobody
         ports:
           - "3138:3138"
         ulimits:
@@ -265,40 +326,90 @@ services:
         networks:
           - shield
         deploy:
+          mode: replicated                
           replicas: 0
           placement:
             constraints:
-              - node.role==manager
+              - node.labels.browser==yes
           resources:
             limits:
               memory: 500MB
               cpus: "1"
-    cdr-dispatcher:
-        image: securebrowsing/shield-cdr-dispatcher:latest
-        hostname: cdr-dispatcher
-        networks:
-          - shield
-        deploy:
-          replicas: 2
+  authproxy:
+      image: securebrowsing/shield-authproxy:latest
+      hostname: authproxy
+      deploy:
+          mode: global
           restart_policy:
             condition: any
           update_config:
-            parallelism: 1
             failure_action: rollback
           placement:
             constraints:
-             - node.role==manager
-#        logging:
-#          driver: syslog
-#          options:
-#            syslog-address: udp://${SYS_LOG_HOST}:5014
+              - node.labels.management==yes
+      networks:
+         - shield
+      ports:
+         - target: 3128
+           published: 3128
+           protocol: tcp
+           mode: host
+      environment:
+          - NODE_ENV=production
+          - "LOGSTASH_FIELDS=service=authproxy"
 
-    cdr-controller:
+  web-service:
+        image: securebrowsing/shield-web-service:latest
+        hostname: web-service
+        ports:
+          - "80:1345"
+        networks:
+          - shield
+        environment:
+            - "SHIELD_IP=IP_ADDRESS"
+            - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=webservice"
+        deploy:
+          mode: replicated                
+          replicas: 1
+          placement:
+            constraints:
+                - node.labels.management==yes
+          resources:
+            limits:
+              memory: 500MB
+              cpus: "1"
+
+  cdr-dispatcher:
+    image: securebrowsing/shield-cdr-dispatcher:latest
+    hostname: cdr-dispatcher
+    environment:
+        - NODE_ENV=production
+        - "LOGSTASH_FIELDS=service=cdrdispatcher"
+    networks:
+      - shield
+    deploy:
+      mode: replicated            
+      replicas: 2
+      restart_policy:
+        condition: any
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+      placement:
+        constraints:
+          - node.labels.shield_core==yes
+
+  cdr-controller:
         image: securebrowsing/shield-cdr-controller:latest
         hostname: cdr-controller
+        environment:
+            - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=cdrcontroller"
         networks:
             - shield
         deploy:
+          mode: replicated                
           replicas: 1
           restart_policy:
             condition: any
@@ -307,20 +418,19 @@ services:
             failure_action: rollback
           placement:
               constraints:
-                  - node.role==manager
-#        logging:
-#          driver: syslog
-#          options:
-#            syslog-address: udp://${SYS_LOG_HOST}:5014
+                - node.labels.shield_core==yes
+
     ############################### Docker managment part ##############################################################
-    portainer:
+  portainer:
         image: securebrowsing/shield-portainer:latest
         hostname: portainer
- #       ports:
- #           - "9000:9000"
+#        ports:
+#            - "9000:9000"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - portainer:/data
+        environment:
+            - "LOGSTASH_FIELDS=service=portainer"
         networks:
           - shield
         deploy:
@@ -330,15 +440,11 @@ services:
             failure_action: rollback
           placement:
             constraints:
-              - node.role==manager
+              - node.labels.management==yes
           resources:
             limits:
               memory: 100MB
               cpus: "0.5"
-#        logging:
-#          driver: syslog
-#          options:
-#            syslog-address: udp://${SYS_LOG_HOST}:5014
 
 volumes:
   elastic:
@@ -351,8 +457,9 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.0.0/16
+        - subnet: 10.20.0.0/16
+
 secrets:
    shield-system-id:
        external: true
-    
+       
