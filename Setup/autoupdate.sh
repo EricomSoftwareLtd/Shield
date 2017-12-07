@@ -17,6 +17,7 @@ ES_PATH="/usr/local/ericomshield"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_DEV_FILE="$ES_PATH/.esdev"
+ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 
 #Check if we are root
@@ -36,7 +37,6 @@ if [ "$1" == "-f" ]; then
 fi
 
 function wait_for_maintenance_time() {
-    echo "Waiting for maintenance time (run with -f to run it immediately)..."
     M_START_S=$(date -d "$(date -I)T${MAINTENANCE_START}" +"%s") #"
     M_END_S=$(date -d "$(date -I)T${MAINTENANCE_END}" +"%s")     #"
     if ((M_END_S < M_START_S)); then
@@ -46,13 +46,18 @@ function wait_for_maintenance_time() {
     if ((M_START_S <= CURR_S)) && ((CURR_S <= M_END_S)); then
         return
     elif ((M_START_S > CURR_S)); then
+        echo "Waiting for maintenance time (run with -f to run it immediately)..."	
         sleep $((M_START_S - CURR_S))
     else
+        echo "Waiting for maintenance time (run with -f to run it immediately)..."	
         sleep $((M_START_S + 24 * 60 * 60 - CURR_S))
     fi
 }
 
 while true; do
+    if [ -f "$ES_STAGING_FILE" ]; then
+        ES_STAGING=true
+    fi
     # Maintenance Time is only for Prod environments
     if [ -f "$ES_DEV_FILE" ]; then
         ES_DEV=true
@@ -64,6 +69,8 @@ while true; do
         echo "Getting shield-version-new.txt"
         if [ "$ES_DEV" == true ]; then
             curl -s -S -o shield-version-new.txt $ES_repo_dev_ver
+        elif [ "$ES_STAGING" == true ]; then
+            curl -s -S -o shield-version-new.txt $ES_repo_staging_ver
         else
             curl -s -S -o shield-version-new.txt $ES_repo_ver
         fi
