@@ -11,15 +11,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:17.12] - 2017-12-10
 ### New Features:
-- New message instead of "The browser prevented opening a tab"
+- New message confirmation instead of "The browser prevented opening a tab"
 - Open link seamlessly, without a popup warning
 - Header forwarding options (Client-IP, User, XFF)
+- Support external syslog server
+- Support long term reports
 ### Enhancements:
 - Multi-Machine: 
-  - Support adding machines using certificate 
+  - Support adding machines using certificate
   - ericomshield-setup-node.sh --status command
-  - CTRL+X cut notification
-  - Upload notification spinner
+  - shield-nodes.sh [-add-label] [-remove-label] [-show-labels] commands
+- CTRL+X cut notification
+- Upload notification spinner
+- Reduced CPU usage per Remote Browser
+- Admin - Profiles section - additional settings and improved validation.
+- Improved fonts display
+- Improved stability
+- Improved compatibility with Internet Explorer
+- Improved support of white listed sites 
+- Improved reports - added filters and additional info
+- Clipboard enhancements
 ### Fixed:
 - Search in Online Documentation
 - Improved editing on Office Online 
