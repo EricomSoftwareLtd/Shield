@@ -2,12 +2,20 @@
 
 
 setup-envinronment() {
+    if [ -f '.stoperror' ]; then
+        rm -f .stoperror
+    fi
+
     python scripts/make_env.py "${@}"
     if [ -f .env ]; then
         source .env
     else
-        echo "No enviroment file generated"
-        exit 1
+        if [ ! -f '.stoperror' ]; then
+            echo "No enviroment file generated"
+            exit 1
+        else
+            exit 0
+        fi
     fi
 }
 
