@@ -86,6 +86,9 @@ def install_docker():
         logger.error("Docker installation failed")
         sys.exit(1)
 
+def check_dev_version():
+    return os.path.isfile('/usr/local/ericomshield/.esdev')
+
 def run_ericom_shield_setup():
     err, out = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))
     if not err is None:
@@ -96,7 +99,11 @@ def run_ericom_shield_setup():
         print(err)
         sys.exit(1)
 
-    _, stdout, stderr = client.exec_command("export BRANCH=\"{}\" && sudo -E bash -c './ericomshield-setup.sh -no-deploy'".format(os.environ["ERICOM_SETUP_BRANCH"]))
+    dev = ''
+    if check_dev_version():
+        dev = '-dev'
+
+    _, stdout, stderr = client.exec_command("export BRANCH=\"{0}\" && sudo -E bash -c './ericomshield-setup.sh -no-deploy {1}'".format(os.environ["ERICOM_SETUP_BRANCH"], dev))
     while not stdout.channel.exit_status_ready():
         one_line = ''
         if stdout.channel.recv_ready():
