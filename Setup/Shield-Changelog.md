@@ -11,21 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:17.12] - 2017-12-10
 ### New Features:
-- New Message instead of "The browser prevented opening a tab"
-- Open Link without a popup warning
+- New message instead of "The browser prevented opening a tab"
+- Open link seamlessly, without a popup warning
 - Header forwarding options (Client-IP, User, XFF)
 ### Enhancements:
-- Multi-machine: 
-  - Support adding machines with certificate 
-  - ericommshield-setup-nodes.sh --status command
-  - Ctrl+x cut notification
-  - Upload notification spinner #1323
+- Multi-Machine: 
+  - Support adding machines using certificate 
+  - ericomshield-setup-node.sh --status command
+  - CTRL+X cut notification
+  - Upload notification spinner
 ### Fixed:
 - Search in Online Documentation
-- Writing a document with Office Online behaves oddly (fixed)
-- Sometimes ENTER, BACKSPACE and DELETE keys are not working (fixed)
-- Japanese keyboard Bug fixes
-- About window show wrong version (fixed)
+- Improved editing on Office Online 
+- Sometimes ENTER, BACKSPACE and DELETE keys are not working
+- Japanese keyboard bug fixes
+- Display current version on all views
 
 ## [Prod:17.11] - 2017-11-6
 ### New Features:
