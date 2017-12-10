@@ -87,7 +87,7 @@ def install_docker():
         sys.exit(1)
 
 def check_dev_version():
-    return os.path.isfile('/usr/local/ericomshield/.esdev')
+    return os.path.isfile('/install/.esdev')
 
 def run_ericom_shield_setup():
     err, out = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))

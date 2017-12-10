@@ -3,11 +3,12 @@
 #####   Ericom Shield Installer        #####
 #######################################LO###
 
-export DOCKER_TAG=171210-10.25
+export DOCKER_TAG=latest
 
 docker run --rm -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
 	-v $(which docker):/usr/bin/docker \
+	-v /usr/local/ericomshield:/install \
 	-v $(pwd):/certificate \
 	--network host \
     securebrowsing/node-installer:$DOCKER_TAG ./setup-node.sh "${@}"
