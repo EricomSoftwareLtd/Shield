@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_227] - 2017-12-10
+- Added proper computation for memory cluster - admin #1287
+- Sometimes there is a problem to access the portainer #920
+- Fixed ValidateKeytab() error prefix #1318
+- Fix for outlook and web views #1526
+
 ## [Dev:Build_226] - 2017-12-07
 - (*) Preformance upgrade #1510
 - (*) Fixed download internal error 10 #1008 #1486 #1477 
