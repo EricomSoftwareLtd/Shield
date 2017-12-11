@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_228] - 2017-12-11
+- (*) kill idle background tabs #1555
+- Pop up dialog #1519
+- Pull down menu is cut #1484
+- (*) Added support for HTTP Basic authentication #683 #426 #1389
+- Upload info added to reports #1322
+
 ## [Dev:Build_227] - 2017-12-10
 - Added proper computation for memory cluster - admin #1287
 - Sometimes there is a problem to access the portainer #920
