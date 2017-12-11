@@ -881,12 +881,12 @@ function check_hostname_resolution() {
 }
 
 function perform_env_test() {
-    if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c speedtest-cli)" -eq 0 ]; then
+    if [ "$(dpkg -l | grep -w -c speedtest-cli)" -eq 0 ]; then
         echo "***************     Installing speedtest-cli"
         apt-get --assume-yes -y install speedtest-cli
     fi
 
-    if [ "$ES_INTERACTIVE" == true ] && [ "$(dpkg -l | grep -w -c hdparm)" -eq 0 ]; then
+    if [ "$(dpkg -l | grep -w -c hdparm)" -eq 0 ]; then
         echo "***************     Installing hdparm"
         apt-get --assume-yes -y install hdparm
     fi
