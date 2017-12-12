@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_229] - 2017-12-12
+- File Download Behavior Change (per site and not file) #1570
+- Firefox is get stuck when searching at google #1566
+- Autoupdate from build 225 to 227 failed #1556
+- Admin - Reports: iframe to take up all available space #1539
+- Pop up dialog #1519
+- Press on space on check box is not working #1498
+- Down/up arrows are not working in drop down menu #1497
+- Japanese issue on Mac #1465
+- File Transfer - 'All' report should include uploaded files #1322
+- Text Clipboard Copy/Paste Issue #1065
+- Version is not updated after upgrade #981
+
 ## [Dev:Build_228] - 2017-12-11
 - (*) kill idle background tabs #1555
 - Pop up dialog #1519
