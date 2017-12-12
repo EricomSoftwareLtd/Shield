@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_230] - 2017-12-12
+- (*) Background tabs and idle improvements #1555 #1577
+
 ## [Dev:Build_229] - 2017-12-12
 - File Download Behavior Change (per site and not file) #1570
 - Firefox is get stuck when searching at google #1566
