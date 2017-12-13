@@ -324,6 +324,21 @@ function update_sysctl() {
     echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!!!!"
 }
 
+function setup_dnsmasq() {
+
+    if [ "$(dpkg -l | grep -w -c dnsmasq)" -eq 0 ]; then
+        echo "***************     Installing dnsmasq"
+        apt-get --assume-yes -y install dnsmasq
+    fi
+
+    (
+        cat <<'EOF'
+log-queries
+EOF
+    ) >"/etc/dnsmasq.d/ericom-shield"
+
+}
+
 function create_shield_service() {
     echo "**************  Creating the ericomshield updater service..."
     if [ ! -f "${ES_PATH}/ericomshield-updater.service" ]; then
@@ -559,6 +574,8 @@ update_sysctl
 
 echo "Preparing yml file (Containers build number)"
 prepare_yml
+
+setup_dnsmasq
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     echo "pull images" #before restarting the system for upgrade
