@@ -6,6 +6,8 @@ import sys
 import subprocess
 import os
 import time
+import tarfile
+import glob
 
 logger = logging.getLogger("prepare_machine")
 
@@ -16,6 +18,8 @@ client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ericom_shield_setup_script = \
         'https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/{}/Setup/ericomshield-setup.sh' \
         .format(os.environ["ERICOM_SETUP_BRANCH"])
+
+ericom_shield_install_dir = '/install'
 
 
 def run_command_and_return_output(cmd):
@@ -89,6 +93,9 @@ def install_docker():
 def check_dev_version():
     return os.path.isfile('/install/.esdev')
 
+def check_staging_version():
+    return os.path.isfile('/install/.esstaging')
+
 def run_ericom_shield_setup():
     err, out = run_command_and_return_output('wget -O ericomshield-setup.sh {}'.format(ericom_shield_setup_script))
     if not err is None:
@@ -99,17 +106,43 @@ def run_ericom_shield_setup():
         print(err)
         sys.exit(1)
 
-    dev = ''
+    add_switch = ''
     if check_dev_version():
-        dev = '-dev'
+        add_switch = '-dev'
 
-    _, stdout, stderr = client.exec_command("export BRANCH=\"{0}\" && sudo -E bash -c './ericomshield-setup.sh -no-deploy {1}'".format(os.environ["ERICOM_SETUP_BRANCH"], dev))
+    if check_staging_version():
+        add_switch = '-staging'
+
+    _, stdout, stderr = client.exec_command("export BRANCH=\"{0}\" && sudo -E bash -c './ericomshield-setup.sh -no-deploy {1}'".format(os.environ["ERICOM_SETUP_BRANCH"], add_switch))
     while not stdout.channel.exit_status_ready():
         one_line = ''
         if stdout.channel.recv_ready():
             one_line = stdout.channel.recv(2048).decode("ascii")
             sys.stdout.write(one_line)
             sys.stdout.flush()
+
+
+def apply_ericomshield_version():
+    with tarfile.open('./system.tar.gz'.format(ericom_shield_install_dir), mode='w:gz') as tar:
+        for file in glob.glob("{}/*".format(ericom_shield_install_dir)):
+            tar.add(file)
+        for file in glob.glob('{}/.*'.format(ericom_shield_install_dir)):
+            if not '.es_ip_address' in file:
+                tar.add(file)
+
+    transport = client.get_transport()
+    sftp_client = SFTPClient.from_transport(transport)
+    sftp_client.put('./system.tar.gz'.format(ericom_shield_install_dir), '/home/{}/system.tar.gz'.format(os.environ['MACHINE_USER']))
+    sftp_client.close()
+    _, stdout, stderr = client.exec_command("tar xfz ./system.tar.gz && sudo rsync -avh ./usr/local/ericomshield/ /usr/local/ericomshield/ && rm -rf ./usr ./system.tar.gz")
+    while not stdout.channel.exit_status_ready():
+        one_line = ''
+        if stdout.channel.recv_ready():
+            one_line = stdout.channel.recv(2048).decode("ascii")
+            sys.stdout.write(one_line)
+            sys.stdout.flush()
+
+    output = subprocess.check_output('rm -f ./system.tar.gz'.format(ericom_shield_install_dir), shell=True)
 
 def get_swarm_node_name(data):
     if '*' in data:
@@ -212,6 +245,7 @@ def run_join_to_swarm(command, ip):
     hostname = prepare_machine_to_docker_node(ip)
     if not test_shield_already_installed():
         run_ericom_shield_setup()
+        apply_ericomshield_version()
     else:
         logger.info("Ericomshield already installed")
 

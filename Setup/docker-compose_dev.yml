@@ -71,8 +71,8 @@ services:
           failure_action: rollback
         resources:
           limits:
-            memory: 3GB
-            cpus: "3"
+            memory: 6GB
+            cpus: "4"
       volumes:
          - elastic:/opt/elasticsearch/data
 
