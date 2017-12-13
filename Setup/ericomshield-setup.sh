@@ -449,13 +449,16 @@ function get_shield_files() {
         chmod +x ericomshield-setup.sh
     fi
 
+    if [ ! -f "autoupdate.sh" ]; then
+       curl -s -S -o autoupdate.sh "$ES_repo_update"
+       chmod +x autoupdate.sh
+    fi   
+
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
     curl -s -S -o run.sh "$ES_repo_run"
     chmod +x run.sh
-    curl -s -S -o autoupdate.sh "$ES_repo_update"
-    chmod +x autoupdate.sh
     curl -s -S -o showversion.sh "$ES_repo_version"
     chmod +x showversion.sh
     curl -s -S -o stop.sh "$ES_repo_stop"
