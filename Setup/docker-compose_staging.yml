@@ -102,9 +102,9 @@ services:
     networks:
          - shield
     deploy:
-      mode: replicated
-      replicas: 5
-      endpoint_mode: dnsrr
+      mode: replicated   #single node
+      replicas: 5        #single node
+#      mode: global       #multi node      endpoint_mode: dnsrr
       placement:
         constraints:
             - node.labels.management==yes
@@ -327,7 +327,7 @@ services:
           - shield
         deploy:
           mode: replicated                
-          replicas: 0
+          replicas: 1
           placement:
             constraints:
               - node.labels.browser==yes
