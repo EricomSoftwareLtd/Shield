@@ -28,7 +28,7 @@ if [ "$1" == "-a" ]; then
     docker service ls
     echo "------------------------------------------------------------------------------"
     echo
-    var=$( curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats 2>&1)
+    var=$(curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats 2>&1)
     echo ${var:16:260}
     echo
     echo "------------------------------------------------------------------------------"
