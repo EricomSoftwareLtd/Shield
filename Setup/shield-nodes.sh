@@ -3,7 +3,7 @@
 #####   Ericom Shield Nodes            #####
 #######################################BH###
 
-KNOWN_LABELS="browser, shield_core, management"
+KNOWN_LABELS="browser, shield-core, management"
 
 function show_usage() {
     echo "Usage: $0 [-status][-add-label] [-remove-label] [-show-labels] [-usage] "
