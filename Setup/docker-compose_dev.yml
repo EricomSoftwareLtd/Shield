@@ -328,7 +328,7 @@ services:
           - shield
         deploy:
           mode: replicated                
-          replicas: 0
+          replicas: 1
           placement:
             constraints:
               - node.labels.browser==yes

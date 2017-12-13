@@ -1,0 +1,4 @@
+alias shield_status='/usr/local/ericomshield/status.sh -a'
+alias shield_start='/usr/local/ericomshield/start.sh'
+alias shield_restart='/usr/local/ericomshield/restart.sh'
+alias shield_stop='/usr/local/ericomshield/stop.sh'
