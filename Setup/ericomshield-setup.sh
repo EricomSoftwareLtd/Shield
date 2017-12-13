@@ -66,7 +66,7 @@ while [ $# -ne 0 ]; do
         echo "ES_DEV" >"$ES_DEV_FILE"
         ES_CHANNEL="ES_DEV"
         ES_STAGING=false
-        ES_AUTO_UPDATE=true    # ES_AUTO_UPDATE=true for Dev Deployments
+        ES_AUTO_UPDATE=true # ES_AUTO_UPDATE=true for Dev Deployments
         rm -f "$ES_STAGING_FILE"
         ;;
     -staging)
@@ -450,9 +450,9 @@ function get_shield_files() {
     fi
 
     if [ ! -f "autoupdate.sh" ]; then
-       curl -s -S -o autoupdate.sh "$ES_repo_update"
-       chmod +x autoupdate.sh
-    fi   
+        curl -s -S -o autoupdate.sh "$ES_repo_update"
+        chmod +x autoupdate.sh
+    fi
 
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
