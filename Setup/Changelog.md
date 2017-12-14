@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_231] - 2017-12-14
+- (*) idle tab reload screenshot blured and fade out #1555
+- (*) Cache DNS queries #1112
+- Reduce amount of logs #1584
+- Changes for make HEAP size in elk dynamic
+- Some containers don't wait for consul #1604
+- Updated user agent version #1612
+- Proxy auto detection - Web service can provide wpad.dat file #1610
+- When adding nodes, prod version is installed #1508
+
 ## [Dev:Build_230] - 2017-12-12
 - (*) Background tabs and idle improvements #1555 #1577
 
