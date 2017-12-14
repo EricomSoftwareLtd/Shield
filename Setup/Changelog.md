@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_232] - 2017-12-14
+- Fixed Ext proxy setting 
+
 ## [Dev:Build_231] - 2017-12-14
 - (*) idle tab reload screenshot blured and fade out #1555
 - (*) Cache DNS queries #1112
