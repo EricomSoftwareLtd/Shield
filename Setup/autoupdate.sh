@@ -46,10 +46,10 @@ function wait_for_maintenance_time() {
     if ((M_START_S <= CURR_S)) && ((CURR_S <= M_END_S)); then
         return
     elif ((M_START_S > CURR_S)); then
-        echo "Waiting for maintenance time (run with -f to run it immediately)..."	
+        echo "Waiting for maintenance time (run with -f to run it immediately)..."
         sleep $((M_START_S - CURR_S))
     else
-        echo "Waiting for maintenance time (run with -f to run it immediately)..."	
+        echo "Waiting for maintenance time (run with -f to run it immediately)..."
         sleep $((M_START_S + 24 * 60 * 60 - CURR_S))
     fi
 }
