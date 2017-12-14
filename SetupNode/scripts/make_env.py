@@ -3,6 +3,7 @@ import logging
 from shield.shieldmn import ReportDataServices
 from print_final_report import ReportData
 import sys
+import subprocess
 
 
 
@@ -24,6 +25,7 @@ class StatusAction(argparse.Action):
     def __call__(self, *args, **kwargs):
         data = ReportDataServices()
         data.print()
+        subprocess.check_output('touch .stoperror', shell=True)
         sys.exit(0)
 
 class NodeStatusAction(argparse.Action):
@@ -33,6 +35,7 @@ class NodeStatusAction(argparse.Action):
     def __call__(self, *args, **kwargs):
         data = ReportData(mode='node')
         data.print()
+        subprocess.check_output('touch .stoperror', shell=True)
         sys.exit(0)
 
 def parse_command_line():
