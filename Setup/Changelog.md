@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_233] - 2017-12-17
+- Upgrade portainer to 1.15.5 
+- HTTPS issue with specific url - https://www.israelweather.co.il/ #1614
+- Link hover fixes #1542
+- Fixed icap error
+- Added Collector to yml
+
 ## [Dev:Build_232] - 2017-12-14
 - Fixed Ext proxy setting 
 
