@@ -48,6 +48,21 @@ services:
       - "IMAGE_CLEAN_INTERVAL=1m"
       - "LOGSTASH_FIELDS=service=maintenance"
 
+  collector:
+    image: securebrowsing/shield-collector:latest
+    networks:
+      - shield
+    hostname: collector
+    deploy:
+      mode: global
+      restart_policy:
+          condition: any
+      update_config:
+          failure_action: rollback
+      placement:
+          constraints:
+              - node.labels.browser==yes
+      
   elk:
       image: securebrowsing/shield-elk:latest
       ports:
