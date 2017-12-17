@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_234] - 2017-12-17
+- Now using alpine 3.7 and new NodeJs
 
 ## [Dev:Build_233] - 2017-12-17
 - Upgrade portainer to 1.15.5 
