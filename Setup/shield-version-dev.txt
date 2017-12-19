@@ -6,10 +6,10 @@ shield-portainer:latest shield-portainer:171217-11.30
 proxy-server:latest proxy-server:171219-17.25-837  
 icap-server:latest icap-server:171218-18.46-832
 shield-cef:latest shield-cef:171219-12.31-836
-broker-server:latest broker-server:171218-19.14-834
+broker-server:latest broker-server:171217-19.18-812
 shield-collector:latest shield-collector:170815-12.59-365
 shield-elk:latest shield-elk:171218-08.56-824
-extproxy:latest extproxy:171219-17.25-837
+extproxy:latest extproxy:171219-17.25
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:171217-19.31-813
 shield-cdr-controller:latest shield-cdr-controller:171217-19.31-813
 shield-web-service:latest shield-web-service:171217-19.18-812
