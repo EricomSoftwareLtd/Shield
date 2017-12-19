@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_235] - 2017-12-19
+- (*) update setting to improve fonts
+- Proxy and EXT is now alpine 3.7 # 1626
+- Certificate settings in proxy update to fix IE issue #1625
+- Background idle time settings should be ignored for download and for upload #1599
+- ELK support for Overlay2 #1594
+- Background tabs and idle improvements #1555 #1622
+
 ## [Dev:Build_234] - 2017-12-17
 - Now using alpine 3.7 and new NodeJs
 
