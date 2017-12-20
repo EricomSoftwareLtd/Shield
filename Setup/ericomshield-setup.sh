@@ -30,15 +30,13 @@ ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
-SHIELD_VERSION=""
-SECRET_VERSION="shield-version"
+SUCCESS=false
 
-ES_SETUP_VER="17.48-Setup"
+ES_SETUP_VER="17.50-Setup"
 if [ -z "$BRANCH" ]; then
     BRANCH="master"
 fi
 
-MIN_FREE_SPACE_GB=5
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_CHANNEL="Production"
@@ -247,19 +245,6 @@ function accept_license() {
     return -1
 }
 
-function check_free_space() {
-    FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
-    FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
-    if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
-        exit 1
-    fi
-    if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
-        exit 1
-    fi
-}
-
 function install_docker() {
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
@@ -326,7 +311,7 @@ function update_sysctl() {
 
 function setup_dnsmasq() {
 
-    if [ "$(dpkg -l | grep -w -c dnsmasq)" -eq 0 ]; then
+    if ! dpkg -l "dnsmasq" >/dev/null 2>&1; then
         echo "***************     Installing dnsmasq"
         apt-get --assume-yes -y install dnsmasq
     fi
@@ -349,6 +334,16 @@ function create_shield_service() {
         systemctl daemon-reload
     fi
     echo "Done!"
+}
+
+function add_aliases() {
+    if [ -f ~/.bashrc ] && [ $(grep -c 'shield_aliases' ~/.bashrc) -eq 0 ]; then
+        echo 'Adding Aliases in .bashrc'
+        echo "if [ -f ~/.shield_aliases ]; then" >> ~/.bashrc
+        echo ". ~/.shield_aliases" >> ~/.bashrc
+        echo "fi" >> ~/.bashrc
+    fi
+    . ~/.bashrc
 }
 
 function prepare_yml() {
@@ -488,6 +483,7 @@ function get_shield_files() {
     chmod +x ericomshield-setup-node.sh
     curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
     chmod +x shield-nodes.sh
+    curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
 }
 
 function count_running_docker_services() {
@@ -515,11 +511,21 @@ function wait_for_docker_to_settle() {
     done
 }
 
+function set_storage_driver() {
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
+    else
+        systemctl stop docker && \
+        cat /etc/docker/daemon.json | jq '. + {storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield && \
+        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json' && \
+        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
+        systemctl start docker || exit 1
+    fi
+}
+
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
-
-#check_free_space
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
@@ -546,8 +552,12 @@ fi
 
 get_shield_install_files
 
-source $ES_PRE_CHECK_FILE
-perform_env_test
+if [ "$ES_FORCE" == false ]; then 
+   source $ES_PRE_CHECK_FILE
+   perform_env_test
+fi
+
+add_aliases
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
@@ -584,7 +594,8 @@ fi
 
 if [ "$UPDATE" == false ]; then
     # New Installation
-
+    set_storage_driver
+    
     create_shield_service
     systemctl start ericomshield-updater.service
 
@@ -614,28 +625,25 @@ if [ "$ES_RUN_DEPLOY" == true ]; then
 
     # Check the result of the last command (start, status, deploy-shield)
     if [ $? == 0 ]; then
-        echo "***************     Success!"
-    else
-        echo "An error occured during the installation"
-        echo "$(date): An error occured during the installation" >>"$LOGFILE"
-        echo "--failed?" >>"$ES_VER_FILE" # adding failed into the version file
-        exit 1
-    fi
+       echo "***************     Success!"
 
-    #Check the status of the system wait 20*10 (~3 mins)
-    wait=0
-    while [ $wait -lt 10 ]; do
-        if "$ES_PATH"/status.sh; then
-            echo "Ericom Shield is Running!"
-            break
-        else
-            echo -n .
-            sleep 20
-        fi
+       #Check the status of the system wait 20*10 (~3 mins)
+       wait=0 
+       while [ $wait -lt 10 ]; do
+          if "$ES_PATH"/status.sh; then
+             echo "Ericom Shield is Running!"
+			 SUCCESS=true
+             break
+           else
+             echo -n .
+             sleep 20
+          fi
         wait=$((wait + 1))
-    done
-else
+        done
+    fi		
+   else
     echo "Installation only (no deployment)"
+    SUCCESS=true	
 fi
 
 Version=$(grep SHIELD_VER "$ES_YML_FILE")
@@ -643,7 +651,15 @@ Version=$(grep SHIELD_VER "$ES_YML_FILE")
 echo "$Version" >.version
 grep image "$ES_YML_FILE" >>.version
 
+if [ $SUCCESS == false ]; then 
+   echo "An error occured during the installation"
+   echo "$(date): An error occured during the installation" >>"$LOGFILE"
+   echo "--failed?" >>.version # adding failed into the version file
+   exit 1
+fi   
+
 echo "***************     Success!"
 echo "***************"
 echo "***************     Ericom Shield Version: $Version is up and running"
 echo "$(date): Ericom Shield Version: $Version is up and running" >>"$LOGFILE"
+
