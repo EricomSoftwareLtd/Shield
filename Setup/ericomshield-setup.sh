@@ -438,7 +438,7 @@ function pull_images() {
         else
             arr=($line)
             if [ $LINE -eq 1 ]; then
-                if [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+                if  [ -f .version ] && [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
                     echo "No new version detected"
                     break
                 fi
