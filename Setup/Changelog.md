@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [Dev:Build_236] - 2017-12-20
+- (*) updated fonts in CEF #1649
+- (*) added Support for Zoom ( keyboard, mouse, browser) DPI settings
+
 ## [Dev:Build_235] - 2017-12-19
 - (*) update setting to improve fonts
 - Proxy and EXT is now alpine 3.7 # 1626
