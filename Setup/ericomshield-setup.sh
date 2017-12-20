@@ -336,6 +336,16 @@ function create_shield_service() {
     echo "Done!"
 }
 
+function add_aliases() {
+    if [ -f ~/.bashrc ] && [ $(grep -c 'shield_aliases' ~/.bashrc) -eq 0 ]; then
+        echo 'Adding Aliases in .bashrc'
+        echo "if [ -f ~/.shield_aliases ]; then" >> ~/.bashrc
+        echo ". ~/.shield_aliases" >> ~/.bashrc
+        echo "fi" >> ~/.bashrc
+    fi
+    . ~/.bashrc
+}
+
 function prepare_yml() {
     echo "Preparing yml file..."
     while read -r ver; do
@@ -473,7 +483,7 @@ function get_shield_files() {
     chmod +x ericomshield-setup-node.sh
     curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
     chmod +x shield-nodes.sh
-    curl -s -S -o .shield_aliases "$ES_repo_shield_aliases"
+    curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
 }
 
 function count_running_docker_services() {
@@ -534,6 +544,8 @@ if [ "$ES_FORCE" == false ]; then
    source $ES_PRE_CHECK_FILE
    perform_env_test
 fi
+
+add_aliases
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
