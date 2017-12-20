@@ -311,7 +311,7 @@ function update_sysctl() {
 
 function setup_dnsmasq() {
 
-    if [ "$(dpkg -l | grep -w -c dnsmasq)" -eq 0 ]; then
+    if ! dpkg -l "dnsmasq" >/dev/null 2>&1; then
         echo "***************     Installing dnsmasq"
         apt-get --assume-yes -y install dnsmasq
     fi
