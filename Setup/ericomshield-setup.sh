@@ -515,11 +515,15 @@ function set_storage_driver() {
     if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
         echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
     else
-        systemctl stop docker && \
-        cat /etc/docker/daemon.json | jq '. + {storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield && \
-        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json' && \
-        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
-        systemctl start docker || exit 1
+        if [ -f /etc/docker/daemon.json ]; then
+	   cat /etc/docker/daemon.json | jq '. + {storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield
+	  else 
+	   echo '{storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield
+	fi
+        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json'
+        systemctl stop docker
+        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
+        systemctl start docker
     fi
 }
 
@@ -585,7 +589,7 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-setup_dnsmasq
+# setup_dnsmasq Waiting for the fix
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     echo "pull images" #before restarting the system for upgrade
@@ -594,7 +598,7 @@ fi
 
 if [ "$UPDATE" == false ]; then
     # New Installation
-    set_storage_driver
+#    set_storage_driver Waiting for the fix
     
     create_shield_service
     systemctl start ericomshield-updater.service
