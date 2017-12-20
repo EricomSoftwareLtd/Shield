@@ -511,6 +511,18 @@ function wait_for_docker_to_settle() {
     done
 }
 
+function set_storage_driver() {
+    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
+        echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
+    else
+        systemctl stop docker && \
+        cat /etc/docker/daemon.json | jq '. + {storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield && \
+        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json' && \
+        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json && \
+        systemctl start docker || exit 1
+    fi
+}
+
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
@@ -582,7 +594,8 @@ fi
 
 if [ "$UPDATE" == false ]; then
     # New Installation
-
+    set_storage_driver
+    
     create_shield_service
     systemctl start ericomshield-updater.service
 
