@@ -204,7 +204,7 @@ function choose_network_interface() {
 }
 
 function failed_to_install() {
-    log_message "An error occured during the installation: $1, Exiting!"
+    log_message "An error occurred during the installation: $1, Exiting!"
 
     if [ "$UPDATE" == true ]; then
         if [ -f "$ES_VER_FILE" ]; then
@@ -290,7 +290,7 @@ function docker_login() {
             echo "Login Succeeded!"
         else
             echo "Cannot Login to docker, Exiting!"
-            echo "$(date): An error occured during the installation: Cannot login to docker" >>"$LOGFILE"
+            echo "$(date): An error occurred during the installation: Cannot login to docker" >>"$LOGFILE"
             exit 1
         fi
     fi
@@ -636,7 +636,7 @@ if [ "$ES_RUN_DEPLOY" == true ]; then
              break
            else
              echo -n .
-             sleep 20
+             sleep 30
           fi
         wait=$((wait + 1))
         done
@@ -652,8 +652,8 @@ echo "$Version" >.version
 grep image "$ES_YML_FILE" >>.version
 
 if [ $SUCCESS == false ]; then 
-   echo "An error occured during the installation"
-   echo "$(date): An error occured during the installation" >>"$LOGFILE"
+   echo "An error occurred during the installation"
+   echo "$(date): An error occurred during the installation" >>"$LOGFILE"
    echo "--failed?" >>.version # adding failed into the version file
    exit 1
 fi   
