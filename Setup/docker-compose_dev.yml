@@ -74,7 +74,7 @@ services:
             memory: 6GB
             cpus: "4"
       volumes:
-         - /home/ozlevka/tmp/elktest:/opt/elasticsearch/data
+         - elastic:/opt/elasticsearch/data
 
   logspout:
     image: securebrowsing/shield-logspout:latest
