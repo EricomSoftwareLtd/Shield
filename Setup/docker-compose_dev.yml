@@ -178,7 +178,7 @@ services:
         networks:
             - shield
         deploy:
-          mode: replicated        
+          mode: replicated
           replicas: 1
           update_config:
             failure_action: rollback
@@ -211,7 +211,7 @@ services:
         ports:
           - 1344:1344
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           update_config:
              failure_action: rollback
@@ -229,7 +229,7 @@ services:
         # user: nobody
         hostname: broker-server
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           restart_policy:
             condition: any
@@ -276,7 +276,7 @@ services:
         networks:
             - shield
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 0
           update_config:
             parallelism: 8
@@ -314,7 +314,7 @@ services:
           - "LOGSTASH_FIELDS=service=proxy"
         env_file: proxy-server.env
         deploy:
-          mode: replicated        
+          mode: replicated
           replicas: 2
           restart_policy:
             condition: any
@@ -342,7 +342,7 @@ services:
         networks:
           - shield
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           placement:
             constraints:
@@ -385,7 +385,7 @@ services:
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=webservice"
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           placement:
             constraints:
@@ -403,7 +403,7 @@ services:
     networks:
       - shield
     deploy:
-      mode: replicated            
+      mode: replicated
       replicas: 2
       restart_policy:
         condition: any
@@ -423,7 +423,7 @@ services:
         networks:
             - shield
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           restart_policy:
             condition: any
