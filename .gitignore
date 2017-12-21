@@ -1,5 +1,4 @@
 .idea/
 *.iml
 *shield_crt*
-shield
 *__pycache__*
