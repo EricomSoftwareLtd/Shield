@@ -24,8 +24,8 @@ services:
           failure_action: rollback
       resources:
         limits:
-          memory: 1GB
-          cpus: "1"
+          cpus: '0.20'
+          memory: 256M
 
   maintenance:
     image: securebrowsing/shield-maintenance:latest
@@ -136,7 +136,8 @@ services:
           cpus: "1"
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
-        - "NUMBER_OF_EXPECTED=5"
+        - "NUMBER_OF_EXPECTED=5" #single node
+#        - "NUMBER_OF_EXPECTED=3" #multi node
         - "LOGSTASH_FIELDS=service=consulserver"
 
   consul:
@@ -224,6 +225,7 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+              
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -278,6 +280,7 @@ services:
         deploy:
           mode: replicated
           replicas: 0
+          endpoint_mode: dnsrr            
           update_config:
             parallelism: 8
             delay: 10s
