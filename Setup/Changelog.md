@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_237] - 2017-12-21
+- (*) Fixed Printing #1668
 
 ## [Dev:Build_236] - 2017-12-20
 - (*) updated fonts in CEF #1649
