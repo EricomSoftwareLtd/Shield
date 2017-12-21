@@ -515,15 +515,12 @@ function set_storage_driver() {
     if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
         echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
     else
-        if [ -f /etc/docker/daemon.json ]; then
-           echo '{' >>/etc/docker/daemon.json.shield
-           echo '  "storage-driver": "overlay2"' >>/etc/docker/daemon.json.shield
-           echo '}' >>/etc/docker/daemon.json.shield
-          else
-           echo '{storage-driver: "overlay2"}' >/etc/docker/daemon.json.shield
-        fi
         echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json'
+        echo '{' >/etc/docker/daemon.json.shield
+        echo '  "storage-driver": "overlay2"' >>/etc/docker/daemon.json.shield
+        echo '}' >>/etc/docker/daemon.json.shield
         systemctl stop docker
+	sleep 10
         mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
         systemctl start docker
     fi
