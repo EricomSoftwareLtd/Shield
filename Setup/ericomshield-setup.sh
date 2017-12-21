@@ -597,7 +597,7 @@ fi
 
 if [ "$UPDATE" == false ]; then
     # New Installation
-#    set_storage_driver Waiting for the fix
+    set_storage_driver
     
     create_shield_service
     systemctl start ericomshield-updater.service
