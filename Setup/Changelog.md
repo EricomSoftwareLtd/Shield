@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_238] - 2017-12-24
+- Fixed CEF preload script errors
+- Fixed leader selection after consul server set to 0
+- Cleanup CEF logs
+
 ## [Dev:Build_237] - 2017-12-21
 - (*) Fixed Printing #1668
 
