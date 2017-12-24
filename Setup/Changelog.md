@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_239] - 2017-12-24
+- (*) New Resource Computation #1577
+- Provide shield-stats ton excat url only #1676
+
 ## [Dev:Build_238] - 2017-12-24
 - Fixed CEF preload script errors
 - Fixed leader selection after consul server set to 0

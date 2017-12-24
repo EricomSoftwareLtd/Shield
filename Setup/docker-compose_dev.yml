@@ -52,7 +52,12 @@ services:
     image: securebrowsing/shield-collector:latest
     networks:
       - shield
-    hostname: collector
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    hostname: {{.Node.ID}}
+    environment:
+            - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=collector"
     deploy:
       mode: global
       restart_policy:
