@@ -47,6 +47,7 @@ ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
+ES_CONFIG_STORAGE=yes
 
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
@@ -99,6 +100,10 @@ while [ $# -ne 0 ]; do
     -no-deploy)
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
+        ;;
+     -no-config-storage)
+        ES_CONFIG_STORAGE=no
+        echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
     #        -usage)
     *)
@@ -594,7 +599,9 @@ fi
 
 if [ "$UPDATE" == false ]; then
     # New Installation
-    set_storage_driver
+    if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
+        set_storage_driver
+    fi
     
     create_shield_service
     systemctl start ericomshield-updater.service
