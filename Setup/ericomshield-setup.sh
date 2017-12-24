@@ -101,7 +101,7 @@ while [ $# -ne 0 ]; do
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
         ;;
-     -no-config-storage)
+    -no-config-storage)
         ES_CONFIG_STORAGE=no
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
