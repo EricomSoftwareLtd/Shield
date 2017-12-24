@@ -54,7 +54,7 @@ services:
       - shield
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    hostname: {{.Node.ID}}
+    hostname: collector
     environment:
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=collector"
