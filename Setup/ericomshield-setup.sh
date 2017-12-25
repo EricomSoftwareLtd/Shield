@@ -341,6 +341,8 @@ function create_shield_service() {
 function add_aliases() {
     if [ -f ~/.bashrc ] && [ $(grep -c 'shield_aliases' ~/.bashrc) -eq 0 ]; then
         echo 'Adding Aliases in .bashrc'
+        echo "" >> ~/.bashrc
+        echo "# EricomShield aliases" >> ~/.bashrc
         echo "if [ -f ~/.shield_aliases ]; then" >> ~/.bashrc
         echo ". ~/.shield_aliases" >> ~/.bashrc
         echo "fi" >> ~/.bashrc
