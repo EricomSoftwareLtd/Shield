@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_241] - 2017-12-26
+- Added ext proxy auth settings to Consul and Admin UI #1643
+- CEF uses ext proxy if defined in Admin
+- Updated tooltips #1555
+
 ## [Dev:Build_240] - 2017-12-25
 - Added ext proxy auth settings to Consul and Admin UI #1643
 - Ext proxy support passing auth param to other proxy
