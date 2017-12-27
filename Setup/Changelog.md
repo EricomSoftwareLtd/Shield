@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_243] - 2017-12-27
+- Collector to sample resources every 15 seconds instead of 30
+- (*) New logic for resource calculations, shich is now also "on" by default
+- Ext proxy support disable mode properly
+
 ## [Dev:Build_242] - 2017-12-26
 - Ext proxy force using parent ext proxy if defined
 - Admin Dashboard updates #1555
