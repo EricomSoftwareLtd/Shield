@@ -138,8 +138,7 @@ services:
           cpus: "1"
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
-        - "NUMBER_OF_EXPECTED=5" #single node
-#        - "NUMBER_OF_EXPECTED=3" #multi node
+        - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
 
   consul:
