@@ -74,6 +74,11 @@ function init_swarm() {
     fi
 }
 
+function am_i_leader()
+{
+    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+}
+
 function set_experimental() {
     if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental" : true' /etc/docker/daemon.json) -eq 1 ]; then
         echo '"experimental" : true in /etc/docker/daemon.json'
@@ -166,4 +171,11 @@ if [ "$NODES_COUNT" -eq 1 ]; then
     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 fi
 
-retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+am_i_leader
+if [ "$AM_I_LEADER" == true ]; then
+   retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+ else
+
+   echo "Please run this command on the leader: $SYS_LOG_HOST"
+fi
+
