@@ -523,6 +523,11 @@ function wait_for_docker_to_settle() {
     done
 }
 
+function am_i_leader()
+{
+    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+}
+
 function set_storage_driver() {
     if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
         echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
@@ -635,8 +640,11 @@ else # Update
     CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
     if [ "$MNG_NODES_COUNT" -gt 1 ] && [ "$CONSUL_GLOBAL" -ne 1 ] ; then
        switch_to_multi_node
-       echo " Stopping Ericom Shield for Update "
-       ./stop.sh
+       am_i_leader
+       if [ "$AM_I_LEADER" == true ]; then
+          echo " Stopping Ericom Shield for Update "
+          ./stop.sh
+	fi  
     fi
 fi
 
