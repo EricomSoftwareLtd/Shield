@@ -635,6 +635,8 @@ else # Update
     CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
     if [ "$MNG_NODES_COUNT" -gt 1 ] && [ "$CONSUL_GLOBAL" -ne 1 ] ; then
        switch_to_multi_node
+       echo " Stopping Ericom Shield for Update "
+       ./stop.sh
     fi
 fi
 
