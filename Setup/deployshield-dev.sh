@@ -165,7 +165,7 @@ SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 
 create_proxy_env_file
 
-NODES_COUNT=$(docker node ls | grep -c Active)
+NODES_COUNT=$(docker node ls | grep -c Ready)
 if [ "$NODES_COUNT" -eq 1 ]; then
     echo "***************     Adding Labels:browser, shield_core, management"
     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
