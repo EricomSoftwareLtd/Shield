@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_246] - 2017-12-31
+- Fixed https issue with chrome
+
 ## [Dev:Build_245] - 2017-12-31
 - Placeholder for "Standby Remote Browsers" #1555
 
