@@ -3,6 +3,19 @@
 #####   Ericom Shield Installer        #####
 #######################################LO###
 
+ES_PATH=/usr/local/ericomshield
+
+#Check if we are root
+if ((EUID != 0)); then
+    #    sudo su
+    echo " Please run it as Root"
+    echo "sudo $0 $@"
+    exit
+fi
+cd $ES_PATH
+
+echo "Running deploy-shield.sh:"
+
 export DOCKER_TAG=171227-16.29
 
 docker run --rm -it \
