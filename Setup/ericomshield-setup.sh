@@ -370,6 +370,14 @@ function prepare_yml() {
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 }
 
+function switch_to_multi_node
+{
+      echo "Switching to Multi-Node (consul-server -> global"
+      sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
+      sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
+      sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
+}
+
 function get_shield_install_files() {
     echo "Getting $ES_REPO_FILE"
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
@@ -515,6 +523,11 @@ function wait_for_docker_to_settle() {
     done
 }
 
+function am_i_leader()
+{
+    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+}
+
 function set_storage_driver() {
     if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
         echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
@@ -622,6 +635,16 @@ else # Update
             docker service scale shield_shield-admin=0
             wait_for_docker_to_settle
         fi
+    fi
+    MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
+    CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
+    if [ "$MNG_NODES_COUNT" -gt 1 ] && [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+       switch_to_multi_node
+       am_i_leader
+       if [ "$AM_I_LEADER" == true ]; then
+          echo " Stopping Ericom Shield for Update "
+          ./stop.sh
+	fi  
     fi
 fi
 

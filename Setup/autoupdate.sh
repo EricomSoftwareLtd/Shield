@@ -54,6 +54,11 @@ function wait_for_maintenance_time() {
     fi
 }
 
+function am_i_leader()
+{
+ AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+}
+
 while true; do
     if [ -f "$ES_STAGING_FILE" ]; then
         ES_STAGING=true
@@ -88,7 +93,14 @@ while true; do
         if [ "$UPDATE" == true ]; then
             curl -s -S -o ericomshield-setup.sh $ES_repo_setup
             chmod +x ericomshield-setup.sh
-            $ES_PATH/ericomshield-setup.sh
+            am_i_leader
+            if [ "$AM_I_LEADER" == true ]; then
+              echo "Running Shield Setup (leader)"
+              $ES_PATH/ericomshield-setup.sh
+             else
+              echo "Running Shield Setup no-deploy (I'm not the leader)"
+              $ES_PATH/ericomshield-setup.sh -no-deploy
+            fi
         fi
     fi
     if [ "$FORCE_CHECK" == true ]; then
