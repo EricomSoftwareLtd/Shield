@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_245] - 2017-12-31
+- Placeholder for "Standby Remote Browsers" #1555
+
 ## [Dev:Build_244] - 2017-12-28
 - Admin UI Changes in Dashboard page #1702
 - Complete support for extranl proxy with creds #1574
