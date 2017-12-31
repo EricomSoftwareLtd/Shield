@@ -171,7 +171,10 @@ if [ "$NODES_COUNT" -eq 1 ]; then
     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 fi
 
-am_i_leader
+if [ -z "$JENKINS" ]; then
+     am_i_leader
+fi
+ 
 if [ "$AM_I_LEADER" == true ]; then
    retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
  else
