@@ -173,6 +173,8 @@ fi
 
 if [ -z "$JENKINS" ]; then
     am_i_leader
+else
+    AM_I_LEADER=true
 fi
 
 if [ "$AM_I_LEADER" == true ]; then
