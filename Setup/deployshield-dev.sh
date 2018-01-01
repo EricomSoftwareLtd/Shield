@@ -76,7 +76,12 @@ function init_swarm() {
 
 function am_i_leader()
 {
-    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+    if [ -z "$JENKINS" ]; then
+        AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+    else
+        AM_I_LEADER=true;
+    fi
+    
 }
 
 function set_experimental() {
@@ -171,9 +176,7 @@ if [ "$NODES_COUNT" -eq 1 ]; then
     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 fi
 
-if [ -z "$JENKINS" ]; then
-     am_i_leader
-fi
+am_i_leader
  
 if [ "$AM_I_LEADER" == true ]; then
    retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
