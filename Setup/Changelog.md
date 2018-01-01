@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [Dev:Build_247] - 2018-1-1
+- "no_votiro_payment" license flag should be "false" by default and it's meaning is: "has Votiro license" #1747
+- Admin - Dashboard - fields in green area #1740 #1555
+- Admin: when adding workers, the status remain Not Available, collector can't communicate with consul #1729
+- Fix the tool tip for Standby Remote Browser Sessions #1726
+- Dashboard - the display can misleads in case you have nodes without label browser #1724
+
 ## [Dev:Build_246] - 2017-12-31
 - Fixed https issue with chrome
 
