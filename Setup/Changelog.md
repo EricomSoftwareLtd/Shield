@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_248] - 2018-1-1
+- Fixed logging on Consul error
+- Use new scale logic by default 
 
 ## [Dev:Build_247] - 2018-1-1
 - "no_votiro_payment" license flag should be "false" by default and it's meaning is: "has Votiro license" #1747
