@@ -39,6 +39,7 @@ function retry_on_failure() {
                 sleep $delay
             else
                 echo "The command '$@' has failed after $n attempts." >&2
+                echo "Please try to execute ./stop.sh then ./run.sh commands" >&2                
                 exit 1
             fi
         }
@@ -46,7 +47,6 @@ function retry_on_failure() {
 }
 
 function create_proxy_env_file() {
-
     if [ -f "$PROXY_ENV_FILE" ]; then
         return
     fi
@@ -81,7 +81,6 @@ function am_i_leader()
     else
         AM_I_LEADER=true;
     fi
-    
 }
 
 function set_experimental() {
@@ -181,7 +180,6 @@ am_i_leader
 if [ "$AM_I_LEADER" == true ]; then
    retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
  else
-
    echo "Please run this command on the leader: $SYS_LOG_HOST"
 fi
 
