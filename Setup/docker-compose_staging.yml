@@ -160,7 +160,7 @@ services:
             memory: 1GB
             cpus: "1"
       environment:
-          - "CONSUL_BIND_INTERFACE=eth0"
+          - "CONSUL_BIND_INTERFACE=eth2"
           - "RUN_AGENT=yes"
           - "LOGSTASH_FIELDS=service=consulclient"
 
