@@ -596,11 +596,6 @@ update_sysctl
 echo "Preparing yml file (Containers build number)"
 prepare_yml
 
-if [ "$ES_RUN_DEPLOY" == true ]; then
-    echo "pull images" #before restarting the system for upgrade
-    pull_images
-fi
-
 if [ "$UPDATE" == false ]; then
     # New Installation
     if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
@@ -635,6 +630,11 @@ else # Update
             wait_for_docker_to_settle
         fi
     fi
+fi
+
+if [ "$ES_RUN_DEPLOY" == true ]; then
+    echo "pull images" #before restarting the system for upgrade
+    pull_images
 fi
 
 if [ -n "$MY_IP" ]; then
