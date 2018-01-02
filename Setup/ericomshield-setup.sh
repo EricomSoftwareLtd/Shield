@@ -14,7 +14,6 @@ fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.06.2"
-DOCKER_COMPOSE_VERSION="1.15.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -270,16 +269,6 @@ function install_docker() {
     fi
 }
 
-function install_docker_compose() {
-    if [ "$(docker-compose version | grep -c $DOCKER_COMPOSE_VERSION)" -eq 0 ]; then
-        echo "***************     Installing docker-compose"
-        curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        chmod +x /usr/local/bin/docker-compose
-    else
-        echo "***************     DockerCompose is already installed"
-    fi
-}
-
 function docker_login() {
     if [ "$(docker info | grep -c Username)" -eq 0 ]; then
         if [ "$DOCKER_USER" == " " ]; then
@@ -313,7 +302,7 @@ function update_sysctl() {
 
 function setup_dnsmasq() {
 
-    if ! dpkg -l "dnsmasq" >/dev/null 2>&1; then
+    if [ "$(dpkg -l | grep -w -c "dnsmasq " )" -eq 0 ]; then
         echo "***************     Installing dnsmasq"
         apt-get --assume-yes -y install dnsmasq
     fi
@@ -596,6 +585,8 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
     fi
 fi
 
+setup_dnsmasq
+
 get_shield_files
 
 docker_login
@@ -604,8 +595,6 @@ update_sysctl
 
 echo "Preparing yml file (Containers build number)"
 prepare_yml
-
-# setup_dnsmasq Waiting for the fix
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     echo "pull images" #before restarting the system for upgrade
@@ -624,7 +613,17 @@ if [ "$UPDATE" == false ]; then
     systemctl start ericomshield-updater.service
 
 else # Update
-    if [ "$ES_RUN_DEPLOY" == true ]; then
+    MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
+    CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
+    if [ "$MNG_NODES_COUNT" -gt 1 ] && [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+       switch_to_multi_node
+       am_i_leader
+       if [ "$AM_I_LEADER" == true ]; then
+          echo " Stopping Ericom Shield for Update "
+          ./stop.sh
+	fi  
+    fi
+    if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
         if [ "$UPDATE_NEED_RESTART" == true ]; then
             echo " Stopping Ericom Shield for Update "
             ./stop.sh
@@ -635,16 +634,6 @@ else # Update
             docker service scale shield_shield-admin=0
             wait_for_docker_to_settle
         fi
-    fi
-    MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
-    CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
-    if [ "$MNG_NODES_COUNT" -gt 1 ] && [ "$CONSUL_GLOBAL" -ne 1 ] ; then
-       switch_to_multi_node
-       am_i_leader
-       if [ "$AM_I_LEADER" == true ]; then
-          echo " Stopping Ericom Shield for Update "
-          ./stop.sh
-	fi  
     fi
 fi
 
@@ -686,8 +675,8 @@ echo "$Version" >.version
 grep image "$ES_YML_FILE" >>.version
 
 if [ $SUCCESS == false ]; then 
-   echo "An error occurred during the installation"
-   echo "$(date): An error occurred during the installation" >>"$LOGFILE"
+   echo "Timeout was reached during installation, please run ./status.sh"
+   echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
    echo "--failed?" >>.version # adding failed into the version file
    exit 1
 fi   
