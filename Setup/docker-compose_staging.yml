@@ -140,13 +140,12 @@ services:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
-
   consul:
       image: securebrowsing/shield-configuration:latest
       networks:
            - shield
-      ports:
-          - "8500:8500"
+#      ports:
+#          - "8500:8500"
       deploy:
         mode: replicated
         replicas: 1
@@ -160,7 +159,7 @@ services:
             memory: 1GB
             cpus: "1"
       environment:
-          - "CONSUL_BIND_INTERFACE=eth2"
+          - "CONSUL_BIND_INTERFACE=eth0"
           - "RUN_AGENT=yes"
           - "LOGSTASH_FIELDS=service=consulclient"
 
