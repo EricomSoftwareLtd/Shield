@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_249] - 2018-1-4
+- (*) Fixed broker crashing when using extProxySettings before it got a value from the Consul watcher
+
 ## [Dev:Build_248] - 2018-1-1
 - Fixed logging on Consul error
 - Use new scale logic by default 
