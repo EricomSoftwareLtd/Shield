@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_250] - 2018-1-7
+- (*) Support 10K LDAP groups and LDAP groups with 10K users
 
 ## [Dev:Build_249] - 2018-1-4
 - (*) Fixed broker crashing when using extProxySettings before it got a value from the Consul watcher
