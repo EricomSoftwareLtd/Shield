@@ -14,8 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Pre-installation checks are performed before installation.
 - Background tabs are handled with a dedicated timeouts (for edit and for read-write tabs) and become dormant when these timeouts are met. This is done to reduce hardware usage and improve resources management.
 - Resource computation - CPU and memory usage is constantly monitored and displayed in the dashboard. Number of available standby remote browsers is defined by this information.
-- External Proxy - when an external proxy is used, its the connection settings need to be updated. Further details can be found here.
-Feature Enhancements:
+- Upstream Proxy - when an upstream proxy is used, its the connection settings need to be updated.
 - Dashboard now includes more details about the system, including CPU and memory, total and average. Nodes table was also updated to include more data.
 - Links and pop ups are opened seamlessly, except for certain cases where this is technically problematic - then a relevant message is issued to the user, to allow pop-ups per the specific site.
 - Added Support for Zoom in Browser and DPI Settings, Zoom can be changed using keyboard, mouse, browser.
