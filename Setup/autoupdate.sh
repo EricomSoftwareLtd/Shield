@@ -11,7 +11,7 @@ MAINTENANCE_END="06:00"
 AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=true
 AUTO_UPDATE_TIME=5m
 
-FORCE_CHECK=true
+FORCE_CHECK=false
 UPDATE=false
 ES_PATH="/usr/local/ericomshield"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
@@ -114,4 +114,5 @@ while true; do
         echo "ericomshield was not running"
         $ES_PATH/run.sh
     fi
+    UPDATE=false    
 done
