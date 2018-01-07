@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Dev:Build_250] - 2018-1-7
+- when remove a node from the cluster it is not udpated at the consul #1754
+- "External Proxy Password" is now a password field #1736 
+- Default timeout waiting for sanitization is now 10 minutes (was 5 ) #1660
+- Show CPU and Memory only if node is in the "Ready" state 
+- Updated tooltips #1697 
+- Updated Standby Remote Browsers Sessions tooltip #1768 
+- Blacklist policy handling fixed using single watcher for #1572
+- White mode indicator inside admin policy table. (details) #1733
+- (*) Fix Broken Scale in Docker 17.09 (R2) #901 #1755 #895
+
+## [Dev:Build_249.1] - 2018-1-7
 - (*) Support 10K LDAP groups and LDAP groups with 10K users
 
 ## [Dev:Build_249] - 2018-1-4
