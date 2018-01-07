@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Prod:18.01-Build-248] - 2017-01-07
+## [Prod:18.01-Build-248] - 2018-01-07
 ### New Features:
 - Pre-installation checks are performed before installation.
 - Background tabs are handled with a dedicated timeouts (for edit and for read-write tabs) and become dormant when these timeouts are met. This is done to reduce hardware usage and improve resources management.
