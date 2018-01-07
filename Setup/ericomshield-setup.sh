@@ -599,9 +599,7 @@ prepare_yml
 if [ "$UPDATE" == false ]; then
     # New Installation
     if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
-       if [ "$ES_DEV" == true ] || [ "$ES_STAGING" == true ]; then #Do not set overlay2 for production until 18.01
-          set_storage_driver
-	fi
+       set_storage_driver
     fi
     
     create_shield_service
