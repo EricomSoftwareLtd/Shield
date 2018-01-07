@@ -461,10 +461,11 @@ function get_shield_files() {
     fi
 
     if [ ! -f "autoupdate.sh" ]; then
-        curl -s -S -o autoupdate.sh "$ES_repo_update"
-        chmod +x autoupdate.sh
+        systemctl stop ericomshield-updater.service
     fi
-
+    curl -s -S -o autoupdate.sh "$ES_repo_update"
+    chmod +x autoupdate.sh
+    
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
@@ -603,7 +604,6 @@ if [ "$UPDATE" == false ]; then
     fi
     
     create_shield_service
-    systemctl start ericomshield-updater.service
 
 else # Update
     MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
@@ -666,6 +666,8 @@ if [ "$ES_RUN_DEPLOY" == true ]; then
     echo "Installation only (no deployment)"
     SUCCESS=true	
 fi
+
+systemctl start ericomshield-updater.service
 
 Version=$(grep SHIELD_VER "$ES_YML_FILE")
 
