@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Prod:18.01] - 2017-01-07
+### New Features:
+- Pre-installation checks are performed before installation.
+- Background tabs are handled with a dedicated timeouts (for edit and for read-write tabs) and become dormant when these timeouts are met. This is done to reduce hardware usage and improve resources management.
+- Resource computation - CPU and memory usage is constantly monitored and displayed in the dashboard. Number of available standby remote browsers is defined by this information.
+- External Proxy - when an external proxy is used, its the connection settings need to be updated. Further details can be found here.
+Feature Enhancements:
+- Dashboard now includes more details about the system, including CPU and memory, total and average. Nodes table was also updated to include more data.
+- Links and pop ups are opened seamlessly, except for certain cases where this is technically problematic - then a relevant message is issued to the user, to allow pop-ups per the specific site.
+- Added Support for Zoom in Browser and DPI Settings, Zoom can be changed using keyboard, mouse, browser.
+- Japanese Translation #1712
+
+### Enhancements:
+- Improved support for Application that have embedded browsers
+- DNS Settings for Proxy coming from the host in the proxy #1378
+- Fonts improved
+- File Download Behavior Change (per site and not file) #1570
+- New Component: Collector
+- Active Directory errors improvements
+
+### Fixed:
+- Fixed download internal error 10 #1008 #1486 #1477 
+
 ## [Prod:17.12] - 2017-12-10
 ### New Features:
 - New message confirmation instead of "The browser prevented opening a tab"
