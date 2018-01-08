@@ -674,7 +674,7 @@ echo "$Version" >.version
 grep image "$ES_YML_FILE" >>.version
 
 if [ $SUCCESS == false ]; then 
-   echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the shield_pre_install_check.log."
+   echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."
    echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
    echo "--Timeout?" >>.version # adding failed into the version file
    exit 1
