@@ -39,6 +39,7 @@ function retry_on_failure() {
                 sleep $delay
             else
                 echo "The command '$@' has failed after $n attempts." >&2
+                echo "Please try to execute ./stop.sh then ./run.sh commands" >&2                
                 exit 1
             fi
         }
@@ -46,7 +47,6 @@ function retry_on_failure() {
 }
 
 function create_proxy_env_file() {
-
     if [ -f "$PROXY_ENV_FILE" ]; then
         return
     fi
@@ -71,6 +71,15 @@ function init_swarm() {
         echo 11
     else
         echo 0
+    fi
+}
+
+function am_i_leader()
+{
+    if [ -z "$JENKINS" ]; then
+        AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+    else
+        AM_I_LEADER=true;
     fi
 }
 
@@ -160,10 +169,16 @@ SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 
 create_proxy_env_file
 
-NODES_COUNT=$(docker node ls | grep -c Active)
+NODES_COUNT=$(docker node ls | grep -c Ready)
 if [ "$NODES_COUNT" -eq 1 ]; then
     echo "***************     Adding Labels:browser, shield_core, management"
     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 fi
 
-retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+am_i_leader
+ 
+if [ "$AM_I_LEADER" == true ]; then
+   retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+ else
+   echo "Please run this command on the leader: $SYS_LOG_HOST"
+fi
