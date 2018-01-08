@@ -175,11 +175,8 @@ if [ "$NODES_COUNT" -eq 1 ]; then
     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
 fi
 
-if [ -z "$JENKINS" ]; then
-    am_i_leader
-else
-    AM_I_LEADER=true
-fi
+
+am_i_leader
 
 
 if [ "$AM_I_LEADER" == true ]; then
