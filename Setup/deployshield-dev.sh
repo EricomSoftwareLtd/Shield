@@ -39,6 +39,7 @@ function retry_on_failure() {
                 sleep $delay
             else
                 echo "The command '$@' has failed after $n attempts." >&2
+                echo "Please try to execute ./stop.sh then ./run.sh commands" >&2                
                 exit 1
             fi
         }
@@ -46,7 +47,6 @@ function retry_on_failure() {
 }
 
 function create_proxy_env_file() {
-
     if [ -f "$PROXY_ENV_FILE" ]; then
         return
     fi
@@ -76,7 +76,11 @@ function init_swarm() {
 
 function am_i_leader()
 {
-    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+    if [ -z "$JENKINS" ]; then
+        AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+    else
+        AM_I_LEADER=true;
+    fi
 }
 
 function set_experimental() {
@@ -177,10 +181,10 @@ else
     AM_I_LEADER=true
 fi
 
+
 if [ "$AM_I_LEADER" == true ]; then
    retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
  else
-
    echo "Please run this command on the leader: $SYS_LOG_HOST"
 fi
 

@@ -24,8 +24,8 @@ services:
           failure_action: rollback
       resources:
         limits:
-          cpus: '0.5'
-          memory: 512M
+          cpus: '0.20'
+          memory: 256M
 
   maintenance:
     image: securebrowsing/shield-maintenance:latest
@@ -54,7 +54,7 @@ services:
       - shield
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    hostname: collector
+    hostname: "{{.Node.ID}}-{{.Service.Name}}"
     environment:
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=collector"
@@ -64,13 +64,6 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-      resources:
-          limits:
-              cpus: '0.20'
-              memory: 256M
-      placement:
-          constraints:
-              - node.labels.browser==yes
       
   elk:
       image: securebrowsing/shield-elk:latest
@@ -145,10 +138,8 @@ services:
           cpus: "1"
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
-        - "NUMBER_OF_EXPECTED=5" #single node
-#        - "NUMBER_OF_EXPECTED=3" #multi node
+        - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
-
   consul:
       image: securebrowsing/shield-configuration:latest
       networks:
@@ -488,3 +479,4 @@ networks:
 secrets:
    shield-system-id:
        external: true
+ 

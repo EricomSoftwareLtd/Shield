@@ -9,6 +9,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_250] - 2018-1-7
+- when remove a node from the cluster it is not udpated at the consul #1754
+- "External Proxy Password" is now a password field #1736 
+- Default timeout waiting for sanitization is now 10 minutes (was 5 ) #1660
+- Show CPU and Memory only if node is in the "Ready" state 
+- Updated tooltips #1697 
+- Updated Standby Remote Browsers Sessions tooltip #1768 
+- Blacklist policy handling fixed using single watcher for #1572
+- White mode indicator inside admin policy table. (details) #1733
+- (*) Fix Broken Scale in Docker 17.09 (R2) #901 #1755 #895
+
+## [Dev:Build_249.1] - 2018-1-7
+- (*) Support 10K LDAP groups and LDAP groups with 10K users
+
+## [Dev:Build_249] - 2018-1-4
+- (*) Fixed broker crashing when using extProxySettings before it got a value from the Consul watcher
+
+## [Dev:Build_248] - 2018-1-1
+- Fixed logging on Consul error
+- Use new scale logic by default 
+
+## [Dev:Build_247] - 2018-1-1
+- "no_votiro_payment" license flag should be "false" by default and it's meaning is: "has Votiro license" #1747
+- Admin - Dashboard - fields in green area #1740 #1555
+- Admin: when adding workers, the status remain Not Available, collector can't communicate with consul #1729
+- Fix the tool tip for Standby Remote Browser Sessions #1726
+- Dashboard - the display can misleads in case you have nodes without label browser #1724
+
+## [Dev:Build_246] - 2017-12-31
+- Fixed https issue with chrome
+
+## [Dev:Build_245] - 2017-12-31
+- Placeholder for "Standby Remote Browsers" #1555
+
 ## [Dev:Build_244] - 2017-12-28
 - Admin UI Changes in Dashboard page #1702
 - Complete support for extranl proxy with creds #1574

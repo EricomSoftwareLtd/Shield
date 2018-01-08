@@ -24,8 +24,8 @@ services:
           failure_action: rollback
       resources:
         limits:
-          memory: 1GB
-          cpus: "1"
+          cpus: '0.20'
+          memory: 256M
 
   maintenance:
     image: securebrowsing/shield-maintenance:latest
@@ -48,6 +48,23 @@ services:
       - "IMAGE_CLEAN_INTERVAL=1m"
       - "LOGSTASH_FIELDS=service=maintenance"
 
+  collector:
+    image: securebrowsing/shield-collector:latest
+    networks:
+      - shield
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    hostname: "{{.Node.ID}}-{{.Service.Name}}"
+    environment:
+            - NODE_ENV=production
+            - "LOGSTASH_FIELDS=service=collector"
+    deploy:
+      mode: global
+      restart_policy:
+          condition: any
+      update_config:
+          failure_action: rollback
+      
   elk:
       image: securebrowsing/shield-elk:latest
 #      ports:
@@ -71,8 +88,8 @@ services:
           failure_action: rollback
         resources:
           limits:
-            memory: 3GB
-            cpus: "3"
+            memory: 6GB
+            cpus: "4"
       volumes:
          - elastic:/opt/elasticsearch/data
 
@@ -102,16 +119,17 @@ services:
     networks:
          - shield
     deploy:
-      mode: replicated
-      replicas: 5
+      mode: replicated   #single node
+      replicas: 5        #single node
+#      mode: global       #multi node
       endpoint_mode: dnsrr
       placement:
         constraints:
             - node.labels.management==yes
       update_config:
           parallelism: 1
-          delay: "60s"          
           failure_action: rollback
+          delay: "15s"
       restart_policy:
           condition: any
       resources:
@@ -120,9 +138,8 @@ services:
           cpus: "1"
     environment:
         - "CONSUL_BIND_INTERFACE=eth0"
-        - "NUMBER_OF_EXPECTED=5"
+        - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
-
   consul:
       image: securebrowsing/shield-configuration:latest
       networks:
@@ -162,7 +179,7 @@ services:
         networks:
             - shield
         deploy:
-          mode: replicated        
+          mode: replicated
           replicas: 1
           update_config:
             failure_action: rollback
@@ -195,7 +212,7 @@ services:
         ports:
           - 1344:1344
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           update_config:
              failure_action: rollback
@@ -208,12 +225,13 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+              
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
         hostname: broker-server
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           restart_policy:
             condition: any
@@ -260,8 +278,9 @@ services:
         networks:
             - shield
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 0
+          endpoint_mode: dnsrr            
           update_config:
             parallelism: 8
             delay: 10s
@@ -298,7 +317,7 @@ services:
           - "LOGSTASH_FIELDS=service=proxy"
         env_file: proxy-server.env
         deploy:
-          mode: replicated        
+          mode: replicated
           replicas: 2
           restart_policy:
             condition: any
@@ -326,8 +345,8 @@ services:
         networks:
           - shield
         deploy:
-          mode: replicated                
-          replicas: 0
+          mode: replicated
+          replicas: 1
           placement:
             constraints:
               - node.labels.browser==yes
@@ -357,7 +376,6 @@ services:
       environment:
           - NODE_ENV=production
           - "LOGSTASH_FIELDS=service=authproxy"
-
   web-service:
         image: securebrowsing/shield-web-service:latest
         hostname: web-service
@@ -370,16 +388,15 @@ services:
             - NODE_ENV=production
             - "LOGSTASH_FIELDS=service=webservice"
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           placement:
             constraints:
-                - node.labels.management==yes
+              - node.labels.management==yes
           resources:
             limits:
               memory: 500MB
               cpus: "1"
-
   cdr-dispatcher:
     image: securebrowsing/shield-cdr-dispatcher:latest
     hostname: cdr-dispatcher
@@ -389,7 +406,7 @@ services:
     networks:
       - shield
     deploy:
-      mode: replicated            
+      mode: replicated
       replicas: 2
       restart_policy:
         condition: any
@@ -409,7 +426,7 @@ services:
         networks:
             - shield
         deploy:
-          mode: replicated                
+          mode: replicated
           replicas: 1
           restart_policy:
             condition: any
@@ -462,3 +479,4 @@ networks:
 secrets:
    shield-system-id:
        external: true
+ 
