@@ -12,25 +12,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Prod:18.01-Build-248] - 2018-01-07
 ### New Features:
 - Pre-installation checks are performed before installation.
-- Background tabs are handled with a dedicated timeouts (for edit and for read-write tabs) and become dormant when these timeouts are met. This is done to reduce hardware usage and improve resources management.
+- Background tabs are handled with dedicated timeouts (for edit and for read-write tabs) and become dormant when these timeouts are met. This is done to reduce hardware usage and improve resources management.
 - Resource computation - CPU and memory usage is constantly monitored and displayed in the dashboard. Number of available standby remote browsers is defined by this information.
 - Upstream Proxy - when an upstream proxy is used, Ericom Shield will use it to connect to the internet.
 - Dashboard now includes more details about the system, including CPU and memory, total and average. Nodes table was also updated to include more data.
 - Links and pop ups are opened seamlessly, except for certain cases where this is technically problematic - then a relevant message is issued to the user, to allow pop-ups per the specific site.
-- Added Support for Zoom in Browser and DPI Settings, Zoom can be changed using keyboard, mouse, browser.
+- Added support for Zoom in Browser and DPI Settings. Zoom can be changed using keyboard, mouse & browser.
 - Japanese Translation for Admin
 
 ### Enhancements:
-- Improved support for Application that have embedded browsers (e.g. Outlook)
+- Improved support for applications that have embedded browsers (e.g. Outlook)
 - DNS Settings for Proxy coming from the host in the proxy, DNS Caching
 - Fonts improved
 - Clipboard Improvement
 - File Download Behavior Change (per site and not file)
-- New Component: Collector (monitor HW Resources Utilisation on each node)
+- New Component: Collector (monitor HW Resources Utilization on each node)
 - Active Directory errors improvements
 - Added support for HTTP Basic authentication
 - File Transfer Report includes File Uploads
-- XFF Header sent by default to avoid Google Captch Request
+- XFF Header sent by default to avoid Google Captcha Request
 - Infrastructure Upgrade for Improved Security 
 
 ### Fixed:
