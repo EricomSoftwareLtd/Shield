@@ -14,6 +14,7 @@ fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.06.2"
+DOCKER_VERSION_DEV="17.12.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -247,6 +248,11 @@ function accept_license() {
 }
 
 function install_docker() {
+    if [ "$ES_DEV" == true ]; then
+       echo "*************************NEW DOCKER VERSION: $DOCKER_VERSION_DEV"
+       DOCKER_VERSION="$DOCKER_VERSION_DEV"
+    fi   
+
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https
