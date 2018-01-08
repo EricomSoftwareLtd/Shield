@@ -629,7 +629,7 @@ else # Update
        if [ "$AM_I_LEADER" == true ]; then
           echo " Stopping Ericom Shield for Update "
           ./stop.sh
-	fi  
+	   fi
     fi
     if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
         if [ "$UPDATE_NEED_RESTART" == true ]; then
@@ -700,4 +700,3 @@ echo "***************     Success!"
 echo "***************"
 echo "***************     Ericom Shield Version: $Version is up and running"
 echo "$(date): Ericom Shield Version: $Version is up and running" >>"$LOGFILE"
-
