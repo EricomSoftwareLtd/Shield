@@ -32,10 +32,7 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="17.50-Setup"
-if [ -z "$BRANCH" ]; then
-    BRANCH="master"
-fi
+ES_SETUP_VER="18.01-Setup"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -54,6 +51,11 @@ if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
     chmod 0755 $ES_PATH
 fi
+
+function log_message() {
+    echo "$1"
+    echo "$(date): $1" >>"$LOGFILE"
+}
 
 cd "$ES_PATH" || exit
 
@@ -105,6 +107,11 @@ while [ $# -ne 0 ]; do
         ES_CONFIG_STORAGE=no
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
+    -version)
+        shift    
+        BRANCH="$1"
+        log_message "Installing version: $BRANCH"
+        ;;        
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
@@ -113,6 +120,10 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ -z "$BRANCH" ]; then
+    BRANCH="master"
+fi
 
 if [ -f "$ES_DEV_FILE" ]; then
     ES_CHANNEL="ES_DEV"
@@ -138,11 +149,6 @@ if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
     echo "***************     Installing jq"
     apt-get --assume-yes -y install jq
 fi
-
-function log_message() {
-    echo "$1"
-    echo "$(date): $1" >>"$LOGFILE"
-}
 
 function save_my_ip() {
     echo "$MY_IP" >"$ES_MY_IP_FILE"
@@ -378,6 +384,10 @@ function get_shield_install_files() {
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
     echo $ES_REPO_FILE
     curl -s -S -o $ES_REPO_FILE $ES_repo_setup
+    if [ ! -f "$ES_REPO_FILE" ]; then
+       failed_to_install "Cannot Retrieve Installation files for version:" $BRANCH
+    fi
+
     #include file with files repository
     source $ES_REPO_FILE
 
