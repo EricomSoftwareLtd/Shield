@@ -64,7 +64,10 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-      
+      placement:
+          constraints:
+              - node.labels.browser==yes
+
   elk:
       image: securebrowsing/shield-elk:latest
       ports:
@@ -140,9 +143,12 @@ services:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
+        - "DATA_DIR={{.Service.Name}}{{.Task.Slot}}" #single node don't use this for multinode
+    volumes:
+      - consul:/consul/data
 
   consul:
-      image: securebrowsing/shield-configuration:latest
+      image: securebrowsing/shield-consul-agent:latest
       networks:
            - shield
       ports:
@@ -226,7 +232,7 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-              
+
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -281,7 +287,7 @@ services:
         deploy:
           mode: replicated
           replicas: 0
-          endpoint_mode: dnsrr            
+          endpoint_mode: dnsrr
           update_config:
             parallelism: 8
             delay: 10s
@@ -347,7 +353,7 @@ services:
           - shield
         deploy:
           mode: replicated
-          replicas: 2
+          replicas: 1
           placement:
             constraints:
               - node.labels.browser==yes
@@ -468,6 +474,7 @@ volumes:
   elastic:
   portainer:
   admin:
+  consul:
 
 networks:
   shield:
