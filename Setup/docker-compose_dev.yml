@@ -142,7 +142,7 @@ services:
         - "LOGSTASH_FIELDS=service=consulserver"
 
   consul:
-      image: securebrowsing/shield-configuration:latest
+      image: securebrowsing/shield-consul-agent:latest
       networks:
            - shield
       ports:
