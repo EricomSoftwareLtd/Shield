@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+##[Staging:18.01-Build_249.3] - 2018-1-9
+- (*) Full support for External proxy
+
 ## [Dev:Build_251] - 2018-1-9
 - (*) New Docker Version 17.12 installed for new Dev installs
 - Install new docker on deploy scripts #1785
