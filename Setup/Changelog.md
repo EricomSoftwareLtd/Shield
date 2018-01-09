@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_251] - 2018-1-9
+
+
 ## [Dev:Build_250] - 2018-1-7
 - when remove a node from the cluster it is not udpated at the consul #1754
 - "External Proxy Password" is now a password field #1736 
