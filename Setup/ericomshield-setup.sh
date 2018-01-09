@@ -14,6 +14,7 @@ fi
 ES_PATH="/usr/local/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.06.2"
+DOCKER_VERSION_DEV="17.12.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -31,10 +32,7 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="17.50-Setup"
-if [ -z "$BRANCH" ]; then
-    BRANCH="master"
-fi
+ES_SETUP_VER="18.01-Setup"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -53,6 +51,11 @@ if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
     chmod 0755 $ES_PATH
 fi
+
+function log_message() {
+    echo "$1"
+    echo "$(date): $1" >>"$LOGFILE"
+}
 
 cd "$ES_PATH" || exit
 
@@ -104,6 +107,11 @@ while [ $# -ne 0 ]; do
         ES_CONFIG_STORAGE=no
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
+    -version)
+        shift    
+        BRANCH="$1"
+        log_message "Installing version: $BRANCH"
+        ;;        
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
@@ -112,6 +120,10 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ -z "$BRANCH" ]; then
+    BRANCH="master"
+fi
 
 if [ -f "$ES_DEV_FILE" ]; then
     ES_CHANNEL="ES_DEV"
@@ -137,11 +149,6 @@ if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
     echo "***************     Installing jq"
     apt-get --assume-yes -y install jq
 fi
-
-function log_message() {
-    echo "$1"
-    echo "$(date): $1" >>"$LOGFILE"
-}
 
 function save_my_ip() {
     echo "$MY_IP" >"$ES_MY_IP_FILE"
@@ -247,6 +254,11 @@ function accept_license() {
 }
 
 function install_docker() {
+    if [ "$ES_DEV" == true ]; then
+       echo "*************************NEW DOCKER VERSION: $DOCKER_VERSION_DEV"
+       DOCKER_VERSION="$DOCKER_VERSION_DEV"
+    fi   
+
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https
@@ -372,6 +384,10 @@ function get_shield_install_files() {
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
     echo $ES_REPO_FILE
     curl -s -S -o $ES_REPO_FILE $ES_repo_setup
+    if [ ! -f "$ES_REPO_FILE" ]; then
+       failed_to_install "Cannot Retrieve Installation files for version:" $BRANCH
+    fi
+
     #include file with files repository
     source $ES_REPO_FILE
 
@@ -613,7 +629,7 @@ else # Update
        if [ "$AM_I_LEADER" == true ]; then
           echo " Stopping Ericom Shield for Update "
           ./stop.sh
-	fi  
+	   fi
     fi
     if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
         if [ "$UPDATE_NEED_RESTART" == true ]; then
@@ -674,7 +690,7 @@ echo "$Version" >.version
 grep image "$ES_YML_FILE" >>.version
 
 if [ $SUCCESS == false ]; then 
-   echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the shield_pre_install_check.log."
+   echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."
    echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
    echo "--Timeout?" >>.version # adding failed into the version file
    exit 1
@@ -684,4 +700,3 @@ echo "***************     Success!"
 echo "***************"
 echo "***************     Ericom Shield Version: $Version is up and running"
 echo "$(date): Ericom Shield Version: $Version is up and running" >>"$LOGFILE"
-
