@@ -9,11 +9,11 @@ shield-cef:latest shield-cef:180107-16.00-951
 broker-server:latest broker-server:249.3
 shield-collector:latest shield-collector:180101-15.22-949
 shield-elk:latest shield-elk:171218-08.56-824
-extproxy:latest extproxy:171225-16.59-866
+extproxy:latest extproxy:249.3
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180101-09.50-934
 shield-cdr-controller:latest shield-cdr-controller:180101-09.50-934
 shield-web-service:latest shield-web-service:171217-19.18-812
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:249.3
+shield-authproxy:latest shield-authproxy:180107-19.50-953
 node-installer:latest node-installer:171227-16.29
 shield-logspout:latest shield-logspout:171123-17.23-642
