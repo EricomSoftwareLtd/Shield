@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_251] - 2018-1-9
+- (*) New Docker Version 17.12 installed for new Dev installs
+- Install new docker on deploy scripts #1785
+- Admin UI sometimes doesn't display data #1725
+- Impossible to show Perf-Window #1671
+- zoom with ctrl+mouse #1662
+- CTRL+Click on a link should open in new tab #1581
+- When killing all consul-server containers the browsers and the shield_authproxy didn't started. #1538
+- End to End test for Consul HA #1142
+- Support "Find in page" CTRL+F #354
+
 ## [Dev:Build_250] - 2018-1-7
 - when remove a node from the cluster it is not udpated at the consul #1754
 - "External Proxy Password" is now a password field #1736 
