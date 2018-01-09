@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [Dev:Build_252] - 2018-1-9
+- (*) External Proxy Support (in internal proxy) #1574
+- (*) Blank screen from Oktopost #1806 - set languge in browser
+- Speicfic url doesn't work - blank white browser #1598
+- CTRL+Click on a link should open in new tab #1581
+- Scroll up/down is not working with shield for some url #1269
+- Pressing Shift+click should open a new window #1269 
+- Restore browser service labels in scale
+
 ##[Staging:18.01-Build_249.3] - 2018-1-9
 - (*) Full support for External proxy
 
