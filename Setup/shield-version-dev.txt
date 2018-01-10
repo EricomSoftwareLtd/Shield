@@ -1,5 +1,5 @@
-#Build Dev:Build_252 on 9/1/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_252
+#Build Dev:Build_252.55 on 9/1/18  Test for Install from Branch
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_252.55
 shield-configuration:latest shield-configuration:180108-12.21-974
 shield-consul-agent:latest shield-consul-agent:180108-12.21-974
 shield-admin:latest shield-admin:180109-18.19-1000
