@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_253] - 2018-1-10
+- (*) Fixed Admin crash #1725
+- Support upstream proxy client certificate + trusting customer CA certificate #1797 (Admin side)
 
 ## [Dev:Build_252] - 2018-1-9
 - (*) External Proxy Support (in internal proxy) #1574
