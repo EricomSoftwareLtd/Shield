@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_254] - 2018-1-10
+- Change scale to copy all service keys
+- Remote Browser will not ask for password when sanitizing password protected archive files #1831
+- ericom.com is in white mode when using IE 11 #1749
+- Autentication proxy crashes when disable and then enable ext proxy #1827
+
 ## [Staging:18.01-Build_249.4] - 2018-1-10
 - (*) Fixed Admin crash #1725
 
