@@ -143,9 +143,6 @@ services:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
-        - "DATA_DIR={{.Service.Name}}{{.Task.Slot}}" #single node don't use this for multinode
-    volumes:
-      - consul:/consul/data
 
   consul:
       image: securebrowsing/shield-consul-agent:latest
