@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.01-Build_249.5] - 2018-1-14
+- Browsers service remove problem #1830
+- Comment proxy chain remote dns and proxy dns
+
+## [Dev:Build_254] - 2018-1-10
+- Browsers service remove problem #1830
+- Remote Browser will not ask for password when sanitizing password protected archive files #1831
+- ericom.com is in white mode when using IE 11 #1749
+- Autentication proxy crashes when disable and then enable ext proxy #1827
+
 ## [Staging:18.01-Build_249.4] - 2018-1-10
 - (*) Fixed Admin crash #1725
 
