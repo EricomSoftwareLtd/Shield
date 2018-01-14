@@ -5,7 +5,7 @@ version: "3.3"
 
 services:
   netdata:
-    image: titpetric/netdata:latest
+    image: securebrowsing/netdata:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -277,6 +277,7 @@ services:
              #- RUN_WITH_DEBUGGER=false
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
+             - NODE_NAME = "{{ .Node.Hostname }}"
              - PERF_STATS=true
              - "LOGSTASH_FIELDS=service=browser"
         networks:

@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_255] - 2018-1-14
+- (*) Removed local dir for consul, added restore to Admin
+- (*) Dashboard indicators (1535, 1790)
+- Added alerts infrastrcture, and 5 indicators to the Admin UI
+- Added data collection for : totalDiskMB, diskUsage, networkRxBytesPerSec, networkTxBytesPerSec, upTime
+- moved alerts to a dedicated table #1535
+- Added alert for Acrive Directory binding failure #1535
+- Added disk capacity and usage (data collection and display in the Admin UI) #1535
+- Browsers farm overloaded alerts per resource (memory, cpu, disk) #1535
+- Set background colors for nodes table values based on alerts thesholds.
+- Comment proxy chain remote dns and proxy dns
+- Add shield-netdata container image - cleanup errors #1791
+
 ## [Staging:18.01-Build_249.5] - 2018-1-14
 - Browsers service remove problem #1830
 - Comment proxy chain remote dns and proxy dns
