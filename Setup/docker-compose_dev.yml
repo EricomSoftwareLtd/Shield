@@ -149,6 +149,7 @@ services:
         source: /usr/local/ericomshield/consulbackup
         target: /consul/data
 
+
   consul:
       image: securebrowsing/shield-consul-agent:latest
       networks:
