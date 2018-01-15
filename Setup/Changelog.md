@@ -9,6 +9,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_255] - 2018-1-14
+- (*) Removed local dir for consul, added restore to Admin
+- (*) Dashboard indicators (1535, 1790)
+- Added alerts infrastrcture, and 5 indicators to the Admin UI
+- Added data collection for : totalDiskMB, diskUsage, networkRxBytesPerSec, networkTxBytesPerSec, upTime
+- moved alerts to a dedicated table #1535
+- Added alert for Acrive Directory binding failure #1535
+- Added disk capacity and usage (data collection and display in the Admin UI) #1535
+- Browsers farm overloaded alerts per resource (memory, cpu, disk) #1535
+- Set background colors for nodes table values based on alerts thesholds.
+- Comment proxy chain remote dns and proxy dns
+- Add shield-netdata container image - cleanup errors #1791
+
+## [Staging:18.01-Build_249.5] - 2018-1-14
+- Browsers service remove problem #1830
+- Comment proxy chain remote dns and proxy dns
+
+## [Dev:Build_254] - 2018-1-10
+- Browsers service remove problem #1830
+- Remote Browser will not ask for password when sanitizing password protected archive files #1831
+- ericom.com is in white mode when using IE 11 #1749
+- Autentication proxy crashes when disable and then enable ext proxy #1827
+
+## [Staging:18.01-Build_249.4] - 2018-1-10
+- (*) Fixed Admin crash #1725
+
+## [Dev:Build_253] - 2018-1-10
+- (*) Fixed Admin crash #1725
+- Support upstream proxy client certificate + trusting customer CA certificate #1797 (Admin side)
 
 ## [Dev:Build_252] - 2018-1-9
 - (*) External Proxy Support (in internal proxy) #1574

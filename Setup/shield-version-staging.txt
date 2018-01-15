@@ -1,12 +1,12 @@
-#Build Staging:Build_249.3 on 09/01/18 #UNR
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.01-Build_249.3
+#Build Staging:Build_249.5 on 14/01/18 #UNR
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.01-Build_249.5
 shield-configuration:latest shield-configuration:171224-09.11-846
-shield-admin:latest shield-admin:180107-16.00-951
+shield-admin:latest shield-admin:249.4
 shield-portainer:latest shield-portainer:171217-11.30
-proxy-server:latest proxy-server:249.3 
+proxy-server:latest proxy-server:249.5 
 icap-server:latest icap-server:180107-16.00-951
 shield-cef:latest shield-cef:180107-16.00-951
-broker-server:latest broker-server:249.3
+broker-server:latest broker-server:249.5
 shield-collector:latest shield-collector:180101-15.22-949
 shield-elk:latest shield-elk:171218-08.56-824
 extproxy:latest extproxy:249.3
