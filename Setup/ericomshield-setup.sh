@@ -12,6 +12,7 @@ if ((EUID != 0)); then
     exit
 fi
 ES_PATH="/usr/local/ericomshield"
+ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.06.2"
 DOCKER_VERSION_DEV="17.12.0"
@@ -50,6 +51,11 @@ ES_CONFIG_STORAGE=yes
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
     chmod 0755 $ES_PATH
+fi
+
+if [ ! -d $ES_BACKUP_PATH ]; then
+    mkdir -p $ES_BACKUP_PATH
+    chmod 0755 $ES_BACKUP_PATH
 fi
 
 function log_message() {
