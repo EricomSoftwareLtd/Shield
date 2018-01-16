@@ -49,7 +49,8 @@ ES_CONFIG_STORAGE=yes
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
-    chmod 0755 $ES_PATH
+    mkdir -p "$ES_PATH/backup"
+    chmod -r 0755 $ES_PATH
 fi
 
 function log_message() {

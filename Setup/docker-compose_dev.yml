@@ -145,7 +145,7 @@ services:
         - "LOGSTASH_FIELDS=service=consulserver"
     volumes:
       - type: bind
-        source: /usr/local/ericomshield/consulbackup
+        source: /usr/local/ericomshield/backup
         target: /consul/backup
 
 
