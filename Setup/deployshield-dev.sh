@@ -7,7 +7,6 @@
 ###################################LO##BH###
 JENKINS=
 NETWORK_INTERFACE='eth0'
-SINGLE_MODE=true
 STACK_NAME='shield'
 ES_YML_FILE=
 HOST=$(hostname)
@@ -83,15 +82,6 @@ function am_i_leader()
     fi
 }
 
-function set_experimental() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"experimental" : true' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"experimental" : true in /etc/docker/daemon.json'
-    else
-        echo $'{\n\"experimental\" : true\n}\n' >/etc/docker/daemon.json
-        echo 'Setting: "experimental" : true in /etc/docker/daemon.json'
-    fi
-}
-
 function create_uuid() {
     if [ $(docker secret ls | grep -c $SECRET_UID) -eq 0 ]; then
         uuid=$(uuidgen)
@@ -122,9 +112,6 @@ function make_in_memory_volume() {
 
 while [ "$1" != "" ]; do
     case $1 in
-    -s | --single-mode)
-        SINGLE_MODE=true
-        ;;
     -j | --jenkins)
         JENKINS="yes"
         ;;
@@ -138,11 +125,7 @@ else
     ES_YML_FILE=docker-compose_dev.yml
 fi
 
-if [ -z "$SINGLE_MODE" ]; then
-    echo 'Run multinode script'
-    exit 0
-else
-    SWARM=$(test_swarm_exists)
+SWARM=$(test_swarm_exists)
     if [ -z "$SWARM" ]; then
         echo '#######################Start create swarm#####################'
         if [ -z "$IP_ADDRESS" ]; then
@@ -163,16 +146,20 @@ fi
 
 create_uuid
 make_in_memory_volume
-#set_experimental
 
-SYS_LOG_HOST=$(docker node ls | grep Leader | awk '{print $3}')
-
+LEADER_HOST=$(docker node ls | grep Leader | awk '{print $3}')
+# ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS
+# id123 *   shield-mng1         Ready               Active              Leader  # when leader is current node hostname is 3rd param (ID, *, hostname)
+# id123    shield-mng1         Ready               Active              Leader   # when leader is not current node hostname is the 2nd param (ID, hostname)
+if [ $LEADER_HOST == "Ready" ]; then
+   LEADER_HOST=$(docker node ls | grep Leader | awk '{print $2}')
+fi
 create_proxy_env_file
 
 NODES_COUNT=$(docker node ls | grep -c Ready)
 if [ "$NODES_COUNT" -eq 1 ]; then
     echo "***************     Adding Labels:browser, shield_core, management"
-    retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $SYS_LOG_HOST
+    retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
 fi
 
 
