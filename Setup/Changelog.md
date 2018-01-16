@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_256] - 2018-1-16
+- Start using votiro 7.2.1 #1501
+- Enable caching in shield-squid-ext #1857
+- Fix electron-rebuild step in CEF build #1865
+- Improve default.pac preformnce #1850
+- Removed "should fail the download of 'MyZip.zip' which is password protected when using Votiro cloud server" test #1851
+- Added Votiro URL to error message when failing to upload the file
+
 ## [Dev:Build_255] - 2018-1-14
 - (*) Removed local dir for consul, added restore to Admin
 - (*) Dashboard indicators (1535, 1790)
