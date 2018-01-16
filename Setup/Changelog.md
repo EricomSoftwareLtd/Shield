@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_258] - 2018-1-16
+- Multi-Machine: Old Configuration is loaded when Admin move to another node #1816
+- When killing all consul-server containers the browsers and the shield_authproxy didn't started. #1538
+- Put the backup on the host (e.g. /usr/local/ericomshield/backup ) #1608
+
 ## [Dev:Build_257] - 2018-1-16
 - Dashboard indicators #1847
 - Add certificate authentication support #1867
