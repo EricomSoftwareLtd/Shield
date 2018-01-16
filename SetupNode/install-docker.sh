@@ -17,7 +17,7 @@ set -e
 # Git commit from https://github.com/docker/docker-install when
 # the script was uploaded (Should only be modified by upload job):
 SCRIPT_COMMIT_SHA=716f7ca
-UBUNTU_DOCKER_VERSION="17.06.2"
+UBUNTU_DOCKER_VERSION="17.12.0"
 
 
 # This value will automatically get changed for:
