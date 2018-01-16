@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_257] - 2018-1-16
+- Dashboard indicators #1847
+- Add certificate authentication support #1867
+- Support upstream proxy client certificate + trusting customer CA certificate #1797
+- Wrong link to download dropbox #1803
+
 ## [Dev:Build_256] - 2018-1-16
 - Start using votiro 7.2.1 #1501
 - Enable caching in shield-squid-ext #1857
