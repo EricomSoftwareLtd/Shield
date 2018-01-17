@@ -507,6 +507,11 @@ function get_shield_files() {
     curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
     chmod +x shield-nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
+    if [ "$ES_DEV" == true ]; then
+        echo "Getting $ES_repo_restore_dev_sh"
+        curl -s -S -o restore-backup.sh "$ES_repo_restore_dev_sh"
+        chmod +x restore-backup.sh
+    fi
 }
 
 function count_running_docker_services() {
