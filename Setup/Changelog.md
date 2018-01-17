@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_260] - 2018-1-17
+- Fix right click on hovered links #1874
+- External Proxy Support #1574
+- Restore Command available from outside #1609
+
 ## [Dev:Build_259] - 2018-1-17
 - Fixed yml file
 
