@@ -1,5 +1,5 @@
-#Build Dev:Build_258.1 on 16/1/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_258.1
+#Build Dev:Build_259 on 17/1/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_259
 shield-configuration:latest shield-configuration:180116-18.20-1119
 shield-consul-agent:latest shield-consul-agent:180116-18.09-1118
 shield-admin:latest shield-admin:180116-18.09-1118

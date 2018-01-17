@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_259] - 2018-1-17
+- Fixed yml file
+
 ## [Dev:Build_258] - 2018-1-16
 - Multi-Machine: Old Configuration is loaded when Admin move to another node #1816
 - When killing all consul-server containers the browsers and the shield_authproxy didn't started. #1538
