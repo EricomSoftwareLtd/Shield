@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_261] - 2018-1-18
+- Updated proxy server
+
 ## [Dev:Build_260] - 2018-1-17
 - Fix right click on hovered links #1874
 - External Proxy Support #1574
