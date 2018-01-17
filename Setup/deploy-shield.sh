@@ -15,6 +15,12 @@ SECRET_UID="shield-system-id"
 
 RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
+ES_PATH=/usr/local/ericomshield
+CONSUL_BACKUP_PATH="$ES_PATH/backup"
+
+if [ ! -d "$CONSUL_BACKUP_PATH" ]; then
+    mkdir -p "$CONSUL_BACKUP_PATH"
+fi
 
 #For bckwrd-compatibility and Jenkins
 if [ ! -f "$ES_YML_FILE" ]; then
