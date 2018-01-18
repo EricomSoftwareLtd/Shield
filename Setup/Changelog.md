@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_262] - 2018-1-18
+- Implement Keepalive with Votiro Server #1828
+- Dashboard indicators (always write alerts, Votiro KeepAlive alert) #1879
+- Lower image quality during scroll
+
 ## [Dev:Build_261] - 2018-1-18
 - Updated proxy server
 
