@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_263] - 2018-1-18
+- Allow option to use ext proxy cache without upstream proxy - #1854
+- Change auth.common.policy_matcher_ttl_minutes to 0.08 
+- Cookies are off by default
+- Append report to scale number #1888
+- Background Tab Timeout - Admin Policy Configuration (R1) #1681 (admin part)
+
 ## [Dev:Build_262] - 2018-1-18
 - Implement Keepalive with Votiro Server #1828
 - Dashboard indicators (always write alerts, Votiro KeepAlive alert) #1879
