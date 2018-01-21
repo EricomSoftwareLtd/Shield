@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_265] - 2018-1-21
+- (*) Fixed Default PAC file when using IE 11 #1894
+- Quality_scroll_fps 20 -> 50
+- Fixed high scale bug 
+
 ## [Staging:18.01-Build_249.7] - 2018-1-21
 - Ignore upstream CA errors by default 
 - Cookies are off by default 
