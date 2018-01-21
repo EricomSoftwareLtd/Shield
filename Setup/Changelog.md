@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_264] - 2018-1-21
+- (*) Rework on Cookies support , fix page load getting stuck #1878
+
 ## [Dev:Build_263] - 2018-1-18
 - Allow option to use ext proxy cache without upstream proxy - #1854
 - Change auth.common.policy_matcher_ttl_minutes to 0.08 
