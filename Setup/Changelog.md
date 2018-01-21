@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Staging:18.01-Build_249.7] - 2018-1-21
 - Ignore upstream CA errors by default 
 - Cookies are off by default 
+- Fixed Default PAC file
 
 ## [Dev:Build_264] - 2018-1-21
 - (*) Rework on Cookies support , fix page load getting stuck #1878
