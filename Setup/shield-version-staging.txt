@@ -12,7 +12,7 @@ shield-elk:latest shield-elk:171218-08.56-824
 extproxy:latest extproxy:249.3
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180101-09.50-934
 shield-cdr-controller:latest shield-cdr-controller:180101-09.50-934
-shield-web-service:latest shield-web-service:171217-19.18-812
+shield-web-service:latest shield-web-service:249.7
 shield-maintenance:latest shield-maintenance:171015-11.48-270
 shield-authproxy:latest shield-authproxy:180107-19.50-953
 node-installer:latest node-installer:171227-16.29
