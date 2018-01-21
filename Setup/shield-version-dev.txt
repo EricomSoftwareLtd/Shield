@@ -1,4 +1,4 @@
-#Build Dev:Build_264 on 21/1/19
+#Build Dev:Build_264 on 21/1/19 (Test for autoupdate)
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_264
 shield-configuration:latest shield-configuration:180117-17.51-1138
 shield-consul-agent:latest shield-consul-agent:180116-18.09-1118
