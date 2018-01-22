@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_267] - 2018-1-22
+- Cross Windows is in - but disabled
+- Enable/Disable Caching from the AdminUI #1895
+- After reboot new back up files are being created #1904
 
 ## [Dev:Build_265] - 2018-1-21
 - (*) Fixed Default PAC file when using IE 11 #1894
