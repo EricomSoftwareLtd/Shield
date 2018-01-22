@@ -23,12 +23,10 @@ ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
-ES_PRE_CHECK_FILE="$ES_PATH/shield_pre_install_check.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
-##ICIES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
@@ -395,9 +393,6 @@ function get_shield_install_files() {
     #include file with files repository
     source $ES_REPO_FILE
 
-    echo "Getting $ES_PRE_CHECK_FILE"
-    curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
-
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
         curl -s -S -o shield-version-new.txt "$ES_repo_dev_ver"
@@ -475,13 +470,13 @@ function pull_images() {
 
 #############     Getting all files from Github
 function get_shield_files() {
-    echo "Getting $ES_repo_uninstall"
+    echo "Getting Shield Files"
 
     t=0
     ## now loop through the repo/cmd arrays
     for REPO_FILE in "${ES_repo_files[@]}"
     do
-       CMD_FILE=
+       CMD_FILE="${ES_cmd_files[t]}"
        if [ ! -z $CMD_FILE ] ;  then
           if [ $CMD_FILE == $ES_cmd_setup] && [ -f $ES_cmd_setup ]; then
              continue
@@ -573,13 +568,6 @@ fi
 
 get_shield_install_files
 
-if [ "$ES_FORCE" == false ]; then 
-   source $ES_PRE_CHECK_FILE
-   perform_env_test
-fi
-
-add_aliases
-
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
     echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
@@ -597,9 +585,16 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
     fi
 fi
 
-setup_dnsmasq
-
 get_shield_files
+
+if [ "$ES_FORCE" == false ]; then 
+   source $ES_PRE_CHECK_FILE
+   perform_env_test
+fi
+
+add_aliases
+
+setup_dnsmasq
 
 docker_login
 
