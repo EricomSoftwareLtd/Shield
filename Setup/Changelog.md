@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_268] - 2018-1-22
+- Background Tab Timeout - Admin Policy Configuration (R1) #1681
+- Min Available browser - 20 or calculated
+ 
 ## [Dev:Build_267] - 2018-1-22
 - Cross Windows is in - but disabled
 - Enable/Disable Caching from the AdminUI #1895
