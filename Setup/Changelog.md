@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_271] - 2018-1-24
+- Kerberos fails when using chrome #1897
+
 ## [Dev:Build_270] - 2018-1-24
 - Rolled back HTML form with method POST creates new window - cant print in EzPass site #1654
 
