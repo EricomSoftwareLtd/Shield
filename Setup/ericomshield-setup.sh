@@ -45,6 +45,47 @@ ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
 ES_CONFIG_STORAGE=yes
 
+
+declare -a ES_repo_files=(
+"$ES_repo_setup"
+"$ES_repo_run"
+"$ES_repo_update"
+"$ES_repo_version"
+"$ES_repo_stop"
+"$ES_repo_status"
+"$ES_repo_restart"
+"$ES_repo_ip"
+"$ES_repo_systemd_updater_service"
+"$ES_repo_sysctl_shield_conf"
+"$ES_repo_uninstall"
+"$ES_repo_EULA"
+"$ES_repo_setup_node"
+"$ES_repo_shield_nodes"
+"$ES_repo_pre_check"
+"$ES_repo_shield_aliases"
+"$ES_repo_restore"
+"")
+
+declare -a ES_cmd_files=(
+"$ES_cmd_setup"
+"$ES_cmd_run"
+"$ES_cmd_update"
+"$ES_cmd_version"
+"$ES_cmd_stop"
+"$ES_cmd_status"
+"$ES_cmd_restart"
+"$ES_cmd_uninstall"
+"$ES_cmd_ip"
+"$ES_cmd_systemd_updater_service"
+"$ES_cmd_sysctl_shield_conf"
+"$ES_cmd_EULA"
+"$ES_cmd_setup_node"
+"$ES_cmd_shield_nodes"
+"$ES_cmd_pre_check"
+"$ES_cmd_shield_aliases"
+"$ES_cmd_restore"
+"")
+
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -472,6 +513,7 @@ function get_shield_files() {
     t=0
     #NON
     echo *******************************88ceest_ICI
+
     echo ${ES_repo_files[@]}
     ## now loop through the repo/cmd arrays
     for REPO_FILE in "${ES_repo_files[@]}"
