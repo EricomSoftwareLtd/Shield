@@ -225,6 +225,7 @@ function failed_to_install() {
             rm -f "$ES_VER_FILE"
         fi
     fi
+    exit 1
 }
 
 function accept_license() {
@@ -380,15 +381,11 @@ function get_shield_install_files() {
     echo "Getting $ES_REPO_FILE"
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
     curl -s -S -o "shield_repo_tmp.sh" $ES_repo_setup
-    if [ $(grep -c '404' shield_repo_tmp.sh) -ge 1 ]; then
-       failed_to_install "Cannot Retrieve Installation files for version:" $BRANCH
+    if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c '404' shield_repo_tmp.sh) -ge 1 ]; then
+       failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
     
     mv  shield_repo_tmp.sh "$ES_REPO_FILE"
-
-    if [ ! -f "$ES_REPO_FILE" ]; then
-       failed_to_install "Cannot Retrieve Installation files for version:" $BRANCH
-    fi
 
     #include file with files repository
     source $ES_REPO_FILE
@@ -473,6 +470,9 @@ function get_shield_files() {
     echo "Getting Shield Files"
 
     t=0
+    #NON
+    echo *******************************88ceest_ICI
+    echo ${ES_repo_files[@]}
     ## now loop through the repo/cmd arrays
     for REPO_FILE in "${ES_repo_files[@]}"
     do
@@ -491,6 +491,8 @@ function get_shield_files() {
        fi  
        let t=t+1
     done
+#NON    
+    exit 0
 
 }
 
@@ -554,14 +556,14 @@ echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
-install_docker
+#NONinstall_docker
 
-if systemctl start docker; then
-    echo "Starting docker service ***************     Success!"
-else
-    failed_to_install "Failed to start docker service"
-    exit 1
-fi
+#NONif systemctl start docker; then
+#NON    echo "Starting docker service ***************     Success!"
+#NONelse
+#NON    failed_to_install "Failed to start docker service"
+#NON    exit 1
+#NONfi
 
 # No Need to Install docker compose
 # install_docker_compose
@@ -587,8 +589,11 @@ fi
 
 get_shield_files
 
+#NON
+exit 0
+
 if [ "$ES_FORCE" == false ]; then 
-   source $ES_PRE_CHECK_FILE
+   source $ES_cmd_pre_check
    perform_env_test
 fi
 

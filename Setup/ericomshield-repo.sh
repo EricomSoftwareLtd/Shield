@@ -64,6 +64,11 @@ $ES_repo_pre_check
 $ES_repo_shield_aliases
 $ES_repo_restore
 "")
+
+#NON
+echo "cest la"
+echo ${ES_repo_files[@]}
+
 declare -a ES_cmd_files=(
 $ES_cmd_setup
 $ES_cmd_run
