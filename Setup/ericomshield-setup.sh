@@ -15,7 +15,7 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.06.2"
-DOCKER_VERSION_DEV="17.12.0"
+DOCKER_VERSION_STAGING="17.12.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -23,17 +23,15 @@ ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
-ES_PRE_CHECK_FILE="$ES_PATH/shield_pre_install_check.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
-ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="18.01-Setup"
+ES_SETUP_VER="18.01.1-Setup"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -46,6 +44,47 @@ ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
 ES_CONFIG_STORAGE=yes
+
+
+declare -a ES_repo_files=(
+"$ES_repo_setup"
+"$ES_repo_run"
+"$ES_repo_update"
+"$ES_repo_version"
+"$ES_repo_stop"
+"$ES_repo_status"
+"$ES_repo_restart"
+"$ES_repo_ip"
+"$ES_repo_systemd_updater_service"
+"$ES_repo_sysctl_shield_conf"
+"$ES_repo_uninstall"
+"$ES_repo_EULA"
+"$ES_repo_setup_node"
+"$ES_repo_shield_nodes"
+"$ES_repo_pre_check"
+"$ES_repo_shield_aliases"
+"$ES_repo_restore"
+"")
+
+declare -a ES_cmd_files=(
+"$ES_cmd_setup"
+"$ES_cmd_run"
+"$ES_cmd_update"
+"$ES_cmd_version"
+"$ES_cmd_stop"
+"$ES_cmd_status"
+"$ES_cmd_restart"
+"$ES_cmd_uninstall"
+"$ES_cmd_ip"
+"$ES_cmd_systemd_updater_service"
+"$ES_cmd_sysctl_shield_conf"
+"$ES_cmd_EULA"
+"$ES_cmd_setup_node"
+"$ES_cmd_shield_nodes"
+"$ES_cmd_pre_check"
+"$ES_cmd_shield_aliases"
+"$ES_cmd_restore"
+"")
 
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
@@ -151,11 +190,6 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     apt-get --assume-yes -y install curl
 fi
 
-if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
-    echo "***************     Installing jq"
-    apt-get --assume-yes -y install jq
-fi
-
 function save_my_ip() {
     echo "$MY_IP" >"$ES_MY_IP_FILE"
 }
@@ -217,7 +251,7 @@ function choose_network_interface() {
     done
 
     log_message "Aborting installation!"
-    exit 1
+    failed_to_install "On_choose_network_interface"
 }
 
 function failed_to_install() {
@@ -232,6 +266,7 @@ function failed_to_install() {
             rm -f "$ES_VER_FILE"
         fi
     fi
+    exit 1
 }
 
 function accept_license() {
@@ -260,9 +295,9 @@ function accept_license() {
 }
 
 function install_docker() {
-    if [ "$ES_DEV" == true ]; then
+    if [ "$ES_STAGING" == true ] || [ "$ES_DEV" == true ]; then
        echo "*************************NEW DOCKER VERSION: $DOCKER_VERSION_DEV"
-       DOCKER_VERSION="$DOCKER_VERSION_DEV"
+       DOCKER_VERSION="$DOCKER_VERSION_STAGING"
     fi   
 
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
@@ -315,7 +350,7 @@ function update_sysctl() {
     cat "${ES_PATH}/sysctl_shield.conf" >"/etc/sysctl.d/30-ericom-shield.conf"
     #to apply the changes:
     sysctl --load="/etc/sysctl.d/30-ericom-shield.conf"
-    echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!!!!"
+    echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!"
 }
 
 function setup_dnsmasq() {
@@ -367,19 +402,17 @@ function prepare_yml() {
             comp_ver=$(echo "$ver" | awk '{print $2}')
             if [ ! -z "$pattern_ver" ]; then
                 echo "Changing ver: $comp_ver"
-                #echo "  sed -i 's/$pattern_ver/$comp_ver/g' $ES_YML_FILE"
                 sed -i "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
             fi
         fi
     done <"$ES_VER_FILE"
 
-    #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 }
 
 function switch_to_multi_node
 {
-      echo "Switching to Multi-Node (consul-server -> global"
+      echo "Switching to Multi-Node (consul-server -> global)"
       sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
       sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
       sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
@@ -388,17 +421,15 @@ function switch_to_multi_node
 function get_shield_install_files() {
     echo "Getting $ES_REPO_FILE"
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
-    echo $ES_REPO_FILE
-    curl -s -S -o $ES_REPO_FILE $ES_repo_setup
-    if [ ! -f "$ES_REPO_FILE" ]; then
-       failed_to_install "Cannot Retrieve Installation files for version:" $BRANCH
+    curl -s -S -o "shield_repo_tmp.sh" $ES_repo_setup
+    if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c '404' shield_repo_tmp.sh) -ge 1 ]; then
+       failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
+    
+    mv  shield_repo_tmp.sh "$ES_REPO_FILE"
 
     #include file with files repository
     source $ES_REPO_FILE
-
-    echo "Getting $ES_PRE_CHECK_FILE"
-    curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
 
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
@@ -477,41 +508,34 @@ function pull_images() {
 
 #############     Getting all files from Github
 function get_shield_files() {
-    if [ ! -f "ericomshield-setup.sh" ]; then
-        curl -s -S -o ericomshield-setup.sh $ES_repo_setup
-        chmod +x ericomshield-setup.sh
-    fi
+    echo "Getting Shield Files"
 
-    if [ ! -f "autoupdate.sh" ]; then
-        curl -s -S -o autoupdate.sh "$ES_repo_update"
-        chmod +x autoupdate.sh
-    fi
-    
-    echo "Getting $ES_repo_uninstall"
-    curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
-    chmod +x "$ES_uninstall_FILE"
-    curl -s -S -o run.sh "$ES_repo_run"
-    chmod +x run.sh
-    curl -s -S -o showversion.sh "$ES_repo_version"
-    chmod +x showversion.sh
-    curl -s -S -o stop.sh "$ES_repo_stop"
-    chmod +x stop.sh
-    curl -s -S -o status.sh "$ES_repo_status"
-    chmod +x status.sh
-    curl -s -S -o restart.sh "$ES_repo_restart"
-    chmod +x restart.sh
-    curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
-    chmod +x ~/show-my-ip.sh
-    curl -s -S -o ericomshield-setup-node.sh "$ES_repo_setup_node"
-    chmod +x ericomshield-setup-node.sh
-    curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
-    chmod +x shield-nodes.sh
-    curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
-    if [ "$ES_DEV" == true ]; then
-        echo "Getting $ES_repo_restore_dev_sh"
-        curl -s -S -o restore-backup.sh "$ES_repo_restore_dev_sh"
-        chmod +x restore-backup.sh
-    fi
+    t=0
+    #NON
+    echo *******************************88ceest_ICI
+
+    echo ${ES_repo_files[@]}
+    ## now loop through the repo/cmd arrays
+    for REPO_FILE in "${ES_repo_files[@]}"
+    do
+       CMD_FILE="${ES_cmd_files[t]}"
+       if [ ! -z $CMD_FILE ] ;  then
+          if [ $CMD_FILE == $ES_cmd_setup] && [ -f $ES_cmd_setup ]; then
+             continue
+          fi
+          if [ $CMD_FILE == $ES_cmd_update] && [ -f $ES_cmd_update ]; then
+             continue
+          fi
+       
+          echo "Getting Shield Files: $REPO_FILE => $CMD_FILE"
+          curl -s -S -o "$CMD_FILE" "$REPO_FILE"
+         chmod +x "$CMD_FILE"
+       fi  
+       let t=t+1
+    done
+#NON    
+    exit 0
+
 }
 
 function count_running_docker_services() {
@@ -574,26 +598,19 @@ echo Docker Login: $DOCKER_USER
 echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
-install_docker
+#NONinstall_docker
 
-if systemctl start docker; then
-    echo "Starting docker service ***************     Success!"
-else
-    failed_to_install "Failed to start docker service"
-    exit 1
-fi
+#NONif systemctl start docker; then
+#NON    echo "Starting docker service ***************     Success!"
+#NONelse
+#NON    failed_to_install "Failed to start docker service"
+#NON    exit 1
+#NONfi
 
 # No Need to Install docker compose
 # install_docker_compose
 
 get_shield_install_files
-
-if [ "$ES_FORCE" == false ]; then 
-   source $ES_PRE_CHECK_FILE
-   perform_env_test
-fi
-
-add_aliases
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
@@ -612,9 +629,19 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
     fi
 fi
 
-setup_dnsmasq
-
 get_shield_files
+
+#NON
+exit 0
+
+if [ "$ES_FORCE" == false ]; then 
+   source $ES_cmd_pre_check
+   perform_env_test
+fi
+
+add_aliases
+
+setup_dnsmasq
 
 docker_login
 
