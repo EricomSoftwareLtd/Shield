@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_270] - 2018-1-24
+- Rolled back HTML form with method POST creates new window - cant print in EzPass site #1654
+
 ## [Dev:Build_269] - 2018-1-23
 - Fixed Auth proxy stuck in some cases
 - Backup - should not be created when the settings are invalid #1919
