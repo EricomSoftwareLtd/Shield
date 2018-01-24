@@ -9,10 +9,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_269] - 2018-1-23
+- Fixed Auth proxy stuck in some cases
+- Backup - should not be created when the settings are invalid #1919
+- Data is not saved after adding nodes and running ericomshiled-setup -force #1908
+- Need to delete duplicate backup files after x time #1905
+- Enable/Disable Caching from the AdminUI #1895
+- HTML form with method POST creates new window - cant print in EzPass site #1654
+- Cross Window - open google drive / dropbox from yahoo is not working with shield #1319
+- Cross-Windows Failure printing a PDF on docusign.net #1762
+- Kvish 6 - can't print receipt #1741
+- Cross Windows - Hotel.com #1657
+- Cross Window - Salesforce can't open email HTML view #532
+
 ## [Dev:Build_268] - 2018-1-22
 - Background Tab Timeout - Admin Policy Configuration (R1) #1681
 - Min Available browser - 20 or calculated
- 
+
 ## [Dev:Build_267] - 2018-1-22
 - Cross Windows is in - but disabled
 - Enable/Disable Caching from the AdminUI #1895
