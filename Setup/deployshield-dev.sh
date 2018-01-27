@@ -173,12 +173,17 @@ am_i_leader
 
 if [ "$AM_I_LEADER" == true ]; then
     # Copy docker-compose.yml across all manager nodes
-    YAML_F="$(docker run --rm -v "/usr/local/ericomshield:/mnt" busybox sh -c "cat /mnt/docker-compose.yml | uuencode -m -")"
     docker service rm copy_yaml 2>/dev/null || true
-    docker service create --constraint "node.labels.management==yes" --name copy_yaml --mode=global --restart-condition none --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" mavenugo/swarm-exec:17.03.0-ce \
-        docker run --rm -v "/usr/local/ericomshield:/mnt" --net=host busybox sh -c "echo \"$YAML_F\" | uudecode -o /mnt/docker-compose.yml && sleep 50"
-    sleep 10
+    docker config rm yaml 2>/dev/null || true
+    docker config create yaml "/usr/local/ericomshield/docker-compose.yml"
+    docker service create --constraint "node.labels.management==yes" --name copy_yaml --mode=global --restart-condition none \
+        --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
+        --mount "type=bind,source=/usr/local/ericomshield,target=/mnt" \
+        --config src=yaml,target="/tmp/docker-compose.yml" \
+        securebrowsing/shield_swarm-exec:latest \
+        /bin/sh -c "cp -f /tmp/docker-compose.yml /mnt/docker-compose.yml && sleep 50"
     docker service rm copy_yaml
+    docker config rm yaml
 
     retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
 else
