@@ -15,7 +15,7 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.06.2"
-DOCKER_VERSION_DEV="17.12.0"
+DOCKER_VERSION_STAGING="17.12.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -260,9 +260,9 @@ function accept_license() {
 }
 
 function install_docker() {
-    if [ "$ES_DEV" == true ]; then
-       echo "*************************NEW DOCKER VERSION: $DOCKER_VERSION_DEV"
-       DOCKER_VERSION="$DOCKER_VERSION_DEV"
+    if [ "$ES_DEV" == true ] || [ "$ES_STAGING" == true ]; then
+       echo "*************************NEW DOCKER VERSION: $DOCKER_VERSION_STAGING"
+       DOCKER_VERSION="$DOCKER_VERSION_STAGING"
     fi   
 
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
