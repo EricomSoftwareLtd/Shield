@@ -281,7 +281,7 @@ function install_docker() {
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
-    if [ "$(sudo docker version | wc -l)" -le 1 ]; then
+    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         failed_to_install "Failed to Install Docker"
         exit 1
     fi
