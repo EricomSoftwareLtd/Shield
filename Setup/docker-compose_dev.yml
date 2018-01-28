@@ -143,6 +143,7 @@ services:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
+        #- "DAILY_HISTORY=5" #number of days to save default 10
     volumes:
       - type: bind
         source: /usr/local/ericomshield/backup
