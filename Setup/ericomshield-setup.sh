@@ -267,7 +267,7 @@ function install_docker() {
 
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
-        apt-get --assume-yes -y install apt-transport-https
+        apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
 
         #Docker Installation of a specific Version
         curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
