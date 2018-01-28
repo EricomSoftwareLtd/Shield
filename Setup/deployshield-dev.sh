@@ -173,6 +173,7 @@ am_i_leader
 
 if [ "$AM_I_LEADER" == true ]; then
     # Copy docker-compose.yml across all manager nodes
+    echo "Copy docker-compose.yml across all manager nodes"
     docker service rm copy_yaml 2>/dev/null || true
     docker config rm yaml 2>/dev/null || true
     docker config create yaml "/usr/local/ericomshield/docker-compose.yml"
@@ -187,5 +188,5 @@ if [ "$AM_I_LEADER" == true ]; then
 
     retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
 else
-    echo "Please run this command on the leader: $SYS_LOG_HOST"
+    echo "Please run this command on the leader: $LEADER_HOST"
 fi
