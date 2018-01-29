@@ -22,8 +22,8 @@ ES_repo_uninstall="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$B
 ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
 ES_repo_setup_node="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/SetupNode/ericomshield-setup-node.sh"
 ES_repo_shield_nodes="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-nodes.sh"
-ES_repo_pre_check="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield_pre_install_check.sh"
-ES_repo_shield_aliases="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/.shield_aliases"
+ES_repo_pre_check="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield_pre_install_check.sh"
+ES_repo_shield_aliases="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/.shield_aliases"
 ES_repo_restore="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/restore.sh"
 
 ES_cmd_setup="setup.sh"
