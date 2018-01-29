@@ -482,8 +482,8 @@ function get_shield_files() {
     fi
     
     echo "Getting $ES_repo_uninstall"
-    curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
-    chmod +x "$ES_uninstall_FILE"
+    curl -s -S -o "uninstall.sh" "$ES_repo_uninstall"
+    chmod +x "uninstall.sh"
     curl -s -S -o run.sh "$ES_repo_run"
     chmod +x run.sh
     curl -s -S -o showversion.sh "$ES_repo_version"
