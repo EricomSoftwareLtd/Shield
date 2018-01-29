@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_272] - 2018-1-29
+- Force AN to never enable touchscreen mode
+- Fix for SSL sites with auth ensbled #1957
+- Exempt UA QtWebEngine ShangriLa.Fix dropbox UA
+- Fix don't open new tab for regular forms #1654
+- Replace localHostOrDomainIs with shExpMatch #1894
+- Fixed CEF crash on rare cases 
+- Consul flag for multi-window enable #1434
+- Korean bug fixes 1984, 1979
+- HTML form with method POST creates new window - cant print in EzPass site #1654
+- Cross-Windows Failure printing a PDF on docusign.net #1762
+- Kvish 6 - can't print receipt #1741
+- Cross Window - open google drive / dropbox from yahoo is not working with shield #1319
+- Cross window - Click Search in Kayak.com ("-->") - Nothing Happnes #983
+- Can't open in google sheets/docs from gmail #665
+- Cross Window - Salesforce can't open email HTML view #532
+
 ## [Dev:Build_271] - 2018-1-24
 - Kerberos fails when using chrome #1897
 
