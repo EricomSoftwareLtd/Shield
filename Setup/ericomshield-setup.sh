@@ -379,7 +379,7 @@ function prepare_yml() {
 
 function switch_to_multi_node
 {
-      if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -lt 1 ]; then
+      if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -eq 1 ]; then
          echo "Switching to Multi-Node (consul-server -> global)"
          sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
          sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
