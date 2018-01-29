@@ -177,13 +177,13 @@ if [ "$AM_I_LEADER" == true ]; then
     echo "Copy docker-compose.yml across all manager nodes"
     docker service rm copy_yaml 2>/dev/null || true
     docker config rm yaml 2>/dev/null || true
-    docker config create yaml "/usr/local/ericomshield/docker-compose.yml"
+    docker config create yaml "/usr/local/ericomshield/$ES_YML_FILE"
     docker service create --constraint "node.labels.management==yes" --name copy_yaml --mode=global --restart-condition none \
         --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
         --mount "type=bind,source=/usr/local/ericomshield,target=/mnt" \
-        --config src=yaml,target="/tmp/docker-compose.yml" \
+        --config src=yaml,target="/tmp/$ES_YML_FILE" \
         securebrowsing/shield_swarm-exec:$DOCKER_SWARMEXEC_TAG \
-        /bin/sh -c "cp -f /tmp/docker-compose.yml /mnt/docker-compose.yml && sleep 50"
+        /bin/sh -c "cp -f /tmp/$ES_YML_FILE /mnt/$ES_YML_FILE && sleep 50"
     docker service rm copy_yaml
     docker config rm yaml
 
