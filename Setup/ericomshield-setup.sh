@@ -379,10 +379,12 @@ function prepare_yml() {
 
 function switch_to_multi_node
 {
-      echo "Switching to Multi-Node (consul-server -> global"
-      sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
-      sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
-      sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
+      if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -lt 1 ]; then
+         echo "Switching to Multi-Node (consul-server -> global)"
+         sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
+         sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
+         sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
+      fi
 }
 
 function get_shield_install_files() {
@@ -634,13 +636,15 @@ if [ "$UPDATE" == false ]; then
 else # Update
     MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
     CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
-    if [ "$MNG_NODES_COUNT" -gt 1 ] && [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+    if [ "$MNG_NODES_COUNT" -gt 1 ] ; then
        switch_to_multi_node
-       am_i_leader
-       if [ "$AM_I_LEADER" == true ]; then
-          echo " Stopping Ericom Shield for Update "
-          ./stop.sh
-	   fi
+       if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+          am_i_leader
+          if [ "$AM_I_LEADER" == true ]; then
+             echo " Stopping Ericom Shield for Update "
+             ./stop.sh
+          fi
+       fi   
     fi
     if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
         if [ "$UPDATE_NEED_RESTART" == true ]; then
