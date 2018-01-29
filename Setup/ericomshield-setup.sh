@@ -371,12 +371,12 @@ function prepare_yml() {
 
 function switch_to_multi_node
 {
-      if [ $(grep '#      mode: global       #multi node' docker-compose.yml -c) - lt 1 ]; then 
+      if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -lt 1 ]; then
          echo "Switching to Multi-Node (consul-server -> global)"
          sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
          sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
          sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
-      fi 
+      fi
 }
 
 function get_shield_install_files() {
@@ -501,11 +501,9 @@ function get_shield_files() {
     curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
     chmod +x shield-nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
-    if [ "$ES_DEV" == true ]; then
-        echo "Getting $ES_repo_restore_dev_sh"
-        curl -s -S -o restore-backup.sh "$ES_repo_restore_dev_sh"
-        chmod +x restore-backup.sh
-    fi
+    echo "Getting $ES_repo_restore_sh"
+    curl -s -S -o restore.sh "$ES_repo_restore_dev_sh"
+    chmod +x restore.sh
 
 # New Commands
     echo ${ES_repo_files[@]}
