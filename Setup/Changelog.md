@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_274] - 2018-1-30
+- Add DNS support for External proxy #1965
+- Cross window resize problem #1998
+- Use 2 ext proxies for HA
+
 ## [Dev:Build_273] - 2018-1-30
 - Multi-node enabled by defualt 
 
