@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_273] - 2018-1-30
+- Multi-node enabled by defualt 
+
 ## [Dev:Build_272] - 2018-1-29
 - Force AN to never enable touchscreen mode
 - Fix for SSL sites with auth ensbled #1957
