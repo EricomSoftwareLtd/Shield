@@ -625,7 +625,7 @@ if [ "$UPDATE" == false ]; then
     create_shield_service
 
 else # Update
-    STOP_SHIELD= false
+    STOP_SHIELD=false
     am_i_leader
     MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
     CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
@@ -633,7 +633,7 @@ else # Update
        switch_to_multi_node
        if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
           if [ "$AM_I_LEADER" == true ]; then
-	     STOP_SHIELD= true
+	     STOP_SHIELD=true
           fi
        fi   
     fi
@@ -641,7 +641,7 @@ else # Update
     if  [ "$AM_I_LEADER" == true ]; then
         if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
            if [ "$UPDATE_NEED_RESTART" == true ] || ["$STOP_SHIELD" == true ]; then
-              echo " Stopping Ericom Shield for Update "
+              log_message "Stopping Ericom Shield for Update (Downtime)"
               ./stop.sh
              else
               echo -n "stop shield-broker"
@@ -677,7 +677,7 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
        while [ $wait -lt 10 ]; do
           if "$ES_PATH"/status.sh; then
              echo "Ericom Shield is Running!"
-			 SUCCESS=true
+             SUCCESS=true
              break
            else
              echo -n .
@@ -687,7 +687,7 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
         done
     fi		
    else
-    echo "Installation only (no deployment)"
+    echo "Installation only (no deployment or not the leader)"
     SUCCESS=true	
 fi
 
