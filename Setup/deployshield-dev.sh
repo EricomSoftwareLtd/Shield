@@ -16,7 +16,6 @@ RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
 ES_PATH=/usr/local/ericomshield
 CONSUL_BACKUP_PATH="$ES_PATH/backup"
-DOCKER_SWARMEXEC_TAG=180128-09.08-1217
 
 if [ ! -d "$CONSUL_BACKUP_PATH" ]; then
     mkdir -p "$CONSUL_BACKUP_PATH"
@@ -193,3 +192,4 @@ if [ "$AM_I_LEADER" == true ]; then
 else
     echo "Please run this command on the leader: $LEADER_HOST"
 fi
+
