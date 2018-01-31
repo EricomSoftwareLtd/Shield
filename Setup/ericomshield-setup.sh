@@ -33,7 +33,7 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="18.01-Setup"
+ES_SETUP_VER="18.02-Setup"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -151,11 +151,6 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     apt-get --assume-yes -y install curl
 fi
 
-if [ "$(dpkg -l | grep -w -c jq)" -eq 0 ]; then
-    echo "***************     Installing jq"
-    apt-get --assume-yes -y install jq
-fi
-
 function save_my_ip() {
     echo "$MY_IP" >"$ES_MY_IP_FILE"
 }
@@ -216,8 +211,7 @@ function choose_network_interface() {
 
     done
 
-    log_message "Aborting installation!"
-    exit 1
+    failed_to_install "Aborting installation!"
 }
 
 function failed_to_install() {
@@ -232,6 +226,7 @@ function failed_to_install() {
             rm -f "$ES_VER_FILE"
         fi
     fi
+    exit 1    
 }
 
 function accept_license() {
@@ -281,9 +276,8 @@ function install_docker() {
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
-    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-        failed_to_install "Failed to Install Docker"
-        exit 1
+    if [ "$(sudo docker version | wc -l)" -le 1 ]; then
+        failed_to_install "Failed to Install/Update Docker, Exiting!"
     fi
 }
 
@@ -301,9 +295,7 @@ function docker_login() {
         if [ $? == 0 ]; then
             echo "Login Succeeded!"
         else
-            echo "Cannot Login to docker, Exiting!"
-            echo "$(date): An error occurred during the installation: Cannot login to docker" >>"$LOGFILE"
-            exit 1
+            failed_to_install "Cannot Login to docker, Exiting!"
         fi
     fi
 }
@@ -315,7 +307,7 @@ function update_sysctl() {
     cat "${ES_PATH}/sysctl_shield.conf" >"/etc/sysctl.d/30-ericom-shield.conf"
     #to apply the changes:
     sysctl --load="/etc/sysctl.d/30-ericom-shield.conf"
-    echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!!!!"
+    echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!"
 }
 
 function setup_dnsmasq() {
@@ -379,10 +371,12 @@ function prepare_yml() {
 
 function switch_to_multi_node
 {
-      echo "Switching to Multi-Node (consul-server -> global"
-      sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
-      sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
-      sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
+      if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -eq 1 ]; then
+         echo "Switching to Multi-Node (consul-server -> global)"
+         sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
+         sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
+         sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
+      fi
 }
 
 function get_shield_install_files() {
@@ -391,7 +385,7 @@ function get_shield_install_files() {
     echo $ES_REPO_FILE
     curl -s -S -o $ES_REPO_FILE $ES_repo_setup
     if [ ! -f "$ES_REPO_FILE" ]; then
-       failed_to_install "Cannot Retrieve Installation files for version:" $BRANCH
+       failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
 
     #include file with files repository
@@ -507,11 +501,9 @@ function get_shield_files() {
     curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
     chmod +x shield-nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
-    if [ "$ES_DEV" == true ]; then
-        echo "Getting $ES_repo_restore_dev_sh"
-        curl -s -S -o restore-backup.sh "$ES_repo_restore_dev_sh"
-        chmod +x restore-backup.sh
-    fi
+    echo "Getting $ES_repo_restore_dev_sh"
+    curl -s -S -o restore.sh "$ES_repo_restore_dev_sh"
+    chmod +x restore.sh
 }
 
 function count_running_docker_services() {
@@ -608,7 +600,6 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
         date -Iminutes >"$EULA_ACCEPTED_FILE"
     else
         failed_to_install "EULA has not been accepted, exiting..."
-        exit -1
     fi
 fi
 
@@ -632,26 +623,31 @@ if [ "$UPDATE" == false ]; then
     create_shield_service
 
 else # Update
+    STOP_SHIELD=false
+    am_i_leader
     MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
     CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
-    if [ "$MNG_NODES_COUNT" -gt 1 ] && [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+    if [ "$MNG_NODES_COUNT" -gt 1 ] ; then
        switch_to_multi_node
-       am_i_leader
-       if [ "$AM_I_LEADER" == true ]; then
-          echo " Stopping Ericom Shield for Update "
-          ./stop.sh
-	   fi
+       if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+          if [ "$AM_I_LEADER" == true ]; then
+	     STOP_SHIELD=true
+          fi
+       fi   
     fi
-    if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
-        if [ "$UPDATE_NEED_RESTART" == true ]; then
-            echo " Stopping Ericom Shield for Update "
-            ./stop.sh
-        else
-            echo -n "stop shield-broker"
-            docker service scale shield_broker-server=0
-            echo -n "stop shield_shield-admin" # Admin backs up Consul configuration at shutdown
-            docker service scale shield_shield-admin=0
-            wait_for_docker_to_settle
+    
+    if  [ "$AM_I_LEADER" == true ]; then
+        if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
+           if [ "$UPDATE_NEED_RESTART" == true ] || ["$STOP_SHIELD" == true ]; then
+              log_message "Stopping Ericom Shield for Update (Downtime)"
+              ./stop.sh
+             else
+              echo -n "stop shield-broker"
+              docker service scale shield_broker-server=0
+              echo -n "stop shield_shield-admin" # Admin backs up Consul configuration at shutdown
+              docker service scale shield_shield-admin=0
+              wait_for_docker_to_settle
+	   fi  
         fi
     fi
 fi
@@ -666,7 +662,7 @@ if [ -n "$MY_IP" ]; then
     export IP_ADDRESS="$MY_IP"
 fi
 
-if [ "$ES_RUN_DEPLOY" == true ]; then
+if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
     echo "source deploy-shield.sh"
     source deploy-shield.sh
 
@@ -679,7 +675,7 @@ if [ "$ES_RUN_DEPLOY" == true ]; then
        while [ $wait -lt 10 ]; do
           if "$ES_PATH"/status.sh; then
              echo "Ericom Shield is Running!"
-			 SUCCESS=true
+             SUCCESS=true
              break
            else
              echo -n .
@@ -689,7 +685,7 @@ if [ "$ES_RUN_DEPLOY" == true ]; then
         done
     fi		
    else
-    echo "Installation only (no deployment)"
+    echo "Installation only (no deployment or not the leader)"
     SUCCESS=true	
 fi
 
