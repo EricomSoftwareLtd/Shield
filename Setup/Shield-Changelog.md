@@ -9,6 +9,48 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.02-Build-275] - 2018-02-04
+### New Features:
+#### End User Features:
+-	Improved Cookies support (performance)
+-	Improved performance 
+-	Caching feature (configurable in the Admin)
+-	New PAC file (no DNS)
+-	Improved Scrolling (lowering quality during scroll)
+-	Zoom with ctrl+mouse
+-	Cross Windows Issues fix
+- Korean Support
+#### Admin User:
+-	Support Large Deployments (10k LDAP groups with 10K users)
+-	AdminUI:
+-	Background Tab Timeout (Suspend) can be defined in policy (per Domain/per User Profile)
+-	Added Alerts infrastructure, and 5 indicators to the Admin UI
+-	Added data collection for : totalDiskMB, diskUsage, networkRxBytesPerSec, networkTxBytesPerSec, upTime
+-	Added alert for Acrive Directory binding failure
+-	Added disk capacity and usage (data collection and display in the Admin UI)
+-	Browsers farm overloaded alerts per resource (memory, cpu, disk)
+-	Implement Keepalive with Votiro Server
+-	Set background colors for nodes table values based on alerts thresholds.
+-	Backup/Restore Configuration feature
+-	Full support for Upstream proxy
+-	Support Upstream proxy client certificate + trusting customer CA certificate (Admin side)
+-	New Docker Version 17.12
+-	New Version of CDR (Votiro 7.2.1)
+### Bug Fixes:
+-	Fix Right-Click on hovered links
+-	Wrong link to download dropbox #1803
+-	ericom.com is in white mode when using IE 11 
+-	Blank screen from Oktopost #1806 - set language in browser
+-	CTRL+Click on a link should open in new tab #1581
+- Scroll up/down is not working with shield for some url #1269
+-	Pressing Shift+click should open a new window #1269
+-	Support "Find in page" CTRL+F #354
+-	Admin:
+-	Admin UI sometimes doesn't display data - when admin show no data #1725
+-	CTRL+Click on a link should open in new tab #1581
+-	Default timeout waiting for sanitization is now 10 minutes (was 5 ) #1660
+-	White mode indicator inside admin policy table. (details) #1733
+
 ## [Prod:18.01-Build-248] - 2018-01-07
 ### New Features:
 - Pre-installation checks are performed before installation.
