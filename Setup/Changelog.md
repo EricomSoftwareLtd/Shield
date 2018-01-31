@@ -9,6 +9,54 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_274] - 2018-1-30
+- Add DNS support for External proxy #1965
+- Cross window resize problem #1998
+- Use 2 ext proxies for HA
+
+## [Dev:Build_273] - 2018-1-30
+- Multi-node enabled by defualt 
+
+## [Dev:Build_272] - 2018-1-29
+- Force AN to never enable touchscreen mode
+- Fix for SSL sites with auth ensbled #1957
+- Exempt UA QtWebEngine ShangriLa.Fix dropbox UA
+- Fix don't open new tab for regular forms #1654
+- Replace localHostOrDomainIs with shExpMatch #1894
+- Fixed CEF crash on rare cases 
+- Consul flag for multi-window enable #1434
+- Korean bug fixes 1984, 1979
+- HTML form with method POST creates new window - cant print in EzPass site #1654
+- Cross-Windows Failure printing a PDF on docusign.net #1762
+- Kvish 6 - can't print receipt #1741
+- Cross Window - open google drive / dropbox from yahoo is not working with shield #1319
+- Cross window - Click Search in Kayak.com ("-->") - Nothing Happnes #983
+- Can't open in google sheets/docs from gmail #665
+- Cross Window - Salesforce can't open email HTML view #532
+
+## [Dev:Build_271] - 2018-1-24
+- Kerberos fails when using chrome #1897
+
+## [Dev:Build_270] - 2018-1-24
+- Rolled back HTML form with method POST creates new window - cant print in EzPass site #1654
+
+## [Dev:Build_269] - 2018-1-23
+- Fixed Auth proxy stuck in some cases
+- Backup - should not be created when the settings are invalid #1919
+- Data is not saved after adding nodes and running ericomshiled-setup -force #1908
+- Need to delete duplicate backup files after x time #1905
+- Enable/Disable Caching from the AdminUI #1895
+- HTML form with method POST creates new window - cant print in EzPass site #1654
+- Cross Window - open google drive / dropbox from yahoo is not working with shield #1319
+- Cross-Windows Failure printing a PDF on docusign.net #1762
+- Kvish 6 - can't print receipt #1741
+- Cross Windows - Hotel.com #1657
+- Cross Window - Salesforce can't open email HTML view #532
+
+## [Dev:Build_268] - 2018-1-22
+- Background Tab Timeout - Admin Policy Configuration (R1) #1681
+- Min Available browser - 20 or calculated
+
 ## [Dev:Build_267] - 2018-1-22
 - Cross Windows is in - but disabled
 - Enable/Disable Caching from the AdminUI #1895
