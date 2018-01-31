@@ -10,6 +10,18 @@ if ((EUID != 0)); then
     exit
 fi
 
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -h | --help)
+        echo "Usage: $0 [filename]"
+        exit 0
+    ;;
+    esac
+    shift
+done
+
+
 all=($(docker ps | grep consul-server | awk {'print $1'}))
 
 if [ ${#all[@]} -eq 0 ]; then
