@@ -1,5 +1,5 @@
-#Build Staging:Build_275 on 31/1/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.02-Build_275
+#Build Staging:Build_275.0 on 31/1/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.02-Build_275.0
 shield-configuration:latest shield-configuration:180123-15.35-1200
 shield-consul-agent:latest shield-consul-agent:180116-18.09-1118
 shield-admin:latest shield-admin:180123-16.41-1202
