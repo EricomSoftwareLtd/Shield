@@ -29,4 +29,4 @@ if [ ${#all[@]} -eq 0 ]; then
     exit
 fi
 
-docker exec -t ${all[0]} python /scripts/manual_restore.py "$1"
+docker exec -t ${all[0]} python /scripts/manual_restore.py $1
