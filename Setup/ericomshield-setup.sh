@@ -631,7 +631,6 @@ else # Update
     STOP_SHIELD=false
     SWARM=$(test_swarm_exists)
     if [ ! -z "$SWARM" ]; then
-       STOP_SHIELD=false
        am_i_leader
        MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
        CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
@@ -655,8 +654,6 @@ else # Update
              else
               echo -n "stop shield-broker"
               docker service scale shield_broker-server=0
-              echo -n "stop shield_shield-admin" # Admin backs up Consul configuration at shutdown
-              docker service scale shield_shield-admin=0
               wait_for_docker_to_settle
 	   fi
         fi
