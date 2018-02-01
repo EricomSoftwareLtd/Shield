@@ -619,6 +619,7 @@ echo "Preparing yml file (Containers build number)"
 prepare_yml
 
 if [ "$UPDATE" == false ]; then
+    AM_I_LEADER=true #if new installation, i am the leader
     # New Installation
     if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
        set_storage_driver
@@ -643,7 +644,7 @@ else # Update
           fi
        fi
       else
-       AM_I_LEADER=true
+       AM_I_LEADER=true  #if swarm doesnt exist i am the leader
     fi
     
     if  [ "$AM_I_LEADER" == true ]; then
