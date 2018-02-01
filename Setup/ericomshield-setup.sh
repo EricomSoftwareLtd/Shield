@@ -531,6 +531,10 @@ function wait_for_docker_to_settle() {
     done
 }
 
+function test_swarm_exists() {
+    echo $(docker info | grep -i 'swarm: active')
+}
+
 function am_i_leader()
 {
     AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
@@ -624,16 +628,22 @@ if [ "$UPDATE" == false ]; then
 
 else # Update
     STOP_SHIELD=false
-    am_i_leader
-    MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
-    CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
-    if [ "$MNG_NODES_COUNT" -gt 1 ] ; then
-       switch_to_multi_node
-       if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
-          if [ "$AM_I_LEADER" == true ]; then
-	     STOP_SHIELD=true
+    SWARM=$(test_swarm_exists)
+    if [ ! -z "$SWARM" ]; then
+       STOP_SHIELD=false
+       am_i_leader
+       MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
+       CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
+       if [ "$MNG_NODES_COUNT" -gt 1 ] ; then
+          switch_to_multi_node
+          if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+             if [ "$AM_I_LEADER" == true ]; then
+                STOP_SHIELD=true
+             fi
           fi
-       fi   
+       fi
+      else
+       AM_I_LEADER=true
     fi
     
     if  [ "$AM_I_LEADER" == true ]; then
