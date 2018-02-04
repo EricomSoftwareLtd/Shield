@@ -1,19 +1,19 @@
-#Build Staging:18.02-Build_274 on 30/1/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.02-Build_274
+#Build Staging:Build_275 on 31/1/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_275
 shield-configuration:latest shield-configuration:180123-15.35-1200
 shield-consul-agent:latest shield-consul-agent:180116-18.09-1118
 shield-admin:latest shield-admin:180123-16.41-1202
 shield-portainer:latest shield-portainer:171217-11.30
 proxy-server:latest proxy-server:180130-10.49-1232
-icap-server:latest icap-server:180129-14.05-1223
-shield-cef:latest shield-cef:180130-16.56-1237
+icap-server:latest icap-server:180131-14.59-1247
+shield-cef:latest shield-cef:180131-15.08-1248
 broker-server:latest broker-server:180130-07.23-1230
 shield-collector:latest shield-collector:180118-07.10-1147
 shield-elk:latest shield-elk:171218-08.56-824
-extproxy:latest extproxy:180130-10.49-1232
+extproxy:latest extproxy:180131-15.40-1253
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180116-08.24-1101
 shield-cdr-controller:latest shield-cdr-controller:180122-13.28-1189
-shield-web-service:latest shield-web-service:180128-09.22-1218
+shield-web-service:latest shield-web-service:180131-10.33-1239
 shield-maintenance:latest shield-maintenance:171015-11.48-270
 shield-authproxy:latest shield-authproxy:180129-10.03-1219
 node-installer:latest node-installer:171227-16.29
