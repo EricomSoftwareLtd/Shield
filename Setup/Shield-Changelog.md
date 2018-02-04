@@ -26,15 +26,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cookies are disabled by default for improved Performance and Security
 - Min Available Browsers auto-calculated (minimum 20)
 -	AdminUI:
-  -	Background Tab Timeout (Suspend) can be defined in policy (per Domain/per User Profile)
-  -	Added Alerts infrastructure, and 5 indicators to the Admin UI
-  -	Added data collection for : totalDiskMB, diskUsage, networkRxBytesPerSec, networkTxBytesPerSec, upTime
-  -	Added alert for Acrive Directory binding failure
-  -	Added disk capacity and usage (data collection and display in the Admin UI)
-  -	Browsers farm overloaded alerts per resource (memory, cpu, disk)
-  -	Implement Keepalive with Votiro Server
-  -	Set background colors for nodes table values based on alerts thresholds.
-  -	White mode indicator inside admin policy table. (details)
+    -	Background Tab Timeout (Suspend) can be defined in policy (per Domain/per User Profile)
+    -	Added Alerts infrastructure, and 5 indicators to the Admin UI
+    -	Added data collection for : totalDiskMB, diskUsage, networkRxBytesPerSec, networkTxBytesPerSec, upTime
+    -	Added alert for Acrive Directory binding failure
+    -	Added disk capacity and usage (data collection and display in the Admin UI)
+    -	Browsers farm overloaded alerts per resource (memory, cpu, disk)
+    -	Implement Keepalive with Votiro Server
+    -	Set background colors for nodes table values based on alerts thresholds.
+    -	White mode indicator inside admin policy table. (details)
 -	Backup/Restore Configuration feature
 -	Full support for Upstream proxy
 -	Support Upstream proxy client certificate + trusting customer CA certificate (Admin side)
