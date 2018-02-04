@@ -1,7 +1,7 @@
 version: "3.3"
 
 # Ericom Shield Stack Description
-# YML file for Staging
+# YML file for Staging (Rel-18.02)
 
 services:
   netdata:
@@ -64,9 +64,6 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-      placement:
-          constraints:
-              - node.labels.browser==yes
 
   elk:
       image: securebrowsing/shield-elk:latest
@@ -361,7 +358,7 @@ services:
               - node.labels.browser==yes
           resources:
             limits:
-              memory: 500MB
+              memory: 1GB
               cpus: "1"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
