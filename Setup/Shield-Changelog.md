@@ -14,8 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 #### End User Features:
 -	Improved Cookies support (performance)
 -	Improved performance 
-  -	Caching feature (configurable in the Admin)
-  -	New PAC file (no DNS)
+    -	Caching feature (configurable in the Admin)
+    -	New PAC file (no DNS)
 -	Improved Scrolling (lowering quality during scroll)
 -	Zoom with ctrl+mouse
 -	Cross Windows Issues fix
