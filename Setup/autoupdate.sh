@@ -19,6 +19,7 @@ ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+LOGFILE="$ES_PATH/ericomshield.log"
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -56,7 +57,7 @@ function wait_for_maintenance_time() {
 
 function am_i_leader()
 {
- AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
 }
 
 while true; do
@@ -96,9 +97,11 @@ while true; do
             am_i_leader
             if [ "$AM_I_LEADER" == true ]; then
               echo "Running Shield Setup (leader)"
+              echo "$(date): From autoupdate.sh Running Shield Setup (leader)" >>"$LOGFILE"              
               $ES_PATH/ericomshield-setup.sh
              else
               echo "Running Shield Setup no-deploy (I'm not the leader)"
+              echo "$(date): From autoupdate.sh Running Shield Setup no-deploy (I'm not the leader)" >>"$LOGFILE"                            
               $ES_PATH/ericomshield-setup.sh -no-deploy
             fi
         fi
