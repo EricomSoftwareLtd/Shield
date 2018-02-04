@@ -14,8 +14,7 @@ fi
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_VERSION="17.06.2"
-DOCKER_VERSION_STAGING="17.12.0"
+DOCKER_VERSION="17.12.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -382,11 +381,12 @@ function switch_to_multi_node
 function get_shield_install_files() {
     echo "Getting $ES_REPO_FILE"
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
-    echo $ES_REPO_FILE
-    curl -s -S -o $ES_REPO_FILE $ES_repo_setup
-    if [ ! -f "$ES_REPO_FILE" ]; then
+    curl -s -S -o "shield_repo_tmp.sh" $ES_repo_setup
+    if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c '404' shield_repo_tmp.sh) -ge 1 ]; then
        failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
+    
+    mv  shield_repo_tmp.sh "$ES_REPO_FILE"
 
     #include file with files repository
     source $ES_REPO_FILE

@@ -1,11 +1,11 @@
 version: "3.3"
 
 # Ericom Shield Stack Description
-# YML file for Evaluation (Pocket)
+# YML file for Pocket (Evaluation) (Rel-18.02)
 
 services:
   netdata:
-    image: titpetric/netdata:latest
+    image: securebrowsing/netdata:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -17,8 +17,8 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
     deploy:
-      mode: replicated   #Pocket mode
-      replicas: 0        #Pocket mode
+      mode: replicated   #Pocket Mode
+      replicas: 0        #Pocket Mode
       restart_policy:
           condition: any
       update_config:
@@ -43,8 +43,8 @@ services:
           failure_action: rollback
       resources:
         limits:
-          memory: 2GB
-          cpus: "1"
+          memory: 500MB
+          cpus: "0.5"
     environment:
       - "IMAGE_CLEAN_INTERVAL=1m"
       - "LOGSTASH_FIELDS=service=maintenance"
@@ -65,7 +65,7 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-      
+
   elk:
       image: securebrowsing/shield-elk:latest
 #      ports:
@@ -141,12 +141,18 @@ services:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
+    volumes:
+      - type: bind
+        source: /usr/local/ericomshield/backup
+        target: /consul/backup
+
+
   consul:
-      image: securebrowsing/shield-configuration:latest
+      image: securebrowsing/shield-consul-agent:latest
       networks:
            - shield
-#      ports:
-#          - "8500:8500"
+ #     ports:
+ #         - "8500:8500"
       deploy:
         mode: replicated
         replicas: 1
@@ -226,7 +232,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-              
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -274,6 +279,7 @@ services:
              #- RUN_WITH_DEBUGGER=false
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
+             - SHIELD_NODE_NAME={{.Node.Hostname}}
              - PERF_STATS=true
              - "LOGSTASH_FIELDS=service=browser"
         networks:
@@ -281,7 +287,7 @@ services:
         deploy:
           mode: replicated
           replicas: 0
-          endpoint_mode: dnsrr            
+          endpoint_mode: dnsrr
           update_config:
             parallelism: 8
             delay: 10s
@@ -408,7 +414,7 @@ services:
       - shield
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       restart_policy:
         condition: any
       update_config:
@@ -480,4 +486,3 @@ networks:
 secrets:
    shield-system-id:
        external: true
- 
