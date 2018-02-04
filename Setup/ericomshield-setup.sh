@@ -14,8 +14,7 @@ fi
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_VERSION="17.06.2"
-DOCKER_VERSION_STAGING="17.12.0"
+DOCKER_VERSION="17.12.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
