@@ -193,4 +193,3 @@ if [ "$AM_I_LEADER" == true ]; then
 else
     echo "Please run this command on the leader: $LEADER_HOST"
 fi
-

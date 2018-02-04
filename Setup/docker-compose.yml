@@ -1,11 +1,11 @@
 version: "3.3"
 
 # Ericom Shield Stack Description
-# YML file for Production
+# YML file for Production (Rel-18.02)
 
 services:
   netdata:
-    image: titpetric/netdata:latest
+    image: securebrowsing/netdata:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -64,7 +64,7 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-      
+
   elk:
       image: securebrowsing/shield-elk:latest
 #      ports:
@@ -140,12 +140,18 @@ services:
         - "CONSUL_BIND_INTERFACE=eth0"
         - "NUMBER_OF_EXPECTED=3" # works for single and multi node
         - "LOGSTASH_FIELDS=service=consulserver"
+    volumes:
+      - type: bind
+        source: /usr/local/ericomshield/backup
+        target: /consul/backup
+
+
   consul:
-      image: securebrowsing/shield-configuration:latest
+      image: securebrowsing/shield-consul-agent:latest
       networks:
            - shield
-#      ports:
-#          - "8500:8500"
+ #     ports:
+ #         - "8500:8500"
       deploy:
         mode: replicated
         replicas: 1
@@ -225,7 +231,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-              
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -273,6 +278,7 @@ services:
              #- RUN_WITH_DEBUGGER=false
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
+             - SHIELD_NODE_NAME={{.Node.Hostname}}
              - PERF_STATS=true
              - "LOGSTASH_FIELDS=service=browser"
         networks:
@@ -280,7 +286,7 @@ services:
         deploy:
           mode: replicated
           replicas: 0
-          endpoint_mode: dnsrr            
+          endpoint_mode: dnsrr
           update_config:
             parallelism: 8
             delay: 10s
@@ -346,13 +352,13 @@ services:
           - shield
         deploy:
           mode: replicated
-          replicas: 1
+          replicas: 2
           placement:
             constraints:
               - node.labels.browser==yes
           resources:
             limits:
-              memory: 500MB
+              memory: 1GB
               cpus: "1"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
@@ -479,4 +485,3 @@ networks:
 secrets:
    shield-system-id:
        external: true
- 
