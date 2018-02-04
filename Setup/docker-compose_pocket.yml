@@ -65,9 +65,6 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-      placement:
-          constraints:
-              - node.labels.browser==yes
 
   elk:
       image: securebrowsing/shield-elk:latest
