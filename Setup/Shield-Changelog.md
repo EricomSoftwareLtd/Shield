@@ -52,12 +52,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -	Pressing Shift+click should open a new window #1269
 -	Support "Find in page" CTRL+F #354
 -	Administrator:
-  -	Admin UI sometimes doesn't display data - when admin show no data #1725
-  -	CTRL+Click on a link should open in new tab #1581
-  -	Default timeout waiting for sanitization is now 10 minutes (was 5 ) #1660
-  - Multi-Machine Deployments bug fixes
-  - Caching logic improved
-  - No Error for Black list URLs fix
+   -	Admin UI sometimes doesn't display data - when admin show no data #1725
+   -	CTRL+Click on a link should open in new tab #1581
+   -	Default timeout waiting for sanitization is now 10 minutes (was 5 ) #1660
+   - Multi-Machine Deployments bug fixes
+   - Caching logic improved
+   - No Error for Black list URLs fix
 
 ## [Prod:18.01-Build-249.5] - 2018-01-07
 ### New Features:
