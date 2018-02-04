@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     -	Background Tab Timeout (Suspend) can be defined in policy (per Domain/per User Profile)
     -	Added Alerts infrastructure, and 5 indicators to the Admin UI
     -	Added data collection for : totalDiskMB, diskUsage, networkRxBytesPerSec, networkTxBytesPerSec, upTime
-    -	Added alert for Acrive Directory binding failure
+    -	Added alert for Active Directory binding failure
     -	Added disk capacity and usage (data collection and display in the Admin UI)
     -	Browsers farm overloaded alerts per resource (memory, cpu, disk)
     -	Implement Keepalive with Votiro Server
