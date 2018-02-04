@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_275] - 2018-1-31
+- No error for urls (https) in black mode #1815
+- Fix shield-blank #2012 and form post when cookies disabled
+- CEF upgrade consul lib #2011 #1991
+- New tab error - https://news.google.com/ #2012
+- Shield shows page from yesterday on One
+
 ## [Dev:Build_274] - 2018-1-30
 - Add DNS support for External proxy #1965
 - Cross window resize problem #1998

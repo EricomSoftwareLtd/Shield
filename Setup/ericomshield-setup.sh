@@ -113,10 +113,10 @@ while [ $# -ne 0 ]; do
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
     -version)
-        shift    
+        shift
         BRANCH="$1"
         log_message "Installing version: $BRANCH"
-        ;;        
+        ;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
@@ -225,7 +225,7 @@ function failed_to_install() {
             rm -f "$ES_VER_FILE"
         fi
     fi
-    exit 1    
+    exit 1
 }
 
 function accept_license() {
@@ -257,7 +257,7 @@ function install_docker() {
     if [ "$ES_DEV" == true ] || [ "$ES_STAGING" == true ]; then
        echo "*************************NEW DOCKER VERSION: $DOCKER_VERSION_STAGING"
        DOCKER_VERSION="$DOCKER_VERSION_STAGING"
-    fi   
+    fi
 
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
@@ -480,7 +480,7 @@ function get_shield_files() {
         curl -s -S -o autoupdate.sh "$ES_repo_update"
         chmod +x autoupdate.sh
     fi
-    
+
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
@@ -529,6 +529,10 @@ function wait_for_docker_to_settle() {
         wait_count=$((wait_count + 1))
         count_running_docker_services
     done
+}
+
+function test_swarm_exists() {
+    echo $(docker info | grep -i 'swarm: active')
 }
 
 function am_i_leader()
@@ -580,7 +584,7 @@ fi
 
 get_shield_install_files
 
-if [ "$ES_FORCE" == false ]; then 
+if [ "$ES_FORCE" == false ]; then
    source $ES_PRE_CHECK_FILE
    perform_env_test
 fi
@@ -615,39 +619,43 @@ echo "Preparing yml file (Containers build number)"
 prepare_yml
 
 if [ "$UPDATE" == false ]; then
+    AM_I_LEADER=true #if new installation, i am the leader
     # New Installation
     if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
        set_storage_driver
     fi
-    
+
     create_shield_service
 
 else # Update
     STOP_SHIELD=false
-    am_i_leader
-    MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
-    CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
-    if [ "$MNG_NODES_COUNT" -gt 1 ] ; then
-       switch_to_multi_node
-       if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
-          if [ "$AM_I_LEADER" == true ]; then
-	     STOP_SHIELD=true
+    SWARM=$(test_swarm_exists)
+    if [ ! -z "$SWARM" ]; then
+       am_i_leader
+       MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
+       CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
+       if [ "$MNG_NODES_COUNT" -gt 1 ] ; then
+          switch_to_multi_node
+          if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
+             if [ "$AM_I_LEADER" == true ]; then
+                STOP_SHIELD=true
+             fi
           fi
-       fi   
+       fi
+      else
+       AM_I_LEADER=true  #if swarm doesnt exist i am the leader
     fi
-    
-    if  [ "$AM_I_LEADER" == true ]; then
-        if [ "$ES_RUN_DEPLOY" == true ] && [ "$ES_FORCE" == false ]; then
-           if [ "$UPDATE_NEED_RESTART" == true ] || ["$STOP_SHIELD" == true ]; then
+
+    if  [ "$AM_I_LEADER" == "true" ]; then
+        if [ "$ES_RUN_DEPLOY" == "true" ]; then
+           if [ "$UPDATE_NEED_RESTART" == "true" ] || [ "$STOP_SHIELD" == "true" ]; then
               log_message "Stopping Ericom Shield for Update (Downtime)"
               ./stop.sh
              else
               echo -n "stop shield-broker"
               docker service scale shield_broker-server=0
-              echo -n "stop shield_shield-admin" # Admin backs up Consul configuration at shutdown
-              docker service scale shield_shield-admin=0
               wait_for_docker_to_settle
-	   fi  
+	   fi
         fi
     fi
 fi
@@ -671,7 +679,7 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
        echo "***************     Success!"
 
        #Check the status of the system wait 20*10 (~3 mins)
-       wait=0 
+       wait=0
        while [ $wait -lt 10 ]; do
           if "$ES_PATH"/status.sh; then
              echo "Ericom Shield is Running!"
@@ -683,10 +691,10 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
           fi
         wait=$((wait + 1))
         done
-    fi		
+    fi
    else
     echo "Installation only (no deployment or not the leader)"
-    SUCCESS=true	
+    SUCCESS=true
 fi
 
 systemctl start ericomshield-updater.service
@@ -696,12 +704,12 @@ Version=$(grep SHIELD_VER "$ES_YML_FILE")
 echo "$Version" >.version
 grep image "$ES_YML_FILE" >>.version
 
-if [ $SUCCESS == false ]; then 
+if [ $SUCCESS == false ]; then
    echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."
    echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
    echo "--Timeout?" >>.version # adding failed into the version file
    exit 1
-fi   
+fi
 
 echo "***************     Success!"
 echo "***************"
