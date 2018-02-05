@@ -359,7 +359,7 @@ services:
               - node.labels.browser==yes
           resources:
             limits:
-              memory: 500MB
+              memory: 1024MB
               cpus: "1"
   authproxy:
       image: securebrowsing/shield-authproxy:latest

@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_276] - 2018-2-5
+- Using update consul lib (0.30.0)
+- Downloads of direct links do not work : "Download Disabled" message #2027
+- Blacklist Policy rows should be also strikethrough #2022
+- Publishing dynamic PAC files #1988
+- shield-stats: move sessions section under license #1966
+- IE mode - fails to connect check "AS is running and reachable" #1961
+- The leader node IP displayed is 0.0.0.0 #1739
+- Admin Dashboard with long urls #1956
+- When adding a new profile I can set Profile Name that is already in use #1941
+- Add new profile - add is disabled in case you start with the second field #1939
+- http://shield-stats/ - Alerts doesn't show #1929
+- Daily Backup for last 10 days #1915
+- When changing the port on the admin the reports doesn't work #1914
+- Add a notification that the pac file is being downloaded and not only being displayed #1893
+- Admin - settings - pac file downloaded upon enter #1858
+- Implement Keepalive with Votiro Server #1828
+- Install new docker on deploy scripts #1785
+- http://shield-stats shouldn't be available for everyone #1530
+- File transfer - failure reports show no results #1499
+- Open new tab? notification is displayed when open link with middle click #1900
 
 ## [Dev:Build_275] - 2018-1-31
 - No error for urls (https) in black mode #1815
