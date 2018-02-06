@@ -16,7 +16,7 @@ cd $ES_PATH
 
 echo "Running deploy-shield.sh:"
 
-export DOCKER_TAG=171227-16.29
+export DOCKER_TAG=180206-14.18
 
 docker run --rm -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
