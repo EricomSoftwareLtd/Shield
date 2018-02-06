@@ -12,7 +12,7 @@ shield-collector:latest shield-collector:180204-14.26-1263
 shield-elk:latest shield-elk:180204-18.31-1272
 extproxy:latest extproxy:180131-15.40-1253
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180204-14.34-1264
-shield-cdr-controller:latest shield-cdr-controller:180204-14.26-1263
+shield-cdr-controller:latest shield-cdr-controller:180204-14.34-1264
 shield-web-service:latest shield-web-service:180204-14.34-1264
 shield-maintenance:latest shield-maintenance:171015-11.48-270
 shield-authproxy:latest shield-authproxy:180204-14.26-1263
