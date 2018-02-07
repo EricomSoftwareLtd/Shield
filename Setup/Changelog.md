@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_277] - 2018-2-6
+- Fixed CDR tag
+
 ## [Dev:Build_276] - 2018-2-5
 - Using update consul lib (0.30.0)
 - Downloads of direct links do not work : "Download Disabled" message #2027
