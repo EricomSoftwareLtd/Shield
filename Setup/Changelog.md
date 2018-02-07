@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_278] - 2018-2-7
+- Added alert when system requires activation
+- Admin takes long to load when no internet #1902
+- Fixed alerts initialization at broker startup #1778
+- Admin - policies - default values are taken from the current profile in focus #1793
+- all data is lost after adding 2 nodes and running script to switch consul mode #2065
+- Cross windows -booking.com #2049
+- backup service is not running on the leader and user need to restore the data #2047
+- Test Upgrade from Prod to Staging #1974
+- Open new tab? notification is displayed when open link with middle click #1900
+- Implement Keepalive with Votiro Server #1828
+- Emirates.com - Can't click on the website. #1430
+
 ## [Dev:Build_277] - 2018-2-6
 - Fixed CDR tag
 
