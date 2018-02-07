@@ -3,14 +3,10 @@ import subprocess
 import json
 import texttable as tt
 
-#Test restor
-
-
-
 class ReportDataNodes:
     def __init__(self):
         self.nodes = []
-        self.columns = ["ID", "NAME", 'IP', 'STATUS', 'ROLE', 'LABELS']
+        self.columns = ["NAME", 'IP', 'STATUS', 'ROLE', 'LABELS']
         self.rows = []
         self.collect_data_for_report()
 
@@ -20,10 +16,12 @@ class ReportDataNodes:
         node_row = []
         for node in self.nodes:
             node_data = json.loads(subprocess.check_output('docker node inspect {}'.format(node['id']), shell=True))[0]
-            node_row.append(node['id'])
-            if node['name'] == '*':
-               node['name'] = "localhost" 
-            node_row.append(node['name'])
+            node_name = node['name']
+            if node_name == '*':
+               node_name = "localhost"
+            if 'Leader' in node_data['ManagerStatus']:
+               node_name += '_(Leader)'
+            node_row.append(node_name)
             node_row.append(node_data['Status']['Addr'])
             node_row.append(node_data['Spec']['Availability'])
             node_row.append(node_data['Spec']['Role'])
@@ -36,7 +34,7 @@ class ReportDataNodes:
         table.header(self.columns)
         table.add_rows(self.rows, header=False)
         s = table.draw()
-        print('Operation Result: ')
+        print('Shield Nodes Status: ')
         print(s)
 
     @staticmethod
@@ -101,6 +99,8 @@ class ReportDataServices:
 
 
 def main(args):
+    data = ReportDataNodes()
+    data.print()
     data = ReportDataServices()
     data.print()
 

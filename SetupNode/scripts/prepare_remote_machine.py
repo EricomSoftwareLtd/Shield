@@ -21,6 +21,10 @@ ericom_shield_setup_script = \
 
 ericom_shield_install_dir = '/install'
 
+add_machine_max_attempts = 5
+if "ADD_MAX_ATTEMPTS" in os.environ:
+    add_machine_max_attempts = int(os.environ["ADD_MAX_ATTEMPTS"])
+
 
 def run_command_and_return_output(cmd):
     _, stdout, stderr = client.exec_command(cmd)
@@ -237,34 +241,46 @@ def run_consul_reshafle_command():
     print(output)
 
 def run_join_to_swarm(command, ip):
-    if os.environ['MACHINE_SESSION_MODE'] == 'password':
-        run_with_password(ip)
-    else:
-        run_certificate_mode(ip)
+    counter = 0
+    while True:
+        try:
+            if os.environ['MACHINE_SESSION_MODE'] == 'password':
+                run_with_password(ip)
+            else:
+                run_certificate_mode(ip)
 
-    hostname = prepare_machine_to_docker_node(ip)
-    if not test_shield_already_installed():
-        run_ericom_shield_setup()
-        apply_ericomshield_version()
-    else:
-        logger.info("Ericomshield already installed")
+            hostname = prepare_machine_to_docker_node(ip)
+            if not test_shield_already_installed():
+                run_ericom_shield_setup()
+                apply_ericomshield_version()
+            else:
+                logger.info("Ericomshield already installed")
 
-    err, out = run_command_and_return_output("sudo {}".format(command))
-    if not err is None:
-        logger.error(err)
-    else:
-        logger.info(out)
+            err, out = run_command_and_return_output("sudo {}".format(command))
+            if not err is None:
+                logger.error(err)
+            else:
+                logger.info(out)
 
-    output = subprocess.check_output(format_labels_command(hostname), shell=True)
-    logger.info(output)
+            try:
+                output = subprocess.run(format_labels_command(hostname), shell=True, check=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+                logger.info(output.stdout)
+                break
+            except subprocess.CalledProcessError as e:
+                if "ambiguous" in e.stderr.decode("ascii"):
+                    logger.error(e.stderr)
+                    exit(121)
+        except paramiko.ssh_exception.NoValidConnectionsError as ex:
+            logger.error(ex.args[1])
+            exit(122)
+        except Exception as ex:
+            logger.error(ex)
+            logger.error("Attempt {} failed will try more one time".format(counter))
 
-    # if 'MANAGEMENT' in os.environ:
-    #     run_consul_reshafle_command()
-
-
-
-
-
+        counter += 1
+        if counter >= add_machine_max_attempts:
+            logger.error("Max retries exceeded stop execution")
+            exit(120)
 
 
 def main(args):
@@ -282,11 +298,6 @@ def main(args):
     if not join_command is None:
         run_join_to_swarm(join_command, args[1])
         client.close()
-
-
-
-
-
 
 
 if __name__ == '__main__':
