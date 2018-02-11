@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_279] - 2018-2-11
+- ICAP Async rewrite 
+- Broker will clean dead failed CEF #2092
+- set higher error rate for alert 5->30
+- Improved Docker CEF report
+
 ## [Dev:Build_278] - 2018-2-7
 - Added alert when system requires activation
 - Admin takes long to load when no internet #1902
