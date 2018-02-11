@@ -45,6 +45,7 @@ ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
 ES_CONFIG_STORAGE=yes
+SWITCHED_TO_MULTINODE=false
 
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
@@ -371,6 +372,7 @@ function switch_to_multi_node
          sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
          sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
          sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
+         SWITCHED_TO_MULTINODE=true
       fi
 }
 
@@ -705,6 +707,11 @@ if [ $SUCCESS == false ]; then
    echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
    echo "--Timeout?" >>.version # adding failed into the version file
    exit 1
+fi
+
+if [ "$SWITCHED_TO_MULTINODE" == "true" ]; then
+         echo "Run consul data restore according switching consul mode"
+         ./restore.sh
 fi
 
 echo "***************     Success!"
