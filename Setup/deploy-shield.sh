@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #set -x
-
 ###########################################
 #####   Ericom Shield Installer        #####
 ###################################LO##BH###
@@ -11,6 +10,7 @@ STACK_NAME='shield'
 ES_YML_FILE=
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
+ES_NO_BROWSERS_LABEL=false
 
 RESOLV_FILE="/etc/resolv.conf"
 PROXY_ENV_FILE="proxy-server.env"
@@ -27,11 +27,11 @@ if [ ! -f "$ES_YML_FILE" ]; then
     ES_YML_FILE=docker-compose_dev.yml
 fi
 
-function join_by() {
-    local IFS="$1"
-    shift
-    echo "$*"
-}
+
+if [ "$1" == "-no-browser" ]; then
+   ES_NO_BROWSERS_LABEL=true
+   echo "MultiNode: No Browsers"
+fi
 
 function retry_on_failure() {
     local n=1
@@ -164,14 +164,16 @@ create_proxy_env_file
 
 NODES_COUNT=$(docker node ls | grep -c Ready)
 if [ "$NODES_COUNT" -eq 1 ]; then
-    echo "***************     Adding Labels:browser, shield_core, management"
-    retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
+   if ["$ES_NO_BROWSERS_LABEL" == true ]; then 
+     echo "***************     Adding Labels: management, shield_core"
+     retry_on_failure docker node update --label-add shield_core=yes --label-add management=yes $LEADER_HOST
+    else
+     echo "***************     Adding Labels: management, shield_core, browser"
+     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
+    fi  
 fi
 
-
 am_i_leader
-
-
 if [ "$AM_I_LEADER" == true ]; then
     if [ -z "$JENKINS" ]; then
         # Copy docker-compose.yml across all manager nodes
