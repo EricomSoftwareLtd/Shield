@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_280] - 2018-2-12
+- Prevent ntlm from crashing when wrong DC address #2095
+- Activation: Key already in use #1866
+- Fix shield-stats #2100
+- Remote Browsers are not starting after reboot #2092
+
 ## [Dev:Build_279] - 2018-2-11
 - ICAP Async rewrite 
 - Broker will clean dead failed CEF #2092
