@@ -94,7 +94,7 @@ function create_uuid() {
         uuid=$(uuidgen)
         uuid=${uuid^^}
         if [ -z "$uuid" ]; then
-           echo "$SECRET_UID created: uuid: (was empty)
+           echo "$SECRET_UID created: uuid: (was empty)"
            uuid="00000000-5555-5555-5555-000000000000"
        fi  
        echo $uuid | docker secret create $SECRET_UID -
