@@ -27,11 +27,21 @@ if [ ! -f "$ES_YML_FILE" ]; then
     ES_YML_FILE=docker-compose_dev.yml
 fi
 
-
-if [ "$1" == "-no-browser" ]; then
-   ES_NO_BROWSERS_LABEL=true
-   echo "MultiNode: No Browsers"
-fi
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -no-browser)
+        ES_NO_BROWSERS_LABEL=true
+        echo "Multi-Machine: No Browser Label"
+        ;;
+    #        -usage)
+    *)
+        echo "Usage: $0 [-no-browser]"
+        exit
+        ;;
+    esac
+    shift
+done
 
 function retry_on_failure() {
     local n=1
@@ -164,7 +174,7 @@ create_proxy_env_file
 
 NODES_COUNT=$(docker node ls | grep -c Ready)
 if [ "$NODES_COUNT" -eq 1 ]; then
-   if ["$ES_NO_BROWSERS_LABEL" == true ]; then 
+   if [ "$ES_NO_BROWSERS_LABEL" == true ]; then 
      echo "***************     Adding Labels: management, shield_core"
      retry_on_failure docker node update --label-add shield_core=yes --label-add management=yes $LEADER_HOST
     else
