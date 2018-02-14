@@ -1,8 +1,38 @@
 #!/usr/bin/sudo /bin/bash
 
-LOGFILE="${LOGFILE:-./shield_pre_install_check.log}"
+MIN_RELEASE_MAJOR="16"
+MIN_RELEASE_MINOR="04"
+REC_RELEASE_MAJOR="16"
+REC_RELEASE_MINOR="04"
+
+MIN_FREE_SPACE_ROOT_GB=5
+REC_FREE_SPACE_ROOT_GB=10
+MIN_FREE_SPACE_DOCK_GB=5
+REC_FREE_SPACE_DOCK_GB=10
+
+SPDTST_PING_TIME_ERROR_MS=500
+SPDTST_PING_TIME_WARNING_MS=100
+SPDTST_MIN_UPLOAD_SPD_MBITPS=10
+SPDTST_WARN_UPLOAD_SPD_MBITPS=20
+SPDTST_MIN_DLOAD_SPD_MBITPS=10
+SPDTST_WARN_DLOAD_SPD_MBITPS=20
+
+DISK_CACHED_READS_MIN_SPD_MBPS=2000
+DISK_CACHED_READS_WARN_SPD_MBPS=2500
+DISK_BUFFERED_READS_MIN_SPD_MBPS=50
+DISK_BUFFERED_READS_WARN_SPD_MBPS=100
+
+CURL_TEST_DNS_TIME_ERROR=2
+CURL_TEST_DNS_TIME_WARNING=1
+CURL_TEST_TOTAL_TIME_ERROR=5
+CURL_TEST_TOTAL_TIME_WARNING=2
+
 URLS_TO_CHECK='http://www.google.com/ https://www.google.com/ http://www.ericom.com/ https://www.ericom.com/ https://hub.docker.com/'
 SHIELD_NETWORK_ADDR_BLOCK='10.20.0.0/16'
+
+################################################################################
+
+LOGFILE="${LOGFILE:-./shield_pre_install_check.log}"
 
 function define_heredoc_var() { IFS='\n' read -r -d '' ${1} || true; }
 
@@ -894,8 +924,8 @@ function check_connectivity() {
             echo "Connectivity test failed for $url"
             return 1
         fi
-        parse_and_check_range "$url DNS time" "" "$CHECK_OUT" "$CURL_TEST_DNS_REGEX" 2 1 1 2>&1
-        parse_and_check_range "$url Total time" "" "$CHECK_OUT" "$CURL_TEST_TIME_REGEX" 5 2 1 2>&1
+        parse_and_check_range "$url DNS time" "" "$CHECK_OUT" "$CURL_TEST_DNS_REGEX" $CURL_TEST_DNS_TIME_ERROR $CURL_TEST_DNS_TIME_WARNING 1 2>&1
+        parse_and_check_range "$url Total time" "" "$CHECK_OUT" "$CURL_TEST_TIME_REGEX" $CURL_TEST_TOTAL_TIME_ERROR $CURL_TEST_TOTAL_TIME_WARNING 1 2>&1
         echo ""
     done
 }
@@ -906,7 +936,7 @@ function check_storage_drive_speed() {
 
 function check_free_space() {
     local FREE_SPACE="$(($(stat -f --format="%a*%S" $1) / (1024 * 1024 * 1024)))"
-    check_range "Free space on \"$1\"" "GB" "$FREE_SPACE" 5 10 0 2>&1
+    check_range "Free space on \"$1\"" "GB" "$FREE_SPACE" $2 $3 0 2>&1
 }
 
 function check_network_address_conflicts() {
@@ -958,10 +988,10 @@ function check_hostname_resolution() {
 }
 
 function check_distribution() {
-    local MIN_RELEASE_MAJOR="16"
-    local MIN_RELEASE_MINOR="04"
-    local REC_RELEASE_MAJOR="16"
-    local REC_RELEASE_MINOR="04"
+    local MIN_RELEASE_MAJOR="$MIN_RELEASE_MAJOR"
+    local MIN_RELEASE_MINOR="$MIN_RELEASE_MINOR"
+    local REC_RELEASE_MAJOR="$REC_RELEASE_MAJOR"
+    local REC_RELEASE_MINOR="$REC_RELEASE_MINOR"
     local VER_REGEX="([[:digit:]]{2})\.([[:digit:]]{2})"
     local DIST_REGEX='Ubuntu'
     local DIST_S="$(/usr/bin/lsb_release -si)"
@@ -1010,8 +1040,8 @@ function perform_env_test() {
     echo ""
 
     log_message "Checking free space..."
-    log_message "$(check_free_space "/" 2>&1)"
-    log_message "$(check_free_space "/var/lib/docker" 2>&1)"
+    log_message "$(check_free_space "/" $MIN_FREE_SPACE_ROOT_GB $REC_FREE_SPACE_ROOT_GB 2>&1)"
+    log_message "$(check_free_space "/var/lib/docker" $MIN_FREE_SPACE_DOCK_GB $REC_FREE_SPACE_DOCK_GB 2>&1)"
 
     echo ""
 
@@ -1023,16 +1053,16 @@ function perform_env_test() {
     log_message "Checking Internet speed..."
     # Perform Internet connection speed test
     local SPEED_TEST_OUT="$(LC_ALL=C /usr/bin/speedtest-cli --simple 2>&1)"
-    log_message $(parse_and_check_range "Ping time" "ms" "$SPEED_TEST_OUT" "$PING_REGEX" 500 100 1 2>&1)
-    log_message $(parse_and_check_range "Download speed" "Mbit/s" "$SPEED_TEST_OUT" "$DL_REGEX" 10 20 0 2>&1)
-    log_message $(parse_and_check_range "Upload speed" "Mbit/s" "$SPEED_TEST_OUT" "$UL_REGEX" 10 20 0 2>&1)
+    log_message $(parse_and_check_range "Ping time" "ms" "$SPEED_TEST_OUT" "$PING_REGEX" $SPDTST_PING_TIME_ERROR_MS $SPDTST_PING_TIME_WARNING_MS 1 2>&1)
+    log_message $(parse_and_check_range "Download speed" "Mbit/s" "$SPEED_TEST_OUT" "$DL_REGEX" $SPDTST_MIN_UPLOAD_SPD_MBITPS $SPDTST_WARN_UPLOAD_SPD_MBITPS 0 2>&1)
+    log_message $(parse_and_check_range "Upload speed" "Mbit/s" "$SPEED_TEST_OUT" "$UL_REGEX" $SPDTST_MIN_DLOAD_SPD_MBITPS $SPDTST_WARN_DLOAD_SPD_MBITPS 0 2>&1)
 
     echo ""
 
     log_message "Checking storage drive speed..."
     local DISK_TEST_OUT="$(check_storage_drive_speed 2>&1)"
-    log_message $(parse_and_check_range "Disk speed (cached reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_CACHED_READS_REGEX" 2000 2500 0 2>&1)
-    log_message $(parse_and_check_range "Disk speed (buffered reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_BUFFERED_READS_REGEX" 50 100 0 2>&1)
+    log_message $(parse_and_check_range "Disk speed (cached reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_CACHED_READS_REGEX" $DISK_CACHED_READS_MIN_SPD_MBPS $DISK_CACHED_READS_WARN_SPD_MBPS 0 2>&1)
+    log_message $(parse_and_check_range "Disk speed (buffered reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_BUFFERED_READS_REGEX" $DISK_BUFFERED_READS_MIN_SPD_MBPS $DISK_BUFFERED_READS_WARN_SPD_MBPS 0 2>&1)
 
     echo ""
 
