@@ -91,15 +91,19 @@ function am_i_leader()
 
 function create_uuid() {
     if [ $(docker secret ls | grep -c $SECRET_UID) -eq 0 ]; then
+        if [ "$(dpkg -l | grep -w -c uuid)" -eq 0 ]; then
+          echo "***************     Installing uuid-gen"
+          apt-get install  uuid-runtime
+        fi 
         uuid=$(uuidgen)
         uuid=${uuid^^}
         if [ -z "$uuid" ]; then
            echo "$SECRET_UID created: uuid: (was empty)"
            uuid="00000000-5555-5555-5555-000000000000"
-       fi  
-       echo $uuid | docker secret create $SECRET_UID -
-       echo "$SECRET_UID created: uuid: $uuid "
-    else
+        fi  
+        echo $uuid | docker secret create $SECRET_UID -
+        echo "$SECRET_UID created: uuid: $uuid "
+      else
         echo " $SECRET_UID secret already exist "
     fi
 }
@@ -172,9 +176,7 @@ if [ "$NODES_COUNT" -eq 1 ]; then
     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
 fi
 
-
 am_i_leader
-
 
 if [ "$AM_I_LEADER" == true ]; then
     if [ -z "$JENKINS" ]; then
