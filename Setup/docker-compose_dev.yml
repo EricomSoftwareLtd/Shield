@@ -83,7 +83,7 @@ services:
             condition: any
         placement:
             constraints:
-              - node.labels.management==yes
+              - node.labels.elk==yes
         update_config:
           failure_action: rollback
         resources:
