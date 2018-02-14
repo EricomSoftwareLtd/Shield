@@ -1,8 +1,38 @@
 #!/usr/bin/sudo /bin/bash
 
-LOGFILE="${LOGFILE:-./shield_pre_install_check.log}"
+MIN_RELEASE_MAJOR="16"
+MIN_RELEASE_MINOR="04"
+REC_RELEASE_MAJOR="16"
+REC_RELEASE_MINOR="04"
+
+MIN_FREE_SPACE_ROOT_GB=5
+REC_FREE_SPACE_ROOT_GB=10
+MIN_FREE_SPACE_DOCK_GB=5
+REC_FREE_SPACE_DOCK_GB=10
+
+SPDTST_PING_TIME_ERROR_MS=500
+SPDTST_PING_TIME_WARNING_MS=100
+SPDTST_MIN_UPLOAD_SPD_MBITPS=10
+SPDTST_WARN_UPLOAD_SPD_MBITPS=20
+SPDTST_MIN_DLOAD_SPD_MBITPS=10
+SPDTST_WARN_DLOAD_SPD_MBITPS=20
+
+DISK_CACHED_READS_MIN_SPD_MBPS=2000
+DISK_CACHED_READS_WARN_SPD_MBPS=2500
+DISK_BUFFERED_READS_MIN_SPD_MBPS=50
+DISK_BUFFERED_READS_WARN_SPD_MBPS=100
+
+CURL_TEST_DNS_TIME_ERROR=2
+CURL_TEST_DNS_TIME_WARNING=1
+CURL_TEST_TOTAL_TIME_ERROR=5
+CURL_TEST_TOTAL_TIME_WARNING=2
+
 URLS_TO_CHECK='http://www.google.com/ https://www.google.com/ http://www.ericom.com/ https://www.ericom.com/ https://hub.docker.com/'
 SHIELD_NETWORK_ADDR_BLOCK='10.20.0.0/16'
+
+################################################################################
+
+LOGFILE="${LOGFILE:-./shield_pre_install_check.log}"
 
 function define_heredoc_var() { IFS='\n' read -r -d '' ${1} || true; }
 
@@ -793,8 +823,13 @@ EOF
 
 if ! declare -f log_message >/dev/null; then
     function log_message() {
-        echo "$1"
-        echo "$(date): $1" >>"$LOGFILE"
+        local PREV_RET_CODE=$?
+        echo "$@"
+        echo "$(date): $@" >>"$LOGFILE"
+        if ((PREV_RET_CODE != 0)); then
+            echo "Previous command failed, exiting..."
+            exit 1
+        fi
     }
 fi
 
@@ -805,9 +840,78 @@ if ! declare -f failed_to_install >/dev/null; then
     }
 fi
 
+PING_REGEX='Ping:[[:space:]]([[:digit:]]+\.*[[:digit:]]*[[:space:]]*[[:alpha:]]*s)'
+DL_REGEX='Download:[[:space:]]([[:digit:]]+\.*[[:digit:]]*[[:space:]]*[[:alpha:]]*\/s)'
+UL_REGEX='Upload:[[:space:]]([[:digit:]]+\.*[[:digit:]]*[[:space:]]*[[:alpha:]]*\/s)'
+
+CURL_TEST_DNS_REGEX='DNS time:[[:space:]]*([[:digit:],\.]+)'
+CURL_TEST_TIME_REGEX='Total time:[[:space:]]*([[:digit:],.]+)'
+
+DISK_CACHED_READS_REGEX='Timing cached reads:[[:print:]]*=[[:space:]]*([[:alpha:],[:space:],[:digit:],.]+\/sec)'
+DISK_BUFFERED_READS_REGEX='Timing buffered disk reads:[[:print:]]*=[[:space:]]*([[:alpha:],[:space:],[:digit:],.]+\/sec)'
+
+function parse_output() {
+    local OUTPUT_IN="$1"
+    local REGEX="$2"
+    local UNITS="$3"
+    local RET=''
+    if [[ $OUTPUT_IN =~ $REGEX ]]; then
+        RET="$(units -tr "${BASH_REMATCH[1]}" "$UNITS")"
+        echo "$RET"
+        return 0
+    else
+        echo "\"$OUTPUT_IN\" doesn't match \"$REGEX\"" >&2
+        exit 1
+    fi
+}
+
+function check_range() {
+    local LABEL="$1"
+    local UNITS="$2"
+    local LVL="$3"
+    local LVL_ERROR="$4"
+    local LVL_WARN="$5"
+    local DIR="$6"
+    local STATUS="OK"
+    local RET=0
+
+    if ((DIR == 0)); then
+        if (($(echo "$LVL < $LVL_ERROR" | bc -l))); then
+            STATUS="FAIL!"
+            RET=1
+        elif (($(echo "$LVL < $LVL_WARN" | bc -l))); then
+            STATUS="WARNING!"
+            RET=0
+        fi
+    else
+        if (($(echo "$LVL > $LVL_ERROR" | bc -l))); then
+            STATUS="FAIL!"
+            RET=1
+        elif (($(echo "$LVL > $LVL_WARN" | bc -l))); then
+            STATUS="WARNING!"
+            RET=0
+        fi
+    fi
+    echo "$LABEL: $LVL $UNITS - $STATUS (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+    return $RET
+}
+
+function parse_and_check_range() {
+    local LABEL="$1"
+    local UNITS="$2"
+    local INPUT="$3"
+    local REGEX="$4"
+    local LVL_ERROR="$5"
+    local LVL_WARN="$6"
+    local DIR="$7"
+
+    check_range "$LABEL" "$UNITS" "$(parse_output "$INPUT" "$REGEX" "$UNITS")" "$LVL_ERROR" "$LVL_WARN" "$DIR"
+    return $?
+}
+
 function check_url_connectivity() {
     printf "\nChecking $1 ..."
-    if ! curl "$1" -sS -o /dev/null -w "\nResponse Code: %{http_code}\nDNS time: %{time_namelookup}\nConnection time: %{time_connect}\nPretransfer time: %{time_pretransfer}\nStarttransfer time: %{time_starttransfer}\nTotal time: %{time_total}\n"; then
+    if ! LC_ALL=C curl "$1" -sS -o /dev/null -w "\nResponse Code: %{http_code}\nDNS time: %{time_namelookup}\nConnection time: %{time_connect}\nPretransfer time: %{time_pretransfer}\nStarttransfer time: %{time_starttransfer}\nTotal time: %{time_total}\n"; then
         printf "$1 check failed"
         return 1
     fi
@@ -815,10 +919,14 @@ function check_url_connectivity() {
 
 function check_connectivity() {
     for url in $URLS_TO_CHECK; do
-        if ! check_url_connectivity "$url"; then
+        local CHECK_OUT="$(check_url_connectivity "$url")"
+        if ! (($? == 0)); then
             echo "Connectivity test failed for $url"
             return 1
         fi
+        parse_and_check_range "$url DNS time" "" "$CHECK_OUT" "$CURL_TEST_DNS_REGEX" $CURL_TEST_DNS_TIME_ERROR $CURL_TEST_DNS_TIME_WARNING 1 2>&1
+        parse_and_check_range "$url Total time" "" "$CHECK_OUT" "$CURL_TEST_TIME_REGEX" $CURL_TEST_TOTAL_TIME_ERROR $CURL_TEST_TOTAL_TIME_WARNING 1 2>&1
+        echo ""
     done
 }
 
@@ -827,14 +935,8 @@ function check_storage_drive_speed() {
 }
 
 function check_free_space() {
-    local FREE_SPACE_ON_ROOT=$(($(stat -f --format="%a*%S" /) / (1024 * 1024 * 1024)))
-    local FREE_SPACE_ON_DEB=$(($(stat -f --format="%a*%S" /var/cache/debconf) / (1024 * 1024 * 1024)))
-    if ((FREE_SPACE_ON_ROOT < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the / partition. ${FREE_SPACE_ON_ROOT}GB available, ${MIN_FREE_SPACE_GB}GB required."
-    fi
-    if ((FREE_SPACE_ON_DEB < MIN_FREE_SPACE_GB)); then
-        failed_to_install "Not enough free space on the /var/cache/debconf partition. ${FREE_SPACE_ON_DEB}GB available, ${MIN_FREE_SPACE_GB}GB required."
-    fi
+    local FREE_SPACE="$(($(stat -f --format="%a*%S" $1) / (1024 * 1024 * 1024)))"
+    check_range "Free space on \"$1\"" "GB" "$FREE_SPACE" $2 $3 0 2>&1
 }
 
 function check_network_address_conflicts() {
@@ -852,7 +954,7 @@ ${IPCALC_PY}
 if Network("${SHIELD_NETWORK_ADDR_BLOCK}").check_collision(IP("${IF_ADDR}")) :
     print("WARNING: Address collision detected: ${IF_ADDR} collides with ${SHIELD_NETWORK_ADDR_BLOCK} used by Shield!")
 END
-        check_ip_resolution "${IF_ADDR}"
+        check_ip_resolution "${IF_ADDR}" || true
     done
 
 }
@@ -860,8 +962,11 @@ END
 function check_ip_resolution() {
     log_message "Trying to resolve $1 to a DNS name..."
     if ! getent hosts "$1"; then
+        true
         log_message "WARNING: Could not resolve $1!"
+        return 1
     else
+        true
         log_message "OK"
     fi
     return 0
@@ -872,26 +977,73 @@ function check_hostname_resolution() {
     log_message "Hostname is ${HOSTNAME}"
     log_message "Trying to resolve ${HOSTNAME} to an IP address..."
     if ! getent hosts "${HOSTNAME}"; then
+        true
         log_message "ERROR: Could not resolve ${HOSTNAME}"
         return 1
     else
+        true
         log_message "OK"
     fi
     return 0
 }
 
+function check_distribution() {
+    local MIN_RELEASE_MAJOR="$MIN_RELEASE_MAJOR"
+    local MIN_RELEASE_MINOR="$MIN_RELEASE_MINOR"
+    local REC_RELEASE_MAJOR="$REC_RELEASE_MAJOR"
+    local REC_RELEASE_MINOR="$REC_RELEASE_MINOR"
+    local VER_REGEX="([[:digit:]]{2})\.([[:digit:]]{2})"
+    local DIST_REGEX='Ubuntu'
+    local DIST_S="$(/usr/bin/lsb_release -si)"
+    local VER_S="$(/usr/bin/lsb_release -sr)"
+
+    echo "The distribution is $(/usr/bin/lsb_release -sd)"
+
+    if ! [[ $DIST_S =~ $DIST_REGEX ]]; then
+        echo "Your distribution is \"$DIST_S\" but \"$DIST_REGEX\" is required" >&2
+        exit 1
+    fi
+
+    if [[ $VER_S =~ $VER_REGEX ]]; then
+        VER="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
+        if ((VER < ${MIN_RELEASE_MAJOR}${MIN_RELEASE_MINOR})); then
+            echo "ERROR: Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required" >&2
+            exit 1
+        elif ((VER != ${REC_RELEASE_MAJOR}${REC_RELEASE_MINOR})); then
+            echo "WARNING: Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended" >&2
+        fi
+        return 0
+    else
+        echo "$VER_S doesn't match $VER_REGEX" >&2
+        exit 1
+    fi
+}
+
+function install_if_not_installed() {
+    if ! dpkg -s "$1" >/dev/null 2>&1; then
+        log_message "***************     $1"
+        apt-get --assume-yes -y install "$1"
+    fi
+}
+
 function perform_env_test() {
-    if [ "$(dpkg -l | grep -w -c speedtest-cli)" -eq 0 ]; then
-        echo "***************     Installing speedtest-cli"
-        apt-get --assume-yes -y install speedtest-cli
-    fi
 
-    if [ "$(dpkg -l | grep -w -c hdparm)" -eq 0 ]; then
-        echo "***************     Installing hdparm"
-        apt-get --assume-yes -y install hdparm
-    fi
+    install_if_not_installed lsb-release
+    install_if_not_installed speedtest-cli
+    install_if_not_installed hdparm
+    install_if_not_installed units
+    install_if_not_installed bc
 
-    check_free_space
+    log_message "Checking distribution..."
+    log_message "$(check_distribution)"
+
+    echo ""
+
+    log_message "Checking free space..."
+    log_message "$(check_free_space "/" $MIN_FREE_SPACE_ROOT_GB $REC_FREE_SPACE_ROOT_GB 2>&1)"
+    log_message "$(check_free_space "/var/lib/docker" $MIN_FREE_SPACE_DOCK_GB $REC_FREE_SPACE_DOCK_GB 2>&1)"
+
+    echo ""
 
     log_message "Checking Internet connectivity..."
     log_message "$(check_connectivity 2>&1)"
@@ -900,12 +1052,17 @@ function perform_env_test() {
 
     log_message "Checking Internet speed..."
     # Perform Internet connection speed test
-    /usr/bin/speedtest-cli 2>&1 | tee -a "$LOGFILE"
+    local SPEED_TEST_OUT="$(LC_ALL=C /usr/bin/speedtest-cli --simple 2>&1)"
+    log_message $(parse_and_check_range "Ping time" "ms" "$SPEED_TEST_OUT" "$PING_REGEX" $SPDTST_PING_TIME_ERROR_MS $SPDTST_PING_TIME_WARNING_MS 1 2>&1)
+    log_message $(parse_and_check_range "Download speed" "Mbit/s" "$SPEED_TEST_OUT" "$DL_REGEX" $SPDTST_MIN_UPLOAD_SPD_MBITPS $SPDTST_WARN_UPLOAD_SPD_MBITPS 0 2>&1)
+    log_message $(parse_and_check_range "Upload speed" "Mbit/s" "$SPEED_TEST_OUT" "$UL_REGEX" $SPDTST_MIN_DLOAD_SPD_MBITPS $SPDTST_WARN_DLOAD_SPD_MBITPS 0 2>&1)
 
     echo ""
 
     log_message "Checking storage drive speed..."
-    log_message "$(check_storage_drive_speed 2>&1)"
+    local DISK_TEST_OUT="$(check_storage_drive_speed 2>&1)"
+    log_message $(parse_and_check_range "Disk speed (cached reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_CACHED_READS_REGEX" $DISK_CACHED_READS_MIN_SPD_MBPS $DISK_CACHED_READS_WARN_SPD_MBPS 0 2>&1)
+    log_message $(parse_and_check_range "Disk speed (buffered reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_BUFFERED_READS_REGEX" $DISK_BUFFERED_READS_MIN_SPD_MBPS $DISK_BUFFERED_READS_WARN_SPD_MBPS 0 2>&1)
 
     echo ""
 
