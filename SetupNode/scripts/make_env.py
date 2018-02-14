@@ -30,7 +30,7 @@ class StatusAction(argparse.Action):
         subprocess.check_output('touch .stoperror', shell=True)
         sys.exit(0)
 
-class NodeStatusAction(argparse.Action):
+class NodeStatusAction(StatusAction):
     def __init__(self, option_strings, dest, nargs=None, **kwargs):
         super(StatusAction, self).__init__(option_strings, dest,nargs, **kwargs)
 
