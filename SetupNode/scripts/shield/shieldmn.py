@@ -19,8 +19,9 @@ class ReportDataNodes:
             node_name = node['name']
             if node_name == '*':
                node_name = "localhost"
-            if 'Leader' in node_data['ManagerStatus']:
-               node_name += '_(Leader)'
+            if 'ManagerStatus' in node_data:
+                if 'Leader' in node_data['ManagerStatus']:
+                    node_name += '_(Leader)'
             node_row.append(node_name)
             node_row.append(node_data['Status']['Addr'])
             node_row.append(node_data['Spec']['Availability'])
