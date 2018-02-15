@@ -825,11 +825,11 @@ if ! declare -f log_message >/dev/null; then
     function log_message() {
         local PREV_RET_CODE=$?
         echo "$@"
-        echo "$(date): $@" >>"$LOGFILE"
+        echo "$(date): $@" | perl -ne 's/\x1b[[()=][;?0-9]*[0-9A-Za-z]?//g;s/\r//g;s/\007//g;print' >>"$LOGFILE"
         if ((PREV_RET_CODE != 0)); then
-            echo "Previous command failed, exiting..."
-            exit 1
+            return 1
         fi
+        return 0
     }
 fi
 
@@ -849,6 +849,13 @@ CURL_TEST_TIME_REGEX='Total time:[[:space:]]*([[:digit:],.]+)'
 
 DISK_CACHED_READS_REGEX='Timing cached reads:[[:print:]]*=[[:space:]]*([[:alpha:],[:space:],[:digit:],.]+\/sec)'
 DISK_BUFFERED_READS_REGEX='Timing buffered disk reads:[[:print:]]*=[[:space:]]*([[:alpha:],[:space:],[:digit:],.]+\/sec)'
+
+function print_special() {
+    local TEXT="$1"
+    local COLOUR="$2"
+    local ATTR="$3"
+    printf "\033[${ATTR};${COLOUR}m${TEXT}\033[0m\n"
+}
 
 function parse_output() {
     local OUTPUT_IN="$1"
@@ -893,10 +900,12 @@ function check_range() {
         fi
     fi
 
-    if [[ "$STATUS" == "OK" ]]; then
-        echo "$LABEL: $LVL $UNITS - $STATUS"
+    if [[ $STATUS == "OK" ]]; then
+        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 32 1)"
+    elif ((RET == 0)); then
+        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 33 1) (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
     else
-        echo "$LABEL: $LVL $UNITS - $STATUS (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 31 1) (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
     fi
 
     return $RET
@@ -969,11 +978,11 @@ function check_ip_resolution() {
     log_message "Trying to resolve $1 to a DNS name..."
     if ! getent hosts "$1"; then
         true
-        log_message "WARNING: Could not resolve $1!"
+        log_message "$(print_special 'WARNING:' 33 1) Could not resolve $1!"
         return 1
     else
         true
-        log_message "OK"
+        log_message "$(print_special 'OK' 32 1)"
     fi
     return 0
 }
@@ -984,11 +993,11 @@ function check_hostname_resolution() {
     log_message "Trying to resolve ${HOSTNAME} to an IP address..."
     if ! getent hosts "${HOSTNAME}"; then
         true
-        log_message "ERROR: Could not resolve ${HOSTNAME}"
+        log_message "$(print_special 'ERROR:' 31 1) Could not resolve ${HOSTNAME}"
         return 1
     else
         true
-        log_message "OK"
+        log_message "$(print_special 'OK' 32 1)"
     fi
     return 0
 }
@@ -1003,7 +1012,7 @@ function check_distribution() {
     local DIST_S="$(/usr/bin/lsb_release -si)"
     local VER_S="$(/usr/bin/lsb_release -sr)"
 
-    echo "The distribution is $(/usr/bin/lsb_release -sd)"
+    print_special "The distribution is $(/usr/bin/lsb_release -sd)" 37 1
 
     if ! [[ $DIST_S =~ $DIST_REGEX ]]; then
         echo "Your distribution is \"$DIST_S\" but \"$DIST_REGEX\" is required" >&2
@@ -1013,10 +1022,10 @@ function check_distribution() {
     if [[ $VER_S =~ $VER_REGEX ]]; then
         VER="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
         if ((VER < ${MIN_RELEASE_MAJOR}${MIN_RELEASE_MINOR})); then
-            echo "ERROR: Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required" >&2
+            echo "$(print_special 'ERROR:' 31 1) Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required" >&2
             exit 1
         elif ((VER != ${REC_RELEASE_MAJOR}${REC_RELEASE_MINOR})); then
-            echo "WARNING: Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended" >&2
+            echo "$(print_special 'WARNING:' 33 1) Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended" >&2
         fi
         return 0
     else
@@ -1028,56 +1037,64 @@ function check_distribution() {
 function install_if_not_installed() {
     if ! dpkg -s "$1" >/dev/null 2>&1; then
         log_message "***************     $1"
-        apt-get --assume-yes -y install "$1"
+        apt-get --assume-yes -y install "$1" || exit 1
     fi
 }
 
 function perform_env_test() {
+    local ERR=0
 
     install_if_not_installed lsb-release
     install_if_not_installed speedtest-cli
     install_if_not_installed hdparm
     install_if_not_installed units
     install_if_not_installed bc
+    install_if_not_installed perl
 
     log_message "Checking distribution..."
-    log_message "$(check_distribution)"
+    log_message "$(check_distribution)" || ERR=1
 
     echo ""
 
     log_message "Checking free space..."
-    log_message "$(check_free_space "/" $MIN_FREE_SPACE_ROOT_GB $REC_FREE_SPACE_ROOT_GB 2>&1)"
-    log_message "$(check_free_space "/var/lib/docker" $MIN_FREE_SPACE_DOCK_GB $REC_FREE_SPACE_DOCK_GB 2>&1)"
+    log_message "$(check_free_space "/" $MIN_FREE_SPACE_ROOT_GB $REC_FREE_SPACE_ROOT_GB 2>&1)" || ERR=1
+    log_message "$(check_free_space "/var/lib/docker" $MIN_FREE_SPACE_DOCK_GB $REC_FREE_SPACE_DOCK_GB 2>&1)" || ERR=1
 
     echo ""
 
     log_message "Checking Internet connectivity..."
-    log_message "$(check_connectivity 2>&1)"
+    log_message "$(check_connectivity 2>&1)" || ERR=1
 
     echo ""
 
     log_message "Checking Internet speed..."
     # Perform Internet connection speed test
     local SPEED_TEST_OUT="$(LC_ALL=C /usr/bin/speedtest-cli --simple 2>&1)"
-    log_message $(parse_and_check_range "Ping time" "ms" "$SPEED_TEST_OUT" "$PING_REGEX" $SPDTST_PING_TIME_ERROR_MS $SPDTST_PING_TIME_WARNING_MS 1 2>&1)
-    log_message $(parse_and_check_range "Download speed" "Mbit/s" "$SPEED_TEST_OUT" "$DL_REGEX" $SPDTST_MIN_UPLOAD_SPD_MBITPS $SPDTST_WARN_UPLOAD_SPD_MBITPS 0 2>&1)
-    log_message $(parse_and_check_range "Upload speed" "Mbit/s" "$SPEED_TEST_OUT" "$UL_REGEX" $SPDTST_MIN_DLOAD_SPD_MBITPS $SPDTST_WARN_DLOAD_SPD_MBITPS 0 2>&1)
+    log_message $(parse_and_check_range "Ping time" "ms" "$SPEED_TEST_OUT" "$PING_REGEX" $SPDTST_PING_TIME_ERROR_MS $SPDTST_PING_TIME_WARNING_MS 1 2>&1) || ERR=1
+    log_message $(parse_and_check_range "Download speed" "Mbit/s" "$SPEED_TEST_OUT" "$DL_REGEX" $SPDTST_MIN_UPLOAD_SPD_MBITPS $SPDTST_WARN_UPLOAD_SPD_MBITPS 0 2>&1) || ERR=1
+    log_message $(parse_and_check_range "Upload speed" "Mbit/s" "$SPEED_TEST_OUT" "$UL_REGEX" $SPDTST_MIN_DLOAD_SPD_MBITPS $SPDTST_WARN_DLOAD_SPD_MBITPS 0 2>&1) || ERR=1
 
     echo ""
 
     log_message "Checking storage drive speed..."
     local DISK_TEST_OUT="$(check_storage_drive_speed 2>&1)"
-    log_message $(parse_and_check_range "Disk speed (cached reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_CACHED_READS_REGEX" $DISK_CACHED_READS_MIN_SPD_MBPS $DISK_CACHED_READS_WARN_SPD_MBPS 0 2>&1)
-    log_message $(parse_and_check_range "Disk speed (buffered reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_BUFFERED_READS_REGEX" $DISK_BUFFERED_READS_MIN_SPD_MBPS $DISK_BUFFERED_READS_WARN_SPD_MBPS 0 2>&1)
+    (($? == 0)) || ERR=1
+    log_message $(parse_and_check_range "Disk speed (cached reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_CACHED_READS_REGEX" $DISK_CACHED_READS_MIN_SPD_MBPS $DISK_CACHED_READS_WARN_SPD_MBPS 0 2>&1) || ERR=1
+    log_message $(parse_and_check_range "Disk speed (buffered reads)" "MB/sec" "$DISK_TEST_OUT" "$DISK_BUFFERED_READS_REGEX" $DISK_BUFFERED_READS_MIN_SPD_MBPS $DISK_BUFFERED_READS_WARN_SPD_MBPS 0 2>&1) || ERR=1
 
     echo ""
 
     log_message "Checking network address conflicts..."
-    check_network_address_conflicts
+    check_network_address_conflicts || ERR=1
 
     echo ""
 
-    check_hostname_resolution
+    check_hostname_resolution || ERR=1
+
+    if ((ERR != 0)); then
+        log_message "Exiting due to previous errors..."
+        exit 1
+    fi
 }
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
