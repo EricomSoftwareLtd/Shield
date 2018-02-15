@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_282] - 2018-2-15
+- Admin - fixed admin tooltip for Upstreamernal
+- Admin - moved tooltip from right to be close to the text
+- Fix browser stuck dragging in SHIFT/CTRL+click link
+- Log alerts events in a new report #1778
+- Fixed profile bug in ICAP
+
 ## [Dev:Build_281] - 2018-2-14
 - Daily Backup for last 10 days #1915
 - Admin - Add new profile is not sunc with the current state #1392
