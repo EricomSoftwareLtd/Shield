@@ -9,6 +9,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_282] - 2018-2-15
+- Admin - fixed admin tooltip for Upstreamernal
+- Admin - moved tooltip from right to be close to the text
+- Fix browser stuck dragging in SHIFT/CTRL+click link
+- Log alerts events in a new report #1778
+- Fixed profile bug in ICAP
+
+## [Dev:Build_281] - 2018-2-14
+- Daily Backup for last 10 days #1915
+- Admin - Add new profile is not sunc with the current state #1392
+- Admin - Can't disable NTLM #2127
+- Admin - Policies table #1694
+- Admin - Rename proxy file to be default.pac #1568
+- Admin - Add new profile is not sunc with the current state #1392
+- Admin - Enabled autocomplete for profiles fields #1534
+- From create, submit, window open in the same tick - Totalsource.adp.com #2009
+- No preview for gmail attached PDF #1912
+- .aflac.com - cannot run 2017 report ("Download failed" error message) #1820
+- Cross Windows - Hotel.com #1657
+- Cross windows Bank Hapoalim - download excel #786
+- Pre-check Installer Shield #2068
+- Pre-install check ubuntu and kernel version #2037
+
+## [Dev:Build_280] - 2018-2-12
+- Prevent ntlm from crashing when wrong DC address #2095
+- Activation: Key already in use #1866
+- Fix shield-stats #2100
+- Remote Browsers are not starting after reboot #2092
+
 ## [Dev:Build_279] - 2018-2-11
 - ICAP Async rewrite 
 - Broker will clean dead failed CEF #2092

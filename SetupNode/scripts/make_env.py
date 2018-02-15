@@ -1,10 +1,10 @@
 import argparse
 import logging
 from shield.shieldmn import ReportDataServices
+from shield.shieldmn import ReportDataNodes
 from print_final_report import ReportData
 import sys
 import subprocess
-
 
 
 logger = logging.getLogger("parse_arguments")
@@ -23,17 +23,19 @@ class StatusAction(argparse.Action):
         super(StatusAction, self).__init__(option_strings, dest,nargs, **kwargs)
 
     def __call__(self, *args, **kwargs):
+        data = ReportDataNodes()
+        data.print()
         data = ReportDataServices()
         data.print()
         subprocess.check_output('touch .stoperror', shell=True)
         sys.exit(0)
 
-class NodeStatusAction(argparse.Action):
+class NodeStatusAction(StatusAction):
     def __init__(self, option_strings, dest, nargs=None, **kwargs):
-        super(NodeStatusAction, self).__init__(option_strings, dest,nargs, **kwargs)
+        super(StatusAction, self).__init__(option_strings, dest,nargs, **kwargs)
 
     def __call__(self, *args, **kwargs):
-        data = ReportData(mode='node')
+        data = ReportDataNodes()
         data.print()
         subprocess.check_output('touch .stoperror', shell=True)
         sys.exit(0)
