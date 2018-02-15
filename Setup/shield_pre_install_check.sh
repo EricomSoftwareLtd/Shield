@@ -892,7 +892,13 @@ function check_range() {
             RET=0
         fi
     fi
-    echo "$LABEL: $LVL $UNITS - $STATUS (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+
+    if [[ "$STATUS" == "OK" ]]; then
+        echo "$LABEL: $LVL $UNITS - $STATUS"
+    else
+        echo "$LABEL: $LVL $UNITS - $STATUS (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+    fi
+
     return $RET
 }
 
