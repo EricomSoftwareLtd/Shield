@@ -46,6 +46,7 @@ ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
 ES_CONFIG_STORAGE=yes
 SWITCHED_TO_MULTINODE=false
+ES_NO_BROWSERS=""
 
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
@@ -118,6 +119,11 @@ while [ $# -ne 0 ]; do
         ES_CONFIG_STORAGE=no
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
+    -no-browser)
+	ES_NO_BROWSERS="-no-browsers"
+        echo "MultiNode: No Browsers "
+        ;;
+
     -version)
         shift
         BRANCH="$1"
@@ -673,7 +679,7 @@ fi
 
 if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
     echo "source deploy-shield.sh"
-    source deploy-shield.sh
+    source deploy-shield.sh $ES_NO_BROWSERS
 
     # Check the result of the last command (start, status, deploy-shield)
     if [ $? == 0 ]; then

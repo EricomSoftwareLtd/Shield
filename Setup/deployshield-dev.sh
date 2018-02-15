@@ -90,11 +90,19 @@ function am_i_leader() {
 
 function create_uuid() {
     if [ $(docker secret ls | grep -c $SECRET_UID) -eq 0 ]; then
+        if [ "$(dpkg -l | grep -w -c uuid)" -eq 0 ]; then
+          echo "***************     Installing uuid-gen"
+          apt-get install  uuid-runtime
+        fi 
         uuid=$(uuidgen)
         uuid=${uuid^^}
+        if [ -z "$uuid" ]; then
+           echo "$SECRET_UID created: uuid: (was empty)"
+           uuid="00000000-5555-5555-5555-000000000000"
+        fi  
         echo $uuid | docker secret create $SECRET_UID -
         echo "$SECRET_UID created: uuid: $uuid "
-    else
+      else
         echo " $SECRET_UID secret already exist "
     fi
 }
