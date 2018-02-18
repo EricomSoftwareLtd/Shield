@@ -455,7 +455,6 @@ function get_shield_install_files() {
 }
 
 function pull_images() {
-    filename=./shield-version.txt
     LINE=0
     while read -r line; do
         if [ "${line:0:1}" == '#' ]; then
@@ -474,7 +473,7 @@ function pull_images() {
             fi
         fi
         LINE=$((LINE + 1))
-    done <"$filename"
+    done <"$ES_VER_FILE"
 }
 
 #############     Getting all files from Github
@@ -708,13 +707,9 @@ systemctl start ericomshield-updater.service
 
 Version=$(grep SHIELD_VER "$ES_YML_FILE")
 
-echo "$Version" >.version
-grep image "$ES_YML_FILE" >>.version
-
 if [ $SUCCESS == false ]; then
     echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."
     echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
-    echo "--Timeout?" >>.version # adding failed into the version file
     exit 1
 fi
 
