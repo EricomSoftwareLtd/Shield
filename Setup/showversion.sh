@@ -4,7 +4,7 @@
 #######################################BH###
 
 ES_PATH=/usr/local/ericomshield
-ES_VERSION="$ES_PATH/.version"
+ES_VERSION="$ES_PATH/shield-version.txt"
 
 docker version
 
