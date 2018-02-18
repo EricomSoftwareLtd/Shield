@@ -55,9 +55,8 @@ function wait_for_maintenance_time() {
     fi
 }
 
-function am_i_leader()
-{
-    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+function am_i_leader() {
+    AM_I_LEADER=$(docker node inspect $(hostname) --format "{{ .ManagerStatus.Leader }}" | grep "true")
 }
 
 while true; do
@@ -96,13 +95,13 @@ while true; do
             chmod +x ericomshield-setup.sh
             am_i_leader
             if [ "$AM_I_LEADER" == true ]; then
-              echo "Running Shield Setup (leader)"
-              echo "$(date): From autoupdate.sh Running Shield Setup (leader)" >>"$LOGFILE"              
-              $ES_PATH/ericomshield-setup.sh
-             else
-              echo "Running Shield Setup no-deploy (I'm not the leader)"
-              echo "$(date): From autoupdate.sh Running Shield Setup no-deploy (I'm not the leader)" >>"$LOGFILE"                            
-              $ES_PATH/ericomshield-setup.sh -no-deploy
+                echo "Running Shield Setup (leader)"
+                echo "$(date): From autoupdate.sh Running Shield Setup (leader)" >>"$LOGFILE"
+                $ES_PATH/ericomshield-setup.sh
+            else
+                echo "Running Shield Setup no-deploy (I'm not the leader)"
+                echo "$(date): From autoupdate.sh Running Shield Setup no-deploy (I'm not the leader)" >>"$LOGFILE"
+                $ES_PATH/ericomshield-setup.sh -no-deploy
             fi
         fi
     fi
@@ -117,5 +116,5 @@ while true; do
         echo "ericomshield was not running"
         $ES_PATH/run.sh
     fi
-    UPDATE=false    
+    UPDATE=false
 done
