@@ -60,8 +60,13 @@ if [ ! -d $ES_BACKUP_PATH ]; then
 fi
 
 function log_message() {
-    echo "$1"
-    echo "$(date): $1" >>"$LOGFILE"
+    local PREV_RET_CODE=$?
+    echo "$@"
+    echo "$(date): $@" | perl -ne 's/\x1b[[()=][;?0-9]*[0-9A-Za-z]?//g;s/\r//g;s/\007//g;print' >>"$LOGFILE"
+    if ((PREV_RET_CODE != 0)); then
+        return 1
+    fi
+    return 0
 }
 
 cd "$ES_PATH" || exit
@@ -262,7 +267,7 @@ function accept_license() {
 
 function install_docker() {
 
-     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         echo "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
 
@@ -278,7 +283,7 @@ function install_docker() {
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
-     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         failed_to_install "Failed to Install/Update Docker, Exiting!"
     fi
 }
@@ -314,7 +319,7 @@ function update_sysctl() {
 
 function setup_dnsmasq() {
 
-    if [ "$(dpkg -l | grep -w -c "dnsmasq " )" -eq 0 ]; then
+    if [ "$(dpkg -l | grep -w -c "dnsmasq ")" -eq 0 ]; then
         echo "***************     Installing dnsmasq"
         apt-get --assume-yes -y install dnsmasq
     fi
@@ -342,11 +347,11 @@ function create_shield_service() {
 function add_aliases() {
     if [ -f ~/.bashrc ] && [ $(grep -c 'shield_aliases' ~/.bashrc) -eq 0 ]; then
         echo 'Adding Aliases in .bashrc'
-        echo "" >> ~/.bashrc
-        echo "# EricomShield aliases" >> ~/.bashrc
-        echo "if [ -f ~/.shield_aliases ]; then" >> ~/.bashrc
-        echo ". ~/.shield_aliases" >> ~/.bashrc
-        echo "fi" >> ~/.bashrc
+        echo "" >>~/.bashrc
+        echo "# EricomShield aliases" >>~/.bashrc
+        echo "if [ -f ~/.shield_aliases ]; then" >>~/.bashrc
+        echo ". ~/.shield_aliases" >>~/.bashrc
+        echo "fi" >>~/.bashrc
     fi
     . ~/.bashrc
 }
@@ -371,15 +376,14 @@ function prepare_yml() {
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 }
 
-function switch_to_multi_node
-{
-      if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -eq 1 ]; then
-         echo "Switching to Multi-Node (consul-server -> global)"
-         sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g'  $ES_YML_FILE
-         sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g'  $ES_YML_FILE
-         sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g'  $ES_YML_FILE
-         SWITCHED_TO_MULTINODE=true
-      fi
+function switch_to_multi_node() {
+    if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -eq 1 ]; then
+        echo "Switching to Multi-Node (consul-server -> global)"
+        sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g' $ES_YML_FILE
+        sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g' $ES_YML_FILE
+        sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g' $ES_YML_FILE
+        SWITCHED_TO_MULTINODE=true
+    fi
 }
 
 function get_shield_install_files() {
@@ -387,10 +391,10 @@ function get_shield_install_files() {
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
     curl -s -S -o "shield_repo_tmp.sh" $ES_repo_setup
     if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c '404' shield_repo_tmp.sh) -ge 1 ]; then
-       failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
+        failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
-    
-    mv  shield_repo_tmp.sh "$ES_REPO_FILE"
+
+    mv shield_repo_tmp.sh "$ES_REPO_FILE"
 
     #include file with files repository
     source $ES_REPO_FILE
@@ -459,7 +463,7 @@ function pull_images() {
         else
             arr=($line)
             if [ $LINE -eq 1 ]; then
-                if  [ -f .version ] && [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
+                if [ -f .version ] && [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
                     echo "No new version detected"
                     break
                 fi
@@ -539,9 +543,8 @@ function test_swarm_exists() {
     echo $(docker info | grep -i 'swarm: active')
 }
 
-function am_i_leader()
-{
-    AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+function am_i_leader() {
+    AM_I_LEADER=$(docker node inspect $(hostname) --format "{{ .ManagerStatus.Leader }}" | grep "true")
 }
 
 function set_storage_driver() {
@@ -553,7 +556,7 @@ function set_storage_driver() {
         echo '  "storage-driver": "overlay2"' >>/etc/docker/daemon.json.shield
         echo '}' >>/etc/docker/daemon.json.shield
         systemctl stop docker
-	sleep 10
+        sleep 10
         mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
         systemctl start docker
     fi
@@ -589,8 +592,8 @@ fi
 get_shield_install_files
 
 if [ "$ES_FORCE" == false ]; then
-   source $ES_PRE_CHECK_FILE
-   perform_env_test
+    source $ES_PRE_CHECK_FILE
+    perform_env_test
 fi
 
 add_aliases
@@ -626,7 +629,7 @@ if [ "$UPDATE" == false ]; then
     AM_I_LEADER=true #if new installation, i am the leader
     # New Installation
     if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
-       set_storage_driver
+        set_storage_driver
     fi
 
     create_shield_service
@@ -635,31 +638,31 @@ else # Update
     STOP_SHIELD=false
     SWARM=$(test_swarm_exists)
     if [ ! -z "$SWARM" ]; then
-       am_i_leader
-       MNG_NODES_COUNT=$(docker node ls -f "role=manager"| grep -c Ready)
-       CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
-       if [ "$MNG_NODES_COUNT" -gt 1 ] ; then
-          switch_to_multi_node
-          if [ "$CONSUL_GLOBAL" -ne 1 ] ; then
-             if [ "$AM_I_LEADER" == true ]; then
-                STOP_SHIELD=true
-             fi
-          fi
-       fi
-      else
-       AM_I_LEADER=true  #if swarm doesnt exist i am the leader
+        am_i_leader
+        MNG_NODES_COUNT=$(docker node ls -f "role=manager" | grep -c Ready)
+        CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
+        if [ "$MNG_NODES_COUNT" -gt 1 ]; then
+            switch_to_multi_node
+            if [ "$CONSUL_GLOBAL" -ne 1 ]; then
+                if [ "$AM_I_LEADER" == true ]; then
+                    STOP_SHIELD=true
+                fi
+            fi
+        fi
+    else
+        AM_I_LEADER=true #if swarm doesnt exist i am the leader
     fi
 
-    if  [ "$AM_I_LEADER" == "true" ]; then
+    if [ "$AM_I_LEADER" == "true" ]; then
         if [ "$ES_RUN_DEPLOY" == "true" ]; then
-           if [ "$UPDATE_NEED_RESTART" == "true" ] || [ "$STOP_SHIELD" == "true" ]; then
-              log_message "Stopping Ericom Shield for Update (Downtime)"
-              ./stop.sh
-             else
-              echo -n "stop shield-broker"
-              docker service scale shield_broker-server=0
-              wait_for_docker_to_settle
-	   fi
+            if [ "$UPDATE_NEED_RESTART" == "true" ] || [ "$STOP_SHIELD" == "true" ]; then
+                log_message "Stopping Ericom Shield for Update (Downtime)"
+                ./stop.sh
+            else
+                echo -n "stop shield-broker"
+                docker service scale shield_broker-server=0
+                wait_for_docker_to_settle
+            fi
         fi
     fi
 fi
@@ -680,23 +683,23 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
 
     # Check the result of the last command (start, status, deploy-shield)
     if [ $? == 0 ]; then
-       echo "***************     Success!"
+        echo "***************     Success!"
 
-       #Check the status of the system wait 20*10 (~3 mins)
-       wait=0
-       while [ $wait -lt 10 ]; do
-          if "$ES_PATH"/status.sh; then
-             echo "Ericom Shield is Running!"
-             SUCCESS=true
-             break
-           else
-             echo -n .
-             sleep 30
-          fi
-        wait=$((wait + 1))
+        #Check the status of the system wait 20*10 (~3 mins)
+        wait=0
+        while [ $wait -lt 10 ]; do
+            if "$ES_PATH"/status.sh; then
+                echo "Ericom Shield is Running!"
+                SUCCESS=true
+                break
+            else
+                echo -n .
+                sleep 30
+            fi
+            wait=$((wait + 1))
         done
     fi
-   else
+else
     echo "Installation only (no deployment or not the leader)"
     SUCCESS=true
 fi
@@ -709,15 +712,15 @@ echo "$Version" >.version
 grep image "$ES_YML_FILE" >>.version
 
 if [ $SUCCESS == false ]; then
-   echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."
-   echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
-   echo "--Timeout?" >>.version # adding failed into the version file
-   exit 1
+    echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."
+    echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
+    echo "--Timeout?" >>.version # adding failed into the version file
+    exit 1
 fi
 
 if [ "$SWITCHED_TO_MULTINODE" == "true" ]; then
-         echo "Run consul data restore according switching consul mode"
-         ./restore.sh
+    echo "Run consul data restore according switching consul mode"
+    ./restore.sh
 fi
 
 echo "***************     Success!"

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
@@ -16,11 +15,10 @@ while [ $# -ne 0 ]; do
     -h | --help)
         echo "Usage: $0 [filename]"
         exit 0
-    ;;
+        ;;
     esac
     shift
 done
-
 
 all=($(docker ps | grep consul-server | awk {'print $1'}))
 

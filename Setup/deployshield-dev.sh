@@ -45,7 +45,7 @@ function retry_on_failure() {
                 sleep $delay
             else
                 echo "The command '$@' has failed after $n attempts." >&2
-                echo "Please try to execute ./stop.sh then ./run.sh commands" >&2                
+                echo "Please try to execute ./stop.sh then ./run.sh commands" >&2
                 exit 1
             fi
         }
@@ -80,12 +80,11 @@ function init_swarm() {
     fi
 }
 
-function am_i_leader()
-{
+function am_i_leader() {
     if [ -z "$JENKINS" ]; then
-        AM_I_LEADER=$(docker node inspect `hostname` --format "{{ .ManagerStatus.Leader }}" | grep "true")
+        AM_I_LEADER=$(docker node inspect $(hostname) --format "{{ .ManagerStatus.Leader }}" | grep "true")
     else
-        AM_I_LEADER=true;
+        AM_I_LEADER=true
     fi
 }
 
@@ -166,7 +165,7 @@ LEADER_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 # id123 *   shield-mng1         Ready               Active              Leader  # when leader is current node hostname is 3rd param (ID, *, hostname)
 # id123    shield-mng1         Ready               Active              Leader   # when leader is not current node hostname is the 2nd param (ID, hostname)
 if [ $LEADER_HOST == "Ready" ]; then
-   LEADER_HOST=$(docker node ls | grep Leader | awk '{print $2}')
+    LEADER_HOST=$(docker node ls | grep Leader | awk '{print $2}')
 fi
 create_proxy_env_file
 
