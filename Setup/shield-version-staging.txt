@@ -16,7 +16,7 @@ shield-cdr-dispatcher:latest shield-cdr-dispatcher:180204-14.34-1264
 shield-cdr-controller:latest shield-cdr-controller:180207-18.11-1292
 shield-web-service:latest shield-web-service:180204-14.34-1264
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:180129-10.03-1219
+shield-authproxy:latest shield-authproxy:180212-11.18-1344
 node-installer:latest node-installer:180207-13.42
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
