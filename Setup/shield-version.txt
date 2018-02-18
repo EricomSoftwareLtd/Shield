@@ -6,7 +6,7 @@ shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
 shield-admin:latest shield-admin:180212-10.11-1342
 shield-portainer:latest shield-portainer:171217-11.30
 proxy-server:latest proxy-server:180130-10.49-1232
-icap-server:latest icap-server:180215-13.04.1391
+icap-server:latest icap-server:korean
 shield-cef:latest shield-cef:180207-20.45-1295
 broker-server:latest broker-server:180212-12.17-1348
 shield-collector:latest shield-collector:180207-18.32-1293
