@@ -19,3 +19,4 @@ shield-authproxy:latest shield-authproxy:180214-14.34-1372
 node-installer:latest node-installer:180214-12.26
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
+speedtest:latest speedtest:180214-10.00
