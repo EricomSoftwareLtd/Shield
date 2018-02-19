@@ -12,7 +12,9 @@ services:
       - shield
     hostname: netdata
     ports:
-      - 8383:19999
+      - target: 8383
+        published: 19999
+        protocol: tcp
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -359,6 +361,23 @@ services:
             limits:
               memory: 1024MB
               cpus: "1"
+  speedtest:
+        image: securebrowsing/speedtest:latest
+        hostname: speedtest
+        ports:
+          - "8185:8185"
+        networks:
+          - shield
+        deploy:
+          mode: replicated
+          replicas: 1
+          placement:
+            constraints:
+              - node.labels.browser==yes
+          resources:
+            limits:
+              memory: 512MB
+              cpus: "0.5"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
       hostname: authproxy
@@ -484,3 +503,4 @@ networks:
 secrets:
    shield-system-id:
        external: true
+ 
