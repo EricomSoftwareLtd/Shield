@@ -6,7 +6,7 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-usage] [-pocket]"
+    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-usage] [-quickeval]"
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -99,9 +99,9 @@ while [ $# -ne 0 ]; do
     -force-ip-address-selection)
         ES_FORCE_SET_IP_ADDRESS=true
         ;;
-    -pocket)
+    -quickeval)
         ES_POCKET=true
-        echo " pocket version "
+        echo " Quick Evaluation "
         ;;
     -restart)
         UPDATE_NEED_RESTART=true
@@ -227,7 +227,10 @@ function choose_network_interface() {
 
 function failed_to_install() {
     log_message "An error occurred during the installation: $1, Exiting!"
-
+	exit 1
+}
+function failed_to_install_cleaner() {
+    log_message "An error occurred during the installation: $1, Exiting!"
     if [ "$UPDATE" == true ]; then
         if [ -f "$ES_VER_FILE" ]; then
             mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
@@ -302,7 +305,7 @@ function docker_login() {
         if [ $? == 0 ]; then
             echo "Login Succeeded!"
         else
-            failed_to_install "Cannot Login to docker, Exiting!"
+            failed_to_install_cleaner "Cannot Login to docker, Exiting!"
         fi
     fi
 }
@@ -401,6 +404,7 @@ function get_shield_install_files() {
 
     echo "Getting $ES_PRE_CHECK_FILE"
     curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
+	chmod +x "$ES_PRE_CHECK_FILE"
 
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
@@ -585,14 +589,14 @@ else
     exit 1
 fi
 
-# No Need to Install docker compose
-# install_docker_compose
-
 get_shield_install_files
 
 if [ "$ES_FORCE" == false ]; then
     source $ES_PRE_CHECK_FILE
     perform_env_test
+    if [ "$?" -ne "0" ]; then
+       failed_to_install_cleaner "Shield pre-install-check failed!"    
+    fi    
 fi
 
 add_aliases
@@ -609,15 +613,15 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
         log_message "EULA has been accepted"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
     else
-        failed_to_install "EULA has not been accepted, exiting..."
+        failed_to_install_cleaner "EULA has not been accepted, exiting..."
     fi
 fi
 
 setup_dnsmasq
 
-get_shield_files
-
 docker_login
+
+get_shield_files
 
 update_sysctl
 
@@ -632,6 +636,8 @@ if [ "$UPDATE" == false ]; then
     fi
 
     create_shield_service
+    echo "pull images" #before starting the system
+    pull_images
 
 else # Update
     STOP_SHIELD=false
@@ -652,6 +658,9 @@ else # Update
         AM_I_LEADER=true #if swarm doesnt exist i am the leader
     fi
 
+    echo "pull images" #before restarting the system for upgrade
+    pull_images
+
     if [ "$AM_I_LEADER" == "true" ]; then
         if [ "$ES_RUN_DEPLOY" == "true" ]; then
             if [ "$UPDATE_NEED_RESTART" == "true" ] || [ "$STOP_SHIELD" == "true" ]; then
@@ -664,11 +673,6 @@ else # Update
             fi
         fi
     fi
-fi
-
-if [ "$ES_RUN_DEPLOY" == true ]; then
-    echo "pull images" #before restarting the system for upgrade
-    pull_images
 fi
 
 if [ -n "$MY_IP" ]; then
@@ -697,6 +701,8 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
             fi
             wait=$((wait + 1))
         done
+	  else
+       failed_to_install_cleaner "Deploy Failed"
     fi
 else
     echo "Installation only (no deployment or not the leader)"
