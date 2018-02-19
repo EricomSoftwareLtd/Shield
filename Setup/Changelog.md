@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_283] - 2018-2-19
+- Japanese IME bugfix
+- Keyboard fixes for korean and japanese
+- Fix page refresh method #2122
+- Icap should have mergeable values for defaults using consul source #2163
+- Backspace is not working correctly in Japanese #2149
+- Arrows are not working #2148
+- Firefox does not reload when it should #
+- Typing in Korean Issue #1938
+- Office online right click menu copy paste - shows but does not function #1463
+
+
 ## [Dev:Build_282] - 2018-2-15
 - Admin - fixed admin tooltip for Upstreamernal
 - Admin - moved tooltip from right to be close to the text
