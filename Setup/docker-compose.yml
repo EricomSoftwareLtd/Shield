@@ -18,6 +18,8 @@ services:
       - /sys:/host/sys:ro
     deploy:
       mode: global
+#      mode: replicated   #Pocket Mode
+#      replicas: 0        #Pocket Mode      
       restart_policy:
           condition: any
       update_config:
@@ -80,6 +82,7 @@ services:
        - "HEAP_SIZE=2g"
      deploy:
        replicas: 1
+#      replicas: 0        #Pocket Mode      
        restart_policy:
            condition: any
        placement:
