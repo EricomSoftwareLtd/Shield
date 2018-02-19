@@ -35,6 +35,9 @@ while [ $# -ne 0 ]; do
         echo "Multi-Machine: No Browser Label"
         ;;
     #        -usage)
+    -j | --jenkins)
+        JENKINS="yes"
+        ;;
     *)
         echo "Usage: $0 [-no-browser]"
         exit
@@ -125,15 +128,6 @@ function make_in_memory_volume() {
         echo 'tmpfs   /media/containershm     tmpfs   rw,size=2G      0       0' >>/etc/fstab
     fi
 }
-
-while [ "$1" != "" ]; do
-    case $1 in
-    -j | --jenkins)
-        JENKINS="yes"
-        ;;
-    esac
-    shift
-done
 
 if [ -z "$JENKINS" ]; then
     ES_YML_FILE=docker-compose.yml
