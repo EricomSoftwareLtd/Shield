@@ -389,7 +389,7 @@ function switch_to_multi_node() {
     fi
 }
 
-function get_shield_install_files() {
+function get_precheck_files() {
     echo "Getting $ES_REPO_FILE"
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
     curl -s -S -o "shield_repo_tmp.sh" $ES_repo_setup
@@ -405,7 +405,10 @@ function get_shield_install_files() {
     echo "Getting $ES_PRE_CHECK_FILE"
     curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
 	chmod +x "$ES_PRE_CHECK_FILE"
+}
 
+function get_shield_install_files() {
+    echo "Getting shield install files"
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
         curl -s -S -o shield-version-new.txt "$ES_repo_dev_ver"
@@ -569,6 +572,16 @@ function set_storage_driver() {
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
+get_precheck_files
+
+if [ "$ES_FORCE" == false ]; then
+    source $ES_PRE_CHECK_FILE
+    perform_env_test
+    if [ "$?" -ne "0" ]; then
+       failed_to_install "Shield pre-install-check failed!"    
+    fi    
+fi
+
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
         choose_network_interface
@@ -590,14 +603,6 @@ else
 fi
 
 get_shield_install_files
-
-if [ "$ES_FORCE" == false ]; then
-    source $ES_PRE_CHECK_FILE
-    perform_env_test
-    if [ "$?" -ne "0" ]; then
-       failed_to_install_cleaner "Shield pre-install-check failed!"    
-    fi    
-fi
 
 add_aliases
 
