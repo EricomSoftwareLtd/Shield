@@ -120,7 +120,7 @@ while [ $# -ne 0 ]; do
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
     -no-browser)
-	ES_NO_BROWSERS="-no-browsers"
+	ES_NO_BROWSERS="-no-browser"
         echo "MultiNode: No Browsers "
         ;;
 
@@ -672,9 +672,11 @@ else # Update
                 log_message "Stopping Ericom Shield for Update (Downtime)"
                 ./stop.sh
             else
-                echo -n "stop shield-broker"
-                docker service scale shield_broker-server=0
-                wait_for_docker_to_settle
+                if [ ! -z "$SWARM" ]; then
+                   echo -n "stop shield-broker"
+                   docker service scale shield_broker-server=0
+                   wait_for_docker_to_settle
+	        fi
             fi
         fi
     fi
