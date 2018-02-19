@@ -1093,12 +1093,19 @@ function perform_env_test() {
 
     if ((ERR != 0)); then
         log_message "Exiting due to previous errors..."
-        exit 1
+        return 1
     fi
+    return 0
 }
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
     set -e
     ES_INTERACTIVE=true
     perform_env_test
+    RET_VALUE=$?
+    if [ $RET_VALUE != "0" ]; then
+       exit 1
+    fi
+    log_message "shield_pre_install_check passed..."
+    exit 0
 fi
