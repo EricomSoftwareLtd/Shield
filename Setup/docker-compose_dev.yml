@@ -64,35 +64,34 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-
   elk:
-      image: securebrowsing/shield-elk:latest
+     image: securebrowsing/shield-elk:latest
       ports:
           - 5601:5601
           - 9200:9200
           - 5014:5014
-      networks:
-          - shield
-      environment:
-        - "REINDEX_RUNINNG_INTERVAL=30s"
-        - "CLEAN_RUNINNG_INTERVAL=12h"
-        - "LOGSPOUT=ignore"
-      deploy:
-        replicas: 1
-        restart_policy:
-            condition: any
-        placement:
-            constraints:
-              - node.labels.management==yes
-        update_config:
-          failure_action: rollback
-        resources:
-          limits:
-            memory: 6GB
-            cpus: "4"
-      volumes:
-         - elastic:/opt/elasticsearch/data
-
+     networks:
+         - shield
+     environment:
+       - "REINDEX_RUNINNG_INTERVAL=30s"
+       - "CLEAN_RUNINNG_INTERVAL=12h"
+       - "LOGSPOUT=ignore"
+       - "HEAP_SIZE=2g"
+     deploy:
+       replicas: 1
+       restart_policy:
+           condition: any
+       placement:
+           constraints:
+             - node.labels.management==yes
+       update_config:
+         failure_action: rollback
+       resources:
+         limits:
+           memory: 3GB
+           cpus: "2"
+     volumes:
+        - elastic:/opt/elasticsearch/data
   logspout:
     image: securebrowsing/shield-logspout:latest
     networks:
@@ -113,7 +112,6 @@ services:
             reservations:
                 cpus: '0.10'
                 memory: 128M
-
   consul-server:
     image: securebrowsing/shield-configuration:latest
     networks:
