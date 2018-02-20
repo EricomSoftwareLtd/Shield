@@ -1,5 +1,5 @@
-#Build Prod_18.02-1:Build_280.1 on 18/02/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=18.02:Build_280.1
+#Build Prod_18.02-1:Build_280.2 on 18/02/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=18.02:Build_280.2
 #
 shield-configuration:latest shield-configuration:180207-18.32-1293
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
@@ -8,7 +8,7 @@ shield-portainer:latest shield-portainer:171217-11.30
 proxy-server:latest proxy-server:180130-10.49-1232
 icap-server:latest icap-server:180215-13.04-1391
 shield-cef:latest shield-cef:180207-20.45-1295
-broker-server:latest broker-server:180212-12.17-1348
+broker-server:latest broker-server:180214-08.18-1353
 shield-collector:latest shield-collector:180207-18.32-1293
 shield-elk:latest shield-elk:180204-18.31-1272
 extproxy:latest extproxy:180131-15.40-1253
