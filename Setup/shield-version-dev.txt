@@ -1,4 +1,4 @@
-#Build Dev:Build_284 on 19/2/20
+#Build Dev:Build_284 on 20/02/18
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_284
 shield-configuration:latest shield-configuration:180214-09.14-1357
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
