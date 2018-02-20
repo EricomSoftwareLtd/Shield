@@ -1058,7 +1058,11 @@ function perform_env_test() {
 
     log_message "Checking free space..."
     log_message "$(check_free_space "/" $MIN_FREE_SPACE_ROOT_GB $REC_FREE_SPACE_ROOT_GB 2>&1)" || ERR=1
-    log_message "$(check_free_space "/var/lib/docker" $MIN_FREE_SPACE_DOCK_GB $REC_FREE_SPACE_DOCK_GB 2>&1)" || ERR=1
+    if [ -d "/var/lib/docker" ]; then
+        log_message "$(check_free_space "/var/lib/docker" $MIN_FREE_SPACE_DOCK_GB $REC_FREE_SPACE_DOCK_GB 2>&1)" || ERR=1
+    else
+        log_message "$(check_free_space "/var/lib" $MIN_FREE_SPACE_DOCK_GB $REC_FREE_SPACE_DOCK_GB 2>&1)" || ERR=1
+    fi
 
     echo ""
 
