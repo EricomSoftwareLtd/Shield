@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_284] - 2018-2-20
+- Cross Window - Cisco Login #1655
+- Added alert debug logs
+- Re-implemented node docker failure alert
+- Log alerts events in a new report #1778
+
 ## [Dev:Build_283] - 2018-2-19
 - Japanese IME bugfix
 - Keyboard fixes for korean and japanese
