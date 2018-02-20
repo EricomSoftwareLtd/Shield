@@ -93,8 +93,8 @@ services:
        resources:
          limits:
            memory: 3GB
-           cpus: "2" 
-     volumes:
+           cpus: "2"
+    volumes:
         - elastic:/opt/elasticsearch/data
   logspout:
     image: securebrowsing/shield-logspout:latest
