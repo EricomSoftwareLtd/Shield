@@ -6,7 +6,7 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-usage] [-quickeval]"
+    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage]"
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -131,7 +131,7 @@ while [ $# -ne 0 ]; do
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-force-ip-address-selection] [-autoupdate] [-dev] [-staging] [-pocket] [-usage]"
+        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage]"
         exit
         ;;
     esac
@@ -708,7 +708,7 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
             fi
             wait=$((wait + 1))
         done
-	  else
+      else
        failed_to_install_cleaner "Deploy Failed"
     fi
 else
