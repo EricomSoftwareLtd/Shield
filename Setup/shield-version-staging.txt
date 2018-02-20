@@ -1,4 +1,4 @@
-#Build Staging:Build_280.1 on 12/2/18
+#Build Staging:Build_280.2 on 12/2/18
 SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_280.2
 #
 shield-configuration:latest shield-configuration:180207-18.32-1293
