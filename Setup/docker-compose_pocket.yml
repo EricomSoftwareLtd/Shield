@@ -93,7 +93,7 @@ services:
        resources:
          limits:
            memory: 3GB
-           cpus: "2"
+           cpus: "2" 
      volumes:
         - elastic:/opt/elasticsearch/data
   logspout:
