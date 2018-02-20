@@ -81,19 +81,19 @@ services:
       - "LOGSPOUT=ignore"
       - "HEAP_SIZE=2g"
     deploy:
-       mode: replicated   
-       replicas: 0        #Pocket Mode
-       restart_policy:
-           condition: any
-       placement:
-           constraints:
-             - node.labels.management==yes
-       update_config:
+      mode: replicated   
+      replicas: 0        #Pocket Mode
+      restart_policy:
+          condition: any
+      placement:
+          constraints:
+            - node.labels.management==yes
+      update_config:
          failure_action: rollback
-       resources:
-         limits:
-           memory: 3GB
-           cpus: "2"
+      resources:
+        limits:
+          memory: 3GB
+          cpus: "2"
     volumes:
         - elastic:/opt/elasticsearch/data
   logspout:
