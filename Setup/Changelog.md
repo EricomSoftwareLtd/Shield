@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
-
+## [Dev:Build_285] - 2018-2-20
+- Thai font do not display in Shield #2185
+ 
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
 - Added alert debug logs
