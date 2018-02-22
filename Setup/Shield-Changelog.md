@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Prod:18.02-1-Build-280.1] - 2018-02-18
+## [Prod:18.02-1-Build-280.3] - 2018-02-20
 ### Enhancements:
 - Pre-check Installer Shield #2068
 - Pre-install check ubuntu and kernel version 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Open new tab? notification is displayed when open link with middle click
 - Cross windows -booking.com
 - Emirates.com - Can't click on the website
-
+- Fixed rare broker crash
 - Remote Browsers are not starting after reboot
 - Activation: Key already in use
 - Admin takes long to load when no internet
