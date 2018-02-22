@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_286] - 2018-2-22
+- High Number of Critical Error Alert is confusing #2184
+- Admin: Add new profile - the Add button was disabled #2120
+- Admin: Generate the keytab command #1810
+- Admin: Proper message when consul is not working instead of Invalid Credentials #2204
+- Admin: Added proxy configuration collapsable area as requested in + updated tooltips #2062
+- Experimental Upload alerts to an external Database #2202
+- Experimental Youtube only FMS #2200
+- Updated tooltip and input for download max size #1409
+- Authproxy squid reconfigure leaves zombie shield_policy_acl.js processes #2217
+
 ## [Dev:Build_285] - 2018-2-20
 - Thai font do not display in Shield #2185
  
