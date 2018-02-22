@@ -8,6 +8,33 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Prod:18.02-1-Build-280.3] - 2018-02-20
+### Enhancements:
+- Pre-check Installer Shield #2068
+- Pre-install check ubuntu and kernel version 
+- Added alert when system requires activation
+- Implement Keepalive with Votiro Server
+- Blacklist Policy rows should be also strikethrough
+- Publishing dynamic PAC files
+
+### Bug Fixes:
+- Duplicate Policies when using profiles (identified as a cookies issue)
+- Downloads of direct links do not work : "Download Disabled" message
+- Open new tab? notification is displayed when open link with middle click
+- Cross windows -booking.com
+- Emirates.com - Can't click on the website
+- Fixed rare broker crash
+- Remote Browsers are not starting after reboot
+- Activation: Key already in use
+- Admin takes long to load when no internet
+- The leader node IP displayed is 0.0.0.0
+- Prevent NTLM from crashing when wrong DC address
+- Admin - policies - default values are taken from the current profile in focus
+- Backup service is not running on the leader and user need to restore the data
+- Admin Dashboard with long urls
+- Open new tab? notification is displayed when open link with middle click
+
 ## [Dev:Build_286] - 2018-2-22
 - High Number of Critical Error Alert is confusing #2184
 - Admin: Add new profile - the Add button was disabled #2120
