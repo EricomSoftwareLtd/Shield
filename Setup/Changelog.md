@@ -8,6 +8,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Prod:18.02-1-Build-280.3] - 2018-02-20
+### Enhancements:
+- Pre-check Installer Shield #2068
+- Pre-install check ubuntu and kernel version 
+- Added alert when system requires activation
+- Implement Keepalive with Votiro Server
+- Blacklist Policy rows should be also strikethrough
+- Publishing dynamic PAC files
+
+### Bug Fixes:
+- Duplicate Policies when using profiles (identified as a cookies issue)
+- Downloads of direct links do not work : "Download Disabled" message
+- Open new tab? notification is displayed when open link with middle click
+- Cross windows -booking.com
+- Emirates.com - Can't click on the website
+- Fixed rare broker crash
+- Remote Browsers are not starting after reboot
+- Activation: Key already in use
+- Admin takes long to load when no internet
+- The leader node IP displayed is 0.0.0.0
+- Prevent NTLM from crashing when wrong DC address
+- Admin - policies - default values are taken from the current profile in focus
+- Backup service is not running on the leader and user need to restore the data
+- Admin Dashboard with long urls
+- Open new tab? notification is displayed when open link with middle click
+
+## [Dev:Build_286] - 2018-2-22
+- High Number of Critical Error Alert is confusing #2184
+- Admin: Add new profile - the Add button was disabled #2120
+- Admin: Generate the keytab command #1810
+- Admin: Proper message when consul is not working instead of Invalid Credentials #2204
+- Admin: Added proxy configuration collapsable area as requested in + updated tooltips #2062
+- Experimental Upload alerts to an external Database #2202
+- Experimental Youtube only FMS #2200
+- Updated tooltip and input for download max size #1409
+- Authproxy squid reconfigure leaves zombie shield_policy_acl.js processes #2217
+
 ## [Dev:Build_285] - 2018-2-20
 - Thai font do not display in Shield #2185
  
