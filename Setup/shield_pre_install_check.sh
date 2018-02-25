@@ -1002,6 +1002,11 @@ function check_hostname_resolution() {
     return 0
 }
 
+
+function check_virt_platform () {
+ VIRTUALIZATION_PLATFORM=$(./shield_pre_install_check_virt.sh)
+}
+
 function check_distribution() {
     local MIN_RELEASE_MAJOR="$MIN_RELEASE_MAJOR"
     local MIN_RELEASE_MINOR="$MIN_RELEASE_MINOR"
@@ -1050,6 +1055,7 @@ function perform_env_test() {
     install_if_not_installed units
     install_if_not_installed bc
     install_if_not_installed perl
+    install_if_not_installed stress-ng
 
     log_message "Checking distribution..."
     log_message "$(check_distribution)" || ERR=1
@@ -1090,7 +1096,25 @@ function perform_env_test() {
     echo ""
 
     check_hostname_resolution || ERR=1
+    
+    echo ""
+    log_message "Checking virtualization platform..."
+    log_message "$(./shield_pre_install_check_virt.sh)"
 
+    echo ""
+    log_message "Gathering some system information..."
+    log_message "$(docker info)"
+    log_message "$(lscpu)"
+    log_message "$(uptime)"
+    log_message "$(uname -a)"
+
+
+    echo ""
+    log_message "Testing cpu performance..."
+    log_message "$(stress-ng --class cpu --all 1 --metrics-brief -t60)"
+    
+    
+    
     if ((ERR != 0)); then
         log_message "Exiting due to previous errors..."
         exit 1
