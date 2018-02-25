@@ -1,0 +1,746 @@
+Tue 20 Feb 09:09:27 IST 2018: Checking distribution...
+Tue 20 Feb 09:09:27 IST 2018: The distribution is elementary OS 0.4.1 Loki
+Tue 20 Feb 09:09:27 IST 2018: Checking free space...
+Tue 20 Feb 09:09:27 IST 2018: Free space on "/": 368 GB - OK
+Tue 20 Feb 09:09:27 IST 2018: Free space on "/var/lib/docker": 368 GB - OK
+Tue 20 Feb 09:09:27 IST 2018: Checking Internet connectivity...
+Tue 20 Feb 09:09:33 IST 2018: http://www.google.com/ DNS time: 0.012  - OK
+http://www.google.com/ Total time: 0.151  - OK
+
+https://www.google.com/ DNS time: 0.004  - OK
+https://www.google.com/ Total time: 0.446  - OK
+
+http://www.ericom.com/ DNS time: 0.004  - OK
+http://www.ericom.com/ Total time: 1.292  - OK
+
+https://www.ericom.com/ DNS time: 0.004  - OK
+https://www.ericom.com/ Total time: 1.269  - OK
+
+https://hub.docker.com/ DNS time: 1.51  - WARNING! (Error level: 2, warning level: 1)
+https://hub.docker.com/ Total time: 2.984  - WARNING! (Error level: 5, warning level: 2)
+Tue 20 Feb 09:09:33 IST 2018: Checking Internet speed...
+Tue 20 Feb 09:10:03 IST 2018: Ping time: 10.442 ms - OK
+Tue 20 Feb 09:10:03 IST 2018: Download speed: 51.56 Mbit/s - OK
+Tue 20 Feb 09:10:03 IST 2018: Upload speed: 50.2 Mbit/s - OK
+Tue 20 Feb 09:10:03 IST 2018: Checking storage drive speed...
+Tue 20 Feb 09:10:16 IST 2018: Disk speed (cached reads): 12826.09 MB/sec - OK
+Tue 20 Feb 09:10:16 IST 2018: Disk speed (buffered reads): 415.77 MB/sec - OK
+Tue 20 Feb 09:10:16 IST 2018: Checking network address conflicts...
+Tue 20 Feb 09:10:16 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 09:10:16 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 09:10:17 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 09:10:17 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 09:10:17 IST 2018: Trying to resolve 192.168.50.72 to a DNS name...
+Tue 20 Feb 09:10:17 IST 2018: WARNING: Could not resolve 192.168.50.72!
+Tue 20 Feb 09:10:17 IST 2018: Hostname is shmaya
+Tue 20 Feb 09:10:17 IST 2018: Trying to resolve shmaya to an IP address...
+Tue 20 Feb 09:10:17 IST 2018: OK
+Tue 20 Feb 09:10:17 IST 2018: Checking virtualization platform...
+Tue 20 Feb 09:10:17 IST 2018: Exiting due to previous errors...
+Tue 20 Feb 09:21:57 IST 2018: Checking distribution...
+Tue 20 Feb 09:21:57 IST 2018: The distribution is elementary OS 0.4.1 Loki
+Tue 20 Feb 09:21:57 IST 2018: Checking free space...
+Tue 20 Feb 09:21:57 IST 2018: Free space on "/": 368 GB - OK
+Tue 20 Feb 09:21:57 IST 2018: Free space on "/var/lib/docker": 368 GB - OK
+Tue 20 Feb 09:21:57 IST 2018: Checking Internet connectivity...
+Tue 20 Feb 09:22:02 IST 2018: http://www.google.com/ DNS time: 0.125  - OK
+http://www.google.com/ Total time: 0.27  - OK
+
+https://www.google.com/ DNS time: 0.012  - OK
+https://www.google.com/ Total time: 0.495  - OK
+
+http://www.ericom.com/ DNS time: 0.028  - OK
+http://www.ericom.com/ Total time: 1.345  - OK
+
+https://www.ericom.com/ DNS time: 0.004  - OK
+https://www.ericom.com/ Total time: 1.274  - OK
+
+https://hub.docker.com/ DNS time: 0.509  - OK
+https://hub.docker.com/ Total time: 1.739  - OK
+Tue 20 Feb 09:22:02 IST 2018: Checking Internet speed...
+Tue 20 Feb 09:22:22 IST 2018: Ping time: 7.949 ms - OK
+Tue 20 Feb 09:22:22 IST 2018: Download speed: 44.69 Mbit/s - OK
+Tue 20 Feb 09:22:22 IST 2018: Upload speed: 44.36 Mbit/s - OK
+Tue 20 Feb 09:22:22 IST 2018: Checking storage drive speed...
+Tue 20 Feb 09:22:36 IST 2018: Disk speed (cached reads): 9666.1 MB/sec - OK
+Tue 20 Feb 09:22:36 IST 2018: Disk speed (buffered reads): 413.62 MB/sec - OK
+Tue 20 Feb 09:22:36 IST 2018: Checking network address conflicts...
+Tue 20 Feb 09:22:36 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 09:22:36 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 09:22:36 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 09:22:36 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 09:22:36 IST 2018: Trying to resolve 192.168.50.72 to a DNS name...
+Tue 20 Feb 09:22:36 IST 2018: WARNING: Could not resolve 192.168.50.72!
+Tue 20 Feb 09:22:36 IST 2018: Hostname is shmaya
+Tue 20 Feb 09:22:36 IST 2018: Trying to resolve shmaya to an IP address...
+Tue 20 Feb 09:22:36 IST 2018: OK
+Tue 20 Feb 09:22:36 IST 2018: Checking virtualization platform...
+Tue 20 Feb 09:22:36 IST 2018: Exiting due to previous errors...
+Tue 20 Feb 09:23:39 IST 2018: Checking distribution...
+Tue 20 Feb 09:23:39 IST 2018: The distribution is elementary OS 0.4.1 Loki
+Tue 20 Feb 09:23:39 IST 2018: Checking free space...
+Tue 20 Feb 09:23:39 IST 2018: Free space on "/": 368 GB - OK
+Tue 20 Feb 09:23:39 IST 2018: Free space on "/var/lib/docker": 368 GB - OK
+Tue 20 Feb 09:23:39 IST 2018: Checking Internet connectivity...
+Tue 20 Feb 09:23:45 IST 2018: http://www.google.com/ DNS time: 0.004  - OK
+http://www.google.com/ Total time: 0.213  - OK
+
+https://www.google.com/ DNS time: 0.004  - OK
+https://www.google.com/ Total time: 0.501  - OK
+
+http://www.ericom.com/ DNS time: 0.004  - OK
+http://www.ericom.com/ Total time: 1.295  - OK
+
+https://www.ericom.com/ DNS time: 0.005  - OK
+https://www.ericom.com/ Total time: 1.28  - OK
+
+https://hub.docker.com/ DNS time: 0.509  - OK
+https://hub.docker.com/ Total time: 1.795  - OK
+Tue 20 Feb 09:23:45 IST 2018: Checking Internet speed...
+Tue 20 Feb 09:24:05 IST 2018: Ping time: 13.829 ms - OK
+Tue 20 Feb 09:24:05 IST 2018: Download speed: 43.33 Mbit/s - OK
+Tue 20 Feb 09:24:05 IST 2018: Upload speed: 50.77 Mbit/s - OK
+Tue 20 Feb 09:24:05 IST 2018: Checking storage drive speed...
+Tue 20 Feb 09:24:18 IST 2018: Disk speed (cached reads): 11613.78 MB/sec - OK
+Tue 20 Feb 09:24:18 IST 2018: Disk speed (buffered reads): 414.99 MB/sec - OK
+Tue 20 Feb 09:24:18 IST 2018: Checking network address conflicts...
+Tue 20 Feb 09:24:18 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 09:24:18 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 09:24:19 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 09:24:19 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 09:24:19 IST 2018: Trying to resolve 192.168.50.72 to a DNS name...
+Tue 20 Feb 09:24:19 IST 2018: WARNING: Could not resolve 192.168.50.72!
+Tue 20 Feb 09:24:19 IST 2018: Hostname is shmaya
+Tue 20 Feb 09:24:19 IST 2018: Trying to resolve shmaya to an IP address...
+Tue 20 Feb 09:24:19 IST 2018: OK
+Tue 20 Feb 09:24:19 IST 2018: Checking virtualization platform...
+Tue 20 Feb 09:24:19 IST 2018: Exiting due to previous errors...
+Tue 20 Feb 11:50:21 IST 2018: Checking distribution...
+Tue 20 Feb 11:50:21 IST 2018: The distribution is elementary OS 0.4.1 Loki
+Tue 20 Feb 11:50:21 IST 2018: Checking free space...
+Tue 20 Feb 11:50:21 IST 2018: Free space on "/": 368 GB - OK
+Tue 20 Feb 11:50:21 IST 2018: Free space on "/var/lib/docker": 368 GB - OK
+Tue 20 Feb 11:50:21 IST 2018: Checking Internet connectivity...
+Tue 20 Feb 11:50:27 IST 2018: http://www.google.com/ DNS time: 0.125  - OK
+http://www.google.com/ Total time: 0.255  - OK
+
+https://www.google.com/ DNS time: 0.004  - OK
+https://www.google.com/ Total time: 0.451  - OK
+
+http://www.ericom.com/ DNS time: 0.012  - OK
+http://www.ericom.com/ Total time: 1.311  - OK
+
+https://www.ericom.com/ DNS time: 0.004  - OK
+https://www.ericom.com/ Total time: 1.268  - OK
+
+https://hub.docker.com/ DNS time: 1.509  - WARNING! (Error level: 2, warning level: 1)
+https://hub.docker.com/ Total time: 2.772  - WARNING! (Error level: 5, warning level: 2)
+Tue 20 Feb 11:50:27 IST 2018: Checking Internet speed...
+Tue 20 Feb 11:50:59 IST 2018: Ping time: 8.819 ms - OK
+Tue 20 Feb 11:50:59 IST 2018: Download speed: 51.2 Mbit/s - OK
+Tue 20 Feb 11:50:59 IST 2018: Upload speed: 42.65 Mbit/s - OK
+Tue 20 Feb 11:50:59 IST 2018: Checking storage drive speed...
+Tue 20 Feb 11:51:12 IST 2018: Disk speed (cached reads): 11330.63 MB/sec - OK
+Tue 20 Feb 11:51:12 IST 2018: Disk speed (buffered reads): 414.48 MB/sec - OK
+Tue 20 Feb 11:51:12 IST 2018: Checking network address conflicts...
+Tue 20 Feb 11:51:12 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 11:51:12 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 11:51:12 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 11:51:12 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 11:51:12 IST 2018: Trying to resolve 192.168.50.72 to a DNS name...
+Tue 20 Feb 11:51:12 IST 2018: WARNING: Could not resolve 192.168.50.72!
+Tue 20 Feb 11:51:12 IST 2018: Hostname is shmaya
+Tue 20 Feb 11:51:12 IST 2018: Trying to resolve shmaya to an IP address...
+Tue 20 Feb 11:51:12 IST 2018: OK
+Tue 20 Feb 11:51:12 IST 2018: Checking virtualization platform...
+Tue 20 Feb 11:51:12 IST 2018: 
+Tue 20 Feb 11:51:12 IST 2018: Exiting due to previous errors...
+Tue 20 Feb 11:54:58 IST 2018: Checking distribution...
+Tue 20 Feb 11:54:58 IST 2018: The distribution is elementary OS 0.4.1 Loki
+Tue 20 Feb 11:54:58 IST 2018: Checking free space...
+Tue 20 Feb 11:54:58 IST 2018: Free space on "/": 368 GB - OK
+Tue 20 Feb 11:54:58 IST 2018: Free space on "/var/lib/docker": 368 GB - OK
+Tue 20 Feb 11:54:58 IST 2018: Checking Internet connectivity...
+Tue 20 Feb 11:55:04 IST 2018: http://www.google.com/ DNS time: 0.012  - OK
+http://www.google.com/ Total time: 0.147  - OK
+
+https://www.google.com/ DNS time: 0.004  - OK
+https://www.google.com/ Total time: 0.451  - OK
+
+http://www.ericom.com/ DNS time: 0.004  - OK
+http://www.ericom.com/ Total time: 1.29  - OK
+
+https://www.ericom.com/ DNS time: 0.004  - OK
+https://www.ericom.com/ Total time: 1.273  - OK
+
+https://hub.docker.com/ DNS time: 0.509  - OK
+https://hub.docker.com/ Total time: 1.666  - OK
+Tue 20 Feb 11:55:04 IST 2018: Checking Internet speed...
+Tue 20 Feb 11:55:29 IST 2018: Ping time: 7.527 ms - OK
+Tue 20 Feb 11:55:29 IST 2018: Download speed: 51.2 Mbit/s - OK
+Tue 20 Feb 11:55:29 IST 2018: Upload speed: 50.82 Mbit/s - OK
+Tue 20 Feb 11:55:29 IST 2018: Checking storage drive speed...
+Tue 20 Feb 11:55:43 IST 2018: Disk speed (cached reads): 12044.57 MB/sec - OK
+Tue 20 Feb 11:55:43 IST 2018: Disk speed (buffered reads): 413.63 MB/sec - OK
+Tue 20 Feb 11:55:43 IST 2018: Checking network address conflicts...
+Tue 20 Feb 11:55:43 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 11:55:43 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 11:55:43 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 11:55:43 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 11:55:43 IST 2018: Trying to resolve 192.168.50.72 to a DNS name...
+Tue 20 Feb 11:55:43 IST 2018: WARNING: Could not resolve 192.168.50.72!
+Tue 20 Feb 11:55:43 IST 2018: Hostname is shmaya
+Tue 20 Feb 11:55:43 IST 2018: Trying to resolve shmaya to an IP address...
+Tue 20 Feb 11:55:43 IST 2018: OK
+Tue 20 Feb 11:55:43 IST 2018: Checking virtualization platform...
+Tue 20 Feb 11:55:43 IST 2018: 
+Tue 20 Feb 11:55:43 IST 2018: Gathering some system information...
+Tue 20 Feb 11:55:43 IST 2018: Containers: 30
+ Running: 28
+ Paused: 0
+ Stopped: 2
+Images: 1821
+Server Version: 17.12.0-ce
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog
+Swarm: active
+ NodeID: mx4g2co1c4n3x6uvelwudyjk4
+ Is Manager: true
+ ClusterID: 0vrgq2oord37tm26u91mtz6ps
+ Managers: 1
+ Nodes: 1
+ Orchestration:
+  Task History Retention Limit: 0
+ Raft:
+  Snapshot Interval: 10000
+  Number of Old Snapshots to Retain: 0
+  Heartbeat Tick: 1
+  Election Tick: 3
+ Dispatcher:
+  Heartbeat Period: 5 seconds
+ CA Configuration:
+  Expiry Duration: 3 months
+  Force Rotate: 0
+ Autolock Managers: false
+ Root Rotation In Progress: false
+ Node Address: 192.168.50.61
+ Manager Addresses:
+  192.168.50.61:2377
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 89623f28b87a6004d4b785663257362d1658a729
+runc version: b2567b37d7b75eb4cf325b77297b140ea686ce8f
+init version: 949e6fa
+Security Options:
+ apparmor
+ seccomp
+  Profile: default
+Kernel Version: 4.13.0-32-generic
+Operating System: elementary OS 0.4.1 Loki
+OSType: linux
+Architecture: x86_64
+CPUs: 8
+Total Memory: 15.54GiB
+Name: shmaya
+ID: 3KHM:YDUG:6LHF:4W2M:3PFM:4GPS:NU3F:JBV3:3JRE:6BV6:YBCR:ECFD
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Username: shmaya
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+Tue 20 Feb 11:55:43 IST 2018: Exiting due to previous errors...
+Tue 20 Feb 11:56:09 IST 2018: Checking distribution...
+Tue 20 Feb 11:56:10 IST 2018: The distribution is elementary OS 0.4.1 Loki
+Tue 20 Feb 11:56:10 IST 2018: Checking free space...
+Tue 20 Feb 11:56:10 IST 2018: Free space on "/": 368 GB - OK
+Tue 20 Feb 11:56:10 IST 2018: Free space on "/var/lib/docker": 368 GB - OK
+Tue 20 Feb 11:56:10 IST 2018: Checking Internet connectivity...
+Tue 20 Feb 11:56:16 IST 2018: http://www.google.com/ DNS time: 0.012  - OK
+http://www.google.com/ Total time: 0.146  - OK
+
+https://www.google.com/ DNS time: 0.004  - OK
+https://www.google.com/ Total time: 0.448  - OK
+
+http://www.ericom.com/ DNS time: 0.004  - OK
+http://www.ericom.com/ Total time: 1.29  - OK
+
+https://www.ericom.com/ DNS time: 0.004  - OK
+https://www.ericom.com/ Total time: 1.285  - OK
+
+https://hub.docker.com/ DNS time: 1.51  - WARNING! (Error level: 2, warning level: 1)
+https://hub.docker.com/ Total time: 2.691  - WARNING! (Error level: 5, warning level: 2)
+Tue 20 Feb 11:56:16 IST 2018: Checking Internet speed...
+Tue 20 Feb 11:56:48 IST 2018: Ping time: 7.054 ms - OK
+Tue 20 Feb 11:56:48 IST 2018: Download speed: 51.26 Mbit/s - OK
+Tue 20 Feb 11:56:48 IST 2018: Upload speed: 50.89 Mbit/s - OK
+Tue 20 Feb 11:56:48 IST 2018: Checking storage drive speed...
+Tue 20 Feb 11:57:01 IST 2018: Disk speed (cached reads): 13192.64 MB/sec - OK
+Tue 20 Feb 11:57:01 IST 2018: Disk speed (buffered reads): 412.29 MB/sec - OK
+Tue 20 Feb 11:57:01 IST 2018: Checking network address conflicts...
+Tue 20 Feb 11:57:01 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 11:57:01 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 11:57:01 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 11:57:01 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 11:57:01 IST 2018: Trying to resolve 192.168.50.72 to a DNS name...
+Tue 20 Feb 11:57:01 IST 2018: WARNING: Could not resolve 192.168.50.72!
+Tue 20 Feb 11:57:01 IST 2018: Hostname is shmaya
+Tue 20 Feb 11:57:01 IST 2018: Trying to resolve shmaya to an IP address...
+Tue 20 Feb 11:57:01 IST 2018: OK
+Tue 20 Feb 11:57:01 IST 2018: Checking virtualization platform...
+Tue 20 Feb 11:57:01 IST 2018: 
+Tue 20 Feb 11:57:01 IST 2018: Gathering some system information...
+Tue 20 Feb 11:57:02 IST 2018: Containers: 30
+ Running: 28
+ Paused: 0
+ Stopped: 2
+Images: 1821
+Server Version: 17.12.0-ce
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog
+Swarm: active
+ NodeID: mx4g2co1c4n3x6uvelwudyjk4
+ Is Manager: true
+ ClusterID: 0vrgq2oord37tm26u91mtz6ps
+ Managers: 1
+ Nodes: 1
+ Orchestration:
+  Task History Retention Limit: 0
+ Raft:
+  Snapshot Interval: 10000
+  Number of Old Snapshots to Retain: 0
+  Heartbeat Tick: 1
+  Election Tick: 3
+ Dispatcher:
+  Heartbeat Period: 5 seconds
+ CA Configuration:
+  Expiry Duration: 3 months
+  Force Rotate: 0
+ Autolock Managers: false
+ Root Rotation In Progress: false
+ Node Address: 192.168.50.61
+ Manager Addresses:
+  192.168.50.61:2377
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 89623f28b87a6004d4b785663257362d1658a729
+runc version: b2567b37d7b75eb4cf325b77297b140ea686ce8f
+init version: 949e6fa
+Security Options:
+ apparmor
+ seccomp
+  Profile: default
+Kernel Version: 4.13.0-32-generic
+Operating System: elementary OS 0.4.1 Loki
+OSType: linux
+Architecture: x86_64
+CPUs: 8
+Total Memory: 15.54GiB
+Name: shmaya
+ID: 3KHM:YDUG:6LHF:4W2M:3PFM:4GPS:NU3F:JBV3:3JRE:6BV6:YBCR:ECFD
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Username: shmaya
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+Tue 20 Feb 11:57:02 IST 2018: processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 158
+model name	: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+stepping	: 9
+microcode	: 0x7c
+cpu MHz		: 2900.000
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 5808.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+Tue 20 Feb 11:57:02 IST 2018: Exiting due to previous errors...
+Tue 20 Feb 14:34:32 IST 2018: Checking distribution...
+Tue 20 Feb 14:34:32 IST 2018: The distribution is elementary OS 0.4.1 Loki
+Tue 20 Feb 14:34:32 IST 2018: Checking free space...
+Tue 20 Feb 14:34:32 IST 2018: Free space on "/": 368 GB - OK
+Tue 20 Feb 14:34:32 IST 2018: Free space on "/var/lib/docker": 368 GB - OK
+Tue 20 Feb 14:34:32 IST 2018: Checking Internet connectivity...
+Tue 20 Feb 14:34:37 IST 2018: http://www.google.com/ DNS time: 0.012  - OK
+http://www.google.com/ Total time: 0.143  - OK
+
+https://www.google.com/ DNS time: 0.004  - OK
+https://www.google.com/ Total time: 0.434  - OK
+
+http://www.ericom.com/ DNS time: 0.004  - OK
+http://www.ericom.com/ Total time: 1.294  - OK
+
+https://www.ericom.com/ DNS time: 0.004  - OK
+https://www.ericom.com/ Total time: 1.323  - OK
+
+https://hub.docker.com/ DNS time: 0.509  - OK
+https://hub.docker.com/ Total time: 1.685  - OK
+Tue 20 Feb 14:34:37 IST 2018: Checking Internet speed...
+Tue 20 Feb 14:35:03 IST 2018: Ping time: 7.141 ms - OK
+Tue 20 Feb 14:35:03 IST 2018: Download speed: 51.02 Mbit/s - OK
+Tue 20 Feb 14:35:03 IST 2018: Upload speed: 50.42 Mbit/s - OK
+Tue 20 Feb 14:35:03 IST 2018: Checking storage drive speed...
+Tue 20 Feb 14:35:17 IST 2018: Disk speed (cached reads): 12771.9 MB/sec - OK
+Tue 20 Feb 14:35:17 IST 2018: Disk speed (buffered reads): 413.6 MB/sec - OK
+Tue 20 Feb 14:35:17 IST 2018: Checking network address conflicts...
+Tue 20 Feb 14:35:17 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 14:35:17 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 14:35:17 IST 2018: Trying to resolve  to a DNS name...
+Tue 20 Feb 14:35:17 IST 2018: WARNING: Could not resolve !
+Tue 20 Feb 14:35:17 IST 2018: Trying to resolve 192.168.50.72 to a DNS name...
+Tue 20 Feb 14:35:17 IST 2018: WARNING: Could not resolve 192.168.50.72!
+Tue 20 Feb 14:35:17 IST 2018: Hostname is shmaya
+Tue 20 Feb 14:35:17 IST 2018: Trying to resolve shmaya to an IP address...
+Tue 20 Feb 14:35:17 IST 2018: OK
+Tue 20 Feb 14:35:17 IST 2018: Checking virtualization platform...
+Tue 20 Feb 14:35:17 IST 2018: 
+Tue 20 Feb 14:35:17 IST 2018: Gathering some system information...
+Tue 20 Feb 14:35:17 IST 2018: Containers: 30
+ Running: 28
+ Paused: 0
+ Stopped: 2
+Images: 1821
+Server Version: 17.12.0-ce
+Storage Driver: overlay2
+ Backing Filesystem: extfs
+ Supports d_type: true
+ Native Overlay Diff: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+ Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog
+Swarm: active
+ NodeID: mx4g2co1c4n3x6uvelwudyjk4
+ Is Manager: true
+ ClusterID: 0vrgq2oord37tm26u91mtz6ps
+ Managers: 1
+ Nodes: 1
+ Orchestration:
+  Task History Retention Limit: 0
+ Raft:
+  Snapshot Interval: 10000
+  Number of Old Snapshots to Retain: 0
+  Heartbeat Tick: 1
+  Election Tick: 3
+ Dispatcher:
+  Heartbeat Period: 5 seconds
+ CA Configuration:
+  Expiry Duration: 3 months
+  Force Rotate: 0
+ Autolock Managers: false
+ Root Rotation In Progress: false
+ Node Address: 192.168.50.61
+ Manager Addresses:
+  192.168.50.61:2377
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 89623f28b87a6004d4b785663257362d1658a729
+runc version: b2567b37d7b75eb4cf325b77297b140ea686ce8f
+init version: 949e6fa
+Security Options:
+ apparmor
+ seccomp
+  Profile: default
+Kernel Version: 4.13.0-32-generic
+Operating System: elementary OS 0.4.1 Loki
+OSType: linux
+Architecture: x86_64
+CPUs: 8
+Total Memory: 15.54GiB
+Name: shmaya
+ID: 3KHM:YDUG:6LHF:4W2M:3PFM:4GPS:NU3F:JBV3:3JRE:6BV6:YBCR:ECFD
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Username: shmaya
+Registry: https://index.docker.io/v1/
+Labels:
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+Tue 20 Feb 14:35:17 IST 2018: Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                8
+On-line CPU(s) list:   0-7
+Thread(s) per core:    2
+Core(s) per socket:    4
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 158
+Model name:            Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+Stepping:              9
+CPU MHz:               2900.000
+CPU max MHz:           3900.0000
+CPU min MHz:           800.0000
+BogoMIPS:              5808.00
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              8192K
+NUMA node0 CPU(s):     0-7
+Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti intel_pt spec_ctrl tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+Tue 20 Feb 14:35:17 IST 2018: Testing cpu performance...
+Tue 20 Feb 14:36:18 IST 2018: stress-ng: info:  [283331] dispatching hogs: 1 af-alg, 1 bsearch, 1 context, 1 cpu, 1 cpu-online, 1 crypt, 1 fp-error, 1 getrandom, 1 heapsort, 1 hsearch, 1 longjmp, 1 lsearch, 1 matrix, 1 mergesort, 1 numa, 1 qsort, 1 rdrand, 1 str, 1 stream, 1 tsc, 1 tsearch, 1 vecmath, 1 wcs, 1 zlib
+stress-ng: info:  [283331] successful run completed in 60.13s (1 min, 0.13 secs)
+stress-ng: info:  [283331] stressor      bogo ops real time  usr time  sys time   bogo ops/s   bogo ops/s
+stress-ng: info:  [283331]                          (secs)    (secs)    (secs)   (real time) (usr+sys time)
+stress-ng: info:  [283331] af-alg         3153568     60.02      1.99     18.03     52538.49    157520.88
+stress-ng: info:  [283331] bsearch           7345     60.00     23.37      0.20       122.41       311.62
+stress-ng: info:  [283331] context          22518     60.01      8.39      7.78       375.25      1392.58
+stress-ng: info:  [283331] cpu               3867     60.02     18.70      0.06        64.43       206.13
+stress-ng: info:  [283331] cpu-online         917     60.08      0.00      1.64        15.26       559.15
+stress-ng: info:  [283331] crypt             1830     60.02     18.46      0.06        30.49        98.81
+stress-ng: info:  [283331] getrandom       258141     60.00      0.14     15.05      4302.36     16994.14
+stress-ng: info:  [283331] heapsort            48     60.00     16.45      0.10         0.80         2.90
+stress-ng: info:  [283331] hsearch          42557     60.00     16.58      0.07       709.28      2555.98
+stress-ng: info:  [283331] longjmp        1364307     60.00     18.25      0.07     22738.46     74470.91
+stress-ng: info:  [283331] lsearch            109     59.99     18.94      0.09         1.82         5.73
+stress-ng: info:  [283331] matrix           47248     60.00     19.50      0.05       787.47      2416.78
+stress-ng: info:  [283331] mergesort         2428     60.00     16.28      0.08        40.47       148.41
+stress-ng: info:  [283331] qsort              145     60.00     22.46      0.04         2.42         6.44
+stress-ng: info:  [283331] str             553698     60.00     18.70      0.08      9228.30     29483.39
+stress-ng: info:  [283331] stream             749     60.04     25.93      0.10        12.48        28.77
+stress-ng: info:  [283331] tsearch            168     60.05     16.66      0.07         2.80        10.04
+stress-ng: info:  [283331] vecmath         416692     60.00     19.30      0.05      6944.66     21534.47
+stress-ng: info:  [283331] wcs             170810     60.00     19.90      0.14      2846.96      8523.45
+stress-ng: info:  [283331] zlib               302     60.11     19.53      0.08         5.02        15.40
+Tue 20 Feb 14:36:18 IST 2018: Exiting due to previous errors...
