@@ -64,7 +64,6 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-
   elk:
       image: securebrowsing/shield-elk:latest
 #      ports:
@@ -93,6 +92,7 @@ services:
       volumes:
          - elastic:/opt/elasticsearch/data
 
+
   logspout:
     image: securebrowsing/shield-logspout:latest
     networks:
@@ -113,7 +113,6 @@ services:
             reservations:
                 cpus: '0.10'
                 memory: 128M
-
   consul-server:
     image: securebrowsing/shield-configuration:latest
     networks:
@@ -231,6 +230,7 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -358,8 +358,25 @@ services:
               - node.labels.browser==yes
           resources:
             limits:
-              memory: 1GB
+              memory: 1024MB
               cpus: "1"
+  speedtest:
+        image: securebrowsing/speedtest:latest
+        hostname: speedtest
+        ports:
+          - "8185:8185"
+        networks:
+          - shield
+        deploy:
+          mode: replicated
+          replicas: 1
+          placement:
+            constraints:
+              - node.labels.browser==yes
+          resources:
+            limits:
+              memory: 512MB
+              cpus: "0.5"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
       hostname: authproxy
@@ -485,3 +502,4 @@ networks:
 secrets:
    shield-system-id:
        external: true
+ 

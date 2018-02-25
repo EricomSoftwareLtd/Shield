@@ -9,6 +9,50 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.03-Staging:Build_286] - 2018-2-25
+- Admin: Add new profile - the Add button was disabled #2120
+- Admin: Generate the keytab command #1810
+- Admin: Proper message when consul is not working instead of Invalid Credentials #2204
+- Admin: Added proxy configuration collapsable area as requested in + updated tooltips #2062
+- Admin - Add new profile is not sunc with the current state #1392
+- Admin - Can't disable NTLM #2127
+- Admin - Policies table #1694
+- Admin - Rename proxy file to be default.pac #1568
+- Admin - Add new profile is not sunc with the current state #1392
+- Admin - Enabled autocomplete for profiles fields #1534
+- Admin - fixed admin tooltip for Upstreamernal
+- Admin - moved tooltip from right to be close to the text
+- High Number of Critical Error Alert is confusing #2184
+- Experimental Upload alerts to an external Database #2202
+- Experimental Youtube only FMS #2200
+- Updated tooltip and input for download max size #1409
+- Authproxy squid reconfigure leaves zombie shield_policy_acl.js processes #2217
+- Thai font do not display in Shield #2185
+- Cross Window - Cisco Login #1655
+- Added alert debug logs
+- Re-implemented node docker failure alert
+- Log alerts events in a new report #1778
+- Japanese IME bugfix
+- Keyboard fixes for korean and japanese
+- Fix page refresh method #2122
+- Icap should have mergeable values for defaults using consul source #2163
+- Backspace is not working correctly in Japanese #2149
+- Arrows are not working #2148
+- Firefox does not reload when it should #
+- Typing in Korean Issue #1938
+- Office online right click menu copy paste - shows but does not function #1463
+- Fix browser stuck dragging in SHIFT/CTRL+click link
+- Log alerts events in a new report #1778
+- Fixed profile bug in ICAP
+- Daily Backup for last 10 days #1915
+- From create, submit, window open in the same tick - Totalsource.adp.com #2009
+- No preview for gmail attached PDF #1912
+- .aflac.com - cannot run 2017 report ("Download failed" error message) #1820
+- Cross Windows - Hotel.com #1657
+- Cross windows Bank Hapoalim - download excel #786
+- Pre-check Installer Shield #2068
+- Pre-install check ubuntu and kernel version #2037
+
 ## [Prod:18.02-1-Build-280.3] - 2018-02-20
 ### Enhancements:
 - Pre-check Installer Shield #2068
