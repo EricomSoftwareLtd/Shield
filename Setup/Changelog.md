@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_287] - 2018-2-26
+- Fix arrows and backspace-like keys in IE #2237 #2188
+- Experimental Upload shield-stats to external database #2209
+- Proper message when consul is not working instead of Invalid Credentials #2204
+- Fixed basic auth md5 salt so authproxy doens't reconfigure
+- Admin - Settings - Content Isolation #2245
+- Speedtest container image #2137
+- Added Test to preinstall script ( Checking virtualization platform, Gathering some system information, Testing cpu performance)
 
 ## [Staging:18.03-Staging:Build_286] - 2018-2-25
 - Admin: Add new profile - the Add button was disabled #2120
