@@ -10,6 +10,9 @@ REC_FREE_SPACE_ROOT_GB=10
 MIN_FREE_SPACE_DOCK_GB=5
 REC_FREE_SPACE_DOCK_GB=10
 
+MEM_AMOUNT_ERROR_GB=8
+MEM_AMOUNT_WARNING_GB=16
+
 SPDTST_PING_TIME_ERROR_MS=500
 SPDTST_PING_TIME_WARNING_MS=100
 SPDTST_MIN_UPLOAD_SPD_MBITPS=10
@@ -903,9 +906,9 @@ function check_range() {
     if [[ $STATUS == "OK" ]]; then
         echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 32 1)"
     elif ((RET == 0)); then
-        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 33 1) (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 33 1) (Error level: ${LVL_ERROR} ${UNITS}, warning level: ${LVL_WARN} ${UNITS})"
     else
-        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 31 1) (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 31 1) (Error level: ${LVL_ERROR} ${UNITS}, warning level: ${LVL_WARN} ${UNITS})"
     fi
 
     return $RET
@@ -952,6 +955,12 @@ function check_storage_drive_speed() {
 function check_free_space() {
     local FREE_SPACE="$(($(stat -f --format="%a*%S" $1) / (1024 * 1024 * 1024)))"
     check_range "Free space on \"$1\"" "GB" "$FREE_SPACE" $2 $3 0 2>&1
+}
+
+function check_mem() {
+    local MEM_REGEX='MemTotal:[[:space:]]*([[:digit:]]+[[:print:]]+)'
+    local CHECK_OUT="$(cat /proc/meminfo)"
+    parse_and_check_range "Total memory" "GB" "$CHECK_OUT" "$MEM_REGEX" $MEM_AMOUNT_ERROR_GB $MEM_AMOUNT_WARNING_GB 0 2>&1
 }
 
 function check_network_address_conflicts() {
@@ -1076,6 +1085,10 @@ function perform_env_test() {
     echo ""
 
     log_message "$(check_bad_kernel)" || ERR=1
+
+    echo ""
+
+    log_message "$(check_mem)" || ERR=1
 
     echo ""
 
