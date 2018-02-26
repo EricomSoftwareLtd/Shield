@@ -1046,6 +1046,19 @@ function install_if_not_installed() {
     fi
 }
 
+function check_bad_kernel() {
+    local BAD_KERNEL_REGEX='^4\.4\.0\-(112|113|114|115)\-.*'
+    local KERNEL_VER="$(uname -r)"
+
+    if ! [[ $KERNEL_VER =~ $BAD_KERNEL_REGEX ]]; then
+        log_message "Kernel version is $KERNEL_VER - $(print_special 'OK' 32 1)"
+        return 0
+    else
+        log_message "Kernel version is $KERNEL_VER - $(print_special 'ERROR' 31 1)"
+        return 1
+    fi
+}
+
 function perform_env_test() {
     local ERR=0
 
@@ -1059,6 +1072,10 @@ function perform_env_test() {
 
     log_message "Checking distribution..."
     log_message "$(check_distribution)" || ERR=1
+
+    echo ""
+
+    log_message "$(check_bad_kernel)" || ERR=1
 
     echo ""
 
