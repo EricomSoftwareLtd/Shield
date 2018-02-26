@@ -1011,9 +1011,8 @@ function check_hostname_resolution() {
     return 0
 }
 
-
-function check_virt_platform () {
- VIRTUALIZATION_PLATFORM=$(./shield_pre_install_check_virt.sh)
+function check_virt_platform() {
+    VIRTUALIZATION_PLATFORM=$(./shield_pre_install_check_virt.sh)
 }
 
 function check_distribution() {
@@ -1130,7 +1129,7 @@ function perform_env_test() {
     echo ""
 
     check_hostname_resolution || ERR=1
-    
+
     echo ""
     log_message "Checking virtualization platform..."
     log_message "$(./shield_pre_install_check_virt.sh)"
@@ -1142,13 +1141,10 @@ function perform_env_test() {
     log_message "$(uptime)"
     log_message "$(uname -a)"
 
-
     echo ""
     log_message "Testing cpu performance..."
     log_message "$(stress-ng --class cpu --all 1 --metrics-brief -t60)"
-    
-    
-    
+
     if ((ERR != 0)); then
         log_message "Exiting due to previous errors..."
         return 1
@@ -1162,7 +1158,7 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
     perform_env_test
     RET_VALUE=$?
     if [ $RET_VALUE != "0" ]; then
-       exit 1
+        exit 1
     fi
     log_message "shield_pre_install_check passed..."
     exit 0
