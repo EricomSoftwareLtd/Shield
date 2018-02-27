@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_288] - 2018-2-27
+- (*) Fix broker browser refresh (#2258)
+- No license message should be written to log once per day #2249
+- Speedtest container image #2137
+- OVA quick - reports section should not be displayed at the admin #2229
+- No license message should be written to log less #2249
+- ExperimentalUpload shield activations result to external database #2250
+- Going out of fullscreen, session is displayed on just a portion of the page #2255 
+- (*) Page is refreshed from time to time #1991
+- Fix setting used to block apps; fix icap same logic as authproxy #2251
+- Added Precheck for Kernel version , Memory
+
 ## [Dev:Build_287] - 2018-2-26
 - Fix arrows and backspace-like keys in IE #2237 #2188
 - Experimental Upload shield-stats to external database #2209
