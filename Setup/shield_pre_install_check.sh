@@ -10,6 +10,9 @@ REC_FREE_SPACE_ROOT_GB=10
 MIN_FREE_SPACE_DOCK_GB=5
 REC_FREE_SPACE_DOCK_GB=10
 
+MEM_AMOUNT_ERROR_GB=8
+MEM_AMOUNT_WARNING_GB=16
+
 SPDTST_PING_TIME_ERROR_MS=500
 SPDTST_PING_TIME_WARNING_MS=100
 SPDTST_MIN_UPLOAD_SPD_MBITPS=10
@@ -903,9 +906,9 @@ function check_range() {
     if [[ $STATUS == "OK" ]]; then
         echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 32 1)"
     elif ((RET == 0)); then
-        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 33 1) (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 33 1) (Error level: ${LVL_ERROR} ${UNITS}, warning level: ${LVL_WARN} ${UNITS})"
     else
-        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 31 1) (Error level: ${LVL_ERROR}${UNITS}, warning level: ${LVL_WARN}${UNITS})"
+        echo "$LABEL: $LVL $UNITS - $(print_special "$STATUS" 31 1) (Error level: ${LVL_ERROR} ${UNITS}, warning level: ${LVL_WARN} ${UNITS})"
     fi
 
     return $RET
@@ -952,6 +955,12 @@ function check_storage_drive_speed() {
 function check_free_space() {
     local FREE_SPACE="$(($(stat -f --format="%a*%S" $1) / (1024 * 1024 * 1024)))"
     check_range "Free space on \"$1\"" "GB" "$FREE_SPACE" $2 $3 0 2>&1
+}
+
+function check_mem() {
+    local MEM_REGEX='MemTotal:[[:space:]]*([[:digit:]]+[[:print:]]+)'
+    local CHECK_OUT="$(cat /proc/meminfo)"
+    parse_and_check_range "Total memory" "GB" "$CHECK_OUT" "$MEM_REGEX" $MEM_AMOUNT_ERROR_GB $MEM_AMOUNT_WARNING_GB 0 2>&1
 }
 
 function check_network_address_conflicts() {
@@ -1002,9 +1011,8 @@ function check_hostname_resolution() {
     return 0
 }
 
-
-function check_virt_platform () {
- VIRTUALIZATION_PLATFORM=$(./shield_pre_install_check_virt.sh)
+function check_virt_platform() {
+    VIRTUALIZATION_PLATFORM=$(./shield_pre_install_check_virt.sh)
 }
 
 function check_distribution() {
@@ -1046,6 +1054,19 @@ function install_if_not_installed() {
     fi
 }
 
+function check_bad_kernel() {
+    local BAD_KERNEL_REGEX='^4\.4\.0\-(112|113|114|115)\-.*'
+    local KERNEL_VER="$(uname -r)"
+
+    if ! [[ $KERNEL_VER =~ $BAD_KERNEL_REGEX ]]; then
+        log_message "Kernel version is $KERNEL_VER - $(print_special 'OK' 32 1)"
+        return 0
+    else
+        log_message "Kernel version is $KERNEL_VER - $(print_special 'ERROR' 31 1)"
+        return 1
+    fi
+}
+
 function perform_env_test() {
     local ERR=0
 
@@ -1059,6 +1080,14 @@ function perform_env_test() {
 
     log_message "Checking distribution..."
     log_message "$(check_distribution)" || ERR=1
+
+    echo ""
+
+    log_message "$(check_bad_kernel)" || ERR=1
+
+    echo ""
+
+    log_message "$(check_mem)" || ERR=1
 
     echo ""
 
@@ -1100,7 +1129,7 @@ function perform_env_test() {
     echo ""
 
     check_hostname_resolution || ERR=1
-    
+
     echo ""
     log_message "Checking virtualization platform..."
     log_message "$(./shield_pre_install_check_virt.sh)"
@@ -1112,13 +1141,10 @@ function perform_env_test() {
     log_message "$(uptime)"
     log_message "$(uname -a)"
 
-
     echo ""
     log_message "Testing cpu performance..."
     log_message "$(stress-ng --class cpu --all 1 --metrics-brief -t60)"
-    
-    
-    
+
     if ((ERR != 0)); then
         log_message "Exiting due to previous errors..."
         return 1
@@ -1132,7 +1158,7 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
     perform_env_test
     RET_VALUE=$?
     if [ $RET_VALUE != "0" ]; then
-       exit 1
+        exit 1
     fi
     log_message "shield_pre_install_check passed..."
     exit 0
