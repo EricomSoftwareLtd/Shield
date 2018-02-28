@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_289] - 2018-2-28
+- IME should work on IE 11 #2187
+- Canvas resize color white #2272
+- Admin - Show notification "Details" column only if there is an alert which includes a URL #2058
+- Admin - Reports doesn't work. #2278
+
 ## [Dev:Build_288] - 2018-2-27
 - (*) Fix broker browser refresh (#2258)
 - No license message should be written to log once per day #2249
