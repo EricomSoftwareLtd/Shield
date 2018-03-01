@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_290] - 2018-3-1
+- Admin - pac file related fields #2279
+- Admin - Licensing - Licenses in use #2274
+- Admin - Updated ja-jp.json
+- Admin - fix issue with pacfile downloaded notification #2279
+- Admin - added proper tooltips for uk/us #2274
+- Admin - removed password from command
+- Remote Browser - accept invalid certs using dialog #2236
+
+## [Staging:18.03-Staging:Build_289] - 2018-3-1
+- IME should work on IE 11 #2187
+- Canvas resize color white #2272
+- Admin - Show notification "Details" column only if there is an alert which includes a URL #2058
+- Admin - Reports doesn't work. #2278
 
 ## [Dev:Build_289] - 2018-2-28
 - IME should work on IE 11 #2187
