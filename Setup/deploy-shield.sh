@@ -167,13 +167,13 @@ create_proxy_env_file
 
 NODES_COUNT=$(docker node ls | grep -c Ready)
 if [ "$NODES_COUNT" -eq 1 ]; then
-   if [ "$ES_NO_BROWSERS_LABEL" == true ]; then 
-     echo "***************     Adding Labels: management, shield_core"
-     retry_on_failure docker node update --label-add shield_core=yes --label-add management=yes $LEADER_HOST
+    if [ "$ES_NO_BROWSERS_LABEL" == true ]; then
+        echo "***************     Adding Labels: management, shield_core"
+        retry_on_failure docker node update --label-add shield_core=yes --label-add management=yes $LEADER_HOST
     else
-     echo "***************     Adding Labels: management, shield_core, browser"
-     retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
-    fi  
+        echo "***************     Adding Labels: management, shield_core, browser"
+        retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
+    fi
 fi
 
 am_i_leader
