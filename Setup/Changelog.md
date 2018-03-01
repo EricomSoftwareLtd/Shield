@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin - fix issue with pacfile downloaded notification #2279
 - Admin - added proper tooltips for uk/us #2274
 - Admin - removed password from command
+- Remote Browser - accept invalid certs using dialog #2236
 
 ## [Staging:18.03-Staging:Build_289] - 2018-3-1
 - IME should work on IE 11 #2187
