@@ -120,7 +120,7 @@ while [ $# -ne 0 ]; do
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
     -no-browser)
-	ES_NO_BROWSERS="-no-browser"
+        ES_NO_BROWSERS="-no-browser"
         echo "MultiNode: No Browsers "
         ;;
 
@@ -227,7 +227,7 @@ function choose_network_interface() {
 
 function failed_to_install() {
     log_message "An error occurred during the installation: $1, Exiting!"
-	exit 1
+    exit 1
 }
 function failed_to_install_cleaner() {
     log_message "An error occurred during the installation: $1, Exiting!"
@@ -404,7 +404,7 @@ function get_precheck_files() {
 
     echo "Getting $ES_PRE_CHECK_FILE"
     curl -s -S -o "$ES_PRE_CHECK_FILE" "$ES_repo_pre_check"
-	chmod +x "$ES_PRE_CHECK_FILE"
+    chmod +x "$ES_PRE_CHECK_FILE"
 }
 
 function get_shield_install_files() {
@@ -578,8 +578,8 @@ if [ "$ES_FORCE" == false ]; then
     source $ES_PRE_CHECK_FILE
     perform_env_test
     if [ "$?" -ne "0" ]; then
-       failed_to_install "Shield pre-install-check failed!"    
-    fi    
+        failed_to_install "Shield pre-install-check failed!"
+    fi
 fi
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
@@ -673,10 +673,10 @@ else # Update
                 ./stop.sh
             else
                 if [ ! -z "$SWARM" ]; then
-                   echo -n "stop shield-broker"
-                   docker service scale shield_broker-server=0
-                   wait_for_docker_to_settle
-	        fi
+                    echo -n "stop shield-broker"
+                    docker service scale shield_broker-server=0
+                    wait_for_docker_to_settle
+                fi
             fi
         fi
     fi
@@ -708,8 +708,8 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
             fi
             wait=$((wait + 1))
         done
-      else
-       failed_to_install_cleaner "Deploy Failed"
+    else
+        failed_to_install_cleaner "Deploy Failed"
     fi
 else
     echo "Installation only (no deployment or not the leader)"
