@@ -62,7 +62,7 @@ fi
 function log_message() {
     local PREV_RET_CODE=$?
     echo "$@"
-    echo "$(date): $@" | perl -ne 's/\x1b[[()=][;?0-9]*[0-9A-Za-z]?//g;s/\r//g;s/\007//g;print' >>"$LOGFILE"
+    echo "$(LC_ALL=C date): $@" | LC_ALL=C perl -ne 's/\x1b[[()=][;?0-9]*[0-9A-Za-z]?//g;s/\r//g;s/\007//g;print' >>"$LOGFILE"
     if ((PREV_RET_CODE != 0)); then
         return 1
     fi
