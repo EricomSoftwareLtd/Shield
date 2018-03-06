@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.03-Staging:Build_292] - 2018-3-6
+- Admin - pac file related fields #2279
+- Admin - Licensing - Licenses in use #2274
+- Admin - Updated ja-jp.json
+- Admin - fix issue with pacfile downloaded notification #2279
+- Admin - added proper tooltips for uk/us #2274
+- Admin - removed password from command
+- Remote Browser - accept invalid certs using dialog #2236
+- Admin - Licensing - Licenses in use #2274
+- Invalid certificate error when going to cnn.com #2297
+- (*) auth proxy ignore https errors (Windows Update) #2302
+
 ## [Dev:Build_291] - 2018-3-5
 - Admin - Licensing - Licenses in use #2274
 - Invalid certificate error when going to cnn.com #2297
