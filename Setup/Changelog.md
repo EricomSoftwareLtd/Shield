@@ -9,6 +9,96 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_291] - 2018-3-5
+- Admin - Licensing - Licenses in use #2274
+- Invalid certificate error when going to cnn.com #2297
+
+## [Dev:Build_290] - 2018-3-1
+- Admin - pac file related fields #2279
+- Admin - Licensing - Licenses in use #2274
+- Admin - Updated ja-jp.json
+- Admin - fix issue with pacfile downloaded notification #2279
+- Admin - added proper tooltips for uk/us #2274
+- Admin - removed password from command
+- Remote Browser - accept invalid certs using dialog #2236
+
+## [Staging:18.03-Staging:Build_289] - 2018-3-1
+- IME should work on IE 11 #2187
+- Canvas resize color white #2272
+- Admin - Show notification "Details" column only if there is an alert which includes a URL #2058
+- Admin - Reports doesn't work. #2278
+
+## [Dev:Build_289] - 2018-2-28
+- IME should work on IE 11 #2187
+- Canvas resize color white #2272
+- Admin - Show notification "Details" column only if there is an alert which includes a URL #2058
+- Admin - Reports doesn't work. #2278
+
+## [Dev:Build_288] - 2018-2-27
+- (*) Fix broker browser refresh (#2258)
+- No license message should be written to log once per day #2249
+- Speedtest container image #2137
+- OVA quick - reports section should not be displayed at the admin #2229
+- No license message should be written to log less #2249
+- ExperimentalUpload shield activations result to external database #2250
+- Going out of fullscreen, session is displayed on just a portion of the page #2255 
+- (*) Page is refreshed from time to time #1991
+- Fix setting used to block apps; fix icap same logic as authproxy #2251
+- Added Precheck for Kernel version , Memory
+
+## [Dev:Build_287] - 2018-2-26
+- Fix arrows and backspace-like keys in IE #2237 #2188
+- Experimental Upload shield-stats to external database #2209
+- Proper message when consul is not working instead of Invalid Credentials #2204
+- Fixed basic auth md5 salt so authproxy doens't reconfigure
+- Admin - Settings - Content Isolation #2245
+- Speedtest container image #2137
+- Added Test to preinstall script ( Checking virtualization platform, Gathering some system information, Testing cpu performance)
+
+## [Staging:18.03-Staging:Build_286] - 2018-2-25
+- Admin: Add new profile - the Add button was disabled #2120
+- Admin: Generate the keytab command #1810
+- Admin: Proper message when consul is not working instead of Invalid Credentials #2204
+- Admin: Added proxy configuration collapsable area as requested in + updated tooltips #2062
+- Admin - Add new profile is not sunc with the current state #1392
+- Admin - Can't disable NTLM #2127
+- Admin - Policies table #1694
+- Admin - Rename proxy file to be default.pac #1568
+- Admin - Add new profile is not sunc with the current state #1392
+- Admin - Enabled autocomplete for profiles fields #1534
+- Admin - fixed admin tooltip for Upstreamernal
+- Admin - moved tooltip from right to be close to the text
+- High Number of Critical Error Alert is confusing #2184
+- Experimental Upload alerts to an external Database #2202
+- Experimental Youtube only FMS #2200
+- Updated tooltip and input for download max size #1409
+- Authproxy squid reconfigure leaves zombie shield_policy_acl.js processes #2217
+- Thai font do not display in Shield #2185
+- Cross Window - Cisco Login #1655
+- Added alert debug logs
+- Re-implemented node docker failure alert
+- Log alerts events in a new report #1778
+- Japanese IME bugfix
+- Keyboard fixes for korean and japanese
+- Fix page refresh method #2122
+- Icap should have mergeable values for defaults using consul source #2163
+- Backspace is not working correctly in Japanese #2149
+- Arrows are not working #2148
+- Firefox does not reload when it should #
+- Typing in Korean Issue #1938
+- Office online right click menu copy paste - shows but does not function #1463
+- Fix browser stuck dragging in SHIFT/CTRL+click link
+- Log alerts events in a new report #1778
+- Fixed profile bug in ICAP
+- Daily Backup for last 10 days #1915
+- From create, submit, window open in the same tick - Totalsource.adp.com #2009
+- No preview for gmail attached PDF #1912
+- .aflac.com - cannot run 2017 report ("Download failed" error message) #1820
+- Cross Windows - Hotel.com #1657
+- Cross windows Bank Hapoalim - download excel #786
+- Pre-check Installer Shield #2068
+- Pre-install check ubuntu and kernel version #2037
+
 ## [Prod:18.02-1-Build-280.3] - 2018-02-20
 ### Enhancements:
 - Pre-check Installer Shield #2068
