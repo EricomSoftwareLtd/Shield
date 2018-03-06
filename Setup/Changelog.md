@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_292] - 2018-3-5
+- (*) auth proxy ignore https errors (Windows Update) #2302
+
 ## [Dev:Build_291] - 2018-3-5
 - Admin - Licensing - Licenses in use #2274
 - Invalid certificate error when going to cnn.com #2297
