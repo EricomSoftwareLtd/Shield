@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New Virtual Appliance for Quick Evaluation (OVA)
 - Embedded Speedtest (http://proxy-server-ip:8185)
 ### Enhancements:
-- Improved Pre-Install Checks (Kernetl Version, Virtualization platform, Gathering some system information, Testing cpu performance)
+- Improved Pre-Install Checks (Kernel Version, Virtualization platform, Gathering some system information, Testing cpu performance)
 - Remote Browser - Accept invalid certificates using dialog
 - Improved Backup Mechanism (Daily Backup for last 10 days)
 - New Report for system Alerts
