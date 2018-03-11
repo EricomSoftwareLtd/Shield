@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:18.03-Build-292] - 2018-02-20
 ### New Features:
-- Embedded Speedtest (http://<proxy-server>:8185)
+- Embedded Speedtest (http://proxy-server-ip:8185)
 ### Enhancements:
 - Additional Pre-Install Checks (Kernetl Version, Virtualization platform, Gathering some system information, Testing cpu performance)
 - Remote Browser - Accept invalid certificates using dialog
