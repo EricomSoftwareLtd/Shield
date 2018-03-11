@@ -1306,6 +1306,7 @@ function perform_env_test() {
     install_if_not_installed bc
     install_if_not_installed perl
     install_if_not_installed stress-ng
+    install_if_not_installed virt-what
 
     log_message "Checking distribution..."
     log_message "$(check_distribution)" || ERR=1
@@ -1365,7 +1366,11 @@ function perform_env_test() {
 
     echo ""
     log_message "Gathering some system information..."
-    log_message "$(docker info)"
+    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+       log_message "docker not installed"    
+     else    
+       log_message "$(docker info)"
+    fi   
     log_message "$(lscpu)"
     log_message "$(uptime)"
     log_message "$(uname -a)"
