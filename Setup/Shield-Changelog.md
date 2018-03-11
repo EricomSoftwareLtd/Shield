@@ -18,13 +18,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improved Pre-Install Checks (Kernel Version, Virtualization platform, Gathering some system information, Testing cpu performance)
 - Remote Browser - Accept invalid certificates using dialog
 - Improved Backup Mechanism (Daily Backup for last 10 days)
-- New Report for system Alerts
-- Admin: Generate the keytab file command
-- Admin - Show notification "Details" column only if there is an alert which includes a URL
+- New report for system alerts
+- Admin - Dashboard - When an alert includes a URL, a "Details" column appears in the notification table
 - Admin - Settings - Content Isolation 
-- Admin - Upstream proxy settings are displayed only if proxy is enabled
+- Admin - Settings - Upstream proxy settings are displayed only if proxy is enabled
+- Admin - Profiles - Generate the keytab file command
 - Enhanced support for Japanese, Korean and Thai (fonts, IME & keyboards)
-- Experimental Upload alerts to an external Database
+- Experimental upload alerts to an external Database
 - Admin: Proper message when Admin backend is not working instead of Invalid Credentials
 - New Translation for Japanese
 
