@@ -9,6 +9,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.03-Build-292] - 2018-02-20
+### New Features:
+- Embedded Speedtest (http://<proxy-server>:8185)
+### Enhancements:
+- Additional Pre-Install Checks (Kernetl Version, Virtualization platform, Gathering some system information, Testing cpu performance)
+- Remote Browser - Accept invalid certificates using dialog
+- Daily Backup for last 10 days
+- Log alerts events in a new report
+- Admin: Generate the keytab command
+- Admin - Show notification "Details" column only if there is an alert which includes a URL
+- Experimental Upload alerts to an external Database
+### Bug Fixes:
+- Windows Update is blocked by Shield
+- Going out of fullscreen, session is displayed on just a portion of the page 
+- Page is refreshed from time to time
+- No preview for gmail attached PDF
+- Japanese IME bugfix
+- Keyboard fixes for korean and japanese
+
 ## [Prod:18.02-1-Build-280.3] - 2018-02-20
 ### Enhancements:
 - Pre-check Installer Shield #2068
