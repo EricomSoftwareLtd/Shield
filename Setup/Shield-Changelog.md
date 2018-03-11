@@ -10,23 +10,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Prod:18.03-Build-292] - 2018-02-20
+
 ### New Features:
+- New Virtual Appliance for Quick Evaluation (OVA)
 - Embedded Speedtest (http://proxy-server-ip:8185)
 ### Enhancements:
-- Additional Pre-Install Checks (Kernetl Version, Virtualization platform, Gathering some system information, Testing cpu performance)
+- Improved Pre-Install Checks (Kernetl Version, Virtualization platform, Gathering some system information, Testing cpu performance)
 - Remote Browser - Accept invalid certificates using dialog
-- Daily Backup for last 10 days
-- Log alerts events in a new report
-- Admin: Generate the keytab command
+- Improved Backup Mechanism (Daily Backup for last 10 days)
+- New Report for system Alerts
+- Admin: Generate the keytab file command
 - Admin - Show notification "Details" column only if there is an alert which includes a URL
+- Admin - Settings - Content Isolation 
+- Admin - Upstream proxy settings are displayed only if proxy is enabled
+- Enhanced support for Japanese, Korean and Thai (fonts, IME & keyboards)
 - Experimental Upload alerts to an external Database
+- Admin: Proper message when Admin backend is not working instead of Invalid Credentials
+- New Translation for Japanese
+
 ### Bug Fixes:
-- Windows Update is blocked by Shield
-- Going out of fullscreen, session is displayed on just a portion of the page 
-- Page is refreshed from time to time
-- No preview for gmail attached PDF
-- Japanese IME bugfix
-- Keyboard fixes for korean and japanese
+- Fixed: Windows Update is blocked by Shield
+- Fixed: Going out of fullscreen, session is displayed on just a portion of the page 
+- Fixed: Page is refreshed from time to time
+- Fixed: No preview for gmail attached PDF
+- Fixed: Browser stuck dragging in SHIFT/CTRL + click link
+- Fixed: High Number of Critical Error Alert is confusing #2184
+- Fixed: Office online right click menu copy paste - shows but does not function
+- Fixed: Authproxy memory leak on reload
+- Fixed: Cross Window - Cisco Login
 
 ## [Prod:18.02-1-Build-280.3] - 2018-02-20
 ### Enhancements:
