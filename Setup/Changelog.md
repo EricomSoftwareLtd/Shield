@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_293] - 2018-3-12
+- Media page to examine offline experience #2280
+- Improved Speedtest UI #2280
+- Update jquery in AN from 1.x to 3.x - improve security #1906
+- Admin should support HTTPS only (R2 B2) #513
+- Change "Download Failed" message title to "Download Blocked" when file was blocked by Votiro #2345
+- Alerts are missing from Syslog #2326
+- Upgraded portainer to 1.16.2
 
 ## [Staging:18.03-Staging:Build_292] - 2018-3-6
 - Admin - pac file related fields #2279
