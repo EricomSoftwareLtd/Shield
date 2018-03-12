@@ -1,7 +1,7 @@
 #!/bin/bash
 ############################################
 #####   Ericom Shield AutoUpdate       #####
-#######################################BH###
+###################################LO##BH###
 
 #  If you are not using ericomshield service, run this script in the background
 #  sudo nohup ./autoupdate.sh > /dev/null &
