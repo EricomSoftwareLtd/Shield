@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_294] - 2018-3-13
+- Fixed type in version file
+
 ## [Dev:Build_293] - 2018-3-12
 - Media page to examine offline experience #2280
 - Improved Speedtest UI #2280
