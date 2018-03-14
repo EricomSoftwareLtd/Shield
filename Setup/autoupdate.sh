@@ -95,13 +95,11 @@ while true; do
             chmod +x ericomshield-setup.sh
             am_i_leader
             if [ "$AM_I_LEADER" == true ]; then
-                echo "Running Shield Setup (leader)"
-                echo "$(date): From autoupdate.sh Running Shield Setup (leader)" >>"$LOGFILE"
-                $ES_PATH/ericomshield-setup.sh
-            else
-                echo "Running Shield Setup no-deploy (I'm not the leader)"
-                echo "$(date): From autoupdate.sh Running Shield Setup no-deploy (I'm not the leader)" >>"$LOGFILE"
-                $ES_PATH/ericomshield-setup.sh -no-deploy
+                docker run --rm -it \
+                    -v /var/run/docker.sock:/var/run/docker.sock \
+                    -v $(which docker):/usr/bin/docker \
+                    -v /usr/local/ericomshield:/usr/local/ericomshield \
+                    securebrowsing/shield-autoupdate:test update
             fi
         fi
     fi
