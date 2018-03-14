@@ -9,6 +9,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.03-Build-292] - 2018-02-20
+
+### New Features:
+- New Virtual Appliance for Quick Evaluation (OVA)
+- Embedded Speedtest (http://proxy-server-ip:8185)
+### Enhancements:
+- Improved Pre-Install Checks (Kernel Version, Virtualization platform, Gathering some system information, Testing cpu performance)
+- Remote Browser - Accept invalid certificates using dialog
+- Improved Backup Mechanism (Daily Backup for last 10 days)
+- Enhanced support for Japanese, Korean and Thai (fonts, IME & keyboards)
+- Experimental upload alerts to an external Database
+- Admin - Dashboard - When an alert includes a URL, a "Details" column appears in the notification table
+- Admin - Settings - Content Isolation 
+- Admin - Settings - Upstream proxy settings are displayed only if proxy is enabled
+- Admin - Reports - New report for system alerts
+- Admin - Profiles - Generate the keytab file command
+- Admin - Proper message when Admin backend is not working instead of Invalid Credentials
+- New Translation for Japanese
+
+### Bug Fixes:
+- Fixed: Windows Update is blocked by Shield
+- Fixed: Going out of fullscreen, session is displayed on just a portion of the page 
+- Fixed: Page is refreshed from time to time
+- Fixed: No preview for gmail attached PDF
+- Fixed: Browser stuck dragging in SHIFT/CTRL + click link
+- Fixed: High Number of Critical Error Alert is confusing #2184
+- Fixed: Office online right click menu copy paste - shows but does not function
+- Fixed: Authproxy memory leak on reload
+- Fixed: Cross Window - Cisco Login
+
 ## [Prod:18.02-1-Build-280.3] - 2018-02-20
 ### Enhancements:
 - Pre-check Installer Shield #2068
