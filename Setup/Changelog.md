@@ -8,6 +8,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_294] - 2018-3-13
+- Fixed type in version file
+
+## [Dev:Build_293] - 2018-3-12
+- Media page to examine offline experience #2280
+- Improved Speedtest UI #2280
+- Update jquery in AN from 1.x to 3.x - improve security #1906
+- Admin should support HTTPS only (R2 B2) #513
+- Change "Download Failed" message title to "Download Blocked" when file was blocked by Votiro #2345
+- Alerts are missing from Syslog #2326
+- Upgraded portainer to 1.16.2
+
+## [Staging:18.03-Staging:Build_292] - 2018-3-6
+- Admin - pac file related fields #2279
+- Admin - Licensing - Licenses in use #2274
+- Admin - Updated ja-jp.json
+- Admin - fix issue with pacfile downloaded notification #2279
+- Admin - added proper tooltips for uk/us #2274
+- Admin - removed password from command
+- Remote Browser - accept invalid certs using dialog #2236
+- Admin - Licensing - Licenses in use #2274
+- Invalid certificate error when going to cnn.com #2297
+- (*) auth proxy ignore https errors (Windows Update) #2302
 
 ## [Dev:Build_291] - 2018-3-5
 - Admin - Licensing - Licenses in use #2274

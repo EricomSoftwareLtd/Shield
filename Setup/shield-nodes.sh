@@ -6,7 +6,7 @@
 KNOWN_LABELS="browser, shield_core, management"
 
 function show_usage() {
-    echo "Usage: $0 [-status][-add-label] [-remove-label] [-show-labels] [-usage] "
+    echo "Usage: $0 [-status][-add-label] [-remove-label] [-show-labels] [-remove-node] [-usage] "
     exit
 }
 
@@ -67,6 +67,17 @@ while [ $# -ne 0 ]; do
             echo
             echo " Removing Labels for Node: $2"
             docker node update --label-rm $3 $2
+            exit
+        fi
+        ;;
+    -remove-node)
+        if [ -z $2 ]; then
+            echo
+            echo "Missing Node Name"
+            show_usage
+        else
+            echo "Removing Node: $2"
+            docker node rm -f $2
             exit
         fi
         ;;
