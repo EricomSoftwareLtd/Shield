@@ -91,8 +91,6 @@ while true; do
             UPDATE=true
         fi
         if [ "$UPDATE" == true ]; then
-            curl -s -S -o ericomshield-setup.sh $ES_repo_setup
-            chmod +x ericomshield-setup.sh
             am_i_leader
             if [ "$AM_I_LEADER" == true ]; then
                 APPEND=""
@@ -104,11 +102,7 @@ while true; do
                     APPEND="--staging"
                 fi
 
-                docker run --rm -it \
-                    -v /var/run/docker.sock:/var/run/docker.sock \
-                    -v $(which docker):/usr/bin/docker \
-                    -v /usr/local/ericomshield:/usr/local/ericomshield \
-                    securebrowsing/shield-autoupdate:test update "$APPEND"
+                ./update.sh "$APPEND"
             fi
         fi
     fi
