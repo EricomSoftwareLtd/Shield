@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_295] - 2018-3-14
+- keybaord fixes  #2242 #2144 #2191 #2243 #2257
+- Autoupdate on multi machin from old prod to current prod failed to update the version #2347
+- Download "Blocked" instead of "Failed" #2345
+- Printing Enabled/Disabled Policy (R2) #654
+- Exception List for https w/o Trusted Certificate (B2) #875
+- Update policies - Main issue #2335
+- Add FMS flag in the polices #2300
+- System should work even if ELK is not present #2195
+- korean space typing issue #2257
+- Korean - ctrl A doesn't work as expected #2243
+- Left arrow issue when using Japanese #2191
+- Japanese henkan key doesn't work as expected #2144
+- Korean duplicate issue #2242
+
 ## [Dev:Build_294] - 2018-3-13
 - Fixed type in version file
 
