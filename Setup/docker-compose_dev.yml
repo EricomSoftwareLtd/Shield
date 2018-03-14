@@ -122,9 +122,9 @@ services:
     networks:
          - shield
     deploy:
-#      mode: replicated   #single node
-#      replicas: 5        #single node
-      mode: global       #multi node
+      mode: replicated   #single node
+      replicas: 5        #single node
+#      mode: global       #multi node
       endpoint_mode: dnsrr
       placement:
         constraints:
