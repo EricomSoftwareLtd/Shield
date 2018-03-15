@@ -1,7 +1,7 @@
 #!/bin/bash
 ############################################
 #####   Ericom Shield AutoUpdate       #####
-###################################LO##BH###
+#######################################BH###
 
 #  If you are not using ericomshield service, run this script in the background
 #  sudo nohup ./autoupdate.sh > /dev/null &
@@ -91,18 +91,17 @@ while true; do
             UPDATE=true
         fi
         if [ "$UPDATE" == true ]; then
+            curl -s -S -o ericomshield-setup.sh $ES_repo_setup
+            chmod +x ericomshield-setup.sh
             am_i_leader
             if [ "$AM_I_LEADER" == true ]; then
-                APPEND=""
-                if [ "$ES_DEV" == true ]; then
-                    APPEND="--dev"
-                fi
-
-                if [ "$ES_STAGING" == true ]; then
-                    APPEND="--staging"
-                fi
-
-                ./update.sh "$APPEND"
+                echo "Running Shield Setup (leader)"
+                echo "$(date): From autoupdate.sh Running Shield Setup (leader)" >>"$LOGFILE"
+                $ES_PATH/ericomshield-setup.sh
+            else
+                echo "Running Shield Setup no-deploy (I'm not the leader)"
+                echo "$(date): From autoupdate.sh Running Shield Setup no-deploy (I'm not the leader)" >>"$LOGFILE"
+                $ES_PATH/ericomshield-setup.sh -no-deploy
             fi
         fi
     fi
