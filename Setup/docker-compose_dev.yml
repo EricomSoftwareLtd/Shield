@@ -289,7 +289,7 @@ services:
             - shield
         deploy:
           mode: replicated
-          replicas: 10
+          replicas: 20
           endpoint_mode: dnsrr
           update_config:
             parallelism: 8
