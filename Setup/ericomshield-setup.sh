@@ -518,6 +518,9 @@ function get_shield_files() {
     echo "Getting $ES_repo_restore_dev_sh"
     curl -s -S -o restore.sh "$ES_repo_restore_dev_sh"
     chmod +x restore.sh
+    echo "Getting $ES_repo_update"
+    curl -s -S -o update.sh "$ES_repo_update"
+    chmod +x update.sh
 }
 
 function count_running_docker_services() {
