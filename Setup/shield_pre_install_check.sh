@@ -1305,7 +1305,7 @@ function perform_env_test() {
     install_if_not_installed units
     install_if_not_installed bc
     install_if_not_installed perl
-    install_if_not_installed stress-ng
+#    install_if_not_installed stress-ng
     install_if_not_installed virt-what
 
     log_message "Checking distribution..."
@@ -1377,7 +1377,7 @@ function perform_env_test() {
 
     echo ""
     log_message "Testing cpu performance..."
-    log_message "$(stress-ng --class cpu --all 1 --metrics-brief -t60)"
+#    log_message "$(stress-ng --class cpu --all 1 --metrics-brief -t60)"
 
     if ((ERR != 0)); then
         log_message "Exiting due to previous errors..."
