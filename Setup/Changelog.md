@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_297] - 2018-3-18
+- Changed Shield-Alert to be written as "report" #2326 
+- Infrustructure for consolidating alerts and pre-install tests #2282
+- Improve pre-test result ui ,color 
+
 ## [Dev:Build_296] - 2018-3-18
 - Admin - Generate the keytab command #1810
 - Admin - policies - general tooltip #2379
