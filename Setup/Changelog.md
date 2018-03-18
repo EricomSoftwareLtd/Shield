@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_296] - 2018-3-18
+- Admin - Generate the keytab command #1810
+- Admin - policies - general tooltip #2379
+- Generic FMS - #1872 #2298 #2200 
+
 ## [Dev:Build_295] - 2018-3-14
 - keybaord fixes  #2242 #2144 #2191 #2243 #2257
 - Autoupdate on multi machin from old prod to current prod failed to update the version #2347
