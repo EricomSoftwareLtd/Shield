@@ -1376,7 +1376,7 @@ function perform_env_test() {
     log_message "$(uname -a)"
 
     echo ""
-    log_message "Testing cpu performance..."
+#    log_message "Testing cpu performance..."
 #    log_message "$(stress-ng --class cpu --all 1 --metrics-brief -t60)"
 
     if ((ERR != 0)); then
