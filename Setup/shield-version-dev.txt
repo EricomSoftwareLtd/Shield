@@ -1,12 +1,12 @@
-#Build Dev:Build_298 on 18/03/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_298
+#Build Dev:Build_299 on 18/03/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_299
 shield-configuration:latest shield-configuration:180313-12.12-1524
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180318-21.05-1559
+shield-admin:latest shield-admin:180319-16.41-1578
 shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180130-10.49-1232
-icap-server:latest icap-server:180319-12.56-1573
-shield-cef:latest shield-cef:180319-11.48-1568
+icap-server:latest icap-server:180319-17.01-1579
+shield-cef:latest shield-cef:180319-17.01-1579
 broker-server:latest broker-server:180319-12.56-1573
 shield-collector:latest shield-collector:180319-09.25-1564
 shield-elk:latest shield-elk:180315-09.27-1544
@@ -21,4 +21,4 @@ shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180312-09.40-1517
 shield-autoupdate:latest shield-autoupdate:180314-15.28-1532
-notifier-server:latest notifier-server:180319-12.56-1573
+shield-notifier:latest shield-notifier:180319-17.01-1579

@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_299] - 2018-3-19
+- Set language browser props from client #2323
+- Typing issue on IE and Edge #2333
+- Fixed shield-notifier health check
+- Paused movies removed from DOM #2298 #1872
+- Japanese commit mixup hotfix
+
 ## [Dev:Build_298] - 2018-3-19
 - Certificate error rule is not working #2392
 - KKA-QA#684141 Does not automatically change the input mode in passward field. #91 #2386
