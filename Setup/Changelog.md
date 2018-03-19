@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_298] - 2018-3-19
+- Certificate error rule is not working #2392
+- KKA-QA#684141 Does not automatically change the input mode in passward field. #91 #2386
+- Korean - typing alpah numeric full width is not working in chrome #2372
+- New Browser Pool Management #2369
+- KKA - The cursor does not move when entering double-byte space #2362
+- KKA -Character conversion problem with function key #2361
+- Ctrl+shift+arrows issues #2348
+- Shield-Broker scale browser scaling is wrong on Node fails #2312
+- Page is refreshed from time to time #1991
+- (*) fix edge&IE crash can't watch movies on some sites #2394
+
 ## [Dev:Build_297] - 2018-3-18
 - Changed Shield-Alert to be written as "report" #2326 
 - Infrustructure for consolidating alerts and pre-install tests #2282

@@ -381,6 +381,21 @@ services:
             limits:
               memory: 512MB
               cpus: "0.5"
+  notifier:
+        image: securebrowsing/notifier-server:latest
+        hostname: notifier
+        networks:
+          - shield
+        deploy:
+          mode: replicated
+          replicas: 1
+          placement:
+            constraints:
+              - node.labels.browser==yes
+          resources:
+            limits:
+              memory: 512MB
+              cpus: "0.5"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
       hostname: authproxy
