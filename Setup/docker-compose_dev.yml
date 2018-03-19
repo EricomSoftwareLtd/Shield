@@ -382,7 +382,7 @@ services:
               memory: 512MB
               cpus: "0.5"
   notifier:
-        image: securebrowsing/notifier-server:latest
+        image: securebrowsing/shield-notifier:latest
         hostname: notifier
         networks:
           - shield
