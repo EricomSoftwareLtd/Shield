@@ -24,16 +24,33 @@ if [ $BROWSER_RUNNING -eq 0 ]; then
     NUM_RUNNING_REP=$((NUM_RUNNING_REP + 1))
 fi
 
-if [ "$1" == "-a" ]; then
-    docker service ls
-    echo "------------------------------------------------------------------------------"
-    echo
-    var=$(curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats 2>&1)
-    echo ${var:16:260}
-    echo
-    echo "------------------------------------------------------------------------------"
-    echo
-fi
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -a | --all)
+        docker service ls
+        echo "------------------------------------------------------------------------------"
+        echo
+        var=$(curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats 2>&1)
+        echo ${var:16:260}
+        echo
+        echo "------------------------------------------------------------------------------"
+        echo
+        ;;
+    -n | --nodes)
+        ./nodes.sh -status
+        ;;
+    -s | --services)
+        ./addnodes.sh --status
+        ;;
+    #        -usage)
+    *)
+        echo "Usage: $0 [-a | --all] [-n | --nodes] [ -s | --services]"
+        exit
+        ;;
+    esac
+    shift
+done
 
 if [ $NUM_RUNNING_SERVICES -ge $NUM_EXPECTED_SERVICES ]; then
     if [ $NUM_RUNNING_REP -ge $NUM_EXPECTED_REP ]; then
