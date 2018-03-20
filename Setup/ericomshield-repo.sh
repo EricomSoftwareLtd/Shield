@@ -25,6 +25,7 @@ ES_repo_addnode="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRA
 ES_repo_shield_nodes="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/nodes.sh"
 ES_repo_pre_check="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-pre-install-check.sh"
 ES_repo_shield_aliases="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/.shield_aliases"
+ES_repo_restore="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/restore.sh"
 ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.sh"
 
 # Production Version Repository: (Release)
@@ -38,7 +39,6 @@ ES_repo_staging_yml="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/
 ES_repo_dev_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version-dev.txt"
 ES_repo_dev_yml="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/docker-compose_dev.yml"
 ES_repo_swarm_dev_sh="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/deployshield-dev.sh"
-ES_repo_restore="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/restore.sh"
 
 ES_repo_pocket_yml="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/docker-compose_pocket.yml"
 
