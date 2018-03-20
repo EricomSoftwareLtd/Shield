@@ -10,7 +10,7 @@ fi
 
 # Development Repository: (Latest)
 ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-setup.sh"
-ES_repo_run="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/run.sh"
+ES_repo_run="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/start.sh"
 ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/autoupdate.sh"
 ES_repo_version="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/showversion.sh"
 ES_repo_stop="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/stop.sh"
@@ -19,11 +19,11 @@ ES_repo_restart="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRA
 ES_repo_ip="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/show-my-ip.sh"
 ES_repo_systemd_updater_service="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-updater.service"
 ES_repo_sysctl_shield_conf="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/sysctl_shield.conf"
-ES_repo_uninstall="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-uninstall.sh"
+ES_repo_uninstall="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/uninstall.sh"
 ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
-ES_repo_setup_node="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/SetupNode/ericomshield-setup-node.sh"
-ES_repo_shield_nodes="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-nodes.sh"
-ES_repo_pre_check="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield_pre_install_check.sh"
+ES_repo_setup_node="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/addnode.sh"
+ES_repo_shield_nodes="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/nodes.sh"
+ES_repo_pre_check="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-pre-install-check.sh"
 ES_repo_shield_aliases="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/.shield_aliases"
 ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.sh"
 
