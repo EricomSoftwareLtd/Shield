@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_300] - 2018-3-20
+- FMS - allow server play if client playing #1872 #2298
+- FMS - Cache codec support client-side #1872
+- Use scale_step for scale operations #2429
+- Added support for secured LDAP #1148
+- Shield shows page from yesterday on One #2020
+
 ## [Dev:Build_299] - 2018-3-19
 - Set language browser props from client #2323
 - Typing issue on IE and Edge #2333
