@@ -32,7 +32,7 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="18.02-Setup"
+ES_SETUP_VER="18.04-Setup"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
