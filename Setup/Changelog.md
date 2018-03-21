@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_301] - 2018-3-21
+- Added load-test page back to icap
+- Fixed Votiro not available alert #2447
+- Read systemID from Consul instead of accessing the secret file
+- Fixed tests paths (didn't work in "on-demand" mode) 
+- Updated texts in Admin for Votiro HA and Secure LDAP
+- Updated scale formula + delay in start
+- FMS - msep works cross-iframe, fix some crash 
+
 ## [Dev:Build_300] - 2018-3-20
 - FMS - allow server play if client playing #1872 #2298
 - FMS - Cache codec support client-side #1872
