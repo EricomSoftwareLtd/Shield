@@ -11,7 +11,7 @@ fi
 # Development Repository: (Latest)
 ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-setup.sh"
 ES_repo_run="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/run.sh"
-ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/autoupdate.sh"
+ES_repo_autoupdate="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/autoupdate.sh"
 ES_repo_version="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/showversion.sh"
 ES_repo_stop="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/stop.sh"
 ES_repo_status="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/status.sh"
