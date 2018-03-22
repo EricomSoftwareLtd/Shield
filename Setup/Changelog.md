@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_302] - 2018-3-22
+- Don't kill bg tabs while media playing #2453
+- Install fonts-ipafont-gothic and fonts-ipafont-mincho
+- Show hovered links in bottom status bar #1245
+- Added fonts for emojis and weird langs #2427
+- Support for shield to use Customer CA (R2) #310
+- Pre install checks V2 #2088
+- Consolidate pre-check test and alerts #2282
+- Integrate SRT into the admin #2238
+- Browser crash? #2476
+- Idle timeout terminated an audio session #2453
+- Youtube.com some languages doesn't appear via shield #2427
+- shield with IE 8 - urls in white mode #2350
+
+
 ## [Dev:Build_301] - 2018-3-21
 - Added load-test page back to icap
 - Fixed Votiro not available alert #2447
