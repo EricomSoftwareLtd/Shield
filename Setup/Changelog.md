@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_303] - 2018-3-23
+- Fix 100% cpu bug
+
 ## [Dev:Build_302] - 2018-3-22
 - Don't kill bg tabs while media playing #2453
 - Install fonts-ipafont-gothic and fonts-ipafont-mincho
