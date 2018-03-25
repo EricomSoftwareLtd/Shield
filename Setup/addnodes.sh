@@ -1,6 +1,6 @@
 #!/bin/bash
 ############################################
-#####   Ericom Shield Installer        #####
+#####   Ericom Shield AddNode          #####
 #######################################LO###
 
 ES_PATH=/usr/local/ericomshield
@@ -14,9 +14,14 @@ if ((EUID != 0)); then
 fi
 cd $ES_PATH
 
-echo "Running deploy-shield.sh:"
+echo "Running  addnodes.sh:"
 
-export DOCKER_TAG=180214-12.26
+
+if [ ! -f "$ES_VER_FILE" ]; then
+   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"   
+   exit 1
+fi
+CONTAINER_TAG="$(grep -r 'node-installer' $ES_VER_FILE | cut -d' ' -f2)"
 
 docker run --rm -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
@@ -24,4 +29,4 @@ docker run --rm -it \
 	-v /usr/local/ericomshield:/install \
 	-v $(pwd):/certificate \
 	--network host \
-    securebrowsing/node-installer:$DOCKER_TAG ./setup-node.sh "${@}"
+    securebrowsing/$CONTAINER_TAG ./setup-node.sh "${@}"
