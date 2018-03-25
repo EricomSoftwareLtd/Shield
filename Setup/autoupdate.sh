@@ -93,8 +93,8 @@ while true; do
         if [ "$UPDATE" == true ]; then
             am_i_leader
             if [ "$AM_I_LEADER" == true ]; then
-                echo "Running Shield Setup (leader)"
-                echo "$(date): From autoupdate.sh Running Shield Update (leader)" >>"$LOGFILE"
+                echo "Running Shield Update (leader)"
+                echo "$(date): From autoupdate.sh Running Shield update.sh (leader)" >>"$LOGFILE"
                 $ES_PATH/update.sh
             else
                 echo "Not running update (I'm not the leader)"
