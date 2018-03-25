@@ -491,7 +491,7 @@ function get_shield_files() {
     fi
 
     if [ ! -f "autoupdate.sh" ]; then
-        curl -s -S -o autoupdate.sh "$ES_repo_update"
+        curl -s -S -o autoupdate.sh "$ES_repo_autoupdate"
         chmod +x autoupdate.sh
     fi
 

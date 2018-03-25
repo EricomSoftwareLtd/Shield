@@ -1,7 +1,7 @@
 version: "3.3"
 
 # Ericom Shield Stack Description
-# YML file for Staging (Rel-18.02)
+# YML file for Staging (Rel-18.03)
 
 services:
   netdata:
@@ -12,7 +12,9 @@ services:
       - shield
     hostname: netdata
     ports:
-      - 8383:19999
+      - target: 8383
+        published: 19999
+        protocol: tcp
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -65,32 +67,34 @@ services:
       update_config:
           failure_action: rollback
   elk:
-      image: securebrowsing/shield-elk:latest
-#      ports:
-#          - 5601:5601
-#          - 9200:9200
-#          - 5014:5014
-      networks:
-          - shield
-      environment:
-        - "REINDEX_RUNINNG_INTERVAL=30s"
-        - "CLEAN_RUNINNG_INTERVAL=12h"
-        - "LOGSPOUT=ignore"
-      deploy:
-        replicas: 1
-        restart_policy:
-            condition: any
-        placement:
-            constraints:
-              - node.labels.management==yes
-        update_config:
-          failure_action: rollback
-        resources:
-          limits:
-            memory: 6GB
-            cpus: "4"
-      volumes:
-         - elastic:/opt/elasticsearch/data
+    image: securebrowsing/shield-elk:latest
+#    ports:
+#        - 5601:5601
+#        - 9200:9200
+#        - 5014:5014
+    networks:
+         - shield
+    environment:
+       - "REINDEX_RUNINNG_INTERVAL=30s"
+       - "CLEAN_RUNINNG_INTERVAL=12h"
+       - "LOGSPOUT=ignore"
+       - "HEAP_SIZE=2g"
+    deploy:
+       replicas: 1
+       restart_policy:
+           condition: any
+       placement:
+           constraints:
+             - node.labels.management==yes
+       update_config:
+         failure_action: rollback
+       resources:
+         limits:
+           memory: 3GB
+           cpus: "2"
+
+    volumes:
+        - elastic:/opt/elasticsearch/data
 
 
   logspout:
@@ -128,7 +132,7 @@ services:
       update_config:
           parallelism: 1
           failure_action: rollback
-          delay: "15s"
+          delay: "60s"
       restart_policy:
           condition: any
       resources:
@@ -149,8 +153,8 @@ services:
       image: securebrowsing/shield-consul-agent:latest
       networks:
            - shield
- #     ports:
- #         - "8500:8500"
+#      ports:
+#          - "8500:8500"
       deploy:
         mode: replicated
         replicas: 1
@@ -285,13 +289,13 @@ services:
             - shield
         deploy:
           mode: replicated
-          replicas: 0
+          replicas: 20
           endpoint_mode: dnsrr
           update_config:
             parallelism: 8
             delay: 10s
           restart_policy:
-              condition: none
+              condition: any
           resources:
             limits:
               memory: 1GB
@@ -365,6 +369,21 @@ services:
         hostname: speedtest
         ports:
           - "8185:8185"
+        networks:
+          - shield
+        deploy:
+          mode: replicated
+          replicas: 1
+          placement:
+            constraints:
+              - node.labels.browser==yes
+          resources:
+            limits:
+              memory: 512MB
+              cpus: "0.5"
+  notifier:
+        image: securebrowsing/shield-notifier:latest
+        hostname: notifier
         networks:
           - shield
         deploy:

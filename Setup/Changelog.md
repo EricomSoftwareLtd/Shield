@@ -9,6 +9,42 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_304] - 2018-3-23
+- Typo fix in version file
+## [Dev:Build_303] - 2018-3-23
+- Fix 100% cpu bug
+
+## [Dev:Build_302] - 2018-3-22
+- Don't kill bg tabs while media playing #2453
+- Install fonts-ipafont-gothic and fonts-ipafont-mincho
+- Show hovered links in bottom status bar #1245
+- Added fonts for emojis and weird langs #2427
+- Support for shield to use Customer CA (R2) #310
+- Pre install checks V2 #2088
+- Consolidate pre-check test and alerts #2282
+- Integrate SRT into the admin #2238
+- Browser crash? #2476
+- Idle timeout terminated an audio session #2453
+- Youtube.com some languages doesn't appear via shield #2427
+- shield with IE 8 - urls in white mode #2350
+
+
+## [Dev:Build_301] - 2018-3-21
+- Added load-test page back to icap
+- Fixed Votiro not available alert #2447
+- Read systemID from Consul instead of accessing the secret file
+- Fixed tests paths (didn't work in "on-demand" mode) 
+- Updated texts in Admin for Votiro HA and Secure LDAP
+- Updated scale formula + delay in start
+- FMS - msep works cross-iframe, fix some crash 
+
+## [Dev:Build_300] - 2018-3-20
+- FMS - allow server play if client playing #1872 #2298
+- FMS - Cache codec support client-side #1872
+- Use scale_step for scale operations #2429
+- Added support for secured LDAP #1148
+- Shield shows page from yesterday on One #2020
+
 ## [Dev:Build_299] - 2018-3-19
 - Set language browser props from client #2323
 - Typing issue on IE and Edge #2333
