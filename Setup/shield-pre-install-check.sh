@@ -79,7 +79,7 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"
 #Temporary Tag until shield-version-dev will be updated
-CONTAINER_TAG="180318-08.56-1550"
+CONTAINER_TAG="180322-14.49-1627"
 
 install_docker
 
