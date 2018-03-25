@@ -1,21 +1,21 @@
-#Build Dev:Build_299 on 18/03/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_299
+#Build Dev:Build_304 on 18/03/23
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_302
 shield-configuration:latest shield-configuration:180313-12.12-1524
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180319-16.41-1578
+shield-admin:latest shield-admin:180322-19.20-1636
 shield-portainer:latest shield-portainer:180311-14.35-1498
-proxy-server:latest proxy-server:180130-10.49-1232
-icap-server:latest icap-server:180319-17.01-1579
-shield-cef:latest shield-cef:180319-17.01-1579
-broker-server:latest broker-server:180319-12.56-1573
-shield-collector:latest shield-collector:180319-09.25-1564
+proxy-server:latest proxy-server:180322-21.35-1645
+icap-server:latest icap-server:180323-11.09-1651
+shield-cef:latest shield-cef:180323-11.09-1651
+broker-server:latest broker-server:180322-21.53-1647
+shield-collector:latest shield-collector:180322-14.49-1627
 shield-elk:latest shield-elk:180315-09.27-1544
-extproxy:latest extproxy:180131-15.40-1253
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:180318-15.30-1555
-shield-cdr-controller:latest shield-cdr-controller:180318-15.30-1555
+extproxy:latest extproxy:180320-14.57-1598
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
+shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
 shield-web-service:latest shield-web-service:180204-14.34-1264
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:180222-15.05-1450
+shield-authproxy:latest shield-authproxy:180320-16.40-1606
 node-installer:latest node-installer:180214-12.26
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026

@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### New Features:
+- Fast Media Streaming
+- Client Certificate
+- Secure LDAP
+- HTTPS for Admin
+### Enhancements:
+- System Upgrade (new design)
+- Remote Browser Pool Management (New Design)
+### Bug Fixes:
+- Fixed: Caching mechanism
+
 ## [Prod:18.03-Build-292] - 2018-02-20
 
 ### New Features:
