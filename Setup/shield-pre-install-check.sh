@@ -83,7 +83,7 @@ install_docker
 
 docker run --privileged -it \
            --volume "/var/run/docker.sock:/var/run/docker.sock" \
-           --volume "/dev:/hostdev" --volume "/proc:/hostproc" \ 
+           --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
            --rm --name "shield-collector" \
            "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh
 
