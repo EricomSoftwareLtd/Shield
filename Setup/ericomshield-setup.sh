@@ -14,7 +14,7 @@ fi
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_VERSION="17.12.0"
+DOCKER_VERSION="17.12.1"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -22,17 +22,17 @@ ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
-ES_PRE_CHECK_FILE="$ES_PATH/shield_pre_install_check.sh"
+ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
-ES_uninstall_FILE="$ES_PATH/ericomshield-uninstall.sh"
+ES_uninstall_FILE="$ES_PATH/uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="18.02-Setup"
+ES_SETUP_VER="18.04-Setup"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -498,8 +498,8 @@ function get_shield_files() {
     echo "Getting $ES_repo_uninstall"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
-    curl -s -S -o run.sh "$ES_repo_run"
-    chmod +x run.sh
+    curl -s -S -o start.sh "$ES_repo_start"
+    chmod +x start.sh
     curl -s -S -o showversion.sh "$ES_repo_version"
     chmod +x showversion.sh
     curl -s -S -o stop.sh "$ES_repo_stop"
@@ -510,13 +510,13 @@ function get_shield_files() {
     chmod +x restart.sh
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
-    curl -s -S -o ericomshield-setup-node.sh "$ES_repo_setup_node"
-    chmod +x ericomshield-setup-node.sh
-    curl -s -S -o shield-nodes.sh "$ES_repo_shield_nodes"
-    chmod +x shield-nodes.sh
+    curl -s -S -o addnode.sh "$ES_repo_addnode"
+    chmod +x addnode.sh
+    curl -s -S -o nodes.sh "$ES_repo_shield_nodes"
+    chmod +x nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
-    echo "Getting $ES_repo_restore_dev_sh"
-    curl -s -S -o restore.sh "$ES_repo_restore_dev_sh"
+    echo "Getting $ES_repo_restore"
+    curl -s -S -o restore.sh "$ES_repo_restore"
     chmod +x restore.sh
     echo "Getting $ES_repo_update"
     curl -s -S -o update.sh "$ES_repo_update"
