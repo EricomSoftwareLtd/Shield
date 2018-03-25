@@ -577,13 +577,13 @@ echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
 get_precheck_files
 
-if [ "$ES_FORCE" == false ]; then
-    source $ES_PRE_CHECK_FILE
-    perform_env_test
-    if [ "$?" -ne "0" ]; then
-        failed_to_install "Shield pre-install-check failed!"
-    fi
-fi
+#if [ "$ES_FORCE" == false ]; then
+#    source $ES_PRE_CHECK_FILE
+#    perform_env_test
+#    if [ "$?" -ne "0" ]; then
+#        failed_to_install "Shield pre-install-check failed!"
+#    fi
+#fi
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
