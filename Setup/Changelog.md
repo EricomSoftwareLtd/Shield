@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_305] - 2018-3-23
+- Typo fix in version file (wrong version number 302)
+- New Docker version: 17.12.1
+- New Shield CLI Commands: (start.sh/update.sh/addnodes.sh/nodes.sh/etc) #1818
+- New pre-install-check script (running collector container)
+- Shield Setup running new pre-install-check script
+- New Update mechanism (ansible based)
+
 ## [Dev:Build_304] - 2018-3-23
 - Typo fix in version file
 ## [Dev:Build_303] - 2018-3-23
