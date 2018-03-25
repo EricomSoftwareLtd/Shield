@@ -1,6 +1,6 @@
 #New Commands
 alias shield-status='sudo /usr/local/ericomshield/status.sh -a'
-alias shield-start='sudo /usr/local/ericomshield/run.sh'
+alias shield-start='sudo /usr/local/ericomshield/start.sh'
 alias shield-restart='sudo /usr/local/ericomshield/restart.sh'
 alias shield-stop='sudo /usr/local/ericomshield/stop.sh'
 alias shield-status-nodes='sudo /usr/local/ericomshield/addnodes.sh --node-status'
@@ -9,9 +9,9 @@ alias shield-version='sudo /usr/local/ericomshield/showversion.sh'
 
 #Deprecated Commands
 alias shield_status='sudo /usr/local/ericomshield/status.sh -a'
-alias shield_start='sudo /usr/local/ericomshield/run.sh'
+alias shield_start='sudo /usr/local/ericomshield/start.sh'
 alias shield_restart='sudo /usr/local/ericomshield/restart.sh'
 alias shield_stop='sudo /usr/local/ericomshield/stop.sh'
-alias shield_node-status='sudo /usr/local/ericomshield/ericomshield-setup-node.sh --node-status'
-alias shield_service-status='sudo /usr/local/ericomshield/ericomshield-setup-node.sh --status'
+alias shield_node-status='sudo /usr/local/ericomshield/addnodes.sh --node-status'
+alias shield_service-status='sudo /usr/local/ericomshield/addnodes.sh --status'
 alias shield_version='sudo /usr/local/ericomshield/showversion.sh' 

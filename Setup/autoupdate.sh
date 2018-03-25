@@ -91,17 +91,13 @@ while true; do
             UPDATE=true
         fi
         if [ "$UPDATE" == true ]; then
-            curl -s -S -o ericomshield-setup.sh $ES_repo_setup
-            chmod +x ericomshield-setup.sh
             am_i_leader
             if [ "$AM_I_LEADER" == true ]; then
-                echo "Running Shield Setup (leader)"
-                echo "$(date): From autoupdate.sh Running Shield Setup (leader)" >>"$LOGFILE"
-                $ES_PATH/ericomshield-setup.sh
+                echo "Running Shield Update (leader)"
+                echo "$(date): From autoupdate.sh Running Shield update.sh (leader)" >>"$LOGFILE"
+                $ES_PATH/update.sh
             else
-                echo "Running Shield Setup no-deploy (I'm not the leader)"
-                echo "$(date): From autoupdate.sh Running Shield Setup no-deploy (I'm not the leader)" >>"$LOGFILE"
-                $ES_PATH/ericomshield-setup.sh -no-deploy
+                echo "Not running update (I'm not the leader)"
             fi
         fi
     fi
@@ -111,10 +107,5 @@ while true; do
     echo "."
     sleep $AUTO_UPDATE_TIME
     echo "-"
-    $ES_PATH/status.sh >/dev/null &
-    if [ $? -ne 0 ]; then
-        echo "ericomshield was not running"
-        $ES_PATH/run.sh
-    fi
     UPDATE=false
 done

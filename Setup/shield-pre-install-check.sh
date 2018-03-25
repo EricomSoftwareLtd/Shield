@@ -12,7 +12,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_VERSION="17.12.0"
+DOCKER_VERSION="17.12.1"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
 ES_VER_FILE="./shield-version.txt"
@@ -55,13 +55,24 @@ if ! declare -f install_docker >/dev/null; then
   }
 fi
 
-echo "***************     Ericom Shield Pre-Install Check ..."
-echo "***************     "
-echo "***************     This script validate customer' environment and assess if it is ready for Ericom Shield Installation."
-echo "***************     The script checks against known misconfiguration and HW/OS issues"
-echo "***************     It provides an on screen report of known issues and also provides a log report which can help with further trouble shooting."
-echo "***************     "
-
+function perform_env_test() {
+    local ERR=0
+    
+    CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"
+    
+    docker run --privileged -it \
+           --volume "/var/run/docker.sock:/var/run/docker.sock" \
+           --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
+           --rm --name "shield-collector" \
+           "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh
+    
+    if ((ERR != 0)); then
+        log_message "shield-pre-install-check: Exiting due to previous errors..."
+        return 1
+    fi
+    log_message "shield-pre-install-check passed!"    
+    return 0
+}
 
 #Check if curl is installed (-w check that the whole word is found)
 if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
@@ -77,18 +88,25 @@ if [ ! -f "$ES_VER_FILE" ]; then
     fi
 fi
 
-CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"
-#Temporary Tag until shield-version-dev will be updated
-CONTAINER_TAG="180318-08.56-1550"
-
 install_docker
 
-docker run --privileged -it --volume "/var/run/docker.sock:/var/run/docker.sock" --volume "/dev:/hostdev" --volume "/proc:/hostproc" --rm --name "shield-collector" "securebrowsing/shield-collector:$CONTAINER_TAG" /bin/bash /autorun.sh
-
-if [ "$?" -ne "0" ]; then
-   log_message "shield_pre_install_check failed..."
-   exit 1
-  else
-   log_message "shield_pre_install_check passed..."
+if ! [[ $0 != "$BASH_SOURCE" ]]; then
+    set -e
+    ES_INTERACTIVE=true
+    
+    echo "***************     Ericom Shield Pre-Install Check ..."
+    echo "***************     "
+    echo "***************     This script validate customer' environment and assess if it is ready for Ericom Shield Installation."
+    echo "***************     The script checks against known misconfiguration and HW/OS issues"
+    echo "***************     It provides an on screen report of known issues and also provides a log report which can help with further trouble shooting."
+    echo "***************     "
+    
+    perform_env_test
+    RET_VALUE=$?
+    if [ $RET_VALUE != "0" ]; then
+        log_message "shield-pre-install-check failed..."    
+        exit 1
+    fi
+    log_message "shield-pre-install-check passed..."
+    exit 0
 fi
-exit 0
