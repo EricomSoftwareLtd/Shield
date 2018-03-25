@@ -20,5 +20,5 @@ echo "done"
 
 echo "*******       Starting EricomShield "
 sleep 30
-$ES_PATH/run.sh
+$ES_PATH/start.sh
 echo "done"
