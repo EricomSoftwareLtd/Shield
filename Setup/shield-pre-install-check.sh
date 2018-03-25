@@ -78,17 +78,19 @@ if [ ! -f "$ES_VER_FILE" ]; then
 fi
 
 CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"
-#Temporary Tag until shield-version-dev will be updated
-CONTAINER_TAG="180322-14.49-1627"
 
 install_docker
 
-docker run --privileged -it --volume "/var/run/docker.sock:/var/run/docker.sock" --volume "/dev:/hostdev" --volume "/proc:/hostproc" --rm --name "shield-collector" "securebrowsing/shield-collector:$CONTAINER_TAG" /bin/bash /autorun.sh
+docker run --privileged -it \
+           --volume "/var/run/docker.sock:/var/run/docker.sock" \
+           --volume "/dev:/hostdev" --volume "/proc:/hostproc" \ 
+           --rm --name "shield-collector" \
+           "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh
 
 if [ "$?" -ne "0" ]; then
-   log_message "shield_pre_install_check failed..."
+   log_message "shield-pre-install-check failed..."
    exit 1
   else
-   log_message "shield_pre_install_check passed..."
+   log_message "shield-pre-install-check passed..."
 fi
 exit 0
