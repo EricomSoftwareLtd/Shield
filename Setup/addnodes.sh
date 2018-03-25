@@ -29,4 +29,4 @@ docker run --rm -it \
 	-v /usr/local/ericomshield:/install \
 	-v $(pwd):/certificate \
 	--network host \
-    securebrowsing/node-installer:$CONTAINER_TAG ./setup-node.sh "${@}"
+    securebrowsing/$CONTAINER_TAG ./setup-node.sh "${@}"
