@@ -57,6 +57,9 @@ fi
 
 function perform_env_test() {
     local ERR=0
+    
+    CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"
+    
     docker run --privileged -it \
            --volume "/var/run/docker.sock:/var/run/docker.sock" \
            --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
@@ -64,9 +67,10 @@ function perform_env_test() {
            "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh
     
     if ((ERR != 0)); then
-        log_message "Exiting due to previous errors..."
+        log_message "shield-pre-install-check: Exiting due to previous errors..."
         return 1
     fi
+    log_message "shield-pre-install-check passed!"    
     return 0
 }
 
@@ -83,8 +87,6 @@ if [ ! -f "$ES_VER_FILE" ]; then
         exit 1
     fi
 fi
-
-CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"
 
 install_docker
 
