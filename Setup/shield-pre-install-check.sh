@@ -12,7 +12,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_VERSION="17.12.0"
+DOCKER_VERSION="17.12.1"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
 ES_VER_FILE="./shield-version.txt"
