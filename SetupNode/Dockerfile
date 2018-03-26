@@ -1,7 +1,7 @@
-FROM python:3.6.3-jessie
+FROM securebrowsing/secure-remote-browser-ubuntu-base:latest_2
 
 
-RUN apt-get update \
+RUN apt-get update && apt-get install -y --no-install-recommends python-pip python-setuptools \
     && pip install --upgrade pip
 
 
