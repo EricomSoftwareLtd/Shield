@@ -15,7 +15,7 @@ fi
 DOCKER_VERSION="${DOCKER_VERSION:-17.12.1}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
-ES_VER_FILE="./shield-version.txt"
+ES_VER_FILE="./shield-version-tmp.txt"
 RESULTS="./results-pre-check.log"
 FAILED_STR="failed"
 NOUPLOAD=""
