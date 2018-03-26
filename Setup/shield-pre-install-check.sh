@@ -107,14 +107,13 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
     echo "***************"
     read -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no) )?" choice;
     case "$choice" in
-       "y" | "yes" | "YES" | "Yes")
-            NOUPLOAD=""
-            echo "yes"
-            break
-            ;;
         "n" | "no" | "NO" | "No")
             NOUPLOAD="#noUpload"
             break
+            ;;
+       "y" | "yes" | "YES" | "Yes")
+            NOUPLOAD=""
+            echo "yes"
             ;;
         *) ;;
     esac
