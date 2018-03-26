@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_306] - 2018-3-26
+- Failed to install build 304-Dev - pre check fails #2501
+- Pool management - the same service is being recreated with new pool #2494
+- Scale -broker should scale up number of min available browsers when admin set higher number #2451
+- Stand by remote browsers on admin ui should not allow to set less then 20 browsers #2450
+- Scale -Shield-broker created 2 services at same time #2424
+- New Browser Pool Management #2369
+- "BROWSER SCALE UNCHAUGHT EXCEPTION" #2498
+- Fix some CEF crashes when closing #2476
+- Update default rate limit 10/100s #2375
+
 ## [Dev:Build_305] - 2018-3-25
 - More fields when uploading shield-stats to external database #2477
 - Log for update.sh is needed #2419
