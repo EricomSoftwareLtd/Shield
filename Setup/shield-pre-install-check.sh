@@ -100,11 +100,11 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
     ES_INTERACTIVE=true
 
     echo "***************     Ericom Shield Pre-Install Check ..."
-    echo "***************     "
-    echo "***************     This script validates customer's environment and assess if it is ready for Ericom Shield Installation."
-    echo "***************     The script checks for known misconfigurations and HW/OS issues"
-    echo "***************     It provides on screen report of known issues and in addition a log report which can help with further trouble shooting."
-    echo "***************     "
+    echo "***************"
+    echo "***************          This script validates customer's environment and assess if it is ready for Ericom Shield Installation."
+    echo "***************         The script checks for known misconfigurations and HW/OS issues"
+    echo "***************         It provides on screen report of known issues and in addition a log report which can help with further trouble shooting."
+    echo "***************"
     read -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no) )?" choice;
     case "$choice" in
        "y" | "yes" | "YES" | "Yes")
