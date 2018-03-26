@@ -12,10 +12,13 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_VERSION="17.12.1"
+DOCKER_VERSION="${DOCKER_VERSION:-17.12.1}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
 ES_VER_FILE="./shield-version.txt"
+RESULTS="./results-pre-check.log"
+FAILED_STR="failed"
+NOUPLOAD=""
 
 if ! declare -f log_message >/dev/null; then
     function log_message() {
@@ -57,20 +60,22 @@ fi
 
 function perform_env_test() {
     local ERR=0
-    
+
     CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"
-    
+
     docker run --privileged -it \
            --volume "/var/run/docker.sock:/var/run/docker.sock" \
            --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
            --rm --name "shield-collector" \
-           "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh
-    
+           "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh | tee $RESULTS
+
+    ERR=$(tail -n1 $RESULTS | grep -c $FAILED_STR)
+
     if ((ERR != 0)); then
         log_message "shield-pre-install-check: Exiting due to previous errors..."
         return 1
     fi
-    log_message "shield-pre-install-check passed!"    
+    log_message "shield-pre-install-check passed!"
     return 0
 }
 
@@ -93,20 +98,28 @@ install_docker
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
     set -e
     ES_INTERACTIVE=true
-    
+
     echo "***************     Ericom Shield Pre-Install Check ..."
     echo "***************     "
-    echo "***************     This script validate customer' environment and assess if it is ready for Ericom Shield Installation."
-    echo "***************     The script checks against known misconfiguration and HW/OS issues"
-    echo "***************     It provides an on screen report of known issues and also provides a log report which can help with further trouble shooting."
-    echo "***************     "
-    
+    echo "***************     This script validates customer's environment and assess if it is ready for Ericom Shield Installation."
+    echo "***************     The script checks for known misconfigurations and HW/OS issues"
+    echo "***************     It provides on screen report of known issues and in addition a log report which can help with further trouble shooting."
+    echo "***************     "
+    read -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no) )?" choice;
+    case "$choice" in
+       "y" | "yes" | "YES" | "Yes")
+            NOUPLOAD=""
+            echo "yes"
+            break
+            ;;
+        "n" | "no" | "NO" | "No")
+            NOUPLOAD="#noUpload"
+            break
+            ;;
+        *) ;;
+    esac
+
     perform_env_test
     RET_VALUE=$?
-    if [ $RET_VALUE != "0" ]; then
-        log_message "shield-pre-install-check failed..."    
-        exit 1
-    fi
-    log_message "shield-pre-install-check passed..."
-    exit 0
+    exit $RET_VALUE
 fi
