@@ -575,17 +575,6 @@ function set_storage_driver() {
 
 echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
 
-get_precheck_files
-
-if [ "$ES_FORCE" == false ]; then
-    source $ES_PRE_CHECK_FILE
-    echo "***************     Running pre-install-check ..."    
-    perform_env_test
-    if [ "$?" -ne "0" ]; then
-        failed_to_install "Shield pre-install-check failed!"
-    fi
-fi
-
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
         choose_network_interface
@@ -606,9 +595,11 @@ else
     exit 1
 fi
 
-get_shield_install_files
+docker_login
 
-add_aliases
+get_precheck_files
+
+get_shield_install_files
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
@@ -626,9 +617,18 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
     fi
 fi
 
-setup_dnsmasq
+if [ "$ES_FORCE" == false ]; then
+    source $ES_PRE_CHECK_FILE
+    echo "***************     Running pre-install-check ..."    
+    perform_env_test
+    if [ "$?" -ne "0" ]; then
+        failed_to_install "Shield pre-install-check failed!"
+    fi
+fi
 
-docker_login
+add_aliases
+
+setup_dnsmasq
 
 get_shield_files
 
