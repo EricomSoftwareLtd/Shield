@@ -25,7 +25,11 @@ if [ ! -f "$ES_VER_FILE" ]; then
    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"   
    exit 1
 fi
+
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
+if [ "$CONTAINER_TAG" = "" ]; then
+   CONTAINER_TAG="180326-10.26-1677"
+fi
 
 echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS) ..."
 
