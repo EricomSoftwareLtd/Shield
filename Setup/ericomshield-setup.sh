@@ -420,7 +420,7 @@ function get_shield_install_files() {
         curl -s -S -o shield-version-new.txt "$ES_repo_ver"
     fi
     if [ -f "$ES_VER_FILE" ]; then
-        SHIELD_VERSION=$(grep -r 'SHIELD_VER' '$ES_VER_FILE' | cut -d' ' -f2)
+        SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE" | cut -d' ' -f2)
         if [ "$(diff "$ES_VER_FILE" shield-version-new.txt | wc -l)" -eq 0 ]; then
             echo "Your EricomShield System is Up to date ($SHIELD_VERSION)"
             exit 0
