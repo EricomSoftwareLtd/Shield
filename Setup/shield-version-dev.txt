@@ -1,6 +1,6 @@
-#Build Dev:Build_307 on 18/03/27
-
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_307
+#Build Dev:Build_307 on 18/03/27  -for testing update
+#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_307.1
 shield-configuration:latest shield-configuration:180313-12.12-1524
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
 shield-admin:latest shield-admin:180327-09.04-1719
