@@ -17,6 +17,7 @@ LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
 RESULTS="./results-pre-check.log"
+UPLOAD_ACCEPTED_FILE="$ES_PATH/.uplooad_accepted"
 FAILED_STR="failed"
 NOUPLOAD=""
 DOCKER_USER="ericomshield1"
@@ -79,6 +80,23 @@ fi
 function perform_env_test() {
     local ERR=0
 
+    if [ ! -f "$UPLOAD_ACCEPTED_FILE" ]; then
+       read -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no) )?" choice;
+       case "$choice" in
+           "n" | "no" | "NO" | "No")
+               NOUPLOAD="#noUpload"
+               break
+               ;;
+           "y" | "yes" | "YES" | "Yes")
+               NOUPLOAD=""
+               echo "yes"
+               log_message "Upload results has been accepted"
+               date -Iminutes >"$UPLOAD_ACCEPTED_FILE"            
+               ;;
+           *)  ;;
+       esac
+    fi
+
     docker run --privileged -it \
            --volume "/var/run/docker.sock:/var/run/docker.sock" \
            --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
@@ -118,19 +136,6 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
     echo "***************         The script checks for known misconfigurations and HW/OS issues"
     echo "***************         It provides on screen report of known issues and in addition a log report which can help with further trouble shooting."
     echo "***************         "
-
-    read -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no) )?" choice;
-    case "$choice" in
-        "n" | "no" | "NO" | "No")
-            NOUPLOAD="#noUpload"
-            break
-            ;;
-       "y" | "yes" | "YES" | "Yes")
-            NOUPLOAD=""
-            echo "yes"
-            ;;
-        *) ;;
-    esac
 
     install_docker
 
