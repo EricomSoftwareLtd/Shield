@@ -80,6 +80,8 @@ fi
 function perform_env_test() {
     local ERR=0
 
+    log_message "Running pre-install-check ..."
+
     if [ ! -f "$UPLOAD_ACCEPTED_FILE" ]; then
        read -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no) )?" choice;
        case "$choice" in
@@ -100,10 +102,13 @@ function perform_env_test() {
     docker run --privileged -it \
            --volume "/var/run/docker.sock:/var/run/docker.sock" \
            --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
+           --volume "/:/hostroot" \
            --rm --name "shield-collector" \
            "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh | tee $RESULTS
 
     ERR=$(tail -n1 $RESULTS | grep -c $FAILED_STR)
+    
+    cat $RESULTS >> "$LOGFILE"
 
     if ((ERR != 0)); then
         log_message "shield-pre-install-check: Exiting due to previous errors..."
