@@ -32,7 +32,7 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="18.04-Setup"
+ES_SETUP_VER="Setup:18.04-2703"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -420,12 +420,13 @@ function get_shield_install_files() {
         curl -s -S -o shield-version-new.txt "$ES_repo_ver"
     fi
     if [ -f "$ES_VER_FILE" ]; then
+        SHIELD_VERSION=$(grep -r 'SHIELD_VER' '$ES_VER_FILE' | cut -d' ' -f2)
         if [ "$(diff "$ES_VER_FILE" shield-version-new.txt | wc -l)" -eq 0 ]; then
-            echo "Your EricomShield System is Up to date"
+            echo "Your EricomShield System is Up to date ($SHIELD_VERSION)"
             exit 0
         else
-            echo "***************     Updating EricomShield ($ES_SETUP_VER)"
-            echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
+            echo "***************     Updating EricomShield ($ES_SETUP_VER) to ($SHIELD_VERSION)"
+            echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER) to ($SHIELD_VERSION)" >>"$LOGFILE"
             UPDATE=true
             mv "$ES_VER_FILE" "$ES_VER_FILE_BAK"
             if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
@@ -433,8 +434,8 @@ function get_shield_install_files() {
             fi
         fi
     else
-        echo "***************     Installing EricomShield ($ES_SETUP_VER)..."
-        echo "$(date): Installing EricomShield ($ES_SETUP_VER)" >>"$LOGFILE"
+        echo "***************     Installing EricomShield ($ES_SETUP_VER) ($SHIELD_VERSION)..."
+        echo "$(date): Installing EricomShield ($ES_SETUP_VER) ($SHIELD_VERSION)" >>"$LOGFILE"
     fi
     mv "shield-version-new.txt" "$ES_VER_FILE"
 
