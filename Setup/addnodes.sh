@@ -4,6 +4,8 @@
 #######################################LO###
 
 ES_PATH=/usr/local/ericomshield
+ES_VER_FILE="./shield-version.txt"
+LOGFILE="$ES_PATH/ericomshield.log"
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -15,7 +17,6 @@ fi
 cd $ES_PATH
 
 echo "Running  addnodes.sh:"
-
 
 if [ ! -f "$ES_VER_FILE" ]; then
    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"   
