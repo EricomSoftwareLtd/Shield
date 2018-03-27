@@ -15,7 +15,7 @@ fi
 DOCKER_VERSION="${DOCKER_VERSION:-17.12.1}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
-ES_VER_FILE="./shield-version.txt"
+ES_VER_PIC_FILE="./shield-version-pic.txt"
 RESULTS="./results-pre-check.log"
 FAILED_STR="failed"
 NOUPLOAD=""
@@ -101,18 +101,12 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     apt-get --assume-yes -y install curl
 fi
 
-if [ ! -f "$ES_VER_FILE" ]; then
-   curl -s -S -o "$ES_VER_FILE" "$ES_repo_ver"
-   if [ ! -f "$ES_VER_FILE" ] || [ $(grep -c '404' "$ES_VER_FILE") -ge 1 ]; then
-        log_message "Cannot Retrieve Ericom Shield version file"
-        exit 1
-   fi
-   CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"    
-   echo "removing shield-version-file"
-   rm "$ES_VER_FILE"
- else
-   CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"     
+curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
+if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c '404' "$ES_VER_PIC_FILE") -ge 1 ]; then
+   log_message "Cannot Retrieve Ericom Shield version file"
+    exit 1
 fi
+CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"    
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
     set -e
