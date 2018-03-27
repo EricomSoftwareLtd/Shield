@@ -15,10 +15,12 @@ fi
 DOCKER_VERSION="${DOCKER_VERSION:-17.12.1}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
-ES_VER_FILE_TMP="./shield-version-tmp.txt"
+ES_VER_FILE="./shield-version.txt"
 RESULTS="./results-pre-check.log"
 FAILED_STR="failed"
 NOUPLOAD=""
+DOCKER_USER="ericomshield1"
+DOCKER_SECRET="Ericom98765$"
 
 if ! declare -f log_message >/dev/null; then
     function log_message() {
@@ -58,10 +60,24 @@ if ! declare -f install_docker >/dev/null; then
   }
 fi
 
+if ! declare -f docker_login >/dev/null; then
+  function docker_login() {
+    if [ "$(docker info | grep -c Username)" -eq 0 ]; then
+            #Login and enter the credentials you received separately when prompt
+            echo "docker login" $DOCKER_USER $DOCKER_SECRET
+            docker login --username=$DOCKER_USER --password=$DOCKER_SECRET
+        if [ $? == 0 ]; then
+            echo "Login Succeeded!"
+        else
+            log_message "Cannot Login to docker, Exiting!"
+            exit -1
+        fi
+    fi
+   }
+fi   
+
 function perform_env_test() {
     local ERR=0
-
-    CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE_TMP" | cut -d' ' -f2)"
 
     docker run --privileged -it \
            --volume "/var/run/docker.sock:/var/run/docker.sock" \
@@ -86,14 +102,17 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
 fi
 
 if [ ! -f "$ES_VER_FILE" ]; then
-    curl -s -S -o "$ES_VER_FILE_TMP" "$ES_repo_ver"
-    if [ ! -f "$ES_VER_FILE_TMP" ] || [ $(grep -c '404' "$ES_VER_FILE_TMP") -ge 1 ]; then
+   curl -s -S -o "$ES_VER_FILE" "$ES_repo_ver"
+   if [ ! -f "$ES_VER_FILE" ] || [ $(grep -c '404' "$ES_VER_FILE") -ge 1 ]; then
         log_message "Cannot Retrieve Ericom Shield version file"
         exit 1
-    fi
+   fi
+   CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"    
+   echo "removing shield-version-file"
+   rm "$ES_VER_FILE"
+ else
+   CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_FILE" | cut -d' ' -f2)"     
 fi
-
-install_docker
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
     set -e
@@ -119,7 +138,12 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
         *) ;;
     esac
 
+    install_docker
+
+    docker_login
+    
     perform_env_test
+    
     RET_VALUE=$?
     exit $RET_VALUE
 fi
