@@ -26,13 +26,14 @@ ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.04-2703"
+ES_SETUP_VER="Setup:18.04-2903"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -229,6 +230,7 @@ function failed_to_install() {
     log_message "An error occurred during the installation: $1, Exiting!"
     exit 1
 }
+
 function failed_to_install_cleaner() {
     log_message "An error occurred during the installation: $1, Exiting!"
     if [ "$UPDATE" == true ]; then
@@ -271,7 +273,7 @@ function accept_license() {
 function install_docker() {
 
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-        echo "***************     Installing docker-engine"
+        log_message "***************     Installing docker-engine"
         apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
 
         #Docker Installation of a specific Version
@@ -316,7 +318,7 @@ function update_sysctl() {
     # append sysctl with our settings
     cat "${ES_PATH}/sysctl_shield.conf" >"/etc/sysctl.d/30-ericom-shield.conf"
     #to apply the changes:
-    sysctl --load="/etc/sysctl.d/30-ericom-shield.conf"
+    sysctl --load="/etc/sysctl.d/30-ericom-shield.conf" >/dev/null 2>&1
     echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!"
 }
 
@@ -360,7 +362,7 @@ function add_aliases() {
 }
 
 function prepare_yml() {
-    echo "Preparing yml file..."
+    echo "Preparing yml file (Containers build number)"
     while read -r ver; do
         if [ "${ver:0:1}" == '#' ]; then
             echo "$ver"
@@ -368,8 +370,7 @@ function prepare_yml() {
             pattern_ver=$(echo "$ver" | awk '{print $1}')
             comp_ver=$(echo "$ver" | awk '{print $2}')
             if [ ! -z "$pattern_ver" ]; then
-                echo "Changing ver: $comp_ver"
-                #echo "  sed -i 's/$pattern_ver/$comp_ver/g' $ES_YML_FILE"
+                #echo "Changing ver: $comp_ver"
                 sed -i "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
             fi
         fi
@@ -411,33 +412,34 @@ function get_shield_install_files() {
     echo "Getting shield install files"
     if [ "$ES_DEV" == true ]; then
         echo "Getting $ES_repo_dev_ver (dev)"
-        curl -s -S -o shield-version-new.txt "$ES_repo_dev_ver"
+        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_dev_ver"
     elif [ "$ES_STAGING" == true ]; then
         echo "Getting $ES_repo_staging_ver (staging)"
-        curl -s -S -o shield-version-new.txt "$ES_repo_staging_ver"
+        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_staging_ver"
     else
         echo "Getting $ES_repo_ver (prod)"
-        curl -s -S -o shield-version-new.txt "$ES_repo_ver"
+        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
     fi
+    SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE_NEW" | cut -d' ' -f2)
     if [ -f "$ES_VER_FILE" ]; then
-        SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE" | cut -d' ' -f2)
-        if [ "$(diff "$ES_VER_FILE" shield-version-new.txt | wc -l)" -eq 0 ]; then
+        if [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_NEW" | wc -l)" -eq 0 ]; then
             echo "Your EricomShield System is Up to date ($SHIELD_VERSION)"
             exit 0
         else
-            echo "***************     Updating EricomShield ($ES_SETUP_VER) to ($SHIELD_VERSION)"
-            echo "$(date): New version found:  Updating EricomShield ($ES_SETUP_VER) to ($SHIELD_VERSION)" >>"$LOGFILE"
+            SHIELD_CUR_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE" | cut -d' ' -f2)
+            echo "***************     Updating EricomShield ($SHIELD_CUR_VERSION) to ($SHIELD_VERSION)"
+            echo "$(date): New version found:  Updating EricomShield ($SHIELD_CUR_VERSION) to ($SHIELD_VERSION)" >>"$LOGFILE"
             UPDATE=true
             mv "$ES_VER_FILE" "$ES_VER_FILE_BAK"
-            if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" shield-version-new.txt) -eq 1 ]; then
+            if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" "$ES_VER_FILE_NEW") -eq 1 ]; then
                 UPDATE_NEED_RESTART=true
             fi
         fi
     else
-        echo "***************     Installing EricomShield ($ES_SETUP_VER) ($SHIELD_VERSION)..."
-        echo "$(date): Installing EricomShield ($ES_SETUP_VER) ($SHIELD_VERSION)" >>"$LOGFILE"
+        echo "***************     Installing EricomShield ($SHIELD_VERSION)..."
+        echo "$(date): Installing EricomShield ($SHIELD_VERSION)" >>"$LOGFILE"
     fi
-    mv "shield-version-new.txt" "$ES_VER_FILE"
+    mv "$ES_VER_FILE_NEW" "$ES_VER_FILE"
 
     echo "Getting $ES_YML_FILE"
     if [ -f "$ES_YML_FILE" ]; then
@@ -463,21 +465,20 @@ function get_shield_install_files() {
 }
 
 function pull_images() {
+    if [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_BAK" | wc -l)" -eq 0 ]; then
+       echo "No new version detected"
+       return
+    fi
     LINE=0
     while read -r line; do
         if [ "${line:0:1}" == '#' ]; then
             echo "$line"
         else
             arr=($line)
-            if [ $LINE -eq 1 ]; then
-                if [ -f .version ] && [ $(grep -c ${arr[1]} .version) -gt 1 ]; then
-                    echo "No new version detected"
-                    break
-                fi
-            else
-                echo "################## Pulling images  ######################"
-                echo "pulling image: ${arr[1]}"
-                docker pull "securebrowsing/${arr[1]}"
+            if [ $LINE -ge 3 ]; then
+               echo "################## Pulling images  ######################"
+               echo "pulling image: ${arr[1]}"
+               docker pull "securebrowsing/${arr[1]}"
             fi
         fi
         LINE=$((LINE + 1))
@@ -486,17 +487,17 @@ function pull_images() {
 
 #############     Getting all files from Github
 function get_shield_files() {
-    if [ ! -f "ericomshield-setup.sh" ]; then
+    if [ ! $0 = "ericomshield-setup.sh" ]; then
         curl -s -S -o ericomshield-setup.sh $ES_repo_setup
         chmod +x ericomshield-setup.sh
     fi
 
-    if [ ! -f "autoupdate.sh" ]; then
+    if [ ! $0 == "autoupdate.sh" ]; then
         curl -s -S -o autoupdate.sh "$ES_repo_autoupdate"
         chmod +x autoupdate.sh
     fi
 
-    echo "Getting $ES_repo_uninstall"
+    echo "Getting Shield Scripts"
     curl -s -S -o "$ES_uninstall_FILE" "$ES_repo_uninstall"
     chmod +x "$ES_uninstall_FILE"
     curl -s -S -o start.sh "$ES_repo_start"
@@ -516,12 +517,12 @@ function get_shield_files() {
     curl -s -S -o nodes.sh "$ES_repo_shield_nodes"
     chmod +x nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
-    echo "Getting $ES_repo_restore"
     curl -s -S -o restore.sh "$ES_repo_restore"
     chmod +x restore.sh
-    echo "Getting $ES_repo_update"
     curl -s -S -o update.sh "$ES_repo_update"
     chmod +x update.sh
+    curl -s -S -o prepare-node.sh "$ES_repo_preparenode"
+    chmod +x prepare-node.sh
 }
 
 function count_running_docker_services() {
@@ -574,7 +575,7 @@ function set_storage_driver() {
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
-echo "***************     EricomShield Setup "$ES_CHANNEL" ..."
+log_message "***************     EricomShield Setup ($ES_SETUP_VER) $ES_CHANNEL ..."
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
@@ -584,7 +585,6 @@ if [ "$ES_RUN_DEPLOY" == true ]; then
 fi
 
 echo Docker Login: $DOCKER_USER
-echo "dev=$ES_DEV"
 echo "autoupdate=$ES_AUTO_UPDATE"
 
 install_docker
@@ -593,7 +593,6 @@ if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
 else
     failed_to_install "Failed to start docker service"
-    exit 1
 fi
 
 docker_login
@@ -620,11 +619,10 @@ fi
 
 if [ "$ES_FORCE" == false ]; then
     source $ES_PRE_CHECK_FILE
-    echo "***************     Running pre-install-check ..."    
+    echo "***************     Running pre-install-check ..."
     perform_env_test
     if [ "$?" -ne "0" ]; then
-#        failed_to_install "Shield pre-install-check failed!"
-        echo *************** "Shield pre-install-check failed ! (don't exit for now)"
+       failed_to_install "Shield pre-install-check failed!"
     fi
 fi
 
@@ -636,8 +634,10 @@ get_shield_files
 
 update_sysctl
 
-echo "Preparing yml file (Containers build number)"
+./prepare-node.sh
+
 prepare_yml
+
 
 if [ "$UPDATE" == false ]; then
     AM_I_LEADER=true #if new installation, i am the leader
