@@ -19,6 +19,7 @@ ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
 
 #Check if we are root
@@ -71,16 +72,16 @@ while true; do
     fi
 
     if [ -f "$ES_AUTO_UPDATE_FILE" ] || [ "$FORCE_CHECK" == true ]; then
-        echo "Getting shield-version-new.txt"
+        echo "Getting $ES_VER_FILE_NEW"
         if [ "$ES_DEV" == true ]; then
-            curl -s -S -o shield-version-new.txt $ES_repo_dev_ver
+            curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_dev_ver"
         elif [ "$ES_STAGING" == true ]; then
-            curl -s -S -o shield-version-new.txt $ES_repo_staging_ver
+            curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_staging_ver"
         else
-            curl -s -S -o shield-version-new.txt $ES_repo_ver
+            curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
         fi
         if [ -f "$ES_VER_FILE" ]; then
-            if [ $(diff "$ES_VER_FILE" shield-version-new.txt | wc -l) -eq 0 ]; then
+            if [ $(diff "$ES_VER_FILE" "$ES_VER_FILE_NEW" | wc -l) -eq 0 ]; then
                 echo "Your EricomShield System is Up to date"
             else
                 echo "***************     New version found!"
