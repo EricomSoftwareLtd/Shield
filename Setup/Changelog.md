@@ -8,13 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_308] - 2018-3-27
+- Test that fails to execute should be skipped #2547
+- Fix update.sh sshkey  
+
 ## [Dev:Build_307] - 2018-3-27
 - Scale is not working in build 306 #2535
 - Admin Fields - names + tooltips updates #2523
 - When browsing to untrusted site every resource causes a prompt #2521
 - Admin UI - Policies - if the profile name is long the display is not looking good #2432
 - Admin - Policies - Searchbox #2374
-- scale formula should be changed - too many services are created #2542
+- Scale formula should be changed - too many services are created #2542
 
 ## [Dev:Build_306] - 2018-3-26
 - Failed to install build 304-Dev - pre check fails #2501
