@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_309] - 2018-3-28
+- Admin Analyzer #2538
+- Admin - Settings - SSL (new section) #2546
+- Admin Updated Japanese translation
+
 ## [Dev:Build_308] - 2018-3-27
 - Test that fails to execute should be skipped #2547
 - Fix update.sh sshkey  
