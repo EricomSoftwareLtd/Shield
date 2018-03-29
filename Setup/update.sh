@@ -15,20 +15,36 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
+ES_FORCE=false
 
 ARGS="${@}"
 if [ "$ARGS" = "" ]; then
    ARGS="update"
 fi
+if [ "$ARGS" = "-f" ]; then
+   ARGS="update"
+   ES_FORCE=true
+fi
 
 if [ ! -f "$ES_VER_FILE" ]; then
-   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"   
+   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
    exit 1
+fi
+
+if [ -f "$ES_PRE_CHECK_FILE" ] && [ "$ES_FORCE" == false ]; then
+    source $ES_PRE_CHECK_FILE
+    echo "***************     Running pre-install-check ..."
+    perform_env_test
+    if [ "$?" -ne "0" ]; then
+       echo "$(date):FATAL:  Shield pre-install-check failed!"
+       exit 1
+    fi
 fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-   CONTAINER_TAG="180326-10.26-1677"
+   CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
 fi
 
 echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS) ..."
