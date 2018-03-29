@@ -71,34 +71,21 @@ while true; do
     fi
 
     if [ -f "$ES_AUTO_UPDATE_FILE" ] || [ "$FORCE_CHECK" == true ]; then
-        echo "Getting shield-version-new.txt"
-        if [ "$ES_DEV" == true ]; then
-            curl -s -S -o shield-version-new.txt $ES_repo_dev_ver
-        elif [ "$ES_STAGING" == true ]; then
-            curl -s -S -o shield-version-new.txt $ES_repo_staging_ver
-        else
-            curl -s -S -o shield-version-new.txt $ES_repo_ver
+        am_i_leader
+        if [ "$FORCE_CHECK" == true ]; then
+            FORCE_UPDATE="--force"
         fi
-        if [ -f "$ES_VER_FILE" ]; then
-            if [ $(diff "$ES_VER_FILE" shield-version-new.txt | wc -l) -eq 0 ]; then
-                echo "Your EricomShield System is Up to date"
-            else
-                echo "***************     New version found!"
-                UPDATE=true
-            fi
+
+        if [ "$AM_I_LEADER" == true ]; then
+              if [ "$ES_DEV" == true ]; then
+                $ES_PATH/update.sh update --dev "$FORCE_UPDATE"
+              elif [ "$ES_STAGING" == true ]; then
+                $ES_PATH/update.sh update --staging "$FORCE_UPDATE"
+              else
+                $ES_PATH/update.sh "$FORCE_UPDATE"
+              fi
         else
-            echo "***************     New version found!!"
-            UPDATE=true
-        fi
-        if [ "$UPDATE" == true ]; then
-            am_i_leader
-            if [ "$AM_I_LEADER" == true ]; then
-                echo "Running Shield Update (leader)"
-                echo "$(date): From autoupdate.sh Running Shield update.sh (leader)" >>"$LOGFILE"
-                $ES_PATH/update.sh
-            else
-                echo "Not running update (I'm not the leader)"
-            fi
+            echo "Not running update (I'm not the leader)"
         fi
     fi
     if [ "$FORCE_CHECK" == true ]; then
