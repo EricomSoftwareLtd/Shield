@@ -36,46 +36,46 @@ if ! declare -f log_message >/dev/null; then
 fi
 
 if ! declare -f install_docker >/dev/null; then
-  function install_docker() {
+    function install_docker() {
 
-    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-        echo "***************     Installing docker-engine"
-        apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
+        if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+            echo "***************     Installing docker-engine"
+            apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
 
-        #Docker Installation of a specific Version
-        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-        echo -n "apt-get -qq update ..."
-        apt-get -qq update
-        echo "done"
-        sudo apt-cache policy docker-ce
-        log_message "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-        sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
-    else
-        echo " ******* docker-engine $DOCKER_VERSION is already installed"
-    fi
-    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-        log_message "Failed to Install/Update Docker, Exiting!"
-        exit -1
-    fi
-  }
+            #Docker Installation of a specific Version
+            curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+            echo -n "apt-get -qq update ..."
+            apt-get -qq update
+            echo "done"
+            sudo apt-cache policy docker-ce
+            log_message "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
+            sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
+        else
+            echo " ******* docker-engine $DOCKER_VERSION is already installed"
+        fi
+        if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+            log_message "Failed to Install/Update Docker, Exiting!"
+            exit -1
+        fi
+    }
 fi
 
 if ! declare -f docker_login >/dev/null; then
-  function docker_login() {
-    if [ "$(docker info | grep -c Username)" -eq 0 ]; then
+    function docker_login() {
+        if [ "$(docker info | grep -c Username)" -eq 0 ]; then
             #Login and enter the credentials you received separately when prompt
             echo "docker login" $DOCKER_USER $DOCKER_SECRET
             docker login --username=$DOCKER_USER --password=$DOCKER_SECRET
-        if [ $? == 0 ]; then
-            echo "Login Succeeded!"
-        else
-            log_message "Cannot Login to docker, Exiting!"
-            exit -1
+            if [ $? == 0 ]; then
+                echo "Login Succeeded!"
+            else
+                log_message "Cannot Login to docker, Exiting!"
+                exit -1
+            fi
         fi
-    fi
-   }
-fi   
+    }
+fi
 
 function perform_env_test() {
     local ERR=0
@@ -83,32 +83,37 @@ function perform_env_test() {
     log_message "Running pre-install-check ..."
 
     if [ ! -f "$UPLOAD_ACCEPTED_FILE" ]; then
-       read -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no) )?" choice;
-       case "$choice" in
-           "n" | "no" | "NO" | "No")
-               NOUPLOAD="#noUpload"
-               break
-               ;;
-           "y" | "yes" | "YES" | "Yes")
-               NOUPLOAD=""
-               echo "yes"
-               log_message "Upload results has been accepted"
-               date -Iminutes >"$UPLOAD_ACCEPTED_FILE"            
-               ;;
-           *)  ;;
-       esac
+        if read -t 20 -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no)? " choice; then
+            case "$choice" in
+            "n" | "no" | "NO" | "No")
+                NOUPLOAD="#noUpload"
+                break
+                ;;
+            "y" | "yes" | "YES" | "Yes")
+                NOUPLOAD=""
+                echo "yes"
+                log_message "Upload results has been accepted"
+                date -Iminutes >"$UPLOAD_ACCEPTED_FILE"
+                ;;
+            *) ;;
+            esac
+        else
+            #If read fails consider that the user chose "no"
+            NOUPLOAD="#noUpload"
+            echo "no"
+        fi
     fi
 
     docker run --privileged -it \
-           --volume "/var/run/docker.sock:/var/run/docker.sock" \
-           --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
-           --volume "/:/hostroot" \
-           --rm --name "shield-collector" \
-           "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh | tee $RESULTS
+        --volume "/var/run/docker.sock:/var/run/docker.sock" \
+        --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
+        --volume "/:/hostroot" \
+        --rm --name "shield-collector" \
+        "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh | tee $RESULTS
 
     ERR=$(tail -n1 $RESULTS | grep -c $FAILED_STR)
-    
-    cat $RESULTS >> "$LOGFILE"
+
+    cat $RESULTS >>"$LOGFILE"
 
     if ((ERR != 0)); then
         log_message "shield-pre-install-check: Exiting due to previous errors..."
@@ -126,10 +131,10 @@ fi
 
 curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
 if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c '404' "$ES_VER_PIC_FILE") -ge 1 ]; then
-   log_message "Cannot Retrieve Ericom Shield version file"
+    log_message "Cannot Retrieve Ericom Shield version file"
     exit 1
 fi
-CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"    
+CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
     set -e
@@ -145,9 +150,9 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
     install_docker
 
     docker_login
-    
+
     perform_env_test
-    
+
     RET_VALUE=$?
     exit $RET_VALUE
 fi
