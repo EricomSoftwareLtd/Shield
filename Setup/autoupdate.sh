@@ -19,6 +19,7 @@ ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
 
 #Check if we are root
