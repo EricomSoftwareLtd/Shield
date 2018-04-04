@@ -1,13 +1,13 @@
-#Build Staging:18.04-Build_308 on 28/03/18
+#Build Staging:18.04-Build_310 on 05/04/18
 #
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.04-Build_308
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.04-Build_310
 shield-configuration:latest shield-configuration:180313-12.12-1524
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
 shield-admin:latest shield-admin:180327-09.04-1719
 shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180326-17.47-1705
 icap-server:latest icap-server:180326-18.12-1709
-shield-cef:latest shield-cef:180327-09.29-1720
+shield-cef:latest shield-cef:180404-12.04-1755
 broker-server:latest broker-server:180327-12.08-1723
 shield-collector:latest shield-collector:180327-14.28-1725
 shield-elk:latest shield-elk:180327-14.28-1725
