@@ -33,10 +33,21 @@ cd $ES_PATH
 
 source $ES_REPO_FILE
 
-if [ "$1" == "-f" ]; then
-    AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
-    FORCE_CHECK=true
-fi
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -f | --force)
+        AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
+        FORCE_CHECK=true
+        ;;
+#    -h | --help)
+    *)
+        echo "Usage: $0 [-f | --force] [-h | --help]"
+        exit
+        ;;
+    esac
+    shift
+done
 
 function wait_for_maintenance_time() {
     M_START_S=$(date -d "$(date -I)T${MAINTENANCE_START}" +"%s") #"
