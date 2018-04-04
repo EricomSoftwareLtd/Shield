@@ -83,7 +83,7 @@ while true; do
               elif [ "$ES_STAGING" == true ]; then
                 $ES_PATH/update.sh update --staging "$FORCE_UPDATE"
               else
-                $ES_PATH/update.sh "$FORCE_UPDATE"
+                $ES_PATH/update.sh update "$FORCE_UPDATE"
               fi
         else
             echo "Not running update (I'm not the leader)"
