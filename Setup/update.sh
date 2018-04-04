@@ -32,15 +32,15 @@ if [ ! -f "$ES_VER_FILE" ]; then
    exit 1
 fi
 
-if [ -f "$ES_PRE_CHECK_FILE" ] && [ "$ES_FORCE" == false ]; then
-    source $ES_PRE_CHECK_FILE
-    echo "***************     Running pre-install-check ..."
-    perform_env_test
-    if [ "$?" -ne "0" ]; then
-       echo "$(date):FATAL:  Shield pre-install-check failed!"
-       exit 1
-    fi
-fi
+#if [ -f "$ES_PRE_CHECK_FILE" ] && [ "$ES_FORCE" == false ]; then
+#    source $ES_PRE_CHECK_FILE
+#    echo "***************     Running pre-install-check ..."
+#    perform_env_test
+#    if [ "$?" -ne "0" ]; then
+#       echo "$(date):FATAL:  Shield pre-install-check failed!"
+#       exit 1
+#    fi
+#fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
@@ -54,4 +54,5 @@ docker run --rm -it \
    -v /var/run/docker.sock:/var/run/docker.sock \
    -v $(which docker):/usr/bin/docker \
    -v /usr/local/ericomshield:/usr/local/ericomshield \
+   -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
     "securebrowsing/$CONTAINER_TAG" $ARGS
