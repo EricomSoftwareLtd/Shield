@@ -1,6 +1,6 @@
 #!/bin/bash
 ############################################
-#####   Ericom Shield ShowVersion      #####
+#####   Ericom Shield Status           #####
 #######################################BH###
 
 #Check if we are root
@@ -24,6 +24,7 @@ if [ $BROWSER_RUNNING -eq 0 ]; then
     NUM_RUNNING_REP=$((NUM_RUNNING_REP + 1))
 fi
 
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -32,20 +33,26 @@ while [ $# -ne 0 ]; do
         echo "------------------------------------------------------------------------------"
         echo
         var=$(curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats 2>&1)
-        echo ${var:16:260}
+        echo ${var:16:330}
         echo
         echo "------------------------------------------------------------------------------"
         echo
         ;;
-    -n | --nodes)
-        ./nodes.sh -status
-        ;;
     -s | --services)
-        ./addnodes.sh --status
+          ./addnodes.sh --status
         ;;
-    #        -usage)
+    -n | --nodes)
+          ./addnodes.sh --node-status
+        ;;
+    -h | --help)
+        echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-h | --help]"
+        echo "           -a --all - lists all services in the system"
+        echo "           -s --services - prints a detailed report of the services in the system and which service runs on which node"
+        echo "           -n --nodes - lists the nodes in the multi-machine system, including data about each node"
+        exit
+        ;;
     *)
-        echo "Usage: $0 [-a | --all] [-n | --nodes] [ -s | --services]"
+        echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-h | --help]"
         exit
         ;;
     esac
