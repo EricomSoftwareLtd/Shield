@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Staging:18.04-Staging:Build_311] - 2018-4-5
-
+## [Staging:18.04-Staging:Build_312] - 2018-4-5
+- Updated Admin
 
 ## [Dev:Build_309] - 2018-3-28
 - Admin Analyzer #2538
