@@ -16,7 +16,10 @@ ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
+ES_DEV_FILE="$ES_PATH/.esdev"
+ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_FORCE=false
+ES_CHANNEL=""
 
 ARGS="${@}"
 if [ "$ARGS" = "" ]; then
@@ -42,12 +45,19 @@ fi
 #    fi
 #fi
 
+if [ -f "$ES_STAGING_FILE" ]; then
+   ES_CHANNEL="--staging"
+fi
+if [ -f "$ES_DEV_FILE" ]; then
+   ES_CHANNEL="--dev"
+fi
+
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
 fi
 
-echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS) ..."
+echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNEL) ..."
 
 echo "$(date): Ericom Shield Update: Running Update" >>"$LOGFILE"
 docker run --rm -it \
@@ -55,4 +65,4 @@ docker run --rm -it \
    -v $(which docker):/usr/bin/docker \
    -v /usr/local/ericomshield:/usr/local/ericomshield \
    -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-    "securebrowsing/$CONTAINER_TAG" $ARGS
+    "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
