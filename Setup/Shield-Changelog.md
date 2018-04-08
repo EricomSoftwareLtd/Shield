@@ -10,17 +10,53 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### New Features:
-- Fast Media Streaming
-- Client Certificate
-- Secure LDAP
-- HTTPS for Admin
+### Enhancements:
+### Bug Fixes:
+
+## [Prod:18.04-Build-312] - 2018-04-08
+
+### New Features:
+- Fast Media streaming (this allows client side rendering of media, improving user experience and reduce system resource usage)
+- New policy options:
+    - Printing Enabled/Disabled Policy
+    - Exception List for https w/o Trusted Certificate
+    - Add Media steaming option in the policies
+- Shield Ready Tool
+    - Pre-install-check enhancements
+    - Admin Analyzer
+    - Periodic checks
+    - Embedded Speedtest Media page to examine offline experience
+- Admin Console supports HTTPS only
+- Support for shield to use Customer Certificate (CA)
+- Added support for secured LDAP
+- CDR High Availability
+- Remote Browser Pool Management (New Design)
+- New Shield CLI Commands: (start.sh/update.sh/addnodes.sh/nodes.sh/etc)
+
 ### Enhancements:
 - System Upgrade (new design)
-- Remote Browser Pool Management (New Design)
+- Added fonts for emojis, fonts-ipafont-gothic, fonts-ipafont-mincho
+- Admin Updated Japanese translation
+- Alerts are sent to Syslog 
+- Show hovered links in bottom status bar
+
 ### Bug Fixes:
 - Fixed: Caching mechanism
+- Set language browser property from client
+- Keyboard fixes 
+    - Fixed: Typing issue on IE and Edge 
+    - Fixed: The cursor does not move when entering double-byte space
+    - Fixed: Character conversion problem with function key
+    - Fixed: Ctrl+shift+arrows issues
+    - Fixed: Japanese henkan key doesn't work as expected
+    - Fixed: Japanese commit mixup hotfix
+    - Fixed: Left arrow issue when using Japanese
+    - Fixed: Does not automatically change the input mode in password field (QA#684141)
+    - Fixed: Korean space typing issue
+    - Fixed: Korean - ctrl A doesn't work as expected
+    - Fixed: Korean - typing alpah numeric full width is not working in chrome 
 
-## [Prod:18.03-Build-292] - 2018-02-20
+## [Prod:18.03-Build-292] - 2018-03-11
 
 ### New Features:
 - New Virtual Appliance for Quick Evaluation (OVA)
