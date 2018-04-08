@@ -10,17 +10,55 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### New Features:
-- Fast Media Streaming
-- Client Certificate
-- Secure LDAP
-- HTTPS for Admin
+### Enhancements:
+### Bug Fixes:
+
+## [Prod:18.04-Build-312] - 2018-04-08
+
+### New Features:
+- Fast Media streaming
+- New policy options:
+    - Printing Enabled/Disabled Policy #654
+    - Exception List for https w/o Trusted Certificate  #875
+    - Add Media steaming option in the policies #2300
+- Shield Ready Tool
+    - Pre-install-check enhancements
+    - Admin Analyzer #2538
+    - Periodic checks
+    - Embedded Speedtest Media page to examine offline experience #2280
+- Admin Console supports HTTPS only #513
+- Support for shield to use Customer Certificate (CA) #310 Added
+- Added support for secured LDAP #1148 
+- CDR High Availability
+- Alerts are sent to Syslog #2326
+- Set language browser props from client #2323
+- Remote Browser Pool Management (New Design) #2369
+- New Shield CLI Commands: (start.sh/update.sh/addnodes.sh/nodes.sh/etc) #1818
+
 ### Enhancements:
 - System Upgrade (new design)
-- Remote Browser Pool Management (New Design)
-### Bug Fixes:
-- Fixed: Caching mechanism
+- Added fonts for emojis, fonts-ipafont-gothic, fonts-ipafont-mincho #2427
+- Admin Updated Japanese translation
 
-## [Prod:18.03-Build-292] - 2018-02-20
+### Bug Fixes:
+- Show hovered links in bottom status bar #1245
+- Fixed: Caching mechanism
+- Keyboard fixes 
+    - keybaord fixes  #2242 #2144 #2191 #2243 #2257
+    - korean space typing issue #2257
+    - Korean - ctrl A doesn't work as expected #2243
+    - Left arrow issue when using Japanese #2191
+    - Japanese henkan key doesn't work as expected #2144
+    - Korean duplicate issue #2242
+    - The cursor does not move when entering double-byte space #2362
+    - Character conversion problem with function key #2361
+    - Ctrl+shift+arrows issues #2348
+    - Does not automatically change the input mode in passward field. #91 #2386 (QA#684141)
+    - Korean - typing alpah numeric full width is not working in chrome #2372
+    - Typing issue on IE and Edge #2333
+    - Japanese commit mixup hotfix
+
+## [Prod:18.03-Build-292] - 2018-03-11
 
 ### New Features:
 - New Virtual Appliance for Quick Evaluation (OVA)
