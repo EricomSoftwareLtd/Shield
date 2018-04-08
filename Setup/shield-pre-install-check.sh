@@ -14,11 +14,12 @@ fi
 
 DOCKER_VERSION="${DOCKER_VERSION:-17.12.1}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
-ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-dev.txt"
+ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-staging.txt"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
 RESULTS="./results-pre-check.log"
 UPLOAD_ACCEPTED_FILE="$ES_PATH/.upload_accepted"
 FAILED_STR="failed"
+NOT_FOUND_STR="404: Not Found"
 NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -130,8 +131,8 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
 fi
 
 curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
-if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c '404' "$ES_VER_PIC_FILE") -ge 1 ]; then
-    log_message "Cannot Retrieve Ericom Shield version file"
+if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_PIC_FILE") -ge 1 ]; then
+    log_message "Cannot Retrieve Ericom Shield version file: $ES_repo_ver"
     exit 1
 fi
 CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"
