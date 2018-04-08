@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Staging:18.04-Staging:Build_312] - 2018-4-5
 - Updated Admin
 
+## [Dev:Build_312] - 2018-4-8
+- Remote Browser fix for Upload attachments #2602
+- Admin - fixed table for analyzer , updated tooltips #2538
+
 ## [Dev:Build_309] - 2018-3-28
 - Admin Analyzer #2538
 - Admin - Settings - SSL (new section) #2546
