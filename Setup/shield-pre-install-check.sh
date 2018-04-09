@@ -132,10 +132,13 @@ fi
 
 curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
 if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_PIC_FILE") -ge 1 ]; then
-    log_message "Cannot Retrieve Ericom Shield version file: $ES_repo_ver"
-    exit 1
+    log_message "Cannot Retrieve Ericom Shield version file: $ES_repo_ver"    
 fi
 CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"
+if [ "$CONTAINER_TAG" = "" ]; then
+   CONTAINER_TAG="shield-collector:180328-12.39-1738"
+   echo "Using default image: $CONTAINER_TAG"
+fi
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
     set -e

@@ -18,6 +18,7 @@ DOCKER_VERSION="17.12.1"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
+NOT_FOUND_STR="404: Not Found"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
@@ -394,7 +395,7 @@ function get_precheck_files() {
     echo "Getting $ES_REPO_FILE"
     ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-repo.sh"
     curl -s -S -o "shield_repo_tmp.sh" $ES_repo_setup
-    if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c '404' shield_repo_tmp.sh) -ge 1 ]; then
+    if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c "$NOT_FOUND_STR" shield_repo_tmp.sh) -ge 1 ]; then
         failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
 
@@ -465,7 +466,7 @@ function get_shield_install_files() {
 }
 
 function pull_images() {
-    if [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_BAK" | wc -l)" -eq 0 ]; then
+    if [ -f "$ES_VER_FILE_BAK" ] && [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_BAK" | wc -l)" -eq 0 ]; then
        echo "No new version detected"
        return
     fi

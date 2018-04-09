@@ -9,6 +9,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_313] - 2018-4-9
+- Valid default CEF certificates in debugging #2549
+- Gmail on IE redirected to a basic HTML version #2329 
+- Expedia opens new empty tab - method not allowed #2271
+- Expedia web site - when open new tab, no indication for the user that page is loading #2232 
+- Browsers are stopping to work when consul leader is going down #1308 
+- Change text for limited sessions #2562 
+- Use apps rule for gdocs offline request #2442 
+- Application user agent regexps in consul #1525 
+- Update browser not supported text #2365 
+- MAC scrolling is not smooth , throttle scroll events to 50ms  #2610 
+- Work with IE compatibility mode #2365 
+- When opening few tabs at one time, other tabs remain blank #2441 #1390 #2621
+- Drop down list does not work in partners.microsoft.com (within a pop up window) #2180 
+- Remove YT only fms #2200
+- Closing an Alert in Elastic using the correct index #2540
+- Issue 2506
+- Fixed globalResult in case of Internal Error #2280
+- Added logs to debug issue #2497
+- Added log-level setting to the Collector #2632
+- Fixed on-demand tests triggered for the first time #2619
+- Fix broker fatal error when service not found , Failed scale browser service #2626
+- Consul settings for periodic tests #2580 
+- Added alertNodesNotInReadyState #2493
+- TAB key not working as expected #2363
+- Search does not start without a space - keyup was not firing #1920 
+- Admin profiles tab order #1352 
+- Added button to open client analyzer #2238
+- Admin dialogs autofocus #1382
+- Admin/Policies - replace the current setting icon and use the fa-slider icon 
+- Admin - Resources - incorrect tab order #2000
+- Fix https removal when adding policies url #2393
+- The white circle is not centered when sanitize a file #2045
 ## [Staging:18.04-Staging:Build_312] - 2018-4-5
 - Updated Admin
 

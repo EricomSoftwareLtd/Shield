@@ -1,23 +1,25 @@
-#Build Release:Build_292 on 06/03/18 #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=18.03-Build_292
+#Build Release:18.04-Build_312 on 05/04/18 #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=18.04-Build_312
 #
-shield-configuration:latest shield-configuration:180214-09.14-1357
+shield-configuration:latest shield-configuration:180313-12.12-1524
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180305-11.10-1495
-shield-portainer:latest shield-portainer:171217-11.30
-proxy-server:latest proxy-server:180130-10.49-1232
-icap-server:latest icap-server:180301-15.31-1490
-shield-cef:latest shield-cef:180305-09.11-1493
-broker-server:latest broker-server:180306-13.29-1496
-shield-collector:latest shield-collector:180207-18.32-1293
-shield-elk:latest shield-elk:180227-17.58-1477
-extproxy:latest extproxy:180131-15.40-1253
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:180204-14.34-1264
-shield-cdr-controller:latest shield-cdr-controller:180220-08.44-1407
-shield-web-service:latest shield-web-service:180204-14.34-1264
+shield-admin:latest shield-admin:180402-09.46-1751
+shield-portainer:latest shield-portainer:180311-14.35-1498
+proxy-server:latest proxy-server:180326-17.47-1705
+icap-server:latest icap-server:180326-18.12-1709
+shield-cef:latest shield-cef:180404-12.04-1755
+broker-server:latest broker-server:180327-12.08-1723
+shield-collector:latest shield-collector:180328-12.39-1738
+shield-elk:latest shield-elk:180327-14.28-1725
+extproxy:latest extproxy:180320-14.57-1598
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
+shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
+shield-web-service:latest shield-web-service:180326-13.17-1688
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:180222-15.05-1450
+shield-authproxy:latest shield-authproxy:180320-16.40-1606
 node-installer:latest node-installer:180214-12.26
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
-speedtest:latest speedtest:180227-14.10-1464
+speedtest:latest speedtest:180312-09.40-1517
+shield-autoupdate:latest shield-autoupdate:180328-06.56-1731
+shield-notifier:latest shield-notifier:180325-11.10-1660
