@@ -30,6 +30,16 @@ if [ "$ARGS" = "-f" ]; then
    ES_FORCE=true
 fi
 
+# if command is update (from cli or based on the previous ifs, then check the channel based on the file) - should be handled in the container
+if [ "$ARGS" = "update" ]; then
+   if [ -f "$ES_STAGING_FILE" ]; then
+      ES_CHANNEL="--staging"
+   fi
+   if [ -f "$ES_DEV_FILE" ]; then
+      ES_CHANNEL="--dev"
+   fi
+fi
+
 if [ ! -f "$ES_VER_FILE" ]; then
    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
    exit 1
@@ -44,13 +54,6 @@ fi
 #       exit 1
 #    fi
 #fi
-
-if [ -f "$ES_STAGING_FILE" ]; then
-   ES_CHANNEL="--staging"
-fi
-if [ -f "$ES_DEV_FILE" ]; then
-   ES_CHANNEL="--dev"
-fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
