@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_314] - 2018-4-9
+- Fixed icap tag
+- Consul: No Cluster Leader #2428
+
 ## [Dev:Build_313] - 2018-4-9
 - Valid default CEF certificates in debugging #2549
 - Gmail on IE redirected to a basic HTML version #2329 
