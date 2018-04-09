@@ -465,7 +465,7 @@ function get_shield_install_files() {
 }
 
 function pull_images() {
-    if [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_BAK" | wc -l)" -eq 0 ]; then
+    if [ -f "$ES_VER_FILE_BAK" ] && [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_BAK" | wc -l)" -eq 0 ]; then
        echo "No new version detected"
        return
     fi
