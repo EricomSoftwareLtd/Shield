@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_315] - 2018-4-10
+- Periodic tests bad mearge fix
+- Print test thresholds in case it didn't pass #2515
+- Always check real IE engine version #2651
+- Ugrade electron to 1.8.4 #2634
+- Fixed upload expected status code #2647
+- Added 1050-number-of-cpus.sh test to all 3 modes #2574
+- Collector periodic and on-demand tests are broken #2643
+
 ## [Dev:Build_314] - 2018-4-9
 - Fixed icap tag
 - Consul: No Cluster Leader #2428
