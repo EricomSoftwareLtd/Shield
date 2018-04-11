@@ -125,13 +125,6 @@ function perform_env_test() {
     return 0
 }
 
-        log_message "shield-pre-install-check: Exiting due to previous errors, please check $RESULTS..."
-        return 1
-    fi
-    log_message "shield-pre-install-check passed!"
-    return 0
-}
-
 #Check if curl is installed (-w check that the whole word is found)
 if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     echo "***************     Installing curl"
