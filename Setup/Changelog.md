@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_316] - 2018-4-10
+- Intercept and proxy 'mailto' links  #1276
+- Admin - Analyzer - Fixed Run Client Analyzer address #2619
+- Admin - Settings - FQDN default value #2616
+- Admin - Profiles - fields with previous values #1534
+- Autoupdate to ignore pre-installation checks #2207
+
 ## [Dev:Build_315] - 2018-4-10
 - Periodic tests bad mearge fix
 - Print test thresholds in case it didn't pass #2515
