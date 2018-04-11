@@ -14,8 +14,9 @@ fi
 
 DOCKER_VERSION="${DOCKER_VERSION:-17.12.1}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
-ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version-staging.txt"
+ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version.txt"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
+ES_VER_FILE="./shield-version.txt"
 RESULTS="./results-pre-check.log"
 UPLOAD_ACCEPTED_FILE="$ES_PATH/.upload_accepted"
 FAILED_STR="failed"
@@ -88,7 +89,6 @@ function perform_env_test() {
             case "$choice" in
             "n" | "no" | "NO" | "No")
                 NOUPLOAD="#noUpload"
-                break
                 ;;
             "y" | "yes" | "YES" | "Yes")
                 NOUPLOAD=""
@@ -105,6 +105,7 @@ function perform_env_test() {
         fi
     fi
 
+    log_message "Running: $CONTAINER_TAG"
     docker run --privileged -it \
         --volume "/var/run/docker.sock:/var/run/docker.sock" \
         --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
@@ -117,7 +118,14 @@ function perform_env_test() {
     cat $RESULTS >>"$LOGFILE"
 
     if ((ERR != 0)); then
-        log_message "shield-pre-install-check: Exiting due to previous errors..."
+        log_message "shield-pre-install-check: Exiting due to previous errors, please check $RESULTS..."
+        return 1
+    fi
+    log_message "shield-pre-install-check passed!"
+    return 0
+}
+
+        log_message "shield-pre-install-check: Exiting due to previous errors, please check $RESULTS..."
         return 1
     fi
     log_message "shield-pre-install-check passed!"
@@ -130,20 +138,22 @@ if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
     apt-get --assume-yes -y install curl
 fi
 
-curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
-if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_PIC_FILE") -ge 1 ]; then
-    log_message "Cannot Retrieve Ericom Shield version file: $ES_repo_ver"    
+if [ ! -f "$ES_VER_FILE" ] ; then
+   curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
+   if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_PIC_FILE") -ge 1 ]; then
+      log_message "Cannot Retrieve Ericom Shield version file: $ES_repo_ver"
+   fi
+  else
+   ES_VER_PIC_FILE="$ES_VER_FILE"
 fi
+
 CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-collector:180328-12.39-1738"
-   echo "Using default image: $CONTAINER_TAG"
+   log_message "Using default image: $CONTAINER_TAG"
 fi
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
-    set -e
-    ES_INTERACTIVE=true
-
     echo "***************         Ericom Shield Pre-Install Check ..."
     echo "***************         "
     echo "***************         This script validates customer's environment and assess if it is ready for Ericom Shield Installation."
