@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_317] - 2018-4-12
+- SHIFT+left click not working well with Office online #2364
+- Admin: Generate the keytab command #1810
+- ADMIN - profiles - fields with previous values #1534
+- AD settings were completed but couldn't add a new policy #2454
+- Implement 1030-connectivity.sh test for collector
+- Internal page to measure sites loading time (P2) #2290
+- Collector periodic and on-demand tests are broken #2643
+- Page display is slow when press on back arrow (P2) #545
+
 ## [Dev:Build_316] - 2018-4-10
 - Intercept and proxy 'mailto' links  #1276
 - Admin - Analyzer - Fixed Run Client Analyzer address #2619
