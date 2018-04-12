@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.04-Staging:Build_312.1] - 2018-4-11
+- Chrome version used by shield should be updated #2662
+- Allow IE11 with compat user agent (inc. apps)
+- The broker should not start before main browser service? #2681
+- Scale to should not be executed in case shield is not activated #2614
+- Scaleto can bypass the system capacity #2576
+- Scale to is being skipped and no new service is created when it should #2575
+- Change the "scale to" formula #2542
+
 ## [Dev:Build_316] - 2018-4-10
 - Intercept and proxy 'mailto' links  #1276
 - Admin - Analyzer - Fixed Run Client Analyzer address #2619
