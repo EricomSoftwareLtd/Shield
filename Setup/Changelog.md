@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_317] - 2018-4-12
+- SHIFT+left click not working well with Office online #2364
+- Admin: Generate the keytab command #1810
+- ADMIN - profiles - fields with previous values #1534
+- AD settings were completed but couldn't add a new policy #2454
+- Implement 1030-connectivity.sh test for collector
+- Internal page to measure sites loading time (P2) #2290
+- Collector periodic and on-demand tests are broken #2643
+- Page display is slow when press on back arrow (P2) #545
+
+
 ## [Staging:18.04-Staging:Build_312.1] - 2018-4-11
 - Chrome version used by shield should be updated #2662
 - Allow IE11 with compat user agent (inc. apps)
