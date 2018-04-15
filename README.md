@@ -8,11 +8,11 @@ Pre-Requesite: Linux Ubuntu 16.04
 Open a Shell:
 Type the following commands:
 
-*wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/ericomshield-setup.sh"*
+*wget ericom.com/shield/setup.sh*
 
-*chmod +x ericomshield-setup.sh*
+*chmod +x setup.sh*
 
-*./ericomshield-setup.sh*
+*./setup.sh*
 
 Ericom Shield will be installed and ericomshield service will be available
 
@@ -36,8 +36,4 @@ On the Master Machine:
 
 Ericom Shield Setup Node:
 
-*sudo wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/ericomshield-setup-node.sh"*
-
-*sudo chmod +x ericomshield-setup-node.sh*
-
-*sudo ./ericomshield-setup-node.sh -ips xx.xx.xx.xx,yy.yy.yy.yy -mng -b*
+*sudo usr/local/ericomshield/addnodes.sh -ips xx.xx.xx.xx,yy.yy.yy.yy*
