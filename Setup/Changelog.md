@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_318] - 2018-4-15
+- Admin - FQDN is updated - add pop up message and reload page #2690
+- Block ftp protocol - not shield it #2689
+- Advanced License counting #2658
+- Support for spellcheck - English(US) only #1488
+
 ## [Dev:Build_317] - 2018-4-12
 - SHIFT+left click not working well with Office online #2364
 - Admin: Generate the keytab command #1810
