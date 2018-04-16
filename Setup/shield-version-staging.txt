@@ -1,6 +1,6 @@
-#Build Staging:18.04-Build_312.2 on 11/04/18
+#Build Staging:18.04-Build_312.3 on 16/04/18
 #
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.04-Build_312.2
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.04-Build_312.3
 shield-configuration:latest shield-configuration:180313-12.12-1524
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
 shield-admin:latest shield-admin:Staging_18.04-312.2
