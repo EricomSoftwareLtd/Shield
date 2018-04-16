@@ -283,6 +283,7 @@ services:
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
              - SHIELD_NODE_NAME={{.Node.Hostname}}
+             - SHIELD_SERVICE_NAME={{.Service.Name}}
              - PERF_STATS=true
              - "LOGSTASH_FIELDS=service=browser"
         networks:
