@@ -30,6 +30,19 @@ if [ "$ARGS" = "-f" ]; then
    ES_FORCE=true
 fi
 
+case "${ARGS[@]}" in
+    *"auto"*)
+        AUTOUPDATE=true
+        ;;
+esac
+
+if [ -n "$AUTOUPDATE" ]; then
+    remove=auto
+    ARGS=("${ARGS[@]/$remove}")
+fi
+
+
+
 # if command is update (from cli or based on the previous ifs, then check the channel based on the file) - should be handled in the container
 if [ "$ARGS" = "update" ]; then
    if [ -f "$ES_STAGING_FILE" ]; then
@@ -63,7 +76,8 @@ fi
 echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNEL) ..."
 
 echo "$(date): Ericom Shield Update: Running Update" >>"$LOGFILE"
-if [[ "$BASH_SOURCE" =~ "update.sh"  ]]; then
+
+if [ -z "$AUTOUPDATE"  ]; then
     docker run --rm  -it \
        -v /var/run/docker.sock:/var/run/docker.sock \
        -v $(which docker):/usr/bin/docker \
