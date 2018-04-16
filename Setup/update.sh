@@ -63,7 +63,7 @@ fi
 echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNEL) ..."
 
 echo "$(date): Ericom Shield Update: Running Update" >>"$LOGFILE"
-if ! [[ $0 != "$BASH_SOURCE" ]]; then
+if [[ "$BASH_SOURCE" =~ "update.sh"  ]]; then
     docker run --rm  -it \
        -v /var/run/docker.sock:/var/run/docker.sock \
        -v $(which docker):/usr/bin/docker \
