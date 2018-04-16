@@ -30,6 +30,19 @@ if [ "$ARGS" = "-f" ]; then
    ES_FORCE=true
 fi
 
+case "${ARGS[@]}" in
+    *"auto"*)
+        AUTOUPDATE=true
+        ;;
+esac
+
+if [ -n "$AUTOUPDATE" ]; then
+    remove=auto
+    ARGS=("${ARGS[@]/$remove}")
+fi
+
+
+
 # if command is update (from cli or based on the previous ifs, then check the channel based on the file) - should be handled in the container
 if [ "$ARGS" = "update" ]; then
    if [ -f "$ES_STAGING_FILE" ]; then
@@ -63,9 +76,16 @@ fi
 echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNEL) ..."
 
 echo "$(date): Ericom Shield Update: Running Update" >>"$LOGFILE"
-docker run --rm -it \
-   -v /var/run/docker.sock:/var/run/docker.sock \
-   -v $(which docker):/usr/bin/docker \
-   -v /usr/local/ericomshield:/usr/local/ericomshield \
-   -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-    "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
+
+
+
+if [ -n "$AUTOUPDATE"  ]; then
+    DOCKER_RUN_PARAM="-it"
+fi
+
+docker run --rm  $DOCKER_RUN_PARAM \
+       -v /var/run/docker.sock:/var/run/docker.sock \
+       -v $(which docker):/usr/bin/docker \
+       -v /usr/local/ericomshield:/usr/local/ericomshield \
+       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
