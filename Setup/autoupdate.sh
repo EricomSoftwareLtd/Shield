@@ -90,11 +90,11 @@ while true; do
 
         if [ "$AM_I_LEADER" == true ]; then
               if [ "$ES_DEV" == true ]; then
-                $ES_PATH/update.sh update --dev "$FORCE_UPDATE"
+                $ES_PATH/update.sh auto update --dev "$FORCE_UPDATE"
               elif [ "$ES_STAGING" == true ]; then
-                $ES_PATH/update.sh update --staging "$FORCE_UPDATE"
+                $ES_PATH/update.sh auto update --staging "$FORCE_UPDATE"
               else
-                $ES_PATH/update.sh update "$FORCE_UPDATE"
+                $ES_PATH/update.sh auto update "$FORCE_UPDATE"
               fi
         else
             echo "Not running update (I'm not the leader)"
