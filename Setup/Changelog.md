@@ -8,8 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_321] - 2018-4-17
+- (*) Fix too many extra buffers - should help sessions that get stcuk
+- Periodic Test should be configurable #2580
+- Analyzer fix to show up to 35 results
+- The alert "checked installed memory failed on the following nodes" - change the content #2513
+- update from prod to staging should copy all files #2661
+- Remove URLs from 1030-connectivity.sh test results
 
 
+
+## [Dev:Build_320] - 2018-4-17
+- Version file typo fix
 ## [Dev:Build_319] - 2018-4-16
 - Add new profile -fix tab functionality to navigate to "Add" button #2342
 - change the "scale to" formula #2542
