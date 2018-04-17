@@ -12,8 +12,8 @@ services:
       - shield
     hostname: netdata
     ports:
-      - target: 8383
-        published: 19999
+      - target: 19999
+        published: 8383
         protocol: tcp
     volumes:
       - /proc:/host/proc:ro
@@ -283,6 +283,7 @@ services:
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
              - SHIELD_NODE_NAME={{.Node.Hostname}}
+             - SHIELD_SERVICE_NAME={{.Service.Name}}
              - PERF_STATS=true
              - "LOGSTASH_FIELDS=service=browser"
         networks:
