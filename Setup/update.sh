@@ -79,7 +79,7 @@ echo "$(date): Ericom Shield Update: Running Update" >>"$LOGFILE"
 
 
 
-if [ -n "$AUTOUPDATE"  ]; then
+if [ -z "$AUTOUPDATE"  ]; then
     DOCKER_RUN_PARAM="-it"
 fi
 
