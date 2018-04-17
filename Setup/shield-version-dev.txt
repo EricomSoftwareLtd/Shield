@@ -23,4 +23,4 @@ netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180312-09.40-1517
 shield-autoupdate:latest shield-autoupdate:180417-09.00-1843
 shield-notifier:latest shield-notifier:180417-11.20-1847
-# This need to be the last line
+# This needs to be the last line
