@@ -302,7 +302,7 @@ function docker_login() {
         else
             #Login and enter the credentials you received separately when prompt
             echo "docker login" $DOCKER_USER $DOCKER_SECRET
-            docker login --username=$DOCKER_USER --password=$DOCKER_SECRET
+            echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
         fi
 
         if [ $? == 0 ]; then
