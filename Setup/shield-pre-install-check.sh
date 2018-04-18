@@ -68,7 +68,7 @@ if ! declare -f docker_login >/dev/null; then
         if [ "$(docker info | grep -c Username)" -eq 0 ]; then
             #Login and enter the credentials you received separately when prompt
             echo "docker login" $DOCKER_USER $DOCKER_SECRET
-            docker login --username=$DOCKER_USER --password=$DOCKER_SECRET
+            echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
             if [ $? == 0 ]; then
                 echo "Login Succeeded!"
             else
