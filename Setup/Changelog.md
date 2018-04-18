@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_322] - 2018-4-18
+- Collector periodic and on-demand tests doesn't show all tests #2730
+- Analyzer results new report - item 1 #2679
+- The alert "checked installed memory failed on the following nodes" - change the content #2513
+
 ## [Dev:Build_321] - 2018-4-17
 - (*) Fix too many extra buffers - should help sessions that get stcuk
 - Periodic Test should be configurable #2580
