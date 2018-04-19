@@ -332,7 +332,7 @@ function setup_dnsmasq() {
 
     (
         cat <<'EOF'
-log-queries
+# log-queries
 EOF
     ) >"/etc/dnsmasq.d/ericom-shield"
 
