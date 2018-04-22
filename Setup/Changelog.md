@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_323] - 2018-4-22
+- Add lync user agent
+- Japanese - alt+kana roman key type the current mode #2368
+- some periodic tests are failed to be executed #2743
 
 ## [Dev:Build_322] - 2018-4-18
 - Collector periodic and on-demand tests doesn't show all tests #2730
@@ -21,7 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - The alert "checked installed memory failed on the following nodes" - change the content #2513
 - update from prod to staging should copy all files #2661
 - Remove URLs from 1030-connectivity.sh test results
-
 
 
 ## [Dev:Build_320] - 2018-4-17
