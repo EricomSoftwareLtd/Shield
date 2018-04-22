@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Fixed: Chrome version used by shield should be updated
  - Fixed: Allow IE11 with compat user agent (inc. apps)
  - Fixed: Admin - FQDN is updated - add pop up message and reload page
+ - Fixed: Netdata port is not published
  
 ## [Prod:18.04-Build-312] - 2018-04-08
 
