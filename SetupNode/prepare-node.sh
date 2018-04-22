@@ -18,7 +18,7 @@ done
 
 if [ -z "$MACHINE_USER" ]; then
     echo '################################################### Create Ericom user #################################'
-    sudo adduser ericom
+    sudo adduser --gecos "" ericom
 
     MACHINE_USER="ericom"
 fi

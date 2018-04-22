@@ -9,6 +9,37 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_322] - 2018-4-18
+- Collector periodic and on-demand tests doesn't show all tests #2730
+- Analyzer results new report - item 1 #2679
+- The alert "checked installed memory failed on the following nodes" - change the content #2513
+
+## [Dev:Build_321] - 2018-4-17
+- (*) Fix too many extra buffers - should help sessions that get stcuk
+- Periodic Test should be configurable #2580
+- Analyzer fix to show up to 35 results
+- The alert "checked installed memory failed on the following nodes" - change the content #2513
+- update from prod to staging should copy all files #2661
+- Remove URLs from 1030-connectivity.sh test results
+
+
+
+## [Dev:Build_320] - 2018-4-17
+- Version file typo fix
+## [Dev:Build_319] - 2018-4-16
+- Add new profile -fix tab functionality to navigate to "Add" button #2342
+- change the "scale to" formula #2542
+- Scaleto can bypass the system capacity #2576
+- Periodic Test should be configurable #2580
+- Scale to should not be executed in case shield is not activated #2614
+- Update from prod to staging should copy all files #2661
+- Should override key pairs file when generate ./update.sh ssthkey #2669
+- The broker should not start before main browser service? #2681
+- When reboot shield machine, the broker doesn't wait for the main browser service #2698
+- Uptoupdate did not work #2702
+- Auth Proxy - set ipv4 dns first
+
+
 ## [Dev:Build_318] - 2018-4-15
 - Admin - FQDN is updated - add pop up message and reload page #2690
 - Block ftp protocol - not shield it #2689
