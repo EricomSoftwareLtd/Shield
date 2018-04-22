@@ -12,8 +12,8 @@ services:
       - shield
     hostname: netdata
     ports:
-      - target: 8383
-        published: 19999
+      - target: 19999
+        published: 8383
         protocol: tcp
     volumes:
       - /proc:/host/proc:ro
