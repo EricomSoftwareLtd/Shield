@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_324] - 2018-4-23
+- Pre check install script -the memory test prints ok for 8GB #2761
+- No alert when DNS is down #2758
+- Restart autoupdate service. #2738
+- Analyzer results new report #2679
+- Pre check install script - please add the normal, warning and failure ranges #2515
+
 ## [Dev:Build_323] - 2018-4-22
 - Add lync user agent
 - Japanese - alt+kana roman key type the current mode #2368
