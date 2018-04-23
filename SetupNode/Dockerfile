@@ -1,8 +1,7 @@
-FROM securebrowsing/secure-remote-browser-ubuntu-base:latest_2
+FROM python:3.6.5-slim-jessie
 
 
-RUN apt-get update && apt-get install -y --no-install-recommends python-pip python-setuptools \
-    && pip install --upgrade pip
+RUN pip install --upgrade pip
 
 
 COPY scripts /scripts

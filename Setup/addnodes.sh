@@ -6,6 +6,7 @@
 ES_PATH=/usr/local/ericomshield
 ES_VER_FILE="./shield-version.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
+COMMAND_NAME=$0
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -29,5 +30,6 @@ docker run --rm -it \
 	-v $(which docker):/usr/bin/docker \
 	-v /usr/local/ericomshield:/install \
 	-v $(pwd):/certificate \
+	-e "COMMAND=$COMMAND_NAME" \
 	--network host \
     securebrowsing/$CONTAINER_TAG ./setup-node.sh "${@}"
