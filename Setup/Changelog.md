@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_325] - 2018-4-24
+- Allow already connected users even if license limit #2717
+- No alert when DNS is down #2758
+- Small fix for warning/error levels for #2781
+- License logic - can't open more tabs after reach to max license #2717
+- Pre check install shows duplicate for warning and faulire and no ranges for drive speed #2781
+- Pre check install script - please add the normal, warning and failure ranges #2515
+- Add "Refresh AD Cache" button to the Admin UI #2696
 
 ## [Dev:Build_324] - 2018-4-23
 - Pre check install script -the memory test prints ok for 8GB #2761
