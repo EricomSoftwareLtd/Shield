@@ -6,7 +6,7 @@
 ES_PATH=/usr/local/ericomshield
 ES_VER_FILE="./shield-version.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
-COMMAND_NAME=$0
+COMMAND_NAME="$0"
 
 #Check if we are root
 if ((EUID != 0)); then
