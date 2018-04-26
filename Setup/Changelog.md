@@ -121,7 +121,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Drop down list does not work in partners.microsoft.com (within a pop up window) #2180 
 - Remove YT only fms #2200
 - Closing an Alert in Elastic using the correct index #2540
-- Issue 2506
+- Issue #2506
 - Fixed globalResult in case of Internal Error #2280
 - Added logs to debug issue #2497
 - Added log-level setting to the Collector #2632
@@ -219,6 +219,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use scale_step for scale operations #2429
 - Added support for secured LDAP #1148
 - Shield shows page from yesterday on One #2020
+- Admin: Change Password (?)
 
 ## [Dev:Build_299] - 2018-3-19
 - Set language browser props from client #2323
