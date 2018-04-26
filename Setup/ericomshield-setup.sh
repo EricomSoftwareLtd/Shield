@@ -15,6 +15,8 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 DOCKER_VERSION="17.12.1"
+DOCKER_VERSION_STAGING="17.12.1"
+DOCKER_VERSION_DEV="18.03.0"
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -34,7 +36,7 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.04-2903"
+ES_SETUP_VER="Setup:18.04.1-2604"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -273,8 +275,14 @@ function accept_license() {
 
 function install_docker() {
 
+    if [ "$ES_DEV" == true ]; then
+        DOCKER_VERSION="$DOCKER_VERSION_DEV"
+    elif [ "$ES_STAGING" == true ]; then
+        DOCKER_VERSION="$DOCKER_VERSION_STAGING"
+    fi
+
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-        log_message "***************     Installing docker-engine"
+        log_message "***************     Installing docker-engine: $DOCKER_VERSION"
         apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
 
         #Docker Installation of a specific Version
