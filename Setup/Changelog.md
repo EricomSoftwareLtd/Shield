@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_326] - 2018-4-26
+- Collect usage stats every hour #2804
+- Send user usage info #2775
+- Admin UI for "Notifier" #2506
+
 ## [Dev:Build_325] - 2018-4-24
 - Allow already connected users even if license limit #2717
 - No alert when DNS is down #2758
