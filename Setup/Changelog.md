@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Collect usage stats every hour #2804
 - Send user usage info #2775
 - Admin UI for "Notifier" #2506
+- Upgrade to Docker 18.03.0-ce (2018-03-21)
 
 ## [Dev:Build_325] - 2018-4-24
 - Allow already connected users even if license limit #2717
