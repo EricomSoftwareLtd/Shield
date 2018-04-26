@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - Periodic checks
     - Embedded Speedtest Media page to examine offline experience
 - Admin Console supports HTTPS only
+- Admin: Change Password
 - Support for shield to use Customer Certificate (CA)
 - Added support for secured LDAP
 - CDR High Availability
