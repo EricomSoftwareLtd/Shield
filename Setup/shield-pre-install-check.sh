@@ -105,6 +105,8 @@ function perform_env_test() {
         fi
     fi
 
+    docker_login
+
     log_message "Running: $CONTAINER_TAG"
     docker run --privileged -it \
         --volume "/var/run/docker.sock:/var/run/docker.sock" \
@@ -155,8 +157,6 @@ if ! [[ $0 != "$BASH_SOURCE" ]]; then
     echo "***************         "
 
     install_docker
-
-    docker_login
 
     perform_env_test
 
