@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_327] - 2018-4-29
+- HTTP Headers (Forward/Set/Remove) #2694
+
 ## [Dev:Build_326] - 2018-4-26
 - Collect usage stats every hour #2804
 - Send user usage info #2775
