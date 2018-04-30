@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_328] - 2018-4-30
+- Reduce logs of CEF
+- Admin UI -Alerts - can't type in some fields #2836
+- Update "Ericom Shiled repo " #2830
+- No Alert for DNS failures #2817
+- Upload alert (via notifier) to include the alert severity #2814
+- DNS alert should be a single line #2796
+- Bad Analyzer results for Platform info test #2782
+- Admin - FQDN warning message for the user is not enough #2733
+- Admin UI for "Notifier" #2506
+- Sometimes at broker log I see "Elastic not deployed. Alerts will not be persist" #2497
+
 ## [Dev:Build_327] - 2018-4-29
 - HTTP Headers (Forward/Set/Remove) #2694
 
