@@ -598,6 +598,8 @@ echo Docker Login: $DOCKER_USER
 echo "autoupdate=$ES_AUTO_UPDATE"
 
 #Get first shield install files (shield-version.txt) which is used also to install docker specific version
+get_precheck_files
+
 get_shield_install_files
 
 install_docker
@@ -609,8 +611,6 @@ else
 fi
 
 docker_login
-
-get_precheck_files
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
