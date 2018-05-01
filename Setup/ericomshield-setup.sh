@@ -14,9 +14,8 @@ fi
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_VERSION="17.12.1"
-DOCKER_VERSION_STAGING="17.12.1"
-DOCKER_VERSION_DEV="18.03.0"
+DOCKER_DEFAULT_VERSION="17.12.1"
+DOCKER_VERSION=""
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -36,7 +35,7 @@ EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.04.1-2604"
+ES_SETUP_VER="Setup:18.05-0105"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -275,10 +274,12 @@ function accept_license() {
 
 function install_docker() {
 
-    if [ "$ES_DEV" == true ]; then
-        DOCKER_VERSION="$DOCKER_VERSION_DEV"
-    elif [ "$ES_STAGING" == true ]; then
-        DOCKER_VERSION="$DOCKER_VERSION_STAGING"
+    if [ -f  "$ES_VER_FILE" ]; then
+       DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+    fi
+    if [ "$DOCKER_VERSION" = "" ]; then
+       DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
+       echo "Using default Docker version: $DOCKER_VERSION"
     fi
 
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
@@ -596,6 +597,9 @@ fi
 echo Docker Login: $DOCKER_USER
 echo "autoupdate=$ES_AUTO_UPDATE"
 
+#Get first shield install files (shield-version.txt) which is used also to install docker specific version
+get_shield_install_files
+
 install_docker
 
 if systemctl start docker; then
@@ -607,8 +611,6 @@ fi
 docker_login
 
 get_precheck_files
-
-get_shield_install_files
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
