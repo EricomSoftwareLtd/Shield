@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_329] - 2018-5-1
+- Apps support in Shield (backend part) #1525 
+- Alligend tests for each run scenario
+- On-demand test results should be uploaded if user allows #2819
+- Admin alerts text fixes 
+- Log Apps request #2325
+
 ## [Dev:Build_328] - 2018-4-30
 - Reduce logs of CEF
 - Admin UI -Alerts - can't type in some fields #2836
