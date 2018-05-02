@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_330] - 2018-5-2
+- Broker findAndKillZombies() function is not implemented correctly #2851
+- Gmail on Chrome (small window) - stuck #2845
+- If screen DPI scale > 100%, browser resizes too late #2844
+- Broker should not create new services if browsers are not registering to consul #2838
+- Admin UI for "Notifier" #2506
+- Window resize throttle & init zoom #2844 #2845
+- Apps are allowed by default
+- Consul backup should lock writing file #2828
+- Consul back up restore failed #2827
 
 ## [Dev:Build_329] - 2018-5-1
 - Apps support in Shield (backend part) #1525 
