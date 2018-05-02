@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Apps are allowed by default
 - Consul backup should lock writing file #2828
 - Consul back up restore failed #2827
+- Alert via Email was fixed
 
 ## [Dev:Build_329] - 2018-5-1
 - Apps support in Shield (backend part) #1525 

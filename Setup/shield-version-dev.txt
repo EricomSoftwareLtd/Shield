@@ -3,7 +3,7 @@ SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_330
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180502-13.04-1933
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180502-11.36-1928
+shield-admin:latest shield-admin:180502-14.39-1936
 shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180501-10.20-1917
 icap-server:latest icap-server:180502-12.33-1931
@@ -22,5 +22,5 @@ shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180312-09.40-1517
 shield-autoupdate:latest shield-autoupdate:180429-09.02-1891
-shield-notifier:latest shield-notifier:180502-11.55-1929
+shield-notifier:latest shield-notifier:180502-13.55-1934
 # This needs to be the last line
