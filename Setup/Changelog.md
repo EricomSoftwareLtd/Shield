@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ## [Dev:Build_330] - 2018-5-2
+- (*) Lower FPS on idle page #2802
 - Broker findAndKillZombies() function is not implemented correctly #2851
 - Gmail on Chrome (small window) - stuck #2845
 - If screen DPI scale > 100%, browser resizes too late #2844
