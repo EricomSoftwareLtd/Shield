@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Staging:18.05-Staging:Build_330] - 2018-5-03
+- (*) Lower FPS on idle page #2802
+- Broker findAndKillZombies() function is not implemented correctly #2851
+- Gmail on Chrome (small window) - stuck #2845
+- If screen DPI scale > 100%, browser resizes too late #2844
+- Broker should not create new services if browsers are not registering to consul #2838
+- Admin UI for "Notifier" #2506
+- Window resize throttle & init zoom #2844 #2845
+- Apps are allowed by default
+- Consul backup should lock writing file #2828
+- Consul back up restore failed #2827
+- Alert via Email was fixed
+- When adding nodes and there is a problem we should display some error for the user #2411
+- Error when adding nodes #2452
+- App rules support both text and regex 
+
 ## [Dev:Build_330] - 2018-5-2
 - (*) Lower FPS on idle page #2802
 - Broker findAndKillZombies() function is not implemented correctly #2851
