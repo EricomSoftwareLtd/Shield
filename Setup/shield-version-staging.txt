@@ -1,6 +1,6 @@
-#Build Dev:Build_330 on 18/05/2
+#Build Staging:18.05-Build_330 on 04/05/18
 #
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_330
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.05-Build_330
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180502-13.04-1933
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
@@ -17,7 +17,7 @@ shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
 shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
 shield-web-service:latest shield-web-service:180326-13.17-1688
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:180420-13.41-1854
+shield-authproxy:latest shield-authproxy:180502-14.51-1937
 node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
