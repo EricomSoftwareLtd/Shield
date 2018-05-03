@@ -20,6 +20,7 @@ ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_FORCE=false
 ES_CHANNEL=""
+UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
 
 ARGS="${@}"
 if [ "$ARGS" = "" ]; then
@@ -77,6 +78,9 @@ echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNE
 
 echo "$(date): Ericom Shield Update: Running Update" >>"$LOGFILE"
 
+if [ -f "$UPDATE_LOG_FILE" ]; then
+    rm -f $UPDATE_LOG_FILE
+fi
 
 
 if [ -z "$AUTOUPDATE"  ]; then
