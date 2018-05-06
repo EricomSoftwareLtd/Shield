@@ -36,4 +36,4 @@ docker run --rm  -it \
        -v "$ES_PATH:/usr/local/ericomshield" \
        -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
        -e "COMMAND=$COMMAND_NAME" \
-       "securebrowsing/$CONTAINER_TAG addnode" "${@}"
+       "securebrowsing/$CONTAINER_TAG" addnode "${@}"
