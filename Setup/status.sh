@@ -30,8 +30,6 @@ if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
 fi
 
-CONTAINER_TAG="shield-autoupdate:latest"
-
 docker run --rm  -it \
        -v /var/run/docker.sock:/var/run/docker.sock \
        -v $(which docker):/usr/bin/docker \
