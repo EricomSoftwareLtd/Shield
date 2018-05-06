@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.05-Staging:Build_331] - 2018-5-06
+- When cache is enabled it behave as a proxy and XFF list contain cef IP #2877
+- Block ftp protocol - not shield it #2689
+- Allow blacklist req in authproxy #2889
+- Bugfix the alerts settings are removed #2893
+- install-certificate now provide the real CA certificate 
+- Remote Browser will write log per level set in the Admin - reduce logs 
+- Analyzer Report #2865
+- Log Apps request #2325
+
 ## [Dev:Build_331] - 2018-5-3
 - When cache is enabled it behave as a proxy and XFF list contain cef IP #2877
 - Block ftp protocol - not shield it #2689
