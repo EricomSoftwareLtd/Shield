@@ -30,7 +30,7 @@ if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-autoupdate:180503-10.48-1953"
 fi
 
-docker run --rm  $DOCKER_RUN_PARAM \
+docker run --rm  -it \
        -v /var/run/docker.sock:/var/run/docker.sock \
        -v $(which docker):/usr/bin/docker \
        -v "$ES_PATH:/usr/local/ericomshield" \
