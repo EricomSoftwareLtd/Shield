@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_332] - 2018-5-8
+- Admin - loading indicator always on - error on page #2866
+- When disable cache I need to rescale browsers #2878
+- Broker waits for service which already been cleared #2919
+- Filter internal domains from app rules log 
+- Add new application dialog #2923
+- Apps support in Shield #1525
+- Block ftp protocol - not shield it #2689
+- Added internal page - http://page-perf/
+- DNS caching in ext-proxy
+
 ## [Staging:18.05-Staging:Build_331] - 2018-5-06
 - When cache is enabled it behave as a proxy and XFF list contain cef IP #2877
 - Block ftp protocol - not shield it #2689
