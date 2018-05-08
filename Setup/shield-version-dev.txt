@@ -21,6 +21,6 @@ node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180312-09.40-1517
-shield-autoupdate:latest shield-autoupdate:180502-14.51-1937
+shield-autoupdate:latest shield-autoupdate:features
 shield-notifier:latest shield-notifier:180503-15.42-1967
 # This needs to be the last line
