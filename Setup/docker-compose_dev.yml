@@ -4,6 +4,21 @@ version: "3.3"
 # YML file for Dev
 
 services:
+  dns-server:
+    image: securebrowsing/unbound:latest
+    networks:
+      - shield
+    hostname: dns
+    ports:
+      - target: 53
+        published: 53
+        protocol: tcp
+      - target: 53
+        published: 53
+        protocol: udp
+    environment:
+      - "UPSTREAM_DNS_SERVERS="
+
   netdata:
     image: securebrowsing/netdata:latest
     volumes:
