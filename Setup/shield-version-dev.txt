@@ -1,26 +1,27 @@
-#Build Dev:Build_333 on 18/05/10
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_333
+#Build Dev:Build_334 on 18/05/10
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_334
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180510-10.17-2023
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
 shield-admin:latest shield-admin:180510-14.46-2033
 shield-portainer:latest shield-portainer:180311-14.35-1498
-proxy-server:latest proxy-server:180510-08.33-2016
-icap-server:latest icap-server:180510-10.39-2025
-shield-cef:latest shield-cef:180510-16.16-2039
-broker-server:latest broker-server:180510-14.33-2031
+proxy-server:latest proxy-server:180513-09.47-2055
+icap-server:latest icap-server:180513-11.00-2064
+shield-cef:latest shield-cef:180513-09.24-2053
+broker-server:latest broker-server:180513-13.02-2072
 shield-collector:latest shield-collector:180501-11.57-1919
 shield-elk:latest shield-elk:180510-16.45-2042
-extproxy:latest extproxy:180510-08.33-2016
+extproxy:latest extproxy:180513-13.38-2074
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
 shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
 shield-web-service:latest shield-web-service:180326-13.17-1688
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:180510-08.13-2015
+shield-authproxy:latest shield-authproxy:180513-12.50-2070
 node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180312-09.40-1517
 shield-autoupdate:latest shield-autoupdate:180502-14.51-1937
 shield-notifier:latest shield-notifier:180509-13.57-2011
+shield-dns:latest shield-dns:180513-10.50-2062
 # This needs to be the last line
