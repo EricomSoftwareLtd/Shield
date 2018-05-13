@@ -8,6 +8,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_333] - 2018-5-10
+- FPS idel time out should be limited for foreground only #2901
+- Send Anonymous Feedback - false by default
+- When not typing the full URL, redirect fails (Reported by BTL) #2853
+- Upload shield status once per 24 hours. Include stats sampled once an hour #2938
+- Consul back up restore failed #2827
+- Update node to the latest LTS (currently 8.x)
+- Better Alert mail texts #2941
+- Mail support list of recipients
+- Ext proxy support for ADBlock, DNS caching and Using direct 
+- Application issue in Admin UI #2959
+- Resources Saver Timeout (min) - change location at the admin #2947
+- Admin UI for DNS and Ad-blocks #2940
+- Idle timeout - Not working #2954
+- Write shield stats to ELK
+- Suspend forground tabs #2946
+- Applications -default and override rules do not support multi profile #2937
+- Apps support in Shield #1525
+- DNS resolving is not cached when using caching (Ext proxy) #2793
+- Store Connection Pref report in ELK #2986
+
 
 ## [Dev:Build_332] - 2018-5-8
 - Admin - loading indicator always on - error on page #2866
