@@ -332,21 +332,6 @@ function update_sysctl() {
     echo "file /etc/sysctl.d/30-ericom-shield.conf Updated!"
 }
 
-function setup_dnsmasq() {
-
-    if [ "$(dpkg -l | grep -w -c "dnsmasq ")" -eq 0 ]; then
-        echo "***************     Installing dnsmasq"
-        apt-get --assume-yes -y install dnsmasq
-    fi
-
-    (
-        cat <<'EOF'
-# log-queries
-EOF
-    ) >"/etc/dnsmasq.d/ericom-shield"
-
-}
-
 function create_shield_service() {
     echo "**************  Creating the ericomshield updater service..."
     if [ ! -f "${ES_PATH}/ericomshield-updater.service" ]; then
@@ -388,6 +373,9 @@ function prepare_yml() {
 
     #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
+
+    local HOST_UPSTREAM_DNS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
+    sed -i "s/UPSTREAM_DNS_SERVERS=/UPSTREAM_DNS_SERVERS=${HOST_UPSTREAM_DNS}/g" $ES_YML_FILE
 }
 
 function switch_to_multi_node() {
@@ -638,8 +626,6 @@ if [ "$ES_FORCE" == false ]; then
 fi
 
 add_aliases
-
-setup_dnsmasq
 
 get_shield_files
 
