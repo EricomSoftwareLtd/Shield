@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_334] - 2018-5-13
+- Proxies will use dns container #2969
+- (*) Fix blank child windows #2968
+- Add averageCpuCorePerSession & averageMemoryPerSession to uploaded shield stats #2997
+- Add health check to DNS issue at the ext proxy #3002
+- Sometimes I can't browse using mini sanity machine #2800
+
+
 ## [Dev:Build_333] - 2018-5-10
 - FPS idel time out should be limited for foreground only #2901
 - Send Anonymous Feedback - false by default
