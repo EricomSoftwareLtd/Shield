@@ -373,9 +373,6 @@ function prepare_yml() {
 
     #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
-
-    local HOST_UPSTREAM_DNS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
-    sed -i "s/UPSTREAM_DNS_SERVERS=/UPSTREAM_DNS_SERVERS=${HOST_UPSTREAM_DNS}/g" $ES_YML_FILE
 }
 
 function switch_to_multi_node() {
