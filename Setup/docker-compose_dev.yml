@@ -4,6 +4,28 @@ version: "3.3"
 # YML file for Dev
 
 services:
+  dns:
+    image: securebrowsing/shield-dns:latest
+    networks:
+      - shield
+    hostname: dns
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.labels.management==yes
+      update_config:
+         failure_action: rollback
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1.5"
+    environment:
+      - "LOGSTASH_FIELDS=service=dns"
+      - "UPSTREAM_DNS_SERVERS="
+
   netdata:
     image: securebrowsing/netdata:latest
     volumes:

@@ -9,6 +9,57 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_334] - 2018-5-13
+- Proxies will use dns container #2969
+- (*) Fix blank child windows #2968
+- Add averageCpuCorePerSession & averageMemoryPerSession to uploaded shield stats #2997
+- Add health check to DNS issue at the ext proxy #3002
+- Sometimes I can't browse using mini sanity machine #2800
+
+
+## [Dev:Build_333] - 2018-5-10
+- FPS idel time out should be limited for foreground only #2901
+- Send Anonymous Feedback - false by default
+- When not typing the full URL, redirect fails (Reported by BTL) #2853
+- Upload shield status once per 24 hours. Include stats sampled once an hour #2938
+- Consul back up restore failed #2827
+- Update node to the latest LTS (currently 8.x)
+- Better Alert mail texts #2941
+- Mail support list of recipients
+- Ext proxy support for ADBlock, DNS caching and Using direct 
+- Application issue in Admin UI #2959
+- Resources Saver Timeout (min) - change location at the admin #2947
+- Admin UI for DNS and Ad-blocks #2940
+- Idle timeout - Not working #2954
+- Write shield stats to ELK
+- Suspend forground tabs #2946
+- Applications -default and override rules do not support multi profile #2937
+- Apps support in Shield #1525
+- DNS resolving is not cached when using caching (Ext proxy) #2793
+- Store Connection Pref report in ELK #2986
+
+
+## [Dev:Build_332] - 2018-5-8
+- Admin - loading indicator always on - error on page #2866
+- When disable cache I need to rescale browsers #2878
+- Broker waits for service which already been cleared #2919
+- Filter internal domains from app rules log 
+- Add new application dialog #2923
+- Apps support in Shield #1525
+- Block ftp protocol - not shield it #2689
+- Added internal page - http://page-perf/
+- DNS caching in ext-proxy
+
+## [Staging:18.05-Staging:Build_331] - 2018-5-06
+- When cache is enabled it behave as a proxy and XFF list contain cef IP #2877
+- Block ftp protocol - not shield it #2689
+- Allow blacklist req in authproxy #2889
+- Bugfix the alerts settings are removed #2893
+- install-certificate now provide the real CA certificate 
+- Remote Browser will write log per level set in the Admin - reduce logs 
+- Analyzer Report #2865
+- Log Apps request #2325
+
 ## [Dev:Build_331] - 2018-5-3
 - When cache is enabled it behave as a proxy and XFF list contain cef IP #2877
 - Block ftp protocol - not shield it #2689
