@@ -9,6 +9,10 @@ if ((EUID != 0)); then
     exit
 fi
 
+if [ -n "$1" ]; then
+    FILE_NAME="$1"
+fi
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -27,4 +31,4 @@ if [ ${#all[@]} -eq 0 ]; then
     exit
 fi
 
-docker exec -t ${all[0]} python /scripts/manual_restore.py $1
+docker exec -t ${all[0]} python /scripts/manual_restore.py $FILE_NAME
