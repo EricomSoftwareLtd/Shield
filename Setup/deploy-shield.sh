@@ -12,7 +12,7 @@ HOST=$(hostname)
 SECRET_UID="shield-system-id"
 ES_NO_BROWSERS_LABEL=false
 
-RESOLV_FILE="/etc/resolv.conf"
+export UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
 PROXY_ENV_FILE="proxy-server.env"
 ES_PATH=/usr/local/ericomshield
 CONSUL_BACKUP_PATH="$ES_PATH/backup"

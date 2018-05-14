@@ -24,7 +24,7 @@ services:
           cpus: "1.5"
     environment:
       - "LOGSTASH_FIELDS=service=dns"
-      - "UPSTREAM_DNS_SERVERS="
+      - "UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}"
 
   netdata:
     image: securebrowsing/netdata:latest
