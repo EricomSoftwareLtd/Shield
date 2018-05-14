@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_335] - 2018-5-14
+- On ext-proxy internal-dns servers should be used when no ext-servers are specified #3014
+- Support per node alerts ( for CPU, Memory , Disk ) #3006
+- DNS settings at the admin should be limited only to IP address #3001
+- Alert when DNS setting are not set #2980
+- Minimised view of page after reloading or opening new tab in Firefox on Linux machine. #2961
+- Can't create new account for google drive with shield #2944
+- Add an alert when disk is low for storing the logs #2824
+- Browser service restart policy is set to none in -quickeval #2958
+- Improve setting init zoom #2961 #2992
+- Nameservers are not set from resolv.conf #3015
+- Updated jp translation file
+- Support for Apps that cant authenticate - backend side 
+
+
 ## [Dev:Build_334] - 2018-5-13
 - Proxies will use dns container #2969
 - (*) Fix blank child windows #2968
