@@ -12,7 +12,9 @@ services:
       - shield
     hostname: netdata
     ports:
-      - 8383:19999
+      - target: 19999
+        published: 8383
+        protocol: tcp
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -66,13 +68,12 @@ services:
           condition: any
       update_config:
           failure_action: rollback
-
   elk:
     image: securebrowsing/shield-elk:latest
-#     ports:
-#      - 5601:5601
-#      - 9200:9200
-#      - 5014:5014
+#    ports:
+#        - 5601:5601
+#        - 9200:9200
+#        - 5014:5014
     networks:
       - shield
     environment:
@@ -81,19 +82,19 @@ services:
       - "LOGSPOUT=ignore"
       - "HEAP_SIZE=2g"
     deploy:
-      mode: replicated   
+      mode: replicated   #Pocket Mode	
       replicas: 0        #Pocket Mode
       restart_policy:
-          condition: any
+           condition: any
       placement:
-          constraints:
-            - node.labels.management==yes
+           constraints:
+             - node.labels.management==yes
       update_config:
          failure_action: rollback
       resources:
-        limits:
-          memory: 3GB
-          cpus: "2"
+         limits:
+           memory: 3GB
+           cpus: "2"
     volumes:
         - elastic:/opt/elasticsearch/data
   logspout:
@@ -108,9 +109,7 @@ services:
         - "RETRY_STARTUP=true"
 #        - "DEBUG=1"
     deploy:
-#       mode: global
-        mode: replicated   #Pocket Mode
-        replicas: 0        #Pocket Mode
+        mode: global
         resources:
             limits:
                 cpus: '0.20'
@@ -118,14 +117,13 @@ services:
             reservations:
                 cpus: '0.10'
                 memory: 128M
-
   consul-server:
     image: securebrowsing/shield-configuration:latest
     networks:
          - shield
     deploy:
       mode: replicated   #single node
-      replicas: 3        #single node
+      replicas: 3        #single node #Pocket Mode
 #      mode: global       #multi node
       endpoint_mode: dnsrr
       placement:
@@ -149,14 +147,12 @@ services:
       - type: bind
         source: /usr/local/ericomshield/backup
         target: /consul/backup
-
-
   consul:
       image: securebrowsing/shield-consul-agent:latest
       networks:
            - shield
- #     ports:
- #         - "8500:8500"
+#      ports:
+#          - "8500:8500"
       deploy:
         mode: replicated
         replicas: 1
@@ -236,6 +232,7 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
+
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -284,19 +281,20 @@ services:
              #- EXTProxyAddress=
              #- DEBUG_SEND_LOG_TO_AN=true
              - SHIELD_NODE_NAME={{.Node.Hostname}}
+             - SHIELD_SERVICE_NAME={{.Service.Name}}
              - PERF_STATS=true
              - "LOGSTASH_FIELDS=service=browser"
         networks:
             - shield
         deploy:
           mode: replicated
-          replicas: 0
+          replicas: 20
           endpoint_mode: dnsrr
           update_config:
             parallelism: 8
             delay: 10s
           restart_policy:
-              condition: none
+              condition: any
           resources:
             limits:
               memory: 1GB
@@ -313,7 +311,6 @@ services:
           - type: bind
             target: /dev/shm/xorg
             source: /media/containershm
-
   proxy-server:
         image: securebrowsing/proxy-server:latest
         hostname: proxy-server
@@ -329,7 +326,7 @@ services:
         env_file: proxy-server.env
         deploy:
           mode: replicated
-          replicas: 1
+          replicas: 1 #Pocket Mode
           restart_policy:
             condition: any
           update_config:
@@ -343,7 +340,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-
   ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy
@@ -357,14 +353,46 @@ services:
           - shield
         deploy:
           mode: replicated
+          replicas: 1 #Pocket Mode
+          placement:
+            constraints:
+              - node.labels.browser==yes
+          resources:
+            limits:
+              memory: 1024MB
+              cpus: "1"
+  speedtest:
+        image: securebrowsing/speedtest:latest
+        hostname: speedtest
+        ports:
+          - "8185:8185"
+        networks:
+          - shield
+        deploy:
+          mode: replicated
+          replicas: 0  #Pocket Mode
+          placement:
+            constraints:
+              - node.labels.browser==yes
+          resources:
+            limits:
+              memory: 512MB
+              cpus: "0.5"
+  notifier:
+        image: securebrowsing/shield-notifier:latest
+        hostname: notifier
+        networks:
+          - shield
+        deploy:
+          mode: replicated
           replicas: 1
           placement:
             constraints:
               - node.labels.browser==yes
           resources:
             limits:
-              memory: 1GB
-              cpus: "1"
+              memory: 512MB
+              cpus: "0.5"
   authproxy:
       image: securebrowsing/shield-authproxy:latest
       hostname: authproxy
@@ -400,7 +428,7 @@ services:
             - "LOGSTASH_FIELDS=service=webservice"
         deploy:
           mode: replicated
-          replicas: 1
+          replicas: 1 
           placement:
             constraints:
               - node.labels.management==yes
@@ -473,7 +501,6 @@ services:
             limits:
               memory: 100MB
               cpus: "0.5"
-
 volumes:
   elastic:
   portainer:
@@ -490,3 +517,4 @@ networks:
 secrets:
    shield-system-id:
        external: true
+ 
