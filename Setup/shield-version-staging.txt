@@ -1,27 +1,27 @@
-#Build Staging:18.05-Build_331 on 06/05/18
-#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.05-Build_331
+#Build Staging:18.05-Build_334 on 18/05/13
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.05-Build_334
 #docker-version 18.03.0
-shield-configuration:latest shield-configuration:180502-13.04-1933
+shield-configuration:latest shield-configuration:180510-10.17-2023
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180503-15.42-1967
+shield-admin:latest shield-admin:180510-14.46-2033
 shield-portainer:latest shield-portainer:180311-14.35-1498
-proxy-server:latest proxy-server:180501-10.20-1917
-icap-server:latest icap-server:180503-11.29-1956
-shield-cef:latest shield-cef:180503-11.29-1956
-broker-server:latest broker-server:180503-12.11-1958
+proxy-server:latest proxy-server:180513-09.47-2055
+icap-server:latest icap-server:180513-11.00-2064
+shield-cef:latest shield-cef:180513-09.24-2053
+broker-server:latest broker-server:180513-13.02-2072
 shield-collector:latest shield-collector:180501-11.57-1919
-shield-elk:latest shield-elk:180503-14.33-1961
-extproxy:latest extproxy:180503-08.45-1951
+shield-elk:latest shield-elk:180510-16.45-2042
+extproxy:latest extproxy:180513-13.38-2074
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
 shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
 shield-web-service:latest shield-web-service:180326-13.17-1688
 shield-maintenance:latest shield-maintenance:171015-11.48-270
-shield-authproxy:latest shield-authproxy:180502-14.51-1937
+shield-authproxy:latest shield-authproxy:180513-12.50-2070
 node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180312-09.40-1517
 shield-autoupdate:latest shield-autoupdate:180502-14.51-1937
-shield-notifier:latest shield-notifier:180503-15.42-1967
+shield-notifier:latest shield-notifier:180509-13.57-2011
+shield-dns:latest shield-dns:180513-10.50-2062
 # This needs to be the last line
