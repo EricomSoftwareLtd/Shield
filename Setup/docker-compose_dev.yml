@@ -8,7 +8,6 @@ services:
     image: securebrowsing/shield-dns:latest
     networks:
       - shield
-    hostname: dns
     deploy:
       replicas: 2
       restart_policy:
