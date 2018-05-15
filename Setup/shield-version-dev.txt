@@ -14,7 +14,7 @@ shield-elk:latest shield-elk:180514-13.11-2090
 extproxy:latest extproxy:180514-13.54-2092
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
 shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
-shield-web-service:latest shield-web-service:180326-13.17-1688
+shield-web-service:latest shield-web-service:180515-13.43-2109
 shield-maintenance:latest shield-maintenance:171015-11.48-270
 shield-authproxy:latest shield-authproxy:180514-14.25-2094
 node-installer:latest node-installer:180503-17.04
