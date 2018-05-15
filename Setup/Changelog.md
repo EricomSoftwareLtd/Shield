@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_336] - 2018-5-15
+- FIX - DNS Container took external dns settings #3045
+- DNS - can't reach internal web sites #3030
+- Perf test labels & fix ready-to-show #2888
+- Fix ldap refresh browser crash JSON parse
+- Periodic Test - when change the frequency at the admin, it shows time in sec for splitt sec #2741
+- (*) Kibana is not working on build 335 #3041
+- (*) Apps allow skip auth - Admin part #3028
+- Page load test page #2888
+- When System reach to max capacity there is no alert #2841
+- Periodic Test - when change the frequency at the admin, it shows time in sec for splitt sec #2741
+- (*) multi node - proxy not found , no ping to icap-server, bad address #2697
+
+
 ## [Dev:Build_335] - 2018-5-14
 - On ext-proxy internal-dns servers should be used when no ext-servers are specified #3014
 - Support per node alerts ( for CPU, Memory , Disk ) #3006
