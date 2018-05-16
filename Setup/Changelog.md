@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_337] - 2018-5-16
+- Suspend foreground tabs (Admin text change) #2946
+- In order to sign in to a browser, I need to add an application rule #2926
+- DC Admin password is hidden now 
+- Fixed CEF tag typo
+- Fix app rules for profiles with no rules
+- Silence idle timeout socket close error from logs
+
 ## [Dev:Build_336] - 2018-5-15
 - FIX - DNS Container took external dns settings #3045
 - DNS - can't reach internal web sites #3030
