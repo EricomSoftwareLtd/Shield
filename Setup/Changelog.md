@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_338] - 2018-5-16
+- Prettified stats message #2997
+- Fix idle and text #2954
+
 ## [Dev:Build_337] - 2018-5-16
 - Suspend foreground tabs (Admin text change) #2946
 - In order to sign in to a browser, I need to add an application rule #2926
