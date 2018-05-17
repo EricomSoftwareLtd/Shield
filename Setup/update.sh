@@ -93,3 +93,15 @@ docker run --rm  $DOCKER_RUN_PARAM \
        -v /usr/local/ericomshield:/usr/local/ericomshield \
        -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
        "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
+
+NEXT_VERSION=$(cat shield-version.txt | grep 'docker-version' | awk '{ print $2 }')
+CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
+
+if [ "$NEXT_VERSION" != "$CURRENT_VERSION" ]; then
+    docker run --rm  $DOCKER_RUN_PARAM \
+       -v /var/run/docker.sock:/var/run/docker.sock \
+       -v $(which docker):/usr/bin/docker \
+       -v /usr/local/ericomshield:/usr/local/ericomshield \
+       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+       "securebrowsing/$CONTAINER_TAG" upgrade
+fi
