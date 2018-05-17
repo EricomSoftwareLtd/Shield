@@ -3,7 +3,7 @@ SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_339
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180510-10.17-2023
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180517-14.36-2140
+shield-admin:latest shield-admin:180517-15.08-2142
 shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180515-10.18-2100
 icap-server:latest icap-server:180517-12.34-2136
