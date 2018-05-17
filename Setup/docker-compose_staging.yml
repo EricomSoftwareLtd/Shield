@@ -1,9 +1,31 @@
 version: "3.3"
 
 # Ericom Shield Stack Description
-# YML file for Staging (Rel-18.03)
+# YML file for Staging (Rel-18.05)
 
 services:
+  dns:
+    image: securebrowsing/shield-dns:latest
+    networks:
+      - shield
+    hostname: dns
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.labels.management==yes
+      update_config:
+         failure_action: rollback
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1.5"
+    environment:
+      - "LOGSTASH_FIELDS=service=dns"
+      - "UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}"
+
   netdata:
     image: securebrowsing/netdata:latest
     volumes:
@@ -147,8 +169,6 @@ services:
       - type: bind
         source: /usr/local/ericomshield/backup
         target: /consul/backup
-
-
   consul:
       image: securebrowsing/shield-consul-agent:latest
       networks:
@@ -201,7 +221,6 @@ services:
             limits:
               memory: 500MB
               cpus: "0.5"
-
   icap-server:
         image: securebrowsing/icap-server:latest
         # user: nobody
@@ -234,7 +253,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-
   broker-server:
         image: securebrowsing/broker-server:latest
         # user: nobody
@@ -266,7 +284,6 @@ services:
           - shield
         secrets:
           - shield-system-id
-
   shield-browser:
         image: securebrowsing/shield-cef:latest
         user: user
@@ -313,7 +330,6 @@ services:
           - type: bind
             target: /dev/shm/xorg
             source: /media/containershm
-
   proxy-server:
         image: securebrowsing/proxy-server:latest
         hostname: proxy-server
@@ -343,7 +359,6 @@ services:
             limits:
               memory: 500MB
               cpus: "1"
-
   ext-proxy:
         image: securebrowsing/extproxy:latest
         hostname: ext-proxy

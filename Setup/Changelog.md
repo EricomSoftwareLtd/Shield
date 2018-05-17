@@ -9,6 +9,47 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_338] - 2018-5-16
+- Prettified stats message #2997
+- Fix idle and text #2954
+
+## [Dev:Build_337] - 2018-5-16
+- Suspend foreground tabs (Admin text change) #2946
+- In order to sign in to a browser, I need to add an application rule #2926
+- DC Admin password is hidden now 
+- Fixed CEF tag typo
+- Fix app rules for profiles with no rules
+- Silence idle timeout socket close error from logs
+
+## [Dev:Build_336] - 2018-5-15
+- FIX - DNS Container took external dns settings #3045
+- DNS - can't reach internal web sites #3030
+- Perf test labels & fix ready-to-show #2888
+- Fix ldap refresh browser crash JSON parse
+- Periodic Test - when change the frequency at the admin, it shows time in sec for splitt sec #2741
+- (*) Kibana is not working on build 335 #3041
+- (*) Apps allow skip auth - Admin part #3028
+- Page load test page #2888
+- When System reach to max capacity there is no alert #2841
+- Periodic Test - when change the frequency at the admin, it shows time in sec for splitt sec #2741
+- (*) multi node - proxy not found , no ping to icap-server, bad address #2697
+
+
+## [Dev:Build_335] - 2018-5-14
+- On ext-proxy internal-dns servers should be used when no ext-servers are specified #3014
+- Support per node alerts ( for CPU, Memory , Disk ) #3006
+- DNS settings at the admin should be limited only to IP address #3001
+- Alert when DNS setting are not set #2980
+- Minimised view of page after reloading or opening new tab in Firefox on Linux machine. #2961
+- Can't create new account for google drive with shield #2944
+- Add an alert when disk is low for storing the logs #2824
+- Browser service restart policy is set to none in -quickeval #2958
+- Improve setting init zoom #2961 #2992
+- Nameservers are not set from resolv.conf #3015
+- Updated jp translation file
+- Support for Apps that cant authenticate - backend side 
+
+
 ## [Dev:Build_334] - 2018-5-13
 - Proxies will use dns container #2969
 - (*) Fix blank child windows #2968
