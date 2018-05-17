@@ -112,6 +112,14 @@ function perform_env_test() {
         --volume "/var/run/docker.sock:/var/run/docker.sock" \
         --volume "/dev:/hostdev" --volume "/proc:/hostproc" \
         --volume "/:/hostroot" \
+        -e "http_proxy=$http_proxy" \
+        -e "https_proxy=$https_proxy" \
+        -e "ftp_proxy=$ftp_proxy" \
+        -e "rsync_proxy=$rsync_proxy" \
+        -e "HTTP_PROXY=$HTTP_PROXY" \
+        -e "HTTPS_PROXY=$HTTPS_PROXY" \
+        -e "FTP_PROXY=$FTP_PROXY" \
+        -e "RSYNC_PROXY=$RSYNC_PROXY" \
         --rm --name "shield-collector" \
         "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh | tee $RESULTS
 
