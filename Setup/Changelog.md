@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_340] - 2018-5-21
+- Shield Stats improvements #3080
+- DNS adblock whitelist #3089
+- Add averageCpuCorePerSession & averageMemoryPerSession to uploaded shield stats #2997
+- Slow connection alert #2378
+- Install uuidgen in the install #3081
+
 ## [Dev:Build_339] - 2018-5-17
 - Apps support in Shield #1525
 - Applications -default and override rules do not support multi profile #2937
