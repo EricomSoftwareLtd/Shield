@@ -1,17 +1,17 @@
-#Build Staging:18.05-Build_338 on 16/05/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Staging:18.05-Build_338
+#Build Staging:18.05-Build_341 on 21/05/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Staging:18.05-Build_341
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180510-10.17-2023
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180516-07.25-2114
+shield-admin:latest shield-admin:180517-15.08-2142
 shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180515-10.18-2100
-icap-server:latest icap-server:180516-09.58-2121
-shield-cef:latest shield-cef:180516-09.58-2121
-broker-server:latest broker-server:180514-18.35-2096
+icap-server:latest icap-server:180521-14.03-2150
+shield-cef:latest shield-cef:180521-14.26-2152
+broker-server:latest broker-server:180521-11.30-2146
 shield-collector:latest shield-collector:180501-11.57-1919
 shield-elk:latest shield-elk:180515-11.22-2102
-extproxy:latest extproxy:180514-13.54-2092
+extproxy:latest extproxy:180521-05.46-2144
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
 shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
 shield-web-service:latest shield-web-service:180515-13.43-2109
