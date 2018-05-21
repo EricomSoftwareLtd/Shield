@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Staging:18.05-Staging:Build_341] - 2018-5-21
 - Disabled Capacity alert  
+- Change tunnel error msg #3089
 
 ## [Dev:Build_340] - 2018-5-21
 - Shield Stats improvements #3080
