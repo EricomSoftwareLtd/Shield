@@ -159,11 +159,15 @@ if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
 fi
 
-#Check if curl is installed (-w check that the whole word is found)
-if [ "$(dpkg -l | grep -w -c curl)" -eq 0 ]; then
-    echo "***************     Installing curl"
-    apt-get --assume-yes -y install curl
-fi
+function install_if_not_installed() {
+    if ! dpkg -s "$1" >/dev/null 2>&1; then
+        echo "***************     Installing $1"
+        apt-get --assume-yes -y install "$1"
+    fi
+}
+
+install_if_not_installed "curl"
+install_if_not_installed "uuid-runtime"
 
 function save_my_ip() {
     echo "$MY_IP" >"$ES_MY_IP_FILE"
