@@ -32,8 +32,17 @@ while [ $# -ne 0 ]; do
         docker service ls
         echo "------------------------------------------------------------------------------"
         echo
-        var=$(curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats 2>&1)
-        echo ${var:16:330}
+        var=$(curl --silent -q --proxy http://127.0.0.1:3128 http://shield-stats -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36" 2>&1)
+        var=${var//"<br>"/" | "}
+        var=${var//"</h1>"/}
+        var=${var//"<b>"/" "}
+        var=${var//"</b>"/}
+        var=${var//"<i>"/" | "}
+        var=${var//"</i>"/}
+        var=${var//"<p>"/" | "}
+        var=${var//"<blockquote>"/}
+        var=${var//"</blockquote>"/}
+        echo ${var:16:275}
         echo
         echo "------------------------------------------------------------------------------"
         echo
