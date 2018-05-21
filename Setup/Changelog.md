@@ -17,7 +17,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Install uuidgen in the install #3081
 
 ## [Dev:Build_339] - 2018-5-17
-
 - Apps support in Shield #1525
 - Applications -default and override rules do not support multi profile #2937
 - Apps allow skip auth - Admin part #3028
