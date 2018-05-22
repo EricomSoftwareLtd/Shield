@@ -119,9 +119,9 @@ function get_latest_version() {
 }
 
 
-if [ -z "$KEEP_DOCKER" ]; then
-    get_latest_version
-fi
+get_latest_version
+
+
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
@@ -156,7 +156,9 @@ if [ -z "$AUTOUPDATE"  ]; then
     DOCKER_RUN_PARAM="-it"
 fi
 
-upgrade_docker_version
+if [ -z "$KEEP_DOCKER" ]; then
+    upgrade_docker_version
+fi
 
 docker run --rm  $DOCKER_RUN_PARAM \
        -v /var/run/docker.sock:/var/run/docker.sock \
