@@ -150,6 +150,22 @@ if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
 fi
 
+
+function wait_upgrade_process_finish() {
+    while true; do
+        VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
+        if [ "$VERSION" = "$1" ]; then
+            break
+        fi
+        echo "Current docker version is $VERSION wait for $1"
+        printf "."
+        sleep 10
+    done
+
+    echo "Done!"
+}
+
+
 function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
@@ -161,9 +177,10 @@ function upgrade_docker_version() {
            -v /usr/local/ericomshield:/usr/local/ericomshield \
            -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
            "securebrowsing/$CONTAINER_TAG" "$FULL_OUTPUT" upgrade
+
+        wait_upgrade_process_finish "$NEXT_VERSION"
     fi
 }
-
 
 echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNEL) ..."
 
