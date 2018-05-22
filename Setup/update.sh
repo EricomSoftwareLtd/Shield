@@ -21,6 +21,8 @@ ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_FORCE=false
 ES_CHANNEL=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
+ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
+VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:]+)"
 
 cd "$ES_PATH"
 
@@ -87,6 +89,9 @@ while [ $# -ne 0 ]; do
     --keep-docker-version)
         KEEP_DOCKER="yes"
         ;;
+    -f | --force)
+        FORCE_RUN="yes"
+        ;;
     esac
     shift
 done
@@ -119,7 +124,27 @@ function get_latest_version() {
 }
 
 
+function read_current_version() {
+    ver=$(cat "$ES_CONFIG_FILE" | grep "SHIELD_VER=")
+    if [[ $ver =~ $VERSION_REGEX ]]; then
+        CURRENT_SHIELD_VERSION="${BASH_REMATCH[1]}"
+    fi
+}
+
+
 get_latest_version
+if [ -z "$FORCE_RUN" ]; then
+    read_current_version
+    NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
+    if [ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" ]; then
+        echo "Ericom Shield repo version is $NEXT_SHIELD_VERSION"
+        echo "Current system version is $CURRENT_SHIELD_VERSION"
+        echo "Your EricomShield System is Up to date"
+        exit 0
+    fi
+fi
+
+
 
 
 
@@ -156,13 +181,13 @@ if [ -z "$AUTOUPDATE"  ]; then
     DOCKER_RUN_PARAM="-it"
 fi
 
-if [ -z "$KEEP_DOCKER" ]; then
-    upgrade_docker_version
-fi
-
-docker run --rm  $DOCKER_RUN_PARAM \
-       -v /var/run/docker.sock:/var/run/docker.sock \
-       -v $(which docker):/usr/bin/docker \
-       -v /usr/local/ericomshield:/usr/local/ericomshield \
-       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
+#if [ -z "$KEEP_DOCKER" ]; then
+#    upgrade_docker_version
+#fi
+#
+#docker run --rm  $DOCKER_RUN_PARAM \
+#       -v /var/run/docker.sock:/var/run/docker.sock \
+#       -v $(which docker):/usr/bin/docker \
+#       -v /usr/local/ericomshield:/usr/local/ericomshield \
+#       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+#       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
