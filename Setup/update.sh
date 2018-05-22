@@ -145,9 +145,6 @@ if [ -z "$FORCE_RUN" ]; then
 fi
 
 
-
-
-
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
@@ -181,13 +178,13 @@ if [ -z "$AUTOUPDATE"  ]; then
     DOCKER_RUN_PARAM="-it"
 fi
 
-#if [ -z "$KEEP_DOCKER" ]; then
-#    upgrade_docker_version
-#fi
-#
-#docker run --rm  $DOCKER_RUN_PARAM \
-#       -v /var/run/docker.sock:/var/run/docker.sock \
-#       -v $(which docker):/usr/bin/docker \
-#       -v /usr/local/ericomshield:/usr/local/ericomshield \
-#       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-#       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
+if [ -z "$KEEP_DOCKER" ]; then
+    upgrade_docker_version
+fi
+
+docker run --rm  $DOCKER_RUN_PARAM \
+       -v /var/run/docker.sock:/var/run/docker.sock \
+       -v $(which docker):/usr/bin/docker \
+       -v /usr/local/ericomshield:/usr/local/ericomshield \
+       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
