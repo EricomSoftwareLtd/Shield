@@ -22,6 +22,8 @@ ES_FORCE=false
 ES_CHANNEL=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
 
+cd "$ES_PATH"
+
 ARGS="${@}"
 if [ "$ARGS" = "" ]; then
    ARGS="update"
@@ -43,15 +45,19 @@ if [ -n "$AUTOUPDATE" ]; then
 fi
 
 
-
-# if command is update (from cli or based on the previous ifs, then check the channel based on the file) - should be handled in the container
-if [ "$ARGS" = "update" ]; then
-   if [ -f "$ES_STAGING_FILE" ]; then
+function set_channel_mode() {
+    if [ -f "$ES_STAGING_FILE" ]; then
       ES_CHANNEL="--staging"
    fi
    if [ -f "$ES_DEV_FILE" ]; then
       ES_CHANNEL="--dev"
    fi
+}
+
+
+# if command is update (from cli or based on the previous ifs, then check the channel based on the file) - should be handled in the container
+if [ "$ARGS" = "update" ]; then
+    set_channel_mode
 fi
 
 if [ ! -f "$ES_VER_FILE" ]; then
@@ -59,20 +65,83 @@ if [ ! -f "$ES_VER_FILE" ]; then
    exit 1
 fi
 
-#if [ -f "$ES_PRE_CHECK_FILE" ] && [ "$ES_FORCE" == false ]; then
-#    source $ES_PRE_CHECK_FILE
-#    echo "***************     Running pre-install-check ..."
-#    perform_env_test
-#    if [ "$?" -ne "0" ]; then
-#       echo "$(date):FATAL:  Shield pre-install-check failed!"
-#       exit 1
-#    fi
-#fi
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -v | --version)
+        BRANCH=$2
+        if [ -z "$ES_CHANNEL" ]; then
+            set_channel_mode
+        fi
+        ;;
+    --dev)
+        ES_CHANNEL="--dev"
+        ;;
+    --staging)
+        ES_CHANNEL="--staging"
+        ;;
+
+    --verbose)
+        FULL_OUTPUT="--verbose"
+        ;;
+    --keep-docker-version)
+        KEEP_DOCKER="yes"
+        ;;
+    esac
+    shift
+done
+
+
+function get_latest_version() {
+    cd "$ES_PATH"
+    mv "$ES_VER_FILE" "$ES_VER_FILE".bak
+
+    source "$ES_PATH"/ericomshield-repo.sh
+    if [ "$ES_CHANNEL" = "--staging" ]; then
+        VERSION_FILE_PATH="$ES_repo_staging_ver"
+    fi
+
+    if [ "$ES_CHANNEL" = "--dev" ]; then
+        VERSION_FILE_PATH="$ES_repo_dev_ver"
+    fi
+
+    if [ -z "$VERSION_FILE_PATH" ]; then
+        VERSION_FILE_PATH="$ES_repo_ver"
+    fi
+
+    echo "$VERSION_FILE_PATH"
+    curl -s -S -o "$ES_VER_FILE" "$VERSION_FILE_PATH"
+
+    if [ ! -f "$ES_VER_FILE" ]; then
+        echo "Download version file failed. Please check shield version is correct"
+        exit 1
+    fi
+}
+
+
+if [ -z "$KEEP_DOCKER" ]; then
+    get_latest_version
+fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
 fi
+
+function upgrade_docker_version() {
+    NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
+    CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
+
+    if [ "$NEXT_VERSION" != "$CURRENT_VERSION" ]; then
+        docker run --rm  $DOCKER_RUN_PARAM \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v $(which docker):/usr/bin/docker \
+           -v /usr/local/ericomshield:/usr/local/ericomshield \
+           -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+           "securebrowsing/$CONTAINER_TAG" "$FULL_OUTPUT" upgrade
+    fi
+}
+
 
 echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNEL) ..."
 
@@ -86,6 +155,8 @@ fi
 if [ -z "$AUTOUPDATE"  ]; then
     DOCKER_RUN_PARAM="-it"
 fi
+
+upgrade_docker_version
 
 docker run --rm  $DOCKER_RUN_PARAM \
        -v /var/run/docker.sock:/var/run/docker.sock \
