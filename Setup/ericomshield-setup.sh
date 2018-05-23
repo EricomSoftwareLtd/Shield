@@ -144,7 +144,7 @@ done
 
 if [ -z "$BRANCH" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
-      BRANCH=cat "$ES_BRANCH_FILE"
+      BRANCH=$(cat "$ES_BRANCH_FILE")
      else
       BRANCH="master"
     fi  
