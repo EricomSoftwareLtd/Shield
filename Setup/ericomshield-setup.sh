@@ -33,9 +33,11 @@ ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
 ES_uninstall_FILE="$ES_PATH/uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
+ES_BRANCH_FILE="$ES_PATH/.esbranch"
+
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.05-0105"
+ES_SETUP_VER="Setup:18.05-2305"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -126,11 +128,10 @@ while [ $# -ne 0 ]; do
         ES_NO_BROWSERS="-no-browser"
         echo "MultiNode: No Browsers "
         ;;
-
     -version)
         shift
         BRANCH="$1"
-        log_message "Installing version: $BRANCH"
+        echo $BRANCH > "$ES_BRANCH_FILE"
         ;;
     #        -usage)
     *)
@@ -142,8 +143,14 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -z "$BRANCH" ]; then
-    BRANCH="master"
+    if [ ! -f "$ES_BRANCH_FILE" ]; then
+      BRANCH=cat "$ES_BRANCH_FILE"
+     else
+      BRANCH="master"
+    fi  
 fi
+
+log_message "Installing version: $BRANCH"
 
 if [ -f "$ES_DEV_FILE" ]; then
     ES_CHANNEL="ES_DEV"
