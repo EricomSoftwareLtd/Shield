@@ -18,21 +18,16 @@ ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
-ES_FORCE=false
 ES_CHANNEL=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
 ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
 VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:]+)"
 
-cd "$ES_PATH"
+cd "$ES_PATH" || exit
 
 ARGS="${@}"
 if [ "$ARGS" = "" ]; then
    ARGS="update"
-fi
-if [ "$ARGS" = "-f" ]; then
-   ARGS="update"
-   ES_FORCE=true
 fi
 
 case "${ARGS[@]}" in
@@ -45,7 +40,6 @@ if [ -n "$AUTOUPDATE" ]; then
     remove=auto
     ARGS=("${ARGS[@]/$remove}")
 fi
-
 
 function set_channel_mode() {
     if [ -f "$ES_STAGING_FILE" ]; then
@@ -131,7 +125,6 @@ function read_current_version() {
     fi
 }
 
-
 get_latest_version
 if [ -z "$FORCE_RUN" ]; then
     read_current_version
@@ -144,12 +137,10 @@ if [ -z "$FORCE_RUN" ]; then
     fi
 fi
 
-
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
    CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
 fi
-
 
 function wait_upgrade_process_finish() {
     while true; do
