@@ -19,6 +19,7 @@ ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 ES_DEV_FILE="$ES_PATH/.esdev"
 ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_CHANNEL=""
+ES_VERSION_ARG=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
 ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
 VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:]+)"
@@ -126,6 +127,7 @@ function read_current_version() {
 if [ -z "$BRANCH" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
       BRANCH=$(cat "$ES_BRANCH_FILE")
+      ES_VERSION_ARG="-v $BRANCH"
      else
       BRANCH="master"
     fi  
@@ -182,7 +184,7 @@ function upgrade_docker_version() {
     fi
 }
 
-echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS, $BRANCH, $ES_CHANNEL) ..."
+echo "***************     Ericom Shield Update ($CONTAINER_TAG, BRANCH=$BRANCH, ARGS=$ARGS, $ES_CHANNEL, $ES_VERSION_ARG) ..."
 
 echo "$(date): Ericom Shield Update: Running Update"
 
@@ -203,4 +205,4 @@ docker run --rm  $DOCKER_RUN_PARAM \
        -v $(which docker):/usr/bin/docker \
        -v /usr/local/ericomshield:/usr/local/ericomshield \
        -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL
+       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL $ES_VERSION_ARG
