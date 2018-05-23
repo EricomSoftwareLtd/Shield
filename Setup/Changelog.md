@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Jp admin translation fixes
 - Fix docker version output when run shield #3072
 
+## [Dev:Build_341] - 2018-5-22
+- Disabled Capacity alert 
+- Change tunnel error msg #3089
+
 ## [Dev:Build_340] - 2018-5-21
 - Shield Stats improvements #3080
 - DNS adblock whitelist #3089
