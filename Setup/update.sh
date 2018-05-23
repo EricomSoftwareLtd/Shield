@@ -179,9 +179,9 @@ function upgrade_docker_version() {
     fi
 }
 
-echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS $ES_CHANNEL) ..."
+echo "***************     Ericom Shield Update ($CONTAINER_TAG, $ARGS, $BRANCH, $ES_CHANNEL) ..."
 
-echo "$(date): Ericom Shield Update: Running Update" >>"$LOGFILE"
+echo "$(date): Ericom Shield Update: Running Update"
 
 if [ -f "$UPDATE_LOG_FILE" ]; then
     rm -f $UPDATE_LOG_FILE
