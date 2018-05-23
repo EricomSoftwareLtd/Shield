@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_342] - 2018-5-23
+- Fix setting upstream proxy on change
+- CDR automated tests Improvements #3108
+- DNS tests should work via the correct DNS #2973
+- Jp admin translation fixes
+- Fix docker version output when run shield #3072
+
 ## [Dev:Build_340] - 2018-5-21
 - Shield Stats improvements #3080
 - DNS adblock whitelist #3089
