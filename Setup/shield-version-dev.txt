@@ -9,7 +9,7 @@ proxy-server:latest proxy-server:180515-10.18-2100
 icap-server:latest icap-server:180517-12.34-2136
 shield-cef:latest shield-cef:180523-12.13-2160
 broker-server:latest broker-server:180523-08.54-2159
-shield-collector:latest shield-collector:180523-13.03-2162
+shield-collector:latest shield-collector:180523-13.26-2164
 shield-elk:latest shield-elk:180515-11.22-2102
 extproxy:latest extproxy:180521-05.46-2144
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180523-08.31-2157
