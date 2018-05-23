@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_343] - 2018-5-23
+- Fix setting upstream proxy on change
+- CDR automated tests Improvements #3108
+- DNS tests should work via the correct DNS #2973
+- Jp admin translation fixes
+- Fix docker version output when run shield #3072
+- Fix child windows offscreen crash #3058
+- Increased test timeout to 3 minutes (instead of 2)
+
 ## [Dev:Build_341] - 2018-5-22
 - Disabled Capacity alert 
 - Change tunnel error msg #3089
