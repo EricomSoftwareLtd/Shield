@@ -14,7 +14,7 @@ fi
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
-DOCKER_DEFAULT_VERSION="17.12.1"
+DOCKER_DEFAULT_VERSION="18.03.0"
 DOCKER_VERSION=""
 UPDATE=false
 UPDATE_NEED_RESTART=false
@@ -143,7 +143,7 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -z "$BRANCH" ]; then
-    if [ ! -f "$ES_BRANCH_FILE" ]; then
+    if [ -f "$ES_BRANCH_FILE" ]; then
       BRANCH=cat "$ES_BRANCH_FILE"
      else
       BRANCH="master"
