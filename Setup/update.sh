@@ -152,7 +152,7 @@ fi
 function wait_upgrade_process_finish() {
     local wait_count=0
     
-    while ((wait_count < 10)); do
+    while ((wait_count < 60)); do
         VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
         if [ "$VERSION" = "$1" ]; then
             break
