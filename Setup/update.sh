@@ -150,7 +150,9 @@ if [ "$CONTAINER_TAG" = "" ]; then
 fi
 
 function wait_upgrade_process_finish() {
-    while true; do
+    local wait_count=0
+    
+    while ((wait_count < 10)); do
         VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
         if [ "$VERSION" = "$1" ]; then
             break
@@ -158,6 +160,7 @@ function wait_upgrade_process_finish() {
         echo "Current docker version is $VERSION wait for $1"
         printf "."
         sleep 10
+        wait_count=$((wait_count + 1))
     done
 
     echo "Done!"
@@ -167,7 +170,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [ "$NEXT_VERSION" != "$CURRENT_VERSION" ]; then
+    if [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ]; then
         docker run --rm  $DOCKER_RUN_PARAM \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker \
