@@ -15,15 +15,23 @@ ES_PATH=/usr/local/ericomshield
 cd $ES_PATH
 
 NUM_EXPECTED_SERVICES=$(grep -c image docker-compose.yml)
-NUM_RUNNING_SERVICES=$(docker service ls | wc -l)
-NUM_EXPECTED_REP=$(docker service ls | grep -c "/[1-2] ")
-NUM_EXPECTED_REP=$((NUM_EXPECTED_REP + 1))
-NUM_RUNNING_REP=$(docker service ls | grep -c "[1-2]/")
-BROWSER_RUNNING=$(docker service ls | grep browser | awk {'print $4'} | grep -c '0/0')
+
+#Number of running services expected shield-browser
+NUM_RUNNING_SERVICES=$(docker service ls | grep -v shield-browser | grep -c shield)
+NUM_RUNNING_SERVICES=$((NUM_RUNNING_SERVICES + 1)) #Adding 1 for shield-browser
+
+#Number of services with expected replicas >0 and less than 10 (browsers)
+NUM_EXPECTED_REP=$(docker service ls | grep -v shield-browser | grep -c "/[1-9] ")
+NUM_EXPECTED_REP=$((NUM_EXPECTED_REP + 1)) #Adding 1 for shield-browser
+
+#Number of services with running replicas >0 except browsers
+NUM_RUNNING_REP=$( docker service ls | grep -v shield-browser | grep -c "[1-9]/")
+
+#Check if number of running instances for Browser service is >0
+BROWSER_RUNNING=$(docker service ls | grep shield-browser | grep -c ' 0/')
 if [ $BROWSER_RUNNING -eq 0 ]; then
     NUM_RUNNING_REP=$((NUM_RUNNING_REP + 1))
 fi
-
 
 while [ $# -ne 0 ]; do
     arg="$1"
@@ -42,7 +50,7 @@ while [ $# -ne 0 ]; do
         var=${var//"<p>"/" | "}
         var=${var//"<blockquote>"/}
         var=${var//"</blockquote>"/}
-        echo ${var:16:275}
+        echo ${var:16:283}
         echo
         echo "------------------------------------------------------------------------------"
         echo
