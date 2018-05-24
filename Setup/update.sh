@@ -133,7 +133,7 @@ function read_current_version() {
     fi
 }
 
-if [ -z "$BRANCH" ]; then
+if [ -z "$BRANCH" ] && [ -z "$KEY_INSTALL" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
       BRANCH=$(cat "$ES_BRANCH_FILE")
       ES_VERSION_ARG="-v $BRANCH"
