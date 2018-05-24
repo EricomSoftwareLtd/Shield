@@ -12,8 +12,8 @@ broker-server:latest broker-server:180523-08.54-2159
 shield-collector:latest shield-collector:180523-13.26-2164
 shield-elk:latest shield-elk:180515-11.22-2102
 extproxy:latest extproxy:180521-05.46-2144
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:180523-08.31-2157
-shield-cdr-controller:latest shield-cdr-controller:180523-08.31-2157
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
+shield-cdr-controller:latest shield-cdr-controller:180321-11.36-1611
 shield-web-service:latest shield-web-service:180515-13.43-2109
 shield-maintenance:latest shield-maintenance:171015-11.48-270
 shield-authproxy:latest shield-authproxy:180516-08.41-2115
