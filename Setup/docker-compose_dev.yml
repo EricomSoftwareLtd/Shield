@@ -473,6 +473,7 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+      endpoint_mode: dnsrr      
       restart_policy:
         condition: any
       update_config:
