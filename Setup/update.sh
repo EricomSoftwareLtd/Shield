@@ -36,7 +36,16 @@ case "${ARGS[@]}" in
     *"auto"*)
         AUTOUPDATE=true
         ;;
+
+    *"sshkey"*)
+        KEY_INSTALL="yes"
+        ;;
 esac
+
+if [ ! -f "$ES_PATH/ericomshield_key" ] && [ -z "$KEY_INSTALL" ]; then
+    echo "Please run ./update.sh sshkey first"
+    exit 0
+fi
 
 if [ -n "$AUTOUPDATE" ]; then
     remove=auto
@@ -124,7 +133,7 @@ function read_current_version() {
     fi
 }
 
-if [ -z "$BRANCH" ]; then
+if [ -z "$BRANCH" ] && [ -z "$KEY_INSTALL" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
       BRANCH=$(cat "$ES_BRANCH_FILE")
       ES_VERSION_ARG="-v $BRANCH"
@@ -155,7 +164,11 @@ function wait_upgrade_process_finish() {
     local wait_count=0
     
     while ((wait_count < 60)); do
-        VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
+        {
+            VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
+        } || {
+            VERSION="False"
+        }
         if [ "$VERSION" = "$1" ]; then
             break
         fi
@@ -172,7 +185,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ]; then
+    if [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ] && [ -z "$KEY_INSTALL" ]; then
         docker run --rm  $DOCKER_RUN_PARAM \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker \
