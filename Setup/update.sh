@@ -87,6 +87,9 @@ while [ $# -ne 0 ]; do
     --staging)
         ES_CHANNEL="--staging"
         ;;
+    --prod)
+        ES_CHANNEL="--prod"
+        ;;
     --verbose)
         FULL_OUTPUT="--verbose"
         ;;
