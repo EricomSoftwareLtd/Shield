@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.05-Build_344] - 2018-5-24
+- After Idle Timeout: Reload on click anywhere in the page (icap)
+- Update bug fixes (autoupdate)
+- dnsrr in yml for the dispatcher
+- Fix raise condition on creating CA certificate (Admin)
+
 ## [Staging:18.05-Staging:Build_343] - 2018-5-24
 - Fix setting upstream proxy on change
 - DNS tests should work via the correct DNS #2973
