@@ -147,7 +147,7 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-   CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
+   CONTAINER_TAG="shield-autoupdate:rc-1"
    echo "Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag"
 fi
 
@@ -155,7 +155,11 @@ function wait_upgrade_process_finish() {
     local wait_count=0
     
     while ((wait_count < 60)); do
-        VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
+        {
+            VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
+        } || {
+            VERSION="False"
+        }
         if [ "$VERSION" = "$1" ]; then
             break
         fi
