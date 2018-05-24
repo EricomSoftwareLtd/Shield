@@ -38,6 +38,11 @@ case "${ARGS[@]}" in
         ;;
 esac
 
+if [ ! -f "$ES_PATH/ericomshield_key" ]; then
+    echo "Please run ./update.sh sshkey first"
+    exit 0
+fi
+
 if [ -n "$AUTOUPDATE" ]; then
     remove=auto
     ARGS=("${ARGS[@]/$remove}")
