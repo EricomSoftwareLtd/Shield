@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_343] - 2018-5-23
+- Fix setting upstream proxy on change
+- CDR automated tests Improvements #3108
+- DNS tests should work via the correct DNS #2973
+- Jp admin translation fixes
+- Fix docker version output when run shield #3072
+- Fix child windows offscreen crash #3058
+- Increased test timeout to 3 minutes (instead of 2)
+
+## [Dev:Build_341] - 2018-5-22
+- Disabled Capacity alert 
+- Change tunnel error msg #3089
+
+## [Dev:Build_340] - 2018-5-21
+- Shield Stats improvements #3080
+- DNS adblock whitelist #3089
+- Add averageCpuCorePerSession & averageMemoryPerSession to uploaded shield stats #2997
+- Slow connection alert #2378
+- Install uuidgen in the install #3081
+
 ## [Dev:Build_339] - 2018-5-17
 - Apps support in Shield #1525
 - Applications -default and override rules do not support multi profile #2937
