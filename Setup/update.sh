@@ -36,9 +36,13 @@ case "${ARGS[@]}" in
     *"auto"*)
         AUTOUPDATE=true
         ;;
+
+    *"sshkey"*)
+        KEY_INSTALL="yes"
+        ;;
 esac
 
-if [ ! -f "$ES_PATH/ericomshield_key" ]; then
+if [ ! -f "$ES_PATH/ericomshield_key" ] && [ -z "$KEY_INSTALL" ]; then
     echo "Please run ./update.sh sshkey first"
     exit 0
 fi
@@ -152,7 +156,7 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-   CONTAINER_TAG="shield-autoupdate:rc-1"
+   CONTAINER_TAG="shield-autoupdate:180328-06.56-1731"
    echo "Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag"
 fi
 
@@ -181,7 +185,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ]; then
+    if [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ] && [ -z "$KEY_INSTALL" ]; then
         docker run --rm  $DOCKER_RUN_PARAM \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker \
