@@ -24,6 +24,17 @@ NOT_FOUND_STR="404: Not Found"
 NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
+ES_PATH="/usr/local/ericomshield"
+ES_BRANCH_FILE="$ES_PATH/.esbranch"
+
+if [ -z "$BRANCH" ]; then
+    if [ -f "$ES_BRANCH_FILE" ]; then
+      BRANCH=$(cat "$ES_BRANCH_FILE")
+     else
+      BRANCH="master"
+    fi  
+fi
+ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
 
 if ! declare -f log_message >/dev/null; then
     function log_message() {
