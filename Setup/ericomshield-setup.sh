@@ -6,7 +6,7 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage]"
+    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name>"
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -14,6 +14,7 @@ fi
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
+STACK_NAME=shield
 DOCKER_DEFAULT_VERSION="18.03.0"
 DOCKER_VERSION=""
 UPDATE=false
@@ -37,7 +38,7 @@ ES_BRANCH_FILE="$ES_PATH/.esbranch"
 
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.05-2305"
+ES_SETUP_VER="Setup:18.05-2705"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -135,7 +136,7 @@ while [ $# -ne 0 ]; do
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage]"
+        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name>"
         exit
         ;;
     esac
@@ -167,7 +168,7 @@ if [ "$ES_AUTO_UPDATE" == true ]; then
 fi
 
 function install_if_not_installed() {
-    if ! dpkg -s "$1" >/dev/null 2>&1; then
+    if [ ! dpkg -s "$1" >/dev/null 2>&1 ]; then
         echo "***************     Installing $1"
         apt-get --assume-yes -y install "$1"
     fi
@@ -303,6 +304,12 @@ function install_docker() {
         echo -n "apt-get -qq update ..."
         apt-get -qq update
         echo "done"
+        #Stop shield (if running)
+        if [ docker stack ls | grep -c $STACK_NAME -ge 1 ]; then 
+           log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
+           docker stack rm $STACK_NAME
+        fi   
+
         sudo apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
         sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
