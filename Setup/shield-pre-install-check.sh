@@ -171,8 +171,8 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-   CONTAINER_TAG="shield-collector:180328-12.39-1738"
-   log_message "Using default image: $CONTAINER_TAG"
+   CONTAINER_TAG="shield-collector:180523-13.26-2164"
+   log_message "Warning: Using default image: $CONTAINER_TAG"
 fi
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
