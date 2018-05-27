@@ -15,7 +15,6 @@ fi
 DOCKER_DEFAULT_VERSION="18.03.0"
 DOCKER_VERSION="${DOCKER_VERSION:-""}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
-ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version.txt"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
 ES_VER_FILE="./shield-version.txt"
 RESULTS="./results-pre-check.log"
@@ -25,6 +24,18 @@ NOT_FOUND_STR="404: Not Found"
 NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
+ES_PATH="/usr/local/ericomshield"
+ES_BRANCH_FILE="$ES_PATH/.esbranch"
+
+if [ -z "$BRANCH" ]; then
+    if [ -f "$ES_BRANCH_FILE" ]; then
+      BRANCH=$(cat "$ES_BRANCH_FILE")
+     else
+      BRANCH="master"
+    fi  
+fi
+ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
+
 
 if ! declare -f log_message >/dev/null; then
     function log_message() {
