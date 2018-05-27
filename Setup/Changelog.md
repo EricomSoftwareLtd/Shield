@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.05-Build_344] - 2018-5-24
+- After Idle Timeout: Reload on click anywhere in the page (icap)
+- Update bug fixes (autoupdate)
+- dnsrr in yml for the dispatcher
+- Fix raise condition on creating CA certificate (Admin)
+
+## [Staging:18.05-Staging:Build_343] - 2018-5-24
+- Fix setting upstream proxy on change
+- DNS tests should work via the correct DNS #2973
+- Jp admin translation fixes
+- Fix docker version output when run shield #3072
+- Fix child windows offscreen crash #3058
+- Increased test timeout to 3 minutes (instead of 2)
+- Disabled Capacity alert 
+- Change tunnel error msg #3089
+
 ## [Dev:Build_343] - 2018-5-23
 - Fix setting upstream proxy on change
 - CDR automated tests Improvements #3108

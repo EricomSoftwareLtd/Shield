@@ -105,6 +105,7 @@ services:
     deploy:
        mode: replicated   #Pocket Mode	
        replicas: 0        #Pocket Mode
+       restart_policy:       
            condition: any
        placement:
            constraints:
