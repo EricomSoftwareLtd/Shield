@@ -9,9 +9,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.05-Build-344] - 27-05-2018
 ### New Features:
+-  Policy Applications:
+    - Allow/Block any desktop application (using HTTP) in Shield
+    - Allow Apps to skip authentication
+    - Log Apps request (Report)
+- Performance Improvement
+    - Embedded DNS for better performance
+    - DNS (Internal/External) configuration in the Admin
+    - Ad-Blocker
+    - Resources Saver Timeout (decrease FPS on Idle Browsing Session)
+    - After Idle Timeout: Reload on click anywhere in the page
+- Notification and Alert Mechanism
+    - Slack
+    - email
+    - POST
+- Analyzer Report
+- HTTP Headers (Forward/Set/Remove)
+
 ### Enhancements:
+- DC Admin password is hidden
+- Alerts are sent to Syslog
+- Support per node alerts ( for CPU, Memory , Disk )
+- Show hovered links in bottom status bar
+- Periodic Test are now configurable
+- Support for spellcheck - English(US) only
+- Japanese Translation for the Admin
+- Send Anonymous Feedback - false by default
+- Block ftp protocol - not shield it
+- Add "Refresh AD Cache" button to the Admin UI 
+- License based on User (when Authentication is enabled)
+
 ### Bug Fixes:
+- When not typing the full URL, redirect fails
+- Page display is slow when press on back arrow
+- SHIFT+left click not working well with Office online
+- Can't create new account for google drive with shield
+- Japanese - alt+kana roman key type the current mode
 
 ## [Prod:18.04.1-Build-312.3] - 2018-04-22
 ### Bug Fixes:
