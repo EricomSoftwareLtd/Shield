@@ -305,7 +305,7 @@ function install_docker() {
         apt-get -qq update
         echo "done"
         #Stop shield (if running)
-        if [ docker stack ls | grep -c $STACK_NAME -ge 1 ]; then 
+        if [ "$ES_RUN_DEPLOY" == true ] && [ docker stack ls | grep -c $STACK_NAME -ge 1 ]; then 
            log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
            docker stack rm $STACK_NAME
         fi   
