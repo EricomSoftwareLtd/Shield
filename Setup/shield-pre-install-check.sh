@@ -12,7 +12,8 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_VERSION="${DOCKER_VERSION:-17.12.1}"
+DOCKER_DEFAULT_VERSION="18.03.0"
+DOCKER_VERSION="${DOCKER_VERSION:-""}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/shield-version.txt"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
@@ -40,6 +41,13 @@ fi
 if ! declare -f install_docker >/dev/null; then
     function install_docker() {
 
+        if [ -f  "$ES_VER_FILE" ]; then
+           DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+        fi
+        if [ "$DOCKER_VERSION" = "" ]; then
+           DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
+           echo "Using default Docker version: $DOCKER_VERSION"
+        fi
         if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
             echo "***************     Installing docker-engine"
             apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
