@@ -1,15 +1,15 @@
-#Build Staging:18.05-Build_341 on 21/05/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.05-Build_341
+#Build Staging:18.05-Build_344 on 24/05/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.05-Build_344
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180510-10.17-2023
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
-shield-admin:latest shield-admin:180517-15.08-2142
+shield-admin:latest shield-admin:180524-15.05-2189
 shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180515-10.18-2100
-icap-server:latest icap-server:180521-14.03-2150
-shield-cef:latest shield-cef:180521-14.26-2152
-broker-server:latest broker-server:180521-11.30-2146
-shield-collector:latest shield-collector:180501-11.57-1919
+icap-server:latest icap-server:180524-12.52-2187
+shield-cef:latest shield-cef:180523-12.13-2160
+broker-server:latest broker-server:180523-08.54-2159
+shield-collector:latest shield-collector:180523-13.26-2164
 shield-elk:latest shield-elk:180515-11.22-2102
 extproxy:latest extproxy:180521-05.46-2144
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180320-16.40-1606
@@ -21,7 +21,7 @@ node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180312-09.40-1517
-shield-autoupdate:latest shield-autoupdate:180502-14.51-1937
+shield-autoupdate:latest shield-autoupdate:180524-10.35-2178
 shield-notifier:latest shield-notifier:180516-11.38-2124
-shield-dns:latest shield-dns:180515-09.30-2098
+shield-dns:latest shield-dns:180521-15.52-2154
 # This needs to be the last line
