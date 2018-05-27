@@ -62,9 +62,11 @@ function set_channel_mode() {
 }
 
 # if command is update (from cli or based on the previous ifs, then check the channel based on the file) - should be handled in the container
-if [ "$ARGS" = "update" ]; then
-    set_channel_mode
-fi
+#if [ "$ARGS" = "update" ]; then
+#    set_channel_mode
+#fi
+
+set_channel_mode
 
 if [ ! -f "$ES_VER_FILE" ]; then
    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
@@ -122,6 +124,10 @@ function get_latest_version() {
 
     echo "$VERSION_FILE_PATH"
     curl -s -S -o "$ES_VER_FILE" "$VERSION_FILE_PATH"
+
+    if [ -n "$KEY_INSTALL" ]; then
+        ES_CHANNEL=""
+    fi
 
     if [ ! -f "$ES_VER_FILE" ]; then
         echo "Download version file failed. Please check shield version is correct"
@@ -212,7 +218,7 @@ if [ -z "$AUTOUPDATE"  ]; then
     DOCKER_RUN_PARAM="-it"
 fi
 
-if [ -z "$KEEP_DOCKER" ]; then
+if [ -z "$KEEP_DOCKER" ] && [ -z "$KEY_INSTALL" ]; then
     upgrade_docker_version
 fi
 
