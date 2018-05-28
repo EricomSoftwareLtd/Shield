@@ -9,6 +9,9 @@ LOGFILE="$ES_PATH/ericomshield.log"
 COMMAND_NAME="$0"
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
 
+ARGS="addnode"
+COMMAND_LINE="${@}"
+
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
@@ -16,6 +19,13 @@ if ((EUID != 0)); then
     echo "sudo $0 $@"
     exit
 fi
+
+case "${COMMAND_LINE[@]}" in
+    *"addnode"*)
+        ARGS=""
+        ;;
+esac
+
 cd $ES_PATH
 
 echo "Running  $0:"
@@ -40,4 +50,4 @@ docker run --rm  -it \
        -v "$ES_PATH:/usr/local/ericomshield" \
        -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
        -e "COMMAND=$COMMAND_NAME" \
-       "securebrowsing/$CONTAINER_TAG" addnode "${@}"
+       "securebrowsing/$CONTAINER_TAG" "$ARGS" "${@}"
