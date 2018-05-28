@@ -22,6 +22,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - When a service is not starting add "more details" #2786
 - No way to see that keytab was uploaded #2739
 - Copy doesn't work when copying via a "Copy Code" link (reported by BTL) #2725
+- [[Bug]]QA#688618: Shift key is keeping pressed issue with Roman input mode #116 #2876
+- KKA - [[Question]] QA#688697 About combination key #118 #2874
+- KKA -[[Input Issue]] QA#688638: Undefined Japanese conversion character is deleted #119 #2872
+- kka - QA#689263: There is a problem with the operation of the "Henkan" key (conversion key). #122 #2867
+- can't type ä, ü, ö special characters in shield using FF #2807
+- Doc - limitation KKA ーUnderline of unconverted character string #87 #2381
+- Japanese - alt+kana roman key type the current mode on IE and Edge #2368
+
 
 ## [Staging:18.05-Build_344] - 2018-5-24
 - After Idle Timeout: Reload on click anywhere in the page (icap)
