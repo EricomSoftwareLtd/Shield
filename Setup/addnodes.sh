@@ -44,6 +44,8 @@ if [ -f "$UPDATE_LOG_FILE" ]; then
     rm -f $UPDATE_LOG_FILE
 fi
 
+echo "***************     Ericom Shield Update ($CONTAINER_TAG $ARGS ${@}) ..."
+
 docker run --rm  -it \
        -v /var/run/docker.sock:/var/run/docker.sock \
        -v $(which docker):/usr/bin/docker \
