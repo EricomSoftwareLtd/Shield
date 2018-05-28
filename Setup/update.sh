@@ -153,7 +153,7 @@ if [ -z "$BRANCH" ]; then
 fi
 
 get_latest_version
-if [ -z "$FORCE_RUN" ]; then
+if [ -z "$FORCE_RUN" ] && [ -z "$KEY_INSTALL" ]; then
     read_current_version
     NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
     if [ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" ]; then
