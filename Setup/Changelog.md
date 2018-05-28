@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_346] - 2018-5-28
+- Pre-check to support upstream proxy #3054
+- Added dns white list url - fix ynet movies
+- File Download (with sanitization) load test issues (reported by KKA) #3133
+- New version of sshkey
+- Added Ext Proxy non Adblock mode 
+
 ## [Dev:Build_345] - 2018-5-28
 - Admin - policies - stream #3040
 - f3 for searching at the browser is not working #2987
