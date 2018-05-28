@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_345] - 2018-5-28
+- Admin - policies - stream #3040
+- f3 for searching at the browser is not working #2987
+- Youtube play in "0.5 speed" option ignored (reported by Ilan) #2952
+- Electron 2.0 #2900
+- Booking.com - cannot view map #2765
+- "Copy to clipboard" function on AWS Console - does not work #2644
+- CTRL+F does not work on edge #2543
+- back arrow is not working when using different domains -After other p1 #1524
+- Localization support for end user texts (context menu) #2587
+- When a service is not starting add "more details" #2786
+- No way to see that keytab was uploaded #2739
+- Copy doesn't work when copying via a "Copy Code" link (reported by BTL) #2725
+
 ## [Staging:18.05-Build_344] - 2018-5-24
 - After Idle Timeout: Reload on click anywhere in the page (icap)
 - Update bug fixes (autoupdate)
@@ -306,6 +320,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed upload expected status code #2647
 - Added 1050-number-of-cpus.sh test to all 3 modes #2574
 - Collector periodic and on-demand tests are broken #2643
+- update.sh not execute docker version update on worker node. #3164
+- collector image when running update is old #2855
 
 ## [Dev:Build_314] - 2018-4-9
 - Fixed icap tag
