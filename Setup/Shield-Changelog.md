@@ -11,17 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:18.05-Build-344] - 27-05-2018
 ### New Features:
--  Policy Applications:
+-  Applications Policies:
     - Allow/Block any desktop application (using HTTP) in Shield
-    - Allow Apps to skip authentication
-    - Log Apps request (Report)
+    - Skip authentications for specific Applications
+    - Application Report log all Application requests
 - Performance Improvement
     - Embedded DNS for better performance
     - DNS (Internal/External) configuration in the Admin
     - Ad-Blocker
     - Resources Saver Timeout (decrease FPS on Idle Browsing Session)
     - After Idle Timeout: Reload on click anywhere in the page
-- Notification and Alert Mechanism
+- Notification and Alert by:
     - Slack
     - email
     - POST
@@ -29,24 +29,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - HTTP Headers (Forward/Set/Remove)
 
 ### Enhancements:
-- DC Admin password is hidden
-- Alerts are sent to Syslog
-- Support per node alerts ( for CPU, Memory , Disk )
+- End User:
 - Show hovered links in bottom status bar
-- Periodic Test are now configurable
 - Support for spellcheck - English(US) only
+- Admin:
+- DC Admin password is hidden
+- Refresh AD Cache from the Admin UI 
+- Alerts are sent to Syslog
+- Support per node alerts (CPU, Memory & Disk)
+- Periodic Test are now configurable
 - Japanese Translation for the Admin
 - Send Anonymous Feedback - false by default
-- Block ftp protocol - not shield it
-- Add "Refresh AD Cache" button to the Admin UI 
+- Block ftp protocol (configurable in the admin)
 - License based on User (when Authentication is enabled)
 
 ### Bug Fixes:
-- When not typing the full URL, redirect fails
-- Page display is slow when press on back arrow
-- SHIFT+left click not working well with Office online
-- Can't create new account for google drive with shield
-- Japanese - alt+kana roman key type the current mode
+- Fixed: When not typing the full URL, redirect fails
+- Fixed: Page display is slow when press on back arrow
+- Fixed: SHIFT+left click not working well with Office online
+- Fixed: Can't create new account for google drive with shield
+- Fixed: Japanese - alt+kana roman key type the current mode
 
 ## [Prod:18.04.1-Build-312.3] - 2018-04-22
 ### Bug Fixes:
