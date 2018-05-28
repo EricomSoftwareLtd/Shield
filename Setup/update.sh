@@ -128,6 +128,7 @@ function get_latest_version() {
     if [ -n "$KEY_INSTALL" ]; then
         ES_CHANNEL=""
         BRANCH=""
+        ES_VERSION_ARG=""
     fi
 
     if [ ! -f "$ES_VER_FILE" ]; then
