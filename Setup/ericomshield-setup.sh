@@ -77,6 +77,12 @@ function log_message() {
 
 cd "$ES_PATH" || exit
 
+HW_PLATFORM="$(uname -m)"
+if [ "$HW_PLATFORM" != "x86_64" ]; then
+    log_message "Current hardware platform is $HW_PLATFORM. Shield can be installed on x86_64 only. Exiting..."
+    exit 1
+fi
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
