@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - File Download (with sanitization) load test issues (reported by KKA) #3133
 - New version of sshkey
 - Added Ext Proxy non Adblock mode 
+- Ctrl+C is not working + fix for capital letters 3189
+- pre-install-check doesnt work with US proxy #2951
+- pretest - check it is an amd64 install #3129
 
 ## [Dev:Build_345] - 2018-5-28
 - Admin - policies - stream #3040
