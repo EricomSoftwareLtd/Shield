@@ -126,7 +126,7 @@ def set_proxy(flag):
 
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
     if not username is None and not password is None:
-        return "http://{0}:{1}@{2}:{3}".format(username, password, proxy, port)
+        return "http://{0}:{1}@{2}:{3}".format(username, password.replace('$', '\$'), proxy, port)
     else:
         return "http://{0}:{1}".format(proxy, port)
 
