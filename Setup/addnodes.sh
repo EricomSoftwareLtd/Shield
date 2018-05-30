@@ -20,7 +20,7 @@ cd $ES_PATH
 echo "Running  $0:"
 
 if [ ! -f "$ES_VER_FILE" ]; then
-   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
+   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"   
    exit 1
 fi
 CONTAINER_TAG="$(grep -r 'node-installer' $ES_VER_FILE | cut -d' ' -f2)"
