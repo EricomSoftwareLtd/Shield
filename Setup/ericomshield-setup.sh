@@ -186,7 +186,7 @@ function uninstall_if_installed() {
                 ;;
             n | N | "no" | "NO" | "No")
                 echo "no"
-                echo "$PACKAGE conflicts with Shield, the installation cannot continue. Exiting..."
+                echo "$PACKAGE conflicts with Shield, the installation cannot be continued. Exiting..."
 
                 exit 10
                 ;;
