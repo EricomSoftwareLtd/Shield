@@ -127,8 +127,6 @@ function get_latest_version() {
 
     if [ -n "$KEY_INSTALL" ]; then
         ES_CHANNEL=""
-        BRANCH=""
-        ES_VERSION_ARG=""
     fi
 
     if [ ! -f "$ES_VER_FILE" ]; then
@@ -144,7 +142,7 @@ function read_current_version() {
     fi
 }
 
-if [ -z "$BRANCH" ]; then
+if [ -z "$BRANCH" ] && [ -z "$KEY_INSTALL" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
       BRANCH=$(cat "$ES_BRANCH_FILE")
       ES_VERSION_ARG="-v $BRANCH"
@@ -154,7 +152,7 @@ if [ -z "$BRANCH" ]; then
 fi
 
 get_latest_version
-if [ -z "$FORCE_RUN" ] && [ -z "$KEY_INSTALL" ]; then
+if [ -z "$FORCE_RUN" ]; then
     read_current_version
     NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
     if [ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" ]; then
@@ -196,7 +194,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [[ ( "$NEXT_VERSION" != "" && "$NEXT_VERSION" != "$CURRENT_VERSION" && -z "$KEY_INSTALL" ) ||  "$FORCE_RUN" = "yes" ]]; then
+    if [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ] && [ -z "$KEY_INSTALL" ]; then
         docker run --rm  $DOCKER_RUN_PARAM \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker \
