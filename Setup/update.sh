@@ -196,7 +196,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ] && [ -z "$KEY_INSTALL" ]; then
+    if { [ "$NEXT_VERSION" != "" ] && [ "$NEXT_VERSION" != "$CURRENT_VERSION" ] && [ -z "$KEY_INSTALL" ] } || [ "$FORCE_RUN" = "yes" ]; then
         docker run --rm  $DOCKER_RUN_PARAM \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker \
