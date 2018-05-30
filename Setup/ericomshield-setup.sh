@@ -173,6 +173,35 @@ if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
 fi
 
+function uninstall_if_installed() {
+    local PACKAGE="$1"
+    if dpkg -s "$PACKAGE" >/dev/null 2>&1; then
+        while read -p "$PACKAGE is installed on the system which conflicts with Shield. Do you want to remove it? " choice; do
+            case "$choice" in
+            y | Y | "yes" | "YES" | "Yes")
+                echo "yes"
+                echo "***************     Uninstalling $PACKAGE"
+                apt-get purge "$PACKAGE"
+                return 0
+                ;;
+            n | N | "no" | "NO" | "No")
+                echo "no"
+                echo "$PACKAGE conflicts with Shield, the installation cannot continue. Exiting..."
+
+                exit 10
+                ;;
+            *) ;;
+
+            esac
+        done
+
+    fi
+}
+
+uninstall_if_installed "dnsmasq"
+uninstall_if_installed "bind9"
+uninstall_if_installed "unbound"
+
 function install_if_not_installed() {
     if [ ! dpkg -s "$1" >/dev/null 2>&1 ]; then
         echo "***************     Installing $1"
