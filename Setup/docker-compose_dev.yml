@@ -387,6 +387,29 @@ services:
             limits:
               memory: 1024MB
               cpus: "1"
+  ext-proxy-noadblock:
+      image: securebrowsing/extproxy:latest
+      hostname: ext-proxy-noadblock
+      ports:
+        - "3139:3138"
+      ulimits:
+        nofile:
+          soft: 65535
+          hard: 65535
+      networks:
+        - shield
+      deploy:
+        mode: replicated
+        replicas: 2
+        placement:
+          constraints:
+            - node.labels.browser==yes
+        resources:
+          limits:
+            memory: 1024MB
+            cpus: "1"
+      environment:
+        ADDBLOCK: "no"
   speedtest:
         image: securebrowsing/speedtest:latest
         hostname: speedtest
