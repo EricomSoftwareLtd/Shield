@@ -11,6 +11,18 @@ if ((EUID != 0)); then
     echo "sudo $0 $@"
     exit
 fi
+
+case "$1" in
+    -h | --help)
+        echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
+        echo ""
+        echo ""
+        echo "sshkey Make ssh key to connect to swarm hosts"
+        echo "update Update docker/shield command"
+        exit 0
+     ;;
+esac
+
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
