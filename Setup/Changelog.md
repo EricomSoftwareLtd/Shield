@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_347] - 2018-5-31
+- Failed to update the cluster with current build #3221
+- ./showversion is looking different after create sshkey #3180
+- Admin - translations - several issues #3174
+- copy is not working on some web sites #3154
+- addnode.sh fails when using US proxy #2930
+
 ## [Dev:Build_346] - 2018-5-28
 - Pre-check to support upstream proxy #3054
 - Added dns white list url - fix ynet movies
