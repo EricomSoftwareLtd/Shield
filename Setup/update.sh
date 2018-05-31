@@ -17,7 +17,7 @@ case "$1" in
         echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
         echo ""
         echo ""
-        echo "sshkey Generate ssh key for cross node communication"
+        echo "sshkey Make ssh key to connect to swarm hosts"
         echo "update Update docker/shield command"
         exit 0
      ;;
