@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_348] - 2018-5-31
+- admin UI -is partially broken see issues at settings and alert section #3177
+- Add New Application dialog #3151
+- Admin-Applications - skip authentication #3097
+- Apps support in Shield #1525
+- Fixed collctor 
+
 ## [Dev:Build_347] - 2018-5-31
 - Failed to update the cluster with current build #3221
 - ./showversion is looking different after create sshkey #3180
