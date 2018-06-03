@@ -10,7 +10,7 @@ services:
       - shield
     hostname: dns
     deploy:
-      replicas: 2
+      replicas: 1
       restart_policy:
         condition: any
       placement:
