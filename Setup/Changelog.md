@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_349] - 2018-6-3
+- Checking distribution pre-install test fails on my machine with "Internal Error" #2922
+- Pre-check to support upstream proxy #3054
+- Sync shield server time #3091
+- Admin UI -is partially broken see issues at settings and alert section #3177
+- Missing information about machine #3219
+
 ## [Dev:Build_347] - 2018-5-31
 - Failed to update the cluster with current build #3221
 - ./showversion is looking different after create sshkey #3180
