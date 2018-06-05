@@ -397,6 +397,9 @@ function prepare_yml() {
 
     #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
+
+    local TZ="$((test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
+    sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
 }
 
 function switch_to_multi_node() {
