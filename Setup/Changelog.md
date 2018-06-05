@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_350] - 2018-6-5
+- adBlocker end-user message - change text #3224
+- esbranch is not being updated with the correct branch #3214
+- Ova build 18.05 - remove one of the DNS components #3194
+- Sanitization failed - internal error 3 #3188
+- Support AD block in policies #3173
+- KKA - [[Input Issue]] QA#687279: Japanese character conversion candidate display position #109 #3170
+- Update.sh not execute docker version update on worker node. #3164
+- Admin - support additional CDR solutions #3148
+- Support sandblast for file sanitisation #3144
+- Update and autoupdate should update sysctl config #2791
+- Output when running update.sh is ugly #2420
+- Limit the Amount of Tabs a User Can Open #1005
 
 ## [Dev:Build_349] - 2018-6-3
 - Checking distribution pre-install test fails on my machine with "Internal Error" #2922
