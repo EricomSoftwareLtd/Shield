@@ -99,7 +99,7 @@ services:
             - 'TZ=UTC'
             - 'ROUTE_URIS=logstash+tcp://elk:5025'
             - 'RETRY_STARTUP=true'
-#            - "DEBUG=1"
+            #- "DEBUG=1"
         deploy:
             mode: global
             resources: {limits: {cpus: '0.20', memory: 256M}, reservations: {cpus: '0.10', memory: 128M}}
@@ -110,7 +110,7 @@ services:
         deploy:
             mode: replicated   #single node
             replicas: 5        #single node
-#            mode: global       #multi node
+            #mode: global      #multi node
             endpoint_mode: dnsrr
             placement: {constraints: [node.labels.management==yes]}
             update_config: {parallelism: 1, failure_action: rollback, delay: 100s}
@@ -175,7 +175,7 @@ services:
             - 'SHIELD_VER=8.0.0.latest'
             - 'SHIELD_IP=IP_ADDRESS'
             - 'LOGSTASH_FIELDS=service=icap'
-#            - 'SHIELD_WATERMARK=TRUE'
+            #- 'SHIELD_WATERMARK=TRUE'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
