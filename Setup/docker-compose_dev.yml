@@ -16,7 +16,8 @@ services:
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 1GB, cpus: '1.5'}}
         environment:
-            - LOGSTASH_FIELDS=service=dns
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=dns'
             - 'UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}'
     netdata:
         image: 'securebrowsing/netdata:latest'
@@ -32,6 +33,8 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             resources: {limits: {cpus: '0.20', memory: 256M}}
+        environment:
+            - 'TZ=UTC'
     maintenance:
         image: 'securebrowsing/shield-maintenance:latest'
         volumes:
@@ -45,8 +48,9 @@ services:
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 2GB, cpus: '1'}}
         environment:
-            - IMAGE_CLEAN_INTERVAL=1m
-            - LOGSTASH_FIELDS=service=maintenance
+            - 'TZ=UTC'
+            - 'IMAGE_CLEAN_INTERVAL=1m'
+            - 'LOGSTASH_FIELDS=service=maintenance'
     collector:
         image: 'securebrowsing/shield-collector:latest'
         networks:
@@ -55,8 +59,9 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock'
         hostname: '{{.Node.ID}}-{{.Service.Name}}'
         environment:
-            - NODE_ENV=production
-            - LOGSTASH_FIELDS=service=collector
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=collector'
         deploy:
             mode: global
             restart_policy: {condition: any}
@@ -70,10 +75,11 @@ services:
         networks:
             - shield
         environment:
-            - REINDEX_RUNINNG_INTERVAL=30s
-            - CLEAN_RUNINNG_INTERVAL=12h
-            - LOGSPOUT=ignore
-            - HEAP_SIZE=2g
+            - 'TZ=UTC'
+            - 'REINDEX_RUNINNG_INTERVAL=30s'
+            - 'CLEAN_RUNINNG_INTERVAL=12h'
+            - 'LOGSPOUT=ignore'
+            - 'HEAP_SIZE=2g'
         deploy:
             replicas: 1
             restart_policy: {condition: any}
@@ -90,8 +96,9 @@ services:
             - '/etc/hostname:/etc/host_hostname:ro'
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
+            - 'TZ=UTC'
             - 'ROUTE_URIS=logstash+tcp://elk:5025'
-            - RETRY_STARTUP=true
+            - 'RETRY_STARTUP=true'
 #            - "DEBUG=1"
         deploy:
             mode: global
@@ -103,16 +110,17 @@ services:
         deploy:
             mode: replicated   #single node
             replicas: 5        #single node
-#           mode: global       #multi node
+#            mode: global       #multi node
             endpoint_mode: dnsrr
             placement: {constraints: [node.labels.management==yes]}
             update_config: {parallelism: 1, failure_action: rollback, delay: 100s}
             restart_policy: {condition: any}
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
-            - CONSUL_BIND_INTERFACE=eth0
-            - NUMBER_OF_EXPECTED=3 # works for single and multi node
-            - LOGSTASH_FIELDS=service=consulserver
+            - 'TZ=UTC'
+            - 'CONSUL_BIND_INTERFACE=eth0'
+            - 'NUMBER_OF_EXPECTED=3' # works for single and multi node
+            - 'LOGSTASH_FIELDS=service=consulserver'
         volumes:
             - {type: bind, source: /usr/local/ericomshield/backup, target: /consul/backup}
     consul:
@@ -128,9 +136,10 @@ services:
             restart_policy: {condition: any}
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
-            - CONSUL_BIND_INTERFACE=eth2
-            - RUN_AGENT=yes
-            - LOGSTASH_FIELDS=service=consulclient
+            - 'TZ=UTC'
+            - 'CONSUL_BIND_INTERFACE=eth2'
+            - 'RUN_AGENT=yes'
+            - 'LOGSTASH_FIELDS=service=consulclient'
 
 ###################################################################### Shield services part ##################################################################
 
@@ -140,9 +149,10 @@ services:
         ports:
             - '8181:8181'
         environment:
-            - SHIELD_VER=8.0.0.latest
-            - NODE_ENV=production
-            - LOGSTASH_FIELDS=service=admin
+            - 'TZ=UTC'
+            - 'SHIELD_VER=8.0.0.latest'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=admin'
         volumes:
             - 'admin:/data/consul'
             - '/var/run/docker.sock:/var/run/docker.sock'
@@ -160,11 +170,12 @@ services:
         # user: nobody
         hostname: icap-server
         environment:
-            - NODE_ENV=production
-            - SHIELD_VER=8.0.0.latest
-            - SHIELD_IP=IP_ADDRESS
-            - LOGSTASH_FIELDS=service=icap
-#            - SHIELD_WATERMARK=TRUE
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'SHIELD_VER=8.0.0.latest'
+            - 'SHIELD_IP=IP_ADDRESS'
+            - 'LOGSTASH_FIELDS=service=icap'
+#            - 'SHIELD_WATERMARK=TRUE'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -192,9 +203,10 @@ services:
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
-            - NODE_ENV=production
-            - LOGSTASH_FIELDS=service=broker
-            - SHIELD_VER=8.0.0.latest
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=broker'
+            - 'SHIELD_VER=8.0.0.latest'
         networks:
             - shield
         secrets:
@@ -208,16 +220,17 @@ services:
         labels:
             - com.ericom.browser
         environment:
-            #- FPS=25
-            #- DEBUG_REMOTE_SITE=true
-            #- DISPOSE_BROWSER=true
-            #- RUN_WITH_DEBUGGER=false
-            #- EXTProxyAddress=
-            #- DEBUG_SEND_LOG_TO_AN=true
+            - 'TZ=UTC'
+            #- 'FPS=25'
+            #- 'DEBUG_REMOTE_SITE=true'
+            #- 'DISPOSE_BROWSER=true'
+            #- 'RUN_WITH_DEBUGGER=false'
+            #- 'EXTProxyAddress='
+            #- 'DEBUG_SEND_LOG_TO_AN=true'
             - 'SHIELD_NODE_NAME={{.Node.Hostname}}'
             - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
-            - PERF_STATS=true
-            - LOGSTASH_FIELDS=service=browser
+            - 'PERF_STATS=true'
+            - 'LOGSTASH_FIELDS=service=browser'
         networks:
             - shield
         deploy:
@@ -239,8 +252,9 @@ services:
         networks:
             - shield
         environment:
-            - SSLEXCLUSION=true
-            - LOGSTASH_FIELDS=service=proxy
+            - 'TZ=UTC'
+            - 'SSLEXCLUSION=true'
+            - 'LOGSTASH_FIELDS=service=proxy'
         env_file: proxy-server.env
         deploy:
             mode: replicated
@@ -263,6 +277,8 @@ services:
             replicas: 2
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 1024MB, cpus: '1'}}
+        environment:
+            - 'TZ=UTC'
     ext-proxy-noadblock:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy-noadblock
@@ -278,7 +294,8 @@ services:
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 1024MB, cpus: '1'}}
         environment:
-            ADDBLOCK: no
+            - 'TZ=UTC'
+            - 'ADDBLOCK=no'
     speedtest:
         image: 'securebrowsing/speedtest:latest'
         hostname: speedtest
@@ -291,6 +308,8 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
+        environment:
+            - 'TZ=UTC'
     notifier:
         image: 'securebrowsing/shield-notifier:latest'
         hostname: notifier
@@ -301,6 +320,8 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
+        environment:
+            - 'TZ=UTC'
     authproxy:
         image: 'securebrowsing/shield-authproxy:latest'
         hostname: authproxy
@@ -314,8 +335,9 @@ services:
         ports:
             - {target: 3128, published: 3128, protocol: tcp, mode: host}
         environment:
-            - NODE_ENV=production
-            - LOGSTASH_FIELDS=service=authproxy
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=authproxy'
     web-service:
         image: 'securebrowsing/shield-web-service:latest'
         hostname: web-service
@@ -324,9 +346,10 @@ services:
         networks:
             - shield
         environment:
-            - SHIELD_IP=IP_ADDRESS
-            - NODE_ENV=production
-            - LOGSTASH_FIELDS=service=webservice
+            - 'TZ=UTC'
+            - 'SHIELD_IP=IP_ADDRESS'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=webservice'
         deploy:
             mode: replicated
             replicas: 1
@@ -336,8 +359,9 @@ services:
         image: 'securebrowsing/shield-cdr-dispatcher:latest'
         hostname: cdr-dispatcher
         environment:
-            - NODE_ENV=production
-            - LOGSTASH_FIELDS=service=cdrdispatcher
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=cdrdispatcher'
         networks:
             - shield
         deploy:
@@ -351,8 +375,9 @@ services:
         image: 'securebrowsing/shield-cdr-controller:latest'
         hostname: cdr-controller
         environment:
-            - NODE_ENV=production
-            - LOGSTASH_FIELDS=service=cdrcontroller
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=cdrcontroller'
         networks:
             - shield
         deploy:
@@ -373,7 +398,8 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer:/data'
         environment:
-            - LOGSTASH_FIELDS=service=portainer
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=portainer'
         networks:
             - shield
         deploy:
