@@ -332,6 +332,10 @@ services:
         volumes:
           - type: tmpfs
             target: /dev/shm
+          - type: tmpfs
+            target: /tmp
+          - type: tmpfs
+            target: /home
           - type: bind
             target: /dev/shm/xorg
             source: /media/containershm
