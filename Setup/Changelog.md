@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_351] - 2018-6-6
+- admin UI is not functioning #3278
+- update.sh fails #3281
+- KKA - [[Input Issue]] QA#687132 repeated with TAB #108 #3171
+- Pre check needs to check if bind9 is installed #2971
+- KKA -[[Input Issue]] QA#688638: Undefined Japanese conversion character is deleted #119 #2872
+- Set remoteBroswer path to use shm #3231
+
 ## [Dev:Build_350] - 2018-6-5
 - adBlocker end-user message - change text #3224
 - esbranch is not being updated with the correct branch #3214

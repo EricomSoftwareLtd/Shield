@@ -243,6 +243,8 @@ services:
             placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - {type: tmpfs, target: /dev/shm}
+            - {type: tmpfs, target: /home}
+            - {type: tmpfs, target: /tmp}
             - {type: bind, target: /dev/shm/xorg, source: /media/containershm}
     proxy-server:
         image: 'securebrowsing/proxy-server:latest'
