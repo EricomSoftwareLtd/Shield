@@ -419,21 +419,24 @@ function prepare_yml() {
             comp_ver=$(echo "$ver" | awk '{print $2}')
             if [ ! -z "$pattern_ver" ]; then
                 #echo "Changing ver: $comp_ver"
-                sed -i "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
+                sed -i'' "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
             fi
         fi
     done <"$ES_VER_FILE"
 
-    #echo "  sed -i 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
-    sed -i "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
+    #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
+    sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
+
+    local TZ="$((test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
+    sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
 }
 
 function switch_to_multi_node() {
-    if [ $(grep -c '#      mode: global       #multi node' $ES_YML_FILE) -eq 1 ]; then
+    if [ $(grep -c '#[[:space:]]*mode: global[[:space:]]*#multi node' $ES_YML_FILE) -eq 1 ]; then
         echo "Switching to Multi-Node (consul-server -> global)"
-        sed -i 's/      mode: replicated   #single node/#      mode: replicated   #single node/g' $ES_YML_FILE
-        sed -i 's/      replicas: 5        #single node/#      replicas: 5        #single node/g' $ES_YML_FILE
-        sed -i 's/#      mode: global       #multi node/      mode: global       #multi node/g' $ES_YML_FILE
+        sed -i'' 's/\(mode: replicated[[:space:]]*#single node\)/#\1/g' $ES_YML_FILE
+        sed -i'' 's/\(replicas: 5[[:space:]]*#single node\)/#\1/g' $ES_YML_FILE
+        sed -i'' 's/#\([[:space:]]*mode: global[[:space:]]*#multi node\)/\1/g' $ES_YML_FILE
         SWITCHED_TO_MULTINODE=true
     fi
 }
