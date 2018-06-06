@@ -563,6 +563,7 @@ function get_shield_files() {
     chmod +x restart.sh
     curl -s -S -o ~/show-my-ip.sh "$ES_repo_ip"
     chmod +x ~/show-my-ip.sh
+    cp ~/show-my-ip.sh "$ES_PATH/show-my-ip.sh"
     curl -s -S -o addnodes.sh "$ES_repo_addnodes"
     chmod +x addnodes.sh
     curl -s -S -o nodes.sh "$ES_repo_shield_nodes"
