@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_352] - 2018-6-7
+- (*) Support for shield to use Customer CA with password #2756
+- Add System Name to Shield Stat #3272
+- Uploading a file too big fails with Internal error #2832
+- Upload big file is failing #2810
+- Alert on Email Improvements #3270
+
 ## [Dev:Build_351] - 2018-6-6
 - admin UI is not functioning #3278
 - update.sh fails #3281
