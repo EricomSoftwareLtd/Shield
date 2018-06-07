@@ -1,13 +1,13 @@
-#Build Dev:Build_351 on 18/06/65
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_351
+#Build Dev:Build_352 on 18/06/7
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_352
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180606-12.42-2297
 shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
-shield-admin:latest shield-admin:180606-13.20-2301
+shield-admin:latest shield-admin:180607-14.37-2312
 shield-portainer:latest shield-portainer:180311-14.35-1498
-proxy-server:latest proxy-server:180606-12.58-2298
+proxy-server:latest proxy-server:180607-14.47-2314
 icap-server:latest icap-server:180606-12.42-2297
-shield-cef:latest shield-cef:180606-13.20-2301
+shield-cef:latest shield-cef:180607-06.30-2303
 broker-server:latest broker-server:180606-12.42-2297
 shield-collector:latest shield-collector:180606-12.42-2297
 shield-elk:latest shield-elk:180530-08.25-2246
@@ -22,6 +22,6 @@ shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180606-12.58-2298
 shield-autoupdate:latest shield-autoupdate:180606-10.16-2294
-shield-notifier:latest shield-notifier:180606-12.42-2297
+shield-notifier:latest shield-notifier:180607-07.59-2305
 shield-dns:latest shield-dns:180606-12.58-2298
 # This needs to be the last line
