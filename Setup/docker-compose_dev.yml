@@ -69,10 +69,10 @@ services:
             update_config: {failure_action: rollback}
     elk:
         image: 'securebrowsing/shield-elk:latest'
-        ports:
-            - '5601:5601'
-            - '9200:9200'
-            - '5014:5014'
+#        ports:
+#            - '5601:5601'
+#            - '9200:9200'
+#            - '5014:5014'
         networks:
             - shield
         environment:
