@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_354] - 2018-6-10
+- Admin main menu #3196
+- Notifications report - syntax mistakes #3056
+- Fixed collector failed to contact ELK
+
 ## [Dev:Build_353] - 2018-6-10
 - Use Ad Blocking Protection - remove from settings #3291
 - http://shield-perf/ - bigger url field #3213
