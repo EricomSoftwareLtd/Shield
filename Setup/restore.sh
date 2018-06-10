@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #Check if we are root
+ES_PATH=/usr/local/ericomshield
+
 if ((EUID != 0)); then
     #    sudo su
     echo "Usage: $0 [filename]"
@@ -11,6 +13,13 @@ fi
 
 if [ -n "$1" ]; then
     FILE_NAME="$1"
+
+    if [ -f "$FILE_NAME" ]; then
+        cp "$FILE_NAME" "$ES_PATH/backup/"
+    else
+        echo "File $FILE_NAME not found"
+        exit 1
+    fi
 fi
 
 while [ $# -ne 0 ]; do
