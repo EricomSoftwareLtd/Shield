@@ -57,6 +57,7 @@ services:
             - shield
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/dev:/hostdev'
         hostname: '{{.Node.ID}}-{{.Service.Name}}'
         environment:
             - 'TZ=UTC'

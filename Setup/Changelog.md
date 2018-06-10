@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_353] - 2018-6-10
+- Use Ad Blocking Protection - remove from settings #3291
+- http://shield-perf/ - bigger url field #3213
+- Context menu allow user to select UI language and store in local browser #3182
+- Align different timeouts and their outcome (terminate and absolute timeouts) #3115
+- Copy doesn't work when copying via a "Copy Code" link (reported by BTL) #2725
+- Drive speed test - syntax error #2764
+- Admin - support additional CDR solutions #3148
+- Fix tool tip for other vendors then votiro #3288
+
 ## [Dev:Build_352] - 2018-6-7
 - (*) Support for shield to use Customer CA with password #2756
 - Add System Name to Shield Stat #3272
