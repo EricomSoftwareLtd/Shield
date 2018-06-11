@@ -1,7 +1,7 @@
 version: "3.3"
 
 # Ericom Shield Stack Description
-# YML file for Staging (Rel-18.05)
+# YML file for Production (Rel-18.05)
 
 services:
   dns:
