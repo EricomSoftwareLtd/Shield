@@ -49,7 +49,8 @@ services:
             resources: {limits: {memory: 2GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-            - 'IMAGE_CLEAN_INTERVAL=1m'
+            - 'IMAGE_CLEAN_INTERVAL=1h'
+            - 'RUN_TIME=23:59'
             - 'LOGSTASH_FIELDS=service=maintenance'
     collector:
         image: 'securebrowsing/shield-collector:latest'
