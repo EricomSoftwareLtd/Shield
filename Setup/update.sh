@@ -28,14 +28,13 @@ ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
-ES_DEV_FILE="$ES_PATH/.esdev"
-ES_STAGING_FILE="$ES_PATH/.esstaging"
-ES_CHANNEL=""
 ES_VERSION_ARG=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
 ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
 VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:]+)"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
+DEV_BRANCH="Dev"
+STAGING_BRANCH="Staging"
 
 cd "$ES_PATH" || exit
 
@@ -64,22 +63,6 @@ if [ -n "$AUTOUPDATE" ]; then
     ARGS=("${ARGS[@]/$remove}")
 fi
 
-function set_channel_mode() {
-    if [ -f "$ES_STAGING_FILE" ]; then
-      ES_CHANNEL="--staging"
-   fi
-   if [ -f "$ES_DEV_FILE" ]; then
-      ES_CHANNEL="--dev"
-   fi
-}
-
-# if command is update (from cli or based on the previous ifs, then check the channel based on the file) - should be handled in the container
-#if [ "$ARGS" = "update" ]; then
-#    set_channel_mode
-#fi
-
-set_channel_mode
-
 if [ ! -f "$ES_VER_FILE" ]; then
    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
    exit 1
@@ -91,18 +74,12 @@ while [ $# -ne 0 ]; do
     -v | --version)
         BRANCH=$2
         echo $BRANCH > "$ES_BRANCH_FILE"
-        if [ -z "$ES_CHANNEL" ]; then
-            set_channel_mode
-        fi
         ;;
     --dev)
-        ES_CHANNEL="--dev"
+        echo $DEV_BRANCH >"$ES_BRANCH_FILE"
         ;;
     --staging)
-        ES_CHANNEL="--staging"
-        ;;
-    --prod)
-        ES_CHANNEL="--prod"
+        echo $STAGING_BRANCH >"$ES_BRANCH_FILE"
         ;;
     --verbose)
         FULL_OUTPUT="--verbose"
@@ -122,13 +99,6 @@ function get_latest_version() {
     mv "$ES_VER_FILE" "$ES_VER_FILE".bak
 
     source "$ES_PATH"/ericomshield-repo.sh
-    if [ "$ES_CHANNEL" = "--staging" ]; then
-        VERSION_FILE_PATH="$ES_repo_staging_ver"
-    fi
-
-    if [ "$ES_CHANNEL" = "--dev" ]; then
-        VERSION_FILE_PATH="$ES_repo_dev_ver"
-    fi
 
     if [ -z "$VERSION_FILE_PATH" ]; then
         VERSION_FILE_PATH="$ES_repo_ver"
@@ -138,7 +108,6 @@ function get_latest_version() {
     curl -s -S -o "$ES_VER_FILE" "$VERSION_FILE_PATH"
 
     if [ -n "$KEY_INSTALL" ]; then
-        ES_CHANNEL=""
         BRANCH=""
         ES_VERSION_ARG=""
     fi
@@ -220,7 +189,7 @@ function upgrade_docker_version() {
     fi
 }
 
-echo "***************     Ericom Shield Update ($CONTAINER_TAG, BRANCH=$BRANCH, ARGS=$ARGS, $ES_CHANNEL, $ES_VERSION_ARG) ..."
+echo "***************     Ericom Shield Update ($CONTAINER_TAG, BRANCH=$BRANCH, ARGS=$ARGS, $ES_VERSION_ARG) ..."
 
 echo "$(date): Ericom Shield Update: Running Update"
 
@@ -241,4 +210,4 @@ docker run --rm  $DOCKER_RUN_PARAM \
        -v $(which docker):/usr/bin/docker \
        -v /usr/local/ericomshield:/usr/local/ericomshield \
        -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_CHANNEL $ES_VERSION_ARG
+       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_VERSION_ARG

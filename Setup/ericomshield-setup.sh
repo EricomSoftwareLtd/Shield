@@ -21,8 +21,6 @@ UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
 NOT_FOUND_STR="404: Not Found"
-ES_DEV_FILE="$ES_PATH/.esdev"
-ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
@@ -35,16 +33,15 @@ ES_uninstall_FILE="$ES_PATH/uninstall.sh"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
+DEV_BRANCH="Dev"
+STAGING_BRANCH="Staging"
 
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.05-2705"
+ES_SETUP_VER="Setup:18.06-1106"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
-ES_CHANNEL="Production"
-ES_DEV=false
-ES_STAGING=false
 ES_POCKET=false
 ES_AUTO_UPDATE=false
 ES_FORCE=false
@@ -86,20 +83,17 @@ fi
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
+    -version)
+        shift
+        BRANCH="$1"
+        echo $BRANCH > "$ES_BRANCH_FILE"
+        ;;
     -dev)
-        ES_DEV=true
-        echo "ES_DEV" >"$ES_DEV_FILE"
-        ES_CHANNEL="ES_DEV"
-        ES_STAGING=false
+        echo $DEV_BRANCH >"$ES_BRANCH_FILE"
         ES_AUTO_UPDATE=true # ES_AUTO_UPDATE=true for Dev Deployments
-        rm -f "$ES_STAGING_FILE"
         ;;
     -staging)
-        ES_STAGING=true
-        echo "ES_STAGING" >"$ES_STAGING_FILE"
-        ES_CHANNEL="ES_STAGING"
-        ES_DEV=false
-        rm -f "$ES_DEV_FILE"
+        echo $STAGING_BRANCH >"$ES_BRANCH_FILE"
         ;;
     -autoupdate)
         ES_AUTO_UPDATE=true
@@ -135,11 +129,6 @@ while [ $# -ne 0 ]; do
         ES_NO_BROWSERS="-no-browser"
         echo "MultiNode: No Browsers "
         ;;
-    -version)
-        shift
-        BRANCH="$1"
-        echo $BRANCH > "$ES_BRANCH_FILE"
-        ;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name>"
@@ -158,16 +147,6 @@ if [ -z "$BRANCH" ]; then
 fi
 
 log_message "Installing version: $BRANCH"
-
-if [ -f "$ES_DEV_FILE" ]; then
-    ES_CHANNEL="ES_DEV"
-    ES_DEV=true
-fi
-
-if [ -f "$ES_STAGING_FILE" ]; then
-    ES_CHANNEL="ES_STAGING"
-    ES_STAGING=true
-fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
     echo "ES_AUTO_UPDATE" >"$ES_AUTO_UPDATE_FILE"
@@ -267,9 +246,7 @@ function choose_network_interface() {
             echo "Invalid option. Try another one."
             continue
             ;;
-
         esac
-
     done
 
     failed_to_install "Aborting installation!"
@@ -461,16 +438,9 @@ function get_precheck_files() {
 
 function get_shield_install_files() {
     echo "Getting shield install files"
-    if [ "$ES_DEV" == true ]; then
-        echo "Getting $ES_repo_dev_ver (dev)"
-        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_dev_ver"
-    elif [ "$ES_STAGING" == true ]; then
-        echo "Getting $ES_repo_staging_ver (staging)"
-        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_staging_ver"
-    else
-        echo "Getting $ES_repo_ver (prod)"
-        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
-    fi
+    echo "Getting $ES_repo_ver"
+    curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
+
     SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE_NEW" | cut -d' ' -f2)
     if [ -f "$ES_VER_FILE" ]; then
         if [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_NEW" | wc -l)" -eq 0 ]; then
@@ -497,21 +467,12 @@ function get_shield_install_files() {
         mv "$ES_YML_FILE" "$ES_YML_FILE_BAK"
     fi
     curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
-    if [ "$ES_STAGING" == true ]; then
-        echo "Getting $ES_repo_staging_yml (staging)"
-        curl -s -S -o "$ES_YML_FILE" "$ES_repo_staging_yml"
-    fi
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
         curl -s -S -o "$ES_YML_FILE" "$ES_repo_pocket_yml"
     fi
     curl -s -S -o deploy-shield.sh "$ES_repo_swarm_sh"
-    if [ "$ES_DEV" == true ]; then
-        echo "Getting $ES_repo_dev_yml"
-        curl -s -S -o "$ES_YML_FILE" "$ES_repo_dev_yml"
-        curl -s -S -o deploy-shield.sh "$ES_repo_swarm_dev_sh"
-    fi
     chmod +x deploy-shield.sh
 }
 
@@ -627,7 +588,7 @@ function set_storage_driver() {
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
-log_message "***************     EricomShield Setup ($ES_SETUP_VER) $ES_CHANNEL ..."
+log_message "***************     EricomShield Setup ($ES_SETUP_VER) $BRANCH ..."
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
