@@ -22,11 +22,6 @@ if [ ! -d "$CONSUL_BACKUP_PATH" ]; then
     mkdir -p "$CONSUL_BACKUP_PATH"
 fi
 
-#For bckwrd-compatibility and Jenkins
-if [ ! -f "$ES_YML_FILE" ]; then
-    ES_YML_FILE=docker-compose_dev.yml
-fi
-
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -129,11 +124,7 @@ function make_in_memory_volume() {
     fi
 }
 
-if [ -z "$JENKINS" ]; then
-    ES_YML_FILE=docker-compose.yml
-else
-    ES_YML_FILE=docker-compose_dev.yml
-fi
+ES_YML_FILE=docker-compose.yml
 
 SWARM=$(test_swarm_exists)
 if [ -z "$SWARM" ]; then
