@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_355] - 2018-6-12
+- localized context menu is off #3348
+- Data retention for basic authentication #3347
+- Movies - security session time out #3344
+- Sandblast - can't download files with foreign language #3339
+- AdminUI: Application Table is broken #3335
+- Policies table - comment column #3315
+- End user localisation V2 #3307
+- Elk service is unavailable after restart #3286
+- Clean docker images/containers in Maintenance docker #3267
+- stopped containers and volumes - not cleaned properly #3211
+- Applications Report - column re-order #3139
+- Admin - suspend tabs value other than "Both" #3110
+- Health-Check point for Shield #2962
+- Consul restore.sh should work with full file path. #2826
+- ELK - Old data/schema conflicts #2825
+
 ## [Dev:Build_354] - 2018-6-10
 - Admin main menu #3196
 - Notifications report - syntax mistakes #3056
