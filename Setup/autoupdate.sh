@@ -16,11 +16,11 @@ UPDATE=false
 ES_PATH="/usr/local/ericomshield"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
-ES_DEV_FILE="$ES_PATH/.esdev"
-ES_STAGING_FILE="$ES_PATH/.esstaging"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
+ES_BRANCH_FILE="$ES_PATH/.esbranch"
+DEV_BRANCH="Dev"
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -72,11 +72,8 @@ function am_i_leader() {
 }
 
 while true; do
-    if [ -f "$ES_STAGING_FILE" ]; then
-        ES_STAGING=true
-    fi
     # Maintenance Time is only for Prod environments
-    if [ -f "$ES_DEV_FILE" ]; then
+    if [ -f "$ES_BRANCH_FILE"] && [ $(grep -c "$DEV_BRANCH" "$ES_BRANCH_FILE") -ge 1 ]; then
         ES_DEV=true
     elif [ "$AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME" == true ]; then
         wait_for_maintenance_time
@@ -89,13 +86,7 @@ while true; do
         fi
 
         if [ "$AM_I_LEADER" == true ]; then
-              if [ "$ES_DEV" == true ]; then
-                $ES_PATH/update.sh auto update --dev "$FORCE_UPDATE"
-              elif [ "$ES_STAGING" == true ]; then
-                $ES_PATH/update.sh auto update --staging "$FORCE_UPDATE"
-              else
-                $ES_PATH/update.sh auto update "$FORCE_UPDATE"
-              fi
+           $ES_PATH/update.sh auto update "$FORCE_UPDATE"
         else
             echo "Not running update (I'm not the leader)"
         fi
