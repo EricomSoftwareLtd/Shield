@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_356] - 2018-6-12
+- kaytana website dropbox is not visible #3372
+- Policies table - comment column #3315
+- Adblock - does not work as expected #3290
+- Alert on email Improvements #3270
+- Copy doesn't work when copying via a "Copy Code" link (reported by BTL) #2725
+- Admin - default language in translations #3297
+- add a message to refresh after changing the default langauge #3275
+- Context menu allow user to select UI language and store in local browser #3182
+- Drive speed test - syntax error #2764
+- Support for shield to use Customer CA with password #2756
+- localisation support for end user texts (context menu) #2587
+
 ## [Dev:Build_355] - 2018-6-12
 - localized context menu is off #3348
 - Data retention for basic authentication #3347
