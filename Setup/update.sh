@@ -138,11 +138,15 @@ if [ -z "$BRANCH" ]; then
     fi  
 fi
 
-get_latest_version
+if [ -z "$HELP_ASKED" ]; then
+    get_latest_version
+fi
+
+
 if [ -z "$FORCE_RUN" ] && [ -z "$KEY_INSTALL" ]; then
     read_current_version
     NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
-    if [ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" ]; then
+    if [[ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" && -z "$HELP_ASKED" ]]; then
         echo "Ericom Shield repo version is $NEXT_SHIELD_VERSION"
         echo "Current system version is $CURRENT_SHIELD_VERSION"
         echo "Your EricomShield System is Up to date"
