@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_357] - 2018-6-14
+- Set Trust all for XFF Forwarding #3395
+- AdBlock - string change #3383
+- (*) Youtube is getting stuck #3077
+- Added AV to sandblast , Fixed notification timeout
+- Fixed test alert text for Slack #3403
+- Basic auth password is saved as base64 
+- Apply host Timezone during update
+
 ## [Dev:Build_356] - 2018-6-12
 - kaytana website dropbox is not visible #3372
 - Policies table - comment column #3315
