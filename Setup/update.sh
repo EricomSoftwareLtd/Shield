@@ -140,6 +140,8 @@ fi
 
 if [ -z "$HELP_ASKED" ]; then
     get_latest_version
+else
+    ES_VERSION_ARG=''
 fi
 
 
