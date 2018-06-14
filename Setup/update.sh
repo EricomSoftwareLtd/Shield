@@ -15,8 +15,9 @@ fi
 case "$1" in
     -h | --help)
         echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
+        echo "--verbose Switch to detailed output"
         echo ""
-        echo ""
+        echo "Commands:"
         echo "sshkey Make ssh key to connect to swarm hosts"
         echo "update Update docker/shield command"
         exit 0
@@ -89,6 +90,9 @@ while [ $# -ne 0 ]; do
         ;;
     -f | --force)
         FORCE_RUN="yes"
+        ;;
+    -h | --help)
+        HELP_ASKED="yes"
         ;;
     esac
     shift
@@ -177,7 +181,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [[ ( "$NEXT_VERSION" != "" && "$NEXT_VERSION" != "$CURRENT_VERSION" && -z "$KEY_INSTALL" ) ||  "$FORCE_RUN" = "yes" ]]; then
+    if [[ ( "$NEXT_VERSION" != "" && "$NEXT_VERSION" != "$CURRENT_VERSION" && -z "$KEY_INSTALL" && -z "$HELP_ASKED" ) ||  "$FORCE_RUN" = "yes" ]]; then
         docker run --rm  $DOCKER_RUN_PARAM \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker \
