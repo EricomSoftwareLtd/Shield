@@ -6,7 +6,7 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name>"
+    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -38,7 +38,7 @@ STAGING_BRANCH="Staging"
 
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.06-1106"
+ES_SETUP_VER="Setup:18.06-1806"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -49,7 +49,6 @@ ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
 ES_CONFIG_STORAGE=yes
 SWITCHED_TO_MULTINODE=false
-ES_NO_BROWSERS=""
 
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
@@ -70,6 +69,43 @@ function log_message() {
         return 1
     fi
     return 0
+}
+
+function list_versions() {
+#CICI    
+    ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases.txt"
+    echo "Getting $ES_repo_versions"
+#    curl -s -S -o "Releases.txt" $ES_repo_versions
+    cat Releases.txt | cut -d':' -f1
+    
+    read -p "please select the Release you want to install:" choice; 
+    case "$choice" in
+        "1" | "latest")
+            echo 'latest'
+            OPTION="1)"
+            ;;
+        "2")
+            echo "2."
+            OPTION="2)"
+            ;;
+        "3")
+            echo "3."
+            OPTION="3)"
+            ;;
+        "4")
+            echo "4."
+            OPTION="4)"
+            ;;
+        *) 
+            echo "Not valid option, exiting"
+            exit 1
+            ;;            
+    esac
+    echo "$OPTION"
+    grep "$OPTION" Releases.txt
+    BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
+    echo "$BRANCH"
+    exit 0
 }
 
 cd "$ES_PATH" || exit
@@ -119,13 +155,12 @@ while [ $# -ne 0 ]; do
         ES_CONFIG_STORAGE=no
         echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
-    -no-browser)
-        ES_NO_BROWSERS="-no-browser"
-        echo "MultiNode: No Browsers "
+    -list-versions)
+        list_versions
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name>"
+        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
         exit
         ;;
     esac
@@ -700,7 +735,7 @@ fi
 
 if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
     echo "source deploy-shield.sh"
-    source deploy-shield.sh $ES_NO_BROWSERS
+    source deploy-shield.sh
 
     # Check the result of the last command (start, status, deploy-shield)
     if [ $? == 0 ]; then
