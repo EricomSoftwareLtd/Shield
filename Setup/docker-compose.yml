@@ -33,6 +33,8 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             resources: {limits: {cpus: '0.20', memory: 256M}}
+# netdata will not be deployed by default (need to add label:netdata):            
+            placement: {constraints: [node.labels.netdata==yes]}
         environment:
             - 'TZ=UTC'
     maintenance:
