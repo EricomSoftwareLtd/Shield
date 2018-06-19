@@ -43,6 +43,11 @@ function get_container_tag() {
 }
 
 
+function print_usage() {
+    echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-e | --errors] [-h | --help]"
+}
+
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -80,15 +85,15 @@ while [ $# -ne 0 ]; do
             "securebrowsing/$CONTAINER_TAG" status -e
        ;;
     -h | --help)
-        echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-e | --errors] [-h | --help]"
+        print_usage "$0"
         echo "           -a --all - lists all services in the system"
         echo "           -s --services - prints a detailed report of the services in the system and which service runs on which node"
         echo "           -n --nodes - lists the nodes in the multi-machine system, including data about each node"
-        echo "           -e --errors - lists the services errors in the multi-machine system, including data about each failed service"
+        echo "           -e --errors - lists the services errors in the single or multi-machine system, including data about each failed service"
         exit
         ;;
     *)
-        echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-h | --help]"
+        print_usage "$0"
         exit
         ;;
     esac
