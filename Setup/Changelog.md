@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_358] - 2018-6-19
+- (*) Redcue contierns size 
+- (*) Removed Ericom.com and google.com from connectivity tests
+- Installer/Upgrader should support -list-versions (R4) #537
+- no error message when the file cannot be download and tab is at background #2038
+- problem to watch videos on facebook #2763
+- Alert on email Improvements #3270
+- admin | policies | import - failure file #3458
+- auto_generated - please remove completely from code #3455
+- no error/warning msg for the user in case import fails #3452
+- admin UI export policies table - fix the order of the columns #3435
+- Alert "Failed contacting Sanitization server" to include the CDR URL(s) #3422
+- Netdata is taking a lot of resources #3419
+- policies import warning message - the download should be enabled #3450
+- admin UI - tool tip for export and import should be fixed #3440
+
 
 ## [Dev:Build_357] - 2018-6-14
 - Set Trust all for XFF Forwarding #3395
