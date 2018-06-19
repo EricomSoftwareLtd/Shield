@@ -1,5 +1,5 @@
-#Release 18.05-Build_344 on 24/05/18 #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=18.05-Build_344
+#Release 18.05-Build_344.0 on 24/05/18 #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=18.05-Build_344.0
 #docker-version 18.03.0
 shield-configuration:latest shield-configuration:180510-10.17-2023
 shield-consul-agent:latest shield-consul-agent:180207-18.32-1293
@@ -8,7 +8,7 @@ shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180515-10.18-2100
 icap-server:latest icap-server:180524-12.52-2187
 shield-cef:latest shield-cef:180523-12.13-2160
-broker-server:latest broker-server:180523-08.54-2159
+broker-server:latest broker-server:whitedns2
 shield-collector:latest shield-collector:180523-13.26-2164
 shield-elk:latest shield-elk:180515-11.22-2102
 extproxy:latest extproxy:180521-05.46-2144
