@@ -467,8 +467,11 @@ function get_precheck_files() {
 
 function get_shield_install_files() {
     echo "Getting shield install files"
-    echo "Getting $ES_repo_ver"
-    curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
+    
+    if [ ! -f "$ES_VER_FILE_NEW" ]; then    
+       echo "Getting $ES_repo_ver"
+       curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
+    fi    
 
     SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE_NEW" | cut -d' ' -f2)
     if [ -f "$ES_VER_FILE" ]; then
