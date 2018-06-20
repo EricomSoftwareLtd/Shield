@@ -9,6 +9,61 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_358] - 2018-6-19
+- (*) Reduce containers size 
+- (*) Removed Ericom.com and google.com from connectivity tests
+- Installer/Upgrader should support -list-versions (R4) #537
+- no error message when the file cannot be download and tab is at background #2038
+- problem to watch videos on Facebook #2763
+- Alert on email Improvements #3270
+- admin | policies | import - failure file #3458
+- auto_generated - please remove completely from code #3455
+- no error/warning msg for the user in case import fails #3452
+- admin UI export policies table - fix the order of the columns #3435
+- Alert "Failed contacting Sanitization server" to include the CDR URL(s) #3422
+- Netdata is taking a lot of resources #3419
+- policies import warning message - the download should be enabled #3450
+- admin UI - tool tip for export and import should be fixed #3440
+
+## [Dev:Build_357] - 2018-6-14
+- Set Trust all for XFF Forwarding #3395
+- AdBlock - string change #3383
+- (*) Youtube is getting stuck #3077
+- Added AV to sandblast, Fixed notification timeout
+- Fixed test alert text for Slack #3403
+- Basic auth password is saved as base64
+- Apply host Time zone during update
+
+## [Dev:Build_356] - 2018-6-12
+- kaytana website dropbox is not visible #3372
+- Policies table - comment column #3315
+- Adblock - does not work as expected #3290
+- Alert on email Improvements #3270
+- Copy doesn't work when copying via a "Copy Code" link (reported by BTL) #2725
+- Admin - default language in translations #3297
+- add a message to refresh after changing the default language #3275
+- Context menu allow user to select UI language and store in local browser #3182
+- Drive speed test - syntax error #2764
+- Support for shield to use Customer CA with password #2756
+- localization support for end user texts (context menu) #2587
+
+## [Dev:Build_355] - 2018-6-12
+- localized context menu is off #3348
+- Data retention for basic authentication #3347
+- Movies - security session time out #3344
+- Sandblast - can't download files with foreign language #3339
+- AdminUI: Application Table is broken #3335
+- Policies table - comment column #3315
+- End user localization V2 #3307
+- Elk service is unavailable after restart #3286
+- Clean docker images/containers in Maintenance docker #3267
+- stopped containers and volumes - not cleaned properly #3211
+- Applications Report - column re-order #3139
+- Admin - suspend tabs value other than "Both" #3110
+- Health-Check point for Shield #2962
+- Consul restore.sh should work with full file path. #2826
+- ELK - Old data/schema conflicts #2825
+
 ## [Dev:Build_354] - 2018-6-10
 - Admin main menu #3196
 - Notifications report - syntax mistakes #3056
