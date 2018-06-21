@@ -16,5 +16,14 @@ if [ ! -f ./docker-debs.tgz ]; then
    echo "docker-debs.tgz file not found, exiting!"
 fi
 
+#stop docket in case it's running
+systemctl stop docker
+
+#extract docker-debs directory
 tar xvfz docker-debs.tgz
+
+#install deb files
 dpkg -i docker_debs/*.deb
+
+#remove docker_deb directory
+rm -rf ./docker_debs
