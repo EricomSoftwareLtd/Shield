@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - admin - profiles - change icon color #3414
 - no error message when the file cannot be download and tab is at background #2038
 - CDR: Consider showing file block reason to the user, based on the report #1360
+- admin UI policies - export/ import - the table is not working for editing #3429
+
 
 ## [Dev:Build_358] - 2018-6-19
 - (*) Redcue contierns size 
