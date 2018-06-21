@@ -17,7 +17,7 @@ if [ ! -f ./docker-debs.tgz ]; then
 fi
 
 #stop docker in case it's running
-systemctl stop docker
+systemctl stop docker || true
 
 #extract docker-debs directory
 tar xvfz docker-debs.tgz
