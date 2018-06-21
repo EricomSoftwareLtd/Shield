@@ -333,7 +333,7 @@ function accept_license() {
 function install_docker() {
 
     if [ -f  "$ES_VER_FILE" ]; then
-       DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+       DOCKER_VERSION="$(grep -r '^docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
        DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
