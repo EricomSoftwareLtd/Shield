@@ -181,6 +181,7 @@ function wait_upgrade_process_finish() {
     done
 
     echo "Done!"
+    sleep 20
 }
 
 function upgrade_docker_version() {

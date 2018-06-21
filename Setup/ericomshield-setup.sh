@@ -72,10 +72,15 @@ function log_message() {
 }
 
 function list_versions() {
-#CICI    
     ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases.txt"
     echo "Getting $ES_repo_versions"
-#    curl -s -S -o "Releases.txt" $ES_repo_versions
+    curl -s -S -o "Releases.txt" $ES_repo_versions
+
+    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt ) -ge 1 ]; then
+       echo "Error: cannot download Release.txt, exiting"
+       exit 1
+    fi
+    
     cat Releases.txt | cut -d':' -f1
     
     read -p "please select the Release you want to install:" choice; 
@@ -97,7 +102,7 @@ function list_versions() {
             OPTION="4)"
             ;;
         *) 
-            echo "Not valid option, exiting"
+            echo "Error: Not valid option, exiting"
             exit 1
             ;;            
     esac
