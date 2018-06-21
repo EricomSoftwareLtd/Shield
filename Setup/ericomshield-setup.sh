@@ -342,7 +342,7 @@ function install_docker() {
 
     if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         log_message "***************     Installing docker-engine: $DOCKER_VERSION"
-        apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
+        apt-get --assume-yes -y install apt-transport-https software-properties-common
 
         #Docker Installation of a specific Version
         curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
