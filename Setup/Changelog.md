@@ -240,7 +240,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Can't create new account for google drive with shield #2944
 - Add an alert when disk is low for storing the logs #2824
 - Browser service restart policy is set to none in -quickeval #2958
-- Improve setting init zoom #2961 #2992
+- Improve setting init zoom #2961 #2992
 - Nameservers are not set from resolv.conf #3015
 - Updated jp translation file
 - Support for Apps that cant authenticate - backend side 
