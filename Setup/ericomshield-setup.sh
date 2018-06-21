@@ -340,7 +340,7 @@ function install_docker() {
        echo "Using default Docker version: $DOCKER_VERSION"
     fi
 
-    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+    if [ ! -x /usr/bin/docker ] || [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         log_message "***************     Installing docker-engine: $DOCKER_VERSION"
         apt-get --assume-yes -y install apt-transport-https software-properties-common
 
