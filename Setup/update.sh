@@ -15,8 +15,9 @@ fi
 case "$1" in
     -h | --help)
         echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
+        echo "--verbose Switch to detailed output"
         echo ""
-        echo ""
+        echo "Commands:"
         echo "sshkey Make ssh key to connect to swarm hosts"
         echo "update Update docker/shield command"
         exit 0
@@ -90,6 +91,9 @@ while [ $# -ne 0 ]; do
     -f | --force)
         FORCE_RUN="yes"
         ;;
+    -h | --help)
+        HELP_ASKED="yes"
+        ;;
     esac
     shift
 done
@@ -134,11 +138,17 @@ if [ -z "$BRANCH" ]; then
     fi  
 fi
 
-get_latest_version
+if [ -z "$HELP_ASKED" ]; then
+    get_latest_version
+else
+    ES_VERSION_ARG=''
+fi
+
+
 if [ -z "$FORCE_RUN" ] && [ -z "$KEY_INSTALL" ]; then
     read_current_version
     NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
-    if [ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" ]; then
+    if [[ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" && -z "$HELP_ASKED" ]]; then
         echo "Ericom Shield repo version is $NEXT_SHIELD_VERSION"
         echo "Current system version is $CURRENT_SHIELD_VERSION"
         echo "Your EricomShield System is Up to date"
@@ -177,7 +187,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [[ ( "$NEXT_VERSION" != "" && "$NEXT_VERSION" != "$CURRENT_VERSION" && -z "$KEY_INSTALL" ) ||  "$FORCE_RUN" = "yes" ]]; then
+    if [[ ( "$NEXT_VERSION" != "" && "$NEXT_VERSION" != "$CURRENT_VERSION" && -z "$KEY_INSTALL" && -z "$HELP_ASKED" ) ||  "$FORCE_RUN" = "yes" ]]; then
         docker run --rm  $DOCKER_RUN_PARAM \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $(which docker):/usr/bin/docker \

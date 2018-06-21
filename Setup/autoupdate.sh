@@ -73,7 +73,7 @@ function am_i_leader() {
 
 while true; do
     # Maintenance Time is only for Prod environments
-    if [ -f "$ES_BRANCH_FILE"] && [ $(grep -c "$DEV_BRANCH" "$ES_BRANCH_FILE") -ge 1 ]; then
+    if [ -f "$ES_BRANCH_FILE" ] && [ $(grep -c "$DEV_BRANCH" "$ES_BRANCH_FILE") -ge 1 ]; then
         ES_DEV=true
     elif [ "$AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME" == true ]; then
         wait_for_maintenance_time
