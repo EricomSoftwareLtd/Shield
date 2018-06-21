@@ -15,7 +15,7 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 STACK_NAME=shield
-DOCKER_DEFAULT_VERSION="18.03.0"
+DOCKER_DEFAULT_VERSION="18.03.1"
 DOCKER_VERSION=""
 UPDATE=false
 UPDATE_NEED_RESTART=false
@@ -357,8 +357,8 @@ function install_docker() {
         fi   
 
         sudo apt-cache policy docker-ce
-        echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-        sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
+        echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
+        sudo apt-get -y --assume-yes --allow-downgrades install "docker-ce=$DOCKER_VERSION*"
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
