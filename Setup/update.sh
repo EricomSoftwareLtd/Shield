@@ -13,15 +13,15 @@ if ((EUID != 0)); then
 fi
 
 case "$1" in
-    -h | --help)
-        echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
-        echo "--verbose Switch to detailed output"
-        echo ""
-        echo "Commands:"
-        echo "sshkey Make ssh key to connect to swarm hosts"
-        echo "update Update docker/shield command"
-        exit 0
-     ;;
+-h | --help)
+    echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
+    echo "--verbose Switch to detailed output"
+    echo ""
+    echo "Commands:"
+    echo "sshkey Make ssh key to connect to swarm hosts"
+    echo "update Update docker/shield command"
+    exit 0
+    ;;
 esac
 
 ES_PATH="/usr/local/ericomshield"
@@ -41,17 +41,17 @@ cd "$ES_PATH" || exit
 
 ARGS="${@}"
 if [ "$ARGS" = "" ]; then
-   ARGS="update"
+    ARGS="update"
 fi
 
 case "${ARGS[@]}" in
-    *"auto"*)
-        AUTOUPDATE=true
-        ;;
+*"auto"*)
+    AUTOUPDATE=true
+    ;;
 
-    *"sshkey"*)
-        KEY_INSTALL="yes"
-        ;;
+*"sshkey"*)
+    KEY_INSTALL="yes"
+    ;;
 esac
 
 if [ ! -f "$ES_PATH/ericomshield_key" ] && [ -z "$KEY_INSTALL" ]; then
@@ -61,12 +61,12 @@ fi
 
 if [ -n "$AUTOUPDATE" ]; then
     remove=auto
-    ARGS=("${ARGS[@]/$remove}")
+    ARGS=("${ARGS[@]/$remove/}")
 fi
 
 if [ ! -f "$ES_VER_FILE" ]; then
-   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
-   exit 1
+    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
+    exit 1
 fi
 
 while [ $# -ne 0 ]; do
@@ -74,7 +74,7 @@ while [ $# -ne 0 ]; do
     case "$arg" in
     -v | --version)
         BRANCH=$2
-        echo $BRANCH > "$ES_BRANCH_FILE"
+        echo $BRANCH >"$ES_BRANCH_FILE"
         ;;
     --dev)
         echo $DEV_BRANCH >"$ES_BRANCH_FILE"
@@ -131,11 +131,11 @@ function read_current_version() {
 
 if [ -z "$BRANCH" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
-      BRANCH=$(cat "$ES_BRANCH_FILE")
-      ES_VERSION_ARG="-v $BRANCH"
-     else
-      BRANCH="master"
-    fi  
+        BRANCH=$(cat "$ES_BRANCH_FILE")
+        ES_VERSION_ARG="-v $BRANCH"
+    else
+        BRANCH="master"
+    fi
 fi
 
 if [ -z "$HELP_ASKED" ]; then
@@ -144,11 +144,10 @@ else
     ES_VERSION_ARG=''
 fi
 
-
 if [ -z "$FORCE_RUN" ] && [ -z "$KEY_INSTALL" ]; then
     read_current_version
     NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
-    if [[ "$CURRENT_SHIELD_VERSION" = "$NEXT_SHIELD_VERSION" && -z "$HELP_ASKED" ]]; then
+    if [[ $CURRENT_SHIELD_VERSION == "$NEXT_SHIELD_VERSION" && -z $HELP_ASKED ]]; then
         echo "Ericom Shield repo version is $NEXT_SHIELD_VERSION"
         echo "Current system version is $CURRENT_SHIELD_VERSION"
         echo "Your EricomShield System is Up to date"
@@ -158,16 +157,16 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-   CONTAINER_TAG="shield-autoupdate:180524-10.35-2178"
-   echo "$(date): Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag" >>"$LOGFILE"
+    CONTAINER_TAG="shield-autoupdate:180524-10.35-2178"
+    echo "$(date): Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag" >>"$LOGFILE"
 fi
 
 function wait_upgrade_process_finish() {
     local wait_count=0
-    
+
     while ((wait_count < 60)); do
         {
-            VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }'  | cut -d'-' -f1)
+            VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }' | cut -d'-' -f1)
         } || {
             VERSION="False"
         }
@@ -188,13 +187,13 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [[ ( "$NEXT_VERSION" != "" && "$NEXT_VERSION" != "$CURRENT_VERSION" && -z "$KEY_INSTALL" && -z "$HELP_ASKED" ) ||  "$FORCE_RUN" = "yes" ]]; then
-        docker run --rm  $DOCKER_RUN_PARAM \
-           -v /var/run/docker.sock:/var/run/docker.sock \
-           -v $(which docker):/usr/bin/docker \
-           -v /usr/local/ericomshield:/usr/local/ericomshield \
-           -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-           "securebrowsing/$CONTAINER_TAG" $FULL_OUTPUT upgrade
+    if [[ ($NEXT_VERSION != "" && $NEXT_VERSION != "$CURRENT_VERSION" && -z $KEY_INSTALL && -z $HELP_ASKED) || $FORCE_RUN == "yes" ]]; then
+        docker run --rm $DOCKER_RUN_PARAM \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $(which docker):/usr/bin/docker \
+            -v /usr/local/ericomshield:/usr/local/ericomshield \
+            -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+            "securebrowsing/$CONTAINER_TAG" $FULL_OUTPUT upgrade
 
         wait_upgrade_process_finish "$NEXT_VERSION"
     fi
@@ -208,7 +207,7 @@ if [ -f "$UPDATE_LOG_FILE" ]; then
     rm -f $UPDATE_LOG_FILE
 fi
 
-if [ -z "$AUTOUPDATE"  ]; then
+if [ -z "$AUTOUPDATE" ]; then
     DOCKER_RUN_PARAM="-it"
 fi
 
@@ -216,9 +215,9 @@ if [ -z "$KEEP_DOCKER" ] && [ -z "$KEY_INSTALL" ]; then
     upgrade_docker_version
 fi
 
-docker run --rm  $DOCKER_RUN_PARAM \
-       -v /var/run/docker.sock:/var/run/docker.sock \
-       -v $(which docker):/usr/bin/docker \
-       -v /usr/local/ericomshield:/usr/local/ericomshield \
-       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-       "securebrowsing/$CONTAINER_TAG" $ARGS $ES_VERSION_ARG
+docker run --rm $DOCKER_RUN_PARAM \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $(which docker):/usr/bin/docker \
+    -v /usr/local/ericomshield:/usr/local/ericomshield \
+    -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+    "securebrowsing/$CONTAINER_TAG" $ARGS $ES_VERSION_ARG

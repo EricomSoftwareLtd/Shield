@@ -76,35 +76,35 @@ function list_versions() {
     echo "Getting $ES_repo_versions"
     curl -s -S -o "Releases.txt" $ES_repo_versions
 
-    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt ) -ge 1 ]; then
-       echo "Error: cannot download Release.txt, exiting"
-       exit 1
+    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt) -ge 1 ]; then
+        echo "Error: cannot download Release.txt, exiting"
+        exit 1
     fi
-    
+
     cat Releases.txt | cut -d':' -f1
-    
-    read -p "please select the Release you want to install:" choice; 
+
+    read -p "please select the Release you want to install:" choice
     case "$choice" in
-        "1" | "latest")
-            echo 'latest'
-            OPTION="1)"
-            ;;
-        "2")
-            echo "2."
-            OPTION="2)"
-            ;;
-        "3")
-            echo "3."
-            OPTION="3)"
-            ;;
-        "4")
-            echo "4."
-            OPTION="4)"
-            ;;
-        *) 
-            echo "Error: Not valid option, exiting"
-            exit 1
-            ;;            
+    "1" | "latest")
+        echo 'latest'
+        OPTION="1)"
+        ;;
+    "2")
+        echo "2."
+        OPTION="2)"
+        ;;
+    "3")
+        echo "3."
+        OPTION="3)"
+        ;;
+    "4")
+        echo "4."
+        OPTION="4)"
+        ;;
+    *)
+        echo "Error: Not valid option, exiting"
+        exit 1
+        ;;
     esac
     echo "$OPTION"
     grep "$OPTION" Releases.txt
@@ -121,7 +121,7 @@ while [ $# -ne 0 ]; do
     -version)
         shift
         BRANCH="$1"
-        echo $BRANCH > "$ES_BRANCH_FILE"
+        echo $BRANCH >"$ES_BRANCH_FILE"
         ;;
     -dev)
         echo $DEV_BRANCH >"$ES_BRANCH_FILE"
@@ -174,10 +174,10 @@ done
 
 if [ -z "$BRANCH" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
-      BRANCH=$(cat "$ES_BRANCH_FILE")
-     else
-      BRANCH="master"
-    fi  
+        BRANCH=$(cat "$ES_BRANCH_FILE")
+    else
+        BRANCH="master"
+    fi
 fi
 
 log_message "Installing version: $BRANCH"
@@ -216,7 +216,7 @@ uninstall_if_installed "bind9"
 uninstall_if_installed "unbound"
 
 function install_if_not_installed() {
-    if [ ! dpkg -s "$1" >/dev/null 2>&1 ]; then
+    if [ ! dpkg -s "$1" ] >/dev/null 2>&1; then
         echo "***************     Installing $1"
         apt-get --assume-yes -y install "$1"
     fi
@@ -332,12 +332,12 @@ function accept_license() {
 
 function install_docker() {
 
-    if [ -f  "$ES_VER_FILE" ]; then
-       DOCKER_VERSION="$(grep -r '^docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+    if [ -f "$ES_VER_FILE" ]; then
+        DOCKER_VERSION="$(grep -r '^docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
-       DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
-       echo "Using default Docker version: $DOCKER_VERSION"
+        DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
+        echo "Using default Docker version: $DOCKER_VERSION"
     fi
 
     if [ ! -x /usr/bin/docker ] || [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
@@ -352,9 +352,9 @@ function install_docker() {
         echo "done"
         #Stop shield (if running)
         if [ "$ES_RUN_DEPLOY" == true ] && [ -x "/usr/bin/docker" ] && [ $(docker stack ls | grep -c $STACK_NAME) -ge 1 ]; then
-           log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
-           docker stack rm $STACK_NAME
-        fi   
+            log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
+            docker stack rm $STACK_NAME
+        fi
 
         sudo apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
@@ -438,7 +438,7 @@ function prepare_yml() {
     #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 
-    local TZ="$((test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
+    local TZ="$( (test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
     sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
 }
 
@@ -472,11 +472,11 @@ function get_precheck_files() {
 
 function get_shield_install_files() {
     echo "Getting shield install files"
-    
-    if [ ! -f "$ES_VER_FILE_NEW" ]; then    
-       echo "Getting $ES_repo_ver"
-       curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
-    fi    
+
+    if [ ! -f "$ES_VER_FILE_NEW" ]; then
+        echo "Getting $ES_repo_ver"
+        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
+    fi
 
     SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE_NEW" | cut -d' ' -f2)
     if [ -f "$ES_VER_FILE" ]; then
@@ -515,8 +515,8 @@ function get_shield_install_files() {
 
 function pull_images() {
     if [ -f "$ES_VER_FILE_BAK" ] && [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_BAK" | wc -l)" -eq 0 ]; then
-       echo "No new version detected"
-       return
+        echo "No new version detected"
+        return
     fi
     LINE=0
     while read -r line; do
@@ -525,9 +525,9 @@ function pull_images() {
         else
             arr=($line)
             if [ $LINE -ge 3 ]; then
-               echo "################## Pulling images  ######################"
-               echo "pulling image: ${arr[1]}"
-               docker pull "securebrowsing/${arr[1]}"
+                echo "################## Pulling images  ######################"
+                echo "pulling image: ${arr[1]}"
+                docker pull "securebrowsing/${arr[1]}"
             fi
         fi
         LINE=$((LINE + 1))
@@ -673,7 +673,7 @@ if [ "$ES_FORCE" == false ]; then
     echo "***************     Running pre-install-check ..."
     perform_env_test
     if [ "$?" -ne "0" ]; then
-       failed_to_install_cleaner "Shield pre-install-check failed!"
+        failed_to_install_cleaner "Shield pre-install-check failed!"
     fi
 fi
 
