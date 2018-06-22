@@ -5,10 +5,10 @@
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 if [ -z "$BRANCH" ]; then
     if [ ! -f "$ES_BRANCH_FILE" ]; then
-      BRANCH=cat "$ES_BRANCH_FILE"
-     else
-      BRANCH="master"
-    fi  
+        BRANCH=cat "$ES_BRANCH_FILE"
+    else
+        BRANCH="master"
+    fi
 fi
 
 # Development Repository: (Latest)
