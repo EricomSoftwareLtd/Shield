@@ -50,6 +50,92 @@ ES_RUN_DEPLOY=true
 ES_CONFIG_STORAGE=yes
 SWITCHED_TO_MULTINODE=false
 
+MIN_RELEASE_MAJOR="16"
+MIN_RELEASE_MINOR="04"
+REC_RELEASE_MAJOR="16"
+REC_RELEASE_MINOR="04"
+
+function check_distrib() {
+    if [ -f /etc/os-release ]; then
+        # freedesktop.org and systemd
+        . /etc/os-release
+        OS=$NAME
+        VER=$VERSION_ID
+    elif type lsb_release >/dev/null 2>&1; then
+        # linuxbase.org
+        OS=$(lsb_release -si)
+        VER=$(lsb_release -sr)
+    elif [ -f /etc/lsb-release ]; then
+        # For some versions of Debian/Ubuntu without lsb_release command
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+        VER=$DISTRIB_RELEASE
+    elif [ -f /etc/debian_version ]; then
+        # Older Debian/Ubuntu/etc.
+        OS=Debian
+        VER=$(cat /etc/debian_version)
+    else
+        # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+        OS=$(uname -s)
+        VER=$(uname -r)
+    fi
+
+    case $(uname -m) in
+    x86_64)
+        BITS=64
+        ;;
+    i*86)
+        BITS=32
+        ;;
+    *)
+        BITS=?
+        ;;
+    esac
+
+    echo "The OS is a ${BITS}-bit $OS version $VER"
+
+    local MIN_RELEASE_MAJOR="$MIN_RELEASE_MAJOR"
+    local MIN_RELEASE_MINOR="$MIN_RELEASE_MINOR"
+    local REC_RELEASE_MAJOR="$REC_RELEASE_MAJOR"
+    local REC_RELEASE_MINOR="$REC_RELEASE_MINOR"
+    local VER_REGEX="([[:digit:]]{2})\.([[:digit:]]{2})"
+    local DIST_REGEX='Ubuntu'
+    local DIST_S="$OS"
+    local VER_S="$VER"
+
+    if ! [[ $DIST_S =~ $DIST_REGEX ]]; then
+        DIST_ERROR="Your distribution is \"$DIST_S\" but \"$DIST_REGEX\" is required" >&2
+        return 1
+    fi
+
+    if [[ $VER_S =~ $VER_REGEX ]]; then
+        VER="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
+        if ((VER < ${MIN_RELEASE_MAJOR}${MIN_RELEASE_MINOR})); then
+            DIST_ERROR="Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required"
+            return 1
+        elif ((VER != ${REC_RELEASE_MAJOR}${REC_RELEASE_MINOR})); then
+            DIST_WARNING="Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended"
+            return 0
+        fi
+        return 0
+    else
+        DIST_ERROR="$VER_S doesn't match $VER_REGEX"
+        return 1
+    fi
+
+    if ((BITS != 64)); then
+        DIST_ERROR="A 64-bit OS is required"
+    fi
+}
+
+check_distrib
+
+if [ -n "$DIST_ERROR" ]; then
+    echo "$DIST_ERROR"
+elif [ -n "$DIST_WARNING" ]; then
+    echo "$DIST_WARNING"
+fi
+
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
