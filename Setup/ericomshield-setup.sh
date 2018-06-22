@@ -143,7 +143,7 @@ function check_inet_connectivity() {
 }
 
 if ! check_inet_connectivity; then
-    "Internet connectivity problem detected, exiting..."
+    echo "Internet connectivity problem detected, exiting..."
     exit 1
 fi
 
