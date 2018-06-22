@@ -130,6 +130,23 @@ function check_distrib() {
 
 check_distrib
 
+function check_inet_connectivity() {
+    echo "Checking Internet connectivity using APT..."
+    if apt-get update 2>&1 >/dev/null | grep "Failed to fetch"; then
+        echo "Some APT repositories cannot be reached"
+        return 1
+    fi
+
+    echo "OK"
+
+    return 0
+}
+
+if ! check_inet_connectivity; then
+    "Internet connectivity problem detected, exiting..."
+    exit 1
+fi
+
 if [ -n "$DIST_ERROR" ]; then
     echo "$DIST_ERROR"
     exit 1
