@@ -40,7 +40,7 @@ while [ $# -ne 0 ]; do
         AUTOUPDATE_ONLY_DURING_MAINTENANCE_TIME=false
         FORCE_CHECK=true
         ;;
-#    -h | --help)
+    #    -h | --help)
     *)
         echo "Usage: $0 [-f | --force] [-h | --help]"
         exit
@@ -86,7 +86,7 @@ while true; do
         fi
 
         if [ "$AM_I_LEADER" == true ]; then
-           $ES_PATH/update.sh auto update "$FORCE_UPDATE"
+            $ES_PATH/update.sh auto update "$FORCE_UPDATE"
         else
             echo "Not running update (I'm not the leader)"
         fi
