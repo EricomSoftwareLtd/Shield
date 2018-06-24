@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_360] - 2018-6-24
+- Admin UI - export and import policies - the values should beconverted from codes to text #3441
+- Import / export - when using ignore the urls should be added to the bottom #3466
+- Admin | policies | import - failure file #3458
+- Remove the tool tip for Profile #3442
+- Disable "underline" fix to be like 18.05 #3515
+- Pre-install check (before docker install)
+- Enable cookies and allow_direct_ip_address by default #3510
+- Docker Installation w/o internet #3377
+
 ## [Dev:Build_359] - 2018-6-20
 - CPSB - key #3498
 - Netdata is taking a lot of resources #3419
