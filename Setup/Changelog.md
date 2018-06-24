@@ -741,7 +741,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:18.02-1-Build-280.3] - 2018-02-20
 ### Enhancements:
-- Pre-check Installer Shield #2068
+- Pre-check Installer Shield
 - Pre-install check ubuntu and kernel version 
 - Added alert when system requires activation
 - Implement Keepalive with Votiro Server
