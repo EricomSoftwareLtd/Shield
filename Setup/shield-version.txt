@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Build Dev:Build_359.1 on 18/06/20
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_359
 #docker-version 18.03.0
@@ -8,6 +9,18 @@ shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180613-09.19-2372
 icap-server:latest icap-server:180620-16.20-2430
 shield-cef:latest shield-cef:180620-16.20-2430
+=======
+#Build Dev:Build_360 on 18/06/24
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_360
+#docker-version 18.03.0
+shield-configuration:latest shield-configuration:180610-14.23-2329
+shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
+shield-admin:latest shield-admin:180624-07.37-2440
+shield-portainer:latest shield-portainer:180311-14.35-1498
+proxy-server:latest proxy-server:180613-09.19-2372
+icap-server:latest icap-server:180621-12.37-2436
+shield-cef:latest shield-cef:180621-12.54-2437
+>>>>>>> dec704b3966bc3c373a3e4b4d70128fd62b42656
 broker-server:latest broker-server:180620-08.42-2425
 shield-collector:latest shield-collector:180620-08.32-2424
 shield-elk:latest shield-elk:180619-13.19-2419
