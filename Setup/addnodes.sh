@@ -21,9 +21,9 @@ if ((EUID != 0)); then
 fi
 
 case "${COMMAND_LINE[@]}" in
-    *"addnode"*)
-        ARGS=""
-        ;;
+*"addnode"*)
+    ARGS=""
+    ;;
 esac
 
 cd $ES_PATH
@@ -31,13 +31,13 @@ cd $ES_PATH
 echo "Running  $0:"
 
 if [ ! -f "$ES_VER_FILE" ]; then
-   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"   
-   exit 1
+    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
+    exit 1
 fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-   CONTAINER_TAG="shield-autoupdate:180503-10.48-1953"
+    CONTAINER_TAG="shield-autoupdate:180503-10.48-1953"
 fi
 
 if [ -f "$UPDATE_LOG_FILE" ]; then
@@ -46,10 +46,10 @@ fi
 
 echo "***************     Ericom Shield Update ($CONTAINER_TAG $ARGS ${@}) ..."
 
-docker run --rm  -it \
-       -v /var/run/docker.sock:/var/run/docker.sock \
-       -v $(which docker):/usr/bin/docker \
-       -v "$ES_PATH:/usr/local/ericomshield" \
-       -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-       -e "COMMAND=$COMMAND_NAME" \
-       "securebrowsing/$CONTAINER_TAG" $ARGS ${@}
+docker run --rm -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $(which docker):/usr/bin/docker \
+    -v "$ES_PATH:/usr/local/ericomshield" \
+    -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+    -e "COMMAND=$COMMAND_NAME" \
+    "securebrowsing/$CONTAINER_TAG" $ARGS ${@}

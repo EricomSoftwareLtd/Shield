@@ -15,7 +15,7 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 STACK_NAME=shield
-DOCKER_DEFAULT_VERSION="18.03.0"
+DOCKER_DEFAULT_VERSION="18.03.1"
 DOCKER_VERSION=""
 UPDATE=false
 UPDATE_NEED_RESTART=false
@@ -50,6 +50,110 @@ ES_RUN_DEPLOY=true
 ES_CONFIG_STORAGE=yes
 SWITCHED_TO_MULTINODE=false
 
+MIN_RELEASE_MAJOR="16"
+MIN_RELEASE_MINOR="04"
+REC_RELEASE_MAJOR="16"
+REC_RELEASE_MINOR="04"
+
+function check_distrib() {
+    if [ -f /etc/os-release ]; then
+        # freedesktop.org and systemd
+        . /etc/os-release
+        OS=$NAME
+        VER=$VERSION_ID
+    elif type lsb_release >/dev/null 2>&1; then
+        # linuxbase.org
+        OS=$(lsb_release -si)
+        VER=$(lsb_release -sr)
+    elif [ -f /etc/lsb-release ]; then
+        # For some versions of Debian/Ubuntu without lsb_release command
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+        VER=$DISTRIB_RELEASE
+    elif [ -f /etc/debian_version ]; then
+        # Older Debian/Ubuntu/etc.
+        OS=Debian
+        VER=$(cat /etc/debian_version)
+    else
+        # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+        OS=$(uname -s)
+        VER=$(uname -r)
+    fi
+
+    case $(uname -m) in
+    x86_64)
+        BITS=64
+        ;;
+    i*86)
+        BITS=32
+        ;;
+    *)
+        BITS=?
+        ;;
+    esac
+
+    echo "The OS is a ${BITS}-bit $OS version $VER"
+
+    local MIN_RELEASE_MAJOR="$MIN_RELEASE_MAJOR"
+    local MIN_RELEASE_MINOR="$MIN_RELEASE_MINOR"
+    local REC_RELEASE_MAJOR="$REC_RELEASE_MAJOR"
+    local REC_RELEASE_MINOR="$REC_RELEASE_MINOR"
+    local VER_REGEX="([[:digit:]]{2})\.([[:digit:]]{2})"
+    local DIST_REGEX='Ubuntu'
+    local DIST_S="$OS"
+    local VER_S="$VER"
+
+    if ! [[ $DIST_S =~ $DIST_REGEX ]]; then
+        DIST_ERROR="Your distribution is \"$DIST_S\" but \"$DIST_REGEX\" is required" >&2
+        return 1
+    fi
+
+    if [[ $VER_S =~ $VER_REGEX ]]; then
+        VER="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
+        if ((VER < ${MIN_RELEASE_MAJOR}${MIN_RELEASE_MINOR})); then
+            DIST_ERROR="Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required"
+            return 1
+        elif ((VER != ${REC_RELEASE_MAJOR}${REC_RELEASE_MINOR})); then
+            DIST_WARNING="Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended"
+            return 0
+        fi
+        return 0
+    else
+        DIST_ERROR="$VER_S doesn't match $VER_REGEX"
+        return 1
+    fi
+
+    if ((BITS != 64)); then
+        DIST_ERROR="A 64-bit OS is required"
+    fi
+}
+
+check_distrib
+
+function check_inet_connectivity() {
+    echo "Checking Internet connectivity using APT..."
+    if apt-get update 2>&1 >/dev/null | grep "Failed to fetch"; then
+        echo "Some APT repositories cannot be reached"
+        return 1
+    fi
+
+    echo "OK"
+
+    return 0
+}
+
+if ! check_inet_connectivity; then
+    echo "Internet connectivity problem detected, exiting..."
+    exit 1
+fi
+
+if [ -n "$DIST_ERROR" ]; then
+    echo "$DIST_ERROR"
+    exit 1
+elif [ -n "$DIST_WARNING" ]; then
+    echo "$DIST_WARNING"
+fi
+
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
     mkdir -p $ES_PATH
@@ -76,35 +180,35 @@ function list_versions() {
     echo "Getting $ES_repo_versions"
     curl -s -S -o "Releases.txt" $ES_repo_versions
 
-    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt ) -ge 1 ]; then
-       echo "Error: cannot download Release.txt, exiting"
-       exit 1
+    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt) -ge 1 ]; then
+        echo "Error: cannot download Release.txt, exiting"
+        exit 1
     fi
-    
+
     cat Releases.txt | cut -d':' -f1
-    
-    read -p "please select the Release you want to install:" choice; 
+
+    read -p "please select the Release you want to install:" choice
     case "$choice" in
-        "1" | "latest")
-            echo 'latest'
-            OPTION="1)"
-            ;;
-        "2")
-            echo "2."
-            OPTION="2)"
-            ;;
-        "3")
-            echo "3."
-            OPTION="3)"
-            ;;
-        "4")
-            echo "4."
-            OPTION="4)"
-            ;;
-        *) 
-            echo "Error: Not valid option, exiting"
-            exit 1
-            ;;            
+    "1" | "latest")
+        echo 'latest'
+        OPTION="1)"
+        ;;
+    "2")
+        echo "2."
+        OPTION="2)"
+        ;;
+    "3")
+        echo "3."
+        OPTION="3)"
+        ;;
+    "4")
+        echo "4."
+        OPTION="4)"
+        ;;
+    *)
+        echo "Error: Not valid option, exiting"
+        exit 1
+        ;;
     esac
     echo "$OPTION"
     grep "$OPTION" Releases.txt
@@ -121,7 +225,7 @@ while [ $# -ne 0 ]; do
     -version)
         shift
         BRANCH="$1"
-        echo $BRANCH > "$ES_BRANCH_FILE"
+        echo $BRANCH >"$ES_BRANCH_FILE"
         ;;
     -dev)
         echo $DEV_BRANCH >"$ES_BRANCH_FILE"
@@ -174,10 +278,10 @@ done
 
 if [ -z "$BRANCH" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
-      BRANCH=$(cat "$ES_BRANCH_FILE")
-     else
-      BRANCH="master"
-    fi  
+        BRANCH=$(cat "$ES_BRANCH_FILE")
+    else
+        BRANCH="master"
+    fi
 fi
 
 log_message "Installing version: $BRANCH"
@@ -216,7 +320,7 @@ uninstall_if_installed "bind9"
 uninstall_if_installed "unbound"
 
 function install_if_not_installed() {
-    if [ ! dpkg -s "$1" >/dev/null 2>&1 ]; then
+    if [ ! dpkg -s "$1" ] >/dev/null 2>&1; then
         echo "***************     Installing $1"
         apt-get --assume-yes -y install "$1"
     fi
@@ -332,17 +436,17 @@ function accept_license() {
 
 function install_docker() {
 
-    if [ -f  "$ES_VER_FILE" ]; then
-       DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+    if [ -f "$ES_VER_FILE" ]; then
+        DOCKER_VERSION="$(grep -r '^docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
-       DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
-       echo "Using default Docker version: $DOCKER_VERSION"
+        DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
+        echo "Using default Docker version: $DOCKER_VERSION"
     fi
 
-    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+    if [ ! -x /usr/bin/docker ] || [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         log_message "***************     Installing docker-engine: $DOCKER_VERSION"
-        apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
+        apt-get --assume-yes -y install apt-transport-https software-properties-common
 
         #Docker Installation of a specific Version
         curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
@@ -351,14 +455,17 @@ function install_docker() {
         apt-get -qq update
         echo "done"
         #Stop shield (if running)
-        if [ "$ES_RUN_DEPLOY" == true ] && [ $(docker stack ls | grep -c $STACK_NAME) -ge 1 ]; then
-           log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
-           docker stack rm $STACK_NAME
-        fi   
+        if [ "$ES_RUN_DEPLOY" == true ] && [ -x "/usr/bin/docker" ] && [ $(docker stack ls | grep -c $STACK_NAME) -ge 1 ]; then
+            log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
+            docker stack rm $STACK_NAME
+        fi
 
-        sudo apt-cache policy docker-ce
-        echo "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-        sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
+        apt-cache policy docker-ce
+        echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
+        apt-get -y --assume-yes --allow-downgrades install "docker-ce=$DOCKER_VERSION*"
+        sleep 5
+        systemctl restart docker
+        sleep 5
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
@@ -438,7 +545,7 @@ function prepare_yml() {
     #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 
-    local TZ="$((test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
+    local TZ="$( (test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
     sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
 }
 
@@ -472,11 +579,11 @@ function get_precheck_files() {
 
 function get_shield_install_files() {
     echo "Getting shield install files"
-    
-    if [ ! -f "$ES_VER_FILE_NEW" ]; then    
-       echo "Getting $ES_repo_ver"
-       curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
-    fi    
+
+    if [ ! -f "$ES_VER_FILE_NEW" ]; then
+        echo "Getting $ES_repo_ver"
+        curl -s -S -o "$ES_VER_FILE_NEW" "$ES_repo_ver"
+    fi
 
     SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE_NEW" | cut -d' ' -f2)
     if [ -f "$ES_VER_FILE" ]; then
@@ -515,8 +622,8 @@ function get_shield_install_files() {
 
 function pull_images() {
     if [ -f "$ES_VER_FILE_BAK" ] && [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_BAK" | wc -l)" -eq 0 ]; then
-       echo "No new version detected"
-       return
+        echo "No new version detected"
+        return
     fi
     LINE=0
     while read -r line; do
@@ -525,9 +632,9 @@ function pull_images() {
         else
             arr=($line)
             if [ $LINE -ge 3 ]; then
-               echo "################## Pulling images  ######################"
-               echo "pulling image: ${arr[1]}"
-               docker pull "securebrowsing/${arr[1]}"
+                echo "################## Pulling images  ######################"
+                echo "pulling image: ${arr[1]}"
+                docker pull "securebrowsing/${arr[1]}"
             fi
         fi
         LINE=$((LINE + 1))
@@ -673,7 +780,7 @@ if [ "$ES_FORCE" == false ]; then
     echo "***************     Running pre-install-check ..."
     perform_env_test
     if [ "$?" -ne "0" ]; then
-       failed_to_install_cleaner "Shield pre-install-check failed!"
+        failed_to_install_cleaner "Shield pre-install-check failed!"
     fi
 fi
 
