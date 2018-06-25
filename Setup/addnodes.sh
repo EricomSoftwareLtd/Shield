@@ -8,6 +8,7 @@ ES_VER_FILE="./shield-version.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
 COMMAND_NAME="$0"
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
+CONTAINER_TAG_DEFAULT="shield-autoupdate:180619-13.19-2419"
 
 ARGS="addnode"
 COMMAND_LINE="${@}"
@@ -37,7 +38,8 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-    CONTAINER_TAG="shield-autoupdate:180503-10.48-1953"
+    echo "$(date): Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag" >>"$LOGFILE"
+    CONTAINER_TAG="$CONTAINER_TAG_DEFAULT"
 fi
 
 if [ -f "$UPDATE_LOG_FILE" ]; then

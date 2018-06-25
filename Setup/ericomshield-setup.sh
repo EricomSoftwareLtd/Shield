@@ -38,7 +38,7 @@ STAGING_BRANCH="Staging"
 
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.06-1806"
+ES_SETUP_VER="Setup:18.07-2406"
 
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
@@ -128,8 +128,6 @@ function check_distrib() {
     fi
 }
 
-check_distrib
-
 function check_inet_connectivity() {
     echo "Checking Internet connectivity using APT..."
     if apt-get update 2>&1 >/dev/null | grep "Failed to fetch"; then
@@ -141,18 +139,6 @@ function check_inet_connectivity() {
 
     return 0
 }
-
-if ! check_inet_connectivity; then
-    echo "Internet connectivity problem detected, exiting..."
-    exit 1
-fi
-
-if [ -n "$DIST_ERROR" ]; then
-    echo "$DIST_ERROR"
-    exit 1
-elif [ -n "$DIST_WARNING" ]; then
-    echo "$DIST_WARNING"
-fi
 
 # Create the Ericom empty dir if necessary
 if [ ! -d $ES_PATH ]; then
@@ -733,6 +719,21 @@ function set_storage_driver() {
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 log_message "***************     EricomShield Setup ($ES_SETUP_VER) $BRANCH ..."
+
+if [ "$ES_FORCE" == false ]; then
+    echo "***************     Running pre-install-check (1) ..."
+    check_distrib
+    if [ -n "$DIST_ERROR" ]; then
+       failed_to_install "$DIST_ERROR"
+       exit 1
+      elif [ -n "$DIST_WARNING" ]; then
+       echo "$DIST_WARNING"
+    fi
+    if [ ! check_inet_connectivity ]; then
+       failed_to_install "Internet connectivity problem detected, exiting..."
+       exit 1
+    fi
+fi
 
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then

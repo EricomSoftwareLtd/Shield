@@ -36,6 +36,7 @@ VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:]+)"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
+CONTAINER_TAG_DEFAULT="shield-autoupdate:180619-13.19-2419"
 
 cd "$ES_PATH" || exit
 
@@ -157,7 +158,7 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-    CONTAINER_TAG="shield-autoupdate:180524-10.35-2178"
+    CONTAINER_TAG="$CONTAINER_TAG_DEFAULT"
     echo "$(date): Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag" >>"$LOGFILE"
 fi
 
