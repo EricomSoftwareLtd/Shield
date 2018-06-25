@@ -1,0 +1,1 @@
+{"name":"ICAP","port":1344,"debugLevel":"info","allow_direct_ip_address":true,"whitelist_recurring_browsing_attempts":true,"allow_non_browser_user_agent":true,"allow_non_html_accept_header":true,"allow_non_get_http_methods":true}

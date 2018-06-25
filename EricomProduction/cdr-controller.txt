@@ -1,0 +1,1 @@
+{"name":"cdr-controller","debugLevel":"warn","destination":"download","updateTasksProgressIntervalMs":1000,"timeoutWaitingForClientToProcessCompletedTaskSec":15,"timeoutWaitingForCdrToSanitizeFileSec":300}
