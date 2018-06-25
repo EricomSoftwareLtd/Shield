@@ -23,7 +23,7 @@ systemctl stop docker || true
 tar xvfz docker-debs.tgz
 
 #install deb files
-dpkg -i docker_debs/*.deb
+dpkg -R -i docker_debs || dpkg -R -i docker_debs
 
 #remove docker_deb directory
 rm -rf ./docker_debs
