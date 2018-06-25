@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_361] - 2018-6-25
+- .autoupdate was removed during autoupdate #3532
+- KKA - bug with typing #3386
+- X-Forwarded-For forwarding in https #3546
+- admin | policies | import - failure file #3458
+- admin UI - export and import policies - the values should be converted from codes to text #3441
+- policies/applications table - scroll bar - edit row #3366
+- can't import rule when I change suspend to be 2 or 3 #3449
+- ignored_shield_policies file #3472
+
+
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
 - Import / export - when using ignore the urls should be added to the bottom #3466
