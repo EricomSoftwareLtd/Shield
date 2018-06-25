@@ -157,7 +157,7 @@ fi
 
 CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-    CONTAINER_TAG="shield-autoupdate:180524-10.35-2178"
+    CONTAINER_TAG="shield-autoupdate:180619-13.19-2419"
     echo "$(date): Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag" >>"$LOGFILE"
 fi
 
