@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_362] - 2018-6-26
+- Import does not work at all #3554
+- Docker Installation w/o internet #3377
+- KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
+
+
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
