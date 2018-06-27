@@ -8,7 +8,8 @@ Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Setti
 }
 
 while(true){
-  Set-Proxy  start-sleep -s 60
+  start-sleep -s 60
+  Set-Proxy
 }
 
 Function Set-Proxy
