@@ -29,15 +29,15 @@ Function Set-Proxy
 #  if ( $NetworkConfig -like "$Network" )
   if ($NetworkConfig.suffix -eq "$Network")
     {
-    $msgBoxInput =  [System.Windows.MessageBox]::Show('You are at the office in Network. Would you like to set the Proxy?','Setting Proxy','YesNo','Info')
-    switch  ($msgBoxInput) {
-    'Yes' {
+#    $msgBoxInput =  [System.Windows.MessageBox]::Show('You are at the office in Network. Would you like to set the Proxy?','Setting Proxy','YesNo','Info')
+#    switch  ($msgBoxInput) {
+#    'Yes' {
           Configure-Proxy $Proxy $Port
-          }
-    'No' {
+#          }
+#    'No' {
     ## Do something
-         }
-      }	  
+#        }
+#     }	  
     }
     # If no value applies, disable the proxy configuration.
    else
