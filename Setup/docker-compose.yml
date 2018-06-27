@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.06
+# YML file for Rel-18.07
 
 services:
     dns:
@@ -135,8 +135,8 @@ services:
         image: 'securebrowsing/shield-consul-agent:latest'
         networks:
             - shield
-        ports:
-            - '8500:8500'
+#        ports:
+#            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -145,7 +145,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-            - 'CONSUL_BIND_INTERFACE=eth2'
+            - 'CONSUL_BIND_INTERFACE=eth0'
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
@@ -402,8 +402,8 @@ services:
     portainer:
         image: 'securebrowsing/shield-portainer:latest'
         hostname: portainer
-        ports:
-            - '9000:9000'
+#        ports:
+#            - '9000:9000'
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer:/data'
@@ -432,3 +432,4 @@ networks:
 secrets:
     shield-system-id:
         external: true
+        

@@ -9,20 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-
-## [Dev:Build_363] - 2018-6-27
-- KKA - [[Input Issue]] QA#687279: Japanese character conversion candidate display position #109 #3170
-- need to click on the screen so last char will be reflected #3555
-- ericomshield-setup.sh install different docker version #3568
-- ericomshield-setup.sh not create ericomshield-updater.service and not run service #3566
-- Document Setting US Proxy on Shield #3527
-
-## [Dev:Build_362] - 2018-6-26
-- Import does not work at all #3554
-- Docker Installation w/o internet #3377
-- KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
-
-
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
@@ -32,7 +18,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - policies/applications table - scroll bar - edit row #3366
 - can't import rule when I change suspend to be 2 or 3 #3449
 - ignored_shield_policies file #3472
-
 
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
@@ -88,6 +73,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed test alert text for Slack #3403
 - Basic auth password is saved as base64 
 - Apply host Timezone during update
+
 
 ## [Dev:Build_356] - 2018-6-12
 - kaytana website dropbox is not visible #3372
@@ -294,7 +280,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Can't create new account for google drive with shield #2944
 - Add an alert when disk is low for storing the logs #2824
 - Browser service restart policy is set to none in -quickeval #2958
-- Improve setting init zoom #2961 #2992
+- Improve setting init zoom #2961 #2992
 - Nameservers are not set from resolv.conf #3015
 - Updated jp translation file
 - Support for Apps that cant authenticate - backend side 
@@ -833,7 +819,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_285] - 2018-2-20
 - Thai font do not display in Shield #2185
-<<<<<<< HEAD
  
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
@@ -1551,7 +1536,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
 
-=======
  
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
@@ -2268,8 +2252,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [17.38-Build:174] - 2017-09-18
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
-
->>>>>>> dec704b3966bc3c373a3e4b4d70128fd62b42656
 
 ## [17.38-Build:173] - 2017-09-18
 - **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
