@@ -1,27 +1,27 @@
-#Build Staging:18.06-Build_356 on 18/06/13
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.06-Build_356
-#docker-version 18.03.0
+#Build Staging:18.07-Build_361 on 18/06/25
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:18.07-Build_361
+#docker-version 18.03.1
 shield-configuration:latest shield-configuration:180610-14.23-2329
 shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
-shield-admin:latest shield-admin:180613-15.41-2388
+shield-admin:latest shield-admin:180625-09.53-2449
 shield-portainer:latest shield-portainer:180311-14.35-1498
 proxy-server:latest proxy-server:180613-09.19-2372
-icap-server:latest icap-server:180613-15.41-2388
-shield-cef:latest shield-cef:180613-15.41-2388
-broker-server:latest broker-server:180613-14.23-2385
-shield-collector:latest shield-collector:180613-14.46-2386
-shield-elk:latest shield-elk:180611-15.58-2339
+icap-server:latest icap-server:180625-16.49-2454
+shield-cef:latest shield-cef:180625-16.49-2454
+broker-server:latest broker-server:180625-12.32-2450
+shield-collector:latest shield-collector:180620-08.32-2424
+shield-elk:latest shield-elk:180619-13.19-2419
 extproxy:latest extproxy:180608-11.56-2317
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:180612-15.49-2366
-shield-cdr-controller:latest shield-cdr-controller:180612-16.20-2367
-shield-web-service:latest shield-web-service:180611-08.25-2330
-shield-maintenance:latest shield-maintenance:180611-10.44-2332
-shield-authproxy:latest shield-authproxy:180612-15.13-2364
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:180620-15.33-2429
+shield-cdr-controller:latest shield-cdr-controller:180620-15.33-2429
+shield-web-service:latest shield-web-service:180618-13.09-2408
+shield-maintenance:latest shield-maintenance:180620-10.35-2427
+shield-authproxy:latest shield-authproxy:180625-12.32-2450
 node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180606-12.58-2298
-shield-autoupdate:latest shield-autoupdate:180606-10.16-2294
-shield-notifier:latest shield-notifier:180613-14.23-2385
+shield-autoupdate:latest shield-autoupdate:180624-10.38-2442
+shield-notifier:latest shield-notifier:180618-13.09-2408
 shield-dns:latest shield-dns:180606-12.58-2298
 # This needs to be the last line
