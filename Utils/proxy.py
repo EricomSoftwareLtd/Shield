@@ -110,7 +110,7 @@ def set_proxy(flag):
     if not flag:
         proxy = input("Enter proxy : ")
         port = input("Enter port : ")
-        username = input("Enter uername : ")
+        username = input("Enter username : ")
         password = getpass.getpass("Enter password : ")
 
         if username == '':
