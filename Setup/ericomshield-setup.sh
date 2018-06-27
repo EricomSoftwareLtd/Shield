@@ -225,7 +225,10 @@ while [ $# -ne 0 ]; do
         ;;
     -force)
         ES_FORCE=true
-        echo " " >>$ES_VER_FILE
+        #echo " " >>$ES_VER_FILE
+        if [ -f "$ES_VER_FILE" ]; then
+           echo " " >$ES_VER_FILE
+        fi
         ;;
     -force-ip-address-selection)
         ES_FORCE_SET_IP_ADDRESS=true
@@ -423,7 +426,7 @@ function accept_license() {
 function install_docker() {
 
     if [ -f "$ES_VER_FILE" ]; then
-        DOCKER_VERSION="$(grep -r '^docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+        DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
         DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
