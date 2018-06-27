@@ -227,7 +227,7 @@ while [ $# -ne 0 ]; do
         ES_FORCE=true
         #echo " " >>$ES_VER_FILE
         if [ -f "$ES_VER_FILE" ]; then
-           echo " " >>$ES_VER_FILE
+           echo " " >$ES_VER_FILE
         fi
         ;;
     -force-ip-address-selection)
@@ -426,7 +426,7 @@ function accept_license() {
 function install_docker() {
 
     if [ -f "$ES_VER_FILE" ]; then
-        DOCKER_VERSION="$(grep -r '^docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+        DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
         DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
@@ -576,7 +576,7 @@ function get_shield_install_files() {
 
     SHIELD_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE_NEW" | cut -d' ' -f2)
     if [ -f "$ES_VER_FILE" ]; then
-        if [ "$(diff "$ES_VERE" "$ES_VER_FILE_NEW" | wc -l)" -eq 0 ]; then
+        if [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_NEW" | wc -l)" -eq 0 ]; then
             echo "Your EricomShield System is Up to date ($SHIELD_VERSION)"
             exit 0
         else
