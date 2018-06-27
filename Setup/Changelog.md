@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_363] - 2018-6-27
+- KKA - [[Input Issue]] QA#687279: Japanese character conversion candidate display position #109 #3170
+- need to click on the screen so last char will be reflected #3555
+
 ## [Dev:Build_362] - 2018-6-26
 - Import does not work at all #3554
 - Docker Installation w/o internet #3377
