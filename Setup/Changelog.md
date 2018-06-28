@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
 ## [Dev:Build_363] - 2018-6-27
 - KKA - [[Input Issue]] QA#687279: Japanese character conversion candidate display position #109 #3170
 - need to click on the screen so last char will be reflected #3555
@@ -21,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Docker Installation w/o internet #3377
 - KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
 
+
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
@@ -31,6 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - can't import rule when I change suspend to be 2 or 3 #3449
 - ignored_shield_policies file #3472
 
+
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
 - Import / export - when using ignore the urls should be added to the bottom #3466
@@ -40,6 +43,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Pre-install check (before docker install)
 - Enable cookies and allow_direct_ip_address by default #3510
 - Docker Installation w/o internet #3377
+
 
 ## [Dev:Build_359] - 2018-6-20
 - CPSB - key #3498
@@ -58,6 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - CDR: Consider showing file block reason to the user, based on the report #1360
 - admin UI policies - export/ import - the table is not working for editing #3429
 
+
 ## [Dev:Build_358] - 2018-6-19
 - (*) Redcue contierns size 
 - (*) Removed Ericom.com and google.com from connectivity tests
@@ -73,6 +78,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Netdata is taking a lot of resources #3419
 - policies import warning message - the download should be enabled #3450
 - admin UI - tool tip for export and import should be fixed #3440
+
 
 ## [Dev:Build_357] - 2018-6-14
 - Set Trust all for XFF Forwarding #3395
@@ -209,6 +215,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Doc - limitation KKA ーUnderline of unconverted character string #87 #2381
 - Japanese - alt+kana roman key type the current mode on IE and Edge #2368
 
+
 ## [Staging:18.05-Build_344] - 2018-5-24
 - After Idle Timeout: Reload on click anywhere in the page (icap)
 - Update bug fixes (autoupdate)
@@ -277,6 +284,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Periodic Test - when change the frequency at the admin, it shows time in sec for splitt sec #2741
 - (*) multi node - proxy not found , no ping to icap-server, bad address #2697
 
+
 ## [Dev:Build_335] - 2018-5-14
 - On ext-proxy internal-dns servers should be used when no ext-servers are specified #3014
 - Support per node alerts ( for CPU, Memory , Disk ) #3006
@@ -291,12 +299,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated jp translation file
 - Support for Apps that cant authenticate - backend side 
 
+
 ## [Dev:Build_334] - 2018-5-13
 - Proxies will use dns container #2969
 - (*) Fix blank child windows #2968
 - Add averageCpuCorePerSession & averageMemoryPerSession to uploaded shield stats #2997
 - Add health check to DNS issue at the ext proxy #3002
 - Sometimes I can't browse using mini sanity machine #2800
+
 
 ## [Dev:Build_333] - 2018-5-10
 - FPS idel time out should be limited for foreground only #2901
@@ -318,6 +328,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Apps support in Shield #1525
 - DNS resolving is not cached when using caching (Ext proxy) #2793
 - Store Connection Pref report in ELK #2986
+
 
 ## [Dev:Build_332] - 2018-5-8
 - Admin - loading indicator always on - error on page #2866
@@ -822,6 +833,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_285] - 2018-2-20
 - Thai font do not display in Shield #2185
+<<<<<<< HEAD
  
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
@@ -1539,6 +1551,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
 
+=======
  
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
@@ -2255,6 +2268,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [17.38-Build:174] - 2017-09-18
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
+
+>>>>>>> dec704b3966bc3c373a3e4b4d70128fd62b42656
 
 ## [17.38-Build:173] - 2017-09-18
 - **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
