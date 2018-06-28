@@ -66,10 +66,6 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=collector'
-            - "http_proxy=$http_proxy"
-            - "https_proxy=$https_proxy"
-            - "HTTP_PROXY=$HTTP_PROXY"
-            - "HTTPS_PROXY=$HTTPS_PROXY"
         deploy:
             mode: global
             restart_policy: {condition: any}
