@@ -16,6 +16,7 @@ case "$1" in
 -h | --help)
     echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
     echo "--verbose Switch to detailed output"
+    echo "-list-versions  Show available version to update"
     echo ""
     echo "Commands:"
     echo "sshkey Make ssh key to connect to swarm hosts"
