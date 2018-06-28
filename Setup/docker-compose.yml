@@ -276,8 +276,6 @@ services:
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy
-        ports:
-            - '3138:3138'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -292,8 +290,6 @@ services:
     ext-proxy-noadblock:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy-noadblock
-        ports:
-            - '3139:3138'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
