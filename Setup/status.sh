@@ -2,7 +2,6 @@
 ############################################
 #####   Ericom Shield Status           #####
 #######################################BH###
-
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
@@ -37,13 +36,16 @@ ES_VER_FILE="$ES_PATH/shield-version.txt"
 function get_container_tag() {
     CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
     if [ "$CONTAINER_TAG" = "" ]; then
-        CONTAINER_TAG="shield-autoupdate:180614-12.23-2393"
+        CONTAINER_TAG="shield-autoupdate:180624-10.38-2442"
     fi
 }
 
 function print_usage() {
     echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-e | --errors] [-h | --help]"
 }
+
+
+get_container_tag
 
 while [ $# -ne 0 ]; do
     arg="$1"
@@ -68,13 +70,20 @@ while [ $# -ne 0 ]; do
         echo
         ;;
     -s | --services)
-        ./addnodes.sh --status
+        docker run --rm -it \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $(which docker):/usr/bin/docker \
+            -v "$ES_PATH:$ES_PATH" \
+            "securebrowsing/$CONTAINER_TAG" status -s
         ;;
     -n | --nodes)
-        ./addnodes.sh --node-status
+        docker run --rm -it \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $(which docker):/usr/bin/docker \
+            -v "$ES_PATH:$ES_PATH" \
+            "securebrowsing/$CONTAINER_TAG" status -n
         ;;
     -e | --errors)
-        get_container_tag
         docker run --rm -it \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v $(which docker):/usr/bin/docker \
