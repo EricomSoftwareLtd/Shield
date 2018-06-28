@@ -135,8 +135,8 @@ services:
         image: 'securebrowsing/shield-consul-agent:latest'
         networks:
             - shield
-#        ports:
-#            - '8500:8500'
+        ports:
+            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -145,7 +145,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-            - 'CONSUL_BIND_INTERFACE=eth0'
+            - 'CONSUL_BIND_INTERFACE=eth2'
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
@@ -276,8 +276,6 @@ services:
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy
-        ports:
-            - '3138:3138'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -292,8 +290,6 @@ services:
     ext-proxy-noadblock:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy-noadblock
-        ports:
-            - '3139:3138'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -402,8 +398,8 @@ services:
     portainer:
         image: 'securebrowsing/shield-portainer:latest'
         hostname: portainer
-#        ports:
-#            - '9000:9000'
+        ports:
+            - '9000:9000'
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer:/data'
@@ -432,4 +428,3 @@ networks:
 secrets:
     shield-system-id:
         external: true
-        
