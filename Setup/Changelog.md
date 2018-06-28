@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Dev:Build_364] - 2018-6-28
-- drop-down values do not work properly #3543
+- drop-down values do not work properly #3543 1.8.7 
 - status doesnt work #3572
 - Collector test scripts (on-demand, periodic) to support UpStream Proxy #3573 KKA #130
 
