@@ -37,6 +37,7 @@ ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
 CONTAINER_TAG_DEFAULT="shield-autoupdate:180619-13.19-2419"
+NOT_FOUND_STR="404: Not Found"
 
 cd "$ES_PATH" || exit
 
@@ -70,6 +71,47 @@ if [ ! -f "$ES_VER_FILE" ]; then
     exit 1
 fi
 
+function list_versions() {
+    ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases.txt"
+    echo "Getting $ES_repo_versions"
+    curl -s -S -o "Releases.txt" $ES_repo_versions
+
+    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt) -ge 1 ]; then
+        echo "Error: cannot download Release.txt, exiting"
+        exit 1
+    fi
+
+    cat Releases.txt | cut -d':' -f1
+
+    read -p "please select the Release you want to update:" choice
+    case "$choice" in
+    "1" | "latest")
+        echo 'latest'
+        OPTION="1)"
+        ;;
+    "2")
+        echo "2."
+        OPTION="2)"
+        ;;
+    "3")
+        echo "3."
+        OPTION="3)"
+        ;;
+    "4")
+        echo "4."
+        OPTION="4)"
+        ;;
+    *)
+        echo "Error: Not valid option, exiting"
+        exit 1
+        ;;
+    esac
+    echo "$OPTION"
+    grep "$OPTION" Releases.txt
+    BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
+    echo "$BRANCH" > "$ES_BRANCH_FILE"
+}
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -95,6 +137,9 @@ while [ $# -ne 0 ]; do
     -h | --help)
         HELP_ASKED="yes"
         ;;
+    -list-versions)
+        list_versions
+        exit 0
     esac
     shift
 done
