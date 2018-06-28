@@ -119,12 +119,6 @@ while [ $# -ne 0 ]; do
         BRANCH=$2
         echo $BRANCH >"$ES_BRANCH_FILE"
         ;;
-    --dev)
-        echo $DEV_BRANCH >"$ES_BRANCH_FILE"
-        ;;
-    --staging)
-        echo $STAGING_BRANCH >"$ES_BRANCH_FILE"
-        ;;
     --verbose)
         FULL_OUTPUT="--verbose"
         ;;
