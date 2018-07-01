@@ -193,10 +193,10 @@ services:
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
-    broker-server:
-        image: 'securebrowsing/broker-server:latest'
+    es-broker:
+        image: 'securebrowsing/es-broker:latest'
         # user: nobody
-        hostname: broker-server
+        hostname: es-broker
         deploy:
             mode: replicated
             replicas: 1
@@ -209,7 +209,7 @@ services:
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=broker'
+            - 'LOGSTASH_FIELDS=service=es-broker'
             - 'SHIELD_VER=8.0.0.latest'
         networks:
             - shield

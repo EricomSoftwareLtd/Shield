@@ -8,7 +8,7 @@ es-portainer:latest es-portainer:180311-14.35-1498
 es-proxy-internal:latest es-proxy-internal:180613-09.19-2372
 es-policy-manager:latest es-policy-manager:180627-12.08-2458
 es-remote-browser:latest es-remote-browser::180628-13.27-2467
-broker-server:latest broker-server:180625-12.32-2450
+es-broker:latest es-broker:180625-12.32-2450
 es-collector:latest es-collector:180628-10.28-2462
 es-elk:latest es-elk:180619-13.19-2419
 es-proxy-external:latest es-proxy-external:180608-11.56-2317
