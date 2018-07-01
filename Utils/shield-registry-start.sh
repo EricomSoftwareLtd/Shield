@@ -5,7 +5,7 @@
 
 ES_PATH="/usr/local/ericomshield"
 ES_REG_PATH="$ES_PATH/registry"
-ES_REG_YML="$ES_REG_PATH/config.yml"
+ES_REG_YML="$ES_REG_PATH/shield-registry-config.yml"
 ES_REG_DATA="$ES_REG_PATH/data"
 
 #Check if we are root
