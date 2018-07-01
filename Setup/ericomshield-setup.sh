@@ -38,8 +38,10 @@ STAGING_BRANCH="Staging"
 
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.07-2406"
+ES_SETUP_VER="Setup:18.07-0107"
 
+SHIELD_REGISTRY="127.0.0.1:5000"
+#SHIELD_REGISTRY=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_POCKET=false
@@ -47,7 +49,6 @@ ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
-ES_CONFIG_STORAGE=yes
 SWITCHED_TO_MULTINODE=false
 
 MIN_RELEASE_MAJOR="16"
@@ -248,10 +249,6 @@ while [ $# -ne 0 ]; do
     -no-deploy)
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
-        ;;
-    -no-config-storage)
-        ES_CONFIG_STORAGE=no
-        echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
     -list-versions)
         list_versions
@@ -622,8 +619,12 @@ function pull_images() {
             arr=($line)
             if [ $LINE -ge 3 ]; then
                 echo "################## Pulling images  ######################"
-                echo "pulling image: ${arr[1]}"
-                docker pull "securebrowsing/${arr[1]}"
+                echo "pulling image: ${arr[1]} ($SHIELD_REGISTRY)"
+                if [ ! -z "$SHIELD_REGISTRY" ]; then
+                   IMAGE_NAME="$SHIELD_REGISTRY/securebrowsing/${arr[1]}"
+                else                
+                   docker pull "securebrowsing/${arr[1]}"
+                fi   
             fi
         fi
         LINE=$((LINE + 1))
@@ -704,18 +705,22 @@ function am_i_leader() {
     AM_I_LEADER=$(docker node inspect $(hostname) --format "{{ .ManagerStatus.Leader }}" | grep "true")
 }
 
-function set_storage_driver() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
-    else
-        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json'
-        echo '{' >/etc/docker/daemon.json.shield
-        echo '  "storage-driver": "overlay2"' >>/etc/docker/daemon.json.shield
-        echo '}' >>/etc/docker/daemon.json.shield
-        systemctl stop docker
-        sleep 10
-        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
-        systemctl start docker
+function update_daemon_json() {
+    if [ ! -z $SHIELD_REGISTRY ]; then    
+       if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
+          echo '/etc/docker/daemon.json is ok'
+        else
+          echo "Setting: insecure-registries:[$SHIELD_REGISTRY] in /etc/docker/daemon.json"
+          echo '{' >/etc/docker/daemon.json.shield
+          echo -n ',  "insecure-registries":["' >>/etc/docker/daemon.json.shield
+          echo -n $SHIELD_REGISTRY >>/etc/docker/daemon.json.shield
+          echo '"]' >>/etc/docker/daemon.json.shield
+          echo '}' >>/etc/docker/daemon.json.shield          
+          systemctl stop docker
+          sleep 10
+          mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
+          systemctl start docker
+       fi          
     fi
 }
 
@@ -754,6 +759,8 @@ get_precheck_files
 get_shield_install_files
 
 install_docker
+
+update_daemon_json
 
 if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
@@ -801,10 +808,6 @@ prepare_yml
 if [ "$UPDATE" == false ]; then
     AM_I_LEADER=true #if new installation, i am the leader
     # New Installation
-    if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
-        set_storage_driver
-    fi
-
     create_shield_service
     echo "pull images" #before starting the system
     pull_images
