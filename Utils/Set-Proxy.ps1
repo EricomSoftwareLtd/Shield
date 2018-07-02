@@ -1,7 +1,7 @@
 #################################################################################
 #####                      Ericom Shield Set Proxy Script                   #####
 ### Need to edit file and set correct values for shield server and pac file #####
-###	Need to run the file on the end-users’ laptops or add it to the GPO     #####
+### Need to run the file on the end-users’ laptops or add it to the GPO     #####
 #########################################################################BH######
 
 function Configure-Proxy ($Proxy, $Port)
