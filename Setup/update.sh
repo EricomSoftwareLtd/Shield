@@ -265,8 +265,9 @@ if [ -z "$KEEP_DOCKER" ] && [ -z "$KEY_INSTALL" ]; then
     upgrade_docker_version
 fi
 
-if [ $(grep -c "$UPDATE_NEED_RESTART_TXT" "$ES_VER_FILE") -eq 1 ]; then
-    echo "System restart required to update.\nSystem going be restarted."
+if [[ ($(grep -c "$UPDATE_NEED_RESTART_TXT" "$ES_VER_FILE") -eq 1) && (-z "$KEY_INSTALL") ]]; then
+    echo "System restart required to update."
+    echo "System going be restarted."
     $ES_PATH/stop.sh
 fi
 
