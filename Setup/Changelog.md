@@ -837,7 +837,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_285] - 2018-2-20
 - Thai font do not display in Shield #2185
-<<<<<<< HEAD
  
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
@@ -1555,8 +1554,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
 
-=======
- 
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
 - Added alert debug logs
@@ -2272,8 +2269,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [17.38-Build:174] - 2017-09-18
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
-
->>>>>>> dec704b3966bc3c373a3e4b4d70128fd62b42656
 
 ## [17.38-Build:173] - 2017-09-18
 - **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
