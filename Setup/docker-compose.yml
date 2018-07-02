@@ -132,8 +132,8 @@ services:
         networks:
             - shield
         #Published only for Dev    
-        ports:
-            - '8500:8500'
+#        ports:
+#            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -143,7 +143,7 @@ services:
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
-            - 'CONSUL_BIND_INTERFACE=eth2'
+            - 'CONSUL_BIND_INTERFACE=eth0'
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
@@ -397,8 +397,8 @@ services:
         image: 'securebrowsing/shield-portainer:latest'
         hostname: portainer
         #Published only for Dev
-        ports:
-            - '9000:9000'
+#        ports:
+#            - '9000:9000'
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer:/data'
