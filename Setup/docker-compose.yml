@@ -70,7 +70,6 @@ services:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
-            resources: {limits: {memory: 1GB, cpus: '0.20'}}            
     elk:
         image: 'securebrowsing/shield-elk:latest'
 #        ports:
