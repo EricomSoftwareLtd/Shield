@@ -266,8 +266,8 @@ if [ -z "$KEEP_DOCKER" ] && [ -z "$KEY_INSTALL" ]; then
 fi
 
 if [[ ($(grep -c "$UPDATE_NEED_RESTART_TXT" "$ES_VER_FILE") -eq 1) && (-z "$KEY_INSTALL") && (-z $HELP_ASKED) ]]; then
-    echo "System restart required to update."
-    echo "System going be restarted."
+    echo "System restart is required for update"
+    echo "System is going be restarted"
     $ES_PATH/stop.sh
 fi
 
