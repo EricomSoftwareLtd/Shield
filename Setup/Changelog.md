@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_364] - 2018-6-28
+- drop-down values do not work properly #3543 1.8.7 
+- status doesnt work #3572
+- Collector test scripts (on-demand, periodic) to support UpStream Proxy #3573 KKA #130
+
+## [Dev:Build_363] - 2018-6-27
+- KKA - [[Input Issue]] QA#687279: Japanese character conversion candidate display position #109 #3170
+- need to click on the screen so last char will be reflected #3555
+- ericomshield-setup.sh install different docker version #3568
+- ericomshield-setup.sh not create ericomshield-updater.service and not run service #3566
+- Document Setting US Proxy on Shield #3527
+
+## [Dev:Build_362] - 2018-6-26
+- Import does not work at all #3554
+- Docker Installation w/o internet #3377
+- KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
+
+
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
@@ -18,6 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - policies/applications table - scroll bar - edit row #3366
 - can't import rule when I change suspend to be 2 or 3 #3449
 - ignored_shield_policies file #3472
+
 
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
@@ -73,7 +92,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed test alert text for Slack #3403
 - Basic auth password is saved as base64 
 - Apply host Timezone during update
-
 
 ## [Dev:Build_356] - 2018-6-12
 - kaytana website dropbox is not visible #3372
@@ -1536,7 +1554,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixes for web service (logs, code fixes, default PAC file)
 - (*) Downloading notification with loading indicator #792
 
- 
 ## [Dev:Build_284] - 2018-2-20
 - Cross Window - Cisco Login #1655
 - Added alert debug logs
