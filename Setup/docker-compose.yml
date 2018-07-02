@@ -48,7 +48,7 @@ services:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
-            resources: {limits: {memory: 2GB, cpus: '1'}}
+            resources: {limits: {memory: 2GB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
             - 'IMAGE_CLEAN_INTERVAL=1h'
@@ -70,6 +70,7 @@ services:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
+            resources: {limits: {memory: 1GB, cpus: '0.20'}}            
     elk:
         image: 'securebrowsing/shield-elk:latest'
 #        ports:
@@ -245,7 +246,7 @@ services:
             endpoint_mode: dnsrr
             update_config: {parallelism: 8, delay: 10s}
             restart_policy: {condition: any}
-            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.08', memory: 150MB}}
+            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.2', memory: 150MB}}
             placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - {type: tmpfs, target: /dev/shm}
@@ -334,6 +335,7 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
         networks:
             - shield
         ports:
@@ -375,6 +377,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
     cdr-controller:
         image: 'securebrowsing/shield-cdr-controller:latest'
         hostname: cdr-controller
@@ -390,6 +393,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
 
     ############################### Docker managment part ##############################################################
 
