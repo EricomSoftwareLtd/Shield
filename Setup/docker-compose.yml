@@ -131,6 +131,7 @@ services:
         image: 'securebrowsing/shield-consul-agent:latest'
         networks:
             - shield
+        #Published only for Dev    
         ports:
             - '8500:8500'
         deploy:
@@ -141,6 +142,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
+            # eth2 for Dev
             - 'CONSUL_BIND_INTERFACE=eth2'
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
@@ -394,6 +396,7 @@ services:
     portainer:
         image: 'securebrowsing/shield-portainer:latest'
         hostname: portainer
+        #Published only for Dev
         ports:
             - '9000:9000'
         volumes:
