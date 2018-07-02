@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_365] - 2018-7-2
+- Default ntlm fallback set to false. removed --verbose
+- Japanese press escape while in composition mode makes copies of text
+- Japanese key combinations: space after shift+kanji #2874
+
 ## [Dev:Build_364] - 2018-6-28
 - drop-down values do not work properly #3543 1.8.7 
 - status doesnt work #3572
