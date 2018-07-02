@@ -67,11 +67,6 @@ if [ -n "$AUTOUPDATE" ]; then
     ARGS=("${ARGS[@]/$remove/}")
 fi
 
-if [ ! -f "$ES_VER_FILE" ]; then
-    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
-    exit 1
-fi
-
 function list_versions() {
     ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases.txt"
     echo "Getting $ES_repo_versions"
