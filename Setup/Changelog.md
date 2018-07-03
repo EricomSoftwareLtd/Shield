@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_366] - 2018-7-3
+- Fix fms positioning and reconnect issues #3625 #3619
+- KKA - Character conversion problem with function key f6 in chrome #3610
+
 ## [Dev:Build_365] - 2018-7-2
 - Default ntlm fallback set to false. removed --verbose
 - Japanese press escape while in composition mode makes copies of text
