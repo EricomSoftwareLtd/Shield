@@ -2,6 +2,7 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
+ES_SETUP_VER="Setup:18.07-0407"
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -37,8 +38,6 @@ DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
 
 SUCCESS=false
-
-ES_SETUP_VER="Setup:18.07-0107"
 
 #SHIELD_REGISTRY="127.0.0.1:5000"
 SHIELD_REGISTRY=""
