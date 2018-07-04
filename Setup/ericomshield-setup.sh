@@ -502,7 +502,10 @@ function create_shield_service() {
 }
 
 function check_shield_service_exists() {
-    SHIELD_SERVICE_STATUS=$(sudo service ericomshield-updater status | grep 'not-found')
+    SHIELD_SERVICE_STATUS=$(sudo systemctl show -p LoadState ericomshield-updater.service | sed 's/LoadState=//g')
+    if [[ "$SHIELD_SERVICE_STATUS" = "not-found" && -f "$ES_PATH/ericomshield-updater.service" ]]; then
+        rm -f "$ES_PATH/ericomshield-updater.service"
+    fi
 }
 
 function add_aliases() {
@@ -818,7 +821,7 @@ if [ "$UPDATE" == false ]; then
 
 else # Update
     check_shield_service_exists
-    if [ -n "$SHIELD_SERVICE_STATUS" ]; then
+    if [ "$SHIELD_SERVICE_STATUS" = "not-found" ]; then
         create_shield_service
     fi
 
