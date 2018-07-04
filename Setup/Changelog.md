@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_367] - 2018-7-4
+- Restart shield if required according to #UNR flag in shield-version (new) #3598
+- fix shift+0 in alphanumeric Japanese #2874
+
 ## [Dev:Build_366] - 2018-7-3
 - Fix fms positioning and reconnect issues #3625 #3619
 - KKA - Character conversion problem with function key f6 in chrome #3610
