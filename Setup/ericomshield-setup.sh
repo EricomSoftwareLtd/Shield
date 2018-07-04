@@ -2,7 +2,7 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-ES_SETUP_VER="Setup:18.07-0107"
+ES_SETUP_VER="Setup:18.07-0407"
 
 #Check if we are root
 if ((EUID != 0)); then
