@@ -501,6 +501,10 @@ function create_shield_service() {
     echo "Done!"
 }
 
+function check_shield_service_exists() {
+    SHIELD_SERVICE_STATUS=$(sudo service ericomshield-updater status | grep 'not-found')
+}
+
 function add_aliases() {
     if [ -f ~/.bashrc ] && [ $(grep -c 'shield_aliases' ~/.bashrc) -eq 0 ]; then
         echo 'Adding Aliases in .bashrc'
@@ -813,6 +817,11 @@ if [ "$UPDATE" == false ]; then
     pull_images
 
 else # Update
+    check_shield_service_exists
+    if [ -n "$SHIELD_SERVICE_STATUS" ]; then
+        create_shield_service
+    fi
+
     STOP_SHIELD=false
     SWARM=$(test_swarm_exists)
     if [ ! -z "$SWARM" ]; then
