@@ -245,7 +245,7 @@ services:
             endpoint_mode: dnsrr
             update_config: {parallelism: 8, delay: 10s}
             restart_policy: {condition: any}
-            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.2', memory: 150MB}}
+            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.1', memory: 150MB}}
             placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - {type: tmpfs, target: /dev/shm}
