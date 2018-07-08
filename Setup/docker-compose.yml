@@ -263,12 +263,12 @@ services:
             - 'LOGSTASH_FIELDS=service=es-proxy-internal'
         #env_file: proxy-server.env
         deploy:
-            mode: replicated
-            replicas: 2
-            restart_policy: {condition: any}
-            update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
-            placement: {constraints: [node.labels.shield_core==yes]}
-            resources: {limits: {memory: 500MB, cpus: '1'}}
+          mode: replicated
+          replicas: 2
+          restart_policy: {condition: any}
+          update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
+          placement: {constraints: [node.labels.shield_core==yes]}
+          resources: {limits: {memory: 500MB, cpus: '1'}}
    es-proxy-external-adblock:
         image: 'securebrowsing/es-proxy-external:latest'
         hostname: es-proxy-external-adblock
@@ -283,7 +283,7 @@ services:
             resources: {limits: {memory: 1024MB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-    es-proxy-external-noadblock:
+   es-proxy-external-noadblock:
         image: 'securebrowsing/es-proxy-external:latest'
         hostname: es-proxy-external-noadblock
         ulimits:
@@ -298,7 +298,7 @@ services:
         environment:
             - 'TZ=UTC'
             - 'ADDBLOCK=no'
-    es-speedtest:
+   es-speedtest:
         image: 'securebrowsing/es-speedtest:latest'
         hostname: es-speedtest
         ports:
@@ -312,7 +312,7 @@ services:
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
-    es-notifier:
+   es-notifier:
         image: 'securebrowsing/es-notifier:latest'
         hostname: es-notifier
         networks:
@@ -324,7 +324,7 @@ services:
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
-    es-proxy-auth:
+   es-proxy-auth:
         image: 'securebrowsing/es-proxy-auth:latest'
         hostname: es-proxy-auth
         deploy:
@@ -340,7 +340,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=es-proxy-auth'
-    es-web-service:
+   es-web-service:
         image: 'securebrowsing/es-web-service:latest'
         hostname: es-web-service
         ports:
@@ -357,7 +357,7 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
-    es-cdr-dispatcher:
+   es-cdr-dispatcher:
         image: 'securebrowsing/es-cdr-dispatcher:latest'
         hostname: es-cdr-dispatcher
         environment:
@@ -373,7 +373,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
-    es-cdr-controller:
+   es-cdr-controller:
         image: 'securebrowsing/es-cdr-controller:latest'
         hostname: es-cdr-controller
         environment:
@@ -391,7 +391,7 @@ services:
 
     ############################### Docker managment part ##############################################################
 
-    es-portainer:
+   es-portainer:
         image: 'securebrowsing/es-portainer:latest'
         hostname: es-portainer
         ports:
