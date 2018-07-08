@@ -53,6 +53,7 @@ function Set-Proxy
   else
   {
       Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name ProxyEnable -Value 0
+      Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name AutoConfigURL -Value ""      
       $wshell = New-Object -ComObject Wscript.Shell
       $wshell.Popup("Proxy Disabled",0,"Done",0x1)
   }
