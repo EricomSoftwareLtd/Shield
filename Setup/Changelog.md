@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.07:Build_366] - 2018-7-3
+ - Fix fms positioning and reconnect issues #3625 #3619
+ - KKA - Character conversion problem with function key f6 in chrome #3610
+
 ## [Dev:Build_365] - 2018-7-2
 - Default ntlm fallback set to false. removed --verbose
 - Japanese press escape while in composition mode makes copies of text
@@ -31,7 +35,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Docker Installation w/o internet #3377
 - KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
 
-
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
@@ -41,7 +44,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - policies/applications table - scroll bar - edit row #3366
 - can't import rule when I change suspend to be 2 or 3 #3449
 - ignored_shield_policies file #3472
-
 
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
