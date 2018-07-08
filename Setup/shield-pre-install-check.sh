@@ -26,6 +26,7 @@ DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/usr/local/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
+CONTAINER_TAG_DEFAULT="shield-collector:180523-13.26-2164"
 
 HW_PLATFORM="$(uname -m)"
 if [ "$HW_PLATFORM" != "x86_64" ]; then
@@ -35,10 +36,10 @@ fi
 
 if [ -z "$BRANCH" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
-      BRANCH=$(cat "$ES_BRANCH_FILE")
-     else
-      BRANCH="master"
-    fi  
+        BRANCH=$(cat "$ES_BRANCH_FILE")
+    else
+        BRANCH="master"
+    fi
 fi
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
 
@@ -57,12 +58,12 @@ fi
 if ! declare -f install_docker >/dev/null; then
     function install_docker() {
 
-        if [ -f  "$ES_VER_FILE" ]; then
-           DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+        if [ -f "$ES_VER_FILE" ]; then
+            DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
         fi
         if [ "$DOCKER_VERSION" = "" ]; then
-           DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
-           echo "Using default Docker version: $DOCKER_VERSION"
+            DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
+            echo "Using default Docker version: $DOCKER_VERSION"
         fi
         if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
             echo "***************     Installing docker-engine"
@@ -165,19 +166,19 @@ if [ $(dpkg -l | grep -w -c curl) -eq 0 ]; then
     apt-get --assume-yes -y install curl
 fi
 
-if [ ! -f "$ES_VER_FILE" ] ; then
-   curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
-   if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_PIC_FILE") -ge 1 ]; then
-      log_message "Cannot Retrieve Ericom Shield version file: $ES_repo_ver"
-   fi
-  else
-   ES_VER_PIC_FILE="$ES_VER_FILE"
+if [ ! -f "$ES_VER_FILE" ]; then
+    curl -s -S -o "$ES_VER_PIC_FILE" "$ES_repo_ver"
+    if [ ! -f "$ES_VER_PIC_FILE" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_PIC_FILE") -ge 1 ]; then
+        log_message "Cannot Retrieve Ericom Shield version file: $ES_repo_ver"
+    fi
+else
+    ES_VER_PIC_FILE="$ES_VER_FILE"
 fi
 
 CONTAINER_TAG="$(grep -r 'shield-collector' "$ES_VER_PIC_FILE" | cut -d' ' -f2)"
 if [ "$CONTAINER_TAG" = "" ]; then
-   CONTAINER_TAG="shield-collector:180523-13.26-2164"
-   log_message "Warning: Using default image: $CONTAINER_TAG"
+    CONTAINER_TAG="$CONTAINER_TAG_DEFAULT"
+    log_message "Warning: Using default image: $CONTAINER_TAG"
 fi
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then

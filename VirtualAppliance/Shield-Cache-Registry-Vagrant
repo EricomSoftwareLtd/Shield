@@ -70,7 +70,7 @@ Vagrant.configure("2") do |config|
 
 
       # set VM name
-  vb.name = "shield-eval"
+  vb.name = "shield-cache-registry"
 #      Doesnt work:
 #      vb.product = "Ericom Shield"
 #      vb.product-URL = "http://ericomshield.com/"
@@ -110,9 +110,11 @@ Vagrant.configure("2") do |config|
      wget -q "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-18.07/Setup/ericomshield-setup.sh"
      chmod +x ericomshield-setup.sh
      ./ericomshield-setup.sh -quickeval -approve-eula -v Rel-18.07
+     
      sudo  adduser --gecos "" ericom
      sudo  echo ericom:ericom | chpasswd
      sudo usermod -aG sudo ericom
+     
      apt-get clean
      echo ' '
      echo ' '
@@ -120,13 +122,20 @@ Vagrant.configure("2") do |config|
      hostname
      echo ' Your VM address is:'
      echo ' '
-     ../show-my-ip.sh
+     ~/show-my-ip.sh
      echo ' '
      echo ' You can use these ports'
-     echo ' port 3128 - Proxy'
-     echo ' port 8181 - Admin'
+     echo ' port 9000 - Registry'
      echo ' '
      echo ' Have a nice day'
+     
+     # prepare the registry cache:
+     mkdir /usr/local/ericomshield/registry
+     cd /usr/local/ericomshield/registry
+     wget -q "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Utils/shield-registry-start.sh"
+     chmod +x shield-registry-start.sh
+     ./shield-registry-start.sh
+     
   SHELL
 
 end

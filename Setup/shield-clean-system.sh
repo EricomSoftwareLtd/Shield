@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker system prune -af
-filename=./shield-version-dev.txt
+filename=./shield-version.txt
 COUNTER=0
 while read -r line; do
     if [ "$COUNTER" -ge "2" ]; then

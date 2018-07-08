@@ -1,0 +1,8 @@
+1) latest:master
+2) Release 18.07:Rel-18.07
+3) Release 18.05 on 27/05/18:Rel-18.05
+4) Release 18.04.1 on 22/04/18:Rel-18.04.1
+#deprecated
+5) Rel-18.03 - Release 18.03 on 11/03/18
+6) Prod-18.02.1 - Release 18.02 Build 280.3 (Hotfix) on 20/02/18
+7) Rel-18.01.1 - Release 18.01 on 07/01/18
