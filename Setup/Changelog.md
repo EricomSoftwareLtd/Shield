@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_369] - 2018-7-8
+- Limit System Capacity according to CPU #3601
+- Fixed en-us tooltips for CDR #3612
+- Verify certificate is a ca certificate #3477
+- Notification about validation success for password certificate is displayed over again when save #3581
+- Activation message #3559
+- Export - values are not correct for suspend #3536
+- Add the file name and extension to the download and upload notification #3519
+- Settings - custom CA password #3499
+- Remote apps profiles from the application profile list #3411
+- Translations - user language change also admin language #3468
+- Shield Admin - unique values in profile names #3333
+- Error Report Per Error Level #3476
+- Addnode one manager failed without any error #3607
+- Typos on addnodes.sh #3606
+- when switch from single to multi node need to run restart and not reload #3431
+
 ## [Dev:Build_368] - 2018-7-8
 - (*) Fixed localbrowser stuck after running long time in background #3077 #3657 #3625
 - Updated jp lang translation 
