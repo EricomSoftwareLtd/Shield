@@ -1,5 +1,5 @@
-#Release 18.07:Build_366 on 08/07/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=18.07:Build_365
+#Release 18.07:Build_366 on 18/07/3
+SHIELD_VER=8.0.0.latest SHIELD_VER=18.07:Build_366
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180610-14.23-2329
 shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
