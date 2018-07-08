@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_368] - 2018-7-8
+- (*) Fixed localbrowser stuck after running long time in background #3077 #3657 #3625
+- Updated jp lang translation 
+- Updated Remote Browser to support Upstream proxy #3571
+- NTLM is off by default  #3626
+- KKA - Character conversion problem with function key f6 in chrome #3610
+- KKA - [[Question]] QA#688697 About combination key #118 #2874
+- KKA -[[Input Issue]] QA#688638: Undefined Japanese conversion character is deleted on IE #119 #2872
+- typing in Japanese issue 2 #3302
+
 ## [Dev:Build_367] - 2018-7-4
 - Restart shield if required according to #UNR flag in shield-version (new) #3598
 - fix shift+0 in alphanumeric Japanese #2874
