@@ -33,12 +33,13 @@ ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 ES_VERSION_ARG=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
 ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
-VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:]+)"
+VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:\.-]+)"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
 CONTAINER_TAG_DEFAULT="shield-autoupdate:180628-09.37-2461"
 NOT_FOUND_STR="404: Not Found"
+UPDATE_NEED_RESTART_TXT="#UNR"
 
 cd "$ES_PATH" || exit
 
@@ -65,11 +66,6 @@ fi
 if [ -n "$AUTOUPDATE" ]; then
     remove=auto
     ARGS=("${ARGS[@]/$remove/}")
-fi
-
-if [ ! -f "$ES_VER_FILE" ]; then
-    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
-    exit 1
 fi
 
 function list_versions() {
@@ -267,6 +263,12 @@ fi
 
 if [ -z "$KEEP_DOCKER" ] && [ -z "$KEY_INSTALL" ]; then
     upgrade_docker_version
+fi
+
+if [[ ($(grep -c "$UPDATE_NEED_RESTART_TXT" "$ES_VER_FILE") -eq 1) && (-z "$KEY_INSTALL") && (-z $HELP_ASKED) ]]; then
+    echo "System restart is required for update"
+    echo "System is going be restarted"
+    $ES_PATH/stop.sh
 fi
 
 docker run --rm $DOCKER_RUN_PARAM \
