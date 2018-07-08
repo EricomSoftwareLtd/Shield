@@ -1,8 +1,4 @@
 version: '3.3'
-
-# Ericom Shield Stack Description
-# YML file for Rel-18.07
-
 services:
     es-dns:
         image: 'securebrowsing/es-dns:latest'
@@ -16,8 +12,8 @@ services:
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 1GB, cpus: '1.5'}}
         environment:
-            - 'TZ=UTC'
-            - 'LOGSTASH_FIELDS=service=es-dns'
+            - TZ=UTC
+            - LOGSTASH_FIELDS=service=es-dns
             - 'UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}'
     es-netdata:
         image: 'securebrowsing/es-netdata:latest'
@@ -33,10 +29,9 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             resources: {limits: {cpus: '0.20', memory: 256M}}
-# netdata will not be deployed by default (need to add label:netdata):            
             placement: {constraints: [node.labels.netdata==yes]}
         environment:
-            - 'TZ=UTC'
+            - TZ=UTC
     es-maintenance:
         image: 'securebrowsing/es-maintenance:latest'
         volumes:
@@ -50,10 +45,10 @@ services:
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 2GB, cpus: '1'}}
         environment:
-            - 'TZ=UTC'
-            - 'IMAGE_CLEAN_INTERVAL=1h'
+            - TZ=UTC
+            - IMAGE_CLEAN_INTERVAL=1h
             - 'RUN_TIME=23:59'
-            - 'LOGSTASH_FIELDS=service=es-maintenance'
+            - LOGSTASH_FIELDS=service=es-maintenance
     es-collector:
         image: 'securebrowsing/es-collector:latest'
         networks:
@@ -63,27 +58,23 @@ services:
             - '/dev:/hostdev'
         hostname: '{{.Node.ID}}-{{.Service.Name}}'
         environment:
-            - 'TZ=UTC'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=es-collector'
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-collector
         deploy:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
     es-elk:
         image: 'securebrowsing/es-elk:latest'
-#        ports:
-#            - '5601:5601'
-#            - '9200:9200'
-#            - '5014:5014'
         networks:
             - shield
         environment:
-            - 'TZ=UTC'
-            - 'REINDEX_RUNINNG_INTERVAL=30s'
-            - 'CLEAN_RUNINNG_INTERVAL=12h'
-            - 'LOGSPOUT=ignore'
-            - 'HEAP_SIZE=2g'
+            - TZ=UTC
+            - REINDEX_RUNINNG_INTERVAL=30s
+            - CLEAN_RUNINNG_INTERVAL=12h
+            - LOGSPOUT=ignore
+            - HEAP_SIZE=2g
         deploy:
             replicas: 1
             restart_policy: {condition: any}
@@ -100,10 +91,9 @@ services:
             - '/etc/hostname:/etc/host_hostname:ro'
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
-            - 'TZ=UTC'
+            - TZ=UTC
             - 'ROUTE_URIS=logstash+tcp://es-elk:5025'
-            - 'RETRY_STARTUP=true'
-            #- "DEBUG=1"
+            - RETRY_STARTUP=true
         deploy:
             mode: global
             resources: {limits: {cpus: '0.20', memory: 256M}, reservations: {cpus: '0.10', memory: 128M}}
@@ -112,19 +102,18 @@ services:
         networks:
             - shield
         deploy:
-            mode: replicated   #single node
-            replicas: 5        #single node
-            #mode: global      #multi node
+            mode: replicated
+            replicas: 5
             endpoint_mode: dnsrr
             placement: {constraints: [node.labels.management==yes]}
             update_config: {parallelism: 1, failure_action: rollback, delay: 100s}
             restart_policy: {condition: any}
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
-            - 'TZ=UTC'
-            - 'CONSUL_BIND_INTERFACE=eth0'
-            - 'NUMBER_OF_EXPECTED=3' # works for single and multi node
-            - 'LOGSTASH_FIELDS=service=consulserver'
+            - TZ=UTC
+            - CONSUL_BIND_INTERFACE=eth0
+            - NUMBER_OF_EXPECTED=3
+            - LOGSTASH_FIELDS=service=consulserver
         volumes:
             - {type: bind, source: /usr/local/ericomshield/backup, target: /consul/backup}
     es-consul-agent:
@@ -140,23 +129,20 @@ services:
             restart_policy: {condition: any}
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
-            - 'TZ=UTC'
-            - 'CONSUL_BIND_INTERFACE=eth2'
-            - 'RUN_AGENT=yes'
-            - 'LOGSTASH_FIELDS=service=es-consul-agent'
-
-###################################################################### Shield services part ##################################################################
-
+            - TZ=UTC
+            - CONSUL_BIND_INTERFACE=eth2
+            - RUN_AGENT=yes
+            - LOGSTASH_FIELDS=service=es-consul-agent
     es-admin:
         image: 'securebrowsing/es-admin:latest'
         hostname: es-admin
         ports:
             - '8181:8181'
         environment:
-            - 'TZ=UTC'
-            - 'SHIELD_VER=8.0.0.latest'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=es-admin'
+            - TZ=UTC
+            - SHIELD_VER=8.0.0.latest
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-admin
         volumes:
             - 'admin:/data/consul'
             - '/var/run/docker.sock:/var/run/docker.sock'
@@ -171,15 +157,13 @@ services:
             resources: {limits: {memory: 500MB, cpus: '0.5'}}
     es-policy-manager:
         image: 'securebrowsing/es-policy-manager:latest'
-        # user: nobody
         hostname: es-policy-manager
         environment:
-            - 'TZ=UTC'
-            - 'NODE_ENV=production'
-            - 'SHIELD_VER=8.0.0.latest'
-            - 'SHIELD_IP=IP_ADDRESS'
-            - 'LOGSTASH_FIELDS=service=es-policy-manager'
-            #- 'SHIELD_WATERMARK=TRUE'
+            - TZ=UTC
+            - NODE_ENV=production
+            - SHIELD_VER=8.0.0.latest
+            - SHIELD_IP=IP_ADDRESS
+            - LOGSTASH_FIELDS=service=es-policy-manager
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -195,7 +179,6 @@ services:
             resources: {limits: {memory: 500MB, cpus: '1'}}
     es-broker:
         image: 'securebrowsing/es-broker:latest'
-        # user: nobody
         hostname: es-broker
         deploy:
             mode: replicated
@@ -207,10 +190,10 @@ services:
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
-            - 'TZ=UTC'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=es-broker'
-            - 'SHIELD_VER=8.0.0.latest'
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-broker
+            - SHIELD_VER=8.0.0.latest
         networks:
             - shield
         secrets:
@@ -224,17 +207,11 @@ services:
         labels:
             - com.ericom.browser
         environment:
-            - 'TZ=UTC'
-            #- 'FPS=25'
-            #- 'DEBUG_REMOTE_SITE=true'
-            #- 'DISPOSE_BROWSER=true'
-            #- 'RUN_WITH_DEBUGGER=false'
-            #- 'EXTProxyAddress='
-            #- 'DEBUG_SEND_LOG_TO_AN=true'
+            - TZ=UTC
             - 'SHIELD_NODE_NAME={{.Node.Hostname}}'
             - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
-            - 'PERF_STATS=true'
-            - 'LOGSTASH_FIELDS=service=es-remote-browser'
+            - PERF_STATS=true
+            - LOGSTASH_FIELDS=service=es-remote-browser
         networks:
             - shield
         deploy:
@@ -258,18 +235,17 @@ services:
         networks:
             - shield
         environment:
-            - 'TZ=UTC'
-            - 'SSLEXCLUSION=true'
-            - 'LOGSTASH_FIELDS=service=es-proxy-internal'
-        #env_file: proxy-server.env
+            - TZ=UTC
+            - SSLEXCLUSION=true
+            - LOGSTASH_FIELDS=service=es-proxy-internal
         deploy:
-          mode: replicated
-          replicas: 2
-          restart_policy: {condition: any}
-          update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
-          placement: {constraints: [node.labels.shield_core==yes]}
-          resources: {limits: {memory: 500MB, cpus: '1'}}
-   es-proxy-external-adblock:
+            mode: replicated
+            replicas: 2
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 500MB, cpus: '1'}}
+    es-proxy-external-adblock:
         image: 'securebrowsing/es-proxy-external:latest'
         hostname: es-proxy-external-adblock
         ulimits:
@@ -282,8 +258,8 @@ services:
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 1024MB, cpus: '1'}}
         environment:
-            - 'TZ=UTC'
-   es-proxy-external-noadblock:
+            - TZ=UTC
+    es-proxy-external-noadblock:
         image: 'securebrowsing/es-proxy-external:latest'
         hostname: es-proxy-external-noadblock
         ulimits:
@@ -296,9 +272,9 @@ services:
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 1024MB, cpus: '1'}}
         environment:
-            - 'TZ=UTC'
-            - 'ADDBLOCK=no'
-   es-speedtest:
+            - TZ=UTC
+            - ADDBLOCK=no
+    es-speedtest:
         image: 'securebrowsing/es-speedtest:latest'
         hostname: es-speedtest
         ports:
@@ -311,8 +287,8 @@ services:
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
-            - 'TZ=UTC'
-   es-notifier:
+            - TZ=UTC
+    es-notifier:
         image: 'securebrowsing/es-notifier:latest'
         hostname: es-notifier
         networks:
@@ -323,8 +299,8 @@ services:
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
-            - 'TZ=UTC'
-   es-proxy-auth:
+            - TZ=UTC
+    es-proxy-auth:
         image: 'securebrowsing/es-proxy-auth:latest'
         hostname: es-proxy-auth
         deploy:
@@ -337,10 +313,10 @@ services:
         ports:
             - {target: 3128, published: 3128, protocol: tcp, mode: host}
         environment:
-            - 'TZ=UTC'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=es-proxy-auth'
-   es-web-service:
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-proxy-auth
+    es-web-service:
         image: 'securebrowsing/es-web-service:latest'
         hostname: es-web-service
         ports:
@@ -348,22 +324,22 @@ services:
         networks:
             - shield
         environment:
-            - 'TZ=UTC'
-            - 'SHIELD_IP=IP_ADDRESS'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=webservice'
+            - TZ=UTC
+            - SHIELD_IP=IP_ADDRESS
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=webservice
         deploy:
             mode: replicated
             replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
-   es-cdr-dispatcher:
+    es-cdr-dispatcher:
         image: 'securebrowsing/es-cdr-dispatcher:latest'
         hostname: es-cdr-dispatcher
         environment:
-            - 'TZ=UTC'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=cdrdispatcher'
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=cdrdispatcher
         networks:
             - shield
         deploy:
@@ -373,13 +349,13 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
-   es-cdr-controller:
+    es-cdr-controller:
         image: 'securebrowsing/es-cdr-controller:latest'
         hostname: es-cdr-controller
         environment:
-            - 'TZ=UTC'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=cdrcontroller'
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=cdrcontroller
         networks:
             - shield
         deploy:
@@ -388,10 +364,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
-
-    ############################### Docker managment part ##############################################################
-
-   es-portainer:
+    es-portainer:
         image: 'securebrowsing/es-portainer:latest'
         hostname: es-portainer
         ports:
@@ -400,8 +373,8 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer:/data'
         environment:
-            - 'TZ=UTC'
-            - 'LOGSTASH_FIELDS=service=es-portainer'
+            - TZ=UTC
+            - LOGSTASH_FIELDS=service=es-portainer
         networks:
             - shield
         deploy:
@@ -413,14 +386,12 @@ volumes:
     elastic:
     portainer:
     admin:
-
 networks:
     shield:
         driver: overlay
         ipam:
             driver: default
             config: [{subnet: 10.20.0.0/16}]
-
 secrets:
     shield-system-id:
         external: true
