@@ -196,11 +196,9 @@ function list_versions() {
         exit 1
         ;;
     esac
-    echo "$OPTION"
     grep "$OPTION" Releases.txt
     BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
     echo "$BRANCH"
-    exit 0
 }
 
 cd "$ES_PATH" || exit
