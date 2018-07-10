@@ -122,6 +122,9 @@ def set_proxy(flag):
     writeToEnv(proxy, port, username, password, flag)
     writeToBashrc(proxy, port, username, password, flag)
     writeDockerServiceConfig(proxy, port, username, password)
+    COMMAND='Defaults env_keep += "http_proxy https_proxy ftp_proxy"'
+    echo $COMMAND  | sudo EDITOR='tee -a' visudo
+
 
 
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
