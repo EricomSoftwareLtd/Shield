@@ -109,7 +109,7 @@ Vagrant.configure("2") do |config|
      cd ericomshield
      wget -q "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-18.07/Setup/ericomshield-setup.sh"
      chmod +x ericomshield-setup.sh
-     ./ericomshield-setup.sh -quickeval -approve-eula -v Rel-18.07
+     ./ericomshield-setup.sh -quickeval -approve-eula -version Rel-18.07
      sudo  adduser --gecos "" ericom
      sudo  echo ericom:ericom | chpasswd
      sudo usermod -aG sudo ericom
