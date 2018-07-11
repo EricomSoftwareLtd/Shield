@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_370] - 2018-7-11
+- 'Browser' option for application rules #3557
+- Slow Network Notification #3676
+- Bluecoat firewall cause all urls to be considered as app, hence all are white apps #3557
+- updated comments and messages (#3606)
+- Support upload to iFrames #3629
+- White list urls should be logged in ELK #3355
+- update continue even if pre check fails #3651
+
 ## [Dev:Build_369] - 2018-7-8
 - Limit System Capacity according to CPU #3601
 - Fixed en-us tooltips for CDR #3612
