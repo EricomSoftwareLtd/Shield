@@ -13,15 +13,14 @@ fi
 ES_PATH=/usr/local/ericomshield
 cd $ES_PATH
 
-NUM_EXPECTED_SERVICES=$(grep -c image docker-compose.yml)
+ES_YML_CORE_FILE="$ES_PATH/docker-compose-core.yml"
+NUM_EXPECTED_SERVICES=$(grep -c image $ES_YML_CORE_FILE)
 
 #Number of running services expected shield-browser
 NUM_RUNNING_SERVICES=$(docker service ls | grep -v shield-browser | grep -c shield)
-NUM_RUNNING_SERVICES=$((NUM_RUNNING_SERVICES + 1)) #Adding 1 for shield-browser
 
 #Number of services with expected replicas >0 and less than 10 (browsers)
 NUM_EXPECTED_REP=$(docker service ls | grep -v shield-browser | grep -c "/[1-9] ")
-NUM_EXPECTED_REP=$((NUM_EXPECTED_REP + 1)) #Adding 1 for shield-browser
 
 #Number of services with running replicas >0 except browsers
 NUM_RUNNING_REP=$(docker service ls | grep -v shield-browser | grep -c "[1-9]/")
@@ -43,7 +42,6 @@ function get_container_tag() {
 function print_usage() {
     echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-e | --errors] [-h | --help]"
 }
-
 
 get_container_tag
 

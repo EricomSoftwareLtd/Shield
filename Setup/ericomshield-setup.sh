@@ -2,6 +2,7 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
+ES_SETUP_VER="Setup:18.07-0407"
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -14,7 +15,6 @@ fi
 ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
-STACK_NAME=shield
 DOCKER_DEFAULT_VERSION="18.03.1"
 DOCKER_VERSION=""
 UPDATE=false
@@ -24,8 +24,9 @@ NOT_FOUND_STR="404: Not Found"
 ES_AUTO_UPDATE_FILE="$ES_PATH/.autoupdate"
 ES_REPO_FILE="$ES_PATH/ericomshield-repo.sh"
 ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
-ES_YML_FILE="$ES_PATH/docker-compose.yml"
-ES_YML_FILE_BAK="$ES_PATH/docker-compose_yml.bak"
+STACK_NAME='shield' #(shield prefix works for both)
+ES_YML_CORE_FILE="$ES_PATH/docker-compose-shield-core.yml"
+ES_YML_BROWSERS_FARM_FILE="$ES_PATH/docker-compose-browsers-farm.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 ES_VER_FILE_BAK="$ES_PATH/shield-version.bak"
@@ -38,8 +39,8 @@ STAGING_BRANCH="Staging"
 
 SUCCESS=false
 
-ES_SETUP_VER="Setup:18.07-2406"
-
+#SHIELD_REGISTRY="127.0.0.1:5000"
+SHIELD_REGISTRY=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_POCKET=false
@@ -47,7 +48,6 @@ ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
-ES_CONFIG_STORAGE=yes
 SWITCHED_TO_MULTINODE=false
 
 MIN_RELEASE_MAJOR="16"
@@ -196,11 +196,9 @@ function list_versions() {
         exit 1
         ;;
     esac
-    echo "$OPTION"
     grep "$OPTION" Releases.txt
     BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
     echo "$BRANCH"
-    exit 0
 }
 
 cd "$ES_PATH" || exit
@@ -248,10 +246,6 @@ while [ $# -ne 0 ]; do
     -no-deploy)
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
-        ;;
-    -no-config-storage)
-        ES_CONFIG_STORAGE=no
-        echo "For docker-machine stop storage configuration (No Deploy) "
         ;;
     -list-versions)
         list_versions
@@ -446,7 +440,7 @@ function install_docker() {
         #Stop shield (if running)
         if [ "$ES_RUN_DEPLOY" == true ] && [ -x "/usr/bin/docker" ] && [ $(docker stack ls | grep -c $STACK_NAME) -ge 1 ]; then
             log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
-            docker stack rm $STACK_NAME
+            ./stop.sh
         fi
 
         apt-cache policy docker-ce
@@ -504,6 +498,13 @@ function create_shield_service() {
     echo "Done!"
 }
 
+function check_shield_service_exists() {
+    SHIELD_SERVICE_STATUS=$(sudo systemctl show -p LoadState ericomshield-updater.service | sed 's/LoadState=//g')
+    if [[ "$SHIELD_SERVICE_STATUS" = "not-found" && -f "$ES_PATH/ericomshield-updater.service" ]]; then
+        rm -f "$ES_PATH/ericomshield-updater.service"
+    fi
+}
+
 function add_aliases() {
     if [ -f ~/.bashrc ] && [ $(grep -c 'shield_aliases' ~/.bashrc) -eq 0 ]; then
         echo 'Adding Aliases in .bashrc'
@@ -517,7 +518,8 @@ function add_aliases() {
 }
 
 function prepare_yml() {
-    echo "Preparing yml file (Containers build number)"
+    ES_CUR_YML_FILE="$1"
+    echo "Preparing yml file:$ES_CUR_YML_FILE (Containers build number)"
     while read -r ver; do
         if [ "${ver:0:1}" == '#' ]; then
             echo "$ver"
@@ -526,24 +528,26 @@ function prepare_yml() {
             comp_ver=$(echo "$ver" | awk '{print $2}')
             if [ ! -z "$pattern_ver" ]; then
                 #echo "Changing ver: $comp_ver"
-                sed -i'' "s/$pattern_ver/$comp_ver/g" $ES_YML_FILE
+                sed -i'' "s/$pattern_ver/$comp_ver/g" $ES_CUR_YML_FILE
             fi
         fi
     done <"$ES_VER_FILE"
 
-    #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
-    sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
+    #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_CUR_YML_FILE"
+    sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_CUR_YML_FILE
 
     local TZ="$( (test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
-    sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
+    sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_CUR_YML_FILE
 }
 
 function switch_to_multi_node() {
-    if [ $(grep -c '#[[:space:]]*mode: global[[:space:]]*#multi node' $ES_YML_FILE) -eq 1 ]; then
+    ES_CUR_YML_FILE="$1"
+
+    if [ $(grep -c '#[[:space:]]*mode: global[[:space:]]*#multi node' $ES_CUR_YML_FILE) -eq 1 ]; then
         echo "Switching to Multi-Node (consul-server -> global)"
-        sed -i'' 's/\(mode: replicated[[:space:]]*#single node\)/#\1/g' $ES_YML_FILE
-        sed -i'' 's/\(replicas: 5[[:space:]]*#single node\)/#\1/g' $ES_YML_FILE
-        sed -i'' 's/#\([[:space:]]*mode: global[[:space:]]*#multi node\)/\1/g' $ES_YML_FILE
+        sed -i'' 's/\(mode: replicated[[:space:]]*#single node\)/#\1/g' $ES_CUR_YML_FILE
+        sed -i'' 's/\(replicas: 5[[:space:]]*#single node\)/#\1/g' $ES_CUR_YML_FILE
+        sed -i'' 's/#\([[:space:]]*mode: global[[:space:]]*#multi node\)/\1/g' $ES_CUR_YML_FILE
         SWITCHED_TO_MULTINODE=true
     fi
 }
@@ -578,6 +582,7 @@ function get_shield_install_files() {
     if [ -f "$ES_VER_FILE" ]; then
         if [ "$(diff "$ES_VER_FILE" "$ES_VER_FILE_NEW" | wc -l)" -eq 0 ]; then
             echo "Your EricomShield System is Up to date ($SHIELD_VERSION)"
+            rm "$ES_VER_FILE_NEW"
             exit 0
         else
             SHIELD_CUR_VERSION=$(grep -r 'SHIELD_VER' "$ES_VER_FILE" | cut -d' ' -f2)
@@ -595,11 +600,17 @@ function get_shield_install_files() {
     fi
     mv "$ES_VER_FILE_NEW" "$ES_VER_FILE"
 
-    echo "Getting $ES_YML_FILE"
-    if [ -f "$ES_YML_FILE" ]; then
-        mv "$ES_YML_FILE" "$ES_YML_FILE_BAK"
+    echo "Getting $ES_YML_CORE_FILE"
+    if [ -f "$ES_YML_CORE_FILE" ]; then
+        mv "$ES_YML_CORE_FILE" "$ES_YML_CORE_FILE".bak
     fi
-    curl -s -S -o "$ES_YML_FILE" "$ES_repo_yml"
+    curl -s -S -o "$ES_YML_CORE_FILE" "$ES_repo_core_yml"
+
+    echo "Getting $ES_YML_BROWSERS_FARM_FILE"
+    if [ -f "$ES_YML_BROWSERS_FARM_FILE" ]; then
+        mv "$ES_YML_BROWSERS_FARM_FILE" "$ES_YML_BROWSERS_FARM_FILE".bak
+    fi
+    curl -s -S -o "$ES_YML_BROWSERS_FARM_FILE" "$ES_repo_browsers_farm_yml"
 
     if [ $ES_POCKET == true ]; then
         echo "Getting $ES_repo_pocket_yml"
@@ -622,8 +633,12 @@ function pull_images() {
             arr=($line)
             if [ $LINE -ge 3 ]; then
                 echo "################## Pulling images  ######################"
-                echo "pulling image: ${arr[1]}"
-                docker pull "securebrowsing/${arr[1]}"
+                echo "pulling image: ${arr[1]} ($SHIELD_REGISTRY)"
+                if [ ! -z "$SHIELD_REGISTRY" ]; then
+                   IMAGE_NAME="$SHIELD_REGISTRY/securebrowsing/${arr[1]}"
+                else                
+                   docker pull "securebrowsing/${arr[1]}"
+                fi   
             fi
         fi
         LINE=$((LINE + 1))
@@ -704,18 +719,22 @@ function am_i_leader() {
     AM_I_LEADER=$(docker node inspect $(hostname) --format "{{ .ManagerStatus.Leader }}" | grep "true")
 }
 
-function set_storage_driver() {
-    if [ -f /etc/docker/daemon.json ] && [ $(grep -c '"storage-driver"[[:space:]]*:[[:space:]]*"overlay2"' /etc/docker/daemon.json) -eq 1 ]; then
-        echo '"storage-driver": "overlay2" in /etc/docker/daemon.json'
-    else
-        echo 'Setting: "storage-driver": overlay2 in /etc/docker/daemon.json'
-        echo '{' >/etc/docker/daemon.json.shield
-        echo '  "storage-driver": "overlay2"' >>/etc/docker/daemon.json.shield
-        echo '}' >>/etc/docker/daemon.json.shield
-        systemctl stop docker
-        sleep 10
-        mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
-        systemctl start docker
+function update_daemon_json() {
+    if [ ! -z $SHIELD_REGISTRY ]; then    
+       if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
+          echo '/etc/docker/daemon.json is ok'
+        else
+          echo "Setting: insecure-registries:[$SHIELD_REGISTRY] in /etc/docker/daemon.json"
+          echo '{' >/etc/docker/daemon.json.shield
+          echo -n ',  "insecure-registries":["' >>/etc/docker/daemon.json.shield
+          echo -n $SHIELD_REGISTRY >>/etc/docker/daemon.json.shield
+          echo '"]' >>/etc/docker/daemon.json.shield
+          echo '}' >>/etc/docker/daemon.json.shield          
+          systemctl stop docker
+          sleep 10
+          mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
+          systemctl start docker
+       fi          
     fi
 }
 
@@ -755,6 +774,8 @@ get_shield_install_files
 
 install_docker
 
+update_daemon_json
+
 if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
 else
@@ -781,7 +802,7 @@ fi
 
 if [ "$ES_FORCE" == false ]; then
     source $ES_PRE_CHECK_FILE
-    echo "***************     Running pre-install-check ..."
+    echo "***************     Running pre-install-check (2) ..."
     perform_env_test
     if [ "$?" -ne "0" ]; then
         failed_to_install_cleaner "Shield pre-install-check failed!"
@@ -796,20 +817,22 @@ update_sysctl
 
 ./prepare-node.sh
 
-prepare_yml
+prepare_yml "$ES_YML_CORE_FILE"
+prepare_yml "$ES_YML_BROWSERS_FARM_FILE"
 
 if [ "$UPDATE" == false ]; then
     AM_I_LEADER=true #if new installation, i am the leader
     # New Installation
-    if [ "$ES_CONFIG_STORAGE" = "yes" ]; then
-        set_storage_driver
-    fi
-
     create_shield_service
     echo "pull images" #before starting the system
     pull_images
 
 else # Update
+    check_shield_service_exists
+    if [ "$SHIELD_SERVICE_STATUS" = "not-found" ]; then
+        create_shield_service
+    fi
+
     STOP_SHIELD=false
     SWARM=$(test_swarm_exists)
     if [ ! -z "$SWARM" ]; then
@@ -817,7 +840,8 @@ else # Update
         MNG_NODES_COUNT=$(docker node ls -f "role=manager" | grep -c Ready)
         CONSUL_GLOBAL=$(docker service ls | grep -c "consul-server    global")
         if [ "$MNG_NODES_COUNT" -gt 1 ]; then
-            switch_to_multi_node
+            switch_to_multi_node "$ES_YML_CORE_FILE"
+            switch_to_multi_node "$ES_YML_BROWSERS_FARM_FILE"
             if [ "$CONSUL_GLOBAL" -ne 1 ]; then
                 if [ "$AM_I_LEADER" == true ]; then
                     STOP_SHIELD=true
@@ -883,7 +907,7 @@ fi
 
 systemctl start ericomshield-updater.service
 
-Version=$(grep SHIELD_VER "$ES_YML_FILE")
+Version=$(grep SHIELD_VER "$ES_YML_CORE_FILE")
 
 if [ $SUCCESS == false ]; then
     echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."

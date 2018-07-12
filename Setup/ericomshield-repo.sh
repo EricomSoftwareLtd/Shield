@@ -14,6 +14,8 @@ fi
 # Development Repository: (Latest)
 ES_repo_setup="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/ericomshield-setup.sh"
 ES_repo_start="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/start.sh"
+ES_repo_start_rbf="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/start-rbf.sh"
+ES_repo_start_core="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/start-core.sh"
 ES_repo_autoupdate="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/autoupdate.sh"
 ES_repo_version="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/showversion.sh"
 ES_repo_stop="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/stop.sh"
@@ -35,6 +37,7 @@ ES_repo_swarm_sh="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BR
 
 # Version and YML files:
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
-ES_repo_yml="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/docker-compose.yml"
+ES_repo_core_yml="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/docker-compose-shield-core.yml"
+ES_repo_browsers_farm_yml="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/docker-compose-browsers-farm.yml"
 
 ES_repo_pocket_yml="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/docker-compose_pocket.yml"

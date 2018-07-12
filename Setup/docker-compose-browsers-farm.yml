@@ -1,0 +1,306 @@
+version: '3.3'
+services:
+    es-dns:
+        image: 'securebrowsing/es-dns:latest'
+        networks:
+            - shield-browsers-farm
+        hostname: es-dns
+        deploy:
+            replicas: 2
+            restart_policy: {condition: any}
+            placement: {constraints: [node.labels.management==yes]}
+            update_config: {failure_action: rollback}
+            resources: {limits: {memory: 1GB, cpus: '1.5'}}
+        environment:
+            - TZ=UTC
+            - LOGSTASH_FIELDS=service=es-dns
+            - 'UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}'
+    es-netdata:
+        image: 'securebrowsing/es-netdata:latest'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        networks:
+            - shield-browsers-farm
+        hostname: netdata
+        ports:
+            - {target: 19999, published: 8283, protocol: tcp}
+        deploy:
+            mode: global
+            restart_policy: {condition: any}
+            update_config: {failure_action: rollback}
+            resources: {limits: {cpus: '0.20', memory: 256M}}
+            placement: {constraints: [node.labels.netdata==yes]}
+        environment:
+            - TZ=UTC
+    es-maintenance:
+        image: 'securebrowsing/es-maintenance:latest'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        networks:
+            - shield-browsers-farm
+        hostname: es-maintenance
+        deploy:
+            mode: global
+            restart_policy: {condition: any}
+            update_config: {failure_action: rollback}
+            resources: {limits: {memory: 2GB, cpus: '1'}}
+        environment:
+            - TZ=UTC
+            - IMAGE_CLEAN_INTERVAL=1h
+            - 'RUN_TIME=23:59'
+            - LOGSTASH_FIELDS=service=es-maintenance
+    es-collector:
+        image: 'securebrowsing/es-collector:latest'
+        networks:
+            - shield-browsers-farm
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/dev:/hostdev'
+        hostname: '{{.Node.ID}}-{{.Service.Name}}'
+        environment:
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-collector
+        deploy:
+            mode: global
+            restart_policy: {condition: any}
+            update_config: {failure_action: rollback}
+    es-logspout:
+        image: 'securebrowsing/es-logspout:latest'
+        networks:
+            - shield-browsers-farm
+        volumes:
+            - '/etc/hostname:/etc/host_hostname:ro'
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - TZ=UTC
+            - 'ROUTE_URIS=logstash+tcp://es-elk:5025'
+            - RETRY_STARTUP=true
+        deploy:
+            mode: global
+            resources: {limits: {cpus: '0.20', memory: 256M}, reservations: {cpus: '0.10', memory: 128M}}
+    es-consul-server:
+        image: 'securebrowsing/es-consul-server:latest'
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 5
+            endpoint_mode: dnsrr
+            placement: {constraints: [node.labels.management==yes]}
+            update_config: {parallelism: 1, failure_action: rollback, delay: 100s}
+            restart_policy: {condition: any}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+        environment:
+            - TZ=UTC
+            - CONSUL_BIND_INTERFACE=eth0
+            - NUMBER_OF_EXPECTED=3
+            - LOGSTASH_FIELDS=service=consulserver
+        volumes:
+            - {type: bind, source: /usr/local/ericomshield/backup, target: /consul/backup}
+    es-consul-agent:
+        image: 'securebrowsing/es-consul-agent:latest'
+        networks:
+            - shield-browsers-farm
+        ports:
+            - '8285:8500'
+        deploy:
+            mode: replicated
+            replicas: 1
+            update_config: {parallelism: 1, failure_action: rollback}
+            restart_policy: {condition: any}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+        environment:
+            - TZ=UTC
+            - CONSUL_BIND_INTERFACE=eth2
+            - RUN_AGENT=yes
+            - LOGSTASH_FIELDS=service=es-consul-agent
+    es-system-configuration:
+        image: 'securebrowsing/es-system-configuration:latest'
+        # user: nobody
+        hostname: es-system-configuration
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-system-configuration'
+            - 'SHIELD_VER=8.0.0.latest'
+        networks:
+            - shield-browsers-farm
+        secrets:
+            - shield-system-id
+    es-system-monitor:
+        image: 'securebrowsing/es-system-monitor:latest'
+        # user: nobody
+        hostname: es-system-monitor
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-system-monitor'
+        networks:
+            - shield-browsers-farm
+    es-remote-browser-scaler:
+        image: 'securebrowsing/es-remote-browser-scaler:latest'
+        # user: nobody
+        hostname: es-remote-browser-scaler
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-remote-browser-scaler'
+        networks:
+            - shield-browsers-farm
+    es-remote-browser:
+        image: 'securebrowsing/es-remote-browser:latest'
+        user: user
+        ulimits:
+            nice: -20
+            rtprio: 10
+        labels:
+            - com.ericom.browser
+        environment:
+            - TZ=UTC
+            - 'SHIELD_NODE_NAME={{.Node.Hostname}}'
+            - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
+            - PERF_STATS=true
+            - LOGSTASH_FIELDS=service=es-remote-browser
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 20
+            endpoint_mode: dnsrr
+            update_config: {parallelism: 8, delay: 10s}
+            restart_policy: {condition: any}
+            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.08', memory: 150MB}}
+            placement: {constraints: [node.labels.browser==yes]}
+        volumes:
+            - {type: tmpfs, target: /dev/shm}
+            - {type: tmpfs, target: /home}
+            - {type: tmpfs, target: /tmp}
+            - {type: bind, target: /dev/shm/xorg, source: /media/containershm}
+    es-proxy-external-adblock:
+        image: 'securebrowsing/es-proxy-external:latest'
+        hostname: es-proxy-external-adblock
+        ulimits:
+            nofile: {soft: 65535, hard: 65535}
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 2
+            placement: {constraints: [node.labels.browser==yes]}
+            resources: {limits: {memory: 1024MB, cpus: '1'}}
+        environment:
+            - TZ=UTC
+    es-proxy-external-noadblock:
+        image: 'securebrowsing/es-proxy-external:latest'
+        hostname: es-proxy-external-noadblock
+        ulimits:
+            nofile: {soft: 65535, hard: 65535}
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 2
+            placement: {constraints: [node.labels.browser==yes]}
+            resources: {limits: {memory: 1024MB, cpus: '1'}}
+        environment:
+            - TZ=UTC
+            - ADDBLOCK=no
+    es-speedtest:
+        image: 'securebrowsing/es-speedtest:latest'
+        hostname: es-speedtest
+        ports:
+            - '8284:8185'
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement: {constraints: [node.labels.browser==yes]}
+            resources: {limits: {memory: 512MB, cpus: '0.5'}}
+        environment:
+            - TZ=UTC
+    es-cdr-dispatcher:
+        image: 'securebrowsing/es-cdr-dispatcher:latest'
+        hostname: es-cdr-dispatcher
+        environment:
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=cdrdispatcher
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 2
+            endpoint_mode: dnsrr
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+    es-cdr-controller:
+        image: 'securebrowsing/es-cdr-controller:latest'
+        hostname: es-cdr-controller
+        environment:
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=cdrcontroller
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+    es-portainer:
+        image: 'securebrowsing/es-portainer:latest'
+        hostname: es-portainer
+        ports:
+            - '8290:9000'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+            - 'portainer:/data'
+        environment:
+            - TZ=UTC
+            - LOGSTASH_FIELDS=service=es-portainer
+        networks:
+            - shield-browsers-farm
+        deploy:
+            restart_policy: {condition: any}
+            update_config: {failure_action: rollback}
+            placement: {constraints: [node.labels.management==yes]}
+            resources: {limits: {memory: 100MB, cpus: '0.5'}}
+volumes:
+    portainer:
+networks:
+    shield-browsers-farm:
+        driver: overlay
+        ipam:
+            driver: default
+            config: [{subnet: 10.21.0.0/16}]
