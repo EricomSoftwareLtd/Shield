@@ -1,9 +1,7 @@
 #!/bin/bash
 ############################################
-#####   Ericom Shield Registry Cache        #####
+#####   Ericom Shield Registry Cache   #####
 #######################################BH###
-
-ES_SETUP_VER="Setup:18.07-0407"
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -25,8 +23,6 @@ ES_REG_PATH="$ES_PATH/registry"
 ES_REG_YML_REPO="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Utils/shield-registry-config.yml"
 ES_REG_YML="$ES_REG_PATH/shield-registry-config.yml"
 ES_REG_DATA="$ES_REG_PATH/data"
-
-SUCCESS=false
 
 function pull_images() {
     LINE=0
@@ -96,18 +92,23 @@ wget -q "$ES_REG_YML_REPO"
 update_daemon_json
 
 #Stopping registry dockeri if running:
-docker rm $(docker stop $(docker ps -a -q --filter name=registry --format="{{.ID}}"))
+if [ $(docker ps | grep -c registry) -ge 1 ]; then
+   docker rm $(docker stop $(docker ps -a -q --filter name=registry --format="{{.ID}}"))
+fi
 
-#Starting registry dockeri if running:
-echo $ES_REG_YML
+#Starting registry docker
+echo "Starting Shield Registry ..."
 docker run --rm -d -p "$REGISTRY_PORT:5000" \
  -v "$ES_REG_YML:/etc/docker/registry/config.yml" \
  -v "$ES_REG_DATA:/var/lib/registry" \
  --name registry registry:2
 
+#wait until container will start
+sleep 30
 echo "Ericom Shield Registry Cache Listening on port: $REGISTRY_PORT "
 
 if [ -f "$ES_VER_FILE" ]; then
-   echo "pull images" #before starting the system
+   echo "pull images" #pull images for caching
    pull_images
 fi
+    
