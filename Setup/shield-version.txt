@@ -1,7 +1,7 @@
 #Build Dev:Build_370.1 on 18/07/12
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_364.1
 #docker-version 18.03.1
-es-admin:latest es-admin:180713-11.41-2531
+es-admin:latest es-admin:180715-08.08-2538
 es-cdr-controller:latest es-cdr-controller:180709-14.09-2512
 es-cdr-dispatcher:latest es-cdr-dispatcher:180713-12.37-2537
 es-collector:latest es-collector:180709-14.54-2514
