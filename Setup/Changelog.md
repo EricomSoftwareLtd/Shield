@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_371] - 2018-7-15
+- internal error 3 on pending when using sandblast #3656
+- Technical items raised by Snir from Check Point during SandBlast integration demo #3650
+- Error Report Per Error Level #3476
+- unbound and squid fail ttl #3689
+- update continue even if pre check fails #3651
+- problem to run update on a machine with upstream proxy #3633
+- White list urls should be logged in ELK #3355
+
 ## [Dev:Build_370] - 2018-7-11
 - 'Browser' option for application rules #3557
 - Slow Network Notification #3676
