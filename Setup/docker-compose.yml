@@ -193,6 +193,7 @@ services:
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
+            - SHIELD_IP=IP_ADDRESS
             - 'LOGSTASH_FIELDS=service=es-system-configuration'
             - 'SHIELD_VER=8.0.0.latest'
         networks:
