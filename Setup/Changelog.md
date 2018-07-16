@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_372] - 2018-7-16
+- Notifiy end user when page load is slow (18.06) #3011
+- Several components updates
+- http://tumblr.com/ - Appstore icon does work - AD block #3710
+- Use an image with newer openjdk version for ELK (#3621)
 
 ## [Dev:Build_371] - 2018-7-15
 - internal error 3 on pending when using sandblast #3656
