@@ -8,7 +8,7 @@ services:
         deploy:
             replicas: 2
             restart_policy: {condition: any}
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 1GB, cpus: '1.5'}}
         environment:
@@ -79,6 +79,28 @@ services:
         deploy:
             mode: global
             resources: {limits: {cpus: '0.20', memory: 256M}, reservations: {cpus: '0.10', memory: 128M}}
+    es-admin:
+        image: 'securebrowsing/es-admin:latest'
+        hostname: es-admin
+        ports:
+            - '8281:8181'
+        environment:
+            - TZ=Etc/UTC
+            - SHIELD_VER=Dev:SHIELD_VER
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-admin
+        volumes:
+            - 'admin:/data/consul'
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        networks:
+            - shield-browsers-farm
+        deploy:
+            mode: replicated
+            replicas: 1
+            update_config: {failure_action: rollback}
+            restart_policy: {condition: any}
+            placement: {constraints: [node.labels.browser==yes]}
+            resources: {limits: {memory: 500MB, cpus: '0.5'}}
     es-consul-server:
         image: 'securebrowsing/es-consul-server:latest'
         networks:
@@ -87,7 +109,7 @@ services:
             mode: replicated
             replicas: 5
             endpoint_mode: dnsrr
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
             update_config: {parallelism: 1, failure_action: rollback, delay: 100s}
             restart_policy: {condition: any}
             resources: {limits: {memory: 1GB, cpus: '1'}}
@@ -125,7 +147,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
@@ -147,7 +169,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
@@ -166,7 +188,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
@@ -262,7 +284,7 @@ services:
             endpoint_mode: dnsrr
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            placement: {constraints: [node.labels.shield_core==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
     es-cdr-controller:
         image: 'securebrowsing/es-cdr-controller:latest'
         hostname: es-cdr-controller
@@ -277,7 +299,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            placement: {constraints: [node.labels.shield_core==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
     es-portainer:
         image: 'securebrowsing/es-portainer:latest'
         hostname: es-portainer
@@ -294,7 +316,7 @@ services:
         deploy:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 100MB, cpus: '0.5'}}
     es-subsystems-configuration:
         image: 'securebrowsing/es-subsystems-configuration:latest'
@@ -310,7 +332,7 @@ services:
         deploy:
             mode: replicated
             replicas: 1
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
     es-proxy-browsers-farm:
         image: 'securebrowsing/es-proxy-browsers-farm:latest'
@@ -329,7 +351,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, delay: 10s, failure_action: continue}
-            placement: {constraints: [node.labels.shield_core==yes]}
+            placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}            
 volumes:
     portainer:
