@@ -23,7 +23,7 @@ services:
             - shield-core
         hostname: netdata
         ports:
-            - {target: 19999, published: 8383, protocol: tcp}
+            - {target: 19999, published: 8183, protocol: tcp}
         deploy:
             mode: global
             restart_policy: {condition: any}
@@ -168,8 +168,6 @@ services:
             nofile: {soft: 65535, hard: 65535}
         networks:
             - shield-core
-        ports:
-            - '1344:1344'
         deploy:
             mode: replicated
             replicas: 1
@@ -255,9 +253,9 @@ services:
             update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
-    es-proxy-external-noadblock:
+    es-proxy-external-adblock:
         image: 'securebrowsing/es-proxy-external:latest'
-        hostname: es-proxy-external-noadblock
+        hostname: es-proxy-external-adblock
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
