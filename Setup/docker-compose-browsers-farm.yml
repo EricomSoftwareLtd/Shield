@@ -296,6 +296,40 @@ services:
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 100MB, cpus: '0.5'}}
+    es-subsystems-configuration:
+        image: 'securebrowsing/es-subsystems-configuration:latest'
+        hostname: es-subsystems-configuration
+        ports:
+            - '3144:3144'
+        networks:
+            - shield
+        environment:
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-subsystems-configuration'
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement: {constraints: [node.labels.management==yes]}
+            resources: {limits: {memory: 500MB, cpus: '1'}}
+    es-proxy-browsers-farm:
+        image: 'securebrowsing/es-proxy-browsers-farm:latest'
+        hostname: es-proxy-browsers-farm
+        ports:
+            - '3140:3140'
+        ulimits:
+            nofile: {soft: 65535, hard: 65535}
+        networks:
+            - shield
+        environment:
+            - 'TZ=Europe/Bucharest'
+            - 'LOGSTASH_FIELDS=service=es-proxy-browsers-farm'
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, delay: 10s, failure_action: continue}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 500MB, cpus: '1'}}            
 volumes:
     portainer:
 networks:
