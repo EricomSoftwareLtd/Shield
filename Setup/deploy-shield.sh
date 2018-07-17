@@ -147,7 +147,7 @@ if [ "$AM_I_LEADER" == true ]; then
     echo "Deploying $SHIELD_CORE_STACK_NAME Stack"
     retry_on_failure docker stack deploy -c $ES_YML_CORE_FILE $SHIELD_CORE_STACK_NAME --with-registry-auth
     echo "Deploying $SHIELD_BROWSERS_FARM_STACK_NAME Stack"    
-    retry_on_failure docker stack deploy -c $SHIELD_BROWSERS_FARM_FILE $SHIELD_BROWSERS_FARM_STACK_NAME --with-registry-auth    
+    retry_on_failure docker stack deploy -c $ES_YML_BROWSERS_FARM_FILE $SHIELD_BROWSERS_FARM_STACK_NAME --with-registry-auth    
 else
     echo "Please run this command on the leader: $LEADER_HOST"
 fi
