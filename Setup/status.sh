@@ -13,7 +13,7 @@ fi
 ES_PATH=/usr/local/ericomshield
 cd $ES_PATH
 
-ES_YML_CORE_FILE="$ES_PATH/docker-compose-core.yml"
+ES_YML_CORE_FILE="$ES_PATH/docker-compose-shield-core.yml"
 NUM_EXPECTED_SERVICES=$(grep -c image $ES_YML_CORE_FILE)
 
 #Number of running services expected shield-browser
