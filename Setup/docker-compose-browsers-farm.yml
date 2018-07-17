@@ -306,6 +306,7 @@ services:
         environment:
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=es-subsystems-configuration'
+            - 'SHIELD_IP=IP_ADDRESS'
         deploy:
             mode: replicated
             replicas: 1
