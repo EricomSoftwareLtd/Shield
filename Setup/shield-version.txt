@@ -1,30 +1,32 @@
-#Build Dev:Build_370.2-Split-Shield-NewNames on 18/07/12
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_370.2
+#Build Dev:Build_370.1 on 18/07/12
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_364.1
 #docker-version 18.03.1
-es-admin:latest es-admin:180709-14.09-2512
+es-admin:latest es-admin:180715-08.08-2538
 es-cdr-controller:latest es-cdr-controller:180709-14.09-2512
-es-cdr-dispatcher:latest es-cdr-dispatcher:180709-14.09-2512
+es-cdr-dispatcher:latest es-cdr-dispatcher:180713-12.37-2537
 es-collector:latest es-collector:180709-14.54-2514
 es-consul-agent:latest es-consul-agent:180709-14.09-2512
 es-consul-server:latest es-consul-server:180709-14.09-2512
-es-dns:latest es-dns:180709-14.09-2512
+es-dns:latest es-dns:180713-11.29-2530
 es-elk:latest es-elk:180710-06.19-2515
-es-license-manager:latest es-license-manager:180709-14.09-2512
+es-license-manager:latest es-license-manager:180713-12.37-2537
 es-logspout:latest es-logspout:180709-14.09-2512
 es-maintenance:latest es-maintenance:180709-14.09-2512
 es-netdata:latest es-netdata:180709-14.09-2512
 es-notifier:latest es-notifier:180709-14.09-2512
-es-policy-manager:latest es-policy-manager:180709-14.09-2512
+es-policy-manager:latest es-policy-manager:180716-13.05-2549
 es-portainer:latest es-portainer:180709-14.09-2512
-es-proxy-auth:latest es-proxy-auth:180709-14.09-2512
-es-proxy-external:latest es-proxy-external:180709-14.09-2512
+es-proxy-auth:latest es-proxy-auth:180713-12.16-2536
+es-proxy-browsers-farm:latest es-proxy-browsers-farm:180715-14.24-2545
+es-proxy-external:latest es-proxy-external:180713-12.16-2536
 es-proxy-internal:latest es-proxy-internal:180709-14.09-2512
-es-remote-browser:latest es-remote-browser:180709-14.09-2512
-es-remote-browser-scaler:latest es-remote-browser-scaler:180709-14.09-2512
+es-remote-browser:latest es-remote-browser:180716-13.05-2549
+es-remote-browser-scaler:latest es-remote-browser-scaler:180710-09.43-2521
 es-speedtest:latest es-speedtest:180709-14.09-2512
-es-system-configuration:latest es-system-configuration:180709-14.09-2512
-es-system-monitor:latest es-system-monitor:180710-06.19-2515
-es-web-service:latest es-web-service:180709-14.09-2512
+es-subsystems-configuration:latest es-subsystems-configuration:180716-13.05-2549
+es-system-configuration:latest es-system-configuration:180716-12.30-2548
+es-system-monitor:latest es-system-monitor:180713-12.37-2537
+es-web-service:latest es-web-service:180713-12.37-2537
 node-installer:latest node-installer:180503-17.04
 shield-autoupdate:latest shield-autoupdate:180628-09.37-2461
 # This needs to be the last line:latest
