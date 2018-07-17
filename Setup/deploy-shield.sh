@@ -6,29 +6,19 @@
 ###################################LO##BH###
 JENKINS=
 NETWORK_INTERFACE='eth0'
-STACK_NAME='shield'
-ES_YML_FILE=
+SHIELD_CORE_STACK_NAME='shield-core'
+SHIELD_BROWSERS_FARM_STACK_NAME='shield-browsers-farm'
+ES_PATH=/usr/local/ericomshield
+ES_YML_CORE_FILE="$ES_PATH/docker-compose-shield-core.yml"
+ES_YML_BROWSERS_FARM_FILE="$ES_PATH/docker-compose-browsers-farm.yml"
 HOST=$(hostname)
 SECRET_UID="shield-system-id"
-ES_NO_BROWSERS_LABEL=false
 
 export UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
-PROXY_ENV_FILE="proxy-server.env"
-ES_PATH=/usr/local/ericomshield
-CONSUL_BACKUP_PATH="$ES_PATH/backup"
-DOCKER_SWARMEXEC_TAG=180128-09.08-1217
-
-if [ ! -d "$CONSUL_BACKUP_PATH" ]; then
-    mkdir -p "$CONSUL_BACKUP_PATH"
-fi
 
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-    -no-browser)
-        ES_NO_BROWSERS_LABEL=true
-        echo "Multi-Machine: No Browser Label"
-        ;;
     #        -usage)
     -j | --jenkins)
         JENKINS="yes"
@@ -58,14 +48,6 @@ function retry_on_failure() {
             fi
         }
     done
-}
-
-function create_proxy_env_file() {
-    if [ -f "$PROXY_ENV_FILE" ]; then
-        return
-    fi
-
-    touch "$PROXY_ENV_FILE"
 }
 
 function test_swarm_exists() {
@@ -124,8 +106,6 @@ function make_in_memory_volume() {
     fi
 }
 
-ES_YML_FILE=docker-compose.yml
-
 SWARM=$(test_swarm_exists)
 if [ -z "$SWARM" ]; then
     echo '#######################Start create swarm#####################'
@@ -154,23 +134,20 @@ LEADER_HOST=$(docker node ls | grep Leader | awk '{print $3}')
 if [ $LEADER_HOST == "Ready" ]; then
     LEADER_HOST=$(docker node ls | grep Leader | awk '{print $2}')
 fi
-create_proxy_env_file
 
 NODES_COUNT=$(docker node ls | grep -c Ready)
 if [ "$NODES_COUNT" -eq 1 ]; then
-    if [ "$ES_NO_BROWSERS_LABEL" == true ]; then
-        echo "***************     Adding Labels: management, shield_core"
-        retry_on_failure docker node update --label-add shield_core=yes --label-add management=yes $LEADER_HOST
-    else
-        echo "***************     Adding Labels: management, shield_core, browser"
-        retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
-    fi
+    echo "***************     Adding Labels: management, shield_core, browser"
+    retry_on_failure docker node update --label-add browser=yes --label-add shield_core=yes --label-add management=yes $LEADER_HOST
 fi
 
 am_i_leader
 
 if [ "$AM_I_LEADER" == true ]; then
-    retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+    echo "Deploying $SHIELD_CORE_STACK_NAME Stack"
+    retry_on_failure docker stack deploy -c $ES_YML_CORE_FILE $SHIELD_CORE_STACK_NAME --with-registry-auth
+    echo "Deploying $SHIELD_BROWSERS_FARM_STACK_NAME Stack"    
+    retry_on_failure docker stack deploy -c $ES_YML_BROWSERS_FARM_FILE $SHIELD_BROWSERS_FARM_STACK_NAME --with-registry-auth    
 else
     echo "Please run this command on the leader: $LEADER_HOST"
 fi
