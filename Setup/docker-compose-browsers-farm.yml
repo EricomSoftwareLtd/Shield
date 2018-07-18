@@ -324,7 +324,7 @@ services:
         ports:
             - '3144:3144'
         networks:
-            - shield
+            - shield-browsers-farm
         environment:
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=es-subsystems-configuration'
@@ -342,7 +342,7 @@ services:
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
-            - shield
+            - shield-browsers-farm
         environment:
             - 'TZ=Europe/Bucharest'
             - 'LOGSTASH_FIELDS=service=es-proxy-browsers-farm'
@@ -355,9 +355,13 @@ services:
             resources: {limits: {memory: 500MB, cpus: '1'}}            
 volumes:
     portainer:
+    admin:
 networks:
     shield-browsers-farm:
         driver: overlay
         ipam:
             driver: default
             config: [{subnet: 10.21.0.0/16}]
+secrets:
+    shield-system-id:
+        external: true
