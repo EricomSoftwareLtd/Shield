@@ -12,7 +12,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_DEFAULT_VERSION="18.03.0"
+DOCKER_DEFAULT_VERSION="18.03.1"
 DOCKER_VERSION="${DOCKER_VERSION:-""}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
