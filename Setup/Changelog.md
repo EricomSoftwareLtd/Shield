@@ -9,8 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_373] - 2018-7-17
+## [Dev:Build_374] - 2018-7-19
+- Add option to block sites with bad certificate #3720
+- Change Right Click Text #3702
+- When download file with and without sanitization wait for AN to download to end user #3679
 - CDR: Consider showing file block reason to the user, based on the report #1360
+- Fixed force.com and myspace.com, remove old list of sites to block from proxy
+- Admin login using LDAP #3683
+
+## [Dev:Build_373] - 2018-7-17
 - Fix auth proxy crash on LDAP refresh in Admin
 
 ## [Dev:Build_372] - 2018-7-16
