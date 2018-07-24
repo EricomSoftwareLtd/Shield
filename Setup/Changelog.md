@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_375] - 2018-7-24
+- Default for XFF should be Forward, not set #3763
+- Portainer Agent to see all containers #3739
 
 ## [Dev:Build_374] - 2018-7-19
 - Add option to block sites with bad certificate #3720
