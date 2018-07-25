@@ -408,6 +408,7 @@ services:
         environment:
             - 'TZ=UTC'
             - 'LOGSTASH_FIELDS=service=portainer'
+        command: -H tcp://tasks.agent:9001 --tlsskipverify
         networks:
             - shield
         deploy:
