@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_376] - 2018-7-26
+- Broken Websites: Fix iframe msg & video issues #3641 #3743 #3764 
+- Remote Browser: Right Click Menu Change Text #3702
+- Bypass upstream proxy for CDR #3571
 ## [Dev:Build_375] - 2018-7-24
 - Default for XFF should be Forward, not set #3763
 - Portainer Agent to see all containers #3739
