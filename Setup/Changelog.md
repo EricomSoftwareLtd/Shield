@@ -8,6 +8,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_376] - 2018-7-26
+- Broken Websites: Fix iframe msg & video issues #3641 #3743 #3764 
+- Remote Browser: Right Click Menu Change Text #3702
+- Bypass upstream proxy for CDR #3571
+## [Dev:Build_375] - 2018-7-24
+- Default for XFF should be Forward, not set #3763
+- Portainer Agent to see all containers #3739
+
+## [Dev:Build_374] - 2018-7-19
+- Add option to block sites with bad certificate #3720
+- Change Right Click Text #3702
+- When download file with and without sanitization wait for AN to download to end user #3679
+- CDR: Consider showing file block reason to the user, based on the report #1360
+- Fixed force.com and myspace.com, remove old list of sites to block from proxy
+- Admin login using LDAP #3683
+
+## [Dev:Build_373] - 2018-7-17
+- Fix auth proxy crash on LDAP refresh in Admin
+
+## [Dev:Build_372] - 2018-7-16
+- Notifiy end user when page load is slow (18.06) #3011
+- Several components updates
+- http://tumblr.com/ - Appstore icon does work - AD block #3710
+- Use an image with newer openjdk version for ELK (#3621)
+- XFF and Client-IP to be forward by default #3708
+
+## [Dev:Build_371] - 2018-7-15
+- internal error 3 on pending when using sandblast #3656
+- Technical items raised by Snir from Check Point during SandBlast integration demo #3650
+- Error Report Per Error Level #3476
+- unbound and squid fail ttl #3689
+- update continue even if pre check fails #3651
+- problem to run update on a machine with upstream proxy #3633
+- White list urls should be logged in ELK #3355
 
 ## [Dev:Build_370] - 2018-7-11
 - 'Browser' option for application rules #3557

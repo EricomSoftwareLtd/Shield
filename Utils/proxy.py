@@ -122,7 +122,10 @@ def set_proxy(flag):
     writeToEnv(proxy, port, username, password, flag)
     writeToBashrc(proxy, port, username, password, flag)
     writeDockerServiceConfig(proxy, port, username, password)
-
+    COMMAND='Defaults env_keep += "http_proxy https_proxy ftp_proxy"'
+    subprocess.run("echo $COMMAND  | sudo EDITOR='tee -a' visudo", shell=True)
+    COMMAND2 = ['bash', '-c', 'source /etc/bash.bashrc']
+    subprocess.run("bash -c source /etc/bash.bashrc", shell=True)
 
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
     if not username is None and not password is None:
