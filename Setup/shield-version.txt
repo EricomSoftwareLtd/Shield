@@ -1,5 +1,5 @@
 #Build Dev:Build_376 on 18/07/26
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_376
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_376.test
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180610-14.23-2329
 shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
