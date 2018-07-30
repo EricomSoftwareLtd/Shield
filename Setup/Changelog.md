@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_378] - 2018-7-30
+- smaller adblock list
 ## [Dev:Build_377] - 2018-7-30
 - All connections reports shows only urls in white mode #3761
 - Connections report - no results #3727
