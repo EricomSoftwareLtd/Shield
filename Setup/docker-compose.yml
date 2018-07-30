@@ -132,8 +132,8 @@ services:
         networks:
             - shield
         #Published only for Dev    
- #       ports:
- #           - '8500:8500'
+#        ports:
+#            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -245,7 +245,7 @@ services:
             endpoint_mode: dnsrr
             update_config: {parallelism: 8, delay: 10s}
             restart_policy: {condition: any}
-            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.1', memory: 150MB}}
+            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.2', memory: 150MB}}
             placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - {type: tmpfs, target: /dev/shm}
@@ -403,7 +403,7 @@ services:
 #        ports:
 #            - '9000:9000'
         volumes:
-            - '/var/run/docker.sock:/var/run/docker.sock'
+            # - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer:/data'
         environment:
             - 'TZ=UTC'
@@ -415,6 +415,20 @@ services:
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 100MB, cpus: '0.5'}}
+
+    portainer_agent:
+        image: 'portainer/agent'
+        environment:
+            - 'AGENT_CLUSTER_ADDR=tasks.portainer_agent'
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        ports:
+            - {target: 9001,published: 9001, protocol: tcp, mode: host}
+        networks:
+            - shield
+        deploy:
+            mode: global
+
 volumes:
     elastic:
     portainer:
@@ -430,4 +444,3 @@ networks:
 secrets:
     shield-system-id:
         external: true
- 
