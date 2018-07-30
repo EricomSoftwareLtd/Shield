@@ -36,7 +36,7 @@ ES_VER_FILE="$ES_PATH/shield-version.txt"
 function get_container_tag() {
     CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
     if [ "$CONTAINER_TAG" = "" ]; then
-        CONTAINER_TAG="shield-autoupdate:180628-09.37-2461"
+        CONTAINER_TAG="shield-autoupdate:180624-10.38-2442"
     fi
 }
 

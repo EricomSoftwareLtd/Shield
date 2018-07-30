@@ -8,21 +8,93 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_378] - 2018-7-30
+- smaller adblock list
+## [Dev:Build_377] - 2018-7-30
+- All connections reports shows only urls in white mode #3761
+- Connections report - no results #3727
+- KKA - have records also for white urls #3587
+- CDR to support UpStream Proxy #3571
+- Notifiy end user when page load is slow (18.06) #3011
 
-## [Staging:18.07.1:Build_368] - 2018-7-9
-- (*) Fixed localbrowser stuck after running long time in - background #3077 #3657 #3625
-- Updated jp lang translation
+## [Dev:Build_376] - 2018-7-26
+- Broken Websites: Fix iframe msg & video issues #3641 #3743 #3764 
+- Remote Browser: Right Click Menu Change Text #3702
+- Bypass upstream proxy for CDR #3571
+## [Dev:Build_375] - 2018-7-24
+- Default for XFF should be Forward, not set #3763
+- Portainer Agent to see all containers #3739
+
+## [Dev:Build_374] - 2018-7-19
+- Add option to block sites with bad certificate #3720
+- Change Right Click Text #3702
+- When download file with and without sanitization wait for AN to download to end user #3679
+- CDR: Consider showing file block reason to the user, based on the report #1360
+- Fixed force.com and myspace.com, remove old list of sites to block from proxy
+- Admin login using LDAP #3683
+
+## [Dev:Build_373] - 2018-7-17
+- Fix auth proxy crash on LDAP refresh in Admin
+
+## [Dev:Build_372] - 2018-7-16
+- Notifiy end user when page load is slow (18.06) #3011
+- Several components updates
+- http://tumblr.com/ - Appstore icon does work - AD block #3710
+- Use an image with newer openjdk version for ELK (#3621)
+- XFF and Client-IP to be forward by default #3708
+
+## [Dev:Build_371] - 2018-7-15
+- internal error 3 on pending when using sandblast #3656
+- Technical items raised by Snir from Check Point during SandBlast integration demo #3650
+- Error Report Per Error Level #3476
+- unbound and squid fail ttl #3689
+- update continue even if pre check fails #3651
+- problem to run update on a machine with upstream proxy #3633
+- White list urls should be logged in ELK #3355
+
+## [Dev:Build_370] - 2018-7-11
+- 'Browser' option for application rules #3557
+- Slow Network Notification #3676
+- Bluecoat firewall cause all urls to be considered as app, hence all are white apps #3557
+- updated comments and messages (#3606)
+- Support upload to iFrames #3629
+- White list urls should be logged in ELK #3355
+- update continue even if pre check fails #3651
+
+## [Dev:Build_369] - 2018-7-8
+- Limit System Capacity according to CPU #3601
+- Fixed en-us tooltips for CDR #3612
+- Verify certificate is a ca certificate #3477
+- Notification about validation success for password certificate is displayed over again when save #3581
+- Activation message #3559
+- Export - values are not correct for suspend #3536
+- Add the file name and extension to the download and upload notification #3519
+- Settings - custom CA password #3499
+- Remote apps profiles from the application profile list #3411
+- Translations - user language change also admin language #3468
+- Shield Admin - unique values in profile names #3333
+- Error Report Per Error Level #3476
+- Addnode one manager failed without any error #3607
+- Typos on addnodes.sh #3606
+- when switch from single to multi node need to run restart and not reload #3431
+
+## [Dev:Build_368] - 2018-7-8
+- (*) Fixed localbrowser stuck after running long time in background #3077 #3657 #3625
+- Updated jp lang translation 
 - Updated Remote Browser to support Upstream proxy #3571
-- NTLM is off by default #3626
+- NTLM is off by default  #3626
 - KKA - Character conversion problem with function key f6 in chrome #3610
-- KKA - [[Question]] QA#688697 About combination key #118 - #2874
-- KKA -[[Input Issue]] QA#688638: Undefined Japanese - conversion character is deleted on IE #119 #2872
+- KKA - [[Question]] QA#688697 About combination key #118 #2874
+- KKA -[[Input Issue]] QA#688638: Undefined Japanese conversion character is deleted on IE #119 #2872
 - typing in Japanese issue 2 #3302
 
+## [Dev:Build_367] - 2018-7-4
+- Restart shield if required according to #UNR flag in shield-version (new) #3598
+- fix shift+0 in alphanumeric Japanese #2874
 
-## [Staging:18.07:Build_366] - 2018-7-3
- - Fix fms positioning and reconnect issues #3625 #3619
- - KKA - Character conversion problem with function key f6 in chrome #3610
+## [Dev:Build_366] - 2018-7-3
+- Fix fms positioning and reconnect issues #3625 #3619
+- KKA - Character conversion problem with function key f6 in chrome #3610
 
 ## [Dev:Build_365] - 2018-7-2
 - Default ntlm fallback set to false. removed --verbose
@@ -46,6 +118,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Docker Installation w/o internet #3377
 - KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
 
+
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
@@ -55,6 +128,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - policies/applications table - scroll bar - edit row #3366
 - can't import rule when I change suspend to be 2 or 3 #3449
 - ignored_shield_policies file #3472
+
 
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
