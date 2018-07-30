@@ -2,12 +2,12 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-ES_SETUP_VER="Setup:18.07-0407"
+ES_SETUP_VER="Setup:18.08-3007"
 
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
+    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -250,6 +250,11 @@ while [ $# -ne 0 ]; do
     -list-versions)
         list_versions
         ;;
+    -registry)
+        shift
+        SHIELD_REGISTRY="$1"
+        echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
+        ;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
@@ -265,6 +270,10 @@ if [ -z "$BRANCH" ]; then
     else
         BRANCH="master"
     fi
+fi
+
+if [ -f "$ES_SHIELD_REGISTRY_FILE" ]; then
+   SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
 fi
 
 log_message "Installing version: $BRANCH"

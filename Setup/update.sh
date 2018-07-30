@@ -37,9 +37,8 @@ VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:\.-]+)"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
-CONTAINER_TAG_DEFAULT="shield-autoupdate:180628-09.37-2461"
+CONTAINER_TAG_DEFAULT="shield-autoupdate:180711-14.26-2510"
 NOT_FOUND_STR="404: Not Found"
-UPDATE_NEED_RESTART_TXT="#UNR"
 
 cd "$ES_PATH" || exit
 
@@ -263,12 +262,6 @@ fi
 
 if [ -z "$KEEP_DOCKER" ] && [ -z "$KEY_INSTALL" ]; then
     upgrade_docker_version
-fi
-
-if [[ ($(grep -c "$UPDATE_NEED_RESTART_TXT" "$ES_VER_FILE") -eq 1) && (-z "$KEY_INSTALL") && (-z $HELP_ASKED) ]]; then
-    echo "System restart is required for update"
-    echo "System is going be restarted"
-    $ES_PATH/stop.sh
 fi
 
 docker run --rm $DOCKER_RUN_PARAM \
