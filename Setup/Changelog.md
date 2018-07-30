@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_377] - 2018-7-30
+- All connections reports shows only urls in white mode #3761
+- Connections report - no results #3727
+- KKA - have records also for white urls #3587
+- CDR to support UpStream Proxy #3571
+- Notifiy end user when page load is slow (18.06) #3011
+
 ## [Dev:Build_376] - 2018-7-26
 - Broken Websites: Fix iframe msg & video issues #3641 #3743 #3764 
 - Remote Browser: Right Click Menu Change Text #3702
