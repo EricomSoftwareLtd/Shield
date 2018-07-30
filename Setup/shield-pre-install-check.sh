@@ -12,7 +12,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_DEFAULT_VERSION="18.03.0"
+DOCKER_DEFAULT_VERSION="18.03.1"
 DOCKER_VERSION="${DOCKER_VERSION:-""}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
@@ -26,7 +26,7 @@ DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/usr/local/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-CONTAINER_TAG_DEFAULT="shield-collector:180523-13.26-2164"
+CONTAINER_TAG_DEFAULT="shield-collector:180716-07.30-2527"
 
 HW_PLATFORM="$(uname -m)"
 if [ "$HW_PLATFORM" != "x86_64" ]; then
