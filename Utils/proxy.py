@@ -94,7 +94,7 @@ def writeToBashrc(proxy, port, username, password, flag):
         filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
         filepointer.close()
 
-def writeDockerServiceConfig(proxy, port, username, password):
+def writeDockerServiceConfig(proxy, port, username, password, exceptions=""):
     if not os.path.exists(docker_path):
         os.makedirs(docker_path)
 
@@ -102,14 +102,21 @@ def writeDockerServiceConfig(proxy, port, username, password):
         filepoint.write("[Service]\n")
         http_url = make_proxy_url_string(proxy, port, username, password)
         https_url = make_proxy_url_string(proxy, port, username, password, 'https')
-        filepoint.write('Environment="HTTP_PROXY={0}" "HTTPS_PROXY={1}"\n'.format(http_url, https_url))
+        conf_str = 'Environment="HTTP_PROXY={0}" "HTTPS_PROXY={1}"'.format(http_url, https_url)
+        if len(exceptions) > 0:
+            conf_str += ' "NO_PROXY={}"\n'.format(exceptions)
+        else:
+            conf_str += '\n'
+
+        filepoint.write(conf_str)
 
 
 def set_proxy(flag):
-    proxy, port, username, password = "", "", "", ""
+    proxy, port, username, password, exceptions = "", "", "", "", ""
     if not flag:
         proxy = input("Enter proxy : ")
         port = input("Enter port : ")
+        exceptions = input("Enter IPs separated by ',' for direct access: ")
         username = input("Enter username : ")
         password = getpass.getpass("Enter password : ")
 
@@ -121,7 +128,7 @@ def set_proxy(flag):
     writeToApt(proxy, port, username, password, flag)
     writeToEnv(proxy, port, username, password, flag)
     writeToBashrc(proxy, port, username, password, flag)
-    writeDockerServiceConfig(proxy, port, username, password)
+    writeDockerServiceConfig(proxy, port, username, password, exceptions)
     COMMAND='Defaults env_keep += "http_proxy https_proxy ftp_proxy"'
     subprocess.run("echo $COMMAND  | sudo EDITOR='tee -a' visudo", shell=True)
     COMMAND2 = ['bash', '-c', 'source /etc/bash.bashrc']
