@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_379] - 2018-08-01
+- Incorrect node join to cluster block addnode script operation #3825
+- The file is being download but also I get an error #3794
+- Add error for the user in case some or all files inside a zip file is being blocked #3808
+- When download virus inside a zip protected with password the message is incorrect #3809
+- Route all traffic (including white-listed) via the Browser farm #3654
+- Fix download docker images on slave nodes
+- After adding nodes all confiugration is lost #3813
+## [Dev:Build_378] - 2018-7-30
+- smaller adblock list
 ## [Dev:Build_377] - 2018-7-30
 - All connections reports shows only urls in white mode #3761
 - Connections report - no results #3727
