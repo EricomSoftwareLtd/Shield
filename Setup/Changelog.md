@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ## [Dev:Build_379] - 2018-08-01
+- Incorrect node join to cluster block addnode script operation #3825
 - The file is being download but also I get an error #3794
 - Add error for the user in case some or all files inside a zip file is being blocked #3808
 - When download virus inside a zip protected with password the message is incorrect #3809
