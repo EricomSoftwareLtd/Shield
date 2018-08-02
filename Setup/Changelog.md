@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Dev:Build_380] - 2018-08-02
+- BTL: Disk on Management Nodes is fills up very quickly #3804
+- Limit Logs for ELK 
+- Loaded dictionary for locale us-en Error #3833
+
+## [Dev:Build_380] - 2018-08-02
 - Route all traffic (including white-listed) via the Browser farm #3654
 - After adding nodes all confiugration is lost #3813
 - Votiro: Include Votiro dynamic information reason (untranslated) in the tooltip #3837
