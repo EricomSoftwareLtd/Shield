@@ -90,6 +90,10 @@ services:
             placement: {constraints: [node.labels.management==yes]}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 4GB, cpus: '2'}}
+        logging:
+            options:
+               max-size: "500M"
+               max-file: "3"
         volumes:
             - 'elastic:/opt/elasticsearch/data'
     logspout:
@@ -334,7 +338,7 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
-            resources: {limits: {memory: 1GB, cpus: '1'}}
+            resources: {limits: {memory: 2GB, cpus: '1'}}
         networks:
             - shield
         ports:
