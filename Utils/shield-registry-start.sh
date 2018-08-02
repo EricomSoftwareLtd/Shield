@@ -86,7 +86,9 @@ if [ ! -d $ES_REG_DATA ]; then
 fi
 
 echo "Getting $ES_REG_YM_REPO"
-rm "$ES_REG_YML"
+if [ -f "$ES_REG_YML" ]
+   rm "$ES_REG_YML"
+fi   
 wget -q "$ES_REG_YML_REPO"
 
 update_daemon_json
