@@ -5,16 +5,15 @@ created by :
 Nityananda Gohain
 School of Engineering, Tezpur University
 27/10/17
+Modified by Ericom for Ericom Shield
 """
-
-# run it as sudo
-
 
 """
 Three files will be modified
 1) /etc/apt/apt.conf
 2) /etc/environment
 3) /etc/bash.bashrc
+4) /etc/systemd/system/docker.service.d/http-proxy.conf
 """
 
 # This files takes the location as input and writes the proxy authentication
@@ -24,6 +23,12 @@ import shutil  # for copying file
 import sys
 import os.path  # for checking if file is present or not
 import subprocess
+from os import getuid
+
+# run it as sudo
+if getuid() != 0:
+    print("error!")
+    sys.exit()
 
 apt_ = r'/etc/apt/apt.conf'
 apt_backup = r'./.backup_proxy/apt.txt'
@@ -31,7 +36,8 @@ bash_ = r'/etc/bash.bashrc'
 bash_backup = r'./.backup_proxy/bash.txt'
 env_ = r'/etc/environment'
 env_backup = r'./.backup_proxy/env.txt'
-docker='/etc/systemd/system/docker.service.d/http-proxy.conf'
+docker_= r'/etc/systemd/system/docker.service.d/http-proxy.conf'
+docker_backup = r'./.backup_proxy/docker.txt'
 docker_path='/etc/systemd/system/docker.service.d'
 
 
@@ -94,12 +100,14 @@ def writeToBashrc(proxy, port, username, password, flag):
         filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
         filepointer.close()
 
-def writeDockerServiceConfig(proxy, port, username, password, exceptions=""):
+
+def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
     if not os.path.exists(docker_path):
         os.makedirs(docker_path)
 
-    with open(docker, "w") as filepoint:
-        filepoint.write("[Service]\n")
+    filepointer = open(docker_, "w")
+    if not flag:
+        filepointer.write("[Service]\n")
         http_url = make_proxy_url_string(proxy, port, username, password)
         https_url = make_proxy_url_string(proxy, port, username, password, 'https')
         conf_str = 'Environment="HTTP_PROXY={0}" "HTTPS_PROXY={1}"'.format(http_url, https_url)
@@ -107,8 +115,8 @@ def writeDockerServiceConfig(proxy, port, username, password, exceptions=""):
             conf_str += ' "NO_PROXY={}"\n'.format(exceptions)
         else:
             conf_str += '\n'
-
-        filepoint.write(conf_str)
+        filepointer.write(conf_str)
+    filepointer.close()
 
 
 def set_proxy(flag):
@@ -128,11 +136,7 @@ def set_proxy(flag):
     writeToApt(proxy, port, username, password, flag)
     writeToEnv(proxy, port, username, password, flag)
     writeToBashrc(proxy, port, username, password, flag)
-    writeDockerServiceConfig(proxy, port, username, password, exceptions)
-    COMMAND='Defaults env_keep += "http_proxy https_proxy ftp_proxy"'
-    subprocess.run("echo $COMMAND  | sudo EDITOR='tee -a' visudo", shell=True)
-    COMMAND2 = ['bash', '-c', 'source /etc/bash.bashrc']
-    subprocess.run("bash -c source /etc/bash.bashrc", shell=True)
+    writeDockerServiceConfig(proxy, port, username, password, exceptions, flag)
 
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
     if not username is None and not password is None:
@@ -146,18 +150,26 @@ def restore_default():
     shutil.copy(apt_backup, apt_)
     shutil.copy(env_backup, env_)
     shutil.copy(bash_backup, bash_)
+    shutil.copy(docker_backup, docker_)
 
 
 
 if __name__ == "__main__":
 
-    # create backup	if not present
+    # create backup     if not present
+    if not os.path.isfile(apt_):
+        open(apt_, 'a').close()
+    if not os.path.exists(docker_path):
+        os.makedirs(docker_path)
+    if not os.path.isfile(docker_):
+        open(docker_, 'a').close()
+
     if not os.path.isdir("./.backup_proxy"):
         os.makedirs("./.backup_proxy")
-        if os.path.isfile(apt_):
-            shutil.copyfile(apt_, apt_backup)
-        shutil.copyfile(env_, env_backup)
-        shutil.copyfile(bash_, bash_backup)
+    shutil.copyfile(apt_, apt_backup)
+    shutil.copyfile(env_, env_backup)
+    shutil.copyfile(bash_, bash_backup)
+    shutil.copyfile(docker_, docker_backup)
 
     # choice
     print("Please run this program as Super user(sudo)\n")
@@ -177,3 +189,4 @@ if __name__ == "__main__":
         sys.exit()
 
     print("DONE!")
+    
