@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_381] - 2018-08-02
+- BTL: Disk on Management Nodes is fills up very quickly #3804
+- Limit Logs for ELK 
+- Loaded dictionary for locale us-en Error #3833
+
+## [Dev:Build_380] - 2018-08-02
+- Route all traffic (including white-listed) via the Browser farm #3654
+- After adding nodes all confiugration is lost #3813
+- Votiro: Include Votiro dynamic information reason (untranslated) in the tooltip #3837
+- Backup are not generated sometimes #3844
+- Certain scribed URL takes a long time to load
+- Dropdown issue #3797
+- [[Investigation]] QA#687503 It is strange to print PDF #110
+
 ## [Dev:Build_379] - 2018-08-01
 - Incorrect node join to cluster block addnode script operation #3825
 - The file is being download but also I get an error #3794

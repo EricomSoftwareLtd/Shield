@@ -1,19 +1,19 @@
-#Build Dev:Build_379 on 18/08/01
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_379_1
+#Build Dev:Build_381 on 18/08/02
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_381
 #docker-version 18.03.1
-shield-configuration:latest shield-configuration:testBackup
+shield-configuration:latest shield-configuration:180802-08.24-2604
 shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
-shield-admin:latest shield-admin:180801-07.02-2594
+shield-admin:latest shield-admin:180801-14.32-2599
 shield-portainer:latest shield-portainer:180723-05.33-2570
-proxy-server:latest proxy-server:180718-20.17-2554
-icap-server:latest icap-server:180726-10.55-2580
-shield-cef:latest shield-cef:180731-06.52-2587
+proxy-server:latest proxy-server:180802-09.09-2606
+icap-server:latest icap-server:180802-13.04-2609
+shield-cef:latest shield-cef:180802-09.09-2606
 broker-server:latest broker-server:180801-08.45-2596
 shield-collector:latest shield-collector:180716-07.30-2527
 shield-elk:latest shield-elk:180730-12.48-2584
 extproxy:latest extproxy:180730-13.51-2586
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180717-16.37-2546
-shield-cdr-controller:latest shield-cdr-controller:180731-06.52-2587
+shield-cdr-controller:latest shield-cdr-controller:180801-14.32-2599
 shield-web-service:latest shield-web-service:180618-13.09-2408
 shield-maintenance:latest shield-maintenance:180620-10.35-2427
 shield-authproxy:latest shield-authproxy:180801-08.45-2596
