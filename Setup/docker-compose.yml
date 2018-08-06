@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.07
+# YML file for Rel-18.08
 
 services:
     dns:
@@ -90,6 +90,10 @@ services:
             placement: {constraints: [node.labels.management==yes]}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 4GB, cpus: '2'}}
+        logging:
+            options:
+               max-size: "500M"
+               max-file: "3"
         volumes:
             - 'elastic:/opt/elasticsearch/data'
     logspout:
@@ -139,7 +143,7 @@ services:
             replicas: 1
             update_config: {parallelism: 1, failure_action: rollback}
             restart_policy: {condition: any}
-            resources: {limits: {memory: 1GB, cpus: '1'}}
+            resources: {limits: {memory: 2GB, cpus: '2'}}
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
@@ -334,7 +338,7 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
-            resources: {limits: {memory: 1GB, cpus: '1'}}
+            resources: {limits: {memory: 2GB, cpus: '2'}}
         networks:
             - shield
         ports:
