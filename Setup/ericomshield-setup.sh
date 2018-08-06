@@ -36,7 +36,7 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
-
+ES_SHIELD_REGISTRY_FILE="$ES_PATH/.es_registry"
 SUCCESS=false
 
 #SHIELD_REGISTRY="127.0.0.1:5000"
@@ -540,7 +540,9 @@ function prepare_yml() {
             fi
         fi
     done <"$ES_VER_FILE"
-
+    if [ ! -z "$SHIELD_REGISTRY" ]; then
+       sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g"  $ES_YML_FILE
+    fi
     #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 
