@@ -22,11 +22,12 @@ import getpass  # for taking password input
 import shutil  # for copying file
 import sys
 import os.path  # for checking if file is present or not
+import subprocess
 from os import getuid
 
 # run it as sudo
 if getuid() != 0:
-    print("error!")
+    print("Please run this program as Super user(sudo)\n")
     sys.exit()
 
 apt_ = r'/etc/apt/apt.conf'
@@ -38,19 +39,17 @@ env_backup = r'./.backup_proxy/env.txt'
 docker_ = r'/etc/systemd/system/docker.service.d/http-proxy.conf'
 docker_backup = r'./.backup_proxy/docker.txt'
 docker_path = '/etc/systemd/system/docker.service.d'
-
+docker_systemd_link = '/etc/systemd/system/multi-user.target.wants/docker.service'
 
 # This function directly writes to the apt.conf file
 def writeToApt(proxy, port, username, password, flag):
     filepointer = open(apt_, "w")
     if not flag:
         filepointer.write('Acquire::http::proxy "{}";\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write(
-            'Acquire::https::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write(
-            'Acquire::ftp::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write(
-            'Acquire::socks::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+        filepointer.write('Acquire::https::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
+        filepointer.write('Acquire::ftp::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+        filepointer.write('Acquire::socks::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+
 
 
 # This function writes to the environment file
@@ -85,7 +84,7 @@ def writeToBashrc(proxy, port, username, password, flag):
         lines = opened_file.readlines()
         opened_file.seek(0)
         for line in lines:
-            if r"http://" not in line and r'"https://' not in line and r"ftp://" not in line and r"socks://" not in line:
+            if r"http://" not in line and r"https://" not in line and r"ftp://" not in line and r"socks://" not in line:
                 opened_file.write(line)
         opened_file.truncate()
 
@@ -93,17 +92,12 @@ def writeToBashrc(proxy, port, username, password, flag):
     if not flag:
         filepointer = open(bash_, "a")
         filepointer.write('export http_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write(
-            'export https_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write(
-            'export ftp_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+        filepointer.write('export https_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
+        filepointer.write('export ftp_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('export HTTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write(
-            'export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write(
-            'export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write(
-            'export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+        filepointer.write('export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
+        filepointer.write('export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+        filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
         filepointer.close()
 
 
@@ -111,19 +105,30 @@ def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
     if not os.path.exists(docker_path):
         os.makedirs(docker_path)
 
-    filepointer = open(docker_, "w")
-    if not flag:
-        filepointer.write("[Service]\n")
-        http_url = make_proxy_url_string(proxy, port, username, password)
-        https_url = make_proxy_url_string(proxy, port, username, password, 'https')
-        conf_str = 'Environment="HTTP_PROXY={0}" "HTTPS_PROXY={1}"'.format(http_url, https_url)
-        if len(exceptions) > 0:
-            conf_str += ' "NO_PROXY={}"\n'.format(exceptions)
-        else:
-            conf_str += '\n'
-        filepointer.write(conf_str)
-    filepointer.close()
 
+    with open(docker_, "r+") as opened_file:
+        lines = opened_file.readlines()
+        opened_file.seek(0)
+        for line in lines:
+            if r"http://" not in line and r"https://" not in line and r"ftp://" not in line and r"socks://" not in line:
+                opened_file.write(line)
+        opened_file.truncate()
+
+    if not flag:
+        with open(docker_, "a") as filepointer:
+            filepointer.write("[Service]\n")
+            http_url = make_proxy_url_string(proxy, port, username, password)
+            https_url = make_proxy_url_string(proxy, port, username, password, 'https')
+            conf_str = 'Environment="HTTP_PROXY={0}" "HTTPS_PROXY={1}"'.format(http_url, https_url)
+            if len(exceptions) > 0:
+                conf_str += ' "NO_PROXY={}"\n'.format(exceptions)
+            else:
+                conf_str += '\n'
+            filepointer.write(conf_str)
+
+    if os.path.islink(docker_systemd_link):
+        subprocess.run("systemctl daemon-reload", shell=True)
+        subprocess.run("systemctl restart docker", shell=True)
 
 def set_proxy(flag):
     proxy, port, username, password, exceptions = "", "", "", "", ""
@@ -158,7 +163,9 @@ def restore_default():
     shutil.copy(env_backup, env_)
     shutil.copy(bash_backup, bash_)
     shutil.copy(docker_backup, docker_)
-
+    if os.path.islink(docker_systemd_link):
+        subprocess.run("systemctl daemon-reload", shell=True)
+        subprocess.run("systemctl restart docker", shell=True)
 
 if __name__ == "__main__":
 
@@ -172,13 +179,12 @@ if __name__ == "__main__":
 
     if not os.path.isdir("./.backup_proxy"):
         os.makedirs("./.backup_proxy")
-    shutil.copyfile(apt_, apt_backup)
-    shutil.copyfile(env_, env_backup)
-    shutil.copyfile(bash_, bash_backup)
-    shutil.copyfile(docker_, docker_backup)
+        shutil.copyfile(apt_, apt_backup)
+        shutil.copyfile(env_, env_backup)
+        shutil.copyfile(bash_, bash_backup)
+        shutil.copyfile(docker_, docker_backup)
 
     # choice
-    print("Please run this program as Super user(sudo)\n")
     print("1:) Set Proxy")
     print("2:) Remove Proxy")
     print("3:) Restore Default")
