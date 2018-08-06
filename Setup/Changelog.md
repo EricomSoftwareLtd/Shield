@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_382] - 2018-08-05
+- Japanese Strings for 18.08 (from KKA)
+
 ## [Dev:Build_381] - 2018-08-02
 - BTL: Disk on Management Nodes is fills up very quickly #3804
 - Limit Logs for ELK 
