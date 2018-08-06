@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_383] - 2018-08-06
+- Patch for Timeout occur during join new node to cluster #3840
+
 ## [Dev:Build_382] - 2018-08-05
 - Japanese Strings for 18.08 (from KKA)
 
