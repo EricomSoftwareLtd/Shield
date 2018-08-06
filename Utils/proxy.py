@@ -22,7 +22,6 @@ import getpass  # for taking password input
 import shutil  # for copying file
 import sys
 import os.path  # for checking if file is present or not
-import subprocess
 from os import getuid
 
 # run it as sudo
@@ -36,9 +35,9 @@ bash_ = r'/etc/bash.bashrc'
 bash_backup = r'./.backup_proxy/bash.txt'
 env_ = r'/etc/environment'
 env_backup = r'./.backup_proxy/env.txt'
-docker_= r'/etc/systemd/system/docker.service.d/http-proxy.conf'
+docker_ = r'/etc/systemd/system/docker.service.d/http-proxy.conf'
 docker_backup = r'./.backup_proxy/docker.txt'
-docker_path='/etc/systemd/system/docker.service.d'
+docker_path = '/etc/systemd/system/docker.service.d'
 
 
 # This function directly writes to the apt.conf file
@@ -46,10 +45,12 @@ def writeToApt(proxy, port, username, password, flag):
     filepointer = open(apt_, "w")
     if not flag:
         filepointer.write('Acquire::http::proxy "{}";\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('Acquire::https::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('Acquire::ftp::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write('Acquire::socks::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
-    filepointer.close()
+        filepointer.write(
+            'Acquire::https::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
+        filepointer.write(
+            'Acquire::ftp::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+        filepointer.write(
+            'Acquire::socks::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
 
 
 # This function writes to the environment file
@@ -92,12 +93,17 @@ def writeToBashrc(proxy, port, username, password, flag):
     if not flag:
         filepointer = open(bash_, "a")
         filepointer.write('export http_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('export https_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('export ftp_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+        filepointer.write(
+            'export https_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
+        filepointer.write(
+            'export ftp_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('export HTTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+        filepointer.write(
+            'export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
+        filepointer.write(
+            'export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+        filepointer.write(
+            'export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
         filepointer.close()
 
 
@@ -138,6 +144,7 @@ def set_proxy(flag):
     writeToBashrc(proxy, port, username, password, flag)
     writeDockerServiceConfig(proxy, port, username, password, exceptions, flag)
 
+
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
     if not username is None and not password is None:
         return "http://{0}:{1}@{2}:{3}".format(username, password.replace('$', '\$'), proxy, port)
@@ -151,7 +158,6 @@ def restore_default():
     shutil.copy(env_backup, env_)
     shutil.copy(bash_backup, bash_)
     shutil.copy(docker_backup, docker_)
-
 
 
 if __name__ == "__main__":
@@ -189,4 +195,3 @@ if __name__ == "__main__":
         sys.exit()
 
     print("DONE!")
-    
