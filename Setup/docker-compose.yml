@@ -421,7 +421,7 @@ services:
             resources: {limits: {memory: 100MB, cpus: '0.5'}}
 
     portainer_agent:
-        image: 'portainer/agent:latest'
+        image: 'portainer/agent:1.1.2'
         environment:
             - 'AGENT_CLUSTER_ADDR=tasks.portainer_agent'
         volumes:
