@@ -408,7 +408,7 @@ services:
             - '9000:9000'
         volumes:
             # - '/var/run/docker.sock:/var/run/docker.sock'
-            - 'portainer:/data'
+            - 'portainer_v2:/data'
         environment:
             - 'TZ=UTC'
             - 'LOGSTASH_FIELDS=service=portainer'
@@ -435,7 +435,7 @@ services:
 
 volumes:
     elastic:
-    portainer:
+    portainer_v2:
     admin:
 
 networks:
