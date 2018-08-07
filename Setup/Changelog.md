@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_384] - 2018-08-07
+- Certain scribed URL takes a long time to load (sometime after 30 to 60 seconds and sometimes it did NOT load at all after few minutes) #3842
+
 ## [Dev:Build_383] - 2018-08-06
 - Patch for Timeout occur during join new node to cluster #3840
 
