@@ -24,4 +24,5 @@ speedtest:latest speedtest:180606-12.58-2298
 shield-autoupdate:latest shield-autoupdate:180806-13.28-2614
 shield-notifier:latest shield-notifier:180618-13.09-2408
 shield-dns:latest shield-dns:180712-09.14-2514
+agent:latest agent:1.1.2
 # This needs to be the last line
