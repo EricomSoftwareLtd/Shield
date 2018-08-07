@@ -143,7 +143,7 @@ services:
             replicas: 1
             update_config: {parallelism: 1, failure_action: rollback}
             restart_policy: {condition: any}
-            resources: {limits: {memory: 1GB, cpus: '1'}}
+            resources: {limits: {memory: 2GB, cpus: '2'}}
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
