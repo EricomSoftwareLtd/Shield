@@ -426,6 +426,7 @@ services:
             - 'AGENT_CLUSTER_ADDR=tasks.portainer_agent'
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/var/lib/docker/volumes:/var/lib/docker/volumes'
         ports:
             - {target: 9001,published: 9001, protocol: tcp, mode: host}
         networks:
