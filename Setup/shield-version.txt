@@ -1,5 +1,5 @@
 #Build Dev:Build_386 on 18/08/08 #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_388
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_386
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180802-08.24-2604
 shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
