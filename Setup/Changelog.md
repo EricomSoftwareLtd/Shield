@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Two factor authentication support #3871
 - (*) addnodes failed because no sshkey #3886
 - change cross window fake url from google.com #3905
+- wait for both cookies and adblock dns on requests 
 
 ## [Dev:Build_385] - 2018-08-07
 - (*) Timeout occur during join new node to cluster #3840
