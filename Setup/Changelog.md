@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_385] - 2018-08-07
+- (*) Timeout occur during join new node to cluster #3840
+- (*) can't login to the poratiner in some machines #3877
+- Broken Websites #3641
+- Allow navigation to sites in adblock lists #3799
+- Failed to load properly error - DNS adblock #3089
+- Notify end user when page load is slow (18.06) #3011
+
 ## [Dev:Build_384] - 2018-08-07
 - Certain scribed URL takes a long time to load (sometime after 30 to 60 seconds and sometimes it did NOT load at all after few minutes) #3842
 
