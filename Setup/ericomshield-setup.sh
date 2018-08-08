@@ -257,7 +257,7 @@ while [ $# -ne 0 ]; do
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
+            echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
         exit
         ;;
     esac
