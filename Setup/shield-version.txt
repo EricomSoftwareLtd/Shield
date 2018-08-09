@@ -1,4 +1,4 @@
-#Build Dev:Build_387 on 18/08/09 #UNR#
+#Build Dev:Build_387 on 18/08/09 
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_387
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180802-08.24-2604
