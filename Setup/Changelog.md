@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_387] - 2018-08-09
+- Leumi.co.il popup issue #3866
+- LDAP login admin - no tool tip #3901
+- Fixed wrong log level for Remote Browser 
+
 ## [Dev:Build_386] - 2018-08-08
 - Default app rule for clientsN.google.com #3893
 - Remove debug flag of negotiate_wrapper_auth
