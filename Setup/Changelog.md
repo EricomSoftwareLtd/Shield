@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.08-Staging:Build_386] - 2018-8-09
+- Default app rule for clientsN.google.com #3893
+- Remove debug flag of negotiate_wrapper_auth
+- Two factor authentication support #3871
+- (*) addnodes failed because no sshkey #3886
+- change cross window fake url from google.com #3905
+- wait for both cookies and adblock dns on requests
+
 ## [Staging:18.08-Staging:Build_385] - 2018-8-08
 - (*) Timeout occur during join new node to cluster #3840
 - (*) can't login to the poratiner in some machines #3877
