@@ -1,6 +1,6 @@
 #Build Dev:Build_387 on 18/08/09 
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_387.1
-#docker-version 18.03.0
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_387
+#docker-version 18.06.0
 shield-configuration:latest shield-configuration:180802-08.24-2604
 shield-consul-agent:latest shield-consul-agent:180606-12.58-2298
 shield-admin:latest shield-admin:testUploadNginx
