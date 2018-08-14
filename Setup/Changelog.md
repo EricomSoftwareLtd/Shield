@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Staging:18.08-Staging:Build_388] - 2018-8-13
+- Sometimes some of the components do not funcation #3831
+- Collector and other components errors - at the dashboard cpu memory etc are NA #3675
+
 ## [Staging:18.08-Staging:Build_387] - 2018-8-12
 - Leumi.co.il popup issue #3866
 - LDAP login admin - no tool tip #3901
