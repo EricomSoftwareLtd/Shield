@@ -19,12 +19,12 @@ NUM_EXPECTED_SERVICES=$(grep -c image docker-compose.yml)
 NUM_RUNNING_SERVICES=$(docker service ls | grep -v shield-browser | grep -c shield)
 NUM_RUNNING_SERVICES=$((NUM_RUNNING_SERVICES + 1)) #Adding 1 for shield-browser
 
-#Number of services with expected replicas >0 and less than 10 (browsers)
+#Number of services with expected replicas >0
 NUM_EXPECTED_REP=$(docker service ls | grep -v shield-browser | grep -c "/[1-9] ")
 NUM_EXPECTED_REP=$((NUM_EXPECTED_REP + 1)) #Adding 1 for shield-browser
 
 #Number of services with running replicas >0 except browsers
-NUM_RUNNING_REP=$(docker service ls | grep -v shield-browser | grep -c "[1-9]/")
+NUM_RUNNING_REP=$(docker service ls | grep -v shield-browser | grep -c " [1-9]/")
 
 #Check if number of running instances for Browser service is >0
 BROWSER_RUNNING=$(docker service ls | grep shield-browser | grep -c ' 0/')
@@ -36,7 +36,7 @@ ES_VER_FILE="$ES_PATH/shield-version.txt"
 function get_container_tag() {
     CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
     if [ "$CONTAINER_TAG" = "" ]; then
-        CONTAINER_TAG="shield-autoupdate:180628-09.37-2461"
+        CONTAINER_TAG="shield-autoupdate:180711-14.26-2510"
     fi
 }
 

@@ -2,12 +2,12 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-ES_SETUP_VER="Setup:18.07-0407"
+ES_SETUP_VER="Setup:18.08-3007"
 
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
+    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -36,7 +36,7 @@ ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
-
+ES_SHIELD_REGISTRY_FILE="$ES_PATH/.es_registry"
 SUCCESS=false
 
 #SHIELD_REGISTRY="127.0.0.1:5000"
@@ -171,31 +171,35 @@ function list_versions() {
         exit 1
     fi
 
-    cat Releases.txt | cut -d':' -f1
-
-    read -p "please select the Release you want to install:" choice
-    case "$choice" in
-    "1" | "latest")
-        echo 'latest'
-        OPTION="1)"
-        ;;
-    "2")
-        echo "2."
-        OPTION="2)"
-        ;;
-    "3")
-        echo "3."
-        OPTION="3)"
-        ;;
-    "4")
-        echo "4."
-        OPTION="4)"
-        ;;
-    *)
-        echo "Error: Not valid option, exiting"
-        exit 1
-        ;;
-    esac
+    while true; do
+        cat Releases.txt | cut -d':' -f1
+        read -p "Please select the Release you want to install/update (1-4):" choice
+        case "$choice" in
+            "1" | "latest")
+                echo 'latest'
+                OPTION="1)"
+                break
+                ;;
+            "2")
+                echo "2."
+                OPTION="2)"
+                break
+                ;;
+            "3")
+                echo "3."
+                OPTION="3)"
+                break
+                ;;
+            "4")
+                echo "4."
+                OPTION="4)"
+                break
+                ;;
+            *)
+                echo "Error: Not valid option, exiting"
+                ;;
+        esac
+    done
     grep "$OPTION" Releases.txt
     BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
     echo "$BRANCH"
@@ -250,6 +254,11 @@ while [ $# -ne 0 ]; do
     -list-versions)
         list_versions
         ;;
+    -registry)
+        shift
+        SHIELD_REGISTRY="$1"
+        echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
+        ;;
     #        -usage)
     *)
         echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
@@ -265,6 +274,10 @@ if [ -z "$BRANCH" ]; then
     else
         BRANCH="master"
     fi
+fi
+
+if [ -f "$ES_SHIELD_REGISTRY_FILE" ]; then
+   SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
 fi
 
 log_message "Installing version: $BRANCH"
@@ -531,7 +544,9 @@ function prepare_yml() {
             fi
         fi
     done <"$ES_VER_FILE"
-
+    if [ ! -z "$SHIELD_REGISTRY" ]; then
+       sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g"  $ES_YML_FILE
+    fi
     #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 

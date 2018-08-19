@@ -1,4 +1,4 @@
 1) latest:master
-2) Release 18.07.1 on 15/07/18:Rel-18.07.1
-3) Release 18.05 on 27/05/18:Rel-18.05
-4) Release 18.04.1 on 22/04/18:Rel-18.04.1
+2) Release 18.08 on 19/08/18:Rel-18.08
+3) Release 18.07.1 on 15/07/18:Rel-18.07.1
+4) Release 18.05 on 27/05/18:Rel-18.05

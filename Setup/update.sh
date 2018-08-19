@@ -37,9 +37,8 @@ VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:\.-]+)"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
-CONTAINER_TAG_DEFAULT="shield-autoupdate:180628-09.37-2461"
+CONTAINER_TAG_DEFAULT="shield-autoupdate:180731-11.38-2588"
 NOT_FOUND_STR="404: Not Found"
-UPDATE_NEED_RESTART_TXT="#UNR"
 
 cd "$ES_PATH" || exit
 
@@ -78,31 +77,35 @@ function list_versions() {
         exit 1
     fi
 
-    cat Releases.txt | cut -d':' -f1
-
-    read -p "please select the Release you want to update:" choice
-    case "$choice" in
-    "1" | "latest")
-        echo 'latest'
-        OPTION="1)"
-        ;;
-    "2")
-        echo "2."
-        OPTION="2)"
-        ;;
-    "3")
-        echo "3."
-        OPTION="3)"
-        ;;
-    "4")
-        echo "4."
-        OPTION="4)"
-        ;;
-    *)
-        echo "Error: Not valid option, exiting"
-        exit 1
-        ;;
-    esac
+    while true; do
+        cat Releases.txt | cut -d':' -f1
+        read -p "Please select the Release you want to install/update (1-4):" choice
+        case "$choice" in
+            "1" | "latest")
+                echo 'latest'
+                OPTION="1)"
+                break
+                ;;
+            "2")
+                echo "2."
+                OPTION="2)"
+                break
+                ;;
+            "3")
+                echo "3."
+                OPTION="3)"
+                break
+                ;;
+            "4")
+                echo "4."
+                OPTION="4)"
+                break
+                ;;
+            *)
+                echo "Error: Not valid option, exiting"
+                ;;
+        esac
+    done
     echo "$OPTION"
     grep "$OPTION" Releases.txt
     BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
@@ -263,12 +266,6 @@ fi
 
 if [ -z "$KEEP_DOCKER" ] && [ -z "$KEY_INSTALL" ]; then
     upgrade_docker_version
-fi
-
-if [[ ($(grep -c "$UPDATE_NEED_RESTART_TXT" "$ES_VER_FILE") -eq 1) && (-z "$KEY_INSTALL") && (-z $HELP_ASKED) ]]; then
-    echo "System restart is required for update"
-    echo "System is going be restarted"
-    $ES_PATH/stop.sh
 fi
 
 docker run --rm $DOCKER_RUN_PARAM \

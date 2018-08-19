@@ -1,13 +1,3 @@
-# Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-- Git Issues should be referenced by #
-- Main Features/Bug Fixes should have (*)
-- User Action Required should have (!)
-
-## [Unreleased]
 
 # Changelog
 All notable changes to this project will be documented in this file.
@@ -19,6 +9,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Prod:18.08-Build-388.2] - 19-08-2018
+### New Features:
+#### End User Features:
+-	CDR blocked files notifications include additional details
+-	Support file upload to complex pages that have iFrames
+-	CDR notifications to include file name for improved UX
+-	Slow Network message to End-User
+
+#### Admin Console:
+-	Admin login support LDAP 
+-	New Errors Report was added
+-	Added an option to route all traffic (including white-listed) via the Browser farm
+-	Added an option to block sites with bad certificate in the policies 
+-	Applications table – add a rule for application as a 'browser' 
+-	Validation of CA certificate
+-	CDR component can be defined directly or via upstream proxy
+-	Limit system capacity according to CPU and Memory
+-	Changes XFF and Client-IP to be forward by default
+
+### Enhancements:
+- Two factor authentication support
+- Improved page load times
+- Add error for the user in case some or all files inside a zip file is being blocked 
+- Sanitization notification is shown faster and remain until the download to the end user is done
+- Bypass upstream proxy for CDR
+- Deployment:
+- 	    Full support for upstream proxy 
+-	    Improved Add-Node 
+-	    Fix download docker images on slave nodes
+-	    Fixed configuration lost after adding nodes
+
+### Bug Fixes:
+- Fixed: Many broken sites 
+- Fixed: “loaded dictionary for locale us-en” error
+- Fixed: Limit Logs size for ELK to reduce high disk usage 
+- Fixed: Backup issues
+- Fixed: Timeout occur during join new node to cluster #3840
+- Fixed: Bluecoat firewall cause all urls to be considered as app, hence all are white apps
+- Fixed: QA#687503 PDF Printinh Issue
 
 ## [Prod:18.07.1-Build-368] - 15-07-2018
 ### Enhancements:
@@ -390,4 +420,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - (*) Automatic Rules Addition disabled
 - Soak Tests (4h, more than 4000 URLs)
 - (*) Protect Kibana and Portainer UIs with password (#706)
-

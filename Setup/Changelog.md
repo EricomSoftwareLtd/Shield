@@ -10,7 +10,54 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build383] - 2018-08-06
+## [Dev:Build_388] - 2018-08-12
+- Sometimes some of the components do not funcation #3831
+- Collector and other components errors - at the dashboard cpu memory etc are NA #3675
+
+## [Dev:Build_387] - 2018-08-09
+- Leumi.co.il popup issue #3866
+- LDAP login admin - no tool tip #3901
+- Fixed wrong log level for Remote Browser 
+
+## [Dev:Build_386] - 2018-08-08
+- Default app rule for clientsN.google.com #3893
+- Remove debug flag of negotiate_wrapper_auth
+- Two factor authentication support #3871
+- (*) addnodes failed because no sshkey #3886
+- change cross window fake url from google.com #3905
+- wait for both cookies and adblock dns on requests 
+
+## [Dev:Build_385] - 2018-08-07
+- (*) Timeout occur during join new node to cluster #3840
+- (*) can't login to the poratiner in some machines #3877
+- Broken Websites #3641
+- Allow navigation to sites in adblock lists #3799
+- Failed to load properly error - DNS adblock #3089
+- Notify end user when page load is slow (18.06) #3011
+
+## [Dev:Build_384] - 2018-08-07
+- Certain scribed URL takes a long time to load (sometime after 30 to 60 seconds and sometimes it did NOT load at all after few minutes) #3842
+- Patch for Timeout occur during join new node to cluster #3840
+- Japanese Strings for 18.08 (from KKA)
+- BTL: Disk on Management Nodes is fills up very quickly #3804
+- Limit Logs for ELK
+- Loaded dictionary for locale us-en Error #3833
+- Route all traffic (including white-listed) via the Browser farm #3654
+- After adding nodes all confiugration is lost #3813
+- Votiro: Include Votiro dynamic information reason (untranslated) in the tooltip #3837
+- Backup are not generated sometimes #3844
+- Certain scribed URL takes a long time to load
+- Dropdown issue #3797
+- [[Investigation]] QA#687503 It is strange to print PDF #110
+- Incorrect node join to cluster block addnode script operation #3825
+- The file is being download but also I get an error #3794
+- Add error for the user in case some or all files inside a zip file is being blocked #3808
+- When download virus inside a zip protected with password the message is incorrect #3809
+- Route all traffic (including white-listed) via the Browser farm #3654
+- Fix download docker images on slave nodes
+- After adding nodes all confiugration is lost #3813
+
+## [Dev:Build_383] - 2018-08-06
 - Patch for Timeout occur during join new node to cluster #3840
 
 ## [Dev:Build_382] - 2018-08-05
@@ -18,8 +65,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_381] - 2018-08-02
 - BTL: Disk on Management Nodes is fills up very quickly #3804
-- Limit Logs for ELK
+- Limit Logs for ELK 
 - Loaded dictionary for locale us-en Error #3833
+
+## [Dev:Build_380] - 2018-08-02
+- Route all traffic (including white-listed) via the Browser farm #3654
+- After adding nodes all confiugration is lost #3813
+- Votiro: Include Votiro dynamic information reason (untranslated) in the tooltip #3837
+- Backup are not generated sometimes #3844
+- Certain scribed URL takes a long time to load
+- Dropdown issue #3797
+- [[Investigation]] QA#687503 It is strange to print PDF #110
 
 ## [Dev:Build_379] - 2018-08-01
 - Incorrect node join to cluster block addnode script operation #3825
@@ -28,11 +84,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - When download virus inside a zip protected with password the message is incorrect #3809
 - Route all traffic (including white-listed) via the Browser farm #3654
 - Fix download docker images on slave nodes
-- After adding nodes all configuration is lost #3813
-
+- After adding nodes all confiugration is lost #3813
 ## [Dev:Build_378] - 2018-7-30
 - smaller adblock list
-
 ## [Dev:Build_377] - 2018-7-30
 - All connections reports shows only urls in white mode #3761
 - Connections report - no results #3727
@@ -41,10 +95,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Notifiy end user when page load is slow (18.06) #3011
 
 ## [Dev:Build_376] - 2018-7-26
-- Broken Websites: Fix iframe msg & video issues #3743 #3764 
+- Broken Websites: Fix iframe msg & video issues #3641 #3743 #3764 
 - Remote Browser: Right Click Menu Change Text #3702
 - Bypass upstream proxy for CDR #3571
-
 ## [Dev:Build_375] - 2018-7-24
 - Default for XFF should be Forward, not set #3763
 - Portainer Agent to see all containers #3739
@@ -58,7 +111,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin login using LDAP #3683
 
 ## [Dev:Build_373] - 2018-7-17
-- CDR: Consider showing file block reason to the user, based on the report #1360
 - Fix auth proxy crash on LDAP refresh in Admin
 
 ## [Dev:Build_372] - 2018-7-16
@@ -86,7 +138,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - White list urls should be logged in ELK #3355
 - update continue even if pre check fails #3651
 
-## [Dev:Build_369] - 2018-7-8 (first build for 18.08)
+## [Dev:Build_369] - 2018-7-8
 - Limit System Capacity according to CPU #3601
 - Fixed en-us tooltips for CDR #3612
 - Verify certificate is a ca certificate #3477
@@ -103,19 +155,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Typos on addnodes.sh #3606
 - when switch from single to multi node need to run restart and not reload #3431
 
-## [Staging:18.07.1:Build_368] - 2018-7-9
-- (*) Fixed localbrowser stuck after running long time in - background #3077 #3657 #3625
-- Updated jp lang translation
+## [Dev:Build_368] - 2018-7-8
+- (*) Fixed localbrowser stuck after running long time in background #3077 #3657 #3625
+- Updated jp lang translation 
 - Updated Remote Browser to support Upstream proxy #3571
-- NTLM is off by default #3626
+- NTLM is off by default  #3626
 - KKA - Character conversion problem with function key f6 in chrome #3610
-- KKA - [[Question]] QA#688697 About combination key #118 - #2874
-- KKA -[[Input Issue]] QA#688638: Undefined Japanese - conversion character is deleted on IE #119 #2872
+- KKA - [[Question]] QA#688697 About combination key #118 #2874
+- KKA -[[Input Issue]] QA#688638: Undefined Japanese conversion character is deleted on IE #119 #2872
 - typing in Japanese issue 2 #3302
 
-## [Staging:18.07:Build_366] - 2018-7-3
- - Fix fms positioning and reconnect issues #3625 #3619
- - KKA - Character conversion problem with function key f6 in chrome #3610
+## [Dev:Build_367] - 2018-7-4
+- Restart shield if required according to #UNR flag in shield-version (new) #3598
+- fix shift+0 in alphanumeric Japanese #2874
+
+## [Dev:Build_366] - 2018-7-3
+- Fix fms positioning and reconnect issues #3625 #3619
+- KKA - Character conversion problem with function key f6 in chrome #3610
 
 ## [Dev:Build_365] - 2018-7-2
 - Default ntlm fallback set to false. removed --verbose
