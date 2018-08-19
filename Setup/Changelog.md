@@ -9,24 +9,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Staging:18.08-Staging:Build_388] - 2018-8-13
+## [Dev:Build_388] - 2018-08-12
 - Sometimes some of the components do not funcation #3831
 - Collector and other components errors - at the dashboard cpu memory etc are NA #3675
 
-## [Staging:18.08-Staging:Build_387] - 2018-8-12
+## [Dev:Build_387] - 2018-08-09
 - Leumi.co.il popup issue #3866
 - LDAP login admin - no tool tip #3901
-- Fixed wrong log level for Remote Browser
+- Fixed wrong log level for Remote Browser 
 
-## [Staging:18.08-Staging:Build_386] - 2018-8-09
+## [Dev:Build_386] - 2018-08-08
 - Default app rule for clientsN.google.com #3893
 - Remove debug flag of negotiate_wrapper_auth
 - Two factor authentication support #3871
 - (*) addnodes failed because no sshkey #3886
 - change cross window fake url from google.com #3905
-- wait for both cookies and adblock dns on requests
+- wait for both cookies and adblock dns on requests 
 
-## [Staging:18.08-Staging:Build_385] - 2018-8-08
+## [Dev:Build_385] - 2018-08-07
 - (*) Timeout occur during join new node to cluster #3840
 - (*) can't login to the poratiner in some machines #3877
 - Broken Websites #3641
@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Failed to load properly error - DNS adblock #3089
 - Notify end user when page load is slow (18.06) #3011
 
-## [Staging:18.08-Staging:Build_384] - 2018-8-07
+## [Dev:Build_384] - 2018-08-07
 - Certain scribed URL takes a long time to load (sometime after 30 to 60 seconds and sometimes it did NOT load at all after few minutes) #3842
 - Patch for Timeout occur during join new node to cluster #3840
 - Japanese Strings for 18.08 (from KKA)

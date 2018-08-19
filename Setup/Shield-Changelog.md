@@ -380,4 +380,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - (*) Automatic Rules Addition disabled
 - Soak Tests (4h, more than 4000 URLs)
 - (*) Protect Kibana and Portainer UIs with password (#706)
-
