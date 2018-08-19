@@ -94,13 +94,10 @@ services:
             placement: {constraints: [node.labels.management==yes]}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 4GB, cpus: '2'}}
-<<<<<<< HEAD
         logging:
             options:
                max-size: "500M"
                max-file: "3"
-=======
->>>>>>> master
         volumes:
             - 'elastic:/opt/elasticsearch/data'
     logspout:

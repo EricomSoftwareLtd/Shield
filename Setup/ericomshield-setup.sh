@@ -171,7 +171,6 @@ function list_versions() {
         exit 1
     fi
 
-<<<<<<< HEAD
     while true; do
         cat Releases.txt | cut -d':' -f1
         read -p "Please select the Release you want to install/update (1-4):" choice
@@ -201,33 +200,6 @@ function list_versions() {
                 ;;
         esac
     done
-=======
-    cat Releases.txt | cut -d':' -f1
-
-    read -p "please select the Release you want to install:" choice
-    case "$choice" in
-    "1" | "latest")
-        echo 'latest'
-        OPTION="1)"
-        ;;
-    "2")
-        echo "2."
-        OPTION="2)"
-        ;;
-    "3")
-        echo "3."
-        OPTION="3)"
-        ;;
-    "4")
-        echo "4."
-        OPTION="4)"
-        ;;
-    *)
-        echo "Error: Not valid option, exiting"
-        exit 1
-        ;;
-    esac
->>>>>>> master
     grep "$OPTION" Releases.txt
     BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
     echo "$BRANCH"
@@ -281,14 +253,11 @@ while [ $# -ne 0 ]; do
         ;;
     -list-versions)
         list_versions
-<<<<<<< HEAD
         ;;
     -registry)
         shift
         SHIELD_REGISTRY="$1"
         echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
-=======
->>>>>>> master
         ;;
     #        -usage)
     *)
@@ -305,13 +274,10 @@ if [ -z "$BRANCH" ]; then
     else
         BRANCH="master"
     fi
-<<<<<<< HEAD
 fi
 
 if [ -f "$ES_SHIELD_REGISTRY_FILE" ]; then
    SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
-=======
->>>>>>> master
 fi
 
 log_message "Installing version: $BRANCH"

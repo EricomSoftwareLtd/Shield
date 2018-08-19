@@ -195,10 +195,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Docker Installation w/o internet #3377
 - KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
@@ -209,10 +205,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - can't import rule when I change suspend to be 2 or 3 #3449
 - ignored_shield_policies file #3472
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
 - Import / export - when using ignore the urls should be added to the bottom #3466
