@@ -9,6 +9,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_389] - 2018-08-19
+- pac file fix minor typo #3854
+- Fonts issue - the space between the letters should be imporved #3938
+- Fonts issue 3: the fonts with shiled have diff color, and it looks bolder #3696
+- Fix Missing Fonts Issues #3640
+- Check Chinese Websites #3351
+- Cross Window - bank Leumi - bll.co.il #459
+- error is not being displayed for some web sites in case creds are wrong #3937
+- sandblast activation key has changed please update the internal license #3819
+- Support certificate chain #2247
+- Show the notification dialog until AccessNow completes downloading the file (#3679)
+- reported by Eran - twitch.tv fullscreen message is not visible enough #3795
+- "Failed contacting Sanitization Server" alert doesn't show the error #3888
+- Squid logs size needs to be limited #3896
+- Error while saving Japanese translations #3856
+- Align log levels in admin with bunyan #3917
+- Admin login using LDAP #3683
+- Missing Important Time Values in the Reports #1418
+- LDAP admin login - fix the error when insert bad credentials #3782
+- LDAP admin login - no clear errors of authentication failures #3787
+- LDAP admin login - Access not permitted when using down level login name #3785
+- if the user is locked I get a message that the credentials are invalid #3932
+- Auth proxy helper to give a better error if AD user is invalid #2132
+- collector and other components errors - at the dashboard cpu memory etc are NA #3675
+- Slow connection alert #2378
+- issues with update process- bad erros and docker upgrade fails #3663
+- Consul upgrade + configuration tuning #3746
+
 ## [Dev:Build_388] - 2018-08-12
 - Sometimes some of the components do not funcation #3831
 - Collector and other components errors - at the dashboard cpu memory etc are NA #3675
