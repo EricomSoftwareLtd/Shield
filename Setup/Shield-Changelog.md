@@ -48,7 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Backup issues
 - Fixed: Timeout occur during join new node to cluster #3840
 - Fixed: Bluecoat firewall cause all urls to be considered as app, hence all are white apps
-- Fixed: QA#687503 PDF Printinh Issue
+- Fixed: QA#687503 PDF Printing Issue
 
 ## [Prod:18.07.1-Build-368] - 15-07-2018
 ### Enhancements:
