@@ -1,14 +1,14 @@
-#Build Dev:Build_389 on 18/08/19 #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_389
+#Build Dev:Build_389.1 on 18/08/19 #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_389.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180819-09.04-2662
 shield-consul-agent:latest shield-consul-agent:180819-09.04-2662
 shield-admin:latest shield-admin:180819-09.04-2662
 shield-portainer:latest shield-portainer:180807-14.18-2623
-proxy-server:latest proxy-server:180819-09.04-2662
+proxy-server:latest proxy-server:180819-12.02-2664
 icap-server:latest icap-server:180819-09.04-2662
 shield-cef:latest shield-cef:180819-09.04-2662
-broker-server:latest broker-server:180819-09.04-2662
+broker-server:latest broker-server:180819-12.02-2664
 shield-collector:latest shield-collector:180812-07.22-2643
 shield-elk:latest shield-elk:180819-08.02-2659
 extproxy:latest extproxy:180819-09.04-2662
@@ -16,7 +16,7 @@ shield-cdr-dispatcher:latest shield-cdr-dispatcher:180819-09.04-2662
 shield-cdr-controller:latest shield-cdr-controller:180819-09.04-2662
 shield-web-service:latest shield-web-service:180819-09.04-2662
 shield-maintenance:latest shield-maintenance:180620-10.35-2427
-shield-authproxy:latest shield-authproxy:180819-09.04-2662
+shield-authproxy:latest shield-authproxy:180819-12.02-2664
 node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
