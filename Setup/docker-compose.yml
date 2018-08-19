@@ -136,23 +136,14 @@ services:
         networks:
             - shield
         #Published only for Dev    
-<<<<<<< HEAD
 #        ports:
 #            - '8500:8500'
-=======
- #       ports:
- #           - '8500:8500'
->>>>>>> master
         deploy:
             mode: replicated
             replicas: 1
             update_config: {parallelism: 1, failure_action: rollback}
             restart_policy: {condition: any}
-<<<<<<< HEAD
             resources: {limits: {memory: 2GB, cpus: '2'}}
-=======
-            resources: {limits: {memory: 1GB, cpus: '1'}}
->>>>>>> master
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
@@ -258,11 +249,7 @@ services:
             endpoint_mode: dnsrr
             update_config: {parallelism: 8, delay: 10s}
             restart_policy: {condition: any}
-<<<<<<< HEAD
             resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.2', memory: 150MB}}
-=======
-            resources: {limits: {memory: 1GB, cpus: '2'}, reservations: {cpus: '0.1', memory: 150MB}}
->>>>>>> master
             placement: {constraints: [node.labels.browser==yes]}
         volumes:
             - {type: tmpfs, target: /dev/shm}
@@ -295,23 +282,6 @@ services:
             nofile: {soft: 65535, hard: 65535}
         networks:
             - shield
-<<<<<<< HEAD
-=======
-        deploy:
-            mode: replicated
-            replicas: 2
-            placement: {constraints: [node.labels.browser==yes]}
-            resources: {limits: {memory: 1024MB, cpus: '1'}}
-        environment:
-            - 'TZ=UTC'
-    ext-proxy-noadblock:
-        image: 'securebrowsing/extproxy:latest'
-        hostname: ext-proxy-noadblock
-        ulimits:
-            nofile: {soft: 65535, hard: 65535}
-        networks:
-            - shield
->>>>>>> master
         deploy:
             mode: replicated
             replicas: 2
@@ -479,7 +449,4 @@ networks:
 secrets:
     shield-system-id:
         external: true
-<<<<<<< HEAD
-=======
- 
->>>>>>> master
+       
