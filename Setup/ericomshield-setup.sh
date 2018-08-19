@@ -162,42 +162,17 @@ function log_message() {
 }
 
 function list_versions() {
-    ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases.txt"
-    echo "Getting $ES_repo_versions"
-    curl -s -S -o "Releases.txt" $ES_repo_versions
+    CURRENT_BRANCH="issue-3649"
+    ES_RELEASES_FILE="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$CURRENT_BRANCH/Setup/releases.sh"
+    curl -s -S -o "releases.sh" $ES_RELEASES_FILE
 
-    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt) -ge 1 ]; then
-        echo "Error: cannot download Release.txt, exiting"
+    if [ ! -f "releases.sh" ]; then
+        echo "Error download releses script"
         exit 1
     fi
 
-    cat Releases.txt | cut -d':' -f1
-
-    read -p "please select the Release you want to install:" choice
-    case "$choice" in
-    "1" | "latest")
-        echo 'latest'
-        OPTION="1)"
-        ;;
-    "2")
-        echo "2."
-        OPTION="2)"
-        ;;
-    "3")
-        echo "3."
-        OPTION="3)"
-        ;;
-    "4")
-        echo "4."
-        OPTION="4)"
-        ;;
-    *)
-        echo "Error: Not valid option, exiting"
-        exit 1
-        ;;
-    esac
-    grep "$OPTION" Releases.txt
-    BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
+    source ./releases.sh
+    BRANCH=$(run_list_releases)
     echo "$BRANCH"
 }
 
