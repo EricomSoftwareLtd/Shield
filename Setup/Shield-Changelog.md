@@ -326,7 +326,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Clipboard enhancements
 ### Fixed:
 - Search in Online Documentation
-- Improved editing on Office Online 
+- Improved editing on Office Online 
 - Sometimes ENTER, BACKSPACE and DELETE keys are not working
 - Japanese keyboard bug fixes
 - Display current version on all views
