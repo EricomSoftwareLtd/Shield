@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Slow connection alert #2378
 - issues with update process- bad erros and docker upgrade fails #3663
 - Consul upgrade + configuration tuning #3746
+- Consul error logs not arrive to ELK. #3949
+- Updated Japanese translations and deleted duplicated keys
 
 ## [Dev:Build_388] - 2018-08-12
 - Sometimes some of the components do not funcation #3831
