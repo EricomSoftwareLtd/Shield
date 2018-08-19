@@ -4,15 +4,13 @@
 NOT_FOUND_STR="404: Not Found"
 ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases.txt"
 
-curl -s -S -o "Releases.txt" $ES_repo_versions
-
-if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt) -ge 1 ]; then
-    echo "Error: cannot download Release.txt, exiting"
-    exit 1
-fi
-
-
 function run_list_releases() {
+    curl -s -S -o "Releases.txt" $ES_repo_versions
+
+    if [ ! -f "Releases.txt" ] || [ $(grep -c "$NOT_FOUND_STR" Releases.txt) -ge 1 ]; then
+        echo "Error: cannot download Release.txt, exiting"
+        exit 1
+    fi
     while true; do
         cat Releases.txt | cut -d':' -f1
         read -p "Please select the Release you want to install/update (1-4):" choice
