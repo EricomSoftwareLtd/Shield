@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_391] - 2018-08-21
+- Sometimes ELK container stack on create indexes stage and not continue #3988
+- (*) Copy/Paste Images to/from Shield #490
+
 ## [Dev:Build_390] - 2018-08-21
 - Custom protocol links support https://blog.rankingbyseo.com/ #3911 
 - iFrame with PDF source not rendered and crash Electron #2496
