@@ -7,7 +7,7 @@ shield-admin:latest shield-admin:180821-14.12-2689
 shield-portainer:latest shield-portainer:180807-14.18-2623
 proxy-server:latest proxy-server:180819-12.02-2664
 icap-server:latest icap-server:180821-14.12-2689
-shield-cef:latest shield-cef:180821-14.12-2689
+shield-cef:latest shield-cef:180821-16.12-2692
 broker-server:latest broker-server:180819-12.02-2664
 shield-collector:latest shield-collector:180812-07.22-2643
 shield-elk:latest shield-elk:180821-14.29-2690
