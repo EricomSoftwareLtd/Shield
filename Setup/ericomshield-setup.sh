@@ -451,9 +451,9 @@ function install_docker() {
         apt-get -qq update
         echo "done"
         #Stop shield (if running)
-        if [ "$ES_RUN_DEPLOY" == true ] && [ -x "/usr/bin/docker" ] && [ $(docker stack ls | grep -c $STACK_NAME) -ge 1 ]; then
-            log_message "Stopping Ericom Shield for Update (Docker) (Downtime)"
-            docker stack rm $STACK_NAME
+        if [ "$ES_RUN_DEPLOY" == true ] && [ -x "/usr/bin/docker" ]; then
+            log_message "Stopping docker on local machine"
+            systemctl stop docker
         fi
 
         apt-cache policy docker-ce
@@ -652,7 +652,8 @@ function pull_images() {
 
 #############     Getting all files from Github
 function get_shield_files() {
-    if [ ! $0 = "ericomshield-setup.sh" ]; then
+    #Get ericomshield-setup only if not present in the ericomshield folder 
+    if [ ! -f "ericomshield-setup.sh" ]; then
         curl -s -S -o ericomshield-setup.sh $ES_repo_setup
         chmod +x ericomshield-setup.sh
     fi
