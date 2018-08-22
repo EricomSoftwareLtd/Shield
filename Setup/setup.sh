@@ -17,6 +17,7 @@ if [ -d  "$ES_PATH" ]; then
    cd "$ES_PATH"
 fi
 
+ES_BRANCH_FILE="$ES_PATH/.esbranch"
 if [ -z "$BRANCH" ]; then
     if [ -f "$ES_BRANCH_FILE" ]; then
         BRANCH=$(cat "$ES_BRANCH_FILE")
