@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_392] - 2018-08-22
+- no translation on DNS error (proxy-internal) #4007
+- no reports in build 391-Dev #4002
+- no alerts - build 391-Dev #4001
+- Service Worker issues: web.whatsapp.com pinterest.com #3921
+- Admin - resources - reorder settings #3591
+- iframe with PDF source not rendered and crash Electron #2496
+- Copy/Paste Images to/from Shield #490
+- Salesforce, can't attach to email when responding to a client email in a ticket #3991
+- SalesForce - User story white space and scroll bars #3990
+ Open	
+ - SalesForce - issues with user story #3987
+ 
+
 ## [Dev:Build_391] - 2018-08-21
 - Sometimes ELK container stack on create indexes stage and not continue #3988
 - (*) Copy/Paste Images to/from Shield #490
