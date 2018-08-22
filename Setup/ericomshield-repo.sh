@@ -4,8 +4,8 @@
 #######################################BH###
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 if [ -z "$BRANCH" ]; then
-    if [ ! -f "$ES_BRANCH_FILE" ]; then
-        BRANCH=cat "$ES_BRANCH_FILE"
+    if [ -f "$ES_BRANCH_FILE" ]; then
+        BRANCH=$(cat "$ES_BRANCH_FILE")
     else
         BRANCH="master"
     fi
