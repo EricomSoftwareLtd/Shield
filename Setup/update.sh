@@ -234,6 +234,8 @@ function wait_upgrade_process_finish() {
         if [ ! -f ".docker_upgrade" ]; then
             cat ./upgrade.log
             break
+        else
+            wait_count=$((wait_count + 1))
         fi
     done
 
