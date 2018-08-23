@@ -218,22 +218,10 @@ function wait_upgrade_process_finish() {
     local wait_count=0
 
     while ((wait_count < 60)); do
-#        {
-#            VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }' | cut -d'-' -f1)
-#        } || {
-#            VERSION="False"
-#        }
-#        if [ "$VERSION" = "$1" ]; then
-#            break
-#        fi
-#        echo "Current docker version is $VERSION wait for $1"
-#        printf "."
-#        sleep 10
-#        wait_count=$((wait_count + 1))
         VERSION=$(docker version | grep Version | tail -1 | awk '{ print $2 }' | cut -d'-' -f1)
         echo "Current docker version is $VERSION wait for $1"
         if [ ! -f ".docker_upgrade" ]; then
-            cat ./upgrade.log
+            UPGRADE_SUCCESS="true"
             break
         else
             wait_count=$((wait_count + 1))
@@ -241,7 +229,12 @@ function wait_upgrade_process_finish() {
         sleep 10
     done
 
-    echo "Done!"
+    if [ "$UPGRADE_SUCCESS" = "true" ]; then
+        echo "Done!"
+    else
+        cat upgrade.log
+        exit 1
+    fi
     sleep 20
 }
 
