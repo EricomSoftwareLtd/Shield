@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - status -e doesn't work on specific machine #4016
 - updated dialog for opening new tab
 - updating modules to increase security
+- ubuntu client - copy image to LibreOffice Writer position should be fix #4025
+- copy image using IE is not working #4024
+- copy image should be disabled when clipboard is disabled #4023
+- save imgae as should open a window with rename and choose location #4022
+- Copy/Paste image part 2 #4014
 
 ## [Dev:Build_392] - 2018-08-22
 - no translation on DNS error (proxy-internal) #4007
