@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_393] - 2018-08-23
+- status -e doesn't work on specific machine #4016
+- updated dialog for opening new tab
+- updating modules to increase security
+
 ## [Dev:Build_392] - 2018-08-22
 - no translation on DNS error (proxy-internal) #4007
 - no reports in build 391-Dev #4002
@@ -18,9 +23,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - iframe with PDF source not rendered and crash Electron #2496
 - Copy/Paste Images to/from Shield #490
 - Salesforce, can't attach to email when responding to a client email in a ticket #3991
-- SalesForce - User story white space and scroll bars #3990
- Open	
- - SalesForce - issues with user story #3987
+- SalesForce - User story white space and scroll bars #3990	
+- SalesForce - issues with user story #3987
  
 
 ## [Dev:Build_391] - 2018-08-21
