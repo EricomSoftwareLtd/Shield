@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_393] - 2018-08-23
+- status -e doesn't work on specific machine #4016
+- updated dialog for opening new tab
+- updating modules to increase security
+- ubuntu client - copy image to LibreOffice Writer position should be fix #4025
+- copy image using IE is not working #4024
+- copy image should be disabled when clipboard is disabled #4023
+- save imgae as should open a window with rename and choose location #4022
+- Copy/Paste image part 2 #4014
+- El Al web site with shield doesn't work well #4019
+
 ## [Dev:Build_392] - 2018-08-22
 - no translation on DNS error (proxy-internal) #4007
 - no reports in build 391-Dev #4002
@@ -18,9 +29,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - iframe with PDF source not rendered and crash Electron #2496
 - Copy/Paste Images to/from Shield #490
 - Salesforce, can't attach to email when responding to a client email in a ticket #3991
-- SalesForce - User story white space and scroll bars #3990
- Open	
- - SalesForce - issues with user story #3987
+- SalesForce - User story white space and scroll bars #3990	
+- SalesForce - issues with user story #3987
  
 
 ## [Dev:Build_391] - 2018-08-21
