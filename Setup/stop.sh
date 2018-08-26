@@ -18,8 +18,8 @@ echo "$(date): Stopping Ericom Shield" >>"$LOGFILE"
 docker stack rm $STACK_NAME
 echo "Waiting for $STACK_NAME to stop..."
 #Always waiting 30 seconds to make sure everything is cleaned
-sleep 30
-limit=10
+sleep 10
+limit=30
 until [ -z "$(docker service ls --filter label=com.docker.stack.namespace=$STACK_NAME -q)" ] || [ "$limit" -lt 1 ]; do
     echo $limit
     sleep 1
