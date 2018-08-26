@@ -1,13 +1,13 @@
-#Build Dev:Build_393 on 18/08/23 
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_393
+#Build Dev:Build_394 on 18/08/26 
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_394
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180819-09.04-2662
 shield-consul-agent:latest shield-consul-agent:180819-13.00-2666
-shield-admin:latest shield-admin:180823-14.13-2715
+shield-admin:latest shield-admin:180826-06.36-2724
 shield-portainer:latest shield-portainer:180807-14.18-2623
 proxy-server:latest proxy-server:180822-11.30-2699
-icap-server:latest icap-server:180823-14.13-2715
-shield-cef:latest shield-cef:180823-16.39-2718
+icap-server:latest icap-server:180826-06.47-2725
+shield-cef:latest shield-cef:180826-06.47-2725
 broker-server:latest broker-server:180823-06.23-2707
 shield-collector:latest shield-collector:180812-07.22-2643
 shield-elk:latest shield-elk:180822-10.12-2696
