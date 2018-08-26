@@ -32,6 +32,7 @@ ES_repo_restore="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRA
 ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.sh"
 ES_repo_preparenode="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/prepare-node.sh"
 ES_repo_swarm_sh="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/deploy-shield.sh"
+ES_repo_spellcheck="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/spellcheck.sh"
 
 # Version and YML files:
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"

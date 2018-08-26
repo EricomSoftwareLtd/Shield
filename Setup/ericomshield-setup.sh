@@ -690,6 +690,8 @@ function get_shield_files() {
     chmod +x update.sh
     curl -s -S -o prepare-node.sh "$ES_repo_preparenode"
     chmod +x prepare-node.sh
+    curl -s -S -o spellcheck.sh "$ES_repo_spellcheck"
+    chmod +x spellcheck.sh
 }
 
 function count_running_docker_services() {
