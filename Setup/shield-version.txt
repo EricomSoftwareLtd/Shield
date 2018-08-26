@@ -1,7 +1,7 @@
 #Build Dev:Build_394 on 18/08/26
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_394
 #docker-version 18.03.0
-shield-configuration:latest shield-configuration:180819-09.04-2662
+shield-configuration:latest shield-configuration:test4004
 shield-consul-agent:latest shield-consul-agent:180819-13.00-2666
 shield-admin:latest shield-admin:180826-06.36-2724
 shield-portainer:latest shield-portainer:180807-14.18-2623
