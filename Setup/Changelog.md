@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_394] - 2018-08-26
+## [Dev:Build_394.1] - 2018-08-26
 - missing translations for Japanese at 18.08.1 #4030
 - Drop down lists in Shield #3730
 - Drop down list displayed incorrectly #3960
 - Improved preload scripts to handel empty messages, might fix some sites
+- build 394-Dev the admin is not good #4035
 
 
 ## [Dev:Build_393] - 2018-08-23
