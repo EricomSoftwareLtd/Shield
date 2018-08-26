@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [18.08-388.3] - 2018-08-21
+- Translation File for Japanese
+- Fixed: status.sh -s (shield-status -s) fixed
+
 ## [Dev:Build_388] - 2018-08-12
 - Sometimes some of the components do not funcation #3831
 - Collector and other components errors - at the dashboard cpu memory etc are NA #3675
