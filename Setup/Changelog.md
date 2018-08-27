@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_395] - 2018-08-27
+- copy image - I should have only one menu usage, not 2 with diff and some duplicate options #4044
+- copy image misleads #4043
+- Set Consul parameter from CLI #4004
+- LDAP admin login - can't login locked out in case I disable LDAP/Kerberos authentication #3783
+- Go back to default fontconfig freetype settings as they work best with FT 2.9.1 for Office 365
+
 ## [Dev:Build_394.1] - 2018-08-26
 - missing translations for Japanese at 18.08.1 #4030
 - Drop down lists in Shield #3730
