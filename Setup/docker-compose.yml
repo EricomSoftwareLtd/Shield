@@ -19,6 +19,7 @@ services:
             - 'TZ=UTC'
             - 'LOGSTASH_FIELDS=service=dns'
             - 'UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}'
+            - 'CONSUL_CHECK_INTERVAL=30'
     netdata:
         image: 'securebrowsing/netdata:latest'
         volumes:
@@ -54,6 +55,7 @@ services:
             - 'IMAGE_CLEAN_INTERVAL=1h'
             - 'RUN_TIME=23:59'
             - 'LOGSTASH_FIELDS=service=maintenance'
+            - 'CONSUL_CHECK_INTERVAL=30'
     collector:
         image: 'securebrowsing/shield-collector:latest'
         networks:
@@ -66,6 +68,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=collector'
+            - 'CONSUL_CHECK_INTERVAL=30'
         deploy:
             mode: global
             restart_policy: {condition: any}
@@ -163,6 +166,7 @@ services:
             - 'SHIELD_VER=8.0.0.latest'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=admin'
+            - 'CONSUL_CHECK_INTERVAL=30'
         volumes:
             - 'admin:/data/consul'
             - '/var/run/docker.sock:/var/run/docker.sock'
@@ -185,6 +189,7 @@ services:
             - 'SHIELD_VER=8.0.0.latest'
             - 'SHIELD_IP=IP_ADDRESS'
             - 'LOGSTASH_FIELDS=service=icap'
+            - 'CONSUL_CHECK_INTERVAL=30'
             #- 'SHIELD_WATERMARK=TRUE'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
@@ -217,6 +222,7 @@ services:
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=broker'
             - 'SHIELD_VER=8.0.0.latest'
+            - 'CONSUL_CHECK_INTERVAL=30'
         networks:
             - shield
         secrets:
@@ -241,6 +247,7 @@ services:
             - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
             - 'PERF_STATS=true'
             - 'LOGSTASH_FIELDS=service=browser'
+            - 'CONSUL_CHECK_INTERVAL=30'
         networks:
             - shield
         deploy:
@@ -267,6 +274,7 @@ services:
             - 'TZ=UTC'
             - 'SSLEXCLUSION=true'
             - 'LOGSTASH_FIELDS=service=proxy'
+            - 'CONSUL_CHECK_INTERVAL=30'
         env_file: proxy-server.env
         deploy:
             mode: replicated
@@ -289,6 +297,7 @@ services:
             resources: {limits: {memory: 1024MB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
+            - 'CONSUL_CHECK_INTERVAL=30'
     ext-proxy-noadblock:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy-noadblock
@@ -304,6 +313,7 @@ services:
         environment:
             - 'TZ=UTC'
             - 'ADDBLOCK=no'
+            - 'CONSUL_CHECK_INTERVAL=30'
     speedtest:
         image: 'securebrowsing/speedtest:latest'
         hostname: speedtest
@@ -318,6 +328,7 @@ services:
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
+            - 'CONSUL_CHECK_INTERVAL=30'
     notifier:
         image: 'securebrowsing/shield-notifier:latest'
         hostname: notifier
@@ -330,6 +341,7 @@ services:
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
+            - 'CONSUL_CHECK_INTERVAL=30'
     authproxy:
         image: 'securebrowsing/shield-authproxy:latest'
         hostname: authproxy
@@ -347,6 +359,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=authproxy'
+            - 'CONSUL_CHECK_INTERVAL=30'
     web-service:
         image: 'securebrowsing/shield-web-service:latest'
         hostname: web-service
@@ -359,6 +372,7 @@ services:
             - 'SHIELD_IP=IP_ADDRESS'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=webservice'
+            - 'CONSUL_CHECK_INTERVAL=30'
         deploy:
             mode: replicated
             replicas: 1
@@ -371,6 +385,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=cdrdispatcher'
+            - 'CONSUL_CHECK_INTERVAL=30'
         networks:
             - shield
         deploy:
@@ -388,6 +403,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=cdrcontroller'
+            - 'CONSUL_CHECK_INTERVAL=30'
         networks:
             - shield
         deploy:
