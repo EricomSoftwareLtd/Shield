@@ -1,5 +1,5 @@
-#Build Dev:Build_394.1 on 18/08/26
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_394.consul
+#Build Dev:Build_396 on 18/08/28
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_396
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:test3978
 shield-consul-agent:latest shield-consul-agent:test3978
@@ -21,7 +21,7 @@ node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180606-12.58-2298
-shield-autoupdate:latest shield-autoupdate:test3864
+shield-autoupdate:latest shield-autoupdate:180826-12.52-2731
 shield-notifier:latest shield-notifier:test3978
 shield-dns:latest shield-dns:test3978
 # This needs to be the last line
