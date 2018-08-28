@@ -1,27 +1,27 @@
-#Build Staging:Build_389.1 on 18/08/19 (rollback from 394.1)
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_389.1
+#Build Staging:Build_396 on 18/08/28
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_396
 #docker-version 18.03.1
-shield-configuration:latest shield-configuration:180819-09.04-2662
+shield-configuration:latest shield-configuration:180826-12.52-2731
 shield-consul-agent:latest shield-consul-agent:180819-13.00-2666
-shield-admin:latest shield-admin:180819-13.00-2666
+shield-admin:latest shield-admin:180828-10.21-2744
 shield-portainer:latest shield-portainer:180807-14.18-2623
-proxy-server:latest proxy-server:180819-12.02-2664
-icap-server:latest icap-server:180819-09.04-2662
-shield-cef:latest shield-cef:180819-09.04-2662
-broker-server:latest broker-server:180819-12.02-2664
+proxy-server:latest proxy-server:180822-11.30-2699
+icap-server:latest icap-server:180828-10.21-2744
+shield-cef:latest shield-cef:180828-10.21-2744
+broker-server:latest broker-server:180828-10.21-2744
 shield-collector:latest shield-collector:180812-07.22-2643
-shield-elk:latest shield-elk:180819-08.02-2659
-extproxy:latest extproxy:180819-09.04-2662
+shield-elk:latest shield-elk:180822-10.12-2696
+extproxy:latest extproxy:180822-11.30-2699
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180819-09.04-2662
 shield-cdr-controller:latest shield-cdr-controller:180819-09.04-2662
 shield-web-service:latest shield-web-service:180819-09.04-2662
 shield-maintenance:latest shield-maintenance:180620-10.35-2427
-shield-authproxy:latest shield-authproxy:180819-12.02-2664
+shield-authproxy:latest shield-authproxy:180828-10.21-2744
 node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180606-12.58-2298
-shield-autoupdate:latest shield-autoupdate:180819-08.02-2659
+shield-autoupdate:latest shield-autoupdate:180826-12.52-2731
 shield-notifier:latest shield-notifier:180819-09.04-2662
 shield-dns:latest shield-dns:180819-09.04-2662
 # This needs to be the last line
