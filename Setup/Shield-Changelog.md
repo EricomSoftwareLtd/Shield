@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.08.1-Build-388.4] - 26-08-2018
+### Enhancements:
+- Translation File for Japanese
+- Fixed: status.sh -s (shield-status -s) fixed
+
 ## [Prod:18.08-Build-388.2] - 19-08-2018
 ### New Features:
 #### End User Features:
