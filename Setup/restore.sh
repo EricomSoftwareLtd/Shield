@@ -11,32 +11,31 @@ if ((EUID != 0)); then
     exit
 fi
 
-if [ -n "$1" ]; then
-    FILE_NAME="$1"
-
-    if [ -f "$FILE_NAME" ]; then
-        cp "$FILE_NAME" "$ES_PATH/backup/"
-    else
-        echo "File $FILE_NAME not found"
-        exit 1
-    fi
-fi
-
-while [ $# -ne 0 ]; do
-    arg="$1"
-    case "$arg" in
+case "$1" in
     -h | --help)
-        echo "Usage: $0 [filename]"
-        exit 0
-        ;;
-    esac
-    shift
-done
+       echo " Usage: $0 [backup-filename]"
+       echo " Restore Shield Configuration from a backup file"
+       echo " Restore latest backup if no filename is specified"
+       echo " Backups files are located in $ES_PATH/backup/ folder"
+       exit 0
+    ;;
+    *)
+       FILE_NAME="$1"
+
+       if [ -f "$FILE_NAME" ]; then
+           cp "$FILE_NAME" "$ES_PATH/backup/"
+       else
+           echo "File $FILE_NAME not found"
+           exit 1
+       fi
+    ;;
+esac
 
 all=($(docker ps | grep consul-server | awk {'print $1'}))
 
 if [ ${#all[@]} -eq 0 ]; then
-    echo "No consul-server containers run on this node"
+    echo " Restore can be done only when Shield is running"
+    echo " Please run start.sh first"
     exit
 fi
 
