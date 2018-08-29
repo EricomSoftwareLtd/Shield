@@ -1,8 +1,8 @@
 #Build Dev:Build_396 on 18/08/28
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_396
 #docker-version 18.03.1
-shield-configuration:latest shield-configuration:test3978
-shield-consul-agent:latest shield-consul-agent:test3978
+shield-configuration:latest shield-configuration:testHealth
+shield-consul-agent:latest shield-consul-agent:testHealth
 shield-admin:latest shield-admin:test3978
 shield-portainer:latest shield-portainer:180807-14.18-2623
 proxy-server:latest proxy-server:test3978
