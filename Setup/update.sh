@@ -29,6 +29,7 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 ES_VERSION_ARG=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
@@ -58,8 +59,12 @@ case "${ARGS[@]}" in
 esac
 
 if [ ! -f "$ES_PATH/ericomshield_key" ] && [ -z "$KEY_INSTALL" ]; then
-    echo "Please run ./update.sh sshkey first"
-    exit 0
+    echo "Runnning $0 sshkey first"
+    $0 sshkey
+    if [ "$?" -ne "0" ]; then
+       echo "Cannot create sshkey, exiting"
+       exit 0
+    fi
 fi
 
 if [ -n "$AUTOUPDATE" ]; then
@@ -153,7 +158,6 @@ done
 
 function get_latest_version() {
     cd "$ES_PATH"
-    mv "$ES_VER_FILE" "$ES_VER_FILE".bak
 
     source "$ES_PATH"/ericomshield-repo.sh
 
@@ -162,19 +166,18 @@ function get_latest_version() {
     fi
 
     echo "$VERSION_FILE_PATH"
-    curl -s -S -o "$ES_VER_FILE" "$VERSION_FILE_PATH"
+    curl -s -S -o "$ES_VER_FILE_NEW".new "$VERSION_FILE_PATH"
+    if [ ! -f "$ES_VER_FILE_NEW" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_FILE_NEW") -ge 1 ]; then
+        echo "Download version file failed. Please check shield version $BRANCH is correct"
+        exit 1
+    fi
+    mv "$ES_VER_FILE_NEW" "$ES_VER_FILE"
 
     if [ -n "$KEY_INSTALL" ]; then
         BRANCH=""
         ES_VERSION_ARG=""
     fi
-
-    if [ ! -f "$ES_VER_FILE" ]; then
-        echo "Download version file failed. Please check shield version is correct"
-        exit 1
-    fi
 }
-
 function read_current_version() {
     ver=$(cat "$ES_CONFIG_FILE" | grep "SHIELD_VER=")
     if [[ $ver =~ $VERSION_REGEX ]]; then
