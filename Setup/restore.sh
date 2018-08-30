@@ -11,22 +11,29 @@ if ((EUID != 0)); then
     exit
 fi
 
-case "$1" in
-    -h | --help)
+function usage(){
        echo " Usage: $0 [backup-filename]"
        echo " Restore Shield Configuration from a backup file"
        echo " Restore latest backup if no filename is specified"
        echo " Backups files are located in $ES_PATH/backup/ folder"
+}
+
+case "$1" in
+    -h | --help)
+       usage
        exit 0
     ;;
     *)
        FILE_NAME="$1"
 
-       if [ -f "$FILE_NAME" ]; then
-           cp "$FILE_NAME" "$ES_PATH/backup/"
-       else
-           echo "File $FILE_NAME not found"
-           exit 1
+       if [ ! -z $FILE_NAME ]; then
+          if [ -f "$FILE_NAME" ]; then
+             cp "$FILE_NAME" "$ES_PATH/backup/"
+           else
+             echo "File $FILE_NAME not found"
+             echo
+             exit 1
+          fi
        fi
     ;;
 esac
