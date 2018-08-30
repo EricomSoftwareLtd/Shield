@@ -5,7 +5,7 @@
 ES_SETUP_VER="Setup:18.08-2608"
 
 function usage() {
-    echo " Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
+    echo " Usage: $0 [-f|--force] [-autoupdate] [-Dev] [-Staging] [-quickeval] [--help] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
 }
 
 #Check if we are root
@@ -225,7 +225,7 @@ while [ $# -ne 0 ]; do
     -staging | --Staging)
         echo $STAGING_BRANCH >"$ES_BRANCH_FILE"
         ;;
-    -autoupdate)
+    --autoupdate | -autoupdate)
         ES_AUTO_UPDATE=true
         ;;
     -f | --force | -force)
@@ -250,19 +250,19 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
-    -no-deploy)
+    --no-deploy | -no-deploy)
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
         ;;
     -list-versions | --list-versions) # -list version will be deprecated
         list_versions
         ;;
-    -registry)
+    --registry | -registry)
         shift
         SHIELD_REGISTRY="$1"
         echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
         ;;
-    #        -usage)
+    #        -help)
     *)
         usage
         exit
