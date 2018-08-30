@@ -12,15 +12,19 @@ if ((EUID != 0)); then
     exit
 fi
 
-case "$1" in
--h | --help)
-    echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
+function usage() {
+    echo "Usage: $0 [OPTIONS] [COMMAND] [OPTIONS]"
     echo "--verbose Switch to detailed output"
-    echo "-list-versions  Show available version to update"
+    echo "--list-versions  Show available version to update"
     echo ""
     echo "Commands:"
     echo "sshkey Make ssh key to connect to swarm hosts"
     echo "update Update docker/shield command"
+}
+
+case "$1" in
+-h | --help)
+    usage
     exit 0
     ;;
 esac
@@ -59,12 +63,13 @@ case "${ARGS[@]}" in
 esac
 
 if [ ! -f "$ES_PATH/ericomshield_key" ] && [ -z "$KEY_INSTALL" ]; then
-    echo "Runnning $0 sshkey first"
+    echo "Runnning $0 sshkey first ..."
     $0 sshkey
     if [ "$?" -ne "0" ]; then
        echo "Cannot create sshkey, exiting"
        exit 0
     fi
+    echo "done!"
 fi
 
 if [ -n "$AUTOUPDATE" ]; then
@@ -122,7 +127,7 @@ while [ $# -ne 0 ]; do
     case "$arg" in
     -v | --version)
         BRANCH=$2
-        echo $BRANCH >"$ES_BRANCH_FILE"
+        shift
         ;;
     --verbose)
         FULL_OUTPUT="--verbose"
@@ -136,12 +141,12 @@ while [ $# -ne 0 ]; do
     -h | --help)
         HELP_ASKED="yes"
         ;;
-    -list-versions)
+    -list-versions | --list-versions)
         list_versions
         read -p "To continue update press 1 to stop press 2:" choice
         case "$choice" in
         "1")
-            ./update.sh update
+            $0 update
             ;;
         "2")
             exit 0
@@ -152,6 +157,12 @@ while [ $# -ne 0 ]; do
             ;;
         esac
         exit 0
+        ;;
+    *)
+        echo "Error: Not valid option, exiting"
+        usage
+        exit 1
+        ;;
     esac
     shift
 done
@@ -166,18 +177,20 @@ function get_latest_version() {
     fi
 
     echo "$VERSION_FILE_PATH"
-    curl -s -S -o "$ES_VER_FILE_NEW".new "$VERSION_FILE_PATH"
+    curl -s -S -o "$ES_VER_FILE_NEW" "$VERSION_FILE_PATH"
     if [ ! -f "$ES_VER_FILE_NEW" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_FILE_NEW") -ge 1 ]; then
         echo "Download version file failed. Please check shield version $BRANCH is correct"
         exit 1
     fi
     mv "$ES_VER_FILE_NEW" "$ES_VER_FILE"
+    echo $BRANCH >"$ES_BRANCH_FILE"
 
     if [ -n "$KEY_INSTALL" ]; then
         BRANCH=""
         ES_VERSION_ARG=""
     fi
 }
+
 function read_current_version() {
     ver=$(cat "$ES_CONFIG_FILE" | grep "SHIELD_VER=")
     if [[ $ver =~ $VERSION_REGEX ]]; then
@@ -204,9 +217,9 @@ if [ -z "$FORCE_RUN" ] && [ -z "$KEY_INSTALL" ]; then
     read_current_version
     NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
     if [[ $CURRENT_SHIELD_VERSION == "$NEXT_SHIELD_VERSION" && -z $HELP_ASKED ]]; then
-        echo "Ericom Shield repo version is $NEXT_SHIELD_VERSION"
-        echo "Current system version is $CURRENT_SHIELD_VERSION"
-        echo "Your EricomShield System is Up to date"
+        echo " Ericom Shield repo version is $NEXT_SHIELD_VERSION"
+        echo " Current system version is $CURRENT_SHIELD_VERSION"
+        echo " Your EricomShield System is Up to date"
         exit 0
     fi
 fi
