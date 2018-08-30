@@ -2,7 +2,7 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-ES_SETUP_VER="Setup:18.08-2608"
+ES_SETUP_VER="Setup:18.08-3008"
 
 function usage() {
     echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--help]"
