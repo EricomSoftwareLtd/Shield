@@ -4,10 +4,14 @@
 #######################################BH###
 ES_SETUP_VER="Setup:18.08-2608"
 
+function usage() {
+    echo " Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
+}
+
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
+    usage
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -210,22 +214,21 @@ cd "$ES_PATH" || exit
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-    -version)
+    -v | -version | --version)
         shift
         BRANCH="$1"
-        echo $BRANCH >"$ES_BRANCH_FILE"
         ;;
-    -dev)
+    -dev | --Dev)
         echo $DEV_BRANCH >"$ES_BRANCH_FILE"
         ES_AUTO_UPDATE=true # ES_AUTO_UPDATE=true for Dev Deployments
         ;;
-    -staging)
+    -staging | --Staging)
         echo $STAGING_BRANCH >"$ES_BRANCH_FILE"
         ;;
     -autoupdate)
         ES_AUTO_UPDATE=true
         ;;
-    -force)
+    -f | --force | -force)
         ES_FORCE=true
         #echo " " >>$ES_VER_FILE
         if [ -f "$ES_VER_FILE" ]; then
@@ -251,7 +254,7 @@ while [ $# -ne 0 ]; do
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
         ;;
-    -list-versions)
+    -list-versions | --list-versions) # -list version will be deprecated
         list_versions
         ;;
     -registry)
@@ -261,7 +264,7 @@ while [ $# -ne 0 ]; do
         ;;
     #        -usage)
     *)
-        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
+        usage
         exit
         ;;
     esac
@@ -571,7 +574,8 @@ function get_precheck_files() {
     if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c "$NOT_FOUND_STR" shield_repo_tmp.sh) -ge 1 ]; then
         failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
-
+    #Set Branch File, after validation:
+    echo $BRANCH >"$ES_BRANCH_FILE"
     mv shield_repo_tmp.sh "$ES_REPO_FILE"
 
     #include file with files repository
