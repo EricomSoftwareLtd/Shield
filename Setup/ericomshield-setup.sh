@@ -5,7 +5,7 @@
 ES_SETUP_VER="Setup:18.08-2608"
 
 function usage() {
-    echo " Usage: $0 [-f|--force] [-autoupdate] [-Dev] [-Staging] [-quickeval] [--help] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
+    echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--help]"
 }
 
 #Check if we are root
@@ -214,21 +214,21 @@ cd "$ES_PATH" || exit
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-    -v | -version | --version)
+    -v | -version | --version) # -arg option will be deprecated and replaced by --arg
         shift
         BRANCH="$1"
         ;;
-    -dev | --Dev)
+    -dev | --Dev) # -arg option will be deprecated and replaced by --arg
         echo $DEV_BRANCH >"$ES_BRANCH_FILE"
         ES_AUTO_UPDATE=true # ES_AUTO_UPDATE=true for Dev Deployments
         ;;
-    -staging | --Staging)
+    -staging | --Staging) # -arg option will be deprecated and replaced by --arg
         echo $STAGING_BRANCH >"$ES_BRANCH_FILE"
         ;;
-    --autoupdate | -autoupdate)
+    --autoupdate | -autoupdate) # -arg option will be deprecated and replaced by --arg
         ES_AUTO_UPDATE=true
         ;;
-    -f | --force | -force)
+    -f | --force | -force) # -arg option will be deprecated and replaced by --arg
         ES_FORCE=true
         #echo " " >>$ES_VER_FILE
         if [ -f "$ES_VER_FILE" ]; then
@@ -238,11 +238,11 @@ while [ $# -ne 0 ]; do
     -force-ip-address-selection)
         ES_FORCE_SET_IP_ADDRESS=true
         ;;
-    -quickeval)
+    --quickeval | -quickeval) # -arg option will be deprecated and replaced by --arg
         ES_POCKET=true
         echo " Quick Evaluation "
         ;;
-    -restart)
+    --restart | -restart) # -arg option will be deprecated and replaced by --arg
         UPDATE_NEED_RESTART=true
         echo " Restart will be done during upgrade "
         ;;
@@ -250,14 +250,14 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
-    --no-deploy | -no-deploy)
+    --no-deploy | -no-deploy) # -arg option will be deprecated and replaced by --arg
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
         ;;
-    -list-versions | --list-versions) # -list version will be deprecated
+    --list-versions | -list-versions) # -arg option will be deprecated and replaced by --arg
         list_versions
         ;;
-    --registry | -registry)
+    --registry | -registry) # -arg option will be deprecated and replaced by --arg
         shift
         SHIELD_REGISTRY="$1"
         echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
