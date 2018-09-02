@@ -143,19 +143,6 @@ while [ $# -ne 0 ]; do
         ;;
     -list-versions | --list-versions)
         list_versions
-        read -p "To continue update press 1 to stop press 2:" choice
-        case "$choice" in
-        "1")
-            $0 update
-            ;;
-        "2")
-            exit 0
-            ;;
-        *)
-            echo "Error: Not valid option, exiting"
-            exit 1
-            ;;
-        esac
         exit 0
         ;;
     *)
