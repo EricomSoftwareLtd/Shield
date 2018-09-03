@@ -10,7 +10,7 @@ icap-server:latest icap-server:180828-10.21-2744
 shield-cef:latest shield-cef:180828-10.21-2744
 broker-server:latest broker-server:180828-10.21-2744
 shield-collector:latest shield-collector:180812-07.22-2643
-shield-elk:latest shield-elk:test4087
+shield-elk:latest shield-elk:180822-10.12-2696
 extproxy:latest extproxy:180822-11.30-2699
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180819-09.04-2662
 shield-cdr-controller:latest shield-cdr-controller:180819-09.04-2662
@@ -21,7 +21,7 @@ node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:180606-12.58-2298
-shield-autoupdate:latest shield-autoupdate:180826-12.52-2731
+shield-autoupdate:latest shield-autoupdate:test4084:
 shield-notifier:latest shield-notifier:180819-09.04-2662
 shield-dns:latest shield-dns:180819-09.04-2662
 # This needs to be the last line
