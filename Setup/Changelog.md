@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_397] - 2018-09-03
+- Slow scrolling on high latency #4109
+- Updated Admin translations 
+
+
 ## [Dev:Build_396] - 2018-08-28
 - Fixed auth proxy crach 
 - Fixed Broker/ICAP/CEF crach on missing default lanague  
