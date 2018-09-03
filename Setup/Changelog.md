@@ -9,16 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_398] - 2018-09-03
+- Fix for cusror blinking bandwidth usage
+
 ## [Dev:Build_397] - 2018-09-03
 - Slow scrolling on high latency #4109
 - Updated Admin translations 
-
 
 ## [Dev:Build_396] - 2018-08-28
 - Fixed auth proxy crach 
 - Fixed Broker/ICAP/CEF crach on missing default lanague  
 - Auth Proxy, CEF, ICAP and broker longer wait for Translations and LDAP cache
-
 
 ## [Dev:Build_395.1] - 2018-08-27
 - Copy image - I should have only one menu usage, not 2 with diff and some duplicate options #4044
