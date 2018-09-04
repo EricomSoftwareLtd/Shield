@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_399] - 2018-09-04
+- Fix IME position 
+
 ## [Dev:Build_398] - 2018-09-03
 - Fix for cusror blinking bandwidth usage
 
