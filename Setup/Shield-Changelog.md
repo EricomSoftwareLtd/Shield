@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Broken Websites (el-al, whatsapp, pinterest, adp, Bank Leumi, Sharepoint, etc)
 - Fixed: Bandwidth Usage on Scrolling and Cursor Blinking
 - Fixed: Slow scrolling on high latency
-- Fixed: Broker/ICAP/CEF crach on missing default lanague  
+- Fixed: Broker/ICAP/CEF crash on missing default language  
 - Fixed: Error while saving Japanese translations
 
 ## [Prod:18.08-Build-388.2] - 19-08-2018
