@@ -31,12 +31,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Enhancement:
 - Added Font Missing in Shield
 - Improve Font Display (fonts, color, spacing)
+- Fullscreen message is now more visible 
+- Support PDF in iframes
+- Improved DropDown list 
+- Updated dialog for opening new tab
+- Improved notification on file downloads 
+- URL schemes support
+- Improve internal communication (decrease bandwidth usage)
+- Squid logs size are now rotated
+- Support certificate chain in Custom Trust Certificate 
+- Improved support for Admin LDAP login 
+
 
 ### Bug Fixes:
 - Fixed: Broken Websites (el-al, whatsapp, pinterest, adp, Bank Leumi, Sharepoint, etc)
 - Fixed: Bandwidth Usage on Scrolling and Cursor Blinking
 - Fixed: Slow scrolling on high latency
-- Fixed: Broker/ICAP/CEF crash on missing default language  
+- Fixed: Broker/ICAP/CEF crach on missing default lanague  
 - Fixed: Error while saving Japanese translations
 
 ## [Prod:18.08-Build-388.2] - 19-08-2018
