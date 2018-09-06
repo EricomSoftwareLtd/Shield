@@ -21,10 +21,11 @@ function Configure-Proxy ($Proxy, $Port)
 
 function Set-Proxy
 {
-#  $NetworkConfig = @(ipconfig.exe /all)
   $a = Get-NetAdapter | Where-Object {$_.status -eq "Up"}
   $b = $a.ifIndex
   $NetworkConfig = Get-DnsClient -InterfaceIndex $b
+# For Win7 use this one:  
+#  $NetworkConfig = @(ipconfig.exe /all)  
 
   $Proxy = "" # Set the Proxy Name or IP (e.g. "shield-jer")
   $Port = "3128"
@@ -33,6 +34,8 @@ function Set-Proxy
  
 # settings are configured by parsing the right values to the Configure-Proxy function.
   if ( $NetworkConfig.suffix -eq "$Network" )
+# For Win7 use this one:
+#  if ( $NetworkConfig -like "$Network" )
   {
      $ProxyEnabled = Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name ProxyEnable
      if ( $ProxyEnabled.ProxyEnable -eq 0 )
@@ -53,6 +56,7 @@ function Set-Proxy
   else
   {
       Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name ProxyEnable -Value 0
+      Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name AutoConfigURL -Value ""      
       $wshell = New-Object -ComObject Wscript.Shell
       $wshell.Popup("Proxy Disabled",0,"Done",0x1)
   }
