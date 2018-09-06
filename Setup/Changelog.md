@@ -34,6 +34,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Proxy message should not allow blanks #4090
 - Several improvements for page loading 
 - Round down to supported resolutions
+- add --verbose to addnodes usage menu #3596
+- Votiro New Version #4128
+- SalesForce - issues with user story -need to click few times to open user story #4041
+- saleforce.com/ Cannot export to excel ("Download failed" error message) #2158
+- salesforce - user story text is not wrapped #4040
+- set end user translations is not working #4129
+
 
 ## [Dev:Build_399] - 2018-09-04
 - Fix IME position 
