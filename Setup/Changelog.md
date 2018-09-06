@@ -1,3 +1,13 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+- Git Issues should be referenced by #
+- Main Features/Bug Fixes should have (*)
+- User Action Required should have (!)
+
+## [Unreleased]
 
 # Changelog
 All notable changes to this project will be documented in this file.
@@ -10,9 +20,106 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [18.08-388.3] - 2018-08-21
-- Translation File for Japanese
-- Fixed: status.sh -s (shield-status -s) fixed
+## [Dev:Build_399] - 2018-09-04
+- Fix IME position
+
+## [Dev:Build_398] - 2018-09-03
+- Fix for cusror blinking bandwidth usage
+
+## [Dev:Build_397] - 2018-09-03
+- Slow scrolling on high latency #4109
+- Updated Admin translations 
+
+## [Dev:Build_396] - 2018-08-28
+- Fixed auth proxy crach 
+- Fixed Broker/ICAP/CEF crach on missing default lanague  
+- Auth Proxy, CEF, ICAP and broker longer wait for Translations and LDAP cache
+
+## [Dev:Build_395.1] - 2018-08-27
+- Copy image - I should have only one menu usage, not 2 with diff and some duplicate options #4044
+- Copy image misleads #4043
+- Set Consul parameter from CLI #4004
+- LDAP admin login - can't login locked out in case I disable LDAP/Kerberos authentication #3783
+- Go back to default fontconfig freetype settings as they work best with FT 2.9.1 for Office 365
+- CEF fix - round down to supported resolutions
+- Prevent ICAP crash when there's no default lang
+
+
+## [Dev:Build_394.1] - 2018-08-26
+- missing translations for Japanese at 18.08.1 #4030
+- Drop down lists in Shield #3730
+- Drop down list displayed incorrectly #3960
+- Improved preload scripts to handel empty messages, might fix some sites
+- build 394-Dev the admin is not good #4035
+
+
+## [Dev:Build_393] - 2018-08-23
+- status -e doesn't work on specific machine #4016
+- updated dialog for opening new tab
+- updating modules to increase security
+- ubuntu client - copy image to LibreOffice Writer position should be fix #4025
+- copy image using IE is not working #4024
+- copy image should be disabled when clipboard is disabled #4023
+- save imgae as should open a window with rename and choose location #4022
+- Copy/Paste image part 2 #4014
+- El Al web site with shield doesn't work well #4019
+
+## [Dev:Build_392] - 2018-08-22
+- no translation on DNS error (proxy-internal) #4007
+- no reports in build 391-Dev #4002
+- no alerts - build 391-Dev #4001
+- Service Worker issues: web.whatsapp.com pinterest.com #3921
+- Admin - resources - reorder settings #3591
+- iframe with PDF source not rendered and crash Electron #2496
+- Copy/Paste Images to/from Shield #490
+- Salesforce, can't attach to email when responding to a client email in a ticket #3991
+- SalesForce - User story white space and scroll bars #3990	
+- SalesForce - issues with user story #3987
+ 
+
+## [Dev:Build_391] - 2018-08-21
+- Sometimes ELK container stack on create indexes stage and not continue #3988
+- (*) Copy/Paste Images to/from Shield #490
+- totalsource.adp.com view payroll report authorization error #3919
+- problem to view PDF with shield #3068
+
+## [Dev:Build_390] - 2018-08-21
+- Custom protocol links support https://blog.rankingbyseo.com/ #3911 
+- iFrame with PDF source not rendered and crash Electron #2496
+- Added logs when admin fail to parse translation file 
+- status -s doesn't work #3927
+- Cross Window - bank Leumi - bll.co.il export to PDF #459 
+- Unable to launch local Excel from online excel (SharePoint) #3256
+
+## [Dev:Build_389] - 2018-08-19
+- pac file fix minor typo #3854
+- Fonts issue - the space between the letters should be imporved #3938
+- Fonts issue 3: the fonts with shiled have diff color, and it looks bolder #3696
+- Fix Missing Fonts Issues #3640
+- Check Chinese Websites #3351
+- Cross Window - bank Leumi - bll.co.il #459
+- error is not being displayed for some web sites in case creds are wrong #3937
+- sandblast activation key has changed please update the internal license #3819
+- Support certificate chain #2247
+- Show the notification dialog until AccessNow completes downloading the file (#3679)
+- reported by Eran - twitch.tv fullscreen message is not visible enough #3795
+- "Failed contacting Sanitization Server" alert doesn't show the error #3888
+- Squid logs size needs to be limited #3896
+- Error while saving Japanese translations #3856
+- Align log levels in admin with bunyan #3917
+- Admin login using LDAP #3683
+- Missing Important Time Values in the Reports #1418
+- LDAP admin login - fix the error when insert bad credentials #3782
+- LDAP admin login - no clear errors of authentication failures #3787
+- LDAP admin login - Access not permitted when using down level login name #3785
+- if the user is locked I get a message that the credentials are invalid #3932
+- Auth proxy helper to give a better error if AD user is invalid #2132
+- collector and other components errors - at the dashboard cpu memory etc are NA #3675
+- Slow connection alert #2378
+- issues with update process- bad erros and docker upgrade fails #3663
+- Consul upgrade + configuration tuning #3746
+- Consul error logs not arrive to ELK. #3949
+- Updated Japanese translations and deleted duplicated keys
 
 ## [Dev:Build_388] - 2018-08-12
 - Sometimes some of the components do not funcation #3831
@@ -41,25 +148,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_384] - 2018-08-07
 - Certain scribed URL takes a long time to load (sometime after 30 to 60 seconds and sometimes it did NOT load at all after few minutes) #3842
-- Patch for Timeout occur during join new node to cluster #3840
-- Japanese Strings for 18.08 (from KKA)
-- BTL: Disk on Management Nodes is fills up very quickly #3804
-- Limit Logs for ELK
-- Loaded dictionary for locale us-en Error #3833
-- Route all traffic (including white-listed) via the Browser farm #3654
-- After adding nodes all confiugration is lost #3813
-- Votiro: Include Votiro dynamic information reason (untranslated) in the tooltip #3837
-- Backup are not generated sometimes #3844
-- Certain scribed URL takes a long time to load
-- Dropdown issue #3797
-- [[Investigation]] QA#687503 It is strange to print PDF #110
-- Incorrect node join to cluster block addnode script operation #3825
-- The file is being download but also I get an error #3794
-- Add error for the user in case some or all files inside a zip file is being blocked #3808
-- When download virus inside a zip protected with password the message is incorrect #3809
-- Route all traffic (including white-listed) via the Browser farm #3654
-- Fix download docker images on slave nodes
-- After adding nodes all confiugration is lost #3813
 
 ## [Dev:Build_383] - 2018-08-06
 - Patch for Timeout occur during join new node to cluster #3840
@@ -199,6 +287,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Docker Installation w/o internet #3377
 - KKA - [[BUG]] QA#691149 It does not work in the environment where the upstream proxy exists #130 #3244
 
+
 ## [Dev:Build_361] - 2018-6-25
 - .autoupdate was removed during autoupdate #3532
 - KKA - bug with typing #3386
@@ -208,6 +297,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - policies/applications table - scroll bar - edit row #3366
 - can't import rule when I change suspend to be 2 or 3 #3449
 - ignored_shield_policies file #3472
+
 
 ## [Dev:Build_360] - 2018-6-24
 - Admin UI - export and import policies - the values should beconverted from codes to text #3441
