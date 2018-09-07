@@ -9,6 +9,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_400] - 2018-09-06
+- Missing Important Time Values in the Reports #1418
+- New window dialog should open when clicking outside #4123
+- Admin loading indicator doesn't disappear #4108
+- Some components stopped communicate with the consul on specific machine #4087
+- Failed to create cluster using Staging 396 #4084
+- Ericom shield scripts should be consistent #4082
+- Update.sh should give an error in case I use bad parameter #4081
+- 502 bad gateway- can't access to admin on specific machine #4069
+- ./restore.sh add a menu usage #4068
+- daf-yomi.com - pdf viewer bad fonts #4060
+- Search with Google should truncate the text #4058
+- Don't run pre-check on update by default #4036
+- Fonts issue excel online #4005
+- Check consul communication - make sure we don't send to much data #3978
+- Pause Shield & Reload #3955
+- Authproxy fails to start because of bad config #3898
+- LDAP admin login - when I change the Authentication settings the display for ldap admin not updated #3873
+- Kan Radio audio volume is mute and cannot be changed #3792
+- Add prepare-node.sh as part of addnode script #3616
+- LDAP admin login - change the AD group but the save button remain disabled #3925
+- Apply health check for consul
+- Proxy message should not allow blanks #4090
+- Several improvements for page loading 
+- Round down to supported resolutions
+- add --verbose to addnodes usage menu #3596
+- Votiro New Version #4128
+- SalesForce - issues with user story -need to click few times to open user story #4041
+- saleforce.com/ Cannot export to excel ("Download failed" error message) #2158
+- salesforce - user story text is not wrapped #4040
+- set end user translations is not working #4129
+
+
 ## [Dev:Build_399] - 2018-09-04
 - Fix IME position 
 
