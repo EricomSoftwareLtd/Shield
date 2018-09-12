@@ -145,6 +145,9 @@ while [ $# -ne 0 ]; do
         list_versions
         exit 0
         ;;
+    sshkey )
+        #Currently do nothing
+        ;;
     *)
         echo "Error: Not valid option, exiting"
         usage
