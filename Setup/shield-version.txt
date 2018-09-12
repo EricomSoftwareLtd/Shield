@@ -1,6 +1,6 @@
 #Build Dev:Build_401 on 18/09/12
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_401.6
-#docker-version 18.03.0
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_401.7
+#docker-version 18.03.5
 shield-configuration:latest shield-configuration:180906-15.52-2783
 shield-consul-agent:latest shield-consul-agent:180906-15.52-2783
 shield-admin:latest shield-admin:180912-08.32-2803
