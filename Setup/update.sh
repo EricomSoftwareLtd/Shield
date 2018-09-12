@@ -251,7 +251,10 @@ function upgrade_docker_version() {
             -v $(which docker):/usr/bin/docker \
             -v /usr/local/ericomshield:/usr/local/ericomshield \
             -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-            "securebrowsing/$CONTAINER_TAG" $FULL_OUTPUT upgrade) || exit 1
+            "securebrowsing/$CONTAINER_TAG" $FULL_OUTPUT upgrade) || {
+                echo "Docker upgrade failed. Please try run with --verbose switch"
+                exit 1
+             }
 
         wait_upgrade_process_finish "$NEXT_VERSION"
     fi
