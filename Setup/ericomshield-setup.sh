@@ -2,12 +2,16 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-ES_SETUP_VER="Setup:18.08-2608"
+ES_SETUP_VER="Setup:18.08-3008"
+
+function usage() {
+    echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--help]"
+}
 
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions] [-registry] <registry-ip:port> "
+    usage
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -210,22 +214,21 @@ cd "$ES_PATH" || exit
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-    -version)
+    -v | -version | --version) # -arg option will be deprecated and replaced by --arg
         shift
         BRANCH="$1"
-        echo $BRANCH >"$ES_BRANCH_FILE"
         ;;
-    -dev)
+    -dev | --Dev) # -arg option will be deprecated and replaced by --arg
         echo $DEV_BRANCH >"$ES_BRANCH_FILE"
         ES_AUTO_UPDATE=true # ES_AUTO_UPDATE=true for Dev Deployments
         ;;
-    -staging)
+    -staging | --Staging) # -arg option will be deprecated and replaced by --arg
         echo $STAGING_BRANCH >"$ES_BRANCH_FILE"
         ;;
-    -autoupdate)
+    --autoupdate | -autoupdate) # -arg option will be deprecated and replaced by --arg
         ES_AUTO_UPDATE=true
         ;;
-    -force)
+    -f | --force | -force) # -arg option will be deprecated and replaced by --arg
         ES_FORCE=true
         #echo " " >>$ES_VER_FILE
         if [ -f "$ES_VER_FILE" ]; then
@@ -235,11 +238,11 @@ while [ $# -ne 0 ]; do
     -force-ip-address-selection)
         ES_FORCE_SET_IP_ADDRESS=true
         ;;
-    -quickeval)
+    --quickeval | -quickeval) # -arg option will be deprecated and replaced by --arg
         ES_POCKET=true
         echo " Quick Evaluation "
         ;;
-    -restart)
+    --restart | -restart) # -arg option will be deprecated and replaced by --arg
         UPDATE_NEED_RESTART=true
         echo " Restart will be done during upgrade "
         ;;
@@ -247,21 +250,21 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
-    -no-deploy)
+    --no-deploy | -no-deploy) # -arg option will be deprecated and replaced by --arg
         ES_RUN_DEPLOY=false
         echo "Install Only (No Deploy) "
         ;;
-    -list-versions)
+    --list-versions | -list-versions) # -arg option will be deprecated and replaced by --arg
         list_versions
         ;;
-    -registry)
+    --registry | -registry) # -arg option will be deprecated and replaced by --arg
         shift
         SHIELD_REGISTRY="$1"
         echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
         ;;
-    #        -usage)
+    #        -help)
     *)
-        echo "Usage: $0 [-force] [-autoupdate] [-dev] [-staging] [-quickeval] [-usage] [-version] <version-name> [-list-versions]"
+        usage
         exit
         ;;
     esac
@@ -571,7 +574,8 @@ function get_precheck_files() {
     if [ ! -f shield_repo_tmp.sh ] || [ $(grep -c "$NOT_FOUND_STR" shield_repo_tmp.sh) -ge 1 ]; then
         failed_to_install "Cannot Retrieve Installation files for version: $BRANCH"
     fi
-
+    #Set Branch File, after validation:
+    echo $BRANCH >"$ES_BRANCH_FILE"
     mv shield_repo_tmp.sh "$ES_REPO_FILE"
 
     #include file with files repository
