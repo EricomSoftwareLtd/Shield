@@ -131,6 +131,7 @@ while [ $# -ne 0 ]; do
         ;;
     --verbose)
         FULL_OUTPUT="--verbose"
+        break
         ;;
     --keep-docker-version)
         KEEP_DOCKER="yes"
@@ -145,14 +146,13 @@ while [ $# -ne 0 ]; do
         list_versions
         exit 0
         ;;
-    sshkey )
-        #Currently do nothing
-        ;;
-    *)
-        echo "Error: Not valid option, exiting"
-        usage
-        exit 1
-        ;;
+
+#    Currently not need to check another options because will be checked in container script
+#    *)
+#        echo "Error: Not valid option, exiting"
+#        usage
+#        exit 1
+#        ;;
     esac
     shift
 done
