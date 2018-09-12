@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_401] - 2018-09-12
+- no more licenses message #4144	
+- Sales Force - need to retype credentials when open sales force link from mail #4121
+- Shield doesn't remember the user account in specific scenario #4051
+- SalesForce - issues with user story -need to click few times to open user story #4041
+- Only first page of PDF is being printed - https://www.dropbox.com/s/v1z1us6ua7yzg1c/PT2-ACT%20New%20RB1.pdf?dl=0 #4012
+- Use Mozila pdf viewer on main window #4000
+- Right-click => Print when signing docusign.net #2005
+- Support already authenticated users #1721
+- Efficient consul watches #4147
+- Typo at the admin UI #4099
+- Use internal dns for icap redirects #3944
+- SalesForce - issues with user story -need to click few times to open user story #4041
+
+
 ## [Dev:Build_400] - 2018-09-06
 - Missing Important Time Values in the Reports #1418
 - New window dialog should open when clicking outside #4123
