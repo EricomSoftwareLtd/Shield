@@ -131,7 +131,6 @@ while [ $# -ne 0 ]; do
         ;;
     --verbose)
         FULL_OUTPUT="--verbose"
-        break
         ;;
     --keep-docker-version)
         KEEP_DOCKER="yes"
