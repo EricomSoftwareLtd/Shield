@@ -22,7 +22,7 @@ fi
 all=($(docker ps | grep consul-server | awk {'print $1'}))
 
 if [ ${#all[@]} -eq 0 ]; then
-    echo "No consul-server containers run on this node"
+    echo "Please run this command on a management node"
     exit
 fi
 
