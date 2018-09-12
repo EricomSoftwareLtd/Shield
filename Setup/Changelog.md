@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_402] - 2018-09-12
+- Google Search Right Menu doesnt work #4168
+- Remove assets folder from AccessNow #3950
+- Issues with update process- bad erros and docker upgrade fails #3663
+- Cdr-dispatcher crashes on watches inetrval setting (invalid syntax) #4161
+- Improve file download blocked message to refer the tooltip #4114
+- Fix Firefox reloading previous page #3944
+- Buttons are not working with shield on phet.colorado.edu site #4048
+
 ## [Dev:Build_401] - 2018-09-12
 - no more licenses message #4144	
 - Sales Force - need to retype credentials when open sales force link from mail #4121
