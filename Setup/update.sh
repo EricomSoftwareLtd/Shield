@@ -122,6 +122,25 @@ function list_versions() {
     echo "$BRANCH" > "$ES_BRANCH_FILE"
 }
 
+function update_daemon_json() {
+   if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
+          echo '/etc/docker/daemon.json is ok'
+   else
+          echo "Going stop shield for update daemon configurations"
+          ./stop.sh
+          echo "Setting: insecure-registries:["$1"] in /etc/docker/daemon.json"
+          echo '{' >/etc/docker/daemon.json.shield
+          echo -n '  "insecure-registries":["' >>/etc/docker/daemon.json.shield
+          echo -n $1 >>/etc/docker/daemon.json.shield
+          echo '"]' >>/etc/docker/daemon.json.shield
+          echo '}' >>/etc/docker/daemon.json.shield
+          systemctl stop docker
+          sleep 10
+          mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
+          systemctl start docker
+   fi
+}
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -145,6 +164,10 @@ while [ $# -ne 0 ]; do
         list_versions
         exit 0
         ;;
+
+    --registry )
+       update_daemon_json "$2"
+       ;;
 
 #    Currently not need to check another options because will be checked in container script
 #    *)
