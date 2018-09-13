@@ -123,7 +123,7 @@ function list_versions() {
 }
 
 function update_daemon_json() {
-   if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
+   if [ -f /etc/docker/daemon.json ] && [[ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1  || [$(grep -c "$1" /etc/docker/daemon.json) -ge 1] ]]; then
           echo '/etc/docker/daemon.json is ok'
    else
           echo "Going stop shield for update daemon configurations"
