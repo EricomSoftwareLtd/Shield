@@ -42,7 +42,7 @@ echo "Getting $ES_PRE_CHECK_FILE"
 wget -q "$ES_REG_YML_REPO"
     
 echo $ES_REG_YML
-docker run -d --restart yes -p 5000:5000 \
+docker run -d --restart -p 5000:5000 \
  -v "$ES_REG_YML:/etc/docker/registry/config.yml" \
  -v "$ES_REG_DATA:/var/lib/registry" \
  --name registry registry:2
