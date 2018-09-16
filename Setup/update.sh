@@ -123,22 +123,7 @@ function list_versions() {
 }
 
 function update_daemon_json() {
-   if [ -f /etc/docker/daemon.json ] && [[ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1  || [$(grep -c "$1" /etc/docker/daemon.json) -ge 1] ]]; then
-          echo '/etc/docker/daemon.json is ok'
-   else
-          echo "Going stop shield for update daemon configurations"
-          ./stop.sh
-          echo "Setting: insecure-registries:["$1"] in /etc/docker/daemon.json"
-          echo '{' >/etc/docker/daemon.json.shield
-          echo -n '  "insecure-registries":["' >>/etc/docker/daemon.json.shield
-          echo -n $1 >>/etc/docker/daemon.json.shield
-          echo '"]' >>/etc/docker/daemon.json.shield
-          echo '}' >>/etc/docker/daemon.json.shield
-          systemctl stop docker
-          sleep 10
-          mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
-          systemctl start docker
-   fi
+   echo "Running"
 }
 
 while [ $# -ne 0 ]; do
