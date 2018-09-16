@@ -1,4 +1,4 @@
-#Rel-18.09:Build_399.1 on 13/09/18
+#Rel-18.09:Build_399.1 on 16/09/18
 SHIELD_VER=8.0.0.latest SHIELD_VER=18.09:Build_399.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180826-12.52-2731
