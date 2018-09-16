@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Prod:18.09-Build-399.1] - 13-09-2018
+## [Prod:18.09-Build-399.1] - 16-09-2018
 ### Enhancement
 - Support Nested Groups in Active Directory
 
