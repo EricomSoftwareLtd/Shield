@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_404] - 2018-09-16
+- icap should check if "pause shield" is enabled #4188
+- Paste Image #4122
+- Send Feedback (from right click) - #2 #4184
+
 ## [Dev:Build_403] - 2018-09-13
 - Admin - Profiles - Generate #2880
 - (*) Send Feedback (from right click) #427
