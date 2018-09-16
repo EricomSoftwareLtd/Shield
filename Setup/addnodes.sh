@@ -21,6 +21,17 @@ if ((EUID != 0)); then
     exit
 fi
 
+case "$1" in
+-h | --help)
+    echo "Usage: addnodes.sh [OPTIONS] [COMMAND] [OPTIONS]"
+    echo "--verbose Switch to detailed output"
+    echo ""
+    echo "Commands:"
+    echo "addnode add shield nodes to cluster"
+    exit 0
+    ;;
+esac
+
 case "${COMMAND_LINE[@]}" in
 *"addnode"*)
     ARGS=""
