@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_405] - 2018-09-16
+- Stats - Monitor Shield Bandwidth #4116
+- Group all user "Allow" settings in the admin UI #4113
+- Count Usage in stats #3529
+- Feedback data will arrive to ELK
+- Use Registry for addnode #4037
+- Use Registry for update #4038
+
 ## [Dev:Build_404] - 2018-09-16
 - icap should check if "pause shield" is enabled #4188
 - Paste Image #4122
