@@ -12,15 +12,19 @@ if ((EUID != 0)); then
     exit
 fi
 
-case "$1" in
--h | --help)
-    echo "Usage: update.sh [OPTIONS] [COMMAND] [OPTIONS]"
+function usage() {
+    echo "Usage: $0 [OPTIONS] [COMMAND] [OPTIONS]"
     echo "--verbose Switch to detailed output"
-    echo "-list-versions  Show available version to update"
+    echo "--list-versions  Show available version to update"
     echo ""
     echo "Commands:"
     echo "sshkey Make ssh key to connect to swarm hosts"
     echo "update Update docker/shield command"
+}
+
+case "$1" in
+-h | --help)
+    usage
     exit 0
     ;;
 esac
@@ -29,6 +33,7 @@ ES_PATH="/usr/local/ericomshield"
 ES_BACKUP_PATH="/usr/local/ericomshield/backup"
 LOGFILE="$ES_PATH/ericomshield.log"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 ES_VERSION_ARG=""
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
@@ -58,8 +63,13 @@ case "${ARGS[@]}" in
 esac
 
 if [ ! -f "$ES_PATH/ericomshield_key" ] && [ -z "$KEY_INSTALL" ]; then
-    echo "Please run ./update.sh sshkey first"
-    exit 0
+    echo "Runnning $0 sshkey first ..."
+    $0 sshkey
+    if [ "$?" -ne "0" ]; then
+       echo "Cannot create sshkey, exiting"
+       exit 0
+    fi
+    echo "done!"
 fi
 
 if [ -n "$AUTOUPDATE" ]; then
@@ -117,7 +127,7 @@ while [ $# -ne 0 ]; do
     case "$arg" in
     -v | --version)
         BRANCH=$2
-        echo $BRANCH >"$ES_BRANCH_FILE"
+        shift
         ;;
     --verbose)
         FULL_OUTPUT="--verbose"
@@ -131,29 +141,23 @@ while [ $# -ne 0 ]; do
     -h | --help)
         HELP_ASKED="yes"
         ;;
-    -list-versions)
+    -list-versions | --list-versions)
         list_versions
-        read -p "To continue update press 1 to stop press 2:" choice
-        case "$choice" in
-        "1")
-            ./update.sh update
-            ;;
-        "2")
-            exit 0
-            ;;
-        *)
-            echo "Error: Not valid option, exiting"
-            exit 1
-            ;;
-        esac
         exit 0
+        ;;
+
+#    Currently not need to check another options because will be checked in container script
+#    *)
+#        echo "Error: Not valid option, exiting"
+#        usage
+#        exit 1
+#        ;;
     esac
     shift
 done
 
 function get_latest_version() {
     cd "$ES_PATH"
-    mv "$ES_VER_FILE" "$ES_VER_FILE".bak
 
     source "$ES_PATH"/ericomshield-repo.sh
 
@@ -162,16 +166,17 @@ function get_latest_version() {
     fi
 
     echo "$VERSION_FILE_PATH"
-    curl -s -S -o "$ES_VER_FILE" "$VERSION_FILE_PATH"
+    curl -s -S -o "$ES_VER_FILE_NEW" "$VERSION_FILE_PATH"
+    if [ ! -f "$ES_VER_FILE_NEW" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_FILE_NEW") -ge 1 ]; then
+        echo "Download version file failed. Please check shield version $BRANCH is correct"
+        exit 1
+    fi
+    mv "$ES_VER_FILE_NEW" "$ES_VER_FILE"
+    echo $BRANCH >"$ES_BRANCH_FILE"
 
     if [ -n "$KEY_INSTALL" ]; then
         BRANCH=""
         ES_VERSION_ARG=""
-    fi
-
-    if [ ! -f "$ES_VER_FILE" ]; then
-        echo "Download version file failed. Please check shield version is correct"
-        exit 1
     fi
 }
 
@@ -201,9 +206,9 @@ if [ -z "$FORCE_RUN" ] && [ -z "$KEY_INSTALL" ]; then
     read_current_version
     NEXT_SHIELD_VERSION=$(cat shield-version.txt | grep SHIELD_VER | cut -d' ' -f2 | cut -d'=' -f2)
     if [[ $CURRENT_SHIELD_VERSION == "$NEXT_SHIELD_VERSION" && -z $HELP_ASKED ]]; then
-        echo "Ericom Shield repo version is $NEXT_SHIELD_VERSION"
-        echo "Current system version is $CURRENT_SHIELD_VERSION"
-        echo "Your EricomShield System is Up to date"
+        echo " Ericom Shield repo version is $NEXT_SHIELD_VERSION"
+        echo " Current system version is $CURRENT_SHIELD_VERSION"
+        echo " Your EricomShield System is Up to date"
         exit 0
     fi
 fi
@@ -274,3 +279,4 @@ docker run --rm $DOCKER_RUN_PARAM \
     -v /usr/local/ericomshield:/usr/local/ericomshield \
     -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
     "securebrowsing/$CONTAINER_TAG" $ARGS $ES_VERSION_ARG
+ 
