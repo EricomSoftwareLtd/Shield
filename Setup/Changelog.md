@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_404] - 2018-09-16
+- icap should check if "pause shield" is enabled #4188
+- Paste Image #4122
+- Send Feedback (from right click) - #2 #4184
+
+## [Dev:Build_403] - 2018-09-13
+- Admin - Profiles - Generate #2880
+- (*) Send Feedback (from right click) #427
+- Group all user "Allow" settings in the admin UI #4113
+- Nested LDAP Groups #4118
+- Clipboard bypass when it is disabled #4138
+- paste at right click menu should be disabled if clipboard is disabled #4139
+- Error on Upstream Settings #4171
+- Open New Tab - Old dialog #4175
+- Add HEALTHCHECK to portainer 
+
 ## [Dev:Build_402] - 2018-09-12
 - Google Search Right Menu doesnt work #4168
 - Remove assets folder from AccessNow #3950
