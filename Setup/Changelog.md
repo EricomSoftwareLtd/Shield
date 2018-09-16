@@ -9,19 +9,81 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-# Changelog
-All notable changes to this project will be documented in this file.
+## [Dev:Build_404] - 2018-09-16
+- icap should check if "pause shield" is enabled #4188
+- Paste Image #4122
+- Send Feedback (from right click) - #2 #4184
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-- Git Issues should be referenced by #
-- Main Features/Bug Fixes should have (*)
-- User Action Required should have (!)
+## [Dev:Build_403] - 2018-09-13
+- Admin - Profiles - Generate #2880
+- (*) Send Feedback (from right click) #427
+- Group all user "Allow" settings in the admin UI #4113
+- Nested LDAP Groups #4118
+- Clipboard bypass when it is disabled #4138
+- paste at right click menu should be disabled if clipboard is disabled #4139
+- Error on Upstream Settings #4171
+- Open New Tab - Old dialog #4175
+- Add HEALTHCHECK to portainer 
 
-## [Unreleased]
+## [Dev:Build_402] - 2018-09-12
+- Google Search Right Menu doesnt work #4168
+- Remove assets folder from AccessNow #3950
+- Issues with update process- bad erros and docker upgrade fails #3663
+- Cdr-dispatcher crashes on watches inetrval setting (invalid syntax) #4161
+- Improve file download blocked message to refer the tooltip #4114
+- Fix Firefox reloading previous page #3944
+- Buttons are not working with shield on phet.colorado.edu site #4048
+
+## [Dev:Build_401] - 2018-09-12
+- no more licenses message #4144	
+- Sales Force - need to retype credentials when open sales force link from mail #4121
+- Shield doesn't remember the user account in specific scenario #4051
+- SalesForce - issues with user story -need to click few times to open user story #4041
+- Only first page of PDF is being printed - https://www.dropbox.com/s/v1z1us6ua7yzg1c/PT2-ACT%20New%20RB1.pdf?dl=0 #4012
+- Use Mozila pdf viewer on main window #4000
+- Right-click => Print when signing docusign.net #2005
+- Support already authenticated users #1721
+- Efficient consul watches #4147
+- Typo at the admin UI #4099
+- Use internal dns for icap redirects #3944
+- SalesForce - issues with user story -need to click few times to open user story #4041
+
+
+## [Dev:Build_400] - 2018-09-06
+- Missing Important Time Values in the Reports #1418
+- New window dialog should open when clicking outside #4123
+- Admin loading indicator doesn't disappear #4108
+- Some components stopped communicate with the consul on specific machine #4087
+- Failed to create cluster using Staging 396 #4084
+- Ericom shield scripts should be consistent #4082
+- Update.sh should give an error in case I use bad parameter #4081
+- 502 bad gateway- can't access to admin on specific machine #4069
+- ./restore.sh add a menu usage #4068
+- daf-yomi.com - pdf viewer bad fonts #4060
+- Search with Google should truncate the text #4058
+- Don't run pre-check on update by default #4036
+- Fonts issue excel online #4005
+- Check consul communication - make sure we don't send to much data #3978
+- Pause Shield & Reload #3955
+- Authproxy fails to start because of bad config #3898
+- LDAP admin login - when I change the Authentication settings the display for ldap admin not updated #3873
+- Kan Radio audio volume is mute and cannot be changed #3792
+- Add prepare-node.sh as part of addnode script #3616
+- LDAP admin login - change the AD group but the save button remain disabled #3925
+- Apply health check for consul
+- Proxy message should not allow blanks #4090
+- Several improvements for page loading 
+- Round down to supported resolutions
+- add --verbose to addnodes usage menu #3596
+- Votiro New Version #4128
+- SalesForce - issues with user story -need to click few times to open user story #4041
+- saleforce.com/ Cannot export to excel ("Download failed" error message) #2158
+- salesforce - user story text is not wrapped #4040
+- set end user translations is not working #4129
+
 
 ## [Dev:Build_399] - 2018-09-04
-- Fix IME position
+- Fix IME position 
 
 ## [Dev:Build_398] - 2018-09-03
 - Fix for cusror blinking bandwidth usage
