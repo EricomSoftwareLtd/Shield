@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_399.1] - 2018-09-14
+- Support Nested Group in LDAP
+
 ## [Dev:Build_399] - 2018-09-04
 - Fix IME position
 
