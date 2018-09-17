@@ -64,7 +64,7 @@ while [ $# -ne 0 ]; do
         var=${var//"<p>"/" | "}
         var=${var//"<blockquote>"/}
         var=${var//"</blockquote>"/}
-        echo ${var:16:283}
+        echo ${var:16:400}
         echo
         echo "------------------------------------------------------------------------------"
         echo
