@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_406] - 2018-09-17
+- Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
+- Domain users group for LDAP admin cannot be logged in #4132
+- Drop down list repositioned differently according to zoom #4150
+- Screen shot is not being added to the ticket #4204
+- Bad initial size on video #4208
+- Another LDAP login issue (reported by KKA) #4156
+- New text for feedback dialog - Legal #4227
+
 ## [Dev:Build_405] - 2018-09-16
 - Stats - Monitor Shield Bandwidth #4116
 - Group all user "Allow" settings in the admin UI #4113
