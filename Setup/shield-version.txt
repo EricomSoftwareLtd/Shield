@@ -1,5 +1,5 @@
 #Build Dev:Build_405 on 18/09/16
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_405
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_405_1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:180906-15.52-2783
 shield-consul-agent:latest shield-consul-agent:180906-15.52-2783
@@ -10,7 +10,7 @@ icap-server:latest icap-server:180916-07.39-2830
 shield-cef:latest shield-cef:180916-14.30-2837
 broker-server:latest broker-server:180916-11.44-2833
 shield-collector:latest shield-collector:180906-16.12-2785
-shield-elk:latest shield-elk:180916-11.44-2833
+shield-elk:latest shield-elk:test4184
 extproxy:latest extproxy:180906-17.10-2788
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:180912-11.14-2806
 shield-cdr-controller:latest shield-cdr-controller:180906-16.46-2787
