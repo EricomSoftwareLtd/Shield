@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_407] - 2018-09-20
+- Data retention for basic authentication #3347
+- Admin UI - rule can be applied on a domain, not a URI - need to add error for the user #3971
+- Disabled / enabled rules from right click menu should be consistent #4131
+- Send Feedback (from right click) - Report #4184
+- Priceline.com #4192
+- When pasting a big amount of text to an edit field, the page is not responsive #4223
+- Slickdeals.com search #4233
+- New text for feedback dialog - Legal #4227
+- Only first page of PDF is being printed - https://www.dropbox.com/s/v1z1us6ua7yzg1c/PT2-ACT%20New%20RB1.pdf?dl=0 #4012
+- Admin UI :When deleting a profile, the spinner spins forever #4222
+- Can't login to Jer prod admin UI #4224
+- Support already authenticated users #1721
+- Can't use whatsapp desktop application with shield - barcode is not loaded #3816
+- invalid upstream proxy settings #4248
+
 ## [Dev:Build_406] - 2018-09-17
 - Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
 - Domain users group for LDAP admin cannot be logged in #4132
