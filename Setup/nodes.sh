@@ -6,7 +6,7 @@
 KNOWN_LABELS="browser, shield_core, management, netdata"
 
 function show_usage() {
-    echo "Usage: $0 [-status][-add-label] [-remove-label] [-show-labels] [-remove-node] [-usage] "
+    echo "Usage: $0 [--status][--add-label] [--remove-label] [--show-labels] [--remove-node] [--help] "
     exit
 }
 
@@ -26,11 +26,11 @@ fi
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-    -status)
+    -s | --status | -status)
         docker node ls
         exit
         ;;
-    -show-labels)
+    --show-labels | -show-labels)
         if [ -z $2 ]; then
             echo "Missing Shield Node Name"
             show_usage
@@ -41,7 +41,7 @@ while [ $# -ne 0 ]; do
             exit
         fi
         ;;
-    -add-label)
+    --add-label | -add-label)
         if [ -z $2 ] || [ -z $3 ]; then
             echo
             echo "Missing Shield Node Name or Label Name"
@@ -58,7 +58,7 @@ while [ $# -ne 0 ]; do
             exit
         fi
         ;;
-    -remove-label)
+    --remove-label | -remove-label)
         if [ -z $2 ] || [ -z $3 ]; then
             echo
             echo "Missing Node Name"
@@ -70,7 +70,7 @@ while [ $# -ne 0 ]; do
             exit
         fi
         ;;
-    -remove-node)
+    --remove-node | -remove-node)
         if [ -z $2 ]; then
             echo
             echo "Missing Node Name"
@@ -81,7 +81,7 @@ while [ $# -ne 0 ]; do
             exit
         fi
         ;;
-    #        -usage)
+    #-h | --help)        -usage)
     *)
         show_usage
         ;;
