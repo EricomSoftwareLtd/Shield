@@ -123,11 +123,11 @@ function list_versions() {
 }
 
 function elk_conflicts_solving() {
+    CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
     docker run --rm -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v $(which docker):/usr/bin/docker \
     -v /usr/local/ericomshield:/usr/local/ericomshield \
-    -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
     "securebrowsing/$CONTAINER_TAG" elkConflicts
 }
 
