@@ -42,7 +42,7 @@ VERSION_REGEX="SHIELD_VER=([a-zA-Z0-9_:\.-]+)"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
-CONTAINER_TAG_DEFAULT="shield-autoupdate:180731-11.38-2588"
+CONTAINER_TAG_DEFAULT="shield-autoupdate:180916-13.48-2835"
 NOT_FOUND_STR="404: Not Found"
 
 cd "$ES_PATH" || exit
