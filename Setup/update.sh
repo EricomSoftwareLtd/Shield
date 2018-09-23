@@ -122,6 +122,15 @@ function list_versions() {
     echo "$BRANCH" > "$ES_BRANCH_FILE"
 }
 
+function elk_conflicts_solving() {
+    docker run --rm $DOCKER_RUN_PARAM \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $(which docker):/usr/bin/docker \
+    -v /usr/local/ericomshield:/usr/local/ericomshield \
+    -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
+    "securebrowsing/$CONTAINER_TAG" elkConflicts
+}
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -143,6 +152,11 @@ while [ $# -ne 0 ]; do
         ;;
     -list-versions | --list-versions)
         list_versions
+        exit 0
+        ;;
+    --elk-conflicts )
+        get_latest_version
+        elk_conflicts_solving
         exit 0
         ;;
 
@@ -179,6 +193,9 @@ function get_latest_version() {
         ES_VERSION_ARG=""
     fi
 }
+
+
+
 
 function read_current_version() {
     ver=$(cat "$ES_CONFIG_FILE" | grep "SHIELD_VER=")
