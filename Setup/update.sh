@@ -128,7 +128,7 @@ function elk_conflicts_solving() {
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v $(which docker):/usr/bin/docker \
     -v /usr/local/ericomshield:/usr/local/ericomshield \
-    "securebrowsing/$CONTAINER_TAG" elkConflicts
+    "securebrowsing/$CONTAINER_TAG" "$FULL_OUTPUT" elkConflicts
 }
 
 
