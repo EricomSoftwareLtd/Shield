@@ -14,6 +14,15 @@ def parse_arguments(args):
     return parser.parse_args(args)
 
 
+def make_enviroment_variables():
+    with open("{}/ericomshield-repo.sh".format(os.environ['ES_PATH'])) as file:
+        for line in  file:
+            if 'https://' in line:
+                var = line.split('=')
+                os.environ[var[0]] = var[1]
+
+
+
 class UpdateExecutor():
     def __init__(self, args):
         pass
@@ -29,7 +38,7 @@ class UpdateExecutor():
 
 
 def main(args):
-    print(os.environ['ES_PATH'])
+    make_enviroment_variables()
     executor = UpdateExecutor(args)
     executor.download_latest_version()
 
