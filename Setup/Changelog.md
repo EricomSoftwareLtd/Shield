@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Japanese character conversion candidate display position #3961
 - Underline of unconverted character string (#146) #3975
 - Prevent outside modal clicks and scrolls
+- ericom shield scripts should be consistent #4082
 
 ## [Dev:Build_407] - 2018-09-20
 - Data retention for basic authentication #3347
