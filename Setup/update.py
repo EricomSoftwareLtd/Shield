@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import argparse, subprocess, sys
+import argparse, subprocess, sys, urllib, os
 
 
 def parse_arguments(args):
@@ -16,7 +16,13 @@ def parse_arguments(args):
 
 class UpdateExecutor():
     def __init__(self, args):
-        self.args = parse_arguments(args)
+        pass
+        #self.args = parse_arguments(args)
+
+
+    def download_latest_version(self):
+        url = os.environ['ES_repo_ver']
+        print(url)
 
 
 
@@ -24,6 +30,7 @@ class UpdateExecutor():
 
 def main(args):
     executor = UpdateExecutor(args)
+    executor.download_latest_version()
 
 
 if __name__ == '__main__':
