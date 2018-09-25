@@ -29,6 +29,7 @@ class UpdateExecutor():
 
 
 def main(args):
+    print(os.environ['ES_PATH'])
     executor = UpdateExecutor(args)
     executor.download_latest_version()
 
