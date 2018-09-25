@@ -122,39 +122,15 @@ function list_versions() {
     echo "$BRANCH" > "$ES_BRANCH_FILE"
 }
 
-while [ $# -ne 0 ]; do
-    arg="$1"
-    case "$arg" in
-    -v | --version)
-        BRANCH=$2
-        shift
-        ;;
-    --verbose)
-        FULL_OUTPUT="--verbose"
-        ;;
-    --keep-docker-version)
-        KEEP_DOCKER="yes"
-        ;;
-    -f | --force)
-        FORCE_RUN="yes"
-        ;;
-    -h | --help)
-        HELP_ASKED="yes"
-        ;;
-    -list-versions | --list-versions)
-        list_versions
-        exit 0
-        ;;
+function elk_conflicts_solving() {
+    CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
+    docker run --rm -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $(which docker):/usr/bin/docker \
+    -v /usr/local/ericomshield:/usr/local/ericomshield \
+    "securebrowsing/$CONTAINER_TAG" "$FULL_OUTPUT" elkConflicts
+}
 
-#    Currently not need to check another options because will be checked in container script
-#    *)
-#        echo "Error: Not valid option, exiting"
-#        usage
-#        exit 1
-#        ;;
-    esac
-    shift
-done
 
 function get_latest_version() {
     cd "$ES_PATH"
@@ -179,6 +155,46 @@ function get_latest_version() {
         ES_VERSION_ARG=""
     fi
 }
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -v | --version)
+        BRANCH=$2
+        shift
+        ;;
+    --verbose)
+        FULL_OUTPUT="--verbose"
+        ;;
+    --keep-docker-version)
+        KEEP_DOCKER="yes"
+        ;;
+    -f | --force)
+        FORCE_RUN="yes"
+        ;;
+    -h | --help)
+        HELP_ASKED="yes"
+        ;;
+    -list-versions | --list-versions)
+        list_versions
+        exit 0
+        ;;
+    --elk-conflicts )
+        get_latest_version
+        elk_conflicts_solving
+        exit 0
+        ;;
+
+#    Currently not need to check another options because will be checked in container script
+#    *)
+#        echo "Error: Not valid option, exiting"
+#        usage
+#        exit 1
+#        ;;
+    esac
+    shift
+done
+
 
 function read_current_version() {
     ver=$(cat "$ES_CONFIG_FILE" | grep "SHIELD_VER=")
