@@ -19,7 +19,7 @@ def make_enviroment_variables():
         for line in  file:
             if 'https://' in line:
                 var = line.split('=')
-                os.environ[var[0]] = var[1]
+                os.environ[var[0]] = var[1].replace('$BRANCH', os.environ['BRANCH'])
 
 
 
