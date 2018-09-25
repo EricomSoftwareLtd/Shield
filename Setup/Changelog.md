@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_408] - 2018-09-25
+- Admin UI - Validation of Domain value in Policy
+- Admin UI - Import policies should display the name of the file #3258
+- Admin UI - New Japanese Translations #4250
+- LDAP admin login - change the format access so users can only type the user name #4241
+- Delete raw index in ELK if conflicts #4260
+- Hide context menu on scroll #4261
+- Japanese character conversion candidate display position #3961
+- Underline of unconverted character string (#146) #3975
+- Prevent outside modal clicks and scrolls
 
 ## [Dev:Build_407] - 2018-09-20
 - Data retention for basic authentication #3347
