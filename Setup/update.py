@@ -3,21 +3,27 @@
 import argparse, subprocess, sys
 
 
+def parse_arguments(args):
+    '''
+        Function is main place to parse supplied parameters and switches
+        This function is central place to configure update parameters script
+    :param args:
+    :return: arguments structure
+    '''
+    parser = argparse.ArgumentParser()
+    return parser.parse_args(args)
+
 
 class UpdateExecutor():
     def __init__(self, args):
-        self.args = UpdateExecutor.parse_arguments(args)
+        self.args = parse_arguments(args)
 
-    @staticmethod
-    def parse_arguments(args):
-        parser = argparse.ArgumentParser()
-        return parser.parse_args(args)
 
 
 
 
 def main(args):
-    pass
+    executor = UpdateExecutor(args)
 
 
 if __name__ == '__main__':

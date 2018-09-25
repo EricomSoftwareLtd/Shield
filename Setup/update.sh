@@ -27,3 +27,5 @@ cd "$ES_PATH"
 
 curl -s -S -o "update.py" $MAIN_SCRIPT_URL
 
+python update.py "${@}"
+
