@@ -79,6 +79,7 @@ def main(args):
     make_enviroment_variables()
     executor = UpdateExecutor(args)
     executor.download_latest_version()
+    executor.check_if_version_changed()
     executor.check_docker_upgrade()
 
 
