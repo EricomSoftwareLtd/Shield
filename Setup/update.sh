@@ -23,6 +23,15 @@ if [ -f "$ES_PATH/.esbranch" ]; then
     BRANCH=$(cat "$ES_PATH/.esbranch")
 fi
 
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+        -v | --version )
+            BRANCH="$2"
+         ;;
+     esac
+done
+
 MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.py"
 
 cd "$ES_PATH"
