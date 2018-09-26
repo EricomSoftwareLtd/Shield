@@ -120,7 +120,7 @@ class UpdateExecutor():
         if len(self.all_args.version) > 0:
             rest_args += " -v {}".format(self.all_args.version)
         else:
-            if os.path.exists(os.environ['ES_BRANCH_FILE']):
+            if 'ES_BRANCH_FILE' in os.environ and os.path.exists(os.environ['ES_BRANCH_FILE']):
                 with open(os.environ['ES_BRANCH_FILE']) as file:
                     rest_args += ' -v {}'.format(file.read().strip())
 
