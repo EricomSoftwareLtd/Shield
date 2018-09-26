@@ -91,6 +91,7 @@ class UpdateExecutor():
             -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
             "securebrowsing/{1} sshkey"
         '''.format(os.environ['ES_PATH'], self.container)
+        subprocess.run(cmd, shell=True)
 
     def set_container_image(self, d_line):
         if "shield-autoupdate:" in d_line:
