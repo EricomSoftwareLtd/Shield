@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import argparse, subprocess, sys, urllib3, os
+import argparse, subprocess, re, urllib3, os
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from argparse import RawTextHelpFormatter
 
@@ -69,13 +69,14 @@ class UpdateExecutor():
 
     def check_if_version_changed(self, d_line):
         if "SHIELD_VER" in d_line:
+            match = re.findall("SHIELD_VER=([a-zA-Z0-9_:\.-]+)", d_line)
             cmd = 'cat {} | grep SHIELD_VER | tail -1'.format(os.environ['ES_CONFIG_FILE'])
             output = subprocess.check_output(cmd, shell=True).decode('UTF-8').strip().replace("'",'')
             arr = output.split('=')
             if len(arr) > 1:
                 output = arr[1]
 
-            if output in d_line \
+            if output == match[1] \
                     and not self.force_update \
                     and not self.run_sshkey:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
