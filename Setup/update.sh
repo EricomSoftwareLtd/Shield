@@ -30,6 +30,7 @@ while [ $# -ne 0 ]; do
             BRANCH="$2"
          ;;
      esac
+     shift
 done
 
 MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.py"
