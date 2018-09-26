@@ -84,12 +84,11 @@ class UpdateExecutor():
 
 
     def run_ssh_key_provider(self):
-        cmd = '''docker run --rm -it \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v $(which docker):/usr/bin/docker \
-            -v {0}:/usr/local/ericomshield \
-            "securebrowsing/{1} sshkey"
-        '''.format(os.environ['ES_PATH'], self.container)
+        cmd = '''docker run --rm -it \\
+            -v /var/run/docker.sock:/var/run/docker.sock \\
+            -v $(which docker):/usr/bin/docker \\
+            -v {0}:/usr/local/ericomshield \\
+            securebrowsing/{1} sshkey'''.format(os.environ['ES_PATH'], self.container)
         print(cmd)
         subprocess.run(cmd, shell=True)
 
