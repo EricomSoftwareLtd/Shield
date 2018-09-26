@@ -167,7 +167,6 @@ class UpdateExecutor():
 
         output = UpdateExecutor.make_docker_output()
 
-
         cmd = '''docker run --rm {0} \\
                 -v /var/run/docker.sock:/var/run/docker.sock \\
                 -v $(which docker):/usr/bin/docker \\
@@ -214,7 +213,7 @@ class UpdateExecutor():
             self.run_ssh_key_provider()
             exit()
 
-        if self.all_args.registry != "":
+        if self.change_registry:
             self.apply_registry()
 
         if self.docker_upgrade or self.force_update:
