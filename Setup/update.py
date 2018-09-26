@@ -55,6 +55,7 @@ class UpdateExecutor():
         self.container_image_found = False
         self.docker_upgrade_checked = False
         self.docker_version_to_upgrade = ''
+        self.change_registry = self.all_args.registry != ''
 
     def download_latest_version(self):
         url = os.environ['ES_repo_ver']
@@ -86,7 +87,8 @@ class UpdateExecutor():
 
             if second_match[0] == match[1] \
                     and not self.force_update \
-                    and not self.run_sshkey:
+                    and not self.run_sshkey\
+                    and not self.change_registry:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
                 print(" Current system version is {}".format(second_match[0]))
                 print(" Your EricomShield System is Up to date")
