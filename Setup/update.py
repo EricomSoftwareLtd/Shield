@@ -127,10 +127,6 @@ class UpdateExecutor():
     def execute_shield_update(self):
         output = UpdateExecutor.make_docker_output()
 
-        verbose = ""
-        if self.deatiled_output:
-            verbose="--verbose"
-
         rest_args = ""
 
         if len(self.all_args.version) > 0:
@@ -159,41 +155,65 @@ class UpdateExecutor():
                 -v /usr/local/ericomshield:/usr/local/ericomshield \\
                 -e "ES_PRE_CHECK_FILE={1}" \\
                 securebrowsing/{2} {3} update {4}'''\
-                .format(output, os.environ['ES_PRE_CHECK_FILE'], self.container, verbose, rest_args)
+                .format(output, os.environ['ES_PRE_CHECK_FILE'], self.container, self.get_verbose(), rest_args)
 
         print(cmd)
         subprocess.run(cmd, shell=True)
 
     def execute_docker_upgrade(self):
-        print('Stop shield prior docker upgrade.')
-        cmd = "cd {}; ./stop.sh".format(os.environ['ES_PATH'])
-        subprocess.run(cmd, shell=True)
+        self.stop_shield("docker")
 
         output = UpdateExecutor.make_docker_output()
-        verbose = ""
-        if self.deatiled_output:
-            verbose = "--verbose"
+
 
         cmd = '''docker run --rm {0} \\
                 -v /var/run/docker.sock:/var/run/docker.sock \\
                 -v $(which docker):/usr/bin/docker \\
                 -v /usr/local/ericomshield:/usr/local/ericomshield \\
                 securebrowsing/{1} {2} upgrade -v {3}'''\
-                .format(output,self.container, verbose, self.docker_version_to_upgrade)
+                .format(output,self.container, self.get_verbose(), self.docker_version_to_upgrade)
         print(cmd)
         subprocess.run(cmd, shell=True)
 
         cmd = "apt-get install --allow-downgrades -y docker-ce={}~ce*".format(self.docker_version_to_upgrade)
         subprocess.run(cmd, shell=True)
 
-    def save_current_update_data(self):
-        pass
+    def stop_shield(self, resource):
+        print('Stop shield prior {} upgrade.'.format(resource))
+        cmd = "cd {}; ./stop.sh".format(os.environ['ES_PATH'])
+        subprocess.run(cmd, shell=True)
+
+    def get_verbose(self):
+        if self.deatiled_output:
+            return "--verbose"
+        return ""
+
+    def apply_registry(self):
+
+        self.stop_shield("registry")
+
+        cmd = '''docker run --rm -it \\
+                -v /var/run/docker.sock:/var/run/docker.sock \\
+                -v $(which docker):/usr/bin/docker \\
+                -v /usr/local/ericomshield:/usr/local/ericomshield \\
+                securebrowsing/{0} {1} changeRegistry --registry {2}'''\
+        .format(self.container, self.get_verbose(), self.all_args.registry)
+
+        subprocess.run(cmd, shell=True)
+
+        cmd = "systemctl restart docker"
+        subprocess.run(cmd, shell=True)
+
+        print("New registry. Done!")
 
     def run_update(self):
         self.download_latest_version()
         if self.run_sshkey:
             self.run_ssh_key_provider()
             exit()
+
+        if self.all_args.registry != "":
+            self.apply_registry()
 
         if self.docker_upgrade or self.force_update:
             self.execute_docker_upgrade()
