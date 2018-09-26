@@ -51,6 +51,9 @@ class UpdateExecutor():
         self.run_sshkey = args.command == 'sshkey'
         self.version_update = True
         self.all_args = args
+        self.versions_compared = False
+        self.container_image_found = False
+        self.docker_upgrade_checked = False
 
     def download_latest_version(self):
         url = os.environ['ES_repo_ver']
@@ -62,27 +65,37 @@ class UpdateExecutor():
             print(ex)
             exit(1)
 
+        all_conditions = 0
         for d_line in self.version_data.split('\n'):
-            self.check_if_version_changed(d_line)
-            self.set_container_image(d_line)
-            self.check_docker_upgrade(d_line)
+
+            if not self.versions_compared:
+                self.check_if_version_changed(d_line)
+                all_conditions += 1
+            if not self.container_image_found:
+                self.set_container_image(d_line)
+                all_conditions += 1
+            if not self.docker_upgrade_checked:
+                self.check_docker_upgrade(d_line)
+                all_conditions += 1
+
+            if all_conditions >= 3:
+                break
 
     def check_if_version_changed(self, d_line):
         if "SHIELD_VER" in d_line:
             match = re.findall("SHIELD_VER=([a-zA-Z0-9_:\.-]+)", d_line)
-            cmd = 'cat {} | grep SHIELD_VER | tail -1'.format(os.environ['ES_CONFIG_FILE'])
+            cmd = 'cat {} | grep -E "SHIELD_VER=([a-zA-Z0-9_:\.-]+)" | tail -1'.format(os.environ['ES_CONFIG_FILE'])
             output = subprocess.check_output(cmd, shell=True).decode('UTF-8').strip().replace("'",'')
-            arr = output.split('=')
-            if len(arr) > 1:
-                output = arr[1]
+            second_match = re.findall("SHIELD_VER=([a-zA-Z0-9_:\.-]+)", output)
 
-            if output == match[1] \
+            if second_match[0] == match[1] \
                     and not self.force_update \
                     and not self.run_sshkey:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
-                print(" Current system version is {}".format(output))
+                print(" Current system version is {}".format(second_match[0]))
                 print(" Your EricomShield System is Up to date")
                 exit(0)
+            self.versions_compared = True
 
 
     def check_docker_upgrade(self, d_line):
@@ -91,6 +104,7 @@ class UpdateExecutor():
             output = subprocess.check_output(cmd, shell=True).decode('UTF-8').strip()
             line = d_line.split()[1]
             self.docker_upgrade = line != output
+            self.docker_upgrade_checked = True
 
 
     def run_ssh_key_provider(self):
@@ -104,6 +118,7 @@ class UpdateExecutor():
     def set_container_image(self, d_line):
         if "shield-autoupdate:" in d_line:
            self.container = d_line.split()[1].strip()
+           self.container_image_found = True
 
     def execute_shield_update(self):
         if "AUTO" in os.environ:
@@ -149,6 +164,9 @@ class UpdateExecutor():
         subprocess.run(cmd, shell=True)
 
     def execute_docker_upgrade(self):
+        pass
+
+    def save_current_update_data(self):
         pass
 
     def run_update(self):
