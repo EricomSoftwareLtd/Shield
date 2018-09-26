@@ -88,9 +88,9 @@ class UpdateExecutor():
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v $(which docker):/usr/bin/docker \
             -v {0}:/usr/local/ericomshield \
-            -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
             "securebrowsing/{1} sshkey"
         '''.format(os.environ['ES_PATH'], self.container)
+        print(cmd)
         subprocess.run(cmd, shell=True)
 
     def set_container_image(self, d_line):
