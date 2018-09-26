@@ -5,7 +5,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from argparse import RawTextHelpFormatter
 
 
-def parse_arguments(args):
+def parse_arguments():
     '''
         Function is main place to parse supplied parameters and switches
         This function is central place to configure update parameters script
@@ -16,7 +16,7 @@ def parse_arguments(args):
     parser.add_argument('command', choices=['sshkey', 'update'], const='update',
                     nargs='?',default='update', help="sshkey => Make ssh key to connect to swarm hosts \nupdate (default) => Update docker/shield command")
     parser.add_argument('--verbose', action="store_true", default=False, help="Switch to detailed output")
-    parser.add_argument('-v', '--version', default='master', help='Branch or ericomshield version tree. Default (master)')
+    parser.add_argument('-v', '--version', default='', help='Branch or ericomshield version tree. Default (master)')
     parser.add_argument('--autoupdate', action="store_true", default=False, help="Switch on/off autoupdate in production and staging")
     parser.add_argument('-f', '--force', action="store_true", default=False, help="Execute update even if versions is same")
     parser.add_argument('--pre-install-check', dest="precheck", action="store_true", default=False, help="Execute 'pre-installation checks' script")
@@ -25,7 +25,10 @@ def parse_arguments(args):
 
 
 def make_enviroment_variables():
-    global ES_CONFIG_FILE
+    '''
+    Parse repo file and create all variables contains URLs
+    :return:
+    '''
     with open("{}/ericomshield-repo.sh".format(os.environ['ES_PATH'])) as file:
         for line in  file:
             if 'https://' in line:
@@ -36,14 +39,18 @@ def make_enviroment_variables():
 
 
 class UpdateExecutor():
+    '''
+    Main update class
+    '''
     def __init__(self, args):
-        self.version_data = None
-        self.force_update = False
+        self.version_data = ""
+        self.force_update = args.force
         self.deatiled_output = args.verbose
         self.container = "shield-autoupdate:180916-13.48-2835"
         self.docker_upgrade = False
         self.run_sshkey = args.command == 'sshkey'
         self.version_update = True
+        self.all_args = args
 
     def download_latest_version(self):
         url = os.environ['ES_repo_ver']
@@ -68,7 +75,9 @@ class UpdateExecutor():
             if len(arr) > 1:
                 output = arr[1]
 
-            if output in d_line and not self.force_update and not self.run_sshkey:
+            if output in d_line \
+                    and not self.force_update \
+                    and not self.run_sshkey:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
                 print(" Current system version is {}".format(output))
                 print(" Your EricomShield System is Up to date")
@@ -89,22 +98,69 @@ class UpdateExecutor():
             -v $(which docker):/usr/bin/docker \\
             -v {0}:/usr/local/ericomshield \\
             securebrowsing/{1} sshkey'''.format(os.environ['ES_PATH'], self.container)
-        print(cmd)
         subprocess.run(cmd, shell=True)
 
     def set_container_image(self, d_line):
         if "shield-autoupdate:" in d_line:
            self.container = d_line.split()[1].strip()
 
+    def execute_shield_update(self):
+        if "AUTO" in os.environ:
+            output = ""
+        else:
+            output = "-it"
+
+        verbose = ""
+        if self.deatiled_output:
+            verbose="--verbose"
+
+        rest_args = ""
+
+        if len(self.all_args.version) > 0:
+            rest_args += " -v {}".format(self.all_args.version)
+
+        if self.all_args.autoupdate:
+            rest_args += ' --autoupdate'
+
+        if self.force_update:
+            rest_args += " -f"
+
+        if self.all_args.precheck:
+            rest_args += " --pre-install-check"
+
+        if len(self.all_args.registry) > 0:
+            rest_args += " --registry {}".format(self.all_args.registry)
+
+        cmd = '''docker run --rm {0} \\
+                -v /var/run/docker.sock:/var/run/docker.sock \\
+                -v $(which docker):/usr/bin/docker \\
+                -v /usr/local/ericomshield:/usr/local/ericomshield \\
+                -e "ES_PRE_CHECK_FILE={1}" \\
+                securebrowsing/{2} {3} update {4}'''\
+                .format(output, os.environ['ES_PRE_CHECK_FILE'], self.container, verbose, rest_args)
+
+        print(cmd)
+        subprocess.run(cmd, shell=True)
+
+    def execute_docker_upgrade(self):
+        pass
+
     def run_update(self):
         self.download_latest_version()
         if self.run_sshkey:
             self.run_ssh_key_provider()
+            exit()
 
+        if self.docker_upgrade or self.force_update:
+            self.execute_docker_upgrade()
 
+        self.execute_shield_update()
 
-def main(args):
-    arguments = parse_arguments(args)
+    def check_sshkey_exists(self):
+        pass
+
+def main():
+    arguments = parse_arguments()
     make_enviroment_variables()
     executor = UpdateExecutor(arguments)
     executor.run_update()
@@ -112,4 +168,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

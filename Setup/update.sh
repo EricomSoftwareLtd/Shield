@@ -15,6 +15,7 @@ fi
 export BRANCH="master"
 export ES_PATH=/usr/local/ericomshield
 export ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
+export ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 
 
 if [ -f "$ES_PATH/.esbranch" ]; then
