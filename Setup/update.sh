@@ -41,4 +41,4 @@ cd "$ES_PATH"
 
 curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
 
-/usr/bin/python3 update.py "${ARGS}"
+/usr/bin/python3 update.py $ARGS
