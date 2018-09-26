@@ -43,6 +43,7 @@ class UpdateExecutor():
         self.container = "shield-autoupdate:180916-13.48-2835"
         self.docker_upgrade = False
         self.run_sshkey = args.command == 'sshkey'
+        self.version_update = True
 
     def download_latest_version(self):
         url = os.environ['ES_repo_ver']
@@ -67,7 +68,7 @@ class UpdateExecutor():
             if len(arr) > 1:
                 output = arr[1]
 
-            if output in d_line and not self.force_update:
+            if output in d_line and not self.force_update and not self.run_sshkey:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
                 print(" Current system version is {}".format(output))
                 print(" Your EricomShield System is Up to date")
@@ -83,7 +84,6 @@ class UpdateExecutor():
 
 
     def run_ssh_key_provider(self):
-
         cmd = '''docker run --rm -it \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v $(which docker):/usr/bin/docker \
