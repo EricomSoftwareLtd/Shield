@@ -23,6 +23,8 @@ if [ -f "$ES_PATH/.esbranch" ]; then
     BRANCH=$(cat "$ES_PATH/.esbranch")
 fi
 
+ARGS="${@}"
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -39,4 +41,4 @@ cd "$ES_PATH"
 
 curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
 
-/usr/bin/python3 update.py "${@}"
+/usr/bin/python3 update.py "${ARGS}"
