@@ -65,21 +65,16 @@ class UpdateExecutor():
             print(ex)
             exit(1)
 
-        all_conditions = 0
         for d_line in self.version_data.split('\n'):
-
             if not self.versions_compared:
                 self.check_if_version_changed(d_line)
-                all_conditions += 1
+
             if not self.container_image_found:
                 self.set_container_image(d_line)
-                all_conditions += 1
+
             if not self.docker_upgrade_checked:
                 self.check_docker_upgrade(d_line)
-                all_conditions += 1
 
-            if all_conditions >= 3:
-                break
 
     def check_if_version_changed(self, d_line):
         if "SHIELD_VER" in d_line:
