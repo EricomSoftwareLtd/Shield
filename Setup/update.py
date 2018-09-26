@@ -54,6 +54,7 @@ class UpdateExecutor():
         self.versions_compared = False
         self.container_image_found = False
         self.docker_upgrade_checked = False
+        self.docker_version_to_upgrade = ''
 
     def download_latest_version(self):
         url = os.environ['ES_repo_ver']
@@ -100,6 +101,7 @@ class UpdateExecutor():
             line = d_line.split()[1]
             self.docker_upgrade = line != output
             self.docker_upgrade_checked = True
+            self.docker_version_to_upgrade = line
 
 
     def run_ssh_key_provider(self):
@@ -115,11 +117,15 @@ class UpdateExecutor():
            self.container = d_line.split()[1].strip()
            self.container_image_found = True
 
-    def execute_shield_update(self):
+    @staticmethod
+    def make_docker_output():
         if "AUTO" in os.environ:
-            output = ""
+            return ""
         else:
-            output = "-it"
+            return "-it"
+
+    def execute_shield_update(self):
+        output = UpdateExecutor.make_docker_output()
 
         verbose = ""
         if self.deatiled_output:
@@ -159,7 +165,26 @@ class UpdateExecutor():
         subprocess.run(cmd, shell=True)
 
     def execute_docker_upgrade(self):
-        pass
+        print('Stop shield prior docker upgrade.')
+        cmd = "cd {}; ./stop.sh".format(os.environ['ES_PATH'])
+        subprocess.run(cmd, shell=True)
+
+        output = UpdateExecutor.make_docker_output()
+        verbose = ""
+        if self.deatiled_output:
+            verbose = "--verbose"
+
+        cmd = '''docker run --rm {0} \\
+                -v /var/run/docker.sock:/var/run/docker.sock \\
+                -v $(which docker):/usr/bin/docker \\
+                -v /usr/local/ericomshield:/usr/local/ericomshield \\
+                securebrowsing/{1} {2} upgrade -v {3}'''\
+                .format(output,self.container, verbose, self.docker_version_to_upgrade)
+        print(cmd)
+        subprocess.run(cmd, shell=True)
+
+        cmd = "apt-get install --allow-downgrades -y docker-ce={}~ce*".format(self.docker_version_to_upgrade)
+        subprocess.run(cmd, shell=True)
 
     def save_current_update_data(self):
         pass
