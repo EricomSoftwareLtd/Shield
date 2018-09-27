@@ -20,7 +20,9 @@ def parse_arguments():
     parser.add_argument('--autoupdate', action="store_true", default=False, help="Switch on/off autoupdate in production and staging")
     parser.add_argument('-f', '--force', action="store_true", default=False, help="Execute update even if versions is same")
     parser.add_argument('--pre-install-check', dest="precheck", action="store_true", default=False, help="Execute 'pre-installation checks' script")
-    parser.add_argument('--registry', default="", help="Use registry this docker registery")
+    parser.add_argument('--registry', default="", help="Use this docker registery for get images")
+    parser.add_argument('--remove-registry', action="store_true", default=False, help="Remove using custom registry")
+    parser.add_argument('-list-versions', '--list-versions', dest='list_versions', action="store_true", default=False, help="Show available version to update")
     return parser.parse_args()
 
 
@@ -59,13 +61,7 @@ class UpdateExecutor():
 
     def download_latest_version(self):
         url = os.environ['ES_repo_ver']
-        try:
-            http = urllib3.PoolManager()
-            response = http.request('GET', url)
-            self.version_data = response.data.decode('UTF-8')
-        except Exception as ex:
-            print(ex)
-            exit(1)
+        self.version_data = self.download_file(url)
 
         for d_line in self.version_data.split('\n'):
             if not self.versions_compared:
@@ -77,6 +73,14 @@ class UpdateExecutor():
             if not self.docker_upgrade_checked:
                 self.check_docker_upgrade(d_line)
 
+    def download_file(self, url):
+        try:
+            http = urllib3.PoolManager()
+            response = http.request('GET', url)
+            return response.data.decode('UTF-8')
+        except Exception as ex:
+            print(ex)
+            exit(1)
 
     def check_if_version_changed(self, d_line):
         if "SHIELD_VER" in d_line:
@@ -88,7 +92,8 @@ class UpdateExecutor():
             if second_match[0] == match[1] \
                     and not self.force_update \
                     and not self.run_sshkey\
-                    and not self.change_registry:
+                    and not self.change_registry\
+                    and not self.all_args.list_versions:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
                 print(" Current system version is {}".format(second_match[0]))
                 print(" Your EricomShield System is Up to date")
@@ -207,6 +212,30 @@ class UpdateExecutor():
 
         print("New registry. Done!")
 
+    def show_list_versions(self):
+        versions_file_url = "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases.txt"
+        releases = self.download_file(versions_file_url)
+
+        releases_array = []
+        for line in releases.split('\n'):
+            parsed_line = line.split(':')
+            if len(parsed_line) > 1:
+                print(parsed_line[0])
+                releases_array.append(parsed_line[1])
+
+        while True:
+            try:
+                choise = int(input("Please select the Release you want to install/update (1-4):"))
+                if choise > len(releases_array) or choise < len(releases_array):
+                    raise Exception()
+                break
+            except Exception:
+                print("Error: Not valid option, choose another option")
+
+        self.all_args.version = releases_array[choise - 1]
+
+
+
     def run_update(self):
         self.download_latest_version()
         if self.run_sshkey:
@@ -220,6 +249,9 @@ class UpdateExecutor():
 
         if self.docker_upgrade or self.force_update:
             self.execute_docker_upgrade()
+
+        if self.all_args.list_versions:
+            self.show_list_versions()
 
         self.execute_shield_update()
 
