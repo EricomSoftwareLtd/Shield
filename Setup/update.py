@@ -226,7 +226,7 @@ class UpdateExecutor():
         while True:
             try:
                 choise = int(input("Please select the Release you want to install/update (1-4):"))
-                if choise > len(releases_array) or choise < len(releases_array):
+                if choise > len(releases_array) or choise < 1:
                     raise Exception()
                 break
             except Exception:
