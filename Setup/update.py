@@ -159,10 +159,10 @@ class UpdateExecutor():
         cmd = '''docker run --rm {0} \\
                 -v /var/run/docker.sock:/var/run/docker.sock \\
                 -v $(which docker):/usr/bin/docker \\
-                -v /usr/local/ericomshield:/usr/local/ericomshield \\
+                -v {5}:/usr/local/ericomshield \\
                 -e "ES_PRE_CHECK_FILE={1}" \\
                 securebrowsing/{2} {3} update {4}'''\
-                .format(output, os.environ['ES_PRE_CHECK_FILE'], self.container, self.get_verbose(), rest_args)
+                .format(output, os.environ['ES_PRE_CHECK_FILE'], self.container, self.get_verbose(), rest_args, os.environ['ES_PATH'])
 
         print(cmd)
         subprocess.run(cmd, shell=True)
@@ -175,9 +175,9 @@ class UpdateExecutor():
         cmd = '''docker run --rm {0} \\
                 -v /var/run/docker.sock:/var/run/docker.sock \\
                 -v $(which docker):/usr/bin/docker \\
-                -v /usr/local/ericomshield:/usr/local/ericomshield \\
+                -v {4}:/usr/local/ericomshield \\
                 securebrowsing/{1} {2} upgrade -v {3}'''\
-                .format(output,self.container, self.get_verbose(), self.docker_version_to_upgrade)
+                .format(output,self.container, self.get_verbose(), self.docker_version_to_upgrade, os.environ['ES_PATH'])
         print(cmd)
         subprocess.run(cmd, shell=True)
 
@@ -201,9 +201,9 @@ class UpdateExecutor():
         cmd = '''docker run --rm -it \\
                 -v /var/run/docker.sock:/var/run/docker.sock \\
                 -v $(which docker):/usr/bin/docker \\
-                -v /usr/local/ericomshield:/usr/local/ericomshield \\
+                -v {3}:/usr/local/ericomshield \\
                 securebrowsing/{0} {1} changeRegistry --registry {2}'''\
-        .format(self.container, self.get_verbose(), self.all_args.registry)
+        .format(self.container, self.get_verbose(), self.all_args.registry, os.environ['ES_PATH'])
 
         subprocess.run(cmd, shell=True)
 
