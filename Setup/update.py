@@ -233,6 +233,7 @@ class UpdateExecutor():
                 print("Error: Not valid option, choose another option")
 
         self.all_args.version = releases_array[choise - 1]
+        print("Start update to:{}".format(self.all_args.version))
 
 
 
