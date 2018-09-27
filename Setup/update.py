@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import argparse, subprocess, re, urllib3, os
+import argparse, subprocess, re, urllib3, os, time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from argparse import RawTextHelpFormatter
 
@@ -215,6 +215,8 @@ class UpdateExecutor():
 
         if self.change_registry:
             self.apply_registry()
+            print("Pause 30 seconds for node return to cluster")
+            time.sleep(30)
 
         if self.docker_upgrade or self.force_update:
             self.execute_docker_upgrade()
