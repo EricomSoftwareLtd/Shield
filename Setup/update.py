@@ -21,7 +21,6 @@ def parse_arguments():
     parser.add_argument('-f', '--force', action="store_true", default=False, help="Execute update even if versions is same")
     parser.add_argument('--pre-install-check', dest="precheck", action="store_true", default=False, help="Execute 'pre-installation checks' script")
     parser.add_argument('--registry', default="", help="Use this docker registery for get images")
-    parser.add_argument('--remove-registry', action="store_true", default=False, help="Remove using custom registry")
     parser.add_argument('-list-versions', '--list-versions', dest='list_versions', action="store_true", default=False, help="Show available version to update")
     return parser.parse_args()
 
@@ -163,8 +162,6 @@ class UpdateExecutor():
                 -e "ES_PRE_CHECK_FILE={1}" \\
                 securebrowsing/{2} {3} update {4}'''\
                 .format(output, os.environ['ES_PRE_CHECK_FILE'], self.container, self.get_verbose(), rest_args, os.environ['ES_PATH'])
-
-        print(cmd)
         subprocess.run(cmd, shell=True)
 
     def execute_docker_upgrade(self):
@@ -178,7 +175,6 @@ class UpdateExecutor():
                 -v {4}:/usr/local/ericomshield \\
                 securebrowsing/{1} {2} upgrade -v {3}'''\
                 .format(output,self.container, self.get_verbose(), self.docker_version_to_upgrade, os.environ['ES_PATH'])
-        print(cmd)
         subprocess.run(cmd, shell=True)
 
         cmd = "apt-get install --allow-downgrades -y docker-ce={}~ce*".format(self.docker_version_to_upgrade)
