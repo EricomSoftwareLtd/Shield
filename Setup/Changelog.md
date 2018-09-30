@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_409] - 2018-09-30
+- Right click menu shows undefined, and doesn't show in Japanese #4272
+- Cross-window: wells-fargo #3240
+- Authproxy fails to start because of bad config #3898
+
 ## [Dev:Build_408] - 2018-09-25
 - Admin UI - Validation of Domain value in Policy
 - Admin UI - Import policies should display the name of the file #3258
