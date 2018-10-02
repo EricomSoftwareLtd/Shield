@@ -21,14 +21,17 @@ if ((EUID != 0)); then
     exit
 fi
 
+function show_usage() {
+    echo "Add new nodes to Ericom Shield cluster"
+    echo "Usage: $0 [OPTIONS] [COMMAND] [OPTIONS]"
+    echo "--verbose switch to detailed output"
+
+    exit
+}
+
 case "$1" in
 -h | --help)
-    echo "Usage: addnodes.sh [OPTIONS] [COMMAND] [OPTIONS]"
-    echo "--verbose Switch to detailed output"
-    echo ""
-    echo "Commands:"
-    echo "addnode add shield nodes to cluster"
-    exit 0
+    show_usage
     ;;
 esac
 

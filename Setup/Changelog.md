@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_409] - 2018-09-30
+- Right click menu shows undefined, and doesn't show in Japanese #4272
+- Cross-window: wells-fargo #3240
+- Authproxy fails to start because of bad config #3898
+
+## [Dev:Build_408] - 2018-09-25
+- Admin UI - Validation of Domain value in Policy
+- Admin UI - Import policies should display the name of the file #3258
+- Admin UI - New Japanese Translations #4250
+- LDAP admin login - change the format access so users can only type the user name #4241
+- Delete raw index in ELK if conflicts #4260
+- Hide context menu on scroll #4261
+- Japanese character conversion candidate display position #3961
+- Underline of unconverted character string (#146) #3975
+- Prevent outside modal clicks and scrolls
+- ericom shield scripts should be consistent #4082
+
 ## [Dev:Build_407] - 2018-09-20
 - Data retention for basic authentication #3347
 - Admin UI - rule can be applied on a domain, not a URI - need to add error for the user #3971

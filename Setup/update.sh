@@ -122,8 +122,38 @@ function list_versions() {
     echo "$BRANCH" > "$ES_BRANCH_FILE"
 }
 
-function update_daemon_json() {
-   echo "Running"
+function elk_conflicts_solving() {
+    CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
+    docker run --rm -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $(which docker):/usr/bin/docker \
+    -v /usr/local/ericomshield:/usr/local/ericomshield \
+    "securebrowsing/$CONTAINER_TAG" "$FULL_OUTPUT" elkConflicts
+}
+
+
+function get_latest_version() {
+    cd "$ES_PATH"
+
+    source "$ES_PATH"/ericomshield-repo.sh
+
+    if [ -z "$VERSION_FILE_PATH" ]; then
+        VERSION_FILE_PATH="$ES_repo_ver"
+    fi
+
+    echo "$VERSION_FILE_PATH"
+    curl -s -S -o "$ES_VER_FILE_NEW" "$VERSION_FILE_PATH"
+    if [ ! -f "$ES_VER_FILE_NEW" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_FILE_NEW") -ge 1 ]; then
+        echo "Download version file failed. Please check shield version $BRANCH is correct"
+        exit 1
+    fi
+    mv "$ES_VER_FILE_NEW" "$ES_VER_FILE"
+    echo $BRANCH >"$ES_BRANCH_FILE"
+
+    if [ -n "$KEY_INSTALL" ]; then
+        BRANCH=""
+        ES_VERSION_ARG=""
+    fi
 }
 
 while [ $# -ne 0 ]; do
@@ -149,6 +179,11 @@ while [ $# -ne 0 ]; do
         list_versions
         exit 0
         ;;
+    --elk-conflicts )
+        get_latest_version
+        elk_conflicts_solving
+        exit 0
+        ;;
 
     --registry )
        update_daemon_json "$2"
@@ -164,29 +199,6 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-function get_latest_version() {
-    cd "$ES_PATH"
-
-    source "$ES_PATH"/ericomshield-repo.sh
-
-    if [ -z "$VERSION_FILE_PATH" ]; then
-        VERSION_FILE_PATH="$ES_repo_ver"
-    fi
-
-    echo "$VERSION_FILE_PATH"
-    curl -s -S -o "$ES_VER_FILE_NEW" "$VERSION_FILE_PATH"
-    if [ ! -f "$ES_VER_FILE_NEW" ] || [ $(grep -c "$NOT_FOUND_STR" "$ES_VER_FILE_NEW") -ge 1 ]; then
-        echo "Download version file failed. Please check shield version $BRANCH is correct"
-        exit 1
-    fi
-    mv "$ES_VER_FILE_NEW" "$ES_VER_FILE"
-    echo $BRANCH >"$ES_BRANCH_FILE"
-
-    if [ -n "$KEY_INSTALL" ]; then
-        BRANCH=""
-        ES_VERSION_ARG=""
-    fi
-}
 
 function read_current_version() {
     ver=$(cat "$ES_CONFIG_FILE" | grep "SHIELD_VER=")
