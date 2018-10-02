@@ -12,11 +12,20 @@ if ((EUID != 0)); then
     exit
 fi
 
+function containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
 export BRANCH="master"
 export ES_PATH=/usr/local/ericomshield
 export ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
 export ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 export ES_BRANCH_FILE="$ES_PATH/.esbranch"
+
+
 
 
 if [ -f "$ES_PATH/.esbranch" ]; then
@@ -50,7 +59,14 @@ if [ "$RETURN_CODE" != "200" ]; then
     else
       curl -s -S -o "update-old.sh" "$MAIN_SCRIPT_URL"
       chmod +x update-old.sh
-      SCRIPT="./update-old.sh update"
+      VERB=containsElement "--verbose" "${ARGS}"
+      if [ "$VERB" != "1" ]; then
+        SCRIPT="./update-old.sh update"
+      else
+        remove="--verbose"
+        ARGS=("${ARGS[@]/$remove/}")
+        SCRIPT="./update-old.sh --verbose update"
+      fi
     fi
 else
      curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
