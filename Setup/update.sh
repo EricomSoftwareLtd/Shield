@@ -41,7 +41,7 @@ cd "$ES_PATH"
 
 RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
 if [ "$RETURN_CODE" != "200" ]; then
-    MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update-old.sh"
+    MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.sh"
     RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
 
     if [ "$RETURN_CODE" != "200" ]; then
@@ -50,7 +50,7 @@ if [ "$RETURN_CODE" != "200" ]; then
     else
       curl -s -S -o "update-old.sh" "$MAIN_SCRIPT_URL"
       chmod +x update-old.sh
-      SCRIPT="./update-old.sh"
+      SCRIPT="./update-old.sh update"
     fi
 else
      curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
