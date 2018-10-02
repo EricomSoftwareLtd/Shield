@@ -262,15 +262,12 @@ function upgrade_docker_version() {
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
     if [[ ($NEXT_VERSION != "" && $NEXT_VERSION != "$CURRENT_VERSION" && -z $KEY_INSTALL && -z $HELP_ASKED) || ( $FORCE_RUN == "yes" && -z "$HELP_ASKED" ) ]]; then
-        (docker run --rm $DOCKER_RUN_PARAM \
+        docker run --rm $DOCKER_RUN_PARAM \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v $(which docker):/usr/bin/docker \
             -v /usr/local/ericomshield:/usr/local/ericomshield \
             -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-            "securebrowsing/$CONTAINER_TAG" $FULL_OUTPUT upgrade) || {
-                echo "Docker upgrade failed. Please try run with --verbose switch"
-                exit 1
-             }
+            "securebrowsing/$CONTAINER_TAG" $FULL_OUTPUT upgrade
 
         wait_upgrade_process_finish "$NEXT_VERSION"
     fi
