@@ -39,6 +39,22 @@ MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRA
 
 cd "$ES_PATH"
 
-curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
+RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
+if [ "$RETURN_CODE" != "200" ]; then
+    MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update-old.sh"
+    RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
 
-/usr/bin/python3 update.py $ARGS
+    if [ "$RETURN_CODE" != "200" ]; then
+       echo "$BRANCH not exists. Please run sudo $0 --list-versions"
+       exit 1
+    else
+      curl -s -S -o "update-old.sh" "$MAIN_SCRIPT_URL"
+      chmod +x update-old.sh
+      SCRIPT="./update-old.sh"
+    fi
+else
+     curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
+     SCRIPT="/usr/bin/python3 update.py"
+fi
+
+$SCRIPT $ARGS
