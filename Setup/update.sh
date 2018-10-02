@@ -33,6 +33,10 @@ while [ $# -ne 0 ]; do
         -v | --version )
             BRANCH="$2"
          ;;
+
+        --verbose )
+            VERBOSE="--verbose"
+         ;;
      esac
      shift
 done
@@ -52,7 +56,11 @@ if [ "$RETURN_CODE" != "200" ]; then
     else
       curl -s -S -o "update-old.sh" "$MAIN_SCRIPT_URL"
       chmod +x update-old.sh
-      SCRIPT="./update-old.sh --verbose update"
+      if [ -n "$VERBOSE" ]; then
+         remove="--verbose"
+         ARGS=("${ARGS[@]/$remove/}")
+      fi
+      SCRIPT="./update-old.sh $VERBOSE update"
     fi
 else
      curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
