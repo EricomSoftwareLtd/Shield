@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_411] - 2018-10-03
+- updated Japanese translation file #4270
+- Support already authenticated users #1721
+
+## [Dev:Build_410] - 2018-10-02
+- Electron crash on http://www.hoovers.com/ #3212
+- Pause Shield & Reload off by defualt #3955
+- updated Japanese translation file #4270
+- Update portainer to 1.19.2
+- Send Feedback - change report name - #4184
+- Use Registry for update #4038
+- Reverting to original code using the flag to display the IME if needed.
+
 ## [Dev:Build_409] - 2018-09-30
 - Right click menu shows undefined, and doesn't show in Japanese #4272
 - Cross-window: wells-fargo #3240
