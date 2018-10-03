@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_411] - 2018-10-03
+- updated Japanese translation file #4270
+- Support already authenticated users #1721
+
 ## [Dev:Build_410] - 2018-10-02
 - Electron crash on http://www.hoovers.com/ #3212
 - Pause Shield & Reload off by defualt #3955
