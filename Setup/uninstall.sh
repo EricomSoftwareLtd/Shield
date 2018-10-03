@@ -8,7 +8,9 @@ STACK_NAME=shield
 
 function show_usage() {
     echo "Uninstall Ericom Shield"
-    echo "Usage: $0 "
+    echo "Usage: $0 [-h] [-a]"
+    echo "$0 -h : print usage"
+    echo "$0 -a : uninstall all and clean all images and volumes"
     exit
 }
 
@@ -21,7 +23,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-if [ ! -z $1 ]; then
+if [ ! -z $1 ] && [ "$1" != "-a" ]; then
     show_usage
 fi
 
