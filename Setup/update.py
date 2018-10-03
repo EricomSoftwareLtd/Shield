@@ -4,6 +4,9 @@ import argparse, subprocess, re, urllib3, os, time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from argparse import RawTextHelpFormatter
 
+APP_NAME = "./update.sh"
+if "APP_NAME" in os.environ:
+    APP_NAME = os.environ["APP_NAME"]
 
 def parse_arguments():
     '''
@@ -12,7 +15,7 @@ def parse_arguments():
     :param args:
     :return: arguments structure
     '''
-    parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(prog=APP_NAME, formatter_class=RawTextHelpFormatter)
     parser.add_argument('command', choices=['sshkey', 'update'], const='update',
                     nargs='?',default='update', help="sshkey => Make ssh key to connect to swarm hosts \nupdate (default) => Update docker/shield command")
     parser.add_argument('--verbose', action="store_true", default=False, help="Switch to detailed output")
@@ -237,7 +240,9 @@ class UpdateExecutor():
         self.download_latest_version()
         if self.run_sshkey:
             self.run_ssh_key_provider()
-            exit()
+            exit(0)
+
+        self.check_sshkey_exists()
 
         if self.change_registry:
             self.apply_registry()
@@ -253,7 +258,9 @@ class UpdateExecutor():
         self.execute_shield_update()
 
     def check_sshkey_exists(self):
-        pass
+        key_path = os.path.join(os.environ["ES_PATH"], "ericomshield_key.pub")
+        if not os.path.exists(key_path):
+            self.run_ssh_key_provider()
 
 def main():
     arguments = parse_arguments()
