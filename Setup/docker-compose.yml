@@ -22,7 +22,8 @@ services:
     netdata:
         image: 'securebrowsing/netdata:latest'
         volumes:
-            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/proc:/host/proc:ro'
+            - '/sys:/host/sys:ro'
         networks:
             - shield
         hostname: netdata
