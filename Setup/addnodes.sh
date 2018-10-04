@@ -8,7 +8,7 @@ ES_VER_FILE="./shield-version.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
 COMMAND_NAME="$0"
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
-CONTAINER_TAG_DEFAULT="shield-autoupdate:180731-11.38-2588"
+CONTAINER_TAG_DEFAULT="shield-autoupdate:180916-13.48-2835"
 
 ARGS="addnode"
 COMMAND_LINE="${@}"
@@ -21,14 +21,17 @@ if ((EUID != 0)); then
     exit
 fi
 
+function show_usage() {
+    echo "Add new nodes to Ericom Shield cluster"
+    echo "Usage: $0 [OPTIONS] [COMMAND] [OPTIONS]"
+    echo "--verbose switch to detailed output"
+
+    exit
+}
+
 case "$1" in
 -h | --help)
-    echo "Usage: addnodes.sh [OPTIONS] [COMMAND] [OPTIONS]"
-    echo "--verbose Switch to detailed output"
-    echo ""
-    echo "Commands:"
-    echo "addnode add shield nodes to cluster"
-    exit 0
+    show_usage
     ;;
 esac
 
@@ -66,3 +69,4 @@ docker run --rm -it \
     -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
     -e "COMMAND=$COMMAND_NAME" \
     "securebrowsing/$CONTAINER_TAG" $ARGS ${@}
+    
