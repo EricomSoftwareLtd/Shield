@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_413.1] - 2018-10-05
+- Fixed extra bandwidth on cursor blink 
 
 ## [Dev:Build_413] - 2018-10-04
 - Lower FPS values
