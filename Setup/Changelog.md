@@ -10,15 +10,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_413.1] - 2018-10-05
+- Fixed extra bandwidth on cursor blink 
+
+## [Dev:Build_413] - 2018-10-04
+- Lower FPS values
+- Added missing LabelSlackWebhookFeedback translations
+- Fix scroll quality update extra buffers
+- KKA -Slow response time HTTPS site access pauses entirely #4254
+- Fix scroll_fps limit when there is media playing
+
+## [Dev:Build_412] - 2018-10-04
+- Lower FPS while scrolling
 
 ## [Dev:Build_411] - 2018-10-03
-- updated Japanese translation file #4270
+- Updated Japanese translation file #4270
 - Support already authenticated users #1721
 
 ## [Dev:Build_410] - 2018-10-02
 - Electron crash on http://www.hoovers.com/ #3212
 - Pause Shield & Reload off by defualt #3955
-- updated Japanese translation file #4270
+- Updated Japanese translation file #4270
 - Update portainer to 1.19.2
 - Send Feedback - change report name - #4184
 - Use Registry for update #4038
