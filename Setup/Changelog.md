@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_413.2] - 2018-10-09
+- Typing issue with shield #3859
+- Handle unhandledRejection in ICAP
+
 ## [Dev:Build_413.1] - 2018-10-05
 - Fixed extra bandwidth on cursor blink 
 
