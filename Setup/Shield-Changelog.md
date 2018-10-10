@@ -11,21 +11,62 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.10-Build-413.2] - 14-10-2018
+
+### New Features
+
+#### End User Features
+
+- Paste Image to Shield
+- Send Feedback (from right click)
+- Pause Shield and Reload (for evaluations)
+
+#### Admin Features
+
+- Support Already Authenticated Users by Downstream Proxy (Headers)
+- Support for local registry/cach for Docker Images
+- Votiro New Version: 8.1.0
+
+### Enhancement
+
+- Performance Improvements:
+- - Several improvements for faster page loading
+- - Lower FPS settings
+- - Lower FPS during scrolling
+- - Reduce Bandwidth usage
+- Pre-check is not run by default on update
+- Admin UI - Validation of Domain value in Policy
+- Admin UI - Import policies should display the name of the file
+- Admin UI - New Japanese Translations
+- Data retention for basic authentication
+
+### Bug Fixes
+
+- Fixed: Several Broken Websites
+- Fixed: Delete raw index in ELK if conflicts
+- Fixed: Hide context menu on scroll
+- Fixed: Japanese character conversion candidate display position
+- Fixed: Underline of unconverted character string
+- Fixed: Prevent outside modal clicks and scrolls
+- Fixed: Several LDAP login fixes
+- Fixed: When pasting a big amount of text the page is not responsive
+- Fixed: Drop Down list is repositioned differently according to zoom
+
 ## [Prod:18.09-Build-399.1] - 16-09-2018
 
 - Support Nested Groups in Active Directory
 
 ## [Prod:18.09-Build-399] - 06-09-2018
 
-### New Features
+### New Features - 18.09
 
-#### End User Features
+#### End User Features - 18.09
 
 - Save Image from Shield
 - Copy Image from Shield
 - Customized Error Pages (DNS failure, ICAP Error)
 
-### Enhancement
+### Enhancement - 18.09
 
 - Added Font Missing in Shield
 - Improve Font Display (fonts, color, spacing)
@@ -40,7 +81,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support certificate chain in Custom Trust Certificate
 - Improved support for Admin LDAP login
 
-### Bug Fixes
+### Bug Fixes - 18.09
 
 - Fixed: Broken Websites (el-al, whatsapp, pinterest, adp, Bank Leumi, Sharepoint, etc)
 - Fixed: Bandwidth Usage on Scrolling and Cursor Blinking
