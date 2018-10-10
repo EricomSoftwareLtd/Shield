@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.10
+# YML file for Rel-18.10 - Quick Eval
 
 services:
     dns:
@@ -311,7 +311,7 @@ services:
             - shield
         deploy:
             mode: replicated
-            replicas: 1
+            replicas: 0
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
@@ -359,7 +359,7 @@ services:
             - 'LOGSTASH_FIELDS=service=webservice'
         deploy:
             mode: replicated
-            replicas: 1
+            replicas: 0
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
     cdr-dispatcher:
