@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.08 Quick Eval
+# YML file for Rel-18.10
 
 services:
     dns:
@@ -110,14 +110,14 @@ services:
             #- "DEBUG=1"
         deploy:
             mode: global
-            resources: {limits: {cpus: '0.20', memory: 256M}, reservations: {cpus: '0.10', memory: 128M}}
+            resources: {limits: {cpus: '0.20', memory: 256M}}
     consul-server:
         image: 'securebrowsing/shield-configuration:latest'
         networks:
             - shield
         deploy:
             mode: replicated   #single node
-            replicas: 5        #single node
+            replicas: 3        #single node
             #mode: global      #multi node
             endpoint_mode: dnsrr
             placement: {constraints: [node.labels.management==yes]}
@@ -136,8 +136,8 @@ services:
         networks:
             - shield
         #Published only for Dev    
-        ports:
-            - '8500:8500'
+#        ports:
+#            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -147,7 +147,7 @@ services:
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
-            - 'CONSUL_BIND_INTERFACE=eth2'
+            - 'CONSUL_BIND_INTERFACE=eth0'
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
@@ -190,8 +190,6 @@ services:
             nofile: {soft: 65535, hard: 65535}
         networks:
             - shield
-        ports:
-            - '1344:1344'
         deploy:
             mode: replicated
             replicas: 1
@@ -208,7 +206,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            resources: {limits: {memory: 100MB, cpus: '1'}}
             placement: {constraints: [node.labels.management==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
@@ -270,7 +268,7 @@ services:
         env_file: proxy-server.env
         deploy:
             mode: replicated
-            replicas: 2
+            replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
@@ -313,7 +311,7 @@ services:
             - shield
         deploy:
             mode: replicated
-            replicas: 0
+            replicas: 1
             placement: {constraints: [node.labels.browser==yes]}
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
@@ -338,7 +336,7 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
-            resources: {limits: {memory: 2GB, cpus: '1'}}
+            resources: {limits: {memory: 2GB, cpus: '2'}}
         networks:
             - shield
         ports:
@@ -361,7 +359,7 @@ services:
             - 'LOGSTASH_FIELDS=service=webservice'
         deploy:
             mode: replicated
-            replicas: 0
+            replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
     cdr-dispatcher:
@@ -404,8 +402,8 @@ services:
         image: 'securebrowsing/shield-portainer:latest'
         hostname: portainer
         #Published only for Dev
-        ports:
-            - '9000:9000'
+#        ports:
+#            - '9000:9000'
         volumes:
             # - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer_v2:/data'

@@ -1,4 +1,4 @@
 1) latest:master
-2) Release 18.10 on 14/10/18:Rel-18.10-Build_413.2
-3) Release 18.09.1 on 16/09/18:Rel-18.09.1-Build_399.1
-4) Release 18.08.1 on 26/08/18:Rel-18.08.1-Build_388.2
+2) Release 18.10-Build_413.2 on 14/10/18:Rel-18.10
+3) Release 18.09.1-Build_399.1 on 16/09/18:Rel-18.09.1
+4) Release 18.08.1-Build_388.2 on 26/08/18:Rel-18.08.1
