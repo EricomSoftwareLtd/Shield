@@ -23,7 +23,8 @@ services:
     netdata:
         image: 'securebrowsing/netdata:latest'
         volumes:
-            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/proc:/host/proc:ro'
+            - '/sys:/host/sys:ro'
         networks:
             - shield
         hostname: netdata
@@ -113,7 +114,7 @@ services:
             #- "DEBUG=1"
         deploy:
             mode: global
-            resources: {limits: {cpus: '0.20', memory: 256M}, reservations: {cpus: '0.10', memory: 128M}}
+            resources: {limits: {cpus: '0.20', memory: 256M}}
     consul-server:
         image: 'securebrowsing/shield-configuration:latest'
         networks:
@@ -129,7 +130,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-            - 'CONSUL_BIND_INTERFACE=eth0'
+            - "SHIELD_SUBNET=${SUB_NET}"
             - 'NUMBER_OF_EXPECTED=3' # works for single and multi node
             - 'LOGSTASH_FIELDS=service=consulserver'
         volumes:
@@ -150,7 +151,7 @@ services:
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
-            - 'CONSUL_BIND_INTERFACE=eth2'
+            - "SHIELD_SUBNET=${SUB_NET}"
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
@@ -213,7 +214,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            resources: {limits: {memory: 100MB, cpus: '1'}}
             placement: {constraints: [node.labels.management==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
@@ -460,7 +461,7 @@ networks:
         driver: overlay
         ipam:
             driver: default
-            config: [{subnet: 10.20.0.0/16}]
+            config: [{subnet: "${SUB_NET}"}]
 
 secrets:
     shield-system-id:

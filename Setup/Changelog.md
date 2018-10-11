@@ -11,25 +11,50 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_413.2] - 2018-10-09
+
+- Typing issue with shield #3859
+- Handle unhandledRejection in ICAP
+
+## [Dev:Build_413.1] - 2018-10-05
+
+- Fixed extra bandwidth on cursor blink
+
+## [Dev:Build_413] - 2018-10-04
+
+- Lower FPS values
+- Added missing LabelSlackWebhookFeedback translations
+- Fix scroll quality update extra buffers
+- KKA -Slow response time HTTPS site access pauses entirely #4254
+- Fix scroll_fps limit when there is media playing
+
+## [Dev:Build_412] - 2018-10-04
+
+- Lower FPS while scrolling
+
 ## [Dev:Build_411] - 2018-10-03
-- updated Japanese translation file #4270
+
+- Updated Japanese translation file #4270
 - Support already authenticated users #1721
 
 ## [Dev:Build_410] - 2018-10-02
-- Electron crash on http://www.hoovers.com/ #3212
+
+- Electron crash on <http://www.hoovers.com/> #3212
 - Pause Shield & Reload off by defualt #3955
-- updated Japanese translation file #4270
+- Updated Japanese translation file #4270
 - Update portainer to 1.19.2
 - Send Feedback - change report name - #4184
 - Use Registry for update #4038
 - Reverting to original code using the flag to display the IME if needed.
 
 ## [Dev:Build_409] - 2018-09-30
+
 - Right click menu shows undefined, and doesn't show in Japanese #4272
 - Cross-window: wells-fargo #3240
 - Authproxy fails to start because of bad config #3898
 
 ## [Dev:Build_408] - 2018-09-25
+
 - Admin UI - Validation of Domain value in Policy
 - Admin UI - Import policies should display the name of the file #3258
 - Admin UI - New Japanese Translations #4250
@@ -42,6 +67,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ericom shield scripts should be consistent #4082
 
 ## [Dev:Build_407] - 2018-09-20
+
 - Data retention for basic authentication #3347
 - Admin UI - rule can be applied on a domain, not a URI - need to add error for the user #3971
 - Disabled / enabled rules from right click menu should be consistent #4131
@@ -50,7 +76,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - When pasting a big amount of text to an edit field, the page is not responsive #4223
 - Slickdeals.com search #4233
 - New text for feedback dialog - Legal #4227
-- Only first page of PDF is being printed - https://www.dropbox.com/s/v1z1us6ua7yzg1c/PT2-ACT%20New%20RB1.pdf?dl=0 #4012
+- Only first page of PDF is being printed - <https://www.dropbox.com/s/v1z1us6ua7yzg1c/PT2-ACT%20New%20RB1.pdf?dl=0> #4012
 - Admin UI :When deleting a profile, the spinner spins forever #4222
 - Can't login to Jer prod admin UI #4224
 - Support already authenticated users #1721
