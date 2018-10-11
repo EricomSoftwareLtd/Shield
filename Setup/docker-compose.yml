@@ -148,7 +148,7 @@ services:
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
-            - 'CONSUL_BIND_INTERFACE=eth2'
+            - "SHIELD_SUBNET=${SUB_NET}"
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
