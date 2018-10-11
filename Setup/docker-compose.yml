@@ -127,7 +127,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-            - 'CONSUL_BIND_INTERFACE=eth0'
+            - "SHIELD_SUBNET=${SUB_NET}"
             - 'NUMBER_OF_EXPECTED=3' # works for single and multi node
             - 'LOGSTASH_FIELDS=service=consulserver'
         volumes:
