@@ -445,7 +445,7 @@ networks:
         driver: overlay
         ipam:
             driver: default
-            config: [{subnet: 10.20.0.0/16}]
+            config: [{subnet: "${SUB_NET}"}]
 
 secrets:
     shield-system-id:
