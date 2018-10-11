@@ -209,7 +209,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            resources: {limits: {memory: 100MB, cpus: '1'}}
+            resources: {limits: {memory: 150MB, cpus: '1'}}
             placement: {constraints: [node.labels.management==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'

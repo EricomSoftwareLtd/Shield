@@ -10,6 +10,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_414] - 2018-10-10
+- Printing files such as pdf without downloading them #3935
+- Admin UI - rule can be applied on a domain, not a URI - need to add error for the user #3971
+- Case sensitive for text when import table #3540
+- Too many popup dialogs on Salesforce #4348
+- Foxnews: embedded twitter videos do not play #3947
+- Unable to set value in salesforce dropdowns/inputs #4334
+- Can't copy paste from a web page to word/ outlook (copy -paste or Ctrl c+v) #3138
+- Update old FPS values #4328
+- Move alpine based containers to use base image and alpine 3.8 #4211
+- Pending Electron v3 - https://advisera.com/eugdpracademy/eu-gdpr-documentation-toolkit/ - check box issue #3957
+- ZoomInfo #4191
+- "Find Bad items" during addnodes #4219
+- incorrect string when adding new policy with incorrect IP/domain value #4326
+- Jumping and white display for a split of a second when watching a video #3952
+- the audio continue for a while after closing the video on linkedin video #3863
+- Add Syslog Config to the Admin (backend) #2713
+- Alert when user is on two User Profiles #4244
+- Add Display Name and Group to the report/sessions list in Dashboard #3722
+- Connection report - add profile field #3102
+- tw.yahoo.com fonts issue #4235
+- Admin - Profiles - Generate #2880
+- Ubuntu based dockers to be based on Minimal Ubuntu ( 18.04) #4287
 
 ## [Dev:Build_413.2] - 2018-10-09
 
