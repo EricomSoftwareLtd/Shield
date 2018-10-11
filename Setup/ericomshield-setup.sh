@@ -319,7 +319,7 @@ uninstall_if_installed "bind9"
 uninstall_if_installed "unbound"
 
 function install_if_not_installed() {
-    if [ ! dpkg -s "$1" ] >/dev/null 2>&1; then
+    if ! dpkg -s "$1" >/dev/null 2>&1; then
         echo "***************     Installing $1"
         apt-get --assume-yes -y install "$1"
     fi
