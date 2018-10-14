@@ -86,7 +86,8 @@ while true; do
         fi
 
         if [ "$AM_I_LEADER" == true ]; then
-            $ES_PATH/update.sh auto update "$FORCE_UPDATE"
+            export AUTO=true
+            $ES_PATH/update.sh "$FORCE_UPDATE"
         else
             echo "Not running update (I'm not the leader)"
         fi
