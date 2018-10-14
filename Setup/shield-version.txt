@@ -1,16 +1,16 @@
-#Build Dev:Build_414.2 on 18/10/10 #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_414.2
+#Build Dev:Build_415 on 18/10/14
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_415
 #docker-version 18.03.1
-shield-configuration:latest shield-configuration:181010-18.49-2935
-shield-consul-agent:latest shield-consul-agent:181010-18.49-2935
+shield-configuration:latest shield-configuration:181014-13.27-2954
+shield-consul-agent:latest shield-consul-agent:181014-13.27-2954
 shield-admin:latest shield-admin:181011-08.00-2943
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181010-18.49-2935
-icap-server:latest icap-server:181011-12.20-2952
+icap-server:latest icap-server:181014-13.27-2954
 shield-cef:latest shield-cef:181011-12.02-2951
 broker-server:latest broker-server:181011-08.00-2943
 shield-collector:latest shield-collector:181010-18.49-2935
-shield-elk:latest shield-elk:181011-08.00-2943
+shield-elk:latest shield-elk:181014-13.27-2954
 extproxy:latest extproxy:181010-18.49-2935
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:181010-18.49-2935
 shield-cdr-controller:latest shield-cdr-controller:181010-18.49-2935

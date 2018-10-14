@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_415] - 2018-10-14
+- Consul error logs not arrive to ELK. #3949
+- Change consul start script for automatic finding correct network. #4355
+- Reports are not working well #4374
+- Pause shield & reload - missing browser in the report #4198
+
 ## [Dev:Build_414.2] - 2018-10-10
 - Printing files such as pdf without downloading them #3935
 - Admin UI - rule can be applied on a domain, not a URI - need to add error for the user #3971
