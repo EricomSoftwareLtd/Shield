@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.08
+# YML file for Rel-18.10
 
 services:
     dns:
@@ -110,7 +110,7 @@ services:
             #- "DEBUG=1"
         deploy:
             mode: global
-            resources: {limits: {cpus: '0.20', memory: 256M}, reservations: {cpus: '0.10', memory: 128M}}
+            resources: {limits: {cpus: '0.20', memory: 256M}}
     consul-server:
         image: 'securebrowsing/shield-configuration:latest'
         networks:
@@ -208,7 +208,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            resources: {limits: {memory: 100MB, cpus: '1'}}
             placement: {constraints: [node.labels.management==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
