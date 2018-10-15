@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_416.1] - 2018-10-15
+- Opening a page from shield to a whitelisted (or excluded in the PAC file) doesn't work #1928
+- Whitelisted sites in Bluecoat in-front of us #3733
+- DNS load balancing browsers (AKA free.browser) #4331
+- Add Syslog Config to the Admin (Admin) #2713
+- Can't download pdf file #4373
+- WebService Code cleanup - reduce network usage 
+- Collector is not working in latest build #4385
 
 ## [Dev:Build_415] - 2018-10-14
 - Consul error logs not arrive to ELK. #3949
