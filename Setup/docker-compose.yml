@@ -127,7 +127,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-            - "SHIELD_SUBNET=${SUB_NET}"
+            - 'CONSUL_BIND_INTERFACE=eth0'
             - 'NUMBER_OF_EXPECTED=3' # works for single and multi node
             - 'LOGSTASH_FIELDS=service=consulserver'
         volumes:
@@ -148,7 +148,7 @@ services:
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
-            - "SHIELD_SUBNET=${SUB_NET}"
+            - 'CONSUL_BIND_INTERFACE=eth2'
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
@@ -445,7 +445,7 @@ networks:
         driver: overlay
         ipam:
             driver: default
-            config: [{subnet: "${SUB_NET}"}]
+            config: [{subnet: 10.20.0.0/16}]
 
 secrets:
     shield-system-id:
