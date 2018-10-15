@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
-## [Dev:Build_416] - 2018-10-15
+## [Dev:Build_416.1] - 2018-10-15
 - Opening a page from shield to a whitelisted (or excluded in the PAC file) doesn't work #1928
 - Whitelisted sites in Bluecoat in-front of us #3733
 - DNS load balancing browsers (AKA free.browser) #4331
