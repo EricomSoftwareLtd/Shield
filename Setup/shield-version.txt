@@ -8,7 +8,7 @@ shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181015-10.49-2967
 icap-server:latest icap-server:181015-10.49-2967
 shield-cef:latest shield-cef:181015-10.49-2967
-broker-server:latest broker-server:181011-08.00-2943
+broker-server:latest broker-server:181015-12.14-2970
 shield-collector:latest shield-collector:181010-18.49-2935
 shield-elk:latest shield-elk:181014-13.27-2954
 extproxy:latest extproxy:181010-18.49-2935
