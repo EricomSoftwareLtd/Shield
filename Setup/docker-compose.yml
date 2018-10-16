@@ -49,7 +49,7 @@ services:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
-            resources: {limits: {memory: 2GB, cpus: '0.5'}}
+            resources: {limits: {memory: 1GB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
             - 'IMAGE_CLEAN_INTERVAL=1h'
@@ -71,6 +71,7 @@ services:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
+            resources: {limits: {memory: 1GB, cpus: '0.5'}}
     elk:
         image: 'securebrowsing/shield-elk:latest'
 #        ports:
@@ -176,6 +177,7 @@ services:
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '0.5'}}
+            resources: {limits: {memory: 1GB, cpus: '0.5'}}
     icap-server:
         image: 'securebrowsing/icap-server:latest'
         # user: nobody
@@ -199,7 +201,7 @@ services:
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
-            resources: {limits: {memory: 500MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
     broker-server:
         image: 'securebrowsing/broker-server:latest'
         # user: nobody
@@ -209,7 +211,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            resources: {limits: {memory: 150MB, cpus: '1'}}
+            resources: {limits: {memory: 256MB, cpus: '1'}}
             placement: {constraints: [node.labels.management==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
@@ -275,7 +277,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
-            resources: {limits: {memory: 500MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}            
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy
@@ -287,7 +289,7 @@ services:
             mode: replicated
             replicas: 2
             placement: {constraints: [node.labels.browser==yes]}
-            resources: {limits: {memory: 1024MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}            
         environment:
             - 'TZ=UTC'
     ext-proxy-noadblock:
@@ -301,7 +303,7 @@ services:
             mode: replicated
             replicas: 2
             placement: {constraints: [node.labels.browser==yes]}
-            resources: {limits: {memory: 1024MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}            
         environment:
             - 'TZ=UTC'
             - 'ADDBLOCK=no'
@@ -434,6 +436,7 @@ services:
             - shield
         deploy:
             mode: global
+            resources: {limits: {memory: 100MB, cpus: '0.5'}}
 
 volumes:
     elastic:
