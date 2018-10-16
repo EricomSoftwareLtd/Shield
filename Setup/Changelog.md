@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_417] - 2018-10-16
+- Settings - custom CA password #3499
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Add Syslog Config to the Admin #2713
+- Microsoft store login window with shield is not looking good #4302
+- Unknown alert ID 24 #4393
+- Default license type #2572
+- Missing alerts in the translation strings #3966
+- Compatibility mode is not working for a sepcific web site #4096
+- Use the docker registry in case the registry configured doesn’t work #4357
+
 ## [Dev:Build_416.1] - 2018-10-15
 - Opening a page from shield to a whitelisted (or excluded in the PAC file) doesn't work #1928
 - Whitelisted sites in Bluecoat in-front of us #3733
