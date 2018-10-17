@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_418] - 2018-10-17
+- Connection report - add profile field #3102
+- Connectivity test is not working #4427
+- No reports on my machines #4411
+- ELK is crashing #4430
+- CPU 100% on shield machine #4428
+- No reports on my machines #4411
+- Link for details - no results found #4424
+
 ## [Dev:Build_417] - 2018-10-16
 - Settings - custom CA password #3499
 - Reset Certificate uploaded and revert to Ericom Certificate #4315
