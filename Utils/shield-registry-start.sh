@@ -95,7 +95,7 @@ update_daemon_json
 
 #Stopping registry dockeri if running:
 if [ $(docker ps | grep -c registry) -ge 1 ]; then
-   docker rm $(docker stop $(docker ps -a -q --filter name=registry --format="{{.ID}}"))
+   docker stop $(docker ps -a -q --filter name=registry --format="{{.ID}}")
 fi
 
 #Starting registry docker
