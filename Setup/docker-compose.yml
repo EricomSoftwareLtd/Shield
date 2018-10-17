@@ -436,7 +436,7 @@ services:
             - shield
         deploy:
             mode: global
-            resources: {limits: {memory: 100MB, cpus: '0.5'}}
+            resources: {limits: {memory: 500MB, cpus: '0.5'}}
 
 volumes:
     elastic:
