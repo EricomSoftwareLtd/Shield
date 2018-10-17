@@ -78,7 +78,7 @@ class UpdateExecutor():
     def download_file(self, url):
         try:
             if 'HTTP_PROXY' in os.environ:
-                http = urllib3.PoolManager(os.environ['HTTP_PROXY'])
+                http = urllib3.ProxyManager(os.environ['HTTP_PROXY'])
             else:
                 http = urllib3.PoolManager()
             response = http.request('GET', url)
