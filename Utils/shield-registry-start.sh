@@ -53,7 +53,7 @@ function update_daemon_json() {
         else
           echo "Setting: insecure-registries:[$SHIELD_REGISTRY] in /etc/docker/daemon.json"
           echo '{' >/etc/docker/daemon.json.shield
-          echo -n ',  "insecure-registries":["' >>/etc/docker/daemon.json.shield
+          echo -n '  "insecure-registries":["' >>/etc/docker/daemon.json.shield
           echo -n $SHIELD_REGISTRY >>/etc/docker/daemon.json.shield
           echo '"]' >>/etc/docker/daemon.json.shield
           echo '}' >>/etc/docker/daemon.json.shield
@@ -113,4 +113,3 @@ if [ -f "$ES_VER_FILE" ]; then
    echo "pull images" #pull images for caching
    pull_images
 fi
-    
