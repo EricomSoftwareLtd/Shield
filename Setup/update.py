@@ -25,6 +25,7 @@ def parse_arguments():
     parser.add_argument('--pre-install-check', dest="precheck", action="store_true", default=False, help="Execute 'pre-installation checks' script")
     parser.add_argument('--registry', default="", help="Use this docker registery for get images")
     parser.add_argument('-list-versions', '--list-versions', dest='list_versions', action="store_true", default=False, help="Show available version to update")
+    parser.add_argument('--elk-conflicts', dest="fixConflicts", action="store_true", default=False, help="Try to solve schema conflicts in ELK service")
     return parser.parse_args()
 
 
@@ -77,7 +78,10 @@ class UpdateExecutor():
 
     def download_file(self, url):
         try:
-            http = urllib3.PoolManager()
+            if 'HTTP_PROXY' in os.environ:
+                http = urllib3.ProxyManager(os.environ['HTTP_PROXY'])
+            else:
+                http = urllib3.PoolManager()
             response = http.request('GET', url)
             return response.data.decode('UTF-8')
         except Exception as ex:
@@ -234,7 +238,15 @@ class UpdateExecutor():
         self.all_args.version = releases_array[choise - 1]
         print("Start update to:{}".format(self.all_args.version))
 
+    def fix_elk_conflicts(self):
+        cmd = '''docker run --rm -it \\
+                -v /var/run/docker.sock:/var/run/docker.sock \\
+                -v $(which docker):/usr/bin/docker \\
+                -v {0}:/usr/local/ericomshield \\
+                securebrowsing/{1} {2} elkConflicts''' \
+        .format(os.environ['ES_PATH'], self.container, self.get_verbose())
 
+        subprocess.run(cmd, shell=True)
 
     def run_update(self):
         self.download_latest_version()
@@ -243,6 +255,10 @@ class UpdateExecutor():
             exit(0)
 
         self.check_sshkey_exists()
+
+        if self.all_args.fixConflicts:
+            self.fix_elk_conflicts()
+            exit(0)
 
         if self.change_registry:
             self.apply_registry()
