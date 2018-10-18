@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_419] - 2018-10-18
+- Fix string for DNS test total time when succeed #4435
+- W3schools.com <select> example #4402
+- Add shell variables into docker-compose file #4354
+- Feedback Webhook URL - string update #4317
+- Authentication chaining tool tip, default field and IP range syntax #4291
+- Before start update delete "raw" index in ELK - command to delete it is not working #4225
+- Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
+- Add prepare-node.sh as part of addnode script #3616
+- hard to reproduce - links are downloaded when they should be opened #3493
+- Added remote browser console errors to ELK 
+ 
 ## [Dev:Build_418] - 2018-10-17
 - Connection report - add profile field #3102
 - Connectivity test is not working #4427

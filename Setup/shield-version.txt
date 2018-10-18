@@ -1,15 +1,15 @@
-#Build Dev:Build_418 on 18/10/17
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_418
+#Build Dev:Build_419 on 18/10/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_419
 #docker-version 18.03.1
-shield-configuration:latest shield-configuration:181015-10.58-2968
-shield-consul-agent:latest shield-consul-agent:181015-10.58-2968
-shield-admin:latest shield-admin:181016-18.52-2986
+shield-configuration:latest shield-configuration:181018-11.29-3005
+shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
+shield-admin:latest shield-admin:181017-16.39-2996
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181015-10.49-2967
-icap-server:latest icap-server:181017-08.34-2989
-shield-cef:latest shield-cef:181017-08.34-2989
+icap-server:latest icap-server:181018-14.17-3007
+shield-cef:latest shield-cef:181018-14.17-3007
 broker-server:latest broker-server:181016-13.39-2981
-shield-collector:latest shield-collector:181017-09.51-2993
+shield-collector:latest shield-collector:181017-16.10-2995
 shield-elk:latest shield-elk:181017-09.51-2993
 extproxy:latest extproxy:181010-18.49-2935
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:181010-18.49-2935
@@ -23,5 +23,5 @@ netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:181010-07.51-2930
 shield-notifier:latest shield-notifier:181010-18.49-2935
-shield-dns:latest shield-dns:181010-18.49-2935
+shield-dns:latest shield-dns:181018-11.29-3005
 # This needs to be the last line
