@@ -1,8 +1,8 @@
 #Build Dev:Build_418 on 18/10/17
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_418
 #docker-version 18.03.1
-shield-configuration:latest shield-configuration:test4354
-shield-consul-agent:latest shield-consul-agent:test4354
+shield-configuration:latest shield-configuration:181015-10.58-2968
+shield-consul-agent:latest shield-consul-agent:181015-10.58-2968
 shield-admin:latest shield-admin:181016-18.52-2986
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181015-10.49-2967
