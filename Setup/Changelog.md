@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_421] - 2018-10-21
+- No mail alert on a machine with upstream proxy #4477
+- Download big pdf file fails with timeout #4444
+- Admin - feedback related settings - tooltip changes #4480
+- build 418 on mini sanity machine - pre check internal warning #4457
+
 ## [Dev:Build_420.1] - 2018-10-21
 - Reverted adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
 
