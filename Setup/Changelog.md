@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Dev:Build_413.2] - 2018-10-09
+- Fixed: QA#708355 Failure addnoteds.sh -b
+
+## [Dev:Build_413.2] - 2018-10-09
 
 - Typing issue with shield #3859
 - Handle unhandledRejection in ICAP
