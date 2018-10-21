@@ -811,8 +811,8 @@ fi
 docker_login
 
 if ! check_registry; then
-    echo "Exiting..."
-    exit 1;
+    log_message "Using Docker Hub instead of local registry at $SHIELD_REGISTRY"
+    SHIELD_REGISTRY=""
 fi
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
