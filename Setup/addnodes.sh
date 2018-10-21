@@ -8,7 +8,7 @@ ES_VER_FILE="./shield-version.txt"
 LOGFILE="$ES_PATH/ericomshield.log"
 COMMAND_NAME="$0"
 UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
-CONTAINER_TAG_DEFAULT="shield-autoupdate:180916-13.48-2835"
+CONTAINER_TAG_DEFAULT="shield-autoupdate:181021-06.29-3013"
 
 ARGS="addnode"
 COMMAND_LINE="${@}"
