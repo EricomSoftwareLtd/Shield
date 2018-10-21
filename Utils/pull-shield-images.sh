@@ -11,6 +11,7 @@ if ((EUID != 0)); then
     echo "sudo $0 $@"
     exit
 fi
+ES_PATH="/usr/local/ericomshield"
 ES_VER_FILE_NEW="$ES_PATH/shield-version-new.txt"
 DEV_BRANCH="Dev"
 STAGING_BRANCH="Staging"
@@ -64,3 +65,5 @@ function pull_images() {
     echo "************ Pull shield images"
     pull_images
     echo "***********  Done!"
+    rm "$ES_VER_FILE_NEW" 
+    
