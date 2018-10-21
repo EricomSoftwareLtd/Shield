@@ -11,10 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_420] - 2018-10-21
+- Failure addnoteds.sh -b #4438
+- Salesforce PDF preview #4342
+- Adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+- Acrobat is not recognized (R2) #488
+- Incorrect Activate Key tool tip #4465
+- Unknown error when trying to activate license #4464
+- Verify all certificates exists #4386
+- Use the docker registry in case the registry configured doesn’t work #4357
+
+
 ## [Dev:Build_419] - 2018-10-18
 
 - Fix string for DNS test total time when succeed #4435
-- W3schools.com <select> example #4402
+- W3schools.com example #4402
 - Add shell variables into docker-compose file #4354
 - Feedback Webhook URL - string update #4317
 - Authentication chaining tool tip, default field and IP range syntax #4291
