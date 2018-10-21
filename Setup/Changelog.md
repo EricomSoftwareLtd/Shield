@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_420.1] - 2018-10-21
+- Reverted adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+
 
 ## [Dev:Build_420] - 2018-10-21
 - Failure addnoteds.sh -b #4438
