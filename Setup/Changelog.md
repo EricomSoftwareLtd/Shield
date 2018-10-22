@@ -10,7 +10,43 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_421] - 2018-10-21
+- No mail alert on a machine with upstream proxy #4477
+- Download big pdf file fails with timeout #4444
+- Admin - feedback related settings - tooltip changes #4480
+- build 418 on mini sanity machine - pre check internal warning #4457
+
+## [Dev:Build_420.1] - 2018-10-21
+- Reverted adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+
+
+## [Dev:Build_420] - 2018-10-21
+- Failure addnoteds.sh -b #4438
+- Salesforce PDF preview #4342
+- Adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+- Acrobat is not recognized (R2) #488
+- Incorrect Activate Key tool tip #4465
+- Unknown error when trying to activate license #4464
+- Verify all certificates exists #4386
+- Use the docker registry in case the registry configured doesn’t work #4357
+
+
+## [Dev:Build_419] - 2018-10-18
+
+- Fix string for DNS test total time when succeed #4435
+- W3schools.com example #4402
+- Add shell variables into docker-compose file #4354
+- Feedback Webhook URL - string update #4317
+- Authentication chaining tool tip, default field and IP range syntax #4291
+- Before start update delete "raw" index in ELK - command to delete it is not working #4225
+- Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
+- Add prepare-node.sh as part of addnode script #3616
+- hard to reproduce - links are downloaded when they should be opened #3493
+- Added remote browser console errors to ELK 
+ 
 ## [Dev:Build_418] - 2018-10-17
+
 - Connection report - add profile field #3102
 - Connectivity test is not working #4427
 - No reports on my machines #4411
@@ -20,6 +56,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Link for details - no results found #4424
 
 ## [Dev:Build_417] - 2018-10-16
+
 - Settings - custom CA password #3499
 - Reset Certificate uploaded and revert to Ericom Certificate #4315
 - Add Syslog Config to the Admin #2713
@@ -31,6 +68,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use the docker registry in case the registry configured doesn’t work #4357
 
 ## [Dev:Build_416.1] - 2018-10-15
+
 - Opening a page from shield to a whitelisted (or excluded in the PAC file) doesn't work #1928
 - Whitelisted sites in Bluecoat in-front of us #3733
 - DNS load balancing browsers (AKA free.browser) #4331
@@ -40,12 +78,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Collector is not working in latest build #4385
 
 ## [Dev:Build_415] - 2018-10-14
+
 - Consul error logs not arrive to ELK. #3949
 - Change consul start script for automatic finding correct network. #4355
 - Reports are not working well #4374
 - Pause shield & reload - missing browser in the report #4198
 
 ## [Dev:Build_414.2] - 2018-10-10
+
 - Printing files such as pdf without downloading them #3935
 - Admin UI - rule can be applied on a domain, not a URI - need to add error for the user #3971
 - Case sensitive for text when import table #3540
@@ -55,7 +95,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Can't copy paste from a web page to word/ outlook (copy -paste or Ctrl c+v) #3138
 - Update old FPS values #4328
 - Move alpine based containers to use base image and alpine 3.8 #4211
-- Pending Electron v3 - https://advisera.com/eugdpracademy/eu-gdpr-documentation-toolkit/ - check box issue #3957
+- Pending Electron v3 - <https://advisera.com/eugdpracademy/eu-gdpr-documentation-toolkit/> - check box issue #3957
 - ZoomInfo #4191
 - "Find Bad items" during addnodes #4219
 - incorrect string when adding new policy with incorrect IP/domain value #4326
@@ -67,7 +107,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Connection report - add profile field #3102
 - tw.yahoo.com fonts issue #4235
 - Admin - Profiles - Generate #2880
-- Ubuntu based dockers to be based on Minimal Ubuntu ( 18.04) #4287
+- Ubuntu based dockers to be based on Minimal Ubuntu (18.04) #4287
 
 ## [Dev:Build_413.2] - 2018-10-09
 
