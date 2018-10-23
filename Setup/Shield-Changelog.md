@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.10.2-Build-413.4] - 23-10-2018
+
+- Fixed: Custom Trust Certificate is not working with shield 
+- Fixed: QA#708355 Failure addnoteds.sh -b
+
 ## [Prod:18.10-Build-413.2] - 14-10-2018
 
 ### New Features
