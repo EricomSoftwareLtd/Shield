@@ -1,27 +1,28 @@
-#Build Dev:Build_422 on 18/10/23
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_422
+#Build Dev:Build_423.4 on 18/10/24
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_423.4
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
-shield-admin:latest shield-admin:181023-11.39-3033
+shield-admin:latest shield-admin:181023-14.35-3041
 shield-portainer:latest shield-portainer:180930-11.41-2885
-proxy-server:latest proxy-server:181015-10.49-2967
-icap-server:latest icap-server:181022-20.45-3029
-shield-cef:latest shield-cef:181022-20.45-3029
-broker-server:latest broker-server:181023-10.29-3030
+proxy-server:latest proxy-server:181023-13.17-3038
+icap-server:latest icap-server:181024-11.41-3052
+shield-cef:latest shield-cef:181024-10.08-3051
+broker-server:latest broker-server:181023-14.35-3041
 shield-collector:latest shield-collector:181021-13.12-3023
-shield-elk:latest shield-elk:181017-09.51-2993
+shield-elk:latest shield-elk:181024-10.08-3051
 extproxy:latest extproxy:181010-18.49-2935
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:181010-18.49-2935
 shield-cdr-controller:latest shield-cdr-controller:181023-10.29-3030
 shield-web-service:latest shield-web-service:181015-10.29-2966
 shield-maintenance:latest shield-maintenance:181010-18.49-2935
-shield-authproxy:latest shield-authproxy:181011-12.20-2952
+shield-authproxy:latest shield-authproxy:181023-20.04-3045
 node-installer:latest node-installer:180503-17.04
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
-shield-autoupdate:latest shield-autoupdate:181021-06.29-3013
+shield-autoupdate:latest shield-autoupdate:181024-08.09-3050
 shield-notifier:latest shield-notifier:181021-12.38-3020
 shield-dns:latest shield-dns:181018-11.29-3005
+shield-proxyless-connector:latest shield-proxyless-connector:181024-11.41-3052
 # This needs to be the last line
