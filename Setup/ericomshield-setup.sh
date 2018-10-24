@@ -813,6 +813,21 @@ docker_login
 if ! check_registry; then
     log_message "Using Docker Hub instead of local registry at $SHIELD_REGISTRY"
     SHIELD_REGISTRY=""
+    while read -p "Do you want to proceed? " choice; do
+        case "$choice" in
+            y | Y | "yes" | "YES" | "Yes")
+                echo "yes"
+                break
+                ;;
+            n | N | "no" | "NO" | "No")
+                echo "no"
+                echo "Exiting..."
+                exit 10
+                ;;
+            *) ;;
+
+        esac
+    done
 fi
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
