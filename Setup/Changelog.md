@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_423] - 2018-10-23
+- Dashboard: Wrong Display Name in Session Table #4513
+- Reorder end user options in right click menu #4349
+- Alert end user in case Javascript is disabled on his browser #4499
+- Zip with password is not working #4378
+- Custom trust certificate is not working with shield #3906
+- Cisco Umbrella Support (Proxyless Connector) #4350
+- Kill the shield-squid-auth container when squid exits
+
+
 ## [Dev:Build_422] - 2018-10-23
 - Standby remote browser under admin ui > resources #2578
 - No alert about votiro bad address when using upstream proxy #4047
