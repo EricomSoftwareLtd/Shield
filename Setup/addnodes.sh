@@ -1,71 +1,38 @@
-#!/bin/bash
-############################################
-#####   Ericom Shield AddNode          #####
-#######################################LO###
-
-ES_PATH=/usr/local/ericomshield
-ES_VER_FILE="./shield-version.txt"
-LOGFILE="$ES_PATH/ericomshield.log"
-COMMAND_NAME="$0"
-UPDATE_LOG_FILE="$ES_PATH/lastoperation.log"
-CONTAINER_TAG_DEFAULT="shield-autoupdate:180916-13.48-2835"
-
-ARGS="addnode"
-COMMAND_LINE="${@}"
+#!/bin/bash -e
+###########################################
+#####   Ericom Shield Addnodes        #####
+###################################LO#####
 
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
+    echo "Usage: $0 [OPTIONS] COMMAND [ARGS]..."
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
 fi
 
-function show_usage() {
-    echo "Add new nodes to Ericom Shield cluster"
-    echo "Usage: $0 [OPTIONS] [COMMAND] [OPTIONS]"
-    echo "--verbose switch to detailed output"
+BRANCH="master"
+export ES_PATH=/usr/local/ericomshield
+export APP_NAME="$0"
+export ES_VER_FILE="$ES_PATH/shield-version.txt"
+export ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 
-    exit
-}
-
-case "$1" in
--h | --help)
-    show_usage
-    ;;
-esac
-
-case "${COMMAND_LINE[@]}" in
-*"addnode"*)
-    ARGS=""
-    ;;
-esac
-
-cd $ES_PATH
-
-echo "Running  $0:"
-
-if [ ! -f "$ES_VER_FILE" ]; then
-    echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"
-    exit 1
+if [ -f "$ES_PATH/.esbranch" ]; then
+    BRANCH=$(cat "$ES_PATH/.esbranch")
 fi
 
-CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
-if [ "$CONTAINER_TAG" = "" ]; then
-    echo "$(date): Warning: shield-autoupdate not found in $ES_VER_FILE, using default tag" >>"$LOGFILE"
-    CONTAINER_TAG="$CONTAINER_TAG_DEFAULT"
+cd "$ES_PATH"
+MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/addnodes.py"
+RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
+
+if [ "$RETURN_CODE" != "200" ]; then
+   echo "Branch $BRANCH does not exists"
+   exit 1
 fi
 
-if [ -f "$UPDATE_LOG_FILE" ]; then
-    rm -f $UPDATE_LOG_FILE
-fi
 
-echo "***************     Ericom Shield Update ($CONTAINER_TAG $ARGS ${@}) ..."
+ARGS="${@}"
 
-docker run --rm -it \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v $(which docker):/usr/bin/docker \
-    -v "$ES_PATH:/usr/local/ericomshield" \
-    -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
-    -e "COMMAND=$COMMAND_NAME" \
-    "securebrowsing/$CONTAINER_TAG" $ARGS ${@}
+SCRIPT="python3 ./addnodes.py"
+$SCRIPT $ARGS
