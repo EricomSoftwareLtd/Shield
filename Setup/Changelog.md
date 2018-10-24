@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_423] - 2018-10-23
+## [Dev:Build_423.2] - 2018-10-24
 - Dashboard: Wrong Display Name in Session Table #4513
 - Reorder end user options in right click menu #4349
 - Alert end user in case Javascript is disabled on his browser #4499
@@ -19,7 +19,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Custom trust certificate is not working with shield #3906
 - Cisco Umbrella Support (Proxyless Connector) #4350
 - Kill the shield-squid-auth container when squid exits
-
+- Update errors #4405
+- Failure addnoteds.sh -b #4438
+- issues with update from 413.2 to 420 #4482
 
 ## [Dev:Build_422] - 2018-10-23
 - Standby remote browser under admin ui > resources #2578
