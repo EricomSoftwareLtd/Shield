@@ -365,6 +365,21 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
+    proxyless-connector:
+        image: 'securebrowsing/shield-proxyless-connector:latest'
+        hostname: proxyless-connector
+        ports:
+            - '8055:80'
+        networks:
+            - shield
+        environment:
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=shield-proxyless-connector'
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement: {constraints: [node.labels.management==yes]}
+            resources: {limits: {memory: 500MB, cpus: '2'}}
     cdr-dispatcher:
         image: 'securebrowsing/shield-cdr-dispatcher:latest'
         hostname: cdr-dispatcher
