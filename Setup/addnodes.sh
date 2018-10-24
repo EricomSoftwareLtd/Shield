@@ -24,7 +24,7 @@ fi
 
 cd "$ES_PATH"
 MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/addnodes.py"
-RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
+RETURN_CODE=$(curl -so ./addnodes.py -w '%{response_code}' "$MAIN_SCRIPT_URL")
 
 if [ "$RETURN_CODE" != "200" ]; then
    echo "Branch $BRANCH does not exists"
