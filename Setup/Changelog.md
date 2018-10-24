@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_423.3] - 2018-10-24
+## [Dev:Build_423.4] - 2018-10-24
 - Dashboard: Wrong Display Name in Session Table #4513
 - Reorder end user options in right click menu #4349
 - Alert end user in case Javascript is disabled on his browser #4499

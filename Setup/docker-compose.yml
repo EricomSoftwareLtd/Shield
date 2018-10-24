@@ -366,7 +366,7 @@ services:
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
     proxyless-connector:
-        image: 'securebrowsing/proxyless-connector:latest'
+        image: 'securebrowsing/shield-proxyless-connector:latest'
         hostname: proxyless-connector
         ports:
             - '8055:80'
@@ -374,7 +374,7 @@ services:
             - shield
         environment:
             - 'TZ=UTC'
-            - 'LOGSTASH_FIELDS=service=proxyless-connector'
+            - 'LOGSTASH_FIELDS=service=shield-proxyless-connector'
         deploy:
             mode: replicated
             replicas: 1
