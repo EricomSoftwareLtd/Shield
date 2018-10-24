@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_423.2] - 2018-10-24
+## [Dev:Build_423.3] - 2018-10-24
 - Dashboard: Wrong Display Name in Session Table #4513
 - Reorder end user options in right click menu #4349
 - Alert end user in case Javascript is disabled on his browser #4499
@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update errors #4405
 - Failure addnoteds.sh -b #4438
 - issues with update from 413.2 to 420 #4482
+- Add Failure Tooltip in File Transfer Report #4512
 
 ## [Dev:Build_422] - 2018-10-23
 - Standby remote browser under admin ui > resources #2578
