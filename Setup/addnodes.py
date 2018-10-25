@@ -102,6 +102,9 @@ class AddNodeExecutor(object):
         else:
             extend_command = ' prepare '
 
+        if self.verbose:
+            extend_command = " --verbose " + extend_command
+
             if "-ip" in self.cmd:
                 ip_indx = [i for i, x in enumerate(self.cmd) if self.cmd[i] == '-ip']
                 for index in ip_indx:
