@@ -8,13 +8,88 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Git Issues should be referenced by #
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+- Git Issues should be referenced by #
+- Main Features/Bug Fixes should have (*)
+- User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_424] - 2018-10-25
+
+- Admin error #3084
+- Upload in iFrame doesn't work #4467
+- New addnode script (py)
+- addnode with --verbose doesn't work #4437
+- Failure addnodes.sh -b #4438
+
+
+## [Dev:Build_423.4] - 2018-10-24
+
+- Dashboard: Wrong Display Name in Session Table #4513
+- Reorder end user options in right click menu #4349
+- Alert end user in case Javascript is disabled on his browser #4499
+- Zip with password is not working #4378
+- Custom trust certificate is not working with shield #3906
+- Cisco Umbrella Support (Proxyless Connector) #4350
+- Kill the shield-squid-auth container when squid exits
+- Update errors #4405
+- Failure addnoteds.sh -b #4438
+- issues with update from 413.2 to 420 #4482
+- Add Failure Tooltip in File Transfer Report #4512
+
+## [Dev:Build_422] - 2018-10-23
+
+- Standby remote browser under admin ui > resources #2578
+- No alert about votiro bad address when using upstream proxy #4047
+- Change Text on Send Feedback #4384
+- Incorrect title after the policies was imported #4395
+- Update default CA date #4401
+- link for details - no results found #4424
+- Consul backup is taking a lot of CPU #4433
+- Facebook playing videos #4440
+- Alert are keep being sent about AD groups conflict #4443
+- CDR controller sometimes - failed firing event #4498
+- The version is missing in the Login - About screen #4259
+- admin UI - error message when it should not be displayed #4369
+- Wrong error messages displayed when trying to change a domain name with an incorrect one #4400
+- The activation key is not removed after the activation is done #3232
+- Admin UI - save should auto-remove spaces when exists #3331
+
+## [Dev:Build_421] - 2018-10-21
+
+- No mail alert on a machine with upstream proxy #4477
+- Download big pdf file fails with timeout #4444
+- Admin - feedback related settings - tooltip changes #4480
+- build 418 on mini sanity machine - pre check internal warning #4457
+
+## [Dev:Build_420.1] - 2018-10-21
+
+- Reverted adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+
+
+## [Dev:Build_420] - 2018-10-21
+
+- Failure addnoteds.sh -b #4438
+- Salesforce PDF preview #4342
+- Adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+- Acrobat is not recognized (R2) #488
+- Incorrect Activate Key tool tip #4465
+- Unknown error when trying to activate license #4464
+- Verify all certificates exists #4386
+- Use the docker registry in case the registry configured doesn’t work #4357
+
 
 ## [Dev:Build_419] - 2018-10-18
 
 - Fix string for DNS test total time when succeed #4435
-- W3schools.com <select> example #4402
+- W3schools.com example #4402
 - Add shell variables into docker-compose file #4354
 - Feedback Webhook URL - string update #4317
 - Authentication chaining tool tip, default field and IP range syntax #4291
@@ -87,7 +162,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - tw.yahoo.com fonts issue #4235
 - Admin - Profiles - Generate #2880
 - Ubuntu based dockers to be based on Minimal Ubuntu (18.04) #4287
-
 ## [Dev:Build_413.2] - 2018-10-09
 
 - Typing issue with shield #3859
