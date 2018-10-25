@@ -40,6 +40,7 @@ class AddNodeExecutor(object):
         self.verbose = False
         self.container = AddNodeExecutor.prepare_container_name()
         self.help_required = False
+        self.prepare = True
         self.cmd = self.prepare_args_line(command_line)
 
     def prepare_args_line(self, commands):
@@ -49,6 +50,8 @@ class AddNodeExecutor(object):
                 self.verbose = True
             elif arg == "-h" or arg == "--help":
                 self.help_required = True
+            elif arg == "--no-prepare":
+                self.prepare = False
             else:
                 main_cmd.append(arg)
         return main_cmd
@@ -73,6 +76,7 @@ class AddNodeExecutor(object):
         print('Usage {} [OPTIONS]'.format(app_name))
         print('Options:')
         print('  --verbose Switch between verbose and short output')
+        print("  --no-prepare  Don't execute prepare node")
         print("\n".join(help_arr[3:]))
 
 
@@ -85,10 +89,35 @@ class AddNodeExecutor(object):
 
         subprocess.run(cmd, shell=True)
 
+    def run_node_prepare(self):
+        index = -1
+        if "-ips" in self.cmd:
+           index = self.cmd.index('-ips')
+
+        if "--ips" in self.cmd:
+           index = self.cmd.index('--ips')
+
+        if index > 0:
+            extend_command = " prepare {}".format(" ".join(self.cmd[index:(index + 2)]))
+        else:
+            extend_command = ' prepare '
+
+            if "-ip" in self.cmd:
+                ip_indx = [i for i, x in enumerate(self.cmd) if self.cmd[i] == '-ip']
+                for index in ip_indx:
+                    extend_command += " ".join(self.cmd[index:(index + 2)])
+                    extend_command += " "
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command)
+
+        subprocess.run(cmd, shell=True)
+
     def execute(self):
         if self.help_required:
             self.show_container_help()
             exit(0)
+
+        if self.prepare:
+            self.run_node_prepare()
 
         self.execute_add_node()
 
