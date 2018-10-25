@@ -121,7 +121,7 @@ class AddNodeExecutor(object):
 
         if self.prepare:
             self.run_node_prepare()
-            print('Nodes preared to be shield. Please type ericom password.')
+            print('Nodes prepared to be shield. Please type ericom password.')
 
         self.execute_add_node()
 
