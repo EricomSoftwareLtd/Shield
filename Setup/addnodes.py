@@ -40,7 +40,7 @@ class AddNodeExecutor(object):
         self.verbose = False
         self.container = AddNodeExecutor.prepare_container_name()
         self.help_required = False
-        self.prepare = True
+        self.prepare = False
         self.cmd = self.prepare_args_line(command_line)
 
     def prepare_args_line(self, commands):
@@ -50,8 +50,8 @@ class AddNodeExecutor(object):
                 self.verbose = True
             elif arg == "-h" or arg == "--help":
                 self.help_required = True
-            elif arg == "--no-prepare":
-                self.prepare = False
+            elif arg == "--prepare":
+                self.prepare = True
             else:
                 main_cmd.append(arg)
         return main_cmd
@@ -76,7 +76,7 @@ class AddNodeExecutor(object):
         print('Usage {} [OPTIONS]'.format(app_name))
         print('Options:')
         print('  --verbose Switch between verbose and short output')
-        print("  --no-prepare  Don't execute prepare node")
+        print("  --prepare  Execute prepare node")
         print("\n".join(help_arr[3:]))
 
 
@@ -121,6 +121,7 @@ class AddNodeExecutor(object):
 
         if self.prepare:
             self.run_node_prepare()
+            print('Nodes preared to be shield. Please type ericom password.')
 
         self.execute_add_node()
 
