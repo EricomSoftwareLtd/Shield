@@ -27,7 +27,7 @@ MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRA
 RETURN_CODE=$(curl -so ./addnodes.py -w '%{response_code}' "$MAIN_SCRIPT_URL")
 
 if [ "$RETURN_CODE" != "200" ]; then
-   echo "Branch $BRANCH does not exists"
+   echo "Error: Cannot find addnodes.py in branch: $BRANCH"
    exit 1
 fi
 
