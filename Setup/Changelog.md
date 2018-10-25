@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_424] - 2018-10-25
+- Admin error #3084
+- Upload in iFrame doesn't work #4467
 
 ## [Dev:Build_423.4] - 2018-10-24
 - Dashboard: Wrong Display Name in Session Table #4513
