@@ -11,7 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_424] - 2018-10-25
+
+- Admin error #3084
+- Upload in iFrame doesn't work #4467
+- New addnode script (py)
+- addnode with --verbose doesn't work #4437
+- Failure addnodes.sh -b #4438
+
+
 ## [Dev:Build_423.4] - 2018-10-24
+
 - Dashboard: Wrong Display Name in Session Table #4513
 - Reorder end user options in right click menu #4349
 - Alert end user in case Javascript is disabled on his browser #4499
@@ -25,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add Failure Tooltip in File Transfer Report #4512
 
 ## [Dev:Build_422] - 2018-10-23
+
 - Standby remote browser under admin ui > resources #2578
 - No alert about votiro bad address when using upstream proxy #4047
 - Change Text on Send Feedback #4384
@@ -42,16 +53,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin UI - save should auto-remove spaces when exists #3331
 
 ## [Dev:Build_421] - 2018-10-21
+
 - No mail alert on a machine with upstream proxy #4477
 - Download big pdf file fails with timeout #4444
 - Admin - feedback related settings - tooltip changes #4480
 - build 418 on mini sanity machine - pre check internal warning #4457
 
 ## [Dev:Build_420.1] - 2018-10-21
+
 - Reverted adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
 
 
 ## [Dev:Build_420] - 2018-10-21
+
 - Failure addnoteds.sh -b #4438
 - Salesforce PDF preview #4342
 - Adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
