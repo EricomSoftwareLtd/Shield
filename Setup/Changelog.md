@@ -11,6 +11,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_423.4] - 2018-10-24
+- Dashboard: Wrong Display Name in Session Table #4513
+- Reorder end user options in right click menu #4349
+- Alert end user in case Javascript is disabled on his browser #4499
+- Zip with password is not working #4378
+- Custom trust certificate is not working with shield #3906
+- Cisco Umbrella Support (Proxyless Connector) #4350
+- Kill the shield-squid-auth container when squid exits
+- Update errors #4405
+- Failure addnoteds.sh -b #4438
+- issues with update from 413.2 to 420 #4482
+- Add Failure Tooltip in File Transfer Report #4512
+
+## [Dev:Build_422] - 2018-10-23
+- Standby remote browser under admin ui > resources #2578
+- No alert about votiro bad address when using upstream proxy #4047
+- Change Text on Send Feedback #4384
+- Incorrect title after the policies was imported #4395
+- Update default CA date #4401
+- link for details - no results found #4424
+- Consul backup is taking a lot of CPU #4433
+- Facebook playing videos #4440
+- Alert are keep being sent about AD groups conflict #4443
+- CDR controller sometimes - failed firing event #4498
+- The version is missing in the Login - About screen #4259
+- admin UI - error message when it should not be displayed #4369
+- Wrong error messages displayed when trying to change a domain name with an incorrect one #4400
+- The activation key is not removed after the activation is done #3232
+- Admin UI - save should auto-remove spaces when exists #3331
+
 ## [Dev:Build_421] - 2018-10-21
 - No mail alert on a machine with upstream proxy #4477
 - Download big pdf file fails with timeout #4444
