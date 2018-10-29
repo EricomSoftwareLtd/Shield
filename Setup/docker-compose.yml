@@ -343,7 +343,7 @@ services:
         networks:
             - shield
         ports:
-            - {target: 3128, published: 3128, protocol: tcp, mode: host}
+            - {target: 3128, published: "${SHIELD_PROXY_PORT}", protocol: tcp, mode: host}
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
@@ -351,8 +351,6 @@ services:
     web-service:
         image: 'securebrowsing/shield-web-service:latest'
         hostname: web-service
-        ports:
-            - '80:1345'
         networks:
             - shield
         environment:
@@ -369,7 +367,7 @@ services:
         image: 'securebrowsing/shield-proxyless-connector:latest'
         hostname: proxyless-connector
         ports:
-            - '8055:80'
+            - '80:80'
         networks:
             - shield
         environment:
