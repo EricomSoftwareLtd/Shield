@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - if during addnode running fatal error is thrown addnode script is not stopped. #3864
 - Add prepare-node.sh as part of addnode script #
 - When node is not in swarm or no leader, status-node returns a script error #3276
+- Change proxy via env_var in yml file #4535
 
 ## [Dev:Build_424] - 2018-10-25
 
