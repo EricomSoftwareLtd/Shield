@@ -31,6 +31,15 @@ run_container_template = """docker run --rm  -it \\
                   -e "COMMAND={2}" \\
                   {3} {4}"""
 
+
+def run_sshkey_provider(container_name):
+    cmd = '''docker run --rm -it \\
+                -v /var/run/docker.sock:/var/run/docker.sock \\
+                -v $(which docker):/usr/bin/docker \\
+                -v {0}:/usr/local/ericomshield \\
+                securebrowsing/{1} sshkey'''.format(es_path, container_name)
+    subprocess.run(cmd, shell=True)
+
 class AddNodeExecutor(object):
     """
     Run commands that connect new nodes to leader
@@ -118,6 +127,9 @@ class AddNodeExecutor(object):
         if self.help_required:
             self.show_container_help()
             exit(0)
+
+        if not os.path.exists(os.path.join(es_path, "ericomshield_key.pub")):
+            run_sshkey_provider(self.container)
 
         if self.prepare:
             self.run_node_prepare()
