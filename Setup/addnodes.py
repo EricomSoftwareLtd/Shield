@@ -37,7 +37,7 @@ def run_sshkey_provider(container_name):
                 -v /var/run/docker.sock:/var/run/docker.sock \\
                 -v $(which docker):/usr/bin/docker \\
                 -v {0}:/usr/local/ericomshield \\
-                securebrowsing/{1} sshkey'''.format(es_path, container_name)
+                {1} sshkey'''.format(es_path, container_name)
     subprocess.run(cmd, shell=True)
 
 class AddNodeExecutor(object):
