@@ -343,7 +343,7 @@ services:
         networks:
             - shield
         ports:
-            - {target: 3128, published: 3128, protocol: tcp, mode: host}
+            - {target: 3128, published: ${SHIELD_PROXY_PORT}, protocol: tcp, mode: host}
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
