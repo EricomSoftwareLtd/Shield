@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_425] - 2018-10-28
+- Link to Email Links Should Work #1276
+- Field name change - Admin | Resources #4541
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Webservice is used behind Ngnix 
+- Cookies are lost #4553
+- Can't log in to Salesforce (Google is saving the name + password as password in one line (see screenshot attached) #4555
+- A problem to connect to SF with shield Jerusalem #4557
+- DNS not registered at the consul #4547
+- Not possible to filter by User Name/Display Name in Connections Report #4536
+- addnodes exception when trying to add leader node #4472
+- upload photo/ video to facebook is not working #4448
+- if during addnode running fatal error is thrown addnode script is not stopped. #3864
+- Add prepare-node.sh as part of addnode script #
+- When node is not in swarm or no leader, status-node returns a script error #3276
+
 ## [Dev:Build_424] - 2018-10-25
 
 - Admin error #3084
