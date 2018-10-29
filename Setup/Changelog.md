@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_426] - 2018-10-29
+- String update #4564
+- Network is slow error appears #4508
+- Change Text on Send Feedback #4384
 
 ## [Dev:Build_425] - 2018-10-28
 - Link to Email Links Should Work #1276
