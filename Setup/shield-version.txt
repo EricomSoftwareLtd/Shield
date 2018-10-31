@@ -26,5 +26,4 @@ shield-notifier:latest shield-notifier:181021-12.38-3020
 shield-dns:latest shield-dns:181029-09.26-3074
 shield-proxyless-connector:latest shield-proxyless-connector:181025-17.07-3061
 es-file-preview:latest es-file-preview:181031-07.32-3094
-
 # This needs to be the last line
