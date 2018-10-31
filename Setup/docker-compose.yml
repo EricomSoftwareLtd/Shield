@@ -448,6 +448,22 @@ services:
         deploy:
             mode: global
 
+    es-file-preview:
+        image: 'securebrowsing/es-file-preview:latest'
+        hostname: es-file-preview
+        environment:
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=esfilepreview'
+        networks:
+            - shield
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+
 volumes:
     elastic:
     portainer_v2:
