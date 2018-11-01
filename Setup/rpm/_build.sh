@@ -4,6 +4,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" #"
 #source "${DIR}/common"
 
 export ERICOM_SHIELD_VERSION="Dev"
+export DOCKER_VERSION_LOW="18.03.1"
+export DOCKER_VERSION_HIGH="18.03.2"
 export DIR
 
 BUILD_DIR="${DIR}/_build/rpm"

@@ -8,9 +8,8 @@ Group:     Applications/Internet
 URL:       https://www.ericomshield.com/
 Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
 
-Requires: docker-ce = 18.03.1
-Requires: python
-Requires: python36
+Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
+Requires: python, python36
 
 Conflicts: docker
 Conflicts: docker-client
@@ -19,8 +18,6 @@ Conflicts: docker-common
 Conflicts: docker-latest
 Conflicts: docker-latest-logrotate
 Conflicts: docker-logrotate
-Conflicts: docker-selinux
-Conflicts: docker-engine-selinux
 Conflicts: docker-engine
 
 %description
