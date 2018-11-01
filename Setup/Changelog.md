@@ -10,6 +10,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_427] - 2018-10-31
+- string update #4564
+- (*) Spellcheck not working on Salesforce iframes #4351
+- zip and 7z is not working #4378
+- Added Preview continer 
+
+
+## [Dev:Build_426] - 2018-10-29
+- String update #4564
+- Network is slow error appears #4508
+- Change Text on Send Feedback #4384
+
+## [Dev:Build_425] - 2018-10-28
+- Link to Email Links Should Work #1276
+- Field name change - Admin | Resources #4541
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Webservice is used behind Ngnix 
+- Cookies are lost #4553
+- Can't log in to Salesforce (Google is saving the name + password as password in one line (see screenshot attached) #4555
+- A problem to connect to SF with shield Jerusalem #4557
+- DNS not registered at the consul #4547
+- Not possible to filter by User Name/Display Name in Connections Report #4536
+- addnodes exception when trying to add leader node #4472
+- upload photo/ video to facebook is not working #4448
+- if during addnode running fatal error is thrown addnode script is not stopped. #3864
+- Add prepare-node.sh as part of addnode script #
+- When node is not in swarm or no leader, status-node returns a script error #3276
+- Change proxy via env_var in yml file #4535
 
 ## [Dev:Build_424] - 2018-10-25
 
