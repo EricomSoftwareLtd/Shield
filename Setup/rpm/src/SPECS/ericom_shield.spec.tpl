@@ -8,6 +8,21 @@ Group:     Applications/Internet
 URL:       https://www.ericomshield.com/
 Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
 
+Requires: docker-ce = 18.03.1
+Requires: python
+Requires: python36
+
+Conflicts: docker
+Conflicts: docker-client
+Conflicts: docker-client-latest
+Conflicts: docker-common
+Conflicts: docker-latest
+Conflicts: docker-latest-logrotate
+Conflicts: docker-logrotate
+Conflicts: docker-selinux
+Conflicts: docker-engine-selinux
+Conflicts: docker-engine
+
 %description
 Ericom Shield handles browsing sessions remotely, blocking web-borne threats
 from penetrating your enterprise. Isolating users from malicious web content,
@@ -38,6 +53,7 @@ source "Setup/rpm/src/rpm_utils.sh"
 %{__install} -Dp -m 755 "Setup/restore.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/prepare-node.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/spellcheck.sh" "%{buildroot}%{_prefix}/local/ericomshield"
+%{__install} -Dp -m 755 "Setup/shield-pre-install-check.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 
 %{__install} -Dp -m 644 "Setup/sysctl_shield.conf" "%{buildroot}%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
 %{__install} -Dp -m 644 "Setup/.shield_aliases" "%{buildroot}%{_sysconfdir}/profile.d/ericom_shield.sh"
