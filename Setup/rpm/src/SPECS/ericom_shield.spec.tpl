@@ -18,6 +18,9 @@ user productivity.
 tar --strip=1 -xzvf %{SOURCE0}
 
 %install
+
+source "Setup/rpm/src/rpm_utils.sh"
+
 %{__rm} -rf %{buildroot}
 %{__mkdir} -p %{buildroot}%{_prefix}/local/ericomshield
 
@@ -39,10 +42,14 @@ tar --strip=1 -xzvf %{SOURCE0}
 %{__install} -Dp -m 644 "Setup/sysctl_shield.conf" "%{buildroot}%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
 %{__install} -Dp -m 644 "Setup/.shield_aliases" "%{buildroot}%{_sysconfdir}/profile.d/ericom_shield.sh"
 
+%{__install} -Dp -m 644 "Setup/docker-compose.yml" "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml"
+prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setup/shield-version.txt"
+
 %files
 %dir "%{_prefix}/local/ericomshield"
 %config "%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
+%config "%{_prefix}/local/ericomshield//docker-compose.yml"
 "%{_prefix}/local/ericomshield/*.sh"
 
 %changelog

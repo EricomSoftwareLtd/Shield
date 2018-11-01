@@ -15,7 +15,8 @@ mkdir -p "${BUILD_DIR}"
 
 cp -r "${DIR}/src"/* "${DIR}/_build/rpm"
 
-curl -L "https://api.github.com/repos/EricomSoftwareLtd/Shield/tarball/${ERICOM_SHIELD_VERSION}" >"${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
+#curl -L "https://api.github.com/repos/EricomSoftwareLtd/Shield/tarball/${ERICOM_SHIELD_VERSION}" >"${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
+(cd ../../.. && tar czvf "/tmp/${ERICOM_SHIELD_VERSION}.tar.gz" Shield && mv "/tmp/${ERICOM_SHIELD_VERSION}.tar.gz" "${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz")
 envsubst <"${BUILD_DIR}/SPECS/ericom_shield.spec.tpl" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
 
 rpmbuild \
