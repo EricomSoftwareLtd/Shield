@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - if during addnode running fatal error is thrown addnode script is not stopped. #3864
 - Remote File Preview #879
 - Proxyless mode enable/disable #4597
+- Change order of values #4613
 
 
 ## [Dev:Build_427] - 2018-10-31
