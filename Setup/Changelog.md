@@ -10,6 +10,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_428] - 2018-11-04
+- Can print url pdf file when printing is disabled #4379
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Another LDAP login issue (reported by KKA) #4156
+- Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
+- Underline of unconverted character string (#146) #3975
+- Japanese character conversion candidate display position #3961
+- When node is not in swarm or no leader, status-node returns a script error #3276
+- Backspace after using left arrow in Japanese is not working as expected #2192
+- portal mode - ignores license and session limit tabs #4601
+- if during addnode running fatal error is thrown addnode script is not stopped. #3864
+- Remote File Preview #879
+- Proxyless mode enable/disable #4597
+
+
 ## [Dev:Build_427] - 2018-10-31
 - string update #4564
 - (*) Spellcheck not working on Salesforce iframes #4351
