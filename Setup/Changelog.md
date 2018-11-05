@@ -10,7 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
 ## [Dev:Build_428] - 2018-11-04
+
 - Can print url pdf file when printing is disabled #4379
 - Reset Certificate uploaded and revert to Ericom Certificate #4315
 - Another LDAP login issue (reported by KKA) #4156
@@ -27,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Dev:Build_427] - 2018-10-31
+
 - string update #4564
 - (*) Spellcheck not working on Salesforce iframes #4351
 - zip and 7z is not working #4378
@@ -34,11 +37,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Dev:Build_426] - 2018-10-29
+
 - String update #4564
 - Network is slow error appears #4508
 - Change Text on Send Feedback #4384
 
 ## [Dev:Build_425] - 2018-10-28
+
 - Link to Email Links Should Work #1276
 - Field name change - Admin | Resources #4541
 - Reset Certificate uploaded and revert to Ericom Certificate #4315
