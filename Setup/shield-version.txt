@@ -10,7 +10,7 @@ icap-server:latest icap-server:181104-05.39-3139
 shield-cef:latest shield-cef:181104-06.51-3140
 broker-server:latest broker-server:181104-05.39-3139
 shield-collector:latest shield-collector:181021-13.12-3023
-shield-elk:latest shield-elk:181101-15.27-3129
+shield-elk:latest shield-elk:test4646
 extproxy:latest extproxy:181010-18.49-2935
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:181101-15.18-3127
 shield-cdr-controller:latest shield-cdr-controller:181031-11.34-3098
