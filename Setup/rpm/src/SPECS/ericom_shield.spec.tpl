@@ -8,13 +8,13 @@ Group:     Applications/Internet
 URL:       https://www.ericomshield.com/
 Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
 
-BuildRequires: tar
+BuildRequires: tar, gzip
 %{?systemd_requires}
 BuildRequires: systemd
 
 Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
 Requires: python, python36
-Requires: coreutils, util-linux
+Requires: coreutils, util-linux, iproute
 
 Conflicts: docker
 Conflicts: docker-client
