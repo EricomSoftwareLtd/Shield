@@ -78,11 +78,14 @@ prepare_yml() {
 %{__install} -Dp -m 644 "Setup/docker-compose.yml" "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml"
 prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setup/shield-version.txt"
 
+%{__install} -Dp -m 644 "Setup/shield-version.txt" "%{buildroot}%{_prefix}/local/ericomshield"
+
 %files
 %dir "%{_prefix}/local/ericomshield"
 %config "%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
-%config "%{_prefix}/local/ericomshield//docker-compose.yml"
+%config "%{_prefix}/local/ericomshield/docker-compose.yml"
+%config "%{_prefix}/local/ericomshield/shield-version.txt"
 "%{_prefix}/local/ericomshield/*.sh"
 
 %post
