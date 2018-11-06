@@ -99,7 +99,8 @@ class UpdateExecutor():
                     and not self.force_update \
                     and not self.run_sshkey\
                     and not self.change_registry\
-                    and not self.all_args.list_versions:
+                    and not self.all_args.list_versions\
+                    and not self.all_args.fixConflicts:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
                 print(" Current system version is {}".format(second_match[0]))
                 print(" Your EricomShield System is Up to date")
