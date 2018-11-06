@@ -1,12 +1,13 @@
 #!/bin/bash -ex
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" #"
-#source "${DIR}/common"
-
 export ERICOM_SHIELD_VERSION="Dev"
 export DOCKER_VERSION_LOW="18.03.1"
 export DOCKER_VERSION_HIGH="18.03.2"
-export DIR
+
+SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" #"
+#source "${DIR}/common"
 
 BUILD_DIR="${DIR}/_build/rpm"
 
@@ -19,7 +20,7 @@ cp -r "${DIR}/src"/* "${DIR}/_build/rpm"
 
 #curl -L "https://api.github.com/repos/EricomSoftwareLtd/Shield/tarball/${ERICOM_SHIELD_VERSION}" >"${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
 (cd ../../.. && tar czvf "/tmp/${ERICOM_SHIELD_VERSION}.tar.gz" Shield && mv "/tmp/${ERICOM_SHIELD_VERSION}.tar.gz" "${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz")
-envsubst <"${BUILD_DIR}/SPECS/ericom_shield.spec.tpl" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
+envsubst <"${BUILD_DIR}/SPECS/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
 
 rpmbuild \
  --define="_topdir ${BUILD_DIR}" \

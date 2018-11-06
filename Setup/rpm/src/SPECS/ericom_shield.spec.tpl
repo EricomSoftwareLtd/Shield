@@ -8,8 +8,13 @@ Group:     Applications/Internet
 URL:       https://www.ericomshield.com/
 Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
 
+BuildRequires: tar
+%{?systemd_requires}
+BuildRequires: systemd
+
 Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
 Requires: python, python36
+Requires: coreutils, util-linux
 
 Conflicts: docker
 Conflicts: docker-client
@@ -31,7 +36,22 @@ tar --strip=1 -xzvf %{SOURCE0}
 
 %install
 
-source "Setup/rpm/src/rpm_utils.sh"
+prepare_yml() {
+    local ES_YML_FILE="$1"
+    local ES_VER_FILE="$2"
+    while read -r ver; do
+        if [ "${ver:0:1}" == '#' ]; then
+            echo "$ver"
+        else
+            pattern_ver="$(echo "$ver" | %{__awk} '{print $1}')"
+            comp_ver="$(echo "$ver" | %{__awk} '{print $2}')"
+            if [ ! -z "$pattern_ver" ]; then
+                #echo "Changing ver: $comp_ver"
+                %{__sed} -i'' "s/$pattern_ver/$comp_ver/g" "$ES_YML_FILE"
+            fi
+        fi
+    done <"$ES_VER_FILE"
+}
 
 %{__rm} -rf %{buildroot}
 %{__mkdir} -p %{buildroot}%{_prefix}/local/ericomshield
@@ -64,6 +84,11 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
 %config "%{_prefix}/local/ericomshield//docker-compose.yml"
 "%{_prefix}/local/ericomshield/*.sh"
+
+%post
+TZ="$(date '+%Z')"
+ES_YML_FILE="%{_prefix}/local/ericomshield/docker-compose.yml"
+%{__sed} -i'' "s#TZ=UTC#TZ=${TZ}#g" "${ES_YML_FILE}"
 
 %changelog
 * Fri Oct 26 2018 Andrew Novikov <Andrew.Novikov@artezio.com> - 1
