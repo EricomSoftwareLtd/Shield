@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_429] - 2018-11-06
+- ELK container not start in Dev428 #4646
+- Elk conflicts message #4644
+- Preview should not be generated on unsupported file types #4643
+- Print should not be available on Preview #4639
+- Preview - printing the file does not work properly #4632
+- Preview: Right Click: Pause Shield & Reload shouldn't be displayed #4631
+- Preview - File Transfer report info is not correct #4629
+- Preview multiple files #4628
+- Uploading files should ignore timeout #4449
+- Preview - fail to show big file #4630
+
 ## [Dev:Build_428] - 2018-11-04
 
 - Can print url pdf file when printing is disabled #4379
