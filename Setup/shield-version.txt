@@ -1,5 +1,5 @@
-#Build Staging:Build_428.1 on 18/11/04   #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_428.1
+#Build Staging:Build_428.2 on 18/11/04   #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_428.2
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
@@ -10,7 +10,7 @@ icap-server:latest icap-server:181104-05.39-3139
 shield-cef:latest shield-cef:181104-06.51-3140
 broker-server:latest broker-server:181104-05.39-3139
 shield-collector:latest shield-collector:181021-13.12-3023
-shield-elk:latest shield-elk:181104-15.36-3144
+shield-elk:latest shield-elk:181106-11.30-3156
 extproxy:latest extproxy:181010-18.49-2935
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:181101-15.18-3127
 shield-cdr-controller:latest shield-cdr-controller:181031-11.34-3098
