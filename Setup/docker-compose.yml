@@ -147,7 +147,6 @@ services:
             resources: {limits: {memory: 2GB, cpus: '2'}}
         environment:
             - 'TZ=UTC'
-            # eth2 for Dev
             - "SHIELD_SUBNET=${SUB_NET}"
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
@@ -343,7 +342,7 @@ services:
         networks:
             - shield
         ports:
-            - {target: 3128, published: 3128, protocol: tcp, mode: host}
+            - {target: 3128, published: "${SHIELD_PROXY_PORT}", protocol: tcp, mode: host}
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
@@ -351,8 +350,6 @@ services:
     web-service:
         image: 'securebrowsing/shield-web-service:latest'
         hostname: web-service
-        ports:
-            - '80:1345'
         networks:
             - shield
         environment:
@@ -365,6 +362,21 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
+    proxyless-connector:
+        image: 'securebrowsing/shield-proxyless-connector:latest'
+        hostname: proxyless-connector
+        ports:
+            - '80:80'
+        networks:
+            - shield
+        environment:
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=shield-proxyless-connector'
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement: {constraints: [node.labels.management==yes]}
+            resources: {limits: {memory: 500MB, cpus: '2'}}
     cdr-dispatcher:
         image: 'securebrowsing/shield-cdr-dispatcher:latest'
         hostname: cdr-dispatcher
@@ -434,6 +446,22 @@ services:
             - shield
         deploy:
             mode: global
+
+    es-file-preview:
+        image: 'securebrowsing/es-file-preview:latest'
+        hostname: es-file-preview
+        environment:
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=esfilepreview'
+        networks:
+            - shield
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
 
 volumes:
     elastic:
