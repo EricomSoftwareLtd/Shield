@@ -17,6 +17,7 @@ if ((EUID != 0)); then
 fi
 
 ES_PATH="/usr/local/ericomshield"
+ES_YML_FILE="$ES_PATH/docker-compose.yml"
 ES_VER_FILE="$ES_PATH/shield-version.txt"
 ES_VER_FILE_BAK="${ES_VER_FILE}.rpmsave"
 LOGFILE="$ES_PATH/ericomshield.log"
@@ -224,18 +225,18 @@ function docker_login() {
 
 function prepare_yml() {
     #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
-    sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
+    sed -i'' "s/IP_ADDRESS/$MY_IP/g" "$ES_YML_FILE"
 
     local TZ="$(date '+%Z')"
-    sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
+    sed -i'' "s#TZ=UTC#TZ=${TZ}#g" "$ES_YML_FILE"
 }
 
 function switch_to_multi_node() {
-    if [ $(grep -c '#[[:space:]]*mode: global[[:space:]]*#multi node' $ES_YML_FILE) -eq 1 ]; then
+    if [ $(grep -c '#[[:space:]]*mode: global[[:space:]]*#multi node' "$ES_YML_FILE") -eq 1 ]; then
         echo "Switching to Multi-Node (consul-server -> global)"
-        sed -i'' 's/\(mode: replicated[[:space:]]*#single node\)/#\1/g' $ES_YML_FILE
-        sed -i'' 's/\(replicas: 5[[:space:]]*#single node\)/#\1/g' $ES_YML_FILE
-        sed -i'' 's/#\([[:space:]]*mode: global[[:space:]]*#multi node\)/\1/g' $ES_YML_FILE
+        sed -i'' 's/\(mode: replicated[[:space:]]*#single node\)/#\1/g' "$ES_YML_FILE"
+        sed -i'' 's/\(replicas: 5[[:space:]]*#single node\)/#\1/g' "$ES_YML_FILE"
+        sed -i'' 's/#\([[:space:]]*mode: global[[:space:]]*#multi node\)/\1/g' "$ES_YML_FILE"
         SWITCHED_TO_MULTINODE=true
     fi
 }
