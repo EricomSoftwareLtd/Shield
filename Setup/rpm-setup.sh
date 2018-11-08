@@ -17,6 +17,8 @@ if ((EUID != 0)); then
 fi
 
 ES_PATH="/usr/local/ericomshield"
+ES_VER_FILE="$ES_PATH/shield-version.txt"
+ES_VER_FILE_BAK="${ES_VER_FILE}.rpmsave"
 LOGFILE="$ES_PATH/ericomshield.log"
 UPDATE=false
 UPDATE_NEED_RESTART=false
@@ -325,6 +327,21 @@ function update_daemon_json() {
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
+if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
+    echo 'You will now be presented with the End User License Agreement.'
+    echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
+    echo 'Please, read the EULA carefully, then accept it to continue the setup process or reject to exit.'
+    read -n1 -r -p "Press any key to continue..." key
+    echo
+
+    if accept_license "$ES_PATH/Ericom-EULA.txt"; then
+        log_message "EULA has been accepted"
+        date -Iminutes >"$EULA_ACCEPTED_FILE"
+    else
+        failed_to_setup_cleaner "EULA has not been accepted, exiting..."
+    fi
+fi
+
 if [ "$ES_RUN_DEPLOY" == true ]; then
     if ! restore_my_ip || [[ $ES_FORCE_SET_IP_ADDRESS == true ]]; then
         choose_network_interface
@@ -364,23 +381,6 @@ if ! check_registry; then
         esac
     done
 fi
-
-if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
-    echo 'You will now be presented with the End User License Agreement.'
-    echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
-    echo 'Please, read the EULA carefully, then accept it to continue the setup process or reject to exit.'
-    read -n1 -r -p "Press any key to continue..." key
-    echo
-
-    if accept_license "$ES_PATH/Ericom-EULA.txt"; then
-        log_message "EULA has been accepted"
-        date -Iminutes >"$EULA_ACCEPTED_FILE"
-    else
-        failed_to_setup_cleaner "EULA has not been accepted, exiting..."
-    fi
-fi
-
-./prepare-node.sh
 
 prepare_yml
 
