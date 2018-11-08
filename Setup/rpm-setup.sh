@@ -178,7 +178,7 @@ function failed_to_setup_cleaner() {
 
 function accept_license() {
     export LESSSECURE=1
-    while less -P"%pb\% Press h for help or q to quit" "$1" &&
+    while LC_ALL="en_US.UTF-8" less -P"%pb\% Press h for help or q to quit" "$1" &&
         read -p "Do you accept the EULA (yes/no/anything else to display it again)? " choice; do
         case "$choice" in
         y | Y | n | N)
@@ -372,21 +372,11 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
     read -n1 -r -p "Press any key to continue..." key
     echo
 
-    curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
     if accept_license "$ES_PATH/Ericom-EULA.txt"; then
         log_message "EULA has been accepted"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
     else
         failed_to_setup_cleaner "EULA has not been accepted, exiting..."
-    fi
-fi
-
-if [ "$ES_FORCE" == false ]; then
-    source $ES_PRE_CHECK_FILE
-    echo "***************     Running pre-setup-check ..."
-    perform_env_test
-    if [ "$?" -ne "0" ]; then
-        failed_to_setup_cleaner "Shield pre-setup-check failed!"
     fi
 fi
 
