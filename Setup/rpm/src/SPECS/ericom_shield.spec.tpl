@@ -13,8 +13,8 @@ BuildRequires: tar, gzip
 BuildRequires: systemd
 
 Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
-Requires: python, python36
-Requires: coreutils, util-linux, iproute
+Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
+Requires: centos-release >= 7-5
 
 Conflicts: docker
 Conflicts: docker-client
@@ -24,6 +24,7 @@ Conflicts: docker-latest
 Conflicts: docker-latest-logrotate
 Conflicts: docker-logrotate
 Conflicts: docker-engine
+Conflicts: bind, dnsmasq, unbound
 
 %description
 Ericom Shield handles browsing sessions remotely, blocking web-borne threats
@@ -55,22 +56,26 @@ prepare_yml() {
 
 %{__rm} -rf %{buildroot}
 %{__mkdir} -p %{buildroot}%{_prefix}/local/ericomshield
+%{__mkdir} -p %{buildroot}%{_prefix}/local/ericomshield/backup
 
 # %{__install} -Dp -m 755 "Setup/ericomshield-setup.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 # %{__install} -Dp -m 755 "Setup/update.sh" "%{buildroot}%{_prefix}/local/ericomshield"
+# %{__install} -Dp -m 755 "Setup/prepare-node.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/autoupdate.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/start.sh" "%{buildroot}%{_prefix}/local/ericomshield"
+%{__install} -Dp -m 755 "Setup/deploy-shield.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/showversion.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/stop.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/status.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/restart.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/show-my-ip.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/addnodes.sh" "%{buildroot}%{_prefix}/local/ericomshield"
+%{__install} -Dp -m 755 "Setup/addnodes.py" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/nodes.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/restore.sh" "%{buildroot}%{_prefix}/local/ericomshield"
-%{__install} -Dp -m 755 "Setup/prepare-node.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/spellcheck.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/shield-pre-install-check.sh" "%{buildroot}%{_prefix}/local/ericomshield"
+%{__install} -Dp -m 755 "Setup/rpm-setup.sh" "%{buildroot}%{_prefix}/local/ericomshield/setup.sh"
 
 %{__install} -Dp -m 644 "Setup/sysctl_shield.conf" "%{buildroot}%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
 %{__install} -Dp -m 644 "Setup/.shield_aliases" "%{buildroot}%{_sysconfdir}/profile.d/ericom_shield.sh"
@@ -80,13 +85,24 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 
 %{__install} -Dp -m 644 "Setup/shield-version.txt" "%{buildroot}%{_prefix}/local/ericomshield"
 
+%{__install} -Dp -m 644 "Setup/Ericom-EULA.txt" "%{buildroot}%{_prefix}/local/ericomshield"
+
 %files
 %dir "%{_prefix}/local/ericomshield"
+%dir "%{_prefix}/local/ericomshield/backup"
 %config "%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
 %config "%{_prefix}/local/ericomshield/docker-compose.yml"
 %config "%{_prefix}/local/ericomshield/shield-version.txt"
+%doc "%{_prefix}/local/ericomshield/Ericom-EULA.txt"
+%ghost "%{_prefix}/local/ericomshield/.eula_accepted"
+%ghost "%{_prefix}/local/ericomshield/ericomshield.log"
 "%{_prefix}/local/ericomshield/*.sh"
+"%{_prefix}/local/ericomshield/*.py"
+"%{_prefix}/local/ericomshield/*.pyc"
+"%{_prefix}/local/ericomshield/*.pyo"
+
+%pre
 
 %post
 TZ="$(date '+%Z')"
