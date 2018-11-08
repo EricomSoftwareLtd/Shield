@@ -24,8 +24,6 @@ DOCKER_SWARMEXEC_TAG=180128-09.08-1217
 export SUB_NET="10.20.0.0/16"
 export SHIELD_PROXY_PORT="3128"
 
-
-
 if [ -f "$ES_PATH/customer.env" ]; then
     source "$ES_PATH/customer.env"
 fi

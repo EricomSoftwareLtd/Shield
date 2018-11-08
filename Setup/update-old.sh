@@ -66,8 +66,8 @@ if [ ! -f "$ES_PATH/ericomshield_key" ] && [ -z "$KEY_INSTALL" ]; then
     echo "Runnning $0 sshkey first ..."
     $0 sshkey
     if [ "$?" -ne "0" ]; then
-       echo "Cannot create sshkey, exiting"
-       exit 0
+        echo "Cannot create sshkey, exiting"
+        exit 0
     fi
     echo "done!"
 fi
@@ -91,46 +91,45 @@ function list_versions() {
         cat Releases.txt | cut -d':' -f1
         read -p "Please select the Release you want to install/update (1-4):" choice
         case "$choice" in
-            "1" | "latest")
-                echo 'latest'
-                OPTION="1)"
-                break
-                ;;
-            "2")
-                echo "2."
-                OPTION="2)"
-                break
-                ;;
-            "3")
-                echo "3."
-                OPTION="3)"
-                break
-                ;;
-            "4")
-                echo "4."
-                OPTION="4)"
-                break
-                ;;
-            *)
-                echo "Error: Not valid option, exiting"
-                ;;
+        "1" | "latest")
+            echo 'latest'
+            OPTION="1)"
+            break
+            ;;
+        "2")
+            echo "2."
+            OPTION="2)"
+            break
+            ;;
+        "3")
+            echo "3."
+            OPTION="3)"
+            break
+            ;;
+        "4")
+            echo "4."
+            OPTION="4)"
+            break
+            ;;
+        *)
+            echo "Error: Not valid option, exiting"
+            ;;
         esac
     done
     echo "$OPTION"
     grep "$OPTION" Releases.txt
     BRANCH=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
-    echo "$BRANCH" > "$ES_BRANCH_FILE"
+    echo "$BRANCH" >"$ES_BRANCH_FILE"
 }
 
 function elk_conflicts_solving() {
     CONTAINER_TAG="$(grep -r 'shield-autoupdate' $ES_VER_FILE | cut -d' ' -f2)"
     docker run --rm -it \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v $(which docker):/usr/bin/docker \
-    -v /usr/local/ericomshield:/usr/local/ericomshield \
-    "securebrowsing/$CONTAINER_TAG" "$FULL_OUTPUT" elkConflicts
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v $(which docker):/usr/bin/docker \
+        -v /usr/local/ericomshield:/usr/local/ericomshield \
+        "securebrowsing/$CONTAINER_TAG" "$FULL_OUTPUT" elkConflicts
 }
-
 
 function get_latest_version() {
     cd "$ES_PATH"
@@ -179,22 +178,21 @@ while [ $# -ne 0 ]; do
         list_versions
         exit 0
         ;;
-    --elk-conflicts )
+    --elk-conflicts)
         get_latest_version
         elk_conflicts_solving
         exit 0
         ;;
 
-#    Currently not need to check another options because will be checked in container script
-#    *)
-#        echo "Error: Not valid option, exiting"
-#        usage
-#        exit 1
-#        ;;
+    #    Currently not need to check another options because will be checked in container script
+    #    *)
+    #        echo "Error: Not valid option, exiting"
+    #        usage
+    #        exit 1
+    #        ;;
     esac
     shift
 done
-
 
 function read_current_version() {
     ver=$(cat "$ES_CONFIG_FILE" | grep "SHIELD_VER=")
@@ -261,7 +259,7 @@ function upgrade_docker_version() {
     NEXT_VERSION=$(cat "$ES_VER_FILE" | grep 'docker-version' | awk '{ print $2 }')
     CURRENT_VERSION=$(docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1)
 
-    if [[ ($NEXT_VERSION != "" && $NEXT_VERSION != "$CURRENT_VERSION" && -z $KEY_INSTALL && -z $HELP_ASKED) || ( $FORCE_RUN == "yes" && -z "$HELP_ASKED" ) ]]; then
+    if [[ ($NEXT_VERSION != "" && $NEXT_VERSION != "$CURRENT_VERSION" && -z $KEY_INSTALL && -z $HELP_ASKED) || ($FORCE_RUN == "yes" && -z $HELP_ASKED) ]]; then
         docker run --rm $DOCKER_RUN_PARAM \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v $(which docker):/usr/bin/docker \

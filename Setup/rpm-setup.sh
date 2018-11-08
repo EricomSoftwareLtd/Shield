@@ -57,7 +57,7 @@ while [ $# -ne 0 ]; do
     -f | --force)
         ES_FORCE=true
         if [ -f "$ES_VER_FILE" ]; then
-           echo " " >$ES_VER_FILE
+            echo " " >$ES_VER_FILE
         fi
         ;;
     --force-ip-address-selection)
@@ -89,7 +89,7 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -f "$ES_SHIELD_REGISTRY_FILE" ]; then
-   SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
+    SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
 fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
@@ -253,10 +253,10 @@ function pull_images() {
                 echo "################## Pulling images  ######################"
                 echo "pulling image: ${arr[1]} ($SHIELD_REGISTRY)"
                 if [ ! -z "$SHIELD_REGISTRY" ]; then
-                   IMAGE_NAME="$SHIELD_REGISTRY/securebrowsing/${arr[1]}"
-                else                
-                   docker pull "securebrowsing/${arr[1]}"
-                fi   
+                    IMAGE_NAME="$SHIELD_REGISTRY/securebrowsing/${arr[1]}"
+                else
+                    docker pull "securebrowsing/${arr[1]}"
+                fi
             fi
         fi
         LINE=$((LINE + 1))
@@ -311,16 +311,16 @@ function check_registry() {
 }
 
 function update_daemon_json() {
-    if [ ! -z $SHIELD_REGISTRY ]; then    
+    if [ ! -z $SHIELD_REGISTRY ]; then
         if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
-          echo '/etc/docker/daemon.json is ok'
+            echo '/etc/docker/daemon.json is ok'
         else
-            (test -f /etc/docker/daemon.json && cat /etc/docker/daemon.json || echo "{}") | \
-            jq ". += {\"insecure-registries\": [$SHIELD_REGISTRY]}" >/etc/docker/daemon.json.shield
-          systemctl stop docker
-          sleep 10
-          mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
-          systemctl start docker
+            (test -f /etc/docker/daemon.json && cat /etc/docker/daemon.json || echo "{}") |
+                jq ". += {\"insecure-registries\": [$SHIELD_REGISTRY]}" >/etc/docker/daemon.json.shield
+            systemctl stop docker
+            sleep 10
+            mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
+            systemctl start docker
         fi
     fi
 }
@@ -352,16 +352,16 @@ if ! check_registry; then
     SHIELD_REGISTRY=""
     while read -p "Do you want to proceed (Yes/No)? " choice; do
         case "$choice" in
-            y | Y | "yes" | "YES" | "Yes")
-                echo "yes"
-                break
-                ;;
-            n | N | "no" | "NO" | "No")
-                echo "no"
-                echo "Exiting..."
-                exit 10
-                ;;
-            *) ;;
+        y | Y | "yes" | "YES" | "Yes")
+            echo "yes"
+            break
+            ;;
+        n | N | "no" | "NO" | "No")
+            echo "no"
+            echo "Exiting..."
+            exit 10
+            ;;
+        *) ;;
 
         esac
     done
@@ -397,7 +397,7 @@ fi
 prepare_yml
 
 if [ "$UPDATE" == false ]; then
-    AM_I_LEADER=true #if new installation, i am the leader
+    AM_I_LEADER=true   #if new installation, i am the leader
     # New Installation
     echo "pull images" #before starting the system
     pull_images
