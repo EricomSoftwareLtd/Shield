@@ -10,7 +10,38 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_429] - 2018-11-06
+- ELK container not start in Dev428 #4646
+- Elk conflicts message #4644
+- Preview should not be generated on unsupported file types #4643
+- Print should not be available on Preview #4639
+- Preview - printing the file does not work properly #4632
+- Preview: Right Click: Pause Shield & Reload shouldn't be displayed #4631
+- Preview - File Transfer report info is not correct #4629
+- Preview multiple files #4628
+- Uploading files should ignore timeout #4449
+- Preview - fail to show big file #4630
+
+## [Dev:Build_428] - 2018-11-04
+
+- Can print url pdf file when printing is disabled #4379
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Another LDAP login issue (reported by KKA) #4156
+- Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
+- Underline of unconverted character string (#146) #3975
+- Japanese character conversion candidate display position #3961
+- When node is not in swarm or no leader, status-node returns a script error #3276
+- Backspace after using left arrow in Japanese is not working as expected #2192
+- portal mode - ignores license and session limit tabs #4601
+- if during addnode running fatal error is thrown addnode script is not stopped. #3864
+- Remote File Preview #879
+- Proxyless mode enable/disable #4597
+- Change order of values #4613
+
+
 ## [Dev:Build_427] - 2018-10-31
+
 - string update #4564
 - (*) Spellcheck not working on Salesforce iframes #4351
 - zip and 7z is not working #4378
@@ -18,11 +49,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Dev:Build_426] - 2018-10-29
+
 - String update #4564
 - Network is slow error appears #4508
 - Change Text on Send Feedback #4384
 
 ## [Dev:Build_425] - 2018-10-28
+
 - Link to Email Links Should Work #1276
 - Field name change - Admin | Resources #4541
 - Reset Certificate uploaded and revert to Ericom Certificate #4315

@@ -32,7 +32,8 @@ echo "***********       "
 echo "*******       Stopping EricomShield "
 $ES_PATH/stop.sh
 echo "done"
-
+echo "waiting 30s ..."
+sleep 30
 echo "*******       Starting EricomShield "
 $ES_PATH/start.sh
 echo "done"
