@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_430] - 2018-11-08
+- Preview should not be generated on unsupported file types #4643
+- Preview jpg file failed #4641
+- Preview - fail to show big file #4630
+- Preview fail to show image #4626
+- Change order of values #4613
+- file preview failed for pdf files #4671
+- Doc with password, bad UX, need to give a proper message #4625
+- Change order of values #4613
+
 
 ## [Dev:Build_429] - 2018-11-06
 - ELK container not start in Dev428 #4646
