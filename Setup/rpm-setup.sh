@@ -312,15 +312,13 @@ function check_registry() {
 
 function update_daemon_json() {
     if [ ! -z $SHIELD_REGISTRY ]; then
-        if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
+        if [ -f "/etc/docker/daemon.json" ] && [ "$(jq --compact-output '."insecure-registries"' "/etc/docker/daemon.json")" == "[$SHIELD_REGISTRY]" ]; then
             echo '/etc/docker/daemon.json is ok'
         else
             (test -f /etc/docker/daemon.json && cat /etc/docker/daemon.json || echo "{}") |
                 jq ". += {\"insecure-registries\": [$SHIELD_REGISTRY]}" >/etc/docker/daemon.json.shield
-            systemctl stop docker
-            sleep 10
             mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
-            systemctl start docker
+            systemctl reload docker
         fi
     fi
 }
