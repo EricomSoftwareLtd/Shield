@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Links are downloaded when they should be opened - fixed
 - Fixed: Several Broken Websites (Foxnews, Zoominfo, etc)
 - Fixed: Custom trust certificate is not working with shield
-- Fixed: No mail alert on a machine with upstream proxy #4477
+- Fixed: No mail alert on a machine with upstream proxy
 
 ## [Prod:18.10.2-Build-413.4] - 23-10-2018
 
