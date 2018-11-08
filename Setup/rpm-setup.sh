@@ -1,6 +1,6 @@
 #!/bin/bash
 ############################################
-#####   Ericom Shield Installer        #####
+#####   Ericom Shield Setup Script     #####
 #######################################BH###
 
 function usage() {
@@ -73,7 +73,7 @@ while [ $# -ne 0 ]; do
         ;;
     --no-deploy)
         ES_RUN_DEPLOY=false
-        echo "Install Only (No Deploy) "
+        echo "Setup Only (No Deploy) "
         ;;
     --registry)
         shift
@@ -89,7 +89,7 @@ while [ $# -ne 0 ]; do
 done
 
 if [ -f "$ES_SHIELD_REGISTRY_FILE" ]; then
-    SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
+    SHIELD_REGISTRY="$(cat "$ES_SHIELD_REGISTRY_FILE")"
 fi
 
 if [ "$ES_AUTO_UPDATE" == true ]; then
@@ -154,15 +154,15 @@ function choose_network_interface() {
         esac
     done
 
-    failed_to_install "Aborting setup!"
+    failed_to_setup "Aborting setup!"
 }
 
-function failed_to_install() {
+function failed_to_setup() {
     log_message "An error occurred during the setup process: $1, Exiting!"
     exit 1
 }
 
-function failed_to_install_cleaner() {
+function failed_to_setup_cleaner() {
     log_message "An error occurred during the setup process: $1, Exiting!"
     if [ "$UPDATE" == true ]; then
         if [ -f "$ES_VER_FILE" ]; then
@@ -215,7 +215,7 @@ function docker_login() {
         if [ $? == 0 ]; then
             echo "Login Succeeded!"
         else
-            failed_to_install_cleaner "Cannot Login to docker, Exiting!"
+            failed_to_setup_cleaner "Cannot Login to docker, Exiting!"
         fi
     fi
 }
@@ -342,7 +342,7 @@ update_daemon_json
 if systemctl start docker; then
     echo "Starting docker service ***************     Success!"
 else
-    failed_to_install "Failed to start docker service"
+    failed_to_setup "Failed to start docker service"
 fi
 
 docker_login
@@ -370,7 +370,7 @@ fi
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
     echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
-    echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
+    echo 'Please, read the EULA carefully, then accept it to continue the setup process or reject to exit.'
     read -n1 -r -p "Press any key to continue..." key
     echo
 
@@ -379,16 +379,16 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
         log_message "EULA has been accepted"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
     else
-        failed_to_install_cleaner "EULA has not been accepted, exiting..."
+        failed_to_setup_cleaner "EULA has not been accepted, exiting..."
     fi
 fi
 
 if [ "$ES_FORCE" == false ]; then
     source $ES_PRE_CHECK_FILE
-    echo "***************     Running pre-install-check ..."
+    echo "***************     Running pre-setup-check ..."
     perform_env_test
     if [ "$?" -ne "0" ]; then
-        failed_to_install_cleaner "Shield pre-install-check failed!"
+        failed_to_setup_cleaner "Shield pre-setup-check failed!"
     fi
 fi
 
@@ -467,10 +467,10 @@ if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
             wait=$((wait + 1))
         done
     else
-        failed_to_install_cleaner "Deploy Failed"
+        failed_to_setup_cleaner "Deploy Failed"
     fi
 else
-    echo "Installation only (no deployment or not the leader)"
+    echo "Setup only (no deployment or not the leader)"
     SUCCESS=true
 fi
 
@@ -479,8 +479,8 @@ systemctl start ericomshield-updater.service
 Version=$(grep SHIELD_VER "$ES_YML_FILE")
 
 if [ $SUCCESS == false ]; then
-    echo "Something went wrong. Timeout was reached during installation. Please run ./status.sh and check the log file: $LOGFILE."
-    echo "$(date): Timeout was reached during the installation" >>"$LOGFILE"
+    echo "Something went wrong. Timeout was reached during setup. Please run ./status.sh and check the log file: $LOGFILE."
+    echo "$(date): Timeout was reached during the setup" >>"$LOGFILE"
     exit 1
 fi
 
