@@ -106,13 +106,13 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 "%{_prefix}/local/ericomshield/*.pyo"
 "%{_unitdir}/media-containershm.mount"
 
-%pre
-
 %post
 %systemd_post media-containershm.mount
 systemctl enable media-containershm.mount
 systemctl start media-containershm.mount
-
+echo "Loading '%{_sysconfdir}/sysctl.d/30-ericom-shield.conf'..."
+sysctl --load="%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
+echo "done"
 TZ="$(date '+%Z')"
 ES_YML_FILE="%{_prefix}/local/ericomshield/docker-compose.yml"
 %{__sed} -i'' "s#TZ=UTC#TZ=${TZ}#g" "${ES_YML_FILE}"
