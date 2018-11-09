@@ -7,16 +7,25 @@
 JENKINS=
 NETWORK_INTERFACE='eth0'
 STACK_NAME='shield'
-ES_YML_FILE=
 HOST="$(hostname)"
 SECRET_UID="shield-system-id"
 ES_NO_BROWSERS_LABEL='false'
 
 export UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
 PROXY_ENV_FILE="proxy-server.env"
-ES_PATH=/usr/local/ericomshield
+ES_PATH="/usr/local/ericomshield"
 CONSUL_BACKUP_PATH="$ES_PATH/backup"
 DOCKER_SWARMEXEC_TAG=180128-09.08-1217
+ES_YML_FILE="$ES_PATH/docker-compose.yml"
+EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
+ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
+
+if [ ! -f "$EULA_ACCEPTED_FILE" ] || [ ! -f "$ES_MY_IP_FILE" ]; then
+    echo "Ericom Shield has not been configured properly. Please run '$ES_PATH/setup.sh'. Exiting..."
+    exit 1
+else
+    IP_ADDRESS="$(cat "$ES_MY_IP_FILE" | grep -oP '\d+\.\d+\.\d+\.\d+')"
+fi
 
 ########################################################################################################################
 ########   Default deploy variables section                                       ######################################
