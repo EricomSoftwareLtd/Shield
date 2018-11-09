@@ -94,6 +94,7 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
 %config "%{_prefix}/local/ericomshield/docker-compose.yml"
 %config "%{_prefix}/local/ericomshield/shield-version.txt"
+%ghost %config(missingok) "%{_prefix}/local/ericomshield/.es_ip_address"
 %doc "%{_prefix}/local/ericomshield/Ericom-EULA.txt"
 %ghost "%{_prefix}/local/ericomshield/.eula_accepted"
 %ghost "%{_prefix}/local/ericomshield/ericomshield.log"

@@ -9,6 +9,8 @@ SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" #"
 #source "${DIR}/common"
 
+# export ES_EULA_BASE64="$(base64 -w0 "${DIR}/../Ericom-EULA.txt")"
+
 BUILD_DIR="${DIR}/_build/rpm"
 
 if [ -d "${BUILD_DIR}" ] ; then

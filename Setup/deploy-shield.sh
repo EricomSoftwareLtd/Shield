@@ -1,16 +1,16 @@
 #!/bin/bash
 
 #set -x
-###########################################
-#####   Ericom Shield Installer        #####
+############################################
+#####   Ericom Shield Startup Script   #####
 ###################################LO##BH###
 JENKINS=
 NETWORK_INTERFACE='eth0'
 STACK_NAME='shield'
 ES_YML_FILE=
-HOST=$(hostname)
+HOST="$(hostname)"
 SECRET_UID="shield-system-id"
-ES_NO_BROWSERS_LABEL=false
+ES_NO_BROWSERS_LABEL='false'
 
 export UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
 PROXY_ENV_FILE="proxy-server.env"
@@ -39,7 +39,7 @@ while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
     -no-browser)
-        ES_NO_BROWSERS_LABEL=true
+        ES_NO_BROWSERS_LABEL='true'
         echo "Multi-Machine: No Browser Label"
         ;;
     #        -usage)
