@@ -87,6 +87,8 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 
 %{__install} -Dp -m 644 "Setup/Ericom-EULA.txt" "%{buildroot}%{_prefix}/local/ericomshield"
 
+%{__install} -Dp -m 644 "Setup/media-containershm.mount" "%{buildroot}%{_unitdir}/media-containershm.mount"
+
 %files
 %dir "%{_prefix}/local/ericomshield"
 %dir "%{_prefix}/local/ericomshield/backup"
@@ -102,13 +104,24 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 "%{_prefix}/local/ericomshield/*.py"
 "%{_prefix}/local/ericomshield/*.pyc"
 "%{_prefix}/local/ericomshield/*.pyo"
+"%{_unitdir}/media-containershm.mount"
 
 %pre
 
 %post
+%systemd_post media-containershm.mount
+systemctl enable media-containershm.mount
+systemctl start media-containershm.mount
+
 TZ="$(date '+%Z')"
 ES_YML_FILE="%{_prefix}/local/ericomshield/docker-compose.yml"
 %{__sed} -i'' "s#TZ=UTC#TZ=${TZ}#g" "${ES_YML_FILE}"
+
+%preun
+%systemd_preun media-containershm.mount
+
+%postun
+%systemd_postun media-containershm.mount
 
 %changelog
 * Fri Oct 26 2018 Andrew Novikov <Andrew.Novikov@artezio.com> - 1
