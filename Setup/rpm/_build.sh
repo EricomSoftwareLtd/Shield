@@ -28,7 +28,7 @@ function extract_versions() {
     done <"$VER_FILE"
 }
 
-extract_versions "../shield-version.txt"
+extract_versions "${DIR}/../shield-version.txt"
 
 function create_src_archive() {
     local SRC="$1"
@@ -40,7 +40,7 @@ function create_src_archive() {
 create_src_archive "$SRC_DIR" "${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
 
 SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
-envsubst <"./ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
+envsubst <"${DIR}/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
 
 rpmbuild \
     --define="_topdir ${BUILD_DIR}" \
