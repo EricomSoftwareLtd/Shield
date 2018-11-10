@@ -6,7 +6,14 @@ Release:   1
 License:   EULA
 Group:     Applications/Internet
 URL:       https://www.ericomshield.com/
+
 Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
+
+%description
+Ericom Shield handles browsing sessions remotely, blocking web-borne threats
+from penetrating your enterprise. Isolating users from malicious web content,
+Ericom Shield eliminates the browsing web threat vector while maintaining
+user productivity.
 
 BuildRequires: tar, gzip
 %{?systemd_requires}
@@ -26,14 +33,9 @@ Conflicts: docker-logrotate
 Conflicts: docker-engine
 Conflicts: bind, dnsmasq, unbound
 
-%description
-Ericom Shield handles browsing sessions remotely, blocking web-borne threats
-from penetrating your enterprise. Isolating users from malicious web content,
-Ericom Shield eliminates the browsing web threat vector while maintaining
-user productivity.
-
 %prep
-tar --strip=1 -xzvf %{SOURCE0}
+#tar --strip=1 -xzvf %{SOURCE0}
+tar -xzvf %{SOURCE0}
 
 %install
 

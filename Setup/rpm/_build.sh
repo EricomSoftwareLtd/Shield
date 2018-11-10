@@ -1,32 +1,50 @@
 #!/bin/bash -ex
 
-export ERICOM_SHIELD_VERSION="Dev"
-export DOCKER_VERSION_LOW="18.03.1"
-export DOCKER_VERSION_HIGH="18.03.2"
-
-SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" #"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" #"
 #source "${DIR}/common"
 
-# export ES_EULA_BASE64="$(base64 -w0 "${DIR}/../Ericom-EULA.txt")"
-
 BUILD_DIR="${DIR}/_build/rpm"
+SRC_DIR="${DIR}/../.."
 
-if [ -d "${BUILD_DIR}" ] ; then
+if [ -d "${BUILD_DIR}" ]; then
     rm -rf "${BUILD_DIR}"
 fi
 mkdir -p "${BUILD_DIR}"
+mkdir -p "${BUILD_DIR}/SPECS"
+mkdir -p "${BUILD_DIR}/SOURCES"
 
-cp -r "${DIR}/src"/* "${DIR}/_build/rpm"
+function extract_versions() {
+    local VER_FILE="$1"
+    local VER_REGEX='^SHIELD_VER=[a-zA-Z.0-9]+[[:blank:]]+SHIELD_VER=([a-zA-Z]+):Build_([0-9]+)$'
+    local DOCKER_VER_REGEX='^#{0,1}docker-version[[:blank:]]+(([[:digit:]]+\.)+)([[:digit:]]+)[[:blank:]]*$'
+    while read -r line; do
+        if [[ $line =~ $VER_REGEX ]]; then
+            export ERICOM_SHIELD_VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
+        elif [[ $line =~ $DOCKER_VER_REGEX ]]; then
+            local n=${#BASH_REMATCH[*]}
+            export DOCKER_VERSION_LOW="${BASH_REMATCH[1]}${BASH_REMATCH[n - 1]}"
+            export DOCKER_VERSION_HIGH="${BASH_REMATCH[1]}$((BASH_REMATCH[n - 1] + 1))"
+        fi
+    done <"$VER_FILE"
+}
 
-#curl -L "https://api.github.com/repos/EricomSoftwareLtd/Shield/tarball/${ERICOM_SHIELD_VERSION}" >"${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
-(cd ../../.. && tar czvf "/tmp/${ERICOM_SHIELD_VERSION}.tar.gz" Shield && mv "/tmp/${ERICOM_SHIELD_VERSION}.tar.gz" "${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz")
-envsubst <"${BUILD_DIR}/SPECS/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
+extract_versions "../shield-version.txt"
+
+function create_src_archive() {
+    local SRC="$1"
+    local TB="$2"
+    (cd "${SRC}" && git ls-files | tar czvT -) >"$TB"
+    #curl -L "https://api.github.com/repos/EricomSoftwareLtd/Shield/tarball/${ERICOM_SHIELD_VERSION}" >"${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
+}
+
+create_src_archive "$SRC_DIR" "${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
+
+SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
+envsubst <"./ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
 
 rpmbuild \
- --define="_topdir ${BUILD_DIR}" \
- -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
+    --define="_topdir ${BUILD_DIR}" \
+    -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
 
 #find "${BUILD_DIR}/RPMS" -type f -name "*.rpm" -exec mv "{}" "${DIR}/_build" \;
 
