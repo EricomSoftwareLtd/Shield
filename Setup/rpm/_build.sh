@@ -19,7 +19,9 @@ function extract_versions() {
     local DOCKER_VER_REGEX='^#{0,1}docker-version[[:blank:]]+(([[:digit:]]+\.)+)([[:digit:]]+)[[:blank:]]*$'
     while read -r line; do
         if [[ $line =~ $VER_REGEX ]]; then
-            export ERICOM_SHIELD_VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
+            local REL="$(echo "${BASH_REMATCH[1]}" | tr A-Z a-z)"
+            local REL="${BASH_REMATCH[1]}"
+            export ERICOM_SHIELD_VERSION="${REL}.${BASH_REMATCH[2]}"
         elif [[ $line =~ $DOCKER_VER_REGEX ]]; then
             local n=${#BASH_REMATCH[*]}
             export DOCKER_VERSION_LOW="${BASH_REMATCH[1]}${BASH_REMATCH[n - 1]}"
