@@ -813,7 +813,7 @@ docker_login
 if ! check_registry; then
     log_message "Using Docker Hub instead of local registry at $SHIELD_REGISTRY"
     SHIELD_REGISTRY=""
-    while read -p "Do you want to proceed? (Yes/No)" choice; do
+    while read -p "Do you want to proceed (Yes/No)? " choice; do
         case "$choice" in
             y | Y | "yes" | "YES" | "Yes")
                 echo "yes"

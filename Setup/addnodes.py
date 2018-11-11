@@ -31,6 +31,15 @@ run_container_template = """docker run --rm  -it \\
                   -e "COMMAND={2}" \\
                   {3} {4}"""
 
+
+def run_sshkey_provider(container_name):
+    cmd = '''docker run --rm -it \\
+                -v /var/run/docker.sock:/var/run/docker.sock \\
+                -v $(which docker):/usr/bin/docker \\
+                -v {0}:/usr/local/ericomshield \\
+                {1} sshkey'''.format(es_path, container_name)
+    subprocess.run(cmd, shell=True)
+
 class AddNodeExecutor(object):
     """
     Run commands that connect new nodes to leader
@@ -40,6 +49,7 @@ class AddNodeExecutor(object):
         self.verbose = False
         self.container = AddNodeExecutor.prepare_container_name()
         self.help_required = False
+        self.prepare = False
         self.cmd = self.prepare_args_line(command_line)
 
     def prepare_args_line(self, commands):
@@ -49,6 +59,8 @@ class AddNodeExecutor(object):
                 self.verbose = True
             elif arg == "-h" or arg == "--help":
                 self.help_required = True
+            elif arg == "--prepare":
+                self.prepare = True
             else:
                 main_cmd.append(arg)
         return main_cmd
@@ -73,6 +85,7 @@ class AddNodeExecutor(object):
         print('Usage {} [OPTIONS]'.format(app_name))
         print('Options:')
         print('  --verbose Switch between verbose and short output')
+        print("  --prepare  Execute prepare node")
         print("\n".join(help_arr[3:]))
 
 
@@ -85,10 +98,42 @@ class AddNodeExecutor(object):
 
         subprocess.run(cmd, shell=True)
 
+    def run_node_prepare(self):
+        index = -1
+        if "-ips" in self.cmd:
+           index = self.cmd.index('-ips')
+
+        if "--ips" in self.cmd:
+           index = self.cmd.index('--ips')
+
+        if index > 0:
+            extend_command = " prepare {}".format(" ".join(self.cmd[index:(index + 2)]))
+        else:
+            extend_command = ' prepare '
+
+        if self.verbose:
+            extend_command = " --verbose " + extend_command
+
+            if "-ip" in self.cmd:
+                ip_indx = [i for i, x in enumerate(self.cmd) if self.cmd[i] == '-ip']
+                for index in ip_indx:
+                    extend_command += " ".join(self.cmd[index:(index + 2)])
+                    extend_command += " "
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command)
+
+        subprocess.run(cmd, shell=True)
+
     def execute(self):
         if self.help_required:
             self.show_container_help()
             exit(0)
+
+        if not os.path.exists(os.path.join(es_path, "ericomshield_key.pub")):
+            run_sshkey_provider(self.container)
+
+        if self.prepare:
+            self.run_node_prepare()
+            print('Nodes prepared to be shield. Please type ericom password.')
 
         self.execute_add_node()
 
