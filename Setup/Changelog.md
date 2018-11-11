@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+
+## [Dev:Build_431] - 2018-11-11
+- broker didn't create squid configuration at the consul #4682
+
 ## [Dev:Build_430] - 2018-11-08
 
 - Preview should not be generated on unsupported file types #4643
