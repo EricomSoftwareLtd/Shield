@@ -8,6 +8,7 @@ Group:     Applications/Internet
 URL:       https://www.ericomshield.com/
 
 Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
+Source1:   %{name}-sysusers.conf
 
 %description
 Ericom Shield handles browsing sessions remotely, blocking web-borne threats
@@ -90,6 +91,7 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %{__install} -Dp -m 644 "Setup/Ericom-EULA.txt" "%{buildroot}%{_prefix}/local/ericomshield"
 
 %{__install} -Dp -m 644 "Setup/media-containershm.mount" "%{buildroot}%{_unitdir}/media-containershm.mount"
+%{__install} -Dp -m 644 "%SOURCE1" "%{buildroot}%{_sysusersdir}/%{name}.conf"
 
 %files
 %dir "%{_prefix}/local/ericomshield"
@@ -107,6 +109,11 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 "%{_prefix}/local/ericomshield/*.pyc"
 "%{_prefix}/local/ericomshield/*.pyo"
 "%{_unitdir}/media-containershm.mount"
+"%{_sysusersdir}/%{name}.conf"
+
+%pre
+%systemd_pre media-containershm.mount
+%sysusers_create_package "%{name}" "%SOURCE1"
 
 %post
 %systemd_post media-containershm.mount
