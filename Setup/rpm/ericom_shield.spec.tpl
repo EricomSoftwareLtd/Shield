@@ -34,8 +34,8 @@ Conflicts: docker-engine
 Conflicts: bind, dnsmasq, unbound
 
 %prep
-#tar --strip=1 -xzvf %{SOURCE0}
-tar -xzvf %{SOURCE0}
+# %{__tar} --strip=1 -xzvf %{SOURCE0}
+%{__tar} -xzvf %{SOURCE0}
 
 %install
 
