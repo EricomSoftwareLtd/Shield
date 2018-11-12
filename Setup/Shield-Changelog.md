@@ -17,15 +17,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 #### End User Features
 
-- Paste Image to Shield
+- Paste image to Shield
 - Send Feedback (from right click)
 - Pause Shield and Reload (for evaluations)
 
 #### Admin Features
 
-- Support Already Authenticated Users by Downstream Proxy (Headers)
-- Support for local registry/cach for Docker Images
-- Votiro New Version: 8.1.0
+- Support already authenticated users by downstream proxy (using headers)
+- Support for local registry/cache for docker images
+- Votiro new version: 8.1.0
 
 ### Enhancement
 
@@ -33,16 +33,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - - Several improvements for faster page loading
 - - Lower FPS settings
 - - Lower FPS during scrolling
-- - Reduce Bandwidth usage
+- - Reduce bandwidth usage
 - Pre-check is not run by default on update
-- Admin UI - Validation of Domain value in Policy
+- Admin UI - Validation of domain value in policy
 - Admin UI - Import policies should display the name of the file
 - Admin UI - New Japanese Translations
 - Data retention for basic authentication
 
 ### Bug Fixes
 
-- Fixed: Several Broken Websites
+- Fixed: Several broken websites
 - Fixed: Delete raw index in ELK if conflicts
 - Fixed: Hide context menu on scroll
 - Fixed: Japanese character conversion candidate display position
