@@ -1,17 +1,5 @@
-#!/bin/bash -ex
-
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" #"
-#source "${DIR}/common"
-
 BUILD_DIR="${DIR}/_build/rpm"
 SRC_DIR="${DIR}/../.."
-
-if [ -d "${BUILD_DIR}" ]; then
-    rm -rf "${BUILD_DIR}"
-fi
-mkdir -p "${BUILD_DIR}"
-mkdir -p "${BUILD_DIR}/SPECS"
-mkdir -p "${BUILD_DIR}/SOURCES"
 
 function extract_versions() {
     local VER_FILE="$1"
@@ -30,8 +18,6 @@ function extract_versions() {
     done <"$VER_FILE"
 }
 
-extract_versions "${DIR}/../shield-version.txt"
-
 function create_src_archive() {
     local SRC="$1"
     local TB="$2"
@@ -39,17 +25,37 @@ function create_src_archive() {
     #curl -L "https://api.github.com/repos/EricomSoftwareLtd/Shield/tarball/${ERICOM_SHIELD_VERSION}" >"${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
 }
 
-create_src_archive "$SRC_DIR" "${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
+function remove_build_dir() {
+    if [ -d "${BUILD_DIR}" ]; then
+        rm -rf "${BUILD_DIR}"
+    fi
+}
 
-SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
-envsubst <"${DIR}/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
+function recreate_dirs() {
+    remove_build_dir
+    mkdir -p "${BUILD_DIR}"
+    mkdir -p "${BUILD_DIR}/SPECS"
+    mkdir -p "${BUILD_DIR}/SOURCES"
+}
 
-rpmbuild \
-    --define="_topdir ${BUILD_DIR}" \
-    -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
+function prepare_spec() {
+    if [ -z "${ERICOM_SHIELD_VERSION}" ]; then
+        extract_versions
+    fi
 
-#find "${BUILD_DIR}/RPMS" -type f -name "*.rpm" -exec mv "{}" "${DIR}/_build" \;
+    SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
+    envsubst <"${DIR}/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
+}
 
-#rm -rf "${BUILD_DIR}"
+function build_native() {
+    rpmbuild --define="_topdir ${BUILD_DIR}" -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
+}
 
-echo "DONE!"
+function build_in_docker() {
+    docker run --rm -v "${BUILD_DIR}:/home/user/work" --name "9A00342C-A532-4091-A59C-8DC445DBF9F3" "shield_rpmbuilder:latest" /bin/bash -c \
+        "cd /home/user/work && rpmbuild --define='_topdir /home/user/work' -ba '/home/user/work/SPECS/ericom_shield.spec'"
+}
+
+function collect_rpms() {
+    find "${BUILD_DIR}/RPMS" -type f -name "*.rpm" -exec mv "{}" "${DIR}/_build" \;
+}
