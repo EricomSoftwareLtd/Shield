@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Dev:Build_432] - 2018-11-12
+
 - Fix addnode fly on ignoring errors
 - Preview PDF file should directly display the preview the file (w/o conversion) #4657
 - pdf in Japanese - letters in file preview look gibberish #4695
