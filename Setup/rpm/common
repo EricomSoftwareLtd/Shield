@@ -47,15 +47,6 @@ function prepare_spec() {
     envsubst <"${DIR}/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
 }
 
-function build_native() {
-    rpmbuild --define="_topdir ${BUILD_DIR}" -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
-}
-
-function build_in_docker() {
-    docker run --rm -v "${BUILD_DIR}:/home/user/work" --name "9A00342C-A532-4091-A59C-8DC445DBF9F3" "shield_rpmbuilder:latest" /bin/bash -c \
-        "cd /home/user/work && rpmbuild --define='_topdir /home/user/work' -ba '/home/user/work/SPECS/ericom_shield.spec'"
-}
-
 function collect_rpms() {
     find "${BUILD_DIR}/RPMS" -type f -name "*.rpm" -exec mv "{}" "${DIR}/_build" \;
 }
