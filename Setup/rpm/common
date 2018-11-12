@@ -1,6 +1,8 @@
 BUILD_DIR="${DIR}/_build/rpm"
 SRC_DIR="${DIR}/../.."
 
+DOCKER_RPM_BUILDER_IMG_TAG="shield_rpmbuilder:latest"
+
 function extract_versions() {
     local VER_FILE="$1"
     local VER_REGEX='^SHIELD_VER=[a-zA-Z.0-9]+[[:blank:]]+SHIELD_VER=([a-zA-Z]+):Build_([0-9]+)$'

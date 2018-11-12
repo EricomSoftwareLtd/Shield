@@ -1,13 +1,8 @@
-#!/bin/sh -ex
+#!/bin/bash -ex
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" #"
-
-if [ -z "$1" ]; then
-    IMAGE_NAME_TAG="shield_rpmbuilder:latest"
-else
-    IMAGE_NAME_TAG="$1"
-fi
+source "${DIR}/common"
 
 cd "$DIR"
 
-docker build -t "${IMAGE_NAME_TAG}" .
+docker build -t "$DOCKER_RPM_BUILDER_IMG_TAG" .
