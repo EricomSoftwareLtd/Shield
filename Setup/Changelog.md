@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_433] - 2018-11-13
+- File preview - file not found for specific file #4696
+- File previewed failed when clicking on multiple files #4713
+- (*) fix resource paths in proxy mode
+
+
 ## [Dev:Build_432] - 2018-11-12
 
 - Fix addnode fly on ignoring errors
