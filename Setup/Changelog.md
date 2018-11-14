@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_435] - 2018-11-14
+- File preview doesn't work #4724
+
 ## [Dev:Build_434] - 2018-11-14
 - File preview - file not found for specific file #4696
 - File previewed failed when clicking on multiple files #4713
