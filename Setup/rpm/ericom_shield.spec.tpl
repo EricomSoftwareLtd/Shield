@@ -1,6 +1,6 @@
 Summary:   Ericom Shield for Secure Browsing
 Name:      ericom_shield
-Epoch:     1
+Epoch:     0
 Version:   ${ERICOM_SHIELD_VERSION}
 Release:   1
 License:   EULA
@@ -22,6 +22,7 @@ BuildRequires: systemd
 
 Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
 Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
+Requires: ansible >= 2.6
 Requires: centos-release >= 7-5
 
 Conflicts: docker

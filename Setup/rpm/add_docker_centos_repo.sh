@@ -8,4 +8,6 @@ sudo yum-config-manager --add-repo "https://download.docker.com/linux/centos/doc
 sudo yum-config-manager --disable docker-ce-edge
 sudo yum-config-manager --disable docker-ce-test
 
+sudo yum install -y epel-release
+
 # sudo yum install docker-ce
