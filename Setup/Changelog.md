@@ -11,7 +11,38 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_435] - 2018-11-14
+- File preview doesn't work #4724
+
+## [Dev:Build_434] - 2018-11-14
+- File preview - file not found for specific file #4696
+- File previewed failed when clicking on multiple files #4713
+- (*) fix resource paths in proxy mode
+
+
+## [Dev:Build_432] - 2018-11-12
+
+- Fix addnode fly on ignoring errors
+- Preview PDF file should directly display the preview the file (w/o conversion) #4657
+- pdf in Japanese - letters in file preview look gibberish #4695
+- Hebrew letters in pdf file are reversed when generaring file preview #4694
+
+## [Dev:Build_431] - 2018-11-11
+- broker didn't create squid configuration at the consul #4682
+
+## [Dev:Build_430] - 2018-11-08
+
+- Preview should not be generated on unsupported file types #4643
+- Preview jpg file failed #4641
+- Preview - fail to show big file #4630
+- Preview fail to show image #4626
+- file preview failed for pdf files #4671
+- Doc with password, bad UX, need to give a proper message #4625
+- Change order of values #4613
+
+
 ## [Dev:Build_429] - 2018-11-06
+
 - ELK container not start in Dev428 #4646
 - Elk conflicts message #4644
 - Preview should not be generated on unsupported file types #4643
@@ -21,7 +52,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Preview - File Transfer report info is not correct #4629
 - Preview multiple files #4628
 - Uploading files should ignore timeout #4449
-- Preview - fail to show big file #4630
 
 ## [Dev:Build_428] - 2018-11-04
 
