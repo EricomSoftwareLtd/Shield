@@ -112,8 +112,9 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 "%{_sysusersdir}/%{name}.conf"
 
 %pre
-%systemd_pre media-containershm.mount
-%sysusers_create_package "%{name}" "%SOURCE1"
+systemd-sysusers --replace="%{_sysusersdir}/%{name}.conf" - <<SYSTEMD_INLINE_EOF &>/dev/null || :
+%(cat %SOURCE1)
+SYSTEMD_INLINE_EOF
 
 %post
 %systemd_post media-containershm.mount
