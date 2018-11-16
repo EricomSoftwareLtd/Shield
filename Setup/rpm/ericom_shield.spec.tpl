@@ -117,7 +117,7 @@ systemd-sysusers --replace="%{_sysusersdir}/%{name}.conf" - <<SYSTEMD_INLINE_EOF
 %(cat %SOURCE1)
 SYSTEMD_INLINE_EOF
 
-%post
+%post -p /bin/bash
 %systemd_post media-containershm.mount
 systemctl enable media-containershm.mount
 systemctl start media-containershm.mount
