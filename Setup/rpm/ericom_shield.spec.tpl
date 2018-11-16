@@ -84,7 +84,7 @@ prepare_yml() {
 %{__install} -Dp -m 755 "Setup/shield-pre-install-check.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/rpm-setup.sh" "%{buildroot}%{_prefix}/local/ericomshield/setup.sh"
 
-%{__install} -Dp -m 644 "Setup/sysctl_shield.conf" "%{buildroot}%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
+%{__install} -Dp -m 644 "Setup/sysctl_shield.conf" "%{buildroot}%{_sysctldir}/ericom_shield.conf"
 %{__install} -Dp -m 644 "Setup/.shield_aliases" "%{buildroot}%{_sysconfdir}/profile.d/ericom_shield.sh"
 
 %{__install} -Dp -m 644 "Setup/docker-compose.yml" "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml"
@@ -100,7 +100,7 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %files
 %dir "%{_prefix}/local/ericomshield"
 %dir "%{_prefix}/local/ericomshield/backup"
-%config "%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
+%config "%{_sysctldir}/ericom_shield.conf"
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
 %config "%{_prefix}/local/ericomshield/docker-compose.yml"
 %config "%{_prefix}/local/ericomshield/shield-version.txt"
@@ -118,17 +118,16 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %pre -p /bin/bash
 function add_sysusers() {
     local COMMENT_REGEX='^#.*$'
-    local U_REGEX='^u[[:blank:]]+([a-zA-Z0-9]+)[[:blank:]]+(-|[0-9]+)[[:blank:]]+(".*?[^\\]")[[:blank:]]+([-_\/a-zA-Z0-9]+|".*?[^\\]")[[:blank:]]+([-_\/a-zA-Z0-9]+|".*?[^\\]")$'
+    local U_REGEX='^u[[:blank:]]+([a-zA-Z0-9]+)[[:blank:]]+(-|[0-9]+)[[:blank:]]+"(.*?[^\\])"[[:blank:]]+([-_\/a-zA-Z0-9]+)[[:blank:]]+([-_\/a-zA-Z0-9]+)$'
     local M_REGEX='^m[[:blank:]]+([a-zA-Z0-9]+)[[:blank:]]+([a-zA-Z0-9]+)$'
     while read -r line; do
         if [[ $line =~ $U_REGEX ]]; then
-            local UID_O=""
             if [[ ${BASH_REMATCH[2]} != "-" ]]; then
-                UID_O="--uid ${BASH_REMATCH[2]}"
+                local UID_O=--uid "${BASH_REMATCH[2]}"
             fi
-            echo /usr/bin/getent passwd ${BASH_REMATCH[1]} >/dev/null || /usr/sbin/useradd --system --no-create-home "$UID_O" --comment ${BASH_REMATCH[3]} --home-dir ${BASH_REMATCH[4]} --shell ${BASH_REMATCH[5]} ${BASH_REMATCH[1]}
+            /usr/bin/getent passwd ${BASH_REMATCH[1]} >/dev/null || /usr/sbin/useradd --system --no-create-home $UID_O --comment "${BASH_REMATCH[3]}" --home-dir "${BASH_REMATCH[4]}" --shell "${BASH_REMATCH[5]}" ${BASH_REMATCH[1]}
         elif [[ $line =~ $M_REGEX ]]; then
-            echo /usr/sbin/usermod --append --groups ${BASH_REMATCH[2]} ${BASH_REMATCH[1]}
+            /usr/sbin/usermod --append --groups ${BASH_REMATCH[2]} ${BASH_REMATCH[1]}
         elif [[ $line =~ $COMMENT_REGEX ]]; then
             continue
         else
@@ -140,7 +139,7 @@ function add_sysusers() {
 SYSTEMD_INLINE_EOF
 }
 
-if /usr/bin/which systemd-sysusers >/dev/null; then
+if /usr/bin/which systemd-sysusers >/dev/null 2>&1; then
 systemd-sysusers --replace="%{_sysusersdir}/%{name}.conf" - <<SYSTEMD_INLINE_EOF &>/dev/null || :
 %(cat %SOURCE1)
 SYSTEMD_INLINE_EOF
@@ -151,10 +150,9 @@ fi
 
 %post -p /bin/bash
 %systemd_post media-containershm.mount
-systemctl enable media-containershm.mount
-systemctl start media-containershm.mount
-echo "Loading '%{_sysconfdir}/sysctl.d/30-ericom-shield.conf'..."
-sysctl --load="%{_sysconfdir}/sysctl.d/30-ericom-shield.conf"
+systemctl enable media-containershm.mount >/dev/null 2>&1 || :
+systemctl start media-containershm.mount >/dev/null 2>&1 || :
+%sysctl_apply "%{_sysctldir}/ericom_shield.conf"
 echo "done"
 TZ="$(date '+%Z')"
 ES_YML_FILE="%{_prefix}/local/ericomshield/docker-compose.yml"
