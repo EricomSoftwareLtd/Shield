@@ -25,6 +25,9 @@ Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
 Requires: ansible >= 2.6
 Requires: centos-release >= 7-5
 
+Requires(pre): /usr/sbin/useradd, /usr/sbin/usermod, /usr/bin/getent, /usr/bin/which
+Requires(postun): /usr/sbin/userdel
+
 Conflicts: docker
 Conflicts: docker-client
 Conflicts: docker-client-latest
@@ -112,10 +115,39 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 "%{_unitdir}/media-containershm.mount"
 "%{_sysusersdir}/%{name}.conf"
 
-%pre
+%pre -p /bin/bash
+function add_sysusers() {
+    local COMMENT_REGEX='^#.*$'
+    local U_REGEX='^u[[:blank:]]+([a-zA-Z0-9]+)[[:blank:]]+(-|[0-9]+)[[:blank:]]+(".*?[^\\]")[[:blank:]]+([-_\/a-zA-Z0-9]+|".*?[^\\]")[[:blank:]]+([-_\/a-zA-Z0-9]+|".*?[^\\]")$'
+    local M_REGEX='^m[[:blank:]]+([a-zA-Z0-9]+)[[:blank:]]+([a-zA-Z0-9]+)$'
+    while read -r line; do
+        if [[ $line =~ $U_REGEX ]]; then
+            local UID_O=""
+            if [[ ${BASH_REMATCH[2]} != "-" ]]; then
+                UID_O="--uid ${BASH_REMATCH[2]}"
+            fi
+            echo /usr/bin/getent passwd ${BASH_REMATCH[1]} >/dev/null || /usr/sbin/useradd --system --no-create-home "$UID_O" --comment ${BASH_REMATCH[3]} --home-dir ${BASH_REMATCH[4]} --shell ${BASH_REMATCH[5]} ${BASH_REMATCH[1]}
+        elif [[ $line =~ $M_REGEX ]]; then
+            echo /usr/sbin/usermod --append --groups ${BASH_REMATCH[2]} ${BASH_REMATCH[1]}
+        elif [[ $line =~ $COMMENT_REGEX ]]; then
+            continue
+        else
+            echo "Unexpected line '$line'"
+            exit 1
+        fi
+    done <<SYSTEMD_INLINE_EOF
+%(cat %SOURCE1)
+SYSTEMD_INLINE_EOF
+}
+
+if /usr/bin/which systemd-sysusers >/dev/null; then
 systemd-sysusers --replace="%{_sysusersdir}/%{name}.conf" - <<SYSTEMD_INLINE_EOF &>/dev/null || :
 %(cat %SOURCE1)
 SYSTEMD_INLINE_EOF
+else
+add_sysusers
+fi
+
 
 %post
 %systemd_post media-containershm.mount
