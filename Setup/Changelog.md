@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_436] - 2018-11-18
+- Proxyless mode is enabled by default #4745
+- Revert of Underline of unconverted character string #3975
+
 ## [Dev:Build_435] - 2018-11-14
 - File preview doesn't work #4724
 
