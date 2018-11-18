@@ -12,17 +12,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Dev:Build_436] - 2018-11-18
+
 - Proxyless mode is enabled by default #4745
 - Revert of Underline of unconverted character string #3975
 
 ## [Dev:Build_435] - 2018-11-14
+
 - File preview doesn't work #4724
 
 ## [Dev:Build_434] - 2018-11-14
+
 - File preview - file not found for specific file #4696
 - File previewed failed when clicking on multiple files #4713
 - (*) fix resource paths in proxy mode
-
 
 ## [Dev:Build_432] - 2018-11-12
 
@@ -32,6 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Hebrew letters in pdf file are reversed when generaring file preview #4694
 
 ## [Dev:Build_431] - 2018-11-11
+
 - broker didn't create squid configuration at the consul #4682
 
 ## [Dev:Build_430] - 2018-11-08
@@ -43,7 +46,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - file preview failed for pdf files #4671
 - Doc with password, bad UX, need to give a proper message #4625
 - Change order of values #4613
-
 
 ## [Dev:Build_429] - 2018-11-06
 
@@ -73,14 +75,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Proxyless mode enable/disable #4597
 - Change order of values #4613
 
-
 ## [Dev:Build_427] - 2018-10-31
 
 - string update #4564
 - (*) Spellcheck not working on Salesforce iframes #4351
 - zip and 7z is not working #4378
-- Added Preview continer 
-
+- Added Preview continer
 
 ## [Dev:Build_426] - 2018-10-29
 
@@ -93,7 +93,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Link to Email Links Should Work #1276
 - Field name change - Admin | Resources #4541
 - Reset Certificate uploaded and revert to Ericom Certificate #4315
-- Webservice is used behind Ngnix 
+- Webservice is used behind Ngnix
 - Cookies are lost #4553
 - Can't log in to Salesforce (Google is saving the name + password as password in one line (see screenshot attached) #4555
 - A problem to connect to SF with shield Jerusalem #4557
@@ -113,7 +113,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New addnode script (py)
 - addnode with --verbose doesn't work #4437
 - Failure addnodes.sh -b #4438
-
 
 ## [Dev:Build_423.4] - 2018-10-24
 
@@ -156,20 +155,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_420.1] - 2018-10-21
 
-- Reverted adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
-
+- Reverted adding addons to IE using <https://www.microsoft.com/en-us/iegallery> is not working #3984
 
 ## [Dev:Build_420] - 2018-10-21
 
 - Failure addnoteds.sh -b #4438
 - Salesforce PDF preview #4342
-- Adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+- Adding addons to IE using <https://www.microsoft.com/en-us/iegallery> is not working #3984
 - Acrobat is not recognized (R2) #488
 - Incorrect Activate Key tool tip #4465
 - Unknown error when trying to activate license #4464
 - Verify all certificates exists #4386
 - Use the docker registry in case the registry configured doesn’t work #4357
-
 
 ## [Dev:Build_419] - 2018-10-18
 
@@ -182,8 +179,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
 - Add prepare-node.sh as part of addnode script #3616
 - hard to reproduce - links are downloaded when they should be opened #3493
-- Added remote browser console errors to ELK 
- 
+- Added remote browser console errors to ELK
+
 ## [Dev:Build_418] - 2018-10-17
 
 - Connection report - add profile field #3102
@@ -213,7 +210,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - DNS load balancing browsers (AKA free.browser) #4331
 - Add Syslog Config to the Admin (Admin) #2713
 - Can't download pdf file #4373
-- WebService Code cleanup - reduce network usage 
+- WebService Code cleanup - reduce network usage
 - Collector is not working in latest build #4385
 
 ## [Dev:Build_415] - 2018-10-14
