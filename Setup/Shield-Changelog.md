@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Alert end user when Javascript is disabled on the browser (may lead to errors)
 - Increase download timeout to 30 min
 - Delete "raw" index in ELK prior to update process
-- WebService Code cleanup - reduce network usage 
+- WebService Code cleanup - reduce network usage
 - Reset Certificate uploaded and revert to Ericom Certificate
 - Verify all certificates exists
 
@@ -53,27 +53,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:18.10.2-Build-413.4] - 23-10-2018
 
-- Fixed: Custom Trust Certificate is not working with shield 
+- Fixed: Custom Trust Certificate is not working with shield
 - Fixed: QA#708355 Failure addnoteds.sh -b
-
 
 ## [Prod:18.10-Build-413.2] - 14-10-2018
 
-### New Features
+### New Features 18.10
 
-#### End User Features
+#### End User Features 18.10
 
 - Paste image to Shield
 - Send Feedback (from right click)
 - Pause Shield and Reload (for evaluations)
 
-#### Admin Features
+#### Admin Features 18.10
 
 - Support already authenticated users by downstream proxy (using headers)
 - Support for local registry/cache for docker images
 - Votiro new version: 8.1.0
 
-### Enhancement
+### Enhancement 18.10
 
 - Performance Improvements:
 - - Several improvements for faster page loading
@@ -86,7 +85,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin UI - New Japanese Translations
 - Data retention for basic authentication
 
-### Bug Fixes
+### Bug Fixes 18.10
 
 - Fixed: Several broken websites
 - Fixed: Delete raw index in ELK if conflicts

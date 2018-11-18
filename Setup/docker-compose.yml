@@ -138,8 +138,8 @@ services:
         networks:
             - shield
         #Published only for Dev
-#        ports:
-#            - '8500:8500'
+        ports:
+            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
