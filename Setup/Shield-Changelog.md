@@ -11,6 +11,52 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.11-Build-436] - 18-11-2018
+
+### New Features
+
+#### End User Features
+
+- File Preview
+
+#### Admin Features
+
+- Maintain customer environment variables during upgrade (proxy, subnet)
+- Proxyless Mode (Tech-Preview)
+- Votiro New Version: 8.1.1
+- External Syslog Configuration from AdminUI
+
+### Enhancement
+
+- Alert when user is associated to two User Profiles
+- Add Display Name and User Profile to the report/sessions list in Dashboard
+- Alert end user when Javascript is disabled on the browser (may lead to errors)
+- Increase download timeout to 30 min
+- Delete "raw" index in ELK prior to update process
+- WebService Code cleanup - reduce network usage 
+- Reset Certificate uploaded and revert to Ericom Certificate
+- Verify all certificates exists
+
+### Bug Fixes
+
+- Fixed: Uploading files should ignore timeout
+- Fixed: LDAP Login related bugs
+- Fixed: Japanes Keyboard Issues
+- Fixed: Website Salesforce - several issues (Spellcheck, create PDF invoice, cannot set value in dropdown)
+- Fixed: Website Facebook related issues (playing videos & upload photo/video)
+- Fixed: Upload into iFrame
+- Fixed: Zip with password didn’t work properly
+- Fixed: Links are downloaded when they should be opened - fixed
+- Fixed: Several Broken Websites (Foxnews, Zoominfo, etc)
+- Fixed: Custom trust certificate is not working with shield
+- Fixed: No mail alert on a machine with upstream proxy
+
+## [Prod:18.10.2-Build-413.4] - 23-10-2018
+
+- Fixed: Custom Trust Certificate is not working with shield 
+- Fixed: QA#708355 Failure addnoteds.sh -b
+
+
 ## [Prod:18.10-Build-413.2] - 14-10-2018
 
 ### New Features
