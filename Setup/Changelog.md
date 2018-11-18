@@ -11,6 +11,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_436] - 2018-11-18
+
+- Proxyless mode is enabled by default #4745
+- Revert of Underline of unconverted character string #3975
+
+## [Dev:Build_435] - 2018-11-14
+
+- File preview doesn't work #4724
+
+## [Dev:Build_434] - 2018-11-14
+
+- File preview - file not found for specific file #4696
+- File previewed failed when clicking on multiple files #4713
+- (*) fix resource paths in proxy mode
+
+## [Dev:Build_432] - 2018-11-12
+
+- Fix addnode fly on ignoring errors
+- Preview PDF file should directly display the preview the file (w/o conversion) #4657
+- pdf in Japanese - letters in file preview look gibberish #4695
+- Hebrew letters in pdf file are reversed when generaring file preview #4694
+
 ## [Dev:Build_431] - 2018-11-11
 
 - broker didn't create squid configuration at the consul #4682
@@ -58,7 +80,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - string update #4564
 - (*) Spellcheck not working on Salesforce iframes #4351
 - zip and 7z is not working #4378
-- Added Preview container
+- Added Preview continer
 
 ## [Dev:Build_426] - 2018-10-29
 

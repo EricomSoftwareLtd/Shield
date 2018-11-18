@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.10
+# YML file for Rel-18.11
 
 services:
     dns:
@@ -74,10 +74,6 @@ services:
             resources: {limits: {memory: 1GB, cpus: '0.5'}}
     elk:
         image: 'securebrowsing/shield-elk:latest'
-#        ports:
-#            - '5601:5601'
-#            - '9200:9200'
-#            - '5014:5014'
         networks:
             - shield
         environment:
