@@ -297,7 +297,7 @@ services:
             - 'LOGSTASH_FIELDS=service=es-license-manager'
         networks:
             - shield
-     es-remote-browser-scaler:
+    es-remote-browser-scaler:
         image: 'securebrowsing/es-remote-browser-scaler:latest'
         # user: nobody
         hostname: es-remote-browser-scaler
