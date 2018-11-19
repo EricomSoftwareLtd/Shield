@@ -309,7 +309,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
             resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
-            placement: {constraints: [node.labels.browser==yes]}
+            placement: {constraints: [node.labels.management==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
         environment:
