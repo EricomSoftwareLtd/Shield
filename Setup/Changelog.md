@@ -12,11 +12,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [Dev:Build_437] - 2018-11-18
+
 - When node is not in swarm or no leader, status-node returns a script error #3276
 - The process of adding nodes is too long #4605
 - It is possible to upload files that are not supported #4675
 - Can't type in alphanumeric mode in Japanes on safari Mac #4397
-- Making continers smaller
+- Making containers smaller
 - Zip file + password - encrypt password #4717
 - Fallback to LDAP is not working #3860
 - Support ALT + Arrows combinations (KKA p4) #4543
