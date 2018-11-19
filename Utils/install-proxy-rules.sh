@@ -71,7 +71,7 @@ $APP -t nat -D PREROUTING -s 172.18.0.0/16 ! -d 172.18.0.0/16 -p tcp --dport 80 
 $APP -t nat -D PREROUTING -s 172.18.0.0/16 ! -d 172.18.0.0/16 -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS
 EOF
 
-    chmod +x delete-iptable-rules.sh
+    chmod +x $ES_PATH/delete-iptable-rules.sh
 
     tee -a $ES_PATH/es-iptables-rule.service << EOF
 [Unit]
