@@ -13,18 +13,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_437] - 2018-11-18
 - When node is not in swarm or no leader, status-node returns a script error #3276
-- the process of adding nodes is too long #4605
+- The process of adding nodes is too long #4605
 - It is possible to upload files that are not supported #4675
-- can't type in alphanumeric mode in Japanes on safari Mac #4397
-- making continers smaller
-- zip file + password - encrypt password #4717
-- fallback to LDAP is not working #3860
+- Can't type in alphanumeric mode in Japanes on safari Mac #4397
+- Making continers smaller
+- Zip file + password - encrypt password #4717
+- Fallback to LDAP is not working #3860
 - Support ALT + Arrows combinations (KKA p4) #4543
 - Japanese keyboard - some problems with the positioning #4582
-- portal mode - pasue shield and reload is not working #4595
-- can't sign in to chrome #593
+- Portal mode - pasue shield and reload is not working #4595
+- Can't sign in to chrome #593
 - Multi select in drop down list - using "Ctrl" does not work #982
-- file preview suspended with oops something went wrong #4715
+- File preview suspended with oops something went wrong #4715
 - Network is slow error displayed in a new tab #4590
 - Scroll is broken after cmd->c on Firefox #4624
 - Allow clipboard inside the browser (KKA p2) #4473
@@ -32,9 +32,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ext-Proxy Logs #4620
 - Rename Portal to Proxyless in consul
 - Votiro AVR 'off' by Default (R1) #4561
-- file transfer reports - "CDR Report" column name change #4683
+- File transfer reports - "CDR Report" column name change #4683
 - Doc with password, bad UX, need to give a proper message #4625
 - New setting: Enable Tech-Preview Features #4653
+- Can print url pdf file when printing is disabled #4379
 
 ## [Dev:Build_436] - 2018-11-18
 
