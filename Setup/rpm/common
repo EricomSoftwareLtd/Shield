@@ -48,7 +48,7 @@ function prepare_spec() {
     SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
     envsubst <"${DIR}/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
 
-    cp "${DIR}/ericom_shield-sysusers.conf" "${BUILD_DIR}/SOURCES"
+    cp "${DIR}/ericom_shield"{-sysusers.conf,.sudoers} "${BUILD_DIR}/SOURCES"
 }
 
 function collect_rpms() {
