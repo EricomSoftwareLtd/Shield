@@ -1,14 +1,15 @@
 #!/bin/bash -e
-
+############################################
+#####   Ericom Shield Proxy Rules      #####
+####################################AN#BH###
 
 ES_PATH="/usr/local/ericomshield"
 
 function show_usage() {
     echo "Shield IP tables rules installation"
-    echo "Usage: $0 [OPTIONS] PROXY_ADDRESS"
+    echo "Usage: $0 <PROXY_ADDRESS> <PROXY_PORT>"
     exit
 }
-
 
 function valid_ip()
 {
@@ -27,7 +28,6 @@ function valid_ip()
     return $stat
 }
 
-
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
@@ -37,43 +37,55 @@ if ((EUID != 0)); then
     exit
 fi
 
-
 if [ ! -d "$ES_PATH" ]; then
     mkdir -p "$ES_PATH"
 fi
 cd "$ES_PATH"
 
-
 PROXY_ADDRESS="$1"
+PROXY_PORT="$2"
 APP=$(which iptables)
+DOCKER_NETWORK_REGEX='^[[:space:]\[\{]+([[:digit:]\.\/]+)'
+if [[ $(docker network inspect bridge -f "{{.IPAM.Config}}") =~ $DOCKER_NETWORK_REGEX ]]; then
+    BRIDGE_RANGE="${BASH_REMATCH[1]}"
+else
+    echo "Could not determine Docker bridge network address. Exiting..."
+    exit 1
+fi
+if [[ $(docker network inspect docker_gwbridge -f "{{.IPAM.Config}}") =~ $DOCKER_NETWORK_REGEX ]]; then
+    GW_BRIDGE_RANGE="${BASH_REMATCH[1]}"
+else
+    echo "Could not determine Docker GW bridge network address. Exiting..."
+    exit 1
+fi
 
-if [ -z "$PROXY_ADDRESS" ]; then
+if [ -z "$PROXY_ADDRESS" ] || [ -z "$PROXY_PORT" ] ; then
     show_usage
     exit 1
 fi
 
 if [ $(systemctl status es-iptables-rule.service | grep -c 'not-found') -eq "1" ]; then
-   tee -a $ES_PATH/create-iptable-rules.sh << EOF
+   tee  $ES_PATH/create-iptable-rules.sh << EOF
 #!/bin/bash -e
-$APP -t nat -A PREROUTING -s 172.17.0.0/16 ! -d 172.17.0.0/16 -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS
-$APP -t nat -A PREROUTING -s 172.17.0.0/16 ! -d 172.17.0.0/16 -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS
-$APP -t nat -A PREROUTING -s 172.18.0.0/16 ! -d 172.18.0.0/16 -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS
-$APP -t nat -A PREROUTING -s 172.18.0.0/16 ! -d 172.18.0.0/16 -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS
+$APP -t nat -A PREROUTING -s $BRIDGE_RANGE ! -d $BRIDGE_RANGE -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS:$PROXY_PORT
+$APP -t nat -A PREROUTING -s $BRIDGE_RANGE ! -d $BRIDGE_RANGE -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS:$PROXY_PORT
+$APP -t nat -A PREROUTING -s $GW_BRIDGE_RANGE ! -d $GW_BRIDGE_RANGE -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS:$PROXY_PORT
+$APP -t nat -A PREROUTING -s $GW_BRIDGE_RANGE ! -d $GW_BRIDGE_RANGE -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS:$PROXY_PORT
 EOF
 
     chmod +x $ES_PATH/create-iptable-rules.sh
 
-    tee -a $ES_PATH/delete-iptable-rules.sh << EOF
+    tee  $ES_PATH/delete-iptable-rules.sh << EOF
 #!/bin/bash -e
-$APP -t nat -D PREROUTING -s 172.17.0.0/16 ! -d 172.17.0.0/16 -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS
-$APP -t nat -D PREROUTING -s 172.17.0.0/16 ! -d 172.17.0.0/16 -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS
-$APP -t nat -D PREROUTING -s 172.18.0.0/16 ! -d 172.18.0.0/16 -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS
-$APP -t nat -D PREROUTING -s 172.18.0.0/16 ! -d 172.18.0.0/16 -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS
+$APP -t nat -D PREROUTING -s $BRIDGE_RANGE ! -d $BRIDGE_RANGE -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS:$PROXY_PORT
+$APP -t nat -D PREROUTING -s $BRIDGE_RANGE ! -d $BRIDGE_RANGE -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS:$PROXY_PORT
+$APP -t nat -D PREROUTING -s $GW_BRIDGE_RANGE ! -d $GW_BRIDGE_RANGE -p tcp --dport 80 -j DNAT --to $PROXY_ADDRESS:$PORXY_PORT
+$APP -t nat -D PREROUTING -s $GW_BRIDGE_RANGE ! -d $GW_BRIDGE_RANGE -p tcp --dport 443 -j DNAT --to $PROXY_ADDRESS:$PROXY_PORT
 EOF
 
     chmod +x $ES_PATH/delete-iptable-rules.sh
 
-    tee -a $ES_PATH/es-iptables-rule.service << EOF
+    tee  $ES_PATH/es-iptables-rule.service << EOF
 [Unit]
 Description=Apply DNAT rule for transparent proxy
 After=docker.service
