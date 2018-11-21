@@ -114,11 +114,11 @@ class AddNodeExecutor(object):
         if self.verbose:
             extend_command = " --verbose " + extend_command
 
-            if "-ip" in self.cmd:
-                ip_indx = [i for i, x in enumerate(self.cmd) if self.cmd[i] == '-ip']
-                for index in ip_indx:
-                    extend_command += " ".join(self.cmd[index:(index + 2)])
-                    extend_command += " "
+        if "-ip" in self.cmd:
+            ip_indx = [i for i, x in enumerate(self.cmd) if self.cmd[i] == '-ip']
+            for index in ip_indx:
+                extend_command += " ".join(self.cmd[index:(index + 2)])
+                extend_command += " "
         cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command)
 
         subprocess.run(cmd, shell=True)
