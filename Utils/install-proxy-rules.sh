@@ -45,8 +45,19 @@ cd "$ES_PATH"
 PROXY_ADDRESS="$1"
 PROXY_PORT="$2"
 APP=$(which iptables)
-BRIDGE_RANGE=$(docker network inspect bridge -f "{{.IPAM.Config}}" | cut -c 3-999 | cut -d ' ' -f 1)
-GW_BRIDGE_RANGE=$(docker network inspect docker_gwbridge -f "{{.IPAM.Config}}" | cut -c 3-999 | cut -d ' ' -f 1)
+DOCKER_NETWORK_REGEX='^[[:space:]\[\{]+([[:digit:]\.\/]+)'
+if [[ $(docker network inspect bridge -f "{{.IPAM.Config}}") =~ $DOCKER_NETWORK_REGEX ]]; then
+    BRIDGE_RANGE="${BASH_REMATCH[1]}"
+else
+    echo "Could not determine Docker bridge network address. Exiting..."
+    exit 1
+fi
+if [[ $(docker network inspect docker_gwbridge -f "{{.IPAM.Config}}") =~ $DOCKER_NETWORK_REGEX ]]; then
+    GW_BRIDGE_RANGE="${BASH_REMATCH[1]}"
+else
+    echo "Could not determine Docker GW bridge network address. Exiting..."
+    exit 1
+fi
 
 if [ -z "$PROXY_ADDRESS" ] || [ -z "$PROXY_PORT" ] ; then
     show_usage
