@@ -44,6 +44,11 @@ if [ ! -d "$CONSUL_BACKUP_PATH" ]; then
     mkdir -p "$CONSUL_BACKUP_PATH"
 fi
 
+if ! systemctl start docker; then
+    echo "Could not start Docker. Exiting..."
+    exit 1
+fi
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
