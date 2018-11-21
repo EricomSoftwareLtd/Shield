@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_438] - 2018-11-19
+- https://www.draw.io/ - works only partially #4650
+- Fields processed as integers (specific settings validation) #4708
+- Disable the slow netwrok message does not work #4722
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Japanese - position of the conversion list window #4709
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- Stuck CTRL #4769
+- Admin is broken in build 437.2 Dev #4778
+
 ## [Dev:Build_437] - 2018-11-18
 
 - When node is not in swarm or no leader, status-node returns a script error #3276
