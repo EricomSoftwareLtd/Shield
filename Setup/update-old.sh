@@ -295,4 +295,3 @@ docker run --rm $DOCKER_RUN_PARAM \
     -v /usr/local/ericomshield:/usr/local/ericomshield \
     -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
     "securebrowsing/$CONTAINER_TAG" $ARGS $ES_VERSION_ARG
-    

@@ -65,4 +65,5 @@ function pull_images() {
     echo "************ Pull shield images"
     pull_images
     echo "***********  Done!"
-    rm "$ES_VER_FILE_NEW"
+    rm "$ES_VER_FILE_NEW" 
+    

@@ -25,6 +25,7 @@ def parse_arguments():
     parser.add_argument('--pre-install-check', dest="precheck", action="store_true", default=False, help="Execute 'pre-installation checks' script")
     parser.add_argument('--registry', default="", help="Use this docker registery for get images")
     parser.add_argument('-list-versions', '--list-versions', dest='list_versions', action="store_true", default=False, help="Show available version to update")
+    parser.add_argument('--elk-conflicts', dest="fixConflicts", action="store_true", default=False, help="Try to solve schema conflicts in ELK service")
     return parser.parse_args()
 
 
@@ -98,7 +99,8 @@ class UpdateExecutor():
                     and not self.force_update \
                     and not self.run_sshkey\
                     and not self.change_registry\
-                    and not self.all_args.list_versions:
+                    and not self.all_args.list_versions\
+                    and not self.all_args.fixConflicts:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
                 print(" Current system version is {}".format(second_match[0]))
                 print(" Your EricomShield System is Up to date")
@@ -237,7 +239,15 @@ class UpdateExecutor():
         self.all_args.version = releases_array[choise - 1]
         print("Start update to:{}".format(self.all_args.version))
 
+    def fix_elk_conflicts(self):
+        cmd = '''docker run --rm -it \\
+                -v /var/run/docker.sock:/var/run/docker.sock \\
+                -v $(which docker):/usr/bin/docker \\
+                -v {0}:/usr/local/ericomshield \\
+                securebrowsing/{1} {2} elkConflicts''' \
+        .format(os.environ['ES_PATH'], self.container, self.get_verbose())
 
+        subprocess.run(cmd, shell=True)
 
     def run_update(self):
         self.download_latest_version()
@@ -246,6 +256,10 @@ class UpdateExecutor():
             exit(0)
 
         self.check_sshkey_exists()
+
+        if self.all_args.fixConflicts:
+            self.fix_elk_conflicts()
+            exit(0)
 
         if self.change_registry:
             self.apply_registry()

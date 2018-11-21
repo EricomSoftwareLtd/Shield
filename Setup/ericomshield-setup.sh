@@ -731,9 +731,23 @@ function am_i_leader() {
     AM_I_LEADER=$(docker node inspect $(hostname) --format "{{ .ManagerStatus.Leader }}" | grep "true")
 }
 
+function check_registry() {
+    if [ ! -z $SHIELD_REGISTRY ]; then
+        log_message "Testing the registry..."
+        if ! docker run --rm "$SHIELD_REGISTRY/alpine:latest" "/bin/true"; then
+            log_message "Registry test failed"
+            return 1
+        else
+            log_message "Registry test OK"
+        fi
+    fi
+
+    return 0
+}
+
 function update_daemon_json() {
     if [ ! -z $SHIELD_REGISTRY ]; then    
-       if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
+        if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
           echo '/etc/docker/daemon.json is ok'
         else
           echo "Setting: insecure-registries:[$SHIELD_REGISTRY] in /etc/docker/daemon.json"
@@ -746,7 +760,7 @@ function update_daemon_json() {
           sleep 10
           mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
           systemctl start docker
-       fi          
+        fi
     fi
 }
 
@@ -795,6 +809,26 @@ else
 fi
 
 docker_login
+
+if ! check_registry; then
+    log_message "Using Docker Hub instead of local registry at $SHIELD_REGISTRY"
+    SHIELD_REGISTRY=""
+    while read -p "Do you want to proceed (Yes/No)? " choice; do
+        case "$choice" in
+            y | Y | "yes" | "YES" | "Yes")
+                echo "yes"
+                break
+                ;;
+            n | N | "no" | "NO" | "No")
+                echo "no"
+                echo "Exiting..."
+                exit 10
+                ;;
+            *) ;;
+
+        esac
+    done
+fi
 
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
