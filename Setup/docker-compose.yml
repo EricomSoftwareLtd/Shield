@@ -176,7 +176,6 @@ services:
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.management==yes]}
-            resources: {limits: {memory: 500MB, cpus: '0.5'}}
             resources: {limits: {memory: 1GB, cpus: '0.5'}}
     icap-server:
         image: 'securebrowsing/icap-server:latest'
