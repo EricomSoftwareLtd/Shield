@@ -11,43 +11,83 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Prod:18.10.2-Build-413.4] - 23-10-2018
-
-- Fixed: Custom Trust Certificate is not working with shield 
-- Fixed: QA#708355 Failure addnoteds.sh -b
-
-## [Prod:18.10-Build-413.2] - 14-10-2018
+## [Prod:18.11-Build-436] - 18-11-2018
 
 ### New Features
 
 #### End User Features
 
-- Paste Image to Shield
-- Send Feedback (from right click)
-- Pause Shield and Reload (for evaluations)
+- File Preview
 
 #### Admin Features
 
-- Support Already Authenticated Users by Downstream Proxy (Headers)
-- Support for local registry/cach for Docker Images
-- Votiro New Version: 8.1.0
+- Maintain customer environment variables during upgrade (proxy, subnet)
+- Proxyless Mode (Tech-Preview)
+- Votiro New Version: 8.1.1
+- External Syslog Configuration from AdminUI
 
 ### Enhancement
+
+- Alert when user is associated to two User Profiles
+- Add Display Name and User Profile to the report/sessions list in Dashboard
+- Alert end user when Javascript is disabled on the browser (may lead to errors)
+- Increase download timeout to 30 min
+- Delete "raw" index in ELK prior to update process
+- WebService Code cleanup - reduce network usage
+- Reset Certificate uploaded and revert to Ericom Certificate
+- Verify all certificates exists
+
+### Bug Fixes
+
+- Fixed: Uploading files should ignore timeout
+- Fixed: LDAP Login related bugs
+- Fixed: Japanes Keyboard Issues
+- Fixed: Website Salesforce - several issues (Spellcheck, create PDF invoice, cannot set value in dropdown)
+- Fixed: Website Facebook related issues (playing videos & upload photo/video)
+- Fixed: Upload into iFrame
+- Fixed: Zip with password didn’t work properly
+- Fixed: Links are downloaded when they should be opened - fixed
+- Fixed: Several Broken Websites (Foxnews, Zoominfo, etc)
+- Fixed: Custom trust certificate is not working with shield
+- Fixed: No mail alert on a machine with upstream proxy
+
+## [Prod:18.10.2-Build-413.4] - 23-10-2018
+
+- Fixed: Custom Trust Certificate is not working with shield
+- Fixed: QA#708355 Failure addnoteds.sh -b
+
+## [Prod:18.10-Build-413.2] - 14-10-2018
+
+### New Features 18.10
+
+#### End User Features 18.10
+
+- Paste image to Shield
+- Send Feedback (from right click)
+- Pause Shield and Reload (for evaluations)
+
+#### Admin Features 18.10
+
+- Support already authenticated users by downstream proxy (using headers)
+- Support for local registry/cache for docker images
+- Votiro new version: 8.1.0
+
+### Enhancement 18.10
 
 - Performance Improvements:
 - - Several improvements for faster page loading
 - - Lower FPS settings
 - - Lower FPS during scrolling
-- - Reduce Bandwidth usage
+- - Reduce bandwidth usage
 - Pre-check is not run by default on update
-- Admin UI - Validation of Domain value in Policy
+- Admin UI - Validation of domain value in policy
 - Admin UI - Import policies should display the name of the file
 - Admin UI - New Japanese Translations
 - Data retention for basic authentication
 
-### Bug Fixes
+### Bug Fixes 18.10
 
-- Fixed: Several Broken Websites
+- Fixed: Several broken websites
 - Fixed: Delete raw index in ELK if conflicts
 - Fixed: Hide context menu on scroll
 - Fixed: Japanese character conversion candidate display position

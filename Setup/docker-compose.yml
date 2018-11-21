@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.10
+# YML file for Rel-18.11
 
 services:
     dns:
@@ -22,7 +22,8 @@ services:
     netdata:
         image: 'securebrowsing/netdata:latest'
         volumes:
-            - '/var/run/docker.sock:/var/run/docker.sock'
+            - '/proc:/host/proc:ro'
+            - '/sys:/host/sys:ro'
         networks:
             - shield
         hostname: netdata
@@ -48,7 +49,7 @@ services:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
-            resources: {limits: {memory: 2GB, cpus: '0.5'}}
+            resources: {limits: {memory: 1GB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
             - 'IMAGE_CLEAN_INTERVAL=1h'
@@ -70,12 +71,9 @@ services:
             mode: global
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
+            resources: {limits: {memory: 1GB, cpus: '0.5'}}
     elk:
         image: 'securebrowsing/shield-elk:latest'
-#        ports:
-#            - '5601:5601'
-#            - '9200:9200'
-#            - '5014:5014'
         networks:
             - shield
         environment:
@@ -126,7 +124,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
         environment:
             - 'TZ=UTC'
-            - 'CONSUL_BIND_INTERFACE=eth0'
+            - "SHIELD_SUBNET=${SUB_NET}"
             - 'NUMBER_OF_EXPECTED=3' # works for single and multi node
             - 'LOGSTASH_FIELDS=service=consulserver'
         volumes:
@@ -135,7 +133,7 @@ services:
         image: 'securebrowsing/shield-consul-agent:latest'
         networks:
             - shield
-        #Published only for Dev    
+        #Published only for Dev
 #        ports:
 #            - '8500:8500'
         deploy:
@@ -147,7 +145,7 @@ services:
         environment:
             - 'TZ=UTC'
             # eth2 for Dev
-            - 'CONSUL_BIND_INTERFACE=eth0'
+            - "SHIELD_SUBNET=${SUB_NET}"
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
 
@@ -174,7 +172,7 @@ services:
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.management==yes]}
-            resources: {limits: {memory: 500MB, cpus: '0.5'}}
+            resources: {limits: {memory: 1GB, cpus: '0.5'}}
     icap-server:
         image: 'securebrowsing/icap-server:latest'
         # user: nobody
@@ -198,7 +196,7 @@ services:
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
-            resources: {limits: {memory: 500MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
     broker-server:
         image: 'securebrowsing/broker-server:latest'
         # user: nobody
@@ -208,7 +206,7 @@ services:
             replicas: 1
             restart_policy: {condition: any}
             update_config: {parallelism: 1, failure_action: rollback}
-            resources: {limits: {memory: 150MB, cpus: '1'}}
+            resources: {limits: {memory: 256MB, cpus: '1'}}
             placement: {constraints: [node.labels.management==yes]}
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
@@ -274,7 +272,7 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
-            resources: {limits: {memory: 500MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}            
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
         hostname: ext-proxy
@@ -286,7 +284,7 @@ services:
             mode: replicated
             replicas: 2
             placement: {constraints: [node.labels.browser==yes]}
-            resources: {limits: {memory: 1024MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}            
         environment:
             - 'TZ=UTC'
     ext-proxy-noadblock:
@@ -300,7 +298,7 @@ services:
             mode: replicated
             replicas: 2
             placement: {constraints: [node.labels.browser==yes]}
-            resources: {limits: {memory: 1024MB, cpus: '1'}}
+            resources: {limits: {memory: 1GB, cpus: '1'}}            
         environment:
             - 'TZ=UTC'
             - 'ADDBLOCK=no'
@@ -342,7 +340,7 @@ services:
         networks:
             - shield
         ports:
-            - {target: 3128, published: 3128, protocol: tcp, mode: host}
+            - {target: 3128, published: "${SHIELD_PROXY_PORT}", protocol: tcp, mode: host}
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
@@ -350,8 +348,6 @@ services:
     web-service:
         image: 'securebrowsing/shield-web-service:latest'
         hostname: web-service
-        ports:
-            - '80:1345'
         networks:
             - shield
         environment:
@@ -364,6 +360,21 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
+    proxyless-connector:
+        image: 'securebrowsing/shield-proxyless-connector:latest'
+        hostname: proxyless-connector
+        ports:
+            - '80:80'
+        networks:
+            - shield
+        environment:
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=shield-proxyless-connector'
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement: {constraints: [node.labels.management==yes]}
+            resources: {limits: {memory: 500MB, cpus: '2'}}
     cdr-dispatcher:
         image: 'securebrowsing/shield-cdr-dispatcher:latest'
         hostname: cdr-dispatcher
@@ -405,7 +416,7 @@ services:
         hostname: portainer
         #Published only for Dev
 #        ports:
-#            - '9000:9000'
+#           - '9000:9000'
         volumes:
             # - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer_v2:/data'
@@ -433,6 +444,23 @@ services:
             - shield
         deploy:
             mode: global
+            resources: {limits: {memory: 500MB, cpus: '0.5'}}
+
+    es-file-preview:
+        image: 'securebrowsing/es-file-preview:latest'
+        hostname: es-file-preview
+        environment:
+            - 'TZ=UTC'
+            - 'LOGSTASH_FIELDS=service=esfilepreview'
+        networks:
+            - shield
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
 
 volumes:
     elastic:
@@ -444,7 +472,7 @@ networks:
         driver: overlay
         ipam:
             driver: default
-            config: [{subnet: 10.20.0.0/16}]
+            config: [{subnet: "${SUB_NET}"}]
 
 secrets:
     shield-system-id:

@@ -11,13 +11,239 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_413.4] - 2018-10-23
+## [Dev:Build_436] - 2018-11-18
 
-- Fixed: Custom Trust Certificate is not working with shield 
+- Proxyless mode is enabled by default #4745
+- Revert of Underline of unconverted character string #3975
 
-## [Dev:Build_413.3] - 2018-10-22
+## [Dev:Build_435] - 2018-11-14
 
-- Fixed: QA#708355 Failure addnoteds.sh -b
+- File preview doesn't work #4724
+
+## [Dev:Build_434] - 2018-11-14
+
+- File preview - file not found for specific file #4696
+- File previewed failed when clicking on multiple files #4713
+- (*) fix resource paths in proxy mode
+
+## [Dev:Build_432] - 2018-11-12
+
+- Fix addnode fly on ignoring errors
+- Preview PDF file should directly display the preview the file (w/o conversion) #4657
+- pdf in Japanese - letters in file preview look gibberish #4695
+- Hebrew letters in pdf file are reversed when generaring file preview #4694
+
+## [Dev:Build_431] - 2018-11-11
+
+- broker didn't create squid configuration at the consul #4682
+
+## [Dev:Build_430] - 2018-11-08
+
+- Preview should not be generated on unsupported file types #4643
+- Preview jpg file failed #4641
+- Preview - fail to show big file #4630
+- Preview fail to show image #4626
+- file preview failed for pdf files #4671
+- Doc with password, bad UX, need to give a proper message #4625
+- Change order of values #4613
+
+## [Dev:Build_429] - 2018-11-06
+
+- ELK container not start in Dev428 #4646
+- Elk conflicts message #4644
+- Preview should not be generated on unsupported file types #4643
+- Print should not be available on Preview #4639
+- Preview - printing the file does not work properly #4632
+- Preview: Right Click: Pause Shield & Reload shouldn't be displayed #4631
+- Preview - File Transfer report info is not correct #4629
+- Preview multiple files #4628
+- Uploading files should ignore timeout #4449
+
+## [Dev:Build_428] - 2018-11-04
+
+- Can print url pdf file when printing is disabled #4379
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Another LDAP login issue (reported by KKA) #4156
+- Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
+- Underline of unconverted character string (#146) #3975
+- Japanese character conversion candidate display position #3961
+- When node is not in swarm or no leader, status-node returns a script error #3276
+- Backspace after using left arrow in Japanese is not working as expected #2192
+- portal mode - ignores license and session limit tabs #4601
+- if during addnode running fatal error is thrown addnode script is not stopped. #3864
+- Remote File Preview #879
+- Proxyless mode enable/disable #4597
+- Change order of values #4613
+
+## [Dev:Build_427] - 2018-10-31
+
+- string update #4564
+- (*) Spellcheck not working on Salesforce iframes #4351
+- zip and 7z is not working #4378
+- Added Preview continer
+
+## [Dev:Build_426] - 2018-10-29
+
+- String update #4564
+- Network is slow error appears #4508
+- Change Text on Send Feedback #4384
+
+## [Dev:Build_425] - 2018-10-28
+
+- Link to Email Links Should Work #1276
+- Field name change - Admin | Resources #4541
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Webservice is used behind Ngnix
+- Cookies are lost #4553
+- Can't log in to Salesforce (Google is saving the name + password as password in one line (see screenshot attached) #4555
+- A problem to connect to SF with shield Jerusalem #4557
+- DNS not registered at the consul #4547
+- Not possible to filter by User Name/Display Name in Connections Report #4536
+- addnodes exception when trying to add leader node #4472
+- upload photo/ video to facebook is not working #4448
+- if during addnode running fatal error is thrown addnode script is not stopped. #3864
+- Add prepare-node.sh as part of addnode script #
+- When node is not in swarm or no leader, status-node returns a script error #3276
+- Change proxy via env_var in yml file #4535
+
+## [Dev:Build_424] - 2018-10-25
+
+- Admin error #3084
+- Upload in iFrame doesn't work #4467
+- New addnode script (py)
+- addnode with --verbose doesn't work #4437
+- Failure addnodes.sh -b #4438
+
+## [Dev:Build_423.4] - 2018-10-24
+
+- Dashboard: Wrong Display Name in Session Table #4513
+- Reorder end user options in right click menu #4349
+- Alert end user in case Javascript is disabled on his browser #4499
+- Zip with password is not working #4378
+- Custom trust certificate is not working with shield #3906
+- Cisco Umbrella Support (Proxyless Connector) #4350
+- Kill the shield-squid-auth container when squid exits
+- Update errors #4405
+- Failure addnoteds.sh -b #4438
+- issues with update from 413.2 to 420 #4482
+- Add Failure Tooltip in File Transfer Report #4512
+
+## [Dev:Build_422] - 2018-10-23
+
+- Standby remote browser under admin ui > resources #2578
+- No alert about votiro bad address when using upstream proxy #4047
+- Change Text on Send Feedback #4384
+- Incorrect title after the policies was imported #4395
+- Update default CA date #4401
+- link for details - no results found #4424
+- Consul backup is taking a lot of CPU #4433
+- Facebook playing videos #4440
+- Alert are keep being sent about AD groups conflict #4443
+- CDR controller sometimes - failed firing event #4498
+- The version is missing in the Login - About screen #4259
+- admin UI - error message when it should not be displayed #4369
+- Wrong error messages displayed when trying to change a domain name with an incorrect one #4400
+- The activation key is not removed after the activation is done #3232
+- Admin UI - save should auto-remove spaces when exists #3331
+
+## [Dev:Build_421] - 2018-10-21
+
+- No mail alert on a machine with upstream proxy #4477
+- Download big pdf file fails with timeout #4444
+- Admin - feedback related settings - tooltip changes #4480
+- build 418 on mini sanity machine - pre check internal warning #4457
+
+## [Dev:Build_420.1] - 2018-10-21
+
+- Reverted adding addons to IE using <https://www.microsoft.com/en-us/iegallery> is not working #3984
+
+## [Dev:Build_420] - 2018-10-21
+
+- Failure addnoteds.sh -b #4438
+- Salesforce PDF preview #4342
+- Adding addons to IE using <https://www.microsoft.com/en-us/iegallery> is not working #3984
+- Acrobat is not recognized (R2) #488
+- Incorrect Activate Key tool tip #4465
+- Unknown error when trying to activate license #4464
+- Verify all certificates exists #4386
+- Use the docker registry in case the registry configured doesn’t work #4357
+
+## [Dev:Build_419] - 2018-10-18
+
+- Fix string for DNS test total time when succeed #4435
+- W3schools.com example #4402
+- Add shell variables into docker-compose file #4354
+- Feedback Webhook URL - string update #4317
+- Authentication chaining tool tip, default field and IP range syntax #4291
+- Before start update delete "raw" index in ELK - command to delete it is not working #4225
+- Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
+- Add prepare-node.sh as part of addnode script #3616
+- hard to reproduce - links are downloaded when they should be opened #3493
+- Added remote browser console errors to ELK
+
+## [Dev:Build_418] - 2018-10-17
+
+- Connection report - add profile field #3102
+- Connectivity test is not working #4427
+- No reports on my machines #4411
+- ELK is crashing #4430
+- CPU 100% on shield machine #4428
+- No reports on my machines #4411
+- Link for details - no results found #4424
+
+## [Dev:Build_417] - 2018-10-16
+
+- Settings - custom CA password #3499
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Add Syslog Config to the Admin #2713
+- Microsoft store login window with shield is not looking good #4302
+- Unknown alert ID 24 #4393
+- Default license type #2572
+- Missing alerts in the translation strings #3966
+- Compatibility mode is not working for a sepcific web site #4096
+- Use the docker registry in case the registry configured doesn’t work #4357
+
+## [Dev:Build_416.1] - 2018-10-15
+
+- Opening a page from shield to a whitelisted (or excluded in the PAC file) doesn't work #1928
+- Whitelisted sites in Bluecoat in-front of us #3733
+- DNS load balancing browsers (AKA free.browser) #4331
+- Add Syslog Config to the Admin (Admin) #2713
+- Can't download pdf file #4373
+- WebService Code cleanup - reduce network usage
+- Collector is not working in latest build #4385
+
+## [Dev:Build_415] - 2018-10-14
+
+- Consul error logs not arrive to ELK. #3949
+- Change consul start script for automatic finding correct network. #4355
+- Reports are not working well #4374
+- Pause shield & reload - missing browser in the report #4198
+
+## [Dev:Build_414.2] - 2018-10-10
+
+- Printing files such as pdf without downloading them #3935
+- Admin UI - rule can be applied on a domain, not a URI - need to add error for the user #3971
+- Case sensitive for text when import table #3540
+- Too many popup dialogs on Salesforce #4348
+- Foxnews: embedded twitter videos do not play #3947
+- Unable to set value in salesforce dropdowns/inputs #4334
+- Can't copy paste from a web page to word/ outlook (copy -paste or Ctrl c+v) #3138
+- Update old FPS values #4328
+- Move alpine based containers to use base image and alpine 3.8 #4211
+- Pending Electron v3 - <https://advisera.com/eugdpracademy/eu-gdpr-documentation-toolkit/> - check box issue #3957
+- ZoomInfo #4191
+- "Find Bad items" during addnodes #4219
+- incorrect string when adding new policy with incorrect IP/domain value #4326
+- Jumping and white display for a split of a second when watching a video #3952
+- the audio continue for a while after closing the video on linkedin video #3863
+- Add Syslog Config to the Admin (backend) #2713
+- Alert when user is on two User Profiles #4244
+- Add Display Name and Group to the report/sessions list in Dashboard #3722
+- Connection report - add profile field #3102
+- tw.yahoo.com fonts issue #4235
+- Admin - Profiles - Generate #2880
+- Ubuntu based dockers to be based on Minimal Ubuntu (18.04) #4287
 
 ## [Dev:Build_413.2] - 2018-10-09
 
