@@ -112,11 +112,11 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %config "%{_prefix}/local/ericomshield/shield-version.txt"
 %ghost %config(missingok) "%{_prefix}/local/ericomshield/.es_ip_address"
 %attr(0600, ericom, ericom) %ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/authorized_keys"
+%attr(0600, ericom, ericom) %ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/known_hosts"
 %attr(0600, ericom, ericom) %ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_dsa"
 %attr(0600, ericom, ericom) %ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_dsa.pub"
 %attr(0600, ericom, ericom) %ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_rsa"
 %attr(0600, ericom, ericom) %ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_rsa.pub"
-%attr(0600, ericom, ericom) %ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/known_hosts"
 %doc "%{_prefix}/local/ericomshield/Ericom-EULA.txt"
 %ghost "%{_prefix}/local/ericomshield/.eula_accepted"
 %ghost "%{_prefix}/local/ericomshield/ericomshield.log"
@@ -164,11 +164,19 @@ fi
 %systemd_post media-containershm.mount
 systemctl enable media-containershm.mount >/dev/null 2>&1 || :
 systemctl start media-containershm.mount >/dev/null 2>&1 || :
+
 %sysctl_apply "%{_sysctldir}/ericom_shield.conf"
-echo "done"
+
 TZ="$(date '+%Z')"
 ES_YML_FILE="%{_prefix}/local/ericomshield/docker-compose.yml"
 %{__sed} -i'' "s#TZ=UTC#TZ=${TZ}#g" "${ES_YML_FILE}"
+
+if ! [ -z ${ericom_shield_authorized_keys+x} ]; then echo "$ericom_shield_authorized_keys" >"%{_prefix}/local/ericomshield/.ssh/authorized_keys"; fi
+if ! [ -z ${ericom_shield_known_hosts+x} ]; then echo "$ericom_shield_known_hosts" >"%{_prefix}/local/ericomshield/.ssh/known_hosts"; fi
+if ! [ -z ${ericom_shield_id_dsa+x} ]; then echo "$ericom_shield_id_dsa" >"%{_prefix}/local/ericomshield/.ssh/id_dsa"; fi
+if ! [ -z ${ericom_shield_id_dsa_pub+x} ]; then echo "$ericom_shield_id_dsa_pub" >"%{_prefix}/local/ericomshield/.ssh/id_dsa.pub"; fi
+if ! [ -z ${ericom_shield_id_rsa+x} ]; then echo "$ericom_shield_id_rsa" >"%{_prefix}/local/ericomshield/.ssh/id_rsa"; fi
+if ! [ -z ${ericom_shield_id_rsa_pub+x} ]; then echo "$ericom_shield_id_rsa_pub" >"%{_prefix}/local/ericomshield/.ssh/id_rsa.pub"; fi
 
 %preun
 %systemd_preun media-containershm.mount
