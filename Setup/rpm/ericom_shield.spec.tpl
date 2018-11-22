@@ -9,6 +9,7 @@ URL:       https://www.ericomshield.com/
 
 Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
 Source1:   %{name}-sysusers.conf
+Source2:   %{name}.sudoers
 
 %description
 Ericom Shield handles browsing sessions remotely, blocking web-borne threats
@@ -98,12 +99,15 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %{__install} -Dp -m 644 "Setup/media-containershm.mount" "%{buildroot}%{_unitdir}/media-containershm.mount"
 %{__install} -Dp -m 644 "%SOURCE1" "%{buildroot}%{_sysusersdir}/%{name}.conf"
 
+%{__install} -Dp -m 644 "%SOURCE2" "%{buildroot}%{_sysconfdir}/sudoers.d/%{name}"
+
 %files
 %dir "%{_prefix}/local/ericomshield"
 %dir "%{_prefix}/local/ericomshield/backup"
 %dir %attr(0755, ericom, ericom) "%{_prefix}/local/ericomshield/.ssh"
 %config "%{_sysctldir}/ericom_shield.conf"
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
+%config "%{_sysconfdir}/sudoers.d/%{name}"
 %config "%{_prefix}/local/ericomshield/docker-compose.yml"
 %config "%{_prefix}/local/ericomshield/shield-version.txt"
 %ghost %config(missingok) "%{_prefix}/local/ericomshield/.es_ip_address"
