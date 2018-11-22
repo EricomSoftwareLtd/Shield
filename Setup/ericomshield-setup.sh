@@ -53,6 +53,7 @@ ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
 SWITCHED_TO_MULTINODE=false
+NON_INTERACTIVE=false
 
 MIN_RELEASE_MAJOR="16"
 MIN_RELEASE_MINOR="04"
@@ -249,6 +250,7 @@ while [ $# -ne 0 ]; do
     -approve-eula)
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
+        NON_INTERACTIVE=true
         ;;
     --no-deploy | -no-deploy) # -arg option will be deprecated and replaced by --arg
         ES_RUN_DEPLOY=false
@@ -861,7 +863,9 @@ get_shield_files
 
 update_sysctl
 
-./prepare-node.sh
+if [ "$NON_INTERACTIVE" == false ]; then
+   ./prepare-node.sh
+fi
 
 prepare_yml
 
