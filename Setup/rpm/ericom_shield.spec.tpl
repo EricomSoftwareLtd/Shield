@@ -62,8 +62,9 @@ prepare_yml() {
 }
 
 %{__rm} -rf %{buildroot}
-%{__mkdir} -p %{buildroot}%{_prefix}/local/ericomshield
-%{__mkdir} -p %{buildroot}%{_prefix}/local/ericomshield/backup
+%{__mkdir} -p "%{buildroot}%{_prefix}/local/ericomshield"
+%{__mkdir} -p "%{buildroot}%{_prefix}/local/ericomshield/backup"
+%{__mkdir} -p "%{buildroot}%{_prefix}/local/ericomshield/.ssh"
 
 # %{__install} -Dp -m 755 "Setup/ericomshield-setup.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 # %{__install} -Dp -m 755 "Setup/update.sh" "%{buildroot}%{_prefix}/local/ericomshield"
@@ -100,11 +101,18 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %files
 %dir "%{_prefix}/local/ericomshield"
 %dir "%{_prefix}/local/ericomshield/backup"
+%dir %attr(0755, ericom, ericom) "%{_prefix}/local/ericomshield/.ssh"
 %config "%{_sysctldir}/ericom_shield.conf"
 %config "%{_sysconfdir}/profile.d/ericom_shield.sh"
 %config "%{_prefix}/local/ericomshield/docker-compose.yml"
 %config "%{_prefix}/local/ericomshield/shield-version.txt"
 %ghost %config(missingok) "%{_prefix}/local/ericomshield/.es_ip_address"
+%ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/authorized_keys"
+%ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_dsa"
+%ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_dsa.pub"
+%ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_rsa"
+%ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/id_rsa.pub"
+%ghost %config(missingok) "%{_prefix}/local/ericomshield/.ssh/known_hosts"
 %doc "%{_prefix}/local/ericomshield/Ericom-EULA.txt"
 %ghost "%{_prefix}/local/ericomshield/.eula_accepted"
 %ghost "%{_prefix}/local/ericomshield/ericomshield.log"
