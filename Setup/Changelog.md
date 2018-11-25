@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_439] - 2018-11-25
+
+- Proxyless mode is enabled by default - please fix to be disabled #4787
+- Import policies - translations issues #4766
+- Proxyless key not created - portal mode is not working #4763
+- Timeout Session doesnt work on Website with Popup window #4758
+- disable the slow netwrok message does not work - now message is not displayed also when it should #4722
+- Policies - delete multiple lines - does not work as expected #4684
+- file preview - add size limitation #4681	
+- Add the "[]" Symbol Before the URL Name #4721
+
 ## [Dev:Build_438] - 2018-11-19
 - https://www.draw.io/ - works only partially #4650
 - Fields processed as integers (specific settings validation) #4708
