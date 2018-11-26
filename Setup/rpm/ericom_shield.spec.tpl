@@ -25,37 +25,14 @@ Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
 Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
 Requires: centos-release >= 7-5
 
-Requires: ansible >= 2.6
-Requires: python34-asn1crypto >= 0.24.0
-Requires: python34-bcrypt >= 3.1.4
+Requires: ansible >= 2.7.1, ansible < 2.8
 Requires: python34-boto >= 2.48.0
 Requires: python34-boto3 >=1.5.34
-Requires: python34-botocore >= 1.8.48
-Requires: python34-certifi >= 2018.1.18
-Requires: python34-cffi >= 1.11.5
-Requires: python34-chardet >= 3.0.4
 Requires: python34-click >= 6.7
-Requires: python34-cryptography >= 2.2.2
 Requires: python-docker-py >= 1.10.6
 Requires: python34-docker-pycreds >= 0.2.2
-Requires: python34-docutils >= 0.14
-Requires: python34-idna >= 2.6
-Requires: python34-Jinja2 >= 2.10
-Requires: python34-jmespath >= 0.9.3
-Requires: python34-MarkupSafe >= 1.0
-Requires: python34-paramiko >= 2.4.1
 Requires: python34-pyaml >= 17.12.1
-Requires: python34-pyasn1 >= 0.4.2
-Requires: python34-pycparser >= 2.18
-Requires: python34-PyNaCl >= 1.2.1
-Requires: python34-python-dateutil >= 2.6.1
-Requires: python34-PyYAML >= 3.12
-Requires: python34-requests >= 2.18.4
-Requires: python34-s3transfer >= 0.1.13
-Requires: python34-six >= 1.11.0
 Requires: python34-texttable >= 1.2.1
-Requires: python34-urllib3 >= 1.22
-Requires: python34-websocket-client >= 0.47.0
 
 Requires(pre): /usr/sbin/useradd, /usr/sbin/usermod, /usr/bin/getent, /usr/bin/which
 Requires(postun): /usr/sbin/userdel
