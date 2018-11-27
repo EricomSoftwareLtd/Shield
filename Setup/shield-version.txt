@@ -6,7 +6,7 @@ shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
 shield-admin:latest shield-admin:181125-10.33-3269
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181118-17.20-3222
-icap-server:latest icap-server:181127-09.44-3293
+icap-server:latest icap-server:181127-14.12-3299
 shield-cef:latest shield-cef:181127-12.50-3296
 shield-collector:latest shield-collector:181118-15.49-3220
 shield-elk:latest shield-elk:181119-07.23-3224
