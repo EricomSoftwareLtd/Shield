@@ -17,7 +17,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Japanese keyboard -the position of the conversion list window is not correct #4771
 - disable the slow netwrok message does not work - now message is not displayed also when it should #4722
 - Bandwidth while scrolling #4801
-- Add Kubernetes specific features
 
 ## [Dev:Build_439] - 2018-11-25
 
