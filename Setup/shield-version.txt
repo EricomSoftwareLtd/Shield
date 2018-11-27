@@ -1,5 +1,5 @@
-#Build Dev:Build_440 on 18/11/27 
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_440
+#Build Dev:Build_441 on 18/11/27 
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_441
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
@@ -28,4 +28,5 @@ es-system-configuration:latest es-system-configuration:181127-10.19-3295
 es-system-monitor:latest es-system-monitor:181119-11.46-3230
 es-license-manager:latest es-license-manager:181127-12.50-3296
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
+es-policy-manager:latest es-policy-manager:181127-22.03
 # This needs to be the last line
