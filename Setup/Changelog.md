@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_440] - 2018-11-27
+
+- Votiro Cloud URL alert while using Votiro on-premise URL #4817
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- disable the slow netwrok message does not work - now message is not displayed also when it should #4722
+- Bandwidth while scrolling #4801
+
 ## [Dev:Build_439] - 2018-11-25
 
 - Proxyless mode is enabled by default - please fix to be disabled #4787
