@@ -188,8 +188,8 @@ services:
             nofile: {soft: 65535, hard: 65535}
         networks:
             - shield
-        ports:
-            - '1344:1344'
+#        ports:
+#            - '1344:1344'
         deploy:
             mode: replicated
             replicas: 1
