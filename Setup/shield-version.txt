@@ -26,6 +26,6 @@ shield-proxyless-connector:latest shield-proxyless-connector:181025-17.07-3061
 es-file-preview:latest es-file-preview:181125-07.31-3259
 es-system-configuration:latest es-system-configuration:181127-10.19-3295
 es-system-monitor:latest es-system-monitor:181119-11.46-3230
-es-license-manager:latest es-license-manager:181119-10.10-3228
+es-license-manager:latest es-license-manager:181127-12.50-3296
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
 # This needs to be the last line
