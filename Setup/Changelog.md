@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_441] - 2018-11-28
 
-- categories 
+- Added Categories backend in disabled mode
+- Licesing support for Votiro CDR and Named Users Licensing - not ready to test 
 
 ## [Dev:Build_440] - 2018-11-27
 
