@@ -232,6 +232,22 @@ services:
             - {type: tmpfs, target: /home}
             - {type: tmpfs, target: /tmp}
             - {type: bind, target: /dev/shm/xorg, source: /media/containershm}
+    es-policy-manager:
+        image: 'securebrowsing/es-policy-manager:latest'
+        hostname: es-policy-manager
+        environment:
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-policy-manager
+        networks:
+            - shield
+        deploy:
+            mode: replicated
+            replicas: 2
+            update_config: {failure_action: rollback}
+            restart_policy: {condition: any}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 500MB, cpus: '1'}}        
     es-system-configuration:
         image: 'securebrowsing/es-system-configuration:latest'
         # user: nobody
