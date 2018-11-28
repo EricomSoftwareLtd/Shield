@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_441] - 2018-11-28
+
+- categories 
+
 ## [Dev:Build_440] - 2018-11-27
 
 - Votiro Cloud URL alert while using Votiro on-premise URL #4817
