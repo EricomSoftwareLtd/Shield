@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_442] - 2018-11-28
+
+- Not possible to Print a page #4840
+- SMTP alert uses auth when no auth is defined #4835
+- Notifier service must run on a management node. #4834
+- Allow Admin to set Image Quality and FPS #4362
+- Support secured Media #367
+- Right click -> paste : dialog to use ctrl v is not openning #4831
+
 ## [Dev:Build_441] - 2018-11-28
 
 - Added Categories backend in disabled mode
