@@ -11,12 +11,6 @@ Source0:   ${ERICOM_SHIELD_VERSION}.tar.gz
 Source1:   %{name}-sysusers.conf
 Source2:   %{name}.sudoers
 
-%description
-Ericom Shield handles browsing sessions remotely, blocking web-borne threats
-from penetrating your enterprise. Isolating users from malicious web content,
-Ericom Shield eliminates the browsing web threat vector while maintaining
-user productivity.
-
 BuildRequires: tar, gzip
 %{?systemd_requires}
 BuildRequires: systemd
@@ -26,12 +20,12 @@ Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
 Requires: centos-release >= 7-5
 
 Requires: ansible >= 2.7.1, ansible < 2.8
-Requires: python34-boto >= 2.48.0
-Requires: python34-boto3 >=1.5.34
+Requires: python-boto >= 2.25
+Requires: python-boto3 >= 1.4.6
 Requires: python34-click >= 6.7
 Requires: python-docker-py >= 1.10.6
-Requires: python34-docker-pycreds >= 0.2.2
-Requires: python34-pyaml >= 17.12.1
+Requires: python34-docker-pycreds >= 0.2.1
+Requires: python34-PyYAML >= 3.11
 Requires: python34-texttable >= 1.2.1
 
 Requires(pre): /usr/sbin/useradd, /usr/sbin/usermod, /usr/bin/getent, /usr/bin/which
@@ -46,6 +40,12 @@ Conflicts: docker-latest-logrotate
 Conflicts: docker-logrotate
 Conflicts: docker-engine
 Conflicts: bind, dnsmasq, unbound
+
+%description
+Ericom Shield handles browsing sessions remotely, blocking web-borne threats
+from penetrating your enterprise. Isolating users from malicious web content,
+Ericom Shield eliminates the browsing web threat vector while maintaining
+user productivity.
 
 %prep
 # %{__tar} --strip=1 -xzvf %{SOURCE0}
