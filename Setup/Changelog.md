@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_443] - 2018-12-02
+
+- Working by hostname (not by URL) #4850
+- Ugly alert when Votiro license / trial days are over #4738
+- Proxyless Admin UI #4858
+- Cloud preparations 
+
+
 ## [Dev:Build_442] - 2018-11-28
 
 - Not possible to Print a page #4840
