@@ -17,7 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ugly alert when Votiro license / trial days are over #4738
 - Proxyless Admin UI #4858
 - Cloud preparations 
-
+- Download zip with password - fix the password dialog #4852
+- Browser Farm settings in Admin #4857
 
 ## [Dev:Build_442] - 2018-11-28
 
