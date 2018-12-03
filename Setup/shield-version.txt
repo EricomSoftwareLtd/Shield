@@ -1,4 +1,4 @@
-#Build Rel-18.11:Build_436 on 21/11/18 #UNR#
+#Build Rel-18.11.1:Build_436.1 on 05/12/18 
 SHIELD_VER=8.0.0.latest SHIELD_VER=18.11:Build_436
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
