@@ -1,13 +1,13 @@
-#Build Dev:Build_444.2 on 18/12/04
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_444.2
+#Build Dev:Build_445 on 18/12/04
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_445
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
 shield-admin:latest shield-admin:181203-14.27-3338
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181118-17.20-3222
-icap-server:latest icap-server:181204-06.53-3344
-shield-cef:latest shield-cef:181204-08.05-3345
+icap-server:latest icap-server:181204-15.45-3360
+shield-cef:latest shield-cef:181204-15.45-3360
 shield-collector:latest shield-collector:181118-15.49-3220
 shield-elk:latest shield-elk:181119-07.23-3224
 extproxy:latest extproxy:181118-17.20-3222
@@ -22,11 +22,11 @@ speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:181121-09.31-3246
 shield-notifier:latest shield-notifier:181128-15.52-3308
 shield-dns:latest shield-dns:181029-09.26-3074
-shield-proxyless-connector:latest shield-proxyless-connector:181025-17.07-3061
+shield-proxyless-connector:latest shield-proxyless-connector:181204-13.14-3358
 es-file-preview:latest es-file-preview:181125-07.31-3259
 es-system-configuration:latest es-system-configuration:181127-10.19-3295
 es-system-monitor:latest es-system-monitor:181203-14.27-3338
 es-license-manager:latest es-license-manager:181128-13.07-3306
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
-es-policy-manager:latest es-policy-manager:181204-06.41-3342
+es-policy-manager:latest es-policy-manager:181204-13.14-3358
 # This needs to be the last line

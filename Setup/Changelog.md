@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_445] - 2018-12-04
+
+- Can't open PDF file from Google #4892
+- Page frozen, but the commands are applying on a new tab opened #4879
+- Crash & refresh when closing popups #4884
+- #4771 - japanese IME position
+- Send/Sync Policies to Browser Farm
+
 ## [Dev:Build_444] - 2018-12-04
 
 - Policy manager is not working properly #4883
