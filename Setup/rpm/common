@@ -5,7 +5,7 @@ DOCKER_RPM_BUILDER_IMG_TAG="shield_rpmbuilder:latest"
 
 function extract_versions() {
     local VER_FILE="$1"
-    local VER_REGEX='^SHIELD_VER=[a-zA-Z.0-9]+[[:blank:]]+SHIELD_VER=([a-zA-Z]+):Build_([0-9]+)$'
+    local VER_REGEX='^SHIELD_VER=[a-zA-Z.0-9]+[[:blank:]]+SHIELD_VER=([a-zA-Z]+):Build_([0-9\.]+)$'
     local DOCKER_VER_REGEX='^#{0,1}docker-version[[:blank:]]+(([[:digit:]]+\.)+)([[:digit:]]+)[[:blank:]]*$'
     while read -r line; do
         if [[ $line =~ $VER_REGEX ]]; then
@@ -42,7 +42,7 @@ function recreate_dirs() {
 
 function prepare_spec() {
     if [ -z "${ERICOM_SHIELD_VERSION}" ]; then
-        extract_versions
+        extract_versions "${DIR}/../shield-version.txt"
     fi
 
     SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
