@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - es-system monitor doesn't function #4880
 - Japanese keyboard - IME disabled after typing in the password field #4772
 - Japanese keyboard -the position of the conversion list window is not correct #4771
-
+- Suspend Policy - does not work as expected #4888
 
 ## [Dev:Build_443] - 2018-12-02
 
