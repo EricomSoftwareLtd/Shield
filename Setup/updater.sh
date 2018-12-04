@@ -13,18 +13,18 @@ if ((EUID != 0)); then
 fi
 
 ES_PATH="/usr/local/ericomshield"
-if [ -d  "$ES_PATH" ]; then
-   cd "$ES_PATH"
+if [ -d "$ES_PATH" ]; then
+    cd "$ES_PATH"
 else
-   echo "ericomshield directory not found, please install the product first."
-   exit
+    echo "ericomshield directory not found, please install the product first."
+    exit
 fi
 
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 if [ -f "$ES_BRANCH_FILE" ]; then
-   BRANCH=$(cat "$ES_BRANCH_FILE")
-  else
-   BRANCH="master"
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+else
+    BRANCH="master"
 fi
 
 rm -f update.sh

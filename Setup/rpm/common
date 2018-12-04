@@ -1,0 +1,56 @@
+BUILD_DIR="${DIR}/_build/rpm"
+SRC_DIR="${DIR}/../.."
+
+DOCKER_RPM_BUILDER_IMG_TAG="shield_rpmbuilder:latest"
+
+function extract_versions() {
+    local VER_FILE="$1"
+    local VER_REGEX='^SHIELD_VER=[a-zA-Z.0-9]+[[:blank:]]+SHIELD_VER=([a-zA-Z]+):Build_([0-9]+)$'
+    local DOCKER_VER_REGEX='^#{0,1}docker-version[[:blank:]]+(([[:digit:]]+\.)+)([[:digit:]]+)[[:blank:]]*$'
+    while read -r line; do
+        if [[ $line =~ $VER_REGEX ]]; then
+            local REL="$(echo "${BASH_REMATCH[1]}" | tr A-Z a-z)"
+            local REL="${BASH_REMATCH[1]}"
+            export ERICOM_SHIELD_VERSION="${REL}.${BASH_REMATCH[2]}"
+        elif [[ $line =~ $DOCKER_VER_REGEX ]]; then
+            local n=${#BASH_REMATCH[*]}
+            export DOCKER_VERSION_LOW="${BASH_REMATCH[1]}${BASH_REMATCH[n - 1]}"
+            export DOCKER_VERSION_HIGH="${BASH_REMATCH[1]}$((BASH_REMATCH[n - 1] + 1))"
+        fi
+    done <"$VER_FILE"
+}
+
+function create_src_archive() {
+    local SRC="$1"
+    local TB="$2"
+    (cd "${SRC}" && git ls-files | tar czvT -) >"$TB"
+    #curl -L "https://api.github.com/repos/EricomSoftwareLtd/Shield/tarball/${ERICOM_SHIELD_VERSION}" >"${BUILD_DIR}/SOURCES/${ERICOM_SHIELD_VERSION}.tar.gz"
+}
+
+function remove_build_dir() {
+    if [ -d "${BUILD_DIR}" ]; then
+        rm -rf "${BUILD_DIR}"
+    fi
+}
+
+function recreate_dirs() {
+    remove_build_dir
+    mkdir -p "${BUILD_DIR}"
+    mkdir -p "${BUILD_DIR}/SPECS"
+    mkdir -p "${BUILD_DIR}/SOURCES"
+}
+
+function prepare_spec() {
+    if [ -z "${ERICOM_SHIELD_VERSION}" ]; then
+        extract_versions
+    fi
+
+    SUBST_VARIABLES='$ERICOM_SHIELD_VERSION $DOCKER_VERSION_LOW $DOCKER_VERSION_HIGH'
+    envsubst <"${DIR}/ericom_shield.spec.tpl" "$SUBST_VARIABLES" >"${BUILD_DIR}/SPECS/ericom_shield.spec"
+
+    cp "${DIR}/ericom_shield"{-sysusers.conf,.sudoers} "${BUILD_DIR}/SOURCES"
+}
+
+function collect_rpms() {
+    find "${BUILD_DIR}/RPMS" -type f -name "*.rpm" -exec mv "{}" "${DIR}/_build" \;
+}

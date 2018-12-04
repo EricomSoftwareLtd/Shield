@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount Ericom Shield Container Shared Memory FS
+ConditionPathIsSymbolicLink=!/media/containershm
+DefaultDependencies=no
+Conflicts=umount.target
+Before=local-fs.target umount.target
+
+[Mount]
+What=tmpfs
+Where=/media/containershm
+Type=tmpfs
+Options=rw,size=2G
+
+[Install]
+WantedBy=local-fs.target
