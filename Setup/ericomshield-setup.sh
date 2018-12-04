@@ -864,7 +864,7 @@ get_shield_files
 update_sysctl
 
 if [ "$NON_INTERACTIVE" == false ]; then
-   ./prepare-node.sh
+    ./prepare-node.sh
 fi
 
 prepare_yml

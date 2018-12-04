@@ -227,7 +227,7 @@ function prepare_yml() {
     if [ ! -z "$SHIELD_REGISTRY" ]; then
         sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g" "$ES_YML_FILE"
     fi
-    
+
     sed -i'' "s/IP_ADDRESS/$MY_IP/g" "$ES_YML_FILE"
 
     local TZ="$(date '+%Z')"

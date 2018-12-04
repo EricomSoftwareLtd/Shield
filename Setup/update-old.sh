@@ -184,12 +184,12 @@ while [ $# -ne 0 ]; do
         exit 0
         ;;
 
-    #    Currently not need to check another options because will be checked in container script
-    #    *)
-    #        echo "Error: Not valid option, exiting"
-    #        usage
-    #        exit 1
-    #        ;;
+        #    Currently not need to check another options because will be checked in container script
+        #    *)
+        #        echo "Error: Not valid option, exiting"
+        #        usage
+        #        exit 1
+        #        ;;
     esac
     shift
 done
