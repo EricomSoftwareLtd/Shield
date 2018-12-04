@@ -18,6 +18,7 @@ BuildRequires: systemd
 Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
 Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
 Requires: centos-release >= 7-5
+# Requires: redhat-release-server >= 7.5
 
 Requires: ansible >= 2.7.1, ansible < 2.8
 Requires: python-boto >= 2.25
