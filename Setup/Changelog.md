@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_446] - 2018-12-05
+
+- Admin set Image Quality and FPS - feedback #4862
+- Fps settings - warning appears after settings already saved #4860
+
 ## [Dev:Build_445] - 2018-12-04
 
 - Can't open PDF file from Google #4892
