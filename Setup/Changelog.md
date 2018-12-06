@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_447] - 2018-12-06
+
+- Japanese - problems with the keyboard #4847
+- Implementing Named Users Licensing #4783
+- Update for CentOS support 
+- es-system monitor doesn't function on centos #4908 
+
 ## [Dev:Build_446] - 2018-12-05
 
 - Admin set Image Quality and FPS - feedback #4862
