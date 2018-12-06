@@ -96,6 +96,7 @@ prepare_yml() {
 %{__install} -Dp -m 755 "Setup/rpm-setup.sh" "%{buildroot}%{_prefix}/local/ericomshield/setup.sh"
 
 %{__install} -Dp -m 644 "Setup/sysctl_shield.conf" "%{buildroot}%{_sysctldir}/ericom_shield.conf"
+%{__cat} "Setup/sysctl_shield.conf" "Setup/sysctl_shield_redhat.conf" >"%{buildroot}%{_sysctldir}/ericom_shield.conf"
 %{__install} -Dp -m 644 "Setup/.shield_aliases" "%{buildroot}%{_sysconfdir}/profile.d/ericom_shield.sh"
 
 %{__install} -Dp -m 644 "Setup/docker-compose.yml" "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml"
