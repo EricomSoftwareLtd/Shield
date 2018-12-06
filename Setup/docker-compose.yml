@@ -272,7 +272,7 @@ services:
             - shield-system-id
     es-system-monitor:
         image: 'securebrowsing/es-system-monitor:latest'
-        # user: nobody
+        user: root
         hostname: es-system-monitor
         deploy:
             mode: replicated
