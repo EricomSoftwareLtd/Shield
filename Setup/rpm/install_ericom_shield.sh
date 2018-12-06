@@ -11,3 +11,5 @@ sudo yum-config-manager --disable docker-ce-test
 sudo yum install -y epel-release
 
 sudo yum install "https://github.com/EricomSoftwareLtd/Shield/releases/download/Dev446/ericom_shield-Dev.446-1.x86_64.rpm"
+
+sudo /usr/local/ericomshield/setup.sh
