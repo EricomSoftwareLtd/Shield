@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+[Prod:18.11.1-Build_436.1] - 09-12-2018
+
+### Bug Fixes
+
+- Enhancement: Reduce Bandwidth while scrolling
+- Fixed: Timeout Session doesnt work on Website with Popup window 
+- Fixed: Issue with Control Key
+- Fixed: Japanese keyboard -the position of the conversion list window is not correct
+- Fixed: Upstream Proxy script - several issues
+- Fixed: SMTP alert uses auth when no auth is defined
+
 ## [Prod:18.11-Build-436] - 18-11-2018
 
 ### New Features
