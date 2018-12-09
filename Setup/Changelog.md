@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_448] - 2018-12-09
+
+- Can't upload .JPG files on Gmail #4839
+- Pause ad block and reload is not working #4900
+- Windows - Firefox : Right click menu is not working properly #4878
+
 ## [Dev:Build_447] - 2018-12-06
 
 - Japanese - problems with the keyboard #4847
