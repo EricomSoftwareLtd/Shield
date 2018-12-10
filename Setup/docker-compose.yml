@@ -77,10 +77,6 @@ services:
             resources: {limits: {memory: 1GB, cpus: '0.5'}}
     elk:
         image: 'securebrowsing/shield-elk:latest'
-#        ports:
-#            - '5601:5601'
-#            - '9200:9200'
-#            - '5014:5014'
         networks:
             - shield
         environment:
@@ -180,7 +176,6 @@ services:
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.management==yes]}
-            resources: {limits: {memory: 500MB, cpus: '0.5'}}
             resources: {limits: {memory: 1GB, cpus: '0.5'}}
     icap-server:
         image: 'securebrowsing/icap-server:latest'
@@ -198,8 +193,8 @@ services:
             nofile: {soft: 65535, hard: 65535}
         networks:
             - shield
-        ports:
-            - '1344:1344'
+#        ports:
+#            - '1344:1344'
         deploy:
             mode: replicated
             replicas: 1
@@ -207,29 +202,6 @@ services:
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
             resources: {limits: {memory: 1GB, cpus: '1'}}
-    broker-server:
-        image: 'securebrowsing/broker-server:latest'
-        # user: nobody
-        hostname: broker-server
-        deploy:
-            mode: replicated
-            replicas: 1
-            restart_policy: {condition: any}
-            update_config: {parallelism: 1, failure_action: rollback}
-            resources: {limits: {memory: 256MB, cpus: '1'}}
-            placement: {constraints: [node.labels.management==yes]}
-        volumes:
-            - '/var/run/docker.sock:/var/run/docker.sock'
-        environment:
-            - 'TZ=UTC'
-            - 'NODE_ENV=production'
-            - 'LOGSTASH_FIELDS=service=broker'
-            - 'SHIELD_VER=8.0.0.latest'
-            - 'CONSUL_CHECK_INTERVAL=30'
-        networks:
-            - shield
-        secrets:
-            - shield-system-id
     shield-browser:
         image: 'securebrowsing/shield-cef:latest'
         user: user
@@ -266,6 +238,103 @@ services:
             - {type: tmpfs, target: /home}
             - {type: tmpfs, target: /tmp}
             - {type: bind, target: /dev/shm/xorg, source: /media/containershm}
+    es-policy-manager:
+        image: 'securebrowsing/es-policy-manager:latest'
+        hostname: es-policy-manager
+        environment:
+            - TZ=UTC
+            - NODE_ENV=production
+            - LOGSTASH_FIELDS=service=es-policy-manager
+        networks:
+            - shield
+        deploy:
+            mode: replicated
+            replicas: 2
+            update_config: {failure_action: rollback}
+            restart_policy: {condition: any}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 500MB, cpus: '1'}}        
+    es-system-configuration:
+        image: 'securebrowsing/es-system-configuration:latest'
+        # user: nobody
+        hostname: es-system-configuration
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-system-configuration'
+            - 'SHIELD_VER=8.0.0.latest'
+        networks:
+            - shield
+        secrets:
+            - shield-system-id
+    es-system-monitor:
+        image: 'securebrowsing/es-system-monitor:latest'
+        user: root
+        hostname: es-system-monitor
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-system-monitor'
+        networks:
+            - shield
+    es-license-manager:
+        image: 'securebrowsing/es-license-manager:latest'
+        # user: nobody
+        hostname: es-license-manager
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-license-manager'
+        networks:
+            - shield
+        secrets:
+            - shield-system-id
+    es-remote-browser-scaler:
+        image: 'securebrowsing/es-remote-browser-scaler:latest'
+        # user: nobody
+        hostname: es-remote-browser-scaler
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        volumes:
+            - '/var/run/docker.sock:/var/run/docker.sock'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-remote-browser-scaler'
+        networks:
+            - shield
     proxy-server:
         image: 'securebrowsing/proxy-server:latest'
         hostname: proxy-server
@@ -340,7 +409,7 @@ services:
         deploy:
             mode: replicated
             replicas: 1
-            placement: {constraints: [node.labels.browser==yes]}
+            placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
@@ -353,7 +422,7 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
-            resources: {limits: {memory: 2GB, cpus: '1'}}
+            resources: {limits: {memory: 2GB, cpus: '2'}}
         networks:
             - shield
         ports:

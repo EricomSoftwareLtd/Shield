@@ -11,7 +11,142 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_448] - 2018-12-09
+
+- Can't upload .JPG files on Gmail #4839
+- Pause ad block and reload is not working #4900
+- Windows - Firefox : Right click menu is not working properly #4878
+
+## [Dev:Build_447] - 2018-12-06
+
+- Japanese - problems with the keyboard #4847
+- Implementing Named Users Licensing #4783
+- Update for CentOS support 
+- es-system monitor doesn't function on centos #4908 
+
+## [Dev:Build_446] - 2018-12-05
+
+- Admin set Image Quality and FPS - feedback #4862
+- Fps settings - warning appears after settings already saved #4860
+
+## [Dev:Build_445] - 2018-12-04
+
+- Can't open PDF file from Google #4892
+- Page frozen, but the commands are applying on a new tab opened #4879
+- Crash & refresh when closing popups #4884
+- #4771 - japanese IME position
+- Send/Sync Policies to Browser Farm
+
+## [Dev:Build_444] - 2018-12-04
+
+- Policy manager is not working properly #4883
+- es-system monitor doesn't function #4880
+- Japanese keyboard - IME disabled after typing in the password field #4772
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- Suspend Policy - does not work as expected #4888
+
+## [Dev:Build_443] - 2018-12-02
+
+- Working by hostname (not by URL) #4850
+- Ugly alert when Votiro license / trial days are over #4738
+- Proxyless Admin UI #4858
+- Cloud preparations 
+- Download zip with password - fix the password dialog #4852
+- Browser Farm settings in Admin #4857
+
+## [Dev:Build_442] - 2018-11-28
+
+- Not possible to Print a page #4840
+- SMTP alert uses auth when no auth is defined #4835
+- Notifier service must run on a management node. #4834
+- Allow Admin to set Image Quality and FPS #4362
+- Support secured Media #367
+- Right click -> paste : dialog to use ctrl v is not openning #4831
+
+## [Dev:Build_441] - 2018-11-28
+
+- Added Categories backend in disabled mode
+- Licesing support for Votiro CDR and Named Users Licensing - not ready to test 
+
+## [Dev:Build_440] - 2018-11-27
+
+- Votiro Cloud URL alert while using Votiro on-premise URL #4817
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- disable the slow netwrok message does not work - now message is not displayed also when it should #4722
+- Bandwidth while scrolling #4801
+
+## [Dev:Build_439] - 2018-11-25
+
+- Proxyless mode is enabled by default - please fix to be disabled #4787
+- Import policies - translations issues #4766
+- Proxyless key not created - portal mode is not working #4763
+- Timeout Session doesnt work on Website with Popup window #4758
+- disable the slow netwrok message does not work - now message is not displayed also when it should #4722
+- Policies - delete multiple lines - does not work as expected #4684
+- file preview - add size limitation #4681	
+- Add the "[]" Symbol Before the URL Name #4721
+
+## [Dev:Build_438] - 2018-11-19
+- https://www.draw.io/ - works only partially #4650
+- Fields processed as integers (specific settings validation) #4708
+- Disable the slow netwrok message does not work #4722
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Japanese - position of the conversion list window #4709
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- Stuck CTRL #4769
+- Admin is broken in build 437.2 Dev #4778
+
+## [Dev:Build_437] - 2018-11-18
+
+- When node is not in swarm or no leader, status-node returns a script error #3276
+- The process of adding nodes is too long #4605
+- It is possible to upload files that are not supported #4675
+- Can't type in alphanumeric mode in Japanes on safari Mac #4397
+- Making containers smaller
+- Zip file + password - encrypt password #4717
+- Fallback to LDAP is not working #3860
+- Support ALT + Arrows combinations (KKA p4) #4543
+- Japanese keyboard - some problems with the positioning #4582
+- Portal mode - pasue shield and reload is not working #4595
+- Can't sign in to chrome #593
+- Multi select in drop down list - using "Ctrl" does not work #982
+- File preview suspended with oops something went wrong #4715
+- Network is slow error displayed in a new tab #4590
+- Scroll is broken after cmd->c on Firefox #4624
+- Allow clipboard inside the browser (KKA p2) #4473
+- Send feedback should attach CEF consol logs #4575
+- Ext-Proxy Logs #4620
+- Rename Portal to Proxyless in consul
+- Votiro AVR 'off' by Default (R1) #4561
+- File transfer reports - "CDR Report" column name change #4683
+- Doc with password, bad UX, need to give a proper message #4625
+- New setting: Enable Tech-Preview Features #4653
+- Can print url pdf file when printing is disabled #4379
+
+## [Dev:Build_436] - 2018-11-18
+
+- Proxyless mode is enabled by default #4745
+- Revert of Underline of unconverted character string #3975
+
+## [Dev:Build_435] - 2018-11-14
+
+- File preview doesn't work #4724
+
+## [Dev:Build_434] - 2018-11-14
+
+- File preview - file not found for specific file #4696
+- File previewed failed when clicking on multiple files #4713
+- (*) fix resource paths in proxy mode
+
+## [Dev:Build_432] - 2018-11-12
+
+- Fix addnode fly on ignoring errors
+- Preview PDF file should directly display the preview the file (w/o conversion) #4657
+- pdf in Japanese - letters in file preview look gibberish #4695
+- Hebrew letters in pdf file are reversed when generaring file preview #4694
+
 ## [Dev:Build_431] - 2018-11-11
+
 - broker didn't create squid configuration at the consul #4682
 
 ## [Dev:Build_430] - 2018-11-08
@@ -23,7 +158,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - file preview failed for pdf files #4671
 - Doc with password, bad UX, need to give a proper message #4625
 - Change order of values #4613
-
 
 ## [Dev:Build_429] - 2018-11-06
 
@@ -53,14 +187,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Proxyless mode enable/disable #4597
 - Change order of values #4613
 
-
 ## [Dev:Build_427] - 2018-10-31
 
 - string update #4564
 - (*) Spellcheck not working on Salesforce iframes #4351
 - zip and 7z is not working #4378
-- Added Preview continer 
-
+- Added Preview continer
 
 ## [Dev:Build_426] - 2018-10-29
 
@@ -73,7 +205,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Link to Email Links Should Work #1276
 - Field name change - Admin | Resources #4541
 - Reset Certificate uploaded and revert to Ericom Certificate #4315
-- Webservice is used behind Ngnix 
+- Webservice is used behind Ngnix
 - Cookies are lost #4553
 - Can't log in to Salesforce (Google is saving the name + password as password in one line (see screenshot attached) #4555
 - A problem to connect to SF with shield Jerusalem #4557
@@ -93,7 +225,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New addnode script (py)
 - addnode with --verbose doesn't work #4437
 - Failure addnodes.sh -b #4438
-
 
 ## [Dev:Build_423.4] - 2018-10-24
 
@@ -136,20 +267,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_420.1] - 2018-10-21
 
-- Reverted adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
-
+- Reverted adding addons to IE using <https://www.microsoft.com/en-us/iegallery> is not working #3984
 
 ## [Dev:Build_420] - 2018-10-21
 
 - Failure addnoteds.sh -b #4438
 - Salesforce PDF preview #4342
-- Adding addons to IE using https://www.microsoft.com/en-us/iegallery is not working #3984
+- Adding addons to IE using <https://www.microsoft.com/en-us/iegallery> is not working #3984
 - Acrobat is not recognized (R2) #488
 - Incorrect Activate Key tool tip #4465
 - Unknown error when trying to activate license #4464
 - Verify all certificates exists #4386
 - Use the docker registry in case the registry configured doesn’t work #4357
-
 
 ## [Dev:Build_419] - 2018-10-18
 
@@ -162,8 +291,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Once Ldap login is configured, it should sign out the current users from all sessions of the admin #4100
 - Add prepare-node.sh as part of addnode script #3616
 - hard to reproduce - links are downloaded when they should be opened #3493
-- Added remote browser console errors to ELK 
- 
+- Added remote browser console errors to ELK
+
 ## [Dev:Build_418] - 2018-10-17
 
 - Connection report - add profile field #3102
@@ -193,7 +322,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - DNS load balancing browsers (AKA free.browser) #4331
 - Add Syslog Config to the Admin (Admin) #2713
 - Can't download pdf file #4373
-- WebService Code cleanup - reduce network usage 
+- WebService Code cleanup - reduce network usage
 - Collector is not working in latest build #4385
 
 ## [Dev:Build_415] - 2018-10-14

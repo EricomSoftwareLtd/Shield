@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 ES_PATH=/usr/local/ericomshield
 
 if ((EUID != 0)); then
@@ -11,8 +10,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-
-if [[ "$1" != "--enable" && "$1" != "--disable" ]]; then
+if [[ $1 != "--enable" && $1 != "--disable" ]]; then
     echo "--------------------- Usage -----------------------------"
     echo "Usage: $0 --enable/--disable on/off parameter is required"
     echo ""
@@ -25,6 +23,5 @@ if [ ${#all[@]} -eq 0 ]; then
     echo "Please run this command on a management node"
     exit
 fi
-
 
 docker exec -t ${all[0]} python /scripts/spellcheck_control.py $1
