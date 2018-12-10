@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_449] - 2018-12-10
+
+- Support right/left CTRL+Shift combination #4768
+- Named user licesning - add a consul parameter #4928
+- Names user Licensing - fix the admin #4926
+- Pre check install script - failed execute internet speed #4923
+- Clean error report about system not activated #4808
+- Licensing - fix the shield stats #4927
+- Right-Click Open Link without add-block #4540
+
 ## [Dev:Build_448] - 2018-12-09
 
 - Can't upload .JPG files on Gmail #4839
