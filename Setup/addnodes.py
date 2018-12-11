@@ -125,7 +125,9 @@ class AddNodeExecutor(object):
                 extend_command += " "
         cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command)
 
-        subprocess.run(cmd, shell=True)
+        res = subprocess.run(cmd, shell=True)
+        if res.returncode != 0:
+            exit(res.returncode)
 
     def execute(self):
         if self.help_required:
