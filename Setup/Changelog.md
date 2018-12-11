@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_451] - 2018-12-11
+
+- Japanese - Suggestion doubled #4906
+- Japanese - First letter is doubled in Internet Explorer #4905
+- Japanese output issue #4747
+- Named user licensing - add a consul parameter #4928
+- Votiro AVR alert stay on after change the license to support antivirus #4929
+- alert about no matching license for Votiro, while sanitizing is working #4807
+- Not possible to change the right-click menu language to Japanese #4935
+- (*) First version of Categories in Shield #4275
+
 ## [Dev:Build_450] - 2018-12-11
 
 - Deployment Failed at Westbury Bank #4919
