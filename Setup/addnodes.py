@@ -40,7 +40,7 @@ def run_sshkey_provider(container_name):
                 {1} sshkey'''.format(es_path, container_name)
     res = subprocess.run(cmd, shell=True)
     if res.returncode != 0:
-        print("Error provide sshkey. Please see message bellow")
+        print("Error provide sshkey. Please try run 'sudo ./update.sh sshkey'")
         exit(res.returncode)
 
 class AddNodeExecutor(object):
