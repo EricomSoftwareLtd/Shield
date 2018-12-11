@@ -38,7 +38,10 @@ def run_sshkey_provider(container_name):
                 -v $(which docker):/usr/bin/docker \\
                 -v {0}:/usr/local/ericomshield \\
                 {1} sshkey'''.format(es_path, container_name)
-    subprocess.run(cmd, shell=True)
+    res = subprocess.run(cmd, shell=True)
+    if res.returncode != 0:
+        print("Error provide sshkey. Please see message bellow")
+        exit(res.returncode)
 
 class AddNodeExecutor(object):
     """

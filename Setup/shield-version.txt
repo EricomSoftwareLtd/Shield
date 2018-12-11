@@ -19,7 +19,7 @@ shield-authproxy:latest shield-authproxy:181205-08.175-3364
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
-shield-autoupdate:latest shield-autoupdate:181211-08.00-3384
+shield-autoupdate:latest shield-autoupdate:test4851
 shield-notifier:latest shield-notifier:181128-15.52-3308
 shield-dns:latest shield-dns:181029-09.26-3074
 shield-proxyless-connector:latest shield-proxyless-connector:181204-13.14-3358
