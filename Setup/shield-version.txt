@@ -1,5 +1,5 @@
-#Build Dev:Build_449 on 18/12/10
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_449
+#Build Dev:Build_450 on 18/12/11
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_450
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
@@ -19,14 +19,14 @@ shield-authproxy:latest shield-authproxy:181205-08.175-3364
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
-shield-autoupdate:latest shield-autoupdate:181121-09.31-3246
+shield-autoupdate:latest shield-autoupdate:181211-08.00-3384
 shield-notifier:latest shield-notifier:181128-15.52-3308
 shield-dns:latest shield-dns:181029-09.26-3074
 shield-proxyless-connector:latest shield-proxyless-connector:181204-13.14-3358
 es-file-preview:latest es-file-preview:181125-07.31-3259
 es-system-configuration:latest es-system-configuration:181127-10.19-3295
 es-system-monitor:latest es-system-monitor:181203-14.27-3338
-es-license-manager:latest es-license-manager:181210-08.29-3373
+es-license-manager:latest es-license-manager:181211-08.31-3385
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
 es-policy-manager:latest es-policy-manager:181205-08.175-3364
 # This needs to be the last line
