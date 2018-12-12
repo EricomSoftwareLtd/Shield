@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_452] - 2018-12-12
+
+- Screenshot is not being added to the GitHub issue #4204
+- Print should be disabled for files in case download is disabled #4903
+- Phishing and Categories #4964 
+- Policies are not working when doing did-navigate-in-page #4956
+- ADMIN - Resources/ Display Settings not saved #4915
+- Admin UI | Resources fix the display #4958
+
+
 ## [Dev:Build_451] - 2018-12-11
 
 - Japanese - Suggestion doubled #4906
@@ -18,14 +28,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Japanese output issue #4747
 - Named user licensing - add a consul parameter #4928
 - Votiro AVR alert stay on after change the license to support antivirus #4929
-- alert about no matching license for Votiro, while sanitizing is working #4807
+- Alert about no matching license for Votiro, while sanitizing is working #4807
 - Not possible to change the right-click menu language to Japanese #4935
 - (*) First version of Categories in Shield #4275
 
 ## [Dev:Build_450] - 2018-12-11
 
 - Deployment Failed at Westbury Bank #4919
-- failed to create cluster #4904
+- Failed to create cluster #4904
 
 ## [Dev:Build_449] - 2018-12-10
 
