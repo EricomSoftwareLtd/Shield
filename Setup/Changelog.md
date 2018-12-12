@@ -20,7 +20,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ADMIN - Resources/ Display Settings not saved #4915
 - Admin UI | Resources fix the display #4958
 
-
 ## [Dev:Build_451] - 2018-12-11
 
 - Japanese - Suggestion doubled #4906
