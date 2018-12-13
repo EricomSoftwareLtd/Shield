@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_453] - 2018-12-13
+
+- phishing - "read only" action is not working #4981
+- Japanese - conversion list is moving as I progress with typing #4966
+- Delete Category doesnt work #4960
+- AdminUI: Category above Policy #4959
+- ADMIN - Resources/ Display Settings not saved #4915
+- Phishing detection In CEF (preload script) 4977 
+
 ## [Dev:Build_452.1] - 2018-12-13
 
 - Screenshot is not being added to the GitHub issue #4204
