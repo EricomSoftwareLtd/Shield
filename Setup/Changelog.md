@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Delete Category doesnt work #4960
 - AdminUI: Category above Policy #4959
 - ADMIN - Resources/ Display Settings not saved #4915
-- 
+- Phishing detection In CEF (preload script) 4977 
 
 ## [Dev:Build_452.1] - 2018-12-13
 

@@ -28,5 +28,5 @@ es-system-configuration:latest es-system-configuration:181212-16.32-3420
 es-system-monitor:latest es-system-monitor:181211-14.52-3401
 es-license-manager:latest es-license-manager:181211-08.31-3385
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
-es-policy-manager:latest es-policy-manager:181212-14.29-3415
+es-policy-manager:latest es-policy-manager:181213-15.24-3428
 # This needs to be the last line
