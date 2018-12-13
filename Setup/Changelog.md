@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_452] - 2018-12-12
+## [Dev:Build_452.1] - 2018-12-13
 
 - Screenshot is not being added to the GitHub issue #4204
 - Print should be disabled for files in case download is disabled #4903
@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Policies are not working when doing did-navigate-in-page #4956
 - ADMIN - Resources/ Display Settings not saved #4915
 - Admin UI | Resources fix the display #4958
+- Can't browse in build 452 #4978
 
 ## [Dev:Build_451] - 2018-12-11
 
