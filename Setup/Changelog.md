@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_454] - 2018-12-13
+
+- Exclude IPs for RateLimit #4961
+- Progress of Phishing and Categories tasks #4977 
+
 ## [Dev:Build_453] - 2018-12-13
 
 - phishing - "read only" action is not working #4981
