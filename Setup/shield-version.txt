@@ -1,13 +1,13 @@
-#Build Staging:Build_436.1 on 18/12/09
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_436.1
+#Build Rel-18.11.1:Build_436.2 on 09/12/18
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_436.2
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
 shield-admin:latest shield-admin:181108-12.44-3179
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181023-13.17-3038
-icap-server:latest icap-server:HF_18.11_12.9_11.23
-shield-cef:latest shield-cef:HF_18.11_12.9_11.23
+icap-server:latest icap-server:436_HF_18.11_12_12_2
+shield-cef:latest shield-cef:436_HF_18.11_12_12
 broker-server:latest broker-server:HF_18.11_12.9_11.23
 shield-collector:latest shield-collector:181021-13.12-3023
 shield-elk:latest shield-elk:181106-11.30-3156
