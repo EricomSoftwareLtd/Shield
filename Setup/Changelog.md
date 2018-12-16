@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_455] - 2018-12-16
+
+- Encode the URL that remote browser sends to the policy manager in order to support other languages and url parameters
+Correctly set the group ID of the category when domain/URL was blocked due to “unsecured site” (securityGroupID)
+- Added category 35 (Private IP Addresses)
+- Fixed block message when domain is blocked by icap
+- When the remote browser blocks a URL, added the group ID (“catid”) to the URL, so we can track if blocking was done on the correct category (not available when domain is blocked by icap)
+- Added the full policy to the remote browser debug (performance & statss) panel (CTRL + SHIFT + ~), so we can track if the correct policy was assigned by the policy manager
+
 ## [Dev:Build_454] - 2018-12-13
 
 - Exclude IPs for RateLimit #4961
