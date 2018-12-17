@@ -94,6 +94,7 @@ prepare_yml() {
 %{__install} -Dp -m 755 "Setup/spellcheck.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/shield-pre-install-check.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/rpm-setup.sh" "%{buildroot}%{_prefix}/local/ericomshield/setup.sh"
+%{__install} -Dp -m 755 "Setup/rpm-uninstall.sh" "%{buildroot}%{_prefix}/local/ericomshield/uninstall.sh"
 
 %{__install} -Dp -m 644 "Setup/sysctl_shield.conf" "%{buildroot}%{_sysctldir}/ericom_shield.conf"
 %{__cat} "Setup/sysctl_shield.conf" "Setup/sysctl_shield_redhat.conf" >"%{buildroot}%{_sysctldir}/ericom_shield.conf"
