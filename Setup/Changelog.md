@@ -11,15 +11,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Staging:Build_436.2] - 2018-12-09
-
-- Timeout Session doesnt work on Website with Popup window #4758
-- Bandwidth while scrolling #4801
-- Stuck CTRL #4769
-- Japanese keyboard -the position of the conversion list window is not correct #4771
-- US proxy script - several issues #4759
-- SMTP alert uses auth when no auth is defined #4835
-
 ## [Dev:Build_436] - 2018-11-18
 
 - Proxyless mode is enabled by default #4745
