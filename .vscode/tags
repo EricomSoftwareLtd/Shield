@@ -1,0 +1,69 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+APP_NAME	../Setup/update.py	/^    APP_NAME = os.environ["APP_NAME"]$/;"	kind:variable	line:9
+APP_NAME	../Setup/update.py	/^APP_NAME = ".\/update.sh"$/;"	kind:variable	line:7
+AddNodeExecutor	../Setup/addnodes.py	/^class AddNodeExecutor(object):$/;"	kind:class	line:47
+UpdateExecutor	../Setup/update.py	/^class UpdateExecutor():$/;"	kind:class	line:46
+__init__	../Setup/addnodes.py	/^    def __init__(self, command_line):$/;"	kind:member	line:52
+__init__	../Setup/update.py	/^    def __init__(self, args):$/;"	kind:member	line:50
+addnodes.py	../Setup/addnodes.py	1;"	kind:file	line:1
+app_name	../Setup/addnodes.py	/^    app_name = os.environ["APP_NAME"]$/;"	kind:variable	line:14
+app_name	../Setup/addnodes.py	/^app_name = "addnodes.sh"$/;"	kind:variable	line:12
+apply_registry	../Setup/update.py	/^    def apply_registry(self):$/;"	kind:member	line:201
+apt_	../Utils/proxy.py	/^apt_ = r'\/etc\/apt\/apt.conf'$/;"	kind:variable	line:33
+apt_backup	../Utils/proxy.py	/^apt_backup = r'.\/.backup_proxy\/apt.txt'$/;"	kind:variable	line:34
+bash_	../Utils/proxy.py	/^bash_ = r'\/etc\/bash.bashrc'$/;"	kind:variable	line:35
+bash_backup	../Utils/proxy.py	/^bash_backup = r'.\/.backup_proxy\/bash.txt'$/;"	kind:variable	line:36
+check_docker_upgrade	../Setup/update.py	/^    def check_docker_upgrade(self, d_line):$/;"	kind:member	line:111
+check_if_version_changed	../Setup/update.py	/^    def check_if_version_changed(self, d_line):$/;"	kind:member	line:91
+check_sshkey_exists	../Setup/update.py	/^    def check_sshkey_exists(self):$/;"	kind:member	line:277
+container_pattern	../Setup/addnodes.py	/^container_pattern = re.compile(r'shield-autoupdate')$/;"	kind:variable	line:24
+docker_	../Utils/proxy.py	/^docker_ = r'\/etc\/systemd\/system\/docker.service.d\/http-proxy.conf'$/;"	kind:variable	line:39
+docker_backup	../Utils/proxy.py	/^docker_backup = r'.\/.backup_proxy\/docker.txt'$/;"	kind:variable	line:40
+docker_path	../Utils/proxy.py	/^docker_path = '\/etc\/systemd\/system\/docker.service.d'$/;"	kind:variable	line:41
+docker_systemd_link	../Utils/proxy.py	/^docker_systemd_link = '\/etc\/systemd\/system\/multi-user.target.wants\/docker.service'$/;"	kind:variable	line:42
+download_file	../Setup/update.py	/^    def download_file(self, url):$/;"	kind:member	line:79
+download_latest_version	../Setup/update.py	/^    def download_latest_version(self):$/;"	kind:member	line:65
+env_	../Utils/proxy.py	/^env_ = r'\/etc\/environment'$/;"	kind:variable	line:37
+env_backup	../Utils/proxy.py	/^env_backup = r'.\/.backup_proxy\/env.txt'$/;"	kind:variable	line:38
+es_path	../Setup/addnodes.py	/^    es_path = os.environ["ES_PATH"]$/;"	kind:variable	line:10
+es_path	../Setup/addnodes.py	/^es_path = "\/usr\/local\/ericomshield"$/;"	kind:variable	line:8
+es_precheck_file_path	../Setup/addnodes.py	/^    es_precheck_file_path = os.environ['ES_PRE_CHECK_FILE']$/;"	kind:variable	line:22
+es_precheck_file_path	../Setup/addnodes.py	/^es_precheck_file_path = os.path.join(es_path, "shield-pre-install-check.sh")$/;"	kind:variable	line:20
+es_versions_file	../Setup/addnodes.py	/^    es_versions_file = os.environ['ES_VER_FILE']$/;"	kind:variable	line:18
+es_versions_file	../Setup/addnodes.py	/^es_versions_file = os.path.join(es_path,"shield-version.txt")$/;"	kind:variable	line:16
+execute	../Setup/addnodes.py	/^    def execute(self):$/;"	kind:member	line:132
+execute_add_node	../Setup/addnodes.py	/^    def execute_add_node(self):$/;"	kind:member	line:96
+execute_docker_upgrade	../Setup/update.py	/^    def execute_docker_upgrade(self):$/;"	kind:member	line:175
+execute_shield_update	../Setup/update.py	/^    def execute_shield_update(self):$/;"	kind:member	line:141
+fix_elk_conflicts	../Setup/update.py	/^    def fix_elk_conflicts(self):$/;"	kind:member	line:242
+get_verbose	../Setup/update.py	/^    def get_verbose(self):$/;"	kind:member	line:196
+main	../Setup/addnodes.py	/^def main(args):$/;"	kind:function	line:148
+main	../Setup/update.py	/^def main():$/;"	kind:function	line:282
+make_command_line	../Setup/addnodes.py	/^    def make_command_line(self):$/;"	kind:member	line:72
+make_docker_output	../Setup/update.py	/^    def make_docker_output():$/;"	kind:member	line:135
+make_enviroment_variables	../Setup/update.py	/^def make_enviroment_variables():$/;"	kind:function	line:32
+make_proxy_url_string	../Utils/proxy.py	/^def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):$/;"	kind:function	line:153
+parse_arguments	../Setup/update.py	/^def parse_arguments():$/;"	kind:function	line:11
+prepare_args_line	../Setup/addnodes.py	/^    def prepare_args_line(self, commands):$/;"	kind:member	line:59
+prepare_container_name	../Setup/addnodes.py	/^    def prepare_container_name():$/;"	kind:member	line:76
+proxy.py	../Utils/proxy.py	1;"	kind:file	line:1
+restore_default	../Utils/proxy.py	/^def restore_default():$/;"	kind:function	line:160
+run_node_prepare	../Setup/addnodes.py	/^    def run_node_prepare(self):$/;"	kind:member	line:105
+run_ssh_key_provider	../Setup/update.py	/^    def run_ssh_key_provider(self):$/;"	kind:member	line:121
+run_sshkey_provider	../Setup/addnodes.py	/^def run_sshkey_provider(container_name):$/;"	kind:function	line:35
+run_update	../Setup/update.py	/^    def run_update(self):$/;"	kind:member	line:252
+set_container_image	../Setup/update.py	/^    def set_container_image(self, d_line):$/;"	kind:member	line:129
+set_proxy	../Utils/proxy.py	/^def set_proxy(flag):$/;"	kind:function	line:133
+show_container_help	../Setup/addnodes.py	/^    def show_container_help(self):$/;"	kind:member	line:84
+show_list_versions	../Setup/update.py	/^    def show_list_versions(self):$/;"	kind:member	line:219
+stop_shield	../Setup/update.py	/^    def stop_shield(self, resource):$/;"	kind:member	line:191
+update.py	../Setup/update.py	1;"	kind:file	line:1
+writeDockerServiceConfig	../Utils/proxy.py	/^def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):$/;"	kind:function	line:104
+writeToApt	../Utils/proxy.py	/^def writeToApt(proxy, port, username, password, flag):$/;"	kind:function	line:45
+writeToBashrc	../Utils/proxy.py	/^def writeToBashrc(proxy, port, username, password, flag):$/;"	kind:function	line:81
+writeToEnv	../Utils/proxy.py	/^def writeToEnv(proxy, port, username, password, flag):$/;"	kind:function	line:57

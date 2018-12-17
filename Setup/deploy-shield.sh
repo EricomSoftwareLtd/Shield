@@ -1,30 +1,30 @@
 #!/bin/bash
 
 #set -x
-###########################################
-#####   Ericom Shield Installer        #####
+############################################
+#####   Ericom Shield Startup Script   #####
 ###################################LO##BH###
 JENKINS=
 NETWORK_INTERFACE='eth0'
 STACK_NAME='shield'
-ES_YML_FILE=
-HOST=$(hostname)
+HOST="$(hostname)"
 SECRET_UID="shield-system-id"
-ES_NO_BROWSERS_LABEL=false
+ES_NO_BROWSERS_LABEL='false'
 
 export UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
 PROXY_ENV_FILE="proxy-server.env"
-ES_PATH=/usr/local/ericomshield
+ES_PATH="/usr/local/ericomshield"
 CONSUL_BACKUP_PATH="$ES_PATH/backup"
 DOCKER_SWARMEXEC_TAG=180128-09.08-1217
+ES_YML_FILE="$ES_PATH/docker-compose.yml"
+EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
+ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
 
 ########################################################################################################################
 ########   Default deploy variables section                                       ######################################
 ##########################################################################################################LO############
 export SUB_NET="10.20.0.0/16"
 export SHIELD_PROXY_PORT="3128"
-
-
 
 if [ -f "$ES_PATH/customer.env" ]; then
     source "$ES_PATH/customer.env"
@@ -41,7 +41,7 @@ while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
     -no-browser)
-        ES_NO_BROWSERS_LABEL=true
+        ES_NO_BROWSERS_LABEL='true'
         echo "Multi-Machine: No Browser Label"
         ;;
     #        -usage)
@@ -55,6 +55,20 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ -z "$JENKINS" ]; then
+    if [ ! -f "$EULA_ACCEPTED_FILE" ] || [ ! -f "$ES_MY_IP_FILE" ]; then
+        echo "Ericom Shield has not been configured properly. Please run '$ES_PATH/setup.sh'. Exiting..."
+        exit 1
+    else
+        IP_ADDRESS="$(cat "$ES_MY_IP_FILE" | grep -oP '\d+\.\d+\.\d+\.\d+')"
+    fi
+
+    if ! systemctl start docker; then
+        echo "Could not start Docker. Exiting..."
+        exit 1
+    fi
+fi
 
 function retry_on_failure() {
     local n=1

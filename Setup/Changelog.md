@@ -11,6 +11,177 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_455] - 2018-12-16
+
+- Encode the URL that remote browser sends to the policy manager in order to support other languages and url parameters
+Correctly set the group ID of the category when domain/URL was blocked due to “unsecured site” (securityGroupID)
+- Added category 35 (Private IP Addresses)
+- Fixed block message when domain is blocked by icap
+- When the remote browser blocks a URL, added the group ID (“catid”) to the URL, so we can track if blocking was done on the correct category (not available when domain is blocked by icap)
+- Added the full policy to the remote browser debug (performance & statss) panel (CTRL + SHIFT + ~), so we can track if the correct policy was assigned by the policy manager
+
+## [Dev:Build_454] - 2018-12-13
+
+- Exclude IPs for RateLimit #4961
+- Progress of Phishing and Categories tasks #4977 
+
+## [Dev:Build_453] - 2018-12-13
+
+- phishing - "read only" action is not working #4981
+- Japanese - conversion list is moving as I progress with typing #4966
+- Delete Category doesnt work #4960
+- AdminUI: Category above Policy #4959
+- ADMIN - Resources/ Display Settings not saved #4915
+- Phishing detection In CEF (preload script) 4977 
+
+## [Dev:Build_452.1] - 2018-12-13
+
+- Screenshot is not being added to the GitHub issue #4204
+- Print should be disabled for files in case download is disabled #4903
+- Phishing and Categories #4964 
+- Policies are not working when doing did-navigate-in-page #4956
+- ADMIN - Resources/ Display Settings not saved #4915
+- Admin UI | Resources fix the display #4958
+- Can't browse in build 452 #4978
+
+## [Dev:Build_451] - 2018-12-11
+
+- Japanese - Suggestion doubled #4906
+- Japanese - First letter is doubled in Internet Explorer #4905
+- Japanese output issue #4747
+- Named user licensing - add a consul parameter #4928
+- Votiro AVR alert stay on after change the license to support antivirus #4929
+- Alert about no matching license for Votiro, while sanitizing is working #4807
+- Not possible to change the right-click menu language to Japanese #4935
+- (*) First version of Categories in Shield #4275
+
+## [Dev:Build_450] - 2018-12-11
+
+- Deployment Failed at Westbury Bank #4919
+- Failed to create cluster #4904
+
+## [Dev:Build_449] - 2018-12-10
+
+- Support right/left CTRL+Shift combination #4768
+- Named user licesning - add a consul parameter #4928
+- Names user Licensing - fix the admin #4926
+- Pre check install script - failed execute internet speed #4923
+- Clean error report about system not activated #4808
+- Licensing - fix the shield stats #4927
+- Right-Click Open Link without add-block #4540
+
+## [Dev:Build_448] - 2018-12-09
+
+- Can't upload .JPG files on Gmail #4839
+- Pause ad block and reload is not working #4900
+- Windows - Firefox : Right click menu is not working properly #4878
+
+## [Dev:Build_447] - 2018-12-06
+
+- Japanese - problems with the keyboard #4847
+- Implementing Named Users Licensing #4783
+- Update for CentOS support 
+- es-system monitor doesn't function on centos #4908 
+
+## [Dev:Build_446] - 2018-12-05
+
+- Admin set Image Quality and FPS - feedback #4862
+- Fps settings - warning appears after settings already saved #4860
+
+## [Dev:Build_445] - 2018-12-04
+
+- Can't open PDF file from Google #4892
+- Page frozen, but the commands are applying on a new tab opened #4879
+- Crash & refresh when closing popups #4884
+- #4771 - japanese IME position
+- Send/Sync Policies to Browser Farm
+
+## [Dev:Build_444] - 2018-12-04
+
+- Policy manager is not working properly #4883
+- es-system monitor doesn't function #4880
+- Japanese keyboard - IME disabled after typing in the password field #4772
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- Suspend Policy - does not work as expected #4888
+
+## [Dev:Build_443] - 2018-12-02
+
+- Working by hostname (not by URL) #4850
+- Ugly alert when Votiro license / trial days are over #4738
+- Proxyless Admin UI #4858
+- Cloud preparations 
+- Download zip with password - fix the password dialog #4852
+- Browser Farm settings in Admin #4857
+
+## [Dev:Build_442] - 2018-11-28
+
+- Not possible to Print a page #4840
+- SMTP alert uses auth when no auth is defined #4835
+- Notifier service must run on a management node. #4834
+- Allow Admin to set Image Quality and FPS #4362
+- Support secured Media #367
+- Right click -> paste : dialog to use ctrl v is not openning #4831
+
+## [Dev:Build_441] - 2018-11-28
+
+- Added Categories backend in disabled mode
+- Licesing support for Votiro CDR and Named Users Licensing - not ready to test 
+
+## [Dev:Build_440] - 2018-11-27
+
+- Votiro Cloud URL alert while using Votiro on-premise URL #4817
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- disable the slow netwrok message does not work - now message is not displayed also when it should #4722
+- Bandwidth while scrolling #4801
+
+## [Dev:Build_439] - 2018-11-25
+
+- Proxyless mode is enabled by default - please fix to be disabled #4787
+- Import policies - translations issues #4766
+- Proxyless key not created - portal mode is not working #4763
+- Timeout Session doesnt work on Website with Popup window #4758
+- disable the slow netwrok message does not work - now message is not displayed also when it should #4722
+- Policies - delete multiple lines - does not work as expected #4684
+- file preview - add size limitation #4681	
+- Add the "[]" Symbol Before the URL Name #4721
+
+## [Dev:Build_438] - 2018-11-19
+- https://www.draw.io/ - works only partially #4650
+- Fields processed as integers (specific settings validation) #4708
+- Disable the slow netwrok message does not work #4722
+- Reset Certificate uploaded and revert to Ericom Certificate #4315
+- Japanese - position of the conversion list window #4709
+- Japanese keyboard -the position of the conversion list window is not correct #4771
+- Stuck CTRL #4769
+- Admin is broken in build 437.2 Dev #4778
+
+## [Dev:Build_437] - 2018-11-18
+
+- When node is not in swarm or no leader, status-node returns a script error #3276
+- The process of adding nodes is too long #4605
+- It is possible to upload files that are not supported #4675
+- Can't type in alphanumeric mode in Japanes on safari Mac #4397
+- Making containers smaller
+- Zip file + password - encrypt password #4717
+- Fallback to LDAP is not working #3860
+- Support ALT + Arrows combinations (KKA p4) #4543
+- Japanese keyboard - some problems with the positioning #4582
+- Portal mode - pasue shield and reload is not working #4595
+- Can't sign in to chrome #593
+- Multi select in drop down list - using "Ctrl" does not work #982
+- File preview suspended with oops something went wrong #4715
+- Network is slow error displayed in a new tab #4590
+- Scroll is broken after cmd->c on Firefox #4624
+- Allow clipboard inside the browser (KKA p2) #4473
+- Send feedback should attach CEF consol logs #4575
+- Ext-Proxy Logs #4620
+- Rename Portal to Proxyless in consul
+- Votiro AVR 'off' by Default (R1) #4561
+- File transfer reports - "CDR Report" column name change #4683
+- Doc with password, bad UX, need to give a proper message #4625
+- New setting: Enable Tech-Preview Features #4653
+- Can print url pdf file when printing is disabled #4379
+
 ## [Dev:Build_436] - 2018-11-18
 
 - Proxyless mode is enabled by default #4745

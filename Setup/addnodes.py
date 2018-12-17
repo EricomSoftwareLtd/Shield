@@ -38,7 +38,11 @@ def run_sshkey_provider(container_name):
                 -v $(which docker):/usr/bin/docker \\
                 -v {0}:/usr/local/ericomshield \\
                 {1} sshkey'''.format(es_path, container_name)
-    subprocess.run(cmd, shell=True)
+    res = subprocess.run(cmd, shell=True)
+    if res.returncode != 0:
+        subprocess.run("cd /usr/local/ericomshield && rm -f ericomshield_key*", shell=True)
+        print("Error provide sshkey. Please try run 'sudo ./update.sh sshkey'")
+        exit(res.returncode)
 
 class AddNodeExecutor(object):
     """
@@ -121,7 +125,9 @@ class AddNodeExecutor(object):
                 extend_command += " "
         cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command)
 
-        subprocess.run(cmd, shell=True)
+        res = subprocess.run(cmd, shell=True)
+        if res.returncode != 0:
+            exit(res.returncode)
 
     def execute(self):
         if self.help_required:
