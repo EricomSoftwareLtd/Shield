@@ -1,13 +1,13 @@
-#Build Dev:Build_455 on 18/12/16
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_455
+#Build Dev:Build_456.1 on 18/12/17
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_456.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
-shield-admin:latest shield-admin:181216-15.40-3445
+shield-admin:latest shield-admin:181218-10.23-3458
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181118-17.20-3222
-icap-server:latest icap-server:181216-14.42-3440
-shield-cef:latest shield-cef:181216-15.05-3442
+icap-server:latest icap-server:181218-10.40-3460
+shield-cef:latest shield-cef:181218-08.26-3451
 shield-collector:latest shield-collector:181210-09.09-3375
 shield-elk:latest shield-elk:181119-07.23-3224
 extproxy:latest extproxy:181118-17.20-3222
@@ -15,7 +15,7 @@ shield-cdr-dispatcher:latest shield-cdr-dispatcher:181119-07.23-3224
 shield-cdr-controller:latest shield-cdr-controller:181130-09.49-3320
 shield-web-service:latest shield-web-service:181118-15.49-3220
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:181216-15.18-3443
+shield-authproxy:latest shield-authproxy:181218-10.40-3460
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
@@ -24,9 +24,9 @@ shield-notifier:latest shield-notifier:181212-11.56-3412
 shield-dns:latest shield-dns:181029-09.26-3074
 shield-proxyless-connector:latest shield-proxyless-connector:181204-13.14-3358
 es-file-preview:latest es-file-preview:181125-07.31-3259
-es-system-configuration:latest es-system-configuration:181212-16.32-3420
+es-system-configuration:latest es-system-configuration:181218-10.23-3458
 es-system-monitor:latest es-system-monitor:181216-14.31-3438
 es-license-manager:latest es-license-manager:181211-08.31-3385
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
-es-policy-manager:latest es-policy-manager:181216-14.53-3441
+es-policy-manager:latest es-policy-manager:181218-10.40-3460
 # This needs to be the last line
