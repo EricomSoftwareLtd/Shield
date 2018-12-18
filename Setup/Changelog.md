@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_456] - 2018-12-17
+
+- Initial + Disabled by default - Autofill data in forms #4991 
+- Show the category group string in the block message #4977
+- Potential Phishing Detection Feature ( admin | settings | content isolation) #4699
+- Expedia.com is broken - the page is refreshed and new tabs are being opened #4992
+- Categories - please align default table #4995
+- remote scaler on cent os is not working #4922
+- CentOS - add an option to uninstall shield #4920
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Rename Proxyless to Redirection #5014
+- shield-cat page to resolve url-category #5001
+- Categories - use only the primary group ID #5016
+
 ## [Dev:Build_455] - 2018-12-16
 
 - Encode the URL that remote browser sends to the policy manager in order to support other languages and url parameters
