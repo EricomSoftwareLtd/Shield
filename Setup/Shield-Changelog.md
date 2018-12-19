@@ -11,6 +11,63 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.12-Build-4xx] - 30-12-2018
+
+### New Features
+
+- Potential Phishing Detection (Action: Warning, Read-Only, Block) (Tech Preview)
+- Categories (Tech Preview)
+- Centos/RHEL Support
+- Redirection Mode
+- End User: Support Multi-Select in Drop Down Lists
+- Named User Licensing
+- AdminUI: Set Image Quality and FPS
+- Exclude IPs for RateLimit
+- Browser Farm settings in Admin (Tech Preview)
+- New setting: Enable Tech-Preview Features
+- Allow to add Indication when browsing using Shield ("[]" Symbol Before the URL Name by default)
+- Ext-Proxy Logs are collected
+
+### Enhancement
+- It is now possible to sign in to chrome
+- Bandwidth Improvements
+- Right-Click Open Link without add-block also on page load failed
+- Support Right/Left CTRL+Shift combination
+- Support ALT + Arrows combinations
+- Alert when Votiro license/trial days are over
+- Notifier service must run on a management node
+- Votiro Anti-Virus Option ('off' by Default)
+- Allow clipboard inside the browser
+- Print disabled for files in case download is disabled
+- File preview -File Size Limitation
+- Reset Certificate uploaded and revert to Ericom Certificate
+
+### Bug Fixes
+
+- Fixed: Can't upload .JPG files on Gmail
+- Fixed: Can't open PDF file from Google
+- Fixed: Timeout Session doesnt work on Website with Popup window
+- Fixed: Windows/Firefox : Right click menu is not working properly
+- Fixed: Fallback to LDAP is not working
+- Fixed: Japanese - Suggestion doubled
+- Fixed: Japanese - First letter is doubled in Internet Explorer
+- Fixed: Japanese - Output issue
+- Fixed: Japanese - Problems with the keyboard
+- Fixed: Japanese - IME position
+- Fixed: Japanese - IME disabled after typing in the password field
+- Fixed: Japanese - the position of the conversion list window is not correct
+- Fixed: Japanese - some problems with the positioning
+- Fixed: Download zip with password - fix the password dialog
+- Fixed: SMTP alert uses auth when no auth is defined
+- Fixed: Right click -> paste : dialog to use ctrl v is not openning
+- Fixed: Import policies - translations issues
+- Fixed: Disable the slow network message does not work
+- Fixed: Policies - delete multiple lines - does not work as expected
+- Fixed: When node is not in swarm or no leader, status-node returns a script error
+- Fixed: Zip file + password - encrypt password
+- Fixed: Mac/Firefox: Scroll is broken after cmd->c
+- Fixed: Can print url pdf file when printing is disabled
+
 ## [Prod:18.11-Build-436] - 18-11-2018
 
 ### New Features
