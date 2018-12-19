@@ -4,7 +4,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" #"
 source "${DIR}/common"
 
 function build_native() {
-    rpmbuild --define="_topdir ${BUILD_DIR}" -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
+    rpmbuild --define="_topdir ${BUILD_DIR}" --define '_buildfor_rel rhel' -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
+    rpmbuild --define="_topdir ${BUILD_DIR}" --define '_buildfor_rel centos' -ba "${BUILD_DIR}/SPECS/ericom_shield.spec"
 }
 
 extract_versions "${DIR}/../shield-version.txt"
