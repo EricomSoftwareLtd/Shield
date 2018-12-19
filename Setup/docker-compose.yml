@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.10
+# YML file for Rel-18.12
 
 services:
     dns:
@@ -318,7 +318,7 @@ services:
             - shield-system-id
     es-remote-browser-scaler:
         image: 'securebrowsing/es-remote-browser-scaler:latest'
-        # user: nobody
+        user: root
         hostname: es-remote-browser-scaler
         deploy:
             mode: replicated

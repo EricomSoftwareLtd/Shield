@@ -11,6 +11,88 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_457] - 2018-12-18
+
+- Some secured web sites considered as phishy #5025
+- Create New category should not auto set access to be default #5021
+- Edit the message when blocking a web site since it is unsecured #5005
+- Category Table Admin issues #5003
+- list of categories at the admin #5000
+
+
+## [Dev:Build_456] - 2018-12-17
+
+- Initial + Disabled by default - Autofill data in forms #4991 
+- Show the category group string in the block message #4977
+- Potential Phishing Detection Feature ( admin | settings | content isolation) #4699
+- Expedia.com is broken - the page is refreshed and new tabs are being opened #4992
+- Categories - please align default table #4995
+- remote scaler on cent os is not working #4922
+- CentOS - add an option to uninstall shield #4920
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Rename Proxyless to Redirection #5014
+- shield-cat page to resolve url-category #5001
+- Categories - use only the primary group ID #5016
+
+## [Dev:Build_455] - 2018-12-16
+
+- Encode the URL that remote browser sends to the policy manager in order to support other languages and url parameters
+Correctly set the group ID of the category when domain/URL was blocked due to “unsecured site” (securityGroupID)
+- Added category 35 (Private IP Addresses)
+- Fixed block message when domain is blocked by icap
+- When the remote browser blocks a URL, added the group ID (“catid”) to the URL, so we can track if blocking was done on the correct category (not available when domain is blocked by icap)
+- Added the full policy to the remote browser debug (performance & statss) panel (CTRL + SHIFT + ~), so we can track if the correct policy was assigned by the policy manager
+
+## [Dev:Build_454] - 2018-12-13
+
+- Exclude IPs for RateLimit #4961
+- Progress of Phishing and Categories tasks #4977 
+
+## [Dev:Build_453] - 2018-12-13
+
+- phishing - "read only" action is not working #4981
+- Japanese - conversion list is moving as I progress with typing #4966
+- Delete Category doesnt work #4960
+- AdminUI: Category above Policy #4959
+- ADMIN - Resources/ Display Settings not saved #4915
+- Phishing detection In CEF (preload script) 4977 
+
+## [Dev:Build_452.1] - 2018-12-13
+
+- Screenshot is not being added to the GitHub issue #4204
+- Print should be disabled for files in case download is disabled #4903
+- Phishing and Categories #4964 
+- Policies are not working when doing did-navigate-in-page #4956
+- ADMIN - Resources/ Display Settings not saved #4915
+- Admin UI | Resources fix the display #4958
+- Can't browse in build 452 #4978
+
+## [Dev:Build_451] - 2018-12-11
+
+- Japanese - Suggestion doubled #4906
+- Japanese - First letter is doubled in Internet Explorer #4905
+- Japanese output issue #4747
+- Named user licensing - add a consul parameter #4928
+- Votiro AVR alert stay on after change the license to support antivirus #4929
+- Alert about no matching license for Votiro, while sanitizing is working #4807
+- Not possible to change the right-click menu language to Japanese #4935
+- (*) First version of Categories in Shield #4275
+
+## [Dev:Build_450] - 2018-12-11
+
+- Deployment Failed at Westbury Bank #4919
+- Failed to create cluster #4904
+
+## [Dev:Build_449] - 2018-12-10
+
+- Support right/left CTRL+Shift combination #4768
+- Named user licesning - add a consul parameter #4928
+- Names user Licensing - fix the admin #4926
+- Pre check install script - failed execute internet speed #4923
+- Clean error report about system not activated #4808
+- Licensing - fix the shield stats #4927
+- Right-Click Open Link without add-block #4540
+
 ## [Dev:Build_448] - 2018-12-09
 
 - Can't upload .JPG files on Gmail #4839
