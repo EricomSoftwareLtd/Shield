@@ -1,13 +1,13 @@
-#Build Dev:Build_457 on 18/12/18
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_457
+#Build Dev:Build_458 on 18/12/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_458
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
-shield-admin:latest shield-admin:181218-15.40-3465
+shield-admin:latest shield-admin:181219-09.32-3470
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181118-17.20-3222
-icap-server:latest icap-server:181218-15.40-3465
-shield-cef:latest shield-cef:181218-15.59-3466
+icap-server:latest icap-server:181219-12.31-3474
+shield-cef:latest shield-cef:181219-10.10-3472
 shield-collector:latest shield-collector:181210-09.09-3375
 shield-elk:latest shield-elk:181119-07.23-3224
 extproxy:latest extproxy:181118-17.20-3222
@@ -28,5 +28,5 @@ es-system-configuration:latest es-system-configuration:181218-10.23-3458
 es-system-monitor:latest es-system-monitor:181216-14.31-3438
 es-license-manager:latest es-license-manager:181211-08.31-3385
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
-es-policy-manager:latest es-policy-manager:181218-15.40-3465
+es-policy-manager:latest es-policy-manager:181219-09.32-3470
 # This needs to be the last line
