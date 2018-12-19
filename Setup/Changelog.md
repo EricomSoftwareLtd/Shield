@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_458] - 2018-12-19
+
+- Named user license data should be saved when restart shield #5032
+- some secured web sites considered as phishy #5025
+
 ## [Dev:Build_457] - 2018-12-18
 
 - Some secured web sites considered as phishy #5025
