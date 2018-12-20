@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Extended "Connection" report to include categories information
 - Aligned "blocked" messages
 - Categories section and phishing settings are tech-preview
+- FMS not supported on older browsers #5051
+- Failed to create cluster #4904
+- change the message when no more licenses and the type is NU #5045
+- Admin UI - sometimes add new category is not working properly #5052
 
 ## [Dev:Build_458] - 2018-12-19
 
