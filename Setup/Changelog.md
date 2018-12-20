@@ -11,6 +11,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_458] - 2018-12-19
+
+- Named user license data should be saved when restart shield #5032
+- Some secured web sites considered as phishy #5025
+- Warning on Phishing is not forcing to press Ok #5036
+
+## [Dev:Build_457] - 2018-12-18
+
+- Some secured web sites considered as phishy #5025
+- Create New category should not auto set access to be default #5021
+- Edit the message when blocking a web site since it is unsecured #5005
+- Category Table Admin issues #5003
+- list of categories at the admin #5000
+
+## [Dev:Build_456] - 2018-12-17
+
+- Initial + Disabled by default - Autofill data in forms #4991 
+- Show the category group string in the block message #4977
+- Potential Phishing Detection Feature ( admin | settings | content isolation) #4699
+- Expedia.com is broken - the page is refreshed and new tabs are being opened #4992
+- Categories - please align default table #4995
+- remote scaler on cent os is not working #4922
+- CentOS - add an option to uninstall shield #4920
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Rename Proxyless to Redirection #5014
+- shield-cat page to resolve url-category #5001
+- Categories - use only the primary group ID #5016
+
 ## [Dev:Build_455] - 2018-12-16
 
 - Encode the URL that remote browser sends to the policy manager in order to support other languages and url parameters
