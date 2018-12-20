@@ -21,11 +21,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Redirection Mode
 - End User: Support Multi-Select in Drop Down Lists
 - Named User Licensing
-- AdminUI: Set Image Quality and FPS
+- Set Image Quality and FPS
 - Exclude IPs for RateLimit
 - Browser Farm settings in Admin (Tech Preview)
-- New setting: Enable Tech-Preview Features
-- Allow to add Indication when browsing using Shield ("[]" Symbol Before the URL Name by default)
+- Enable/Disable Tech-Preview Features
+- Allow End User Shield Indicator ("[]" Symbol Before the URL Name, edited via the translations file)
 - Ext-Proxy Logs are collected
 
 ### Enhancement
@@ -62,10 +62,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Right click -> paste : dialog to use ctrl v is not openning
 - Fixed: Import policies - translations issues
 - Fixed: Disable the slow network message does not work
-- Fixed: Policies - delete multiple lines - does not work as expected
+- Fixed: Delete multiple policies lines
 - Fixed: When node is not in swarm or no leader, status-node returns a script error
 - Fixed: Zip file + password - encrypt password
-- Fixed: Mac/Firefox: Scroll is broken after cmd->c
+- Fixed: Mac/Firefox: Scroll is broken after cmd+c
 - Fixed: Can print url pdf file when printing is disabled
 
 ## [Prod:18.11-Build-436] - 18-11-2018
