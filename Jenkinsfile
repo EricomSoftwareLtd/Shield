@@ -1,3 +1,4 @@
+def host_path = "/home/ozlevka/tmp/jenkins-home/workspace/rpm-build-pipeline/Setup/rpm"
 def remote = [:]
 remote.name = "build"
 remote.host = "192.168.50.75"
@@ -14,7 +15,7 @@ node {
         remote.user = username
         remote.password = password 
         stage("Build RPM") {
-            sshCommand remote: remote, command: 'ls -al'
+            sshCommand remote: remote, command: "/bin/bash -c ${host_path}/_build_in_docker.sh"
         }
     }
 }
