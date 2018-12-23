@@ -1,5 +1,6 @@
 import java.io.File
 def host_path = "/home/ozlevka/tmp/jenkins-home/workspace/rpm-build-pipeline/Setup/rpm"
+def docker_path = "/var/jenkins_home/workspace/rpm-build-pipeline"
 def versions_file = "Setup/shield-versions.txt"
 def remote = [:]
 remote.name = "build"
@@ -22,7 +23,7 @@ node {
     }
 
     stage("Parse versions file") {
-        def version_string = sh script: versions_file, returnStdout: true
+        def version_string = sh script: "${docker_path}/${versions_file}", returnStdout: true
         echo version_string
     }
 }
