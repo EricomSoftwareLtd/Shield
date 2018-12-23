@@ -22,8 +22,11 @@ node {
     }
 
     stage("Parse versions file") {
-        def matcher = readFile("${versions_file}") =~ 'SHIELD_VER=(.+)$'
-        echo matcher? matcher[0][1]: "not found"
+        def all = readFile("${versions_file}")
+        def lines = all.split('\n')
+        for (def i = 0; i < lines.size(); i++) {
+            echo lines[i]
+        }
     }
 }
 
