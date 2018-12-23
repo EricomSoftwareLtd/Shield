@@ -22,7 +22,7 @@ node {
     }
 
     stage("Parse versions file") {
-        def str = readFile file: "${versions_file}" =~ 'SHIELD_VER=(.+)$'
+        def str = readFile("${versions_file}") =~ 'SHIELD_VER=(.+)$'
         echo str
     }
 }
