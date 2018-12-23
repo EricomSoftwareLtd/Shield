@@ -1,4 +1,6 @@
+import java.io.File
 def host_path = "/home/ozlevka/tmp/jenkins-home/workspace/rpm-build-pipeline/Setup/rpm"
+def versions_file = "Setup/shield-versions.txt"
 def remote = [:]
 remote.name = "build"
 remote.host = "192.168.50.75"
@@ -16,6 +18,15 @@ node {
         remote.password = password 
         stage("Build RPM") {
             sshCommand remote: remote, command: "/bin/bash -c \"sudo ${host_path}/_build_in_docker.sh\""
+        }
+    }
+
+    stage("Parse versions file") {
+        File version = new File(versions_file)
+        def lines = versions.readLines()
+        for (int i = 0; i < lines.size(); i++) {
+            def line = lines[i]
+            echo line
         }
     }
 }
