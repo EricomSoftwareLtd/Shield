@@ -47,7 +47,8 @@ node {
 
     stage("Upload RPM files") {
         def release_files_dir = "Setup/rpm/_build/rpm/RPMS/x86_64"
-        def files = findFiles glob: "${docker_path}/${release_files_dir}/*.rpm"
+        def pattern = "${docker_path}/${release_files_dir}/*.rpm"
+        def files = findFiles glob: pattern
         for(def i = 0; i < files.size(); i++) {
             echo "Will upload ${file[i].path}"
             sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -f \"${files[i].path}\" --name \"${files[i].name}\"" 
