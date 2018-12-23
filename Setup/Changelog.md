@@ -11,6 +11,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_460.1] - 2018-12-23
+
+- Better handing of the case where we do not have NetSTAR license
+- Log all categoryInfo fields in the report
+- Some more updates and cleanups in the translation files #5060
+- Admin categories add with multiple choice #5061
+- Phishing works also when it is disabled #5057
+- Shield-cat page to resolve url-category #5001
+- IE - CTRL+V does work (from KKA, P2) #4873
+- Improved shield-cat page 
+- www.expedia.com is white by default 
+
+## [Dev:Build_459] - 2018-12-20
+
+- Edit the message when blocking a web site since it is unsecured #5005
+- Shield-cat page to resolve url-category #5001
+- Fixed shield-cat page. extended to show policy as well
+- Extended "Connection" report to include categories information
+- Aligned "blocked" messages
+- Categories section and phishing settings are tech-preview
+- FMS not supported on older browsers #5051
+- Failed to create cluster #4904
+- change the message when no more licenses and the type is NU #5045
+- Admin UI - sometimes add new category is not working properly #5052
+
 ## [Dev:Build_458] - 2018-12-19
 
 - Named user license data should be saved when restart shield #5032
