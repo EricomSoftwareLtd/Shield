@@ -23,7 +23,7 @@ node {
     }
 
     stage("Parse versions file") {
-        def str = readFile file: "rpm-build-pipeline/${versions_file}"
+        def str = readFile file: "${versions_file}"
         echo str
     }
 }
