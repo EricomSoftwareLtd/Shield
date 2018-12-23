@@ -23,8 +23,8 @@ node {
     }
 
     stage("Parse versions file") {
-        def version_string = sh script: "cat ${docker_path}/${versions_file}", returnStdout: true
-        echo version_string
+        def str = readFile file: "rpm-build-pipeline/${versions_file}"
+        echo str
     }
 }
 
