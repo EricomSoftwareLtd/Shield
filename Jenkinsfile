@@ -1,5 +1,6 @@
 import java.io.File
 def host_path = "/home/ozlevka/tmp/jenkins-home/workspace/rpm-build-pipeline/Setup/rpm"
+def docker_path "/var/jenkins-home/workspace/rpm-build-pipeline"
 def versions_file = "Setup/shield-version.txt"
 def remote = [:]
 remote.name = "build"
@@ -50,7 +51,7 @@ node {
         def arr = files.split(' ')
         for(def i = 0; i < arr.size(); i++) {
             def file_name = arr[i]
-            def file = "${release_files_dir}/${file_name}"
+            def file = "${docker_path}/${release_files_dir}/${file_name}"
             sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -f \"${file}\" -n \"${file_name}\"" 
         }
     }
