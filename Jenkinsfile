@@ -22,12 +22,8 @@ node {
     }
 
     stage("Parse versions file") {
-        File version = new File(versions_file)
-        def lines = versions.readLines()
-        for (int i = 0; i < lines.size(); i++) {
-            def line = lines[i]
-            echo line
-        }
+        def version_string = sh script: versions_file, returnStdout: true
+        echo version_string
     }
 }
 
