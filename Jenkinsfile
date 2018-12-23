@@ -40,8 +40,13 @@ node {
         echo version
     }
 
-    stage("Create release") {
-        sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${release_version}"
+    // stage("Create release") {
+    //     sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${release_version}"
+    // }
+
+    stage("Upload RPM files") {
+        def files = sh "ls -l Setup/rpm/_build/rpm/RPMS/x86_64", returnStdout: true
+        echo files
     }
 }
 
