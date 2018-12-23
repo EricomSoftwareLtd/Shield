@@ -15,7 +15,7 @@ node {
         remote.user = username
         remote.password = password 
         stage("Build RPM") {
-            sshCommand remote: remote, command: "/bin/bash -c ${host_path}/_build_in_docker.sh"
+            sshCommand remote: remote, command: "/bin/bash -c \"sudo ${host_path}/_build_in_docker.sh\""
         }
     }
 }
