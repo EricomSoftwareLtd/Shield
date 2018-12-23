@@ -30,7 +30,7 @@ node {
             def matcher = lines[i] =~ 'SHIELD_VER=(.+)$'
             if(matcher) {
               def versions = lines[i].split(' ')
-              release_version = versions[1].replace('SHIELD_VER=', '')
+              release_version = versions[1].replace('SHIELD_VER=', '').replace(':', '-')
 
             } else {
                 echo lines[i]
@@ -41,7 +41,7 @@ node {
     }
 
     stage("Create release") {
-        sh "/app/bin/linux/amd64/github-release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${release_version}"
+        sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${release_version}"
     }
 }
 
