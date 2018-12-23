@@ -40,9 +40,9 @@ node {
         echo version
     }
 
-    // stage("Create release") {
-    //     sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${release_version}"
-    // }
+    stage("Create release") {
+        sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${release_version}"
+    }
 
     stage("Upload RPM files") {
         def release_files_dir = "Setup/rpm/_build/rpm/RPMS/x86_64"
@@ -50,7 +50,8 @@ node {
         def arr = files.split('\n')
         for(def i = 0; i < arr.size(); i++) {
             def file_name = arr[i].split(' ').last()
-            echo file_name
+            def file = "${release_files_dir}/${file_name}"
+            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${file_name} -f ${file}" 
         }
     }
 }
