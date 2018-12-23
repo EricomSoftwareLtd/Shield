@@ -24,15 +24,19 @@ node {
     stage("Parse versions file") {
         def all = readFile("${versions_file}")
         def lines = all.split('\n')
+        def version = ''
         for (def i = 0; i < lines.size(); i++) {
             def matcher = lines[i] =~ 'SHIELD_VER=(.+)$'
             if(matcher) {
-                echo matcher[0][1]
-                break;
+              def versions = lines[i].split(' ')
+              version = versions[1].replace('SHIELD_VER=', '')
+
             } else {
                 echo lines[i]
             }
         }
+
+        echo version
     }
 }
 
