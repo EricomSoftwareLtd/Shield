@@ -51,7 +51,7 @@ node {
         for(def i = 0; i < arr.size(); i++) {
             def file_name = arr[i]
             def file = "${release_files_dir}/${file_name}"
-            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${file_name} -f ${file}" 
+            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -f ${file} -n ${file_name}" 
         }
     }
 }
