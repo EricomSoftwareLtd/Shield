@@ -6,7 +6,7 @@ node {
     }
     
     stage("Build RPM") {
-        sh "cd Setup/rmp && ./_build_in_docker.sh"
+        sh "cd Setup/rpm && ./_build_in_docker.sh"
     }
 }
 
