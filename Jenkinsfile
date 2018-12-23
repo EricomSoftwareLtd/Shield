@@ -45,7 +45,7 @@ node {
     // }
 
     stage("Upload RPM files") {
-        def files = sh "ls -l Setup/rpm/_build/rpm/RPMS/x86_64", returnStdout: true
+        def files = sh script: "ls -l Setup/rpm/_build/rpm/RPMS/x86_64", returnStdout: true
         echo files
     }
 }
