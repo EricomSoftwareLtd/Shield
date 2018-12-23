@@ -5,7 +5,7 @@ def remote = [:]
 remote.name = "build"
 remote.host = "192.168.50.75"
 remote.allowAnyHosts = true
-def version = ''
+def release_version = 'Unknow'
 def github_repo = "https://github.com/EricomSoftwareLtd/Shield.git"
 
 node {
@@ -30,7 +30,7 @@ node {
             def matcher = lines[i] =~ 'SHIELD_VER=(.+)$'
             if(matcher) {
               def versions = lines[i].split(' ')
-              version = versions[1].replace('SHIELD_VER=', '')
+              release_version = versions[1].replace('SHIELD_VER=', '')
 
             } else {
                 echo lines[i]
