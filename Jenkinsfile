@@ -5,12 +5,13 @@ def remote = [:]
 remote.name = "build"
 remote.host = "192.168.50.75"
 remote.allowAnyHosts = true
-
+def version = ''
+def github_repo = "https://github.com/EricomSoftwareLtd/Shield.git"
 
 node {
     
     stage("Get latest version") {
-        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "451bb7d7-5c99-4d21-aa3a-1c6a1027406b", branch: "DevTest"
+        git url: github_repo,  credentialsId: "451bb7d7-5c99-4d21-aa3a-1c6a1027406b", branch: "DevTest"
     }
 
     withCredentials([usernamePassword(credentialsId: 'ssh-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
@@ -37,6 +38,10 @@ node {
         }
 
         echo version
+    }
+
+    stage("Create release") {
+        sh "/app/bin/linux/amd64/github-release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${version} -n ${version}"
     }
 }
 
