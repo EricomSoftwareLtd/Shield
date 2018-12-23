@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_460] - 2018-12-23
+
+- Better handing of the case where we do not have NetSTAR license
+- Log all categoryInfo fields in the report
+- Some more updates and cleanups in the translation files #5060
+- Admin categories add with multiple choice #5061
+- phishing works also when it is disabled #5057
+- shield-cat page to resolve url-category #5001
+- IE - CTRL+V does work (from KKA, P2) #4873
+- Improved shield-cat page 
+
 ## [Dev:Build_459] - 2018-12-20
 
 - Edit the message when blocking a web site since it is unsecured #5005
