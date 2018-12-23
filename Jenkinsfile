@@ -23,7 +23,7 @@ node {
     }
 
     stage("Parse versions file") {
-        def version_string = sh script: "${docker_path}/${versions_file}", returnStdout: true
+        def version_string = sh script: "cat ${docker_path}/${versions_file}", returnStdout: true
         echo version_string
     }
 }
