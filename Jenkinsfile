@@ -45,8 +45,13 @@ node {
     // }
 
     stage("Upload RPM files") {
-        def files = sh script: "ls -l Setup/rpm/_build/rpm/RPMS/x86_64", returnStdout: true
-        echo files
+        def release_files_dir = "Setup/rpm/_build/rpm/RPMS/x86_64"
+        def files = sh script: "ls -l ${release_files_dir}", returnStdout: true
+        def arr = files.split('\n')
+        for(def i = 0; i < arr.size(); i++) {
+            def file_name = arr[i].split(' ').last()
+            echo file_name
+        }
     }
 }
 
