@@ -41,7 +41,7 @@ node {
     }
 
     stage("Create release") {
-        sh "/app/bin/linux/amd64/github-release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${version} -n ${release_version}"
+        sh "/app/bin/linux/amd64/github-release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -n ${release_version}"
     }
 }
 
