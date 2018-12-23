@@ -52,7 +52,8 @@ node {
         for(def i = 0; i < arr.size(); i++) {
             def file_name = arr[i]
             def file = "${docker_path}/${release_files_dir}/${file_name}"
-            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -f \"${file}\" -n \"${file_name}\"" 
+            echo "Will upload ${file}"
+            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t RPM-${release_version} -f \"${file}\" --name \"${file_name}\"" 
         }
     }
 }
