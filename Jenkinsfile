@@ -25,7 +25,13 @@ node {
         def all = readFile("${versions_file}")
         def lines = all.split('\n')
         for (def i = 0; i < lines.size(); i++) {
-            echo lines[i]
+            def matcher = lines[i] =~ 'SHIELD_VER=(.+)$'
+            if(matcher) {
+                echo matcher[0][1]
+                break;
+            } else {
+                echo lines[i]
+            }
         }
     }
 }
