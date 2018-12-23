@@ -2,7 +2,7 @@ Summary:   Ericom Shield for Secure Browsing
 Name:      ericom_shield
 Epoch:     0
 Version:   ${ERICOM_SHIELD_VERSION}
-Release:   1
+Release:   1.%{_buildfor_rel}
 License:   EULA
 Group:     Applications/Internet
 URL:       https://www.ericomshield.com/
@@ -15,10 +15,19 @@ BuildRequires: tar, gzip
 %{?systemd_requires}
 BuildRequires: systemd
 
+%if "%{_buildfor_rel}" == "rhel"
+
+Requires: docker-ee >= ${DOCKER_VERSION_LOW}, docker-ee < ${DOCKER_VERSION_HIGH}
+Requires: redhat-release-server >= 7.5
+
+%else #"%{_buildfor_rel}" == "centos"
+
 Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
-Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
 Requires: centos-release >= 7-5
-# Requires: redhat-release-server >= 7.5
+
+%endif
+
+Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
 
 Requires: ansible >= 2.7.1, ansible < 2.8
 Requires: python-boto >= 2.25
