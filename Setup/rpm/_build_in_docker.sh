@@ -12,6 +12,8 @@ function build_in_docker() {
     docker run --user="user:user" "${DOCKER_OPTS[@]}" /bin/bash -c "rpmbuild --define='_topdir /home/user/work' --define '_buildfor_rel rhel' -ba '/home/user/work/SPECS/ericom_shield.spec'"
     docker run --user="user:user" "${DOCKER_OPTS[@]}" /bin/bash -c "rpmbuild --define='_topdir /home/user/work' --define '_buildfor_rel centos' -ba '/home/user/work/SPECS/ericom_shield.spec'"
     docker run "${DOCKER_OPTS[@]}" /bin/bash -c "chown -R $(id -u):$(id -g) /home/user/work"
+    cp "${BUILD_DIR}/RPMS/x86_64/ericom_shield-"*".rhel.x86_64.rpm" "${BUILD_DIR}/RPMS/x86_64/ericom_shield.rhel.x86_64.rpm"
+    cp "${BUILD_DIR}/RPMS/x86_64/ericom_shield-"*".centos.x86_64.rpm" "${BUILD_DIR}/RPMS/x86_64/ericom_shield.centos.x86_64.rpm"
 }
 
 extract_versions "${DIR}/../shield-version.txt"
