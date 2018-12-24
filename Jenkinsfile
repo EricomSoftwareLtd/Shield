@@ -1,5 +1,4 @@
-import java.io.File
-def host_path = "/home/ozlevka/tmp/jenkins-home/workspace/rpm-build-pipeline/Setup/rpm"
+def host_path = "/home/ericom/jenkins-home/workspace/rpm-build-pipeline/Setup/rpm"
 def docker_path = "/var/jenkins_home/workspace/rpm-build-pipeline"
 def versions_file = "Setup/shield-version.txt"
 def remote = [:]
