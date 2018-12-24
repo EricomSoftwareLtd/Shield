@@ -50,7 +50,7 @@ node {
         def files = sh(script: "cd ${pattern} && ls -l | grep rpm", returnStdout: true).split('\n')
         for(def i = 0; i < files.size(); i++) {
             def file = files[i].split(' ').last()
-            def file_name = file.replaseAll(/(-\w+.\d+[.|_|-]?\d?-\d)/, new java.lang.CharSequence())
+            def file_name = file.replaseAll(/(-\w+.\d+[.|_|-]?\d?-\d)/)
             echo "Will upload ${file}"
             def file_path = "${pattern}/${file}"
             echo file_path
