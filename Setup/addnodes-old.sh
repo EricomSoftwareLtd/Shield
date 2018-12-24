@@ -69,3 +69,6 @@ docker run --rm -it \
     -e "ES_PRE_CHECK_FILE=$ES_PRE_CHECK_FILE" \
     -e "COMMAND=$COMMAND_NAME" \
     "securebrowsing/$CONTAINER_TAG" $ARGS ${@}
+   
+   
+# File not in use
