@@ -1,8 +1,16 @@
-#!/bin/sh -ex
+#!/bin/sh -e
 
-ES_GH_REL="Dev446"
-ES_RPM_VER_REL="Dev.446-1"
-DOCKERURL="$1"
+ES_GH_REL="$1"
+DOCKERURL="$2"
+
+if [ -z "${ES_GH_REL}" ]; then
+    echo "Usage: $0 [VERSION] [DOCKERURL]"
+    echo "          VERSION - Release version, e.g. Dev460.1"
+    echo "          DOCKERURL - optional URL of Docker EE (for RHEL)"
+    exit 1
+fi
+
+set -x
 
 if [ -x /sbin/subscription-manager ]; then
     sudo subscription-manager repos --enable="rhel-*-optional-rpms" --enable="rhel-*-extras-rpms" --enable="rhel-*-ansible-2.7-rpms"
@@ -17,7 +25,7 @@ if [ -x /sbin/subscription-manager ]; then
         sudo -E yum-config-manager --add-repo "$DOCKERURL/rhel/docker-ee.repo"
     fi
 
-    sudo yum install "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield-${ES_RPM_VER_REL}.rhel.x86_64.rpm"
+    sudo yum install "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield.rhel.x86_64.rpm"
 
 else
     sudo yum install -y epel-release
@@ -28,7 +36,7 @@ else
     sudo yum-config-manager --disable docker-ce-edge
     sudo yum-config-manager --disable docker-ce-test
 
-    sudo yum install "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield-${ES_RPM_VER_REL}.centos.x86_64.rpm"
+    sudo yum install "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield.centos.x86_64.rpm"
 fi
 
 sudo /usr/local/ericomshield/setup.sh
