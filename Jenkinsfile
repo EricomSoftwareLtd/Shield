@@ -50,12 +50,10 @@ node {
         def files = sh(script: "cd ${pattern} && ls -l | grep rpm", returnStdout: true).split('\n')
         for(def i = 0; i < files.size(); i++) {
             def file = files[i].split(' ').last()
-            def str = "1"
-            def file_name = file.replaseAll(~/(-\w+.\d+[.|_|-]?\d?-\d)/, str.drop(0))
             echo "Will upload ${file}"
             def file_path = "${pattern}/${file}"
             echo file_path
-            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${release_version} -f \"${file_path}\" --name \"${file_name}\"" 
+            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${release_version} -f \"${file_path}\" --name \"${file}\"" 
         }
     }
 }
