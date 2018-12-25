@@ -12,6 +12,8 @@ function extract_versions() {
             local REL="$(echo "${BASH_REMATCH[1]}" | tr A-Z a-z)"
             local REL="${BASH_REMATCH[1]}"
             export ERICOM_SHIELD_VERSION="${REL}.${BASH_REMATCH[2]}"
+            export ERICOM_SHIELD_PURE_BRANCH="${REL}"
+            export ERICOM_SHIELD_PURE_VER="${BASH_REMATCH[2]}"
         elif [[ $line =~ $DOCKER_VER_REGEX ]]; then
             local n=${#BASH_REMATCH[*]}
             export DOCKER_VERSION_LOW="${BASH_REMATCH[1]}${BASH_REMATCH[n - 1]}"
