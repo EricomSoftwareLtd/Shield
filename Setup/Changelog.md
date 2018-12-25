@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated Japaneese Translation file
 - Category and Phishing report #5063
 - After adding nodes, all data (license, url policies, etc) are gone #4781
-
+- Hide categories section if tech preview is disabled #5099
 
 ## [Dev:Build_460.1] - 2018-12-23
 
