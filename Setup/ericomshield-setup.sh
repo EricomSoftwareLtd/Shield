@@ -53,6 +53,7 @@ ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
 SWITCHED_TO_MULTINODE=false
+NON_INTERACTIVE=false
 
 MIN_RELEASE_MAJOR="16"
 MIN_RELEASE_MINOR="04"
@@ -179,29 +180,29 @@ function list_versions() {
         cat Releases.txt | cut -d':' -f1
         read -p "Please select the Release you want to install/update (1-4):" choice
         case "$choice" in
-            "1" | "latest")
-                echo 'latest'
-                OPTION="1)"
-                break
-                ;;
-            "2")
-                echo "2."
-                OPTION="2)"
-                break
-                ;;
-            "3")
-                echo "3."
-                OPTION="3)"
-                break
-                ;;
-            "4")
-                echo "4."
-                OPTION="4)"
-                break
-                ;;
-            *)
-                echo "Error: Not valid option, exiting"
-                ;;
+        "1" | "latest")
+            echo 'latest'
+            OPTION="1)"
+            break
+            ;;
+        "2")
+            echo "2."
+            OPTION="2)"
+            break
+            ;;
+        "3")
+            echo "3."
+            OPTION="3)"
+            break
+            ;;
+        "4")
+            echo "4."
+            OPTION="4)"
+            break
+            ;;
+        *)
+            echo "Error: Not valid option, exiting"
+            ;;
         esac
     done
     grep "$OPTION" Releases.txt
@@ -232,7 +233,7 @@ while [ $# -ne 0 ]; do
         ES_FORCE=true
         #echo " " >>$ES_VER_FILE
         if [ -f "$ES_VER_FILE" ]; then
-           echo " " >$ES_VER_FILE
+            echo " " >$ES_VER_FILE
         fi
         ;;
     -force-ip-address-selection)
@@ -249,6 +250,7 @@ while [ $# -ne 0 ]; do
     -approve-eula)
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
+        NON_INTERACTIVE=true
         ;;
     --no-deploy | -no-deploy) # -arg option will be deprecated and replaced by --arg
         ES_RUN_DEPLOY=false
@@ -280,7 +282,7 @@ if [ -z "$BRANCH" ]; then
 fi
 
 if [ -f "$ES_SHIELD_REGISTRY_FILE" ]; then
-   SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
+    SHIELD_REGISTRY=$(cat "$ES_SHIELD_REGISTRY_FILE")
 fi
 
 log_message "Installing version: $BRANCH"
@@ -516,7 +518,7 @@ function create_shield_service() {
 
 function check_shield_service_exists() {
     SHIELD_SERVICE_STATUS=$(sudo systemctl show -p LoadState ericomshield-updater.service | sed 's/LoadState=//g')
-    if [[ "$SHIELD_SERVICE_STATUS" = "not-found" && -f "$ES_PATH/ericomshield-updater.service" ]]; then
+    if [[ $SHIELD_SERVICE_STATUS == "not-found" && -f "$ES_PATH/ericomshield-updater.service" ]]; then
         rm -f "$ES_PATH/ericomshield-updater.service"
     fi
 }
@@ -548,7 +550,7 @@ function prepare_yml() {
         fi
     done <"$ES_VER_FILE"
     if [ ! -z "$SHIELD_REGISTRY" ]; then
-       sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g"  $ES_YML_FILE
+        sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g" $ES_YML_FILE
     fi
     #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
     sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
@@ -644,10 +646,10 @@ function pull_images() {
                 echo "################## Pulling images  ######################"
                 echo "pulling image: ${arr[1]} ($SHIELD_REGISTRY)"
                 if [ ! -z "$SHIELD_REGISTRY" ]; then
-                   IMAGE_NAME="$SHIELD_REGISTRY/securebrowsing/${arr[1]}"
-                else                
-                   docker pull "securebrowsing/${arr[1]}"
-                fi   
+                    IMAGE_NAME="$SHIELD_REGISTRY/securebrowsing/${arr[1]}"
+                else
+                    docker pull "securebrowsing/${arr[1]}"
+                fi
             fi
         fi
         LINE=$((LINE + 1))
@@ -656,7 +658,7 @@ function pull_images() {
 
 #############     Getting all files from Github
 function get_shield_files() {
-    #Get ericomshield-setup only if not present in the ericomshield folder 
+    #Get ericomshield-setup only if not present in the ericomshield folder
     if [ ! -f "ericomshield-setup.sh" ]; then
         curl -s -S -o ericomshield-setup.sh $ES_repo_setup
         chmod +x ericomshield-setup.sh
@@ -746,20 +748,20 @@ function check_registry() {
 }
 
 function update_daemon_json() {
-    if [ ! -z $SHIELD_REGISTRY ]; then    
+    if [ ! -z $SHIELD_REGISTRY ]; then
         if [ -f /etc/docker/daemon.json ] && [ $(grep -c 'regist' /etc/docker/daemon.json) -ge 1 ]; then
-          echo '/etc/docker/daemon.json is ok'
+            echo '/etc/docker/daemon.json is ok'
         else
-          echo "Setting: insecure-registries:[$SHIELD_REGISTRY] in /etc/docker/daemon.json"
-          echo '{' >/etc/docker/daemon.json.shield
-          echo -n '  "insecure-registries":["' >>/etc/docker/daemon.json.shield
-          echo -n $SHIELD_REGISTRY >>/etc/docker/daemon.json.shield
-          echo '"]' >>/etc/docker/daemon.json.shield
-          echo '}' >>/etc/docker/daemon.json.shield          
-          systemctl stop docker
-          sleep 10
-          mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
-          systemctl start docker
+            echo "Setting: insecure-registries:[$SHIELD_REGISTRY] in /etc/docker/daemon.json"
+            echo '{' >/etc/docker/daemon.json.shield
+            echo -n '  "insecure-registries":["' >>/etc/docker/daemon.json.shield
+            echo -n $SHIELD_REGISTRY >>/etc/docker/daemon.json.shield
+            echo '"]' >>/etc/docker/daemon.json.shield
+            echo '}' >>/etc/docker/daemon.json.shield
+            systemctl stop docker
+            sleep 10
+            mv /etc/docker/daemon.json.shield /etc/docker/daemon.json
+            systemctl start docker
         fi
     fi
 }
@@ -772,14 +774,14 @@ if [ "$ES_FORCE" == false ]; then
     echo "***************     Running pre-install-check (1) ..."
     check_distrib
     if [ -n "$DIST_ERROR" ]; then
-       failed_to_install "$DIST_ERROR"
-       exit 1
-      elif [ -n "$DIST_WARNING" ]; then
-       echo "$DIST_WARNING"
+        failed_to_install "$DIST_ERROR"
+        exit 1
+    elif [ -n "$DIST_WARNING" ]; then
+        echo "$DIST_WARNING"
     fi
     if [ ! check_inet_connectivity ]; then
-       failed_to_install "Internet connectivity problem detected, exiting..."
-       exit 1
+        failed_to_install "Internet connectivity problem detected, exiting..."
+        exit 1
     fi
 fi
 
@@ -815,16 +817,16 @@ if ! check_registry; then
     SHIELD_REGISTRY=""
     while read -p "Do you want to proceed (Yes/No)? " choice; do
         case "$choice" in
-            y | Y | "yes" | "YES" | "Yes")
-                echo "yes"
-                break
-                ;;
-            n | N | "no" | "NO" | "No")
-                echo "no"
-                echo "Exiting..."
-                exit 10
-                ;;
-            *) ;;
+        y | Y | "yes" | "YES" | "Yes")
+            echo "yes"
+            break
+            ;;
+        n | N | "no" | "NO" | "No")
+            echo "no"
+            echo "Exiting..."
+            exit 10
+            ;;
+        *) ;;
 
         esac
     done
@@ -861,7 +863,9 @@ get_shield_files
 
 update_sysctl
 
-./prepare-node.sh
+if [ "$NON_INTERACTIVE" == false ]; then
+    ./prepare-node.sh
+fi
 
 prepare_yml
 

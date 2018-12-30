@@ -44,7 +44,6 @@ function print_usage() {
     echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-e | --errors] [-h | --help]"
 }
 
-
 get_container_tag
 
 while [ $# -ne 0 ]; do

@@ -19,9 +19,6 @@ export ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 export ES_BRANCH_FILE="$ES_PATH/.esbranch"
 export APP_NAME="$0"
 
-
-
-
 if [ -f "$ES_PATH/.esbranch" ]; then
     BRANCH=$(cat "$ES_PATH/.esbranch")
 fi
@@ -31,15 +28,15 @@ ARGS="${@}"
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-        -v | --version )
-            BRANCH="$2"
-         ;;
+    -v | --version)
+        BRANCH="$2"
+        ;;
 
-        --verbose )
-            VERBOSE="--verbose"
-         ;;
-     esac
-     shift
+    --verbose)
+        VERBOSE="--verbose"
+        ;;
+    esac
+    shift
 done
 
 MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.py"
@@ -52,20 +49,20 @@ if [ "$RETURN_CODE" != "200" ]; then
     RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
 
     if [ "$RETURN_CODE" != "200" ]; then
-       echo "$BRANCH not exists. Please run sudo $0 --list-versions"
-       exit 1
+        echo "$BRANCH not exists. Please run sudo $0 --list-versions"
+        exit 1
     else
-      curl -s -S -o "update-old.sh" "$MAIN_SCRIPT_URL"
-      chmod +x update-old.sh
-      if [ -n "$VERBOSE" ]; then
-         remove="--verbose"
-         ARGS=("${ARGS[@]/$remove/}")
-      fi
-      SCRIPT="./update-old.sh $VERBOSE update"
+        curl -s -S -o "update-old.sh" "$MAIN_SCRIPT_URL"
+        chmod +x update-old.sh
+        if [ -n "$VERBOSE" ]; then
+            remove="--verbose"
+            ARGS=("${ARGS[@]/$remove/}")
+        fi
+        SCRIPT="./update-old.sh $VERBOSE update"
     fi
 else
-     curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
-     SCRIPT="/usr/bin/python3 update.py"
+    curl -s -S -o "update.py" "$MAIN_SCRIPT_URL"
+    SCRIPT="/usr/bin/python3 update.py"
 fi
 
 $SCRIPT $ARGS
