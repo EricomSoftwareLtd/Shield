@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Azure Speed Test - Measure the latenecy to your nearest Microsoft Azure Data Center">
+        <meta name="author" content="Richard Astbury">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <title>Azure Speed Test</title>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <style>
+            .container {
+                width:970px;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container" style="background:whitesmoke">
+            <div><a href="http://www.two10degrees.com/"><img src="//two10degrees.blob.core.windows.net/two10degrees.png" class="pull-right"/></a></div>
+            <h1 style="color:grey;font-size:50px">Microsoft Azure Speed Test</h1>
+        </div>
+
+        <div class="container" id="wait" style="margin-top:75px">
+            <h2>The speed test is starting...</h2>
+            <p>We are measuring the latency from your web browser to the Blob Storage Service in each of the 19 Microsoft Azure Data Centers...</p>
+        </div>
+
+        <div class="container results" style="margin-top:30px;margin-bottom:50px;display:none">
+            <h3>Blob Storage Latency</h3>
+            <canvas id="myChart" width="970" height="400"></canvas>
+            Latency times are in milliseconds. Lower is better.
+
+        </div>
+
+        <div class="container results" style="display:none">
+            <div class="row">
+                <div class="col-md-6" id="table"></div>
+                <div class="col-md-6">
+                    <p>It looks like your nearest Data Center is <span style="font-weight:bold" id="dc"></span>. <span id="cdn"></span></p>
+                    <p>&nbsp;</p>
+                    <p>Share your results with other people on twitter <span id="twitterbutton"></span></p>
+                    <p>&nbsp;</p>
+                    <p>Compare your speed with others by watching the <a href="https://twitter.com/search?q=%23AzureSpeedTest&src=hash&mode=realtime">#AzureSpeedTest</a> hashtag, or view the results <a href="http://azurespeedtestmaps.azurewebsites.net/">on a map</a>.</p>
+                    <p>&nbsp;</p>
+                    <p><a href="https://github.com/richorama/AzureSpeedTest">Fork</a> on GitHub.</p>
+                    <p>&nbsp;</p>
+                    <p>Created by <a href="https://www.twitter.com/richorama/">@richorama</a> at <a href="https://www.twitter.com/two10degrees/">@two10degrees</a>. Thanks to <a href="https://twitter.com/mickba">Mick Badran</a> for the storage accounts in Australia. Thanks to <a href="https://github.com/ncareau">NMC</a> for the storage accounts in Canada.</p>
+                    <p>&nbsp;</p>
+                    <p><small>The latency times are indicative only, and do not represent the maxium performance achievable from Microsoft Azure. Use this website purely as a tool to gauge which Azure Data Center could be the best for your location.<br/>&copy; Two10degrees 2014</small></p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+var canvas = document.getElementById("myChart");
+var ctx = canvas.getContext("2d");
+
+var startTime = {};
+var pingHistory = {};
+var label = []
+var locations = {
+    "speedtestwe": "West Europe",
+    "speedtestsea" : "Southeast Asia",
+    "speedtestea": "East Asia",
+    "speedtestnsus": "North Central US",
+    "speedtestne": "North Europe",
+    "speedtestscus": "South Central US",
+    "speedtestwus": "West US",
+    "speedtesteus": "East US",
+    "speedtestjpe": "Japan East",
+    "speedtestjpw": "Japan West",
+    "speedtestbs": "Brazil South",
+    "speedtestcus": "Central US",
+    "speedtesteus2": "East US 2",
+    "mickmel": "Australia Southeast",
+    "micksyd": "Australia East",
+    "speedtestukw": "West UK",
+    "speedtestuks": "South UK",
+    "speedtestcac": "Canada Central",
+    "speedtestcae": "Canada East",
+    "cdn": "Content Delivery Network *"
+};
+
+// colours generated here: http://tools.medialab.sciences-po.fr/iwanthue/
+
+var colours = {
+    "speedtestwe": "#7883c7",
+    "speedtestsea": "#7ce051",
+    "speedtestea": "#7148ce",
+    "speedtestnsus":"#d2ce49",
+    "speedtestne": "#cd58c7",
+    "speedtestscus":"#6dad4a",
+    "speedtestwus": "#57307d",
+    "speedtesteus": "#76dfa6",
+    "speedtestjpe": "#c3487e",
+    "speedtestjpw": "#46692c",
+    "speedtestbs": "#d5493d",
+    "speedtestcus": "#81c1d2",
+    "speedtesteus2": "#d88941",
+    "mickmel": "#432c49",
+    "micksyd": "#cfcc9b",
+    "speedtestukw": "#7b3731",
+    "speedtestuks": "#619780",
+    "speedtestcac": "#cf9aae",
+    "speedtestcae": "#3f4940",
+    "cdn": "#90733c"
+}
+
+$().ready(function(){
+    setInterval(run,3000)
+});
+
+function run(){
+
+    if (i > 2){
+        $("#wait").fadeOut("slow", function(){
+            $(".results").fadeIn("slow");
+        });
+        drawChart();
+        drawTables();
+
+    }
+
+    label.push(i.toString());
+    while (label.length > 20){
+        label.shift();
+    }
+    i += 1;
+
+    for (var x in locations){
+        if (!startTime[x]){
+            startTime[x] = new Date().getTime();
+            if (x === "cdn"){
+                $.ajax({
+                    url: "http://az207485.vo.msecnd.net/cb.json",
+                    dataType: "jsonp",
+                    cache: false
+                });
+            } else {
+                $.ajax({
+                    url: "https://" + x + ".blob.core.windows.net/cb.json",
+                    dataType: "jsonp",
+                    cache: false
+                });
+            }
+        }
+
+    }
+}
+
+function drawChart(){
+    var data = {
+        labels: label,
+        datasets : []
+    }
+
+    for (var x in pingHistory){
+        data.datasets.push({
+            fillColor : "rgba(255,255,255,0)",
+            strokeColor : colours[x],
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : colours[x],
+            data : pingHistory[x]
+        });
+    }
+
+    // work around a bug with high DPI
+    // http://stackoverflow.com/a/21797915
+    canvas.width = 970;
+    canvas.height = 400;;
+
+    //console.log(data);
+    new Chart(ctx).Line(data,{animation:false});
+}
+
+function drawTables(){
+    var avg = [];
+    for (var x in pingHistory){
+        var total = 0;
+        pingHistory[x].forEach(function(y){total += y});
+        avg.push({dc: locations[x], colour: colours[x], avg: total / pingHistory[x].length});
+    }
+    //console.log(avg);
+    var html = "";
+    avg.sort(function(a,b){return a.avg - b.avg});
+
+    avg.forEach(function(x){
+        html += "<tr><td style='border-left: 5px " + x.colour + " solid;'>" + x.dc + "</td><td>" + Math.round(x.avg) + "ms</td></tr>"
+    });
+    $("#table").html("<table width='970' class='table table-bordered'><tr><th>Data Center</th><th>Average Latency</th></tr>" + html + "</table>* The Content Delivery Network is only suitable for static content.");
+
+    var cdnCloser = (avg[0].dc === locations.cdn);
+    avg = avg.filter(function(x){ return x.dc !== locations.cdn});
+
+    drawTwitterLink(avg[0].dc, avg[0].avg, cdnCloser);
+
+}
+
+function drawTwitterLink(dc, ms, cdnCloser){
+    if (cdnCloser){
+        $("#cdn").html('There appears to be a <a href="http://azure.microsoft.com/en-gb/services/cdn/">CDN Node</a> nearer your location.');
+    }
+    $("#dc").html(dc);
+
+    dc = dc.replace(/[ ]/g, "%20");
+    $("#twitterbutton").html("<p><a href=\"https://twitter.com/intent/tweet?button_hashtag=AzureSpeedTest&text=My%20nearest%20%23Azure%20Data%20Center%20is%20" + dc + "%20(" + Math.round(ms) + "ms).%20Find%20out%20yours%20http%3A%2F%2Fazurespeedtest.azurewebsites.net%20#AzureSpeedTest\" class='btn btn-primary btn-large' data-size='large' data-related='two10degrees' data-dnt='true'>Tweet your results</a></p>");
+}
+
+function call(data){
+    if (!pingHistory[data]) pingHistory[data] = [];
+    pingHistory[data].push((new Date().getTime() - startTime[data]));
+    startTime[data] = undefined;
+    while (pingHistory[data].length  > 20){
+        pingHistory[data].shift();
+    }
+}
+
+var i = 1;
+
+        </script>
+        <script src="//two10degrees.blob.core.windows.net/Chart.min.js"></script>
+    </body>
+</html>

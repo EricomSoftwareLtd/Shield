@@ -13,8 +13,8 @@ if ((EUID != 0)); then
 fi
 
 ES_PATH="/usr/local/ericomshield"
-if [ -d  "$ES_PATH" ]; then
-   cd "$ES_PATH"
+if [ -d "$ES_PATH" ]; then
+    cd "$ES_PATH"
 fi
 
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
