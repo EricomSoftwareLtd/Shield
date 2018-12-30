@@ -66,4 +66,3 @@ function pull_images() {
     pull_images
     echo "***********  Done!"
     rm "$ES_VER_FILE_NEW" 
-    

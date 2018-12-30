@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Prod:18.12-Build-4xx] - 30-12-2018
+## [Prod:18.12-Build-461] - 30-12-2018
 
 ### New Features
 
@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ext-Proxy Logs are collected
 
 ### Enhancement
+
 - It is now possible to sign in to chrome
 - Bandwidth Improvements
 - Right-Click Open Link without add-block also on page load failed
@@ -70,20 +71,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:18.11-Build-436] - 18-11-2018
 
-### New Features
+### New Features 18.11
 
-#### End User Features
+#### End User Features 18.11
 
 - File Preview
 
-#### Admin Features
+#### Admin Features 18.11
 
 - Maintain customer environment variables during upgrade (proxy, subnet)
 - Proxyless Mode (Tech-Preview)
 - Votiro New Version: 8.1.1
 - External Syslog Configuration from AdminUI
 
-### Enhancement
+### Enhancement 18.11
 
 - Alert when user is associated to two User Profiles
 - Add Display Name and User Profile to the report/sessions list in Dashboard
@@ -94,7 +95,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Reset Certificate uploaded and revert to Ericom Certificate
 - Verify all certificates exists
 
-### Bug Fixes
+### Bug Fixes 18.11
 
 - Fixed: Uploading files should ignore timeout
 - Fixed: LDAP Login related bugs
