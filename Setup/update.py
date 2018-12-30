@@ -124,7 +124,11 @@ class UpdateExecutor():
             -v $(which docker):/usr/bin/docker \\
             -v {0}:/usr/local/ericomshield \\
             securebrowsing/{1} sshkey'''.format(os.environ['ES_PATH'], self.container)
-        subprocess.run(cmd, shell=True)
+        res = subprocess.run(cmd, shell=True)
+        if res.returncode != 0:
+            subprocess.run("cd /usr/local/ericomshield && rm -f ericomshield_key*", shell=True)
+            print("Error provide sshkey. Please try run 'sudo ./update.sh sshkey'")
+            exit(res.returncode)
 
     def set_container_image(self, d_line):
         if "shield-autoupdate:" in d_line:
