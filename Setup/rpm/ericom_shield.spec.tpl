@@ -205,5 +205,5 @@ if ! [ -z ${ericom_shield_id_rsa_pub+x} ]; then echo "$ericom_shield_id_rsa_pub"
 %systemd_postun media-containershm.mount
 
 %changelog
-* Fri Oct 26 2018 Andrew Novikov <Andrew.Novikov@artezio.com> - 1
+* Fri Oct 26 2018 Andrew N. - 1
 - Initial RPM release
