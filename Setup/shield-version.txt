@@ -1,7 +1,7 @@
-#Build Dev:Build_462 on 18/12/30
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_462
+#Build Dev:Build_462.1 on 18/12/30
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_462.1
 #docker-version 18.03.1
-shield-configuration:latest shield-configuration:181230-11.52-3532
+shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
 shield-admin:latest shield-admin:181230-08.56-3528
 shield-portainer:latest shield-portainer:180930-11.41-2885
@@ -24,7 +24,7 @@ shield-notifier:latest shield-notifier:181212-11.56-3412
 shield-dns:latest shield-dns:181029-09.26-3074
 shield-proxyless-connector:latest shield-proxyless-connector:181204-13.14-3358
 es-file-preview:latest es-file-preview:181125-07.31-3259
-es-system-configuration:latest es-system-configuration:181218-10.23-3458
+es-system-configuration:latest es-system-configuration:181230-11.52-3532
 es-system-monitor:latest es-system-monitor:181216-14.31-3438
 es-license-manager:latest es-license-manager:181230-11.52-3532
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
