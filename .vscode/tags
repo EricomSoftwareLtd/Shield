@@ -13,14 +13,14 @@ __init__	../Setup/update.py	/^    def __init__(self, args):$/;"	kind:member	line
 addnodes.py	../Setup/addnodes.py	1;"	kind:file	line:1
 app_name	../Setup/addnodes.py	/^    app_name = os.environ["APP_NAME"]$/;"	kind:variable	line:14
 app_name	../Setup/addnodes.py	/^app_name = "addnodes.sh"$/;"	kind:variable	line:12
-apply_registry	../Setup/update.py	/^    def apply_registry(self):$/;"	kind:member	line:201
+apply_registry	../Setup/update.py	/^    def apply_registry(self):$/;"	kind:member	line:205
 apt_	../Utils/proxy.py	/^apt_ = r'\/etc\/apt\/apt.conf'$/;"	kind:variable	line:33
 apt_backup	../Utils/proxy.py	/^apt_backup = r'.\/.backup_proxy\/apt.txt'$/;"	kind:variable	line:34
 bash_	../Utils/proxy.py	/^bash_ = r'\/etc\/bash.bashrc'$/;"	kind:variable	line:35
 bash_backup	../Utils/proxy.py	/^bash_backup = r'.\/.backup_proxy\/bash.txt'$/;"	kind:variable	line:36
 check_docker_upgrade	../Setup/update.py	/^    def check_docker_upgrade(self, d_line):$/;"	kind:member	line:111
 check_if_version_changed	../Setup/update.py	/^    def check_if_version_changed(self, d_line):$/;"	kind:member	line:91
-check_sshkey_exists	../Setup/update.py	/^    def check_sshkey_exists(self):$/;"	kind:member	line:277
+check_sshkey_exists	../Setup/update.py	/^    def check_sshkey_exists(self):$/;"	kind:member	line:281
 container_pattern	../Setup/addnodes.py	/^container_pattern = re.compile(r'shield-autoupdate')$/;"	kind:variable	line:24
 docker_	../Utils/proxy.py	/^docker_ = r'\/etc\/systemd\/system\/docker.service.d\/http-proxy.conf'$/;"	kind:variable	line:39
 docker_backup	../Utils/proxy.py	/^docker_backup = r'.\/.backup_proxy\/docker.txt'$/;"	kind:variable	line:40
@@ -38,14 +38,14 @@ es_versions_file	../Setup/addnodes.py	/^    es_versions_file = os.environ['ES_VE
 es_versions_file	../Setup/addnodes.py	/^es_versions_file = os.path.join(es_path,"shield-version.txt")$/;"	kind:variable	line:16
 execute	../Setup/addnodes.py	/^    def execute(self):$/;"	kind:member	line:132
 execute_add_node	../Setup/addnodes.py	/^    def execute_add_node(self):$/;"	kind:member	line:96
-execute_docker_upgrade	../Setup/update.py	/^    def execute_docker_upgrade(self):$/;"	kind:member	line:175
-execute_shield_update	../Setup/update.py	/^    def execute_shield_update(self):$/;"	kind:member	line:141
-fix_elk_conflicts	../Setup/update.py	/^    def fix_elk_conflicts(self):$/;"	kind:member	line:242
-get_verbose	../Setup/update.py	/^    def get_verbose(self):$/;"	kind:member	line:196
+execute_docker_upgrade	../Setup/update.py	/^    def execute_docker_upgrade(self):$/;"	kind:member	line:179
+execute_shield_update	../Setup/update.py	/^    def execute_shield_update(self):$/;"	kind:member	line:145
+fix_elk_conflicts	../Setup/update.py	/^    def fix_elk_conflicts(self):$/;"	kind:member	line:246
+get_verbose	../Setup/update.py	/^    def get_verbose(self):$/;"	kind:member	line:200
 main	../Setup/addnodes.py	/^def main(args):$/;"	kind:function	line:148
-main	../Setup/update.py	/^def main():$/;"	kind:function	line:282
+main	../Setup/update.py	/^def main():$/;"	kind:function	line:286
 make_command_line	../Setup/addnodes.py	/^    def make_command_line(self):$/;"	kind:member	line:72
-make_docker_output	../Setup/update.py	/^    def make_docker_output():$/;"	kind:member	line:135
+make_docker_output	../Setup/update.py	/^    def make_docker_output():$/;"	kind:member	line:139
 make_enviroment_variables	../Setup/update.py	/^def make_enviroment_variables():$/;"	kind:function	line:32
 make_proxy_url_string	../Utils/proxy.py	/^def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):$/;"	kind:function	line:153
 parse_arguments	../Setup/update.py	/^def parse_arguments():$/;"	kind:function	line:11
@@ -56,12 +56,12 @@ restore_default	../Utils/proxy.py	/^def restore_default():$/;"	kind:function	lin
 run_node_prepare	../Setup/addnodes.py	/^    def run_node_prepare(self):$/;"	kind:member	line:105
 run_ssh_key_provider	../Setup/update.py	/^    def run_ssh_key_provider(self):$/;"	kind:member	line:121
 run_sshkey_provider	../Setup/addnodes.py	/^def run_sshkey_provider(container_name):$/;"	kind:function	line:35
-run_update	../Setup/update.py	/^    def run_update(self):$/;"	kind:member	line:252
-set_container_image	../Setup/update.py	/^    def set_container_image(self, d_line):$/;"	kind:member	line:129
+run_update	../Setup/update.py	/^    def run_update(self):$/;"	kind:member	line:256
+set_container_image	../Setup/update.py	/^    def set_container_image(self, d_line):$/;"	kind:member	line:133
 set_proxy	../Utils/proxy.py	/^def set_proxy(flag):$/;"	kind:function	line:133
 show_container_help	../Setup/addnodes.py	/^    def show_container_help(self):$/;"	kind:member	line:84
-show_list_versions	../Setup/update.py	/^    def show_list_versions(self):$/;"	kind:member	line:219
-stop_shield	../Setup/update.py	/^    def stop_shield(self, resource):$/;"	kind:member	line:191
+show_list_versions	../Setup/update.py	/^    def show_list_versions(self):$/;"	kind:member	line:223
+stop_shield	../Setup/update.py	/^    def stop_shield(self, resource):$/;"	kind:member	line:195
 update.py	../Setup/update.py	1;"	kind:file	line:1
 writeDockerServiceConfig	../Utils/proxy.py	/^def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):$/;"	kind:function	line:104
 writeToApt	../Utils/proxy.py	/^def writeToApt(proxy, port, username, password, flag):$/;"	kind:function	line:45
