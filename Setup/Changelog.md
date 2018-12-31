@@ -11,12 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_462] - 2018-12-30
+## [Dev:Build_462] - 2018-12-31
 
 - Categories - can't access urls match to category with default policy #5062
 - when using file preview, the url is considered to be uncategorized #5107
 - Clean Couldn't JSON.parse ldap_cache from es-policy-manager #5128
 - Update failed with permission error #4955
+- Category and Phishing report #5063
 
 ## [Dev:Build_461] - 2018-12-25
 
