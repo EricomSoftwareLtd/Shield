@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_463] - 2019-01-03
+
+- Shield-browser auto-kill #5086
+- Shield preview and shield blank policy should be reflect at the report #5149
+- Category and Phishing report #5063
+- Debug panel shows policy rules only if not false or disabled #5026
+
 ## [Dev:Build_462] - 2018-12-31
 
 - Categories - can't access urls match to category with default policy #5062
