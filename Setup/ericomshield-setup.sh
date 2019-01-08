@@ -910,8 +910,8 @@ else # Update
                 ./stop.sh
             else
                 if [ ! -z "$SWARM" ]; then
-                    echo -n "stop shield-broker"
-                    docker service scale shield_broker-server=0
+                    echo -n "stop shield_es-remote-browser-scaler"
+                    docker service scale shield_es-remote-browser-scaler=0
                     wait_for_docker_to_settle
                 fi
             fi
