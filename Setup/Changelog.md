@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_464] - 2019-01-08
+
+- Catch Admin error #5165
+- When right click menu is empty, it should not be displayed #5089
+- Admin - add new category dialog - missing message #5077
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin set Image Quality and FPS - feedback #4862
+
 ## [Dev:Build_463] - 2019-01-03
 
 - Shield-browser auto-kill #5086
