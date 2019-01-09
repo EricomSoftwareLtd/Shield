@@ -27,7 +27,7 @@ Requires: centos-release >= 7-5
 
 %endif
 
-Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq
+Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq, firewalld
 
 Requires: ansible >= 2.7.1, ansible < 2.8
 Requires: python-boto >= 2.25
@@ -197,6 +197,14 @@ if ! [ -z ${ericom_shield_id_dsa+x} ]; then echo "$ericom_shield_id_dsa" >"%{_pr
 if ! [ -z ${ericom_shield_id_dsa_pub+x} ]; then echo "$ericom_shield_id_dsa_pub" >"%{_prefix}/local/ericomshield/.ssh/id_dsa.pub"; fi
 if ! [ -z ${ericom_shield_id_rsa+x} ]; then echo "$ericom_shield_id_rsa" >"%{_prefix}/local/ericomshield/.ssh/id_rsa"; fi
 if ! [ -z ${ericom_shield_id_rsa_pub+x} ]; then echo "$ericom_shield_id_rsa_pub" >"%{_prefix}/local/ericomshield/.ssh/id_rsa.pub"; fi
+
+systemctl start firewalld >/dev/null 2>&1 || :
+firewall-cmd --add-port=2376/tcp --permanent >/dev/null 2>&1 || :
+firewall-cmd --add-port=2377/tcp --permanent >/dev/null 2>&1 || :
+firewall-cmd --add-port=7946/tcp --permanent >/dev/null 2>&1 || :
+firewall-cmd --add-port=7946/udp --permanent >/dev/null 2>&1 || :
+firewall-cmd --add-port=4789/udp --permanent >/dev/null 2>&1 || :
+firewall-cmd --reload >/dev/null 2>&1 || :
 
 %preun
 %systemd_preun media-containershm.mount
