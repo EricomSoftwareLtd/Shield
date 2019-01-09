@@ -270,6 +270,24 @@ services:
             - shield
         secrets:
             - shield-system-id
+    es-core-sync:
+        image: 'securebrowsing/es-core-sync:latest'
+        # user: nobody
+        hostname: es-core-sync
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            resources: {limits: {memory: 100MB, cpus: '1'}, reservations: {memory: 50MB}}
+            placement: {constraints: [node.labels.management==yes]}
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-core-sync'
+            - 'SHIELD_VER=8.0.0.latest'
+        networks:
+            - shield
     es-system-monitor:
         image: 'securebrowsing/es-system-monitor:latest'
         user: root
