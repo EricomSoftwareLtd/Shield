@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_465] - 2019-01-09
+
+- Review and clean categories errors in shield jer #5153
+- Tab Limit should be based on GUID when no Auth #5132
+- update default CA date #4401
+- CentOS - failed to create cluster #5158
+
 ## [Dev:Build_464] - 2019-01-08
 
 - Catch Admin error #5165
