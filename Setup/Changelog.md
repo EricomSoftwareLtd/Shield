@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cloud - phishing is not working #5188
 - cloud- fps settings are not working #5180
 - cloud - suspend/ terminate session are not working #5179
-- Cloud - phishing is not working #5188-
+- Cloud - phishing is not working #5188
 
 ## [Dev:Build_464] - 2019-01-08
 
