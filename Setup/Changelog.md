@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_466] - 2019-01-14
+
+- Fix phishing report in case the site detected by both runtime and category #5198
+- Multi node - when one node is shut down ./status.sh -n doesn't work #5102
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Blank tab opened after the pop up is displayed #5226
+- Selective Isolation #5194
+
 ## [Dev:Build_465.1] - 2019-01-09
 
 - Review and clean categories errors in shield jer #5153
