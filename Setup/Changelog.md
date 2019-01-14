@@ -11,6 +11,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_465.1] - 2019-01-09
+
+- Review and clean categories errors in shield jer #5153
+- Tab Limit should be based on GUID when no Auth #5132
+- Update default CA date #4401
+- CentOS - failed to create cluster #5158
+- NetStar api provide bad answer VS their portal #4970
+- Fix message - Image download failed when skipped #5192
+- KDDI - support chinese inputs #5220
+- Can't open links after Google search #5221
+- Cloud - phishing is not working #5188
+- cloud- fps settings are not working #5180
+- cloud - suspend/ terminate session are not working #5179
+- Cloud - phishing is not working #5188
+
+## [Dev:Build_464] - 2019-01-08
+
+- Catch Admin error #5165
+- When right click menu is empty, it should not be displayed #5089
+- Admin - add new category dialog - missing message #5077
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin set Image Quality and FPS - feedback #4862
+
 ## [Dev:Build_463] - 2019-01-03
 
 - Shield-browser auto-kill #5086
