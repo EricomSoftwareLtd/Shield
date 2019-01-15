@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Create a web service for keeping a combined ad block list (generated from current sites) #5120
 - Blank tab opened after the pop up is displayed #5226
 - Empty value for FQDN in Admin #4736
+- False detection of site -online.maccabi4u.co.il #5264
 
 
 ## [Dev:Build_466] - 2019-01-14
