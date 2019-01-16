@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_468] - 2019-01-16
+
+- AWS alert - reduce memory requirements to be 7/15 #5259
+- Cloud - Allow CEF to take certificate from K8 #5079
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Maccabi online - Can't open documents (error message is attached. worked well outside of shield) #5216
+- Phishing and Categories tasks #4977
+- Category - search is not working #5268
+
 ## [Dev:Build_467] - 2019-01-15
 
 - Create a web service for keeping a combined ad block list (generated from current sites) #5120
