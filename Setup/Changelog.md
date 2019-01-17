@@ -11,6 +11,67 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_469] - 2019-01-17
+
+- Liveness & readyness probs for cdr-controller, cdr-dispatcher, preview #5277
+- Pre-installation checks - ubuntu 18.04 update #5231
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin doesn't generate new certificate when FQDN changes #5282
+- Category - search is not working #5268
+- Category - suspected need to be one of the first #5267
+- License counting for white session #5227
+- Tech preview features are not displayed at the admin UI when disable/enable some of them #5171
+
+ 
+## [Dev:Build_468] - 2019-01-16
+
+- AWS alert - reduce memory requirements to be 7/15 #5259
+- Cloud - Allow CEF to take certificate from K8 #5079
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Maccabi online - Can't open documents (error message is attached. worked well outside of shield) #5216
+- Phishing and Categories tasks #4977
+- Category - search is not working #5268
+
+## [Dev:Build_467] - 2019-01-15
+
+- Create a web service for keeping a combined ad block list (generated from current sites) #5120
+- Blank tab opened after the pop up is displayed #5226
+- Empty value for FQDN in Admin #4736
+- False detection of site -online.maccabi4u.co.il #5264
+
+
+## [Dev:Build_466] - 2019-01-14
+
+- Fix phishing report in case the site detected by both runtime and category #5198
+- Multi node - when one node is shut down ./status.sh -n doesn't work #5102
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Blank tab opened after the pop up is displayed #5226
+- Selective Isolation #5194
+
+## [Dev:Build_465.1] - 2019-01-09
+
+- Review and clean categories errors in shield jer #5153
+- Tab Limit should be based on GUID when no Auth #5132
+- Update default CA date #4401
+- CentOS - failed to create cluster #5158
+- NetStar api provide bad answer VS their portal #4970
+- Fix message - Image download failed when skipped #5192
+- KDDI - support chinese inputs #5220
+- Can't open links after Google search #5221
+- Cloud - phishing is not working #5188
+- cloud- fps settings are not working #5180
+- cloud - suspend/ terminate session are not working #5179
+- Cloud - phishing is not working #5188
+
+## [Dev:Build_464] - 2019-01-08
+
+- Catch Admin error #5165
+- When right click menu is empty, it should not be displayed #5089
+- Admin - add new category dialog - missing message #5077
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin set Image Quality and FPS - feedback #4862
+
 ## [Dev:Build_463] - 2019-01-03
 
 - Shield-browser auto-kill #5086
