@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_469] - 2019-01-17
+
+- Liveness & readyness probs for cdr-controller, cdr-dispatcher, preview #5277
+- Pre-installation checks - ubuntu 18.04 update #5231
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin doesn't generate new certificate when FQDN changes #5282
+- Category - search is not working #5268
+- Category - suspected need to be one of the first #5267
+- License counting for white session #5227
+- Tech preview features are not displayed at the admin UI when disable/enable some of them #5171
+
+ 
 ## [Dev:Build_468] - 2019-01-16
 
 - AWS alert - reduce memory requirements to be 7/15 #5259
