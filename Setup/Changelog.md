@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_470] - 2019-01-17
+
+- Different results between NetStar and shield cat for some urls #5243
+- AdminUI: Category above Policy - fix the tool tip #4959
+
+
 ## [Dev:Build_469] - 2019-01-17
 
 - Liveness & readyness probs for cdr-controller, cdr-dispatcher, preview #5277
