@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_471] - 2019-01-20
+
+- Blank tab opened after the pop up is displayed #5226
+- Redirect (proxyless) - cant download files with space in the name #5290
+
 ## [Dev:Build_470] - 2019-01-17
 
 - Different results between NetStar and shield cat for some urls #5243
