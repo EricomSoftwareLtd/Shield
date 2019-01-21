@@ -305,6 +305,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=es-system-monitor'
+            - 'SHIELD_VER=8.0.0.latest'
         networks:
             - shield
     es-license-manager:
