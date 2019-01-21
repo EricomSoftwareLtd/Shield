@@ -11,6 +11,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_471] - 2019-01-20
+
+- Blank tab opened after the pop up is displayed #5226
+- Redirect (proxyless) - cant download files with space in the name #5290
+
+## [Dev:Build_470] - 2019-01-17
+
+- Different results between NetStar and shield cat for some urls #5243
+- AdminUI: Category above Policy - fix the tool tip #4959
+
+
+## [Dev:Build_469] - 2019-01-17
+
+- Liveness & readyness probs for cdr-controller, cdr-dispatcher, preview #5277
+- Pre-installation checks - ubuntu 18.04 update #5231
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin doesn't generate new certificate when FQDN changes #5282
+- Category - search is not working #5268
+- Category - suspected need to be one of the first #5267
+- License counting for white session #5227
+- Tech preview features are not displayed at the admin UI when disable/enable some of them #5171
+
+ 
+## [Dev:Build_468] - 2019-01-16
+
+- AWS alert - reduce memory requirements to be 7/15 #5259
+- Cloud - Allow CEF to take certificate from K8 #5079
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Maccabi online - Can't open documents (error message is attached. worked well outside of shield) #5216
+- Phishing and Categories tasks #4977
+- Category - search is not working #5268
+
+## [Dev:Build_467] - 2019-01-15
+
+- Create a web service for keeping a combined ad block list (generated from current sites) #5120
+- Blank tab opened after the pop up is displayed #5226
+- Empty value for FQDN in Admin #4736
+- False detection of site -online.maccabi4u.co.il #5264
+
+
 ## [Dev:Build_466] - 2019-01-14
 
 - Fix phishing report in case the site detected by both runtime and category #5198

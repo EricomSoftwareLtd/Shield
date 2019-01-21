@@ -48,13 +48,19 @@ while [ $# -ne 0 ]; do
             show_usage
         else
             echo
-            LABEL=$3
-            if [ "$(echo "$KNOWN_LABELS" | grep -c "$LABEL")" -eq 0 ]; then
-                echo "Warning: Label: $LABEL is not a known Shield label($KNOWN_LABELS)"
-                echo
-            fi
-            echo " Adding Labels for Shield Node: $2"
-            docker node update --label-add "$LABEL"="yes" $2
+            shift
+            NODE=$1
+            shift
+            while [ $# -ne 0 ]; do
+                LABEL=$1
+                if [ "$(echo "$KNOWN_LABELS" | grep -c "$LABEL")" -eq 0 ]; then
+                   echo "Warning: Label: $LABEL is not a known Shield label($KNOWN_LABELS)"
+                   echo
+                fi
+                echo " Adding Labels for Shield Node ($NODE): $LABEL"
+                docker node update --label-add "$LABEL"="yes" $NODE
+            shift
+            done   
             exit
         fi
         ;;
