@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_472] - 2019-01-21
+
+- Remove phishing and categories from tech preview #5275
+- Enable Category by default #5304
+- Shield-stats email alert attachement incorrect info #5219
+- Shield-cat to show domain category/polic
+- Stuck CTRL #4769
+- Download rule is not working correctly with cloud #5174
+- Fixes for Errors on JER system 
+- Phishing and Categories tasks #4977
+
 ## [Dev:Build_471] - 2019-01-20
 
 - Blank tab opened after the pop up is displayed #5226
