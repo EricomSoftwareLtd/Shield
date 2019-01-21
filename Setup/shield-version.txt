@@ -1,5 +1,5 @@
 #Build Dev:Build_471 on 19/01/20
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_471
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_471.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
@@ -7,7 +7,7 @@ shield-admin:latest shield-admin:190117-15.30-3639
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181118-17.20-3222
 icap-server:latest icap-server:190117-12.49-3638
-shield-cef:latest shield-cef:190120-07.21-3642
+shield-cef:latest shield-cef:testSyslog
 shield-collector:latest shield-collector:190116-14.07-3629
 shield-elk:latest shield-elk:181230-17.53-3534
 extproxy:latest extproxy:190116-22.09-3635
