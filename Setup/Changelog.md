@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_473] - 2019-01-22
+
+- Chinese - Conversion window position #5245
+- Japanese - Conversion list window position on FF is not ok #5010
+- can't type in alphanumeric mode in Japanes on safari Mac (KKA P2) #4397
+- fixes ICAP errors on ssl 
+
 ## [Dev:Build_472] - 2019-01-21
 
 - Remove phishing and categories from tech preview #5275
