@@ -14,7 +14,6 @@ shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190114-12.48-3592
-shield-dns:latest shield-dns:181029-09.26-3074
 es-system-monitor:latest es-system-monitor:190120-20.18-3648
 es-core-sync:latest es-core-sync:190110-15.22-3582
 shield-admin:latest shield-admin:190121-16.02-3655
@@ -30,4 +29,5 @@ es-system-configuration:latest es-system-configuration:190120-07.39-3643
 es-license-manager:latest es-license-manager:181230-11.52-3532
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
 es-policy-manager:latest es-policy-manager:190120-20.18-3648
+shield-dns:latest shield-dns:181029-09.26-3074
 # This needs to be the last line
