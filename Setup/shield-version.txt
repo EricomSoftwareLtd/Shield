@@ -1,5 +1,5 @@
-#Build Dev:Build_472 on 19/01/20
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_472
+#Build Dev:Build_473 on 19/01/22
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_473
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
@@ -17,17 +17,17 @@ shield-autoupdate:latest shield-autoupdate:190114-12.48-3592
 es-system-monitor:latest es-system-monitor:190120-20.18-3648
 es-core-sync:latest es-core-sync:190110-15.22-3582
 shield-admin:latest shield-admin:190121-16.02-3655
-icap-server:latest icap-server:190121-15.11-3653
+icap-server:latest icap-server:190122-12.29-3662
 shield-cef:latest shield-cef:190121-15.35-3654
 extproxy:latest extproxy:190116-22.09-3635
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190116-13.35-3628
-shield-cdr-controller:latest shield-cdr-controller:190116-13.35-3628
+shield-cdr-controller:latest shield-cdr-controller:190122-10.57-3661
 shield-notifier:latest shield-notifier:181231-12.56-3535
-shield-proxyless-connector:latest shield-proxyless-connector:190121-16.02-3655
+shield-proxyless-connector:latest shield-proxyless-connector:190122-09.56-3658
 es-file-preview:latest es-file-preview:190116-13.35-3628
 es-system-configuration:latest es-system-configuration:190120-07.39-3643
 es-license-manager:latest es-license-manager:181230-11.52-3532
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
-es-policy-manager:latest es-policy-manager:190120-20.18-3648
+es-policy-manager:latest es-policy-manager:190122-10.57-3661
 shield-dns:latest shield-dns:181029-09.26-3074
 # This needs to be the last line
