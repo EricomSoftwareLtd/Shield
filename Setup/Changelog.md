@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_474] - 2019-01-23
+
+- Updated Japanese translation file
+- Alphanumeric characters doubled #5337
+- Japanese - Suggestion doubled - now need to enter the letter again #4906
+- BTL request - add display name to reports #5352
+- Fixed "gotResponse" error message
+- Ignore session limit on shield.preview #5174 #5353
+
 ## [Dev:Build_473] - 2019-01-22
 
 - Chinese - Conversion window position #5245
