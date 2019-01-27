@@ -234,7 +234,6 @@ services:
             - {type: bind, target: /dev/shm/xorg, source: /media/containershm}
     es-policy-manager:
         image: 'securebrowsing/es-policy-manager:latest'
-        hostname: es-policy-manager
         environment:
             - TZ=UTC
             - NODE_ENV=production
@@ -244,6 +243,7 @@ services:
         deploy:
             mode: replicated
             replicas: 2
+            endpoint_mode: dnsrr
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
@@ -471,7 +471,6 @@ services:
             resources: {limits: {memory: 500MB, cpus: '2'}}
     cdr-dispatcher:
         image: 'securebrowsing/shield-cdr-dispatcher:latest'
-        hostname: cdr-dispatcher
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'

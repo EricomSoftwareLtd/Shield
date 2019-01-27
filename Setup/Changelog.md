@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_475] - 2019-01-27
+
+- Sometimes the policy not found #5366
+- Fixed farm sync issues
+
 ## [Dev:Build_474] - 2019-01-23
 
 - Updated Japanese translation file
