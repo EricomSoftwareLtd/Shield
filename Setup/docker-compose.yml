@@ -234,7 +234,6 @@ services:
             - {type: bind, target: /dev/shm/xorg, source: /media/containershm}
     es-policy-manager:
         image: 'securebrowsing/es-policy-manager:latest'
-        hostname: es-policy-manager
         environment:
             - TZ=UTC
             - NODE_ENV=production
@@ -471,7 +470,6 @@ services:
             resources: {limits: {memory: 500MB, cpus: '2'}}
     cdr-dispatcher:
         image: 'securebrowsing/shield-cdr-dispatcher:latest'
-        hostname: cdr-dispatcher
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
