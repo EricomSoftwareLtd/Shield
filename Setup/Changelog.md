@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_475] - 2019-01-27
+
+- Sometimes the policy not found #5366
+- Fixed farm sync issues
+
+## [Dev:Build_474] - 2019-01-23
+
+- Updated Japanese translation file
+- Alphanumeric characters doubled #5337
+- Japanese - Suggestion doubled - now need to enter the letter again #4906
+- BTL request - add display name to reports #5352
+- Fixed "gotResponse" error message
+- Ignore session limit on shield.preview #5174 #5353
+
+## [Dev:Build_473] - 2019-01-22
+
+- Chinese - Conversion window position #5245
+- Japanese - Conversion list window position on FF is not ok #5010
+- can't type in alphanumeric mode in Japanes on safari Mac (KKA P2) #4397
+- fixes ICAP errors on ssl 
+
 ## [Dev:Build_472] - 2019-01-21
 
 - Remove phishing and categories from tech preview #5275
@@ -31,6 +52,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Different results between NetStar and shield cat for some urls #5243
 - AdminUI: Category above Policy - fix the tool tip #4959
+
 
 ## [Dev:Build_469] - 2019-01-17
 

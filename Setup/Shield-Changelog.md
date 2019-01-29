@@ -11,126 +11,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Prod:18.12-Build-461] - 30-12-2018
+## [Prod:18.10-Build-413.2] - 14-10-2018
 
 ### New Features
 
-- Potential Phishing Detection (Action: Warning, Read-Only, Block) (Tech Preview)
-- Categories (Tech Preview)
-- Centos/RHEL Support
-- Redirection Mode
-- End User: Support Multi-Select in Drop Down Lists
-- Named User Licensing
-- Set Image Quality and FPS
-- Exclude IPs for RateLimit
-- Browser Farm settings in Admin (Tech Preview)
-- Enable/Disable Tech-Preview Features
-- Allow End User Shield Indicator ("[]" Symbol Before the URL Name, edited via the translations file)
-- Ext-Proxy Logs are collected
-
-### Enhancement
-
-- It is now possible to sign in to chrome
-- Bandwidth Improvements
-- Right-Click Open Link without add-block also on page load failed
-- Support Right/Left CTRL+Shift combination
-- Support ALT + Arrows combinations
-- Alert when Votiro license/trial days are over
-- Notifier service must run on a management node
-- Votiro Anti-Virus Option ('off' by Default)
-- Allow clipboard inside the browser
-- Print disabled for files in case download is disabled
-- File preview -File Size Limitation
-- Reset Certificate uploaded and revert to Ericom Certificate
-
-### Bug Fixes
-
-- Fixed: Can't upload .JPG files on Gmail
-- Fixed: Can't open PDF file from Google
-- Fixed: Timeout Session doesnt work on Website with Popup window
-- Fixed: Windows/Firefox : Right click menu is not working properly
-- Fixed: Fallback to LDAP is not working
-- Fixed: Japanese - Suggestion doubled
-- Fixed: Japanese - First letter is doubled in Internet Explorer
-- Fixed: Japanese - Output issue
-- Fixed: Japanese - Problems with the keyboard
-- Fixed: Japanese - IME position
-- Fixed: Japanese - IME disabled after typing in the password field
-- Fixed: Japanese - the position of the conversion list window is not correct
-- Fixed: Japanese - some problems with the positioning
-- Fixed: Download zip with password - fix the password dialog
-- Fixed: SMTP alert uses auth when no auth is defined
-- Fixed: Right click -> paste : dialog to use ctrl v is not openning
-- Fixed: Import policies - translations issues
-- Fixed: Disable the slow network message does not work
-- Fixed: Delete multiple policies lines
-- Fixed: When node is not in swarm or no leader, status-node returns a script error
-- Fixed: Zip file + password - encrypt password
-- Fixed: Mac/Firefox: Scroll is broken after cmd+c
-- Fixed: Can print url pdf file when printing is disabled
-
-## [Prod:18.11-Build-436] - 18-11-2018
-
-### New Features 18.11
-
-#### End User Features 18.11
-
-- File Preview
-
-#### Admin Features 18.11
-
-- Maintain customer environment variables during upgrade (proxy, subnet)
-- Proxyless Mode (Tech-Preview)
-- Votiro New Version: 8.1.1
-- External Syslog Configuration from AdminUI
-
-### Enhancement 18.11
-
-- Alert when user is associated to two User Profiles
-- Add Display Name and User Profile to the report/sessions list in Dashboard
-- Alert end user when Javascript is disabled on the browser (may lead to errors)
-- Increase download timeout to 30 min
-- Delete "raw" index in ELK prior to update process
-- WebService Code cleanup - reduce network usage
-- Reset Certificate uploaded and revert to Ericom Certificate
-- Verify all certificates exists
-
-### Bug Fixes 18.11
-
-- Fixed: Uploading files should ignore timeout
-- Fixed: LDAP Login related bugs
-- Fixed: Japanes Keyboard Issues
-- Fixed: Website Salesforce - several issues (Spellcheck, create PDF invoice, cannot set value in dropdown)
-- Fixed: Website Facebook related issues (playing videos & upload photo/video)
-- Fixed: Upload into iFrame
-- Fixed: Zip with password didn’t work properly
-- Fixed: Links are downloaded when they should be opened - fixed
-- Fixed: Several Broken Websites (Foxnews, Zoominfo, etc)
-- Fixed: Custom trust certificate is not working with shield
-- Fixed: No mail alert on a machine with upstream proxy
-
-## [Prod:18.10.2-Build-413.4] - 23-10-2018
-
-- Fixed: Custom Trust Certificate is not working with shield
-- Fixed: QA#708355 Failure addnoteds.sh -b
-
-## [Prod:18.10-Build-413.2] - 14-10-2018
-
-### New Features 18.10
-
-#### End User Features 18.10
+#### End User Features
 
 - Paste image to Shield
 - Send Feedback (from right click)
 - Pause Shield and Reload (for evaluations)
 
-#### Admin Features 18.10
+#### Admin Features
 
 - Support already authenticated users by downstream proxy (using headers)
 - Support for local registry/cache for docker images
 - Votiro new version: 8.1.0
 
-### Enhancement 18.10
+### Enhancement
 
 - Performance Improvements:
 - - Several improvements for faster page loading
@@ -143,7 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin UI - New Japanese Translations
 - Data retention for basic authentication
 
-### Bug Fixes 18.10
+### Bug Fixes
 
 - Fixed: Several broken websites
 - Fixed: Delete raw index in ELK if conflicts
