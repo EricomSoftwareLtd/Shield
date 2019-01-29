@@ -1,5 +1,5 @@
-#Build Dev:Build_475.1 on 19/01/27
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_475.1
+#Build Staging:Build_475.1 on 19/01/27 #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_475.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
