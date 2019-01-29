@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_476] - 2019-01-29
+
+- Inherit Client Geo Location #5360
+- Cloud - all sites default to German #5356
+- Cloud - Pass SystemID to relevant components #5115
+- Cloud - Add connection id to allow tracking #5114
+- No alert when using votiro server on prem in cloud #5351
+- Pre check CPU counting - syntax error #5362
+- Centos - pre check fails on distribution #5345
+- AWS alert - reduce memory requirements to be 7/15 #5259
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- AutoFill : Yahoo mail issues with autofill enabled #5075
+- AutoFill : Docker hub login issue when auto fill is enabled #5076
+- Autofill : Can't login to Salesforce (Google is saving the name + password as password in one line #4555
+- Autofill : Data in forms #4991
+
 ## [Dev:Build_475] - 2019-01-27
 
 - Sometimes the policy not found #5366
