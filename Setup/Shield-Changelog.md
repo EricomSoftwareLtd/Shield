@@ -11,9 +11,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Prod:18.12-Build-461] - 30-12-2018
+## [Prod:19.01-Build-475.1] - 03-02-2019
 
 ### New Features
+
+- Categories (production ready)
+- External Browser Farm (on-prem, or Cloud-based)
+- Elastic Nodes Scale for Browser Farm on Cloud
+- Intelligent Isolation Mode
+- New File Sanitization Votiro Version
+
+### Enhancement
+
+- Categories are Enabled by default to support the Intelligent Isolation mode
+- Chinese inputs support
+- New Ericom Certificate with extended validity date
+- Tab Limit is enforced according to Browser GUID when there is no Authentication
+- User' Display name added to reports
+- Pre-installation checks - ubuntu 18.04
+- Category - search
+- Category - suspected need to be one of the first
+- Remote Browser Auto-kill
+
+### Bug Fixes
+
+- Fixed: Failure occurs when returning from NIC down/up
+- Fixed: Multi node - when one node is shut down ./status.sh -n doesn't work
+- Fixed: Sometimes CTRL Key is stuck
+- Fixed: Blank tab opened after the pop up is displayed
+- Fixed: Redirect - Can't download files with space in the name
+- Fixed: Chinese - Conversion window position
+- Fixed: Japanese - Conversion list window position on FF is not ok
+- Fixed: Japanese - Suggestion doubled - now need to enter the letter again
+- Fixed: Japanese - Can't type in alphanumeric mode on safari Mac
+- Fixed: Japanese: Alphanumeric characters doubled
+
+## [Prod:18.12-Build-461] - 30-12-2018
+
+### New Features 18.12
 
 - Potential Phishing Detection (Action: Warning, Read-Only, Block) (Tech Preview)
 - Categories (Tech Preview)
@@ -28,7 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Allow End User Shield Indicator ("[]" Symbol Before the URL Name, edited via the translations file)
 - Ext-Proxy Logs are collected
 
-### Enhancement
+### Enhancement 18.12
 
 - It is now possible to sign in to chrome
 - Bandwidth Improvements
@@ -43,7 +78,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - File preview -File Size Limitation
 - Reset Certificate uploaded and revert to Ericom Certificate
 
-### Bug Fixes
+### Bug Fixes 18.12
 
 - Fixed: Can't upload .JPG files on Gmail
 - Fixed: Can't open PDF file from Google
@@ -609,9 +644,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - NTLM (fallback)
 - User Profile
 - Multi-Node Support (Scalability and High Availability)
-    - Prepare Node with Ubuntu, Run PrepareNode script on it
-    - Run sudo ./ericomshield-setup-node.sh -ips xxx.xx.xx.xx,yy.yy.yy.yy -mng -b -sc
-    - <https://github.com/EricomSoftwareLtd/Shield/blob/master/README.md>
+  - Prepare Node with Ubuntu, Run PrepareNode script on it
+  - Run sudo ./ericomshield-setup-node.sh -ips xxx.xx.xx.xx,yy.yy.yy.yy -mng -b -sc
+  - <https://github.com/EricomSoftwareLtd/Shield/blob/master/README.md>
 - Internet Explorer Mode
 - File Sanitization (CDR Votiro) settings in Admin UI
 - File Sanitization (CDR): Password Protected files support
@@ -620,11 +655,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - File Upload Support #350
 
 - New Module: Web Service
-    - Allows to download the certificate from: http:<SHIELD_SERVER>/install-certificate or directly from: <http://SHIELD_SERVER/ericomshield.crt>
-    - Allows to download the auto-generated PAC file from: http:<SHIELD_SERVER>/default.pac
+  - Allows to download the certificate from: http:<SHIELD_SERVER>/install-certificate or directly from: <http://SHIELD_SERVER/ericomshield.crt>
+  - Allows to download the auto-generated PAC file from: http:<SHIELD_SERVER>/default.pac
 - Japanese Keyboard Support
 - New Module: shield-maintenance
-    - Cleans old docker images and used Remote Browsers
+  - Cleans old docker images and used Remote Browsers
 
 ### Enhancements - 17.11
 
