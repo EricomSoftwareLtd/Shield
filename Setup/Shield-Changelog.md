@@ -16,8 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### New Features
 
 - Categories (production ready)
-- External Browser Farm (on-prem, or Cloud-based)
-- Elastic Nodes Scale for Browser Farm on Cloud
+- External Browser Farm (on-prem, or Cloud-based) - Tech Preview
+- Elastic Nodes Scale for Browser Farm on Cloud - Tech Preview
 - Intelligent Isolation Mode
 - New File Sanitization Votiro Version
 
@@ -25,25 +25,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Categories are Enabled by default to support the Intelligent Isolation mode
 - Chinese inputs support
-- New Ericom Certificate with extended validity date
+- New Ericom Certificate with extended expiration date
 - Tab Limit is enforced according to Browser GUID when there is no Authentication
-- User' Display name added to reports
+- User's Display name added to reports
 - Pre-installation checks - ubuntu 18.04
 - Category - search
-- Category - suspected need to be one of the first
 - Remote Browser Auto-kill
 
 ### Bug Fixes
 
 - Fixed: Failure occurs when returning from NIC down/up
 - Fixed: Multi node - when one node is shut down ./status.sh -n doesn't work
-- Fixed: Sometimes CTRL Key is stuck
+- Fixed: Stuck CTRL Key
 - Fixed: Blank tab opened after the pop up is displayed
 - Fixed: Redirect - Can't download files with space in the name
 - Fixed: Chinese - Conversion window position
-- Fixed: Japanese - Conversion list window position on FF is not ok
+- Fixed: Japanese - Conversion list window position on FF
 - Fixed: Japanese - Suggestion doubled - now need to enter the letter again
-- Fixed: Japanese - Can't type in alphanumeric mode on safari Mac
+- Fixed: Japanese - (Safari MAC) Can't type in alphanumeric mode
 - Fixed: Japanese: Alphanumeric characters doubled
 
 ## [Prod:18.12-Build-461] - 30-12-2018
