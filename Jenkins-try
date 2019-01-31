@@ -3,13 +3,13 @@ properties([parameters([string(defaultValue: 'Dev', description: 'saddsadadsadsa
 node {   
     
     stage("Test param") {
-        echo "This is ${params.BarnchName}"
+        echo "This is ${BarnchName}"
     }
 
 
     stage("Get latest version") {
-        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "github-ozlevka", branch: "${params.BarnchName}"
-        echo "Fetch all data from github ${params.BarnchName}"
+        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "github-ozlevka", branch: "${BarnchName}"
+        echo "Fetch all data from github ${BarnchName}"
     }
     
 }
