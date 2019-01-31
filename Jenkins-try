@@ -1,10 +1,6 @@
-node {
-    
-    parameters {
-        string(name: 'BranchName',
-            defaultValue: 'Dev',
-            description: "Give me this branch name")
-    }    
+properties([parameters([string(defaultValue: 'Dev', description: 'saddsadadsadsa', name: 'BranchName', trim: false)])])
+
+node {   
     
     stage("Test param") {
         echo "This is ${params.BarnchName}"
