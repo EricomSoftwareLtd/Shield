@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_477] - 2019-01-30
+
+- Upgrade CEF to use electron 4.x #5092
+- Collector - missing dmidecode error message #5368
+- Copy/ Paste on MAC doesn't work properly #5336
+- Cloud - Show farm sessions data on Admin UI Dashboard #5240
+- ProxyLess IcapFix
+- Portal mode links conversion #5402
+- More farm-sync work 
+
 ## [Dev:Build_476] - 2019-01-29
 
 - Inherit Client Geo Location #5360
