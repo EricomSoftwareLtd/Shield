@@ -1,0 +1,14 @@
+parameters {
+    string(name: 'BranchName',
+        defaultValue: 'Dev',
+        description: "Give me this branch name")
+}
+
+
+node {
+    stage("Get latest version") {
+        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "github-ozlevka", branch: "${params.BarnchName}"
+        echo "Fetch all data from github ${params.BarnchName}"
+    }
+    
+}
