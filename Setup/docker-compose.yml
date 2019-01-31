@@ -243,7 +243,6 @@ services:
         deploy:
             mode: replicated
             replicas: 2
-            endpoint_mode: dnsrr
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
