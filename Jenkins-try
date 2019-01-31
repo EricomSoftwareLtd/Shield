@@ -1,15 +1,15 @@
-properties([parameters([string(defaultValue: 'Dev', description: 'saddsadadsadsa', name: 'BranchName', trim: false)])])
+properties([parameters([string(defaultValue: 'Dev', description: 'saddsadadsadsa', name: 'BRANCH_NAME', trim: false)])])
 
 node {   
     
     stage("Test param") {
-        echo "This is ${BarnchName}"
+        echo "This is ${BRANCH_NAME}"
     }
 
 
     stage("Get latest version") {
-        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "github-ozlevka", branch: "${BarnchName}"
-        echo "Fetch all data from github ${BarnchName}"
+        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "github-ozlevka", branch: "${BRANCH_NAME}"
+        echo "Fetch all data from github ${BRANCH_NAME}"
     }
     
 }
