@@ -11,6 +11,105 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_485] - 2019-02-13
+
+- Cloud - apply bandwidth limit to sessions #5440
+- Stay in shield mode -portal mode #5484
+- Scrolling is not working sometimes #5501
+- Page frozen after switching tab #5490
+- Blank window when open a mail from outlook online with shield #5460
+- Admin : Configuration of browser scaler #5373
+- Cloud - "no browsers available" message #5256
+
+## [Dev:Build_484] - 2019-02-11
+
+- Portal mode - popup support #5450
+- Page frozen after switching tab #5490
+- Exclude IPs for RateLimit #4961
+- KKA- addnode fix increase the time + add tests to weakup swarm if needed #5437
+- status.sh -e is not working #5328
+- License enforcement for intelligent isolation #5323
+
+
+## [Dev:Build_483] - 2019-02-10
+
+- ELK on Browser Farm #5371
+- Build Helm Package automatically #5401
+- Helm Values Customization #5405
+- Fixed icap crash on Farm Mode
+
+## [Dev:Build_482] - 2019-02-10
+
+- Blank window when opening a mail from outlook online with shield #5460
+- Crystal Rendering Mode Mode (R1) #5039 
+- Copy/ Paste on MAC doesn't work properly #5336
+- Status.sh -e is not working #5328
+- Alert: Browser Farm is not available #5160
+- Bugfix for fast typing Chinese symbols
+
+
+## [Dev:Build_481] - 2019-02-07
+
+- Cloud - opps something went wrong appears sometimes when no browsers available #5256
+- Proxyless allways allowed on Cloud farm
+- Japanese text updates
+- Backend for #5323
+- Updated to alpine 3.9 #1
+- Parse kubernetes pod memory capacity
+
+## [Dev:Build_480] - 2019-02-05
+
+- Crystal Admin UI (5039) #5443
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- KDDI Shield input languages - issue #5420
+- Remove phishing detection from remote browser #5439
+- Upgrade CEF to use electron 4.0.4 #5092
+
+## [Dev:Build_479] - 2019-02-04
+
+- KDDI - support multiple syslog servers #5378
+- shield-stats for Hybrid Mode #5306
+- Alert: Browser Farm is not available #5160
+- show farm nodes in shield-stats 
+- Cloud - SSL termination on proxy #5236
+
+
+## [Dev:Build_478] - 2019-02-03
+
+- Autofill fixes - login GitHub
+- Override doesn't work on categories #5278
+- Portal mode links conversion #5402
+- Farm-sync-cont
+- Shield-stats for Hybrid Mode #5306
+- KDDI Shield input languages - issue #5420
+
+
+## [Dev:Build_477] - 2019-01-30
+
+- Upgrade CEF to use electron 4.x #5092
+- Collector - missing dmidecode error message #5368
+- Copy/ Paste on MAC doesn't work properly #5336
+- Cloud - Show farm sessions data on Admin UI Dashboard #5240
+- ProxyLess IcapFix
+- Portal mode links conversion #5402
+- More farm-sync work 
+
+## [Dev:Build_476] - 2019-01-29
+
+- Inherit Client Geo Location #5360
+- Cloud - all sites default to German #5356
+- Cloud - Pass SystemID to relevant components #5115
+- Cloud - Add connection id to allow tracking #5114
+- No alert when using votiro server on prem in cloud #5351
+- Pre check CPU counting - syntax error #5362
+- Centos - pre check fails on distribution #5345
+- AWS alert - reduce memory requirements to be 7/15 #5259
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- AutoFill : Yahoo mail issues with autofill enabled #5075
+- AutoFill : Docker hub login issue when auto fill is enabled #5076
+- Autofill : Can't login to Salesforce (Google is saving the name + password as password in one line #4555
+- Autofill : Data in forms #4991
+
 ## [Dev:Build_475] - 2019-01-27
 
 - Sometimes the policy not found #5366
