@@ -176,7 +176,6 @@ services:
     icap-server:
         image: 'securebrowsing/icap-server:latest'
         # user: nobody
-        hostname: icap-server
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
