@@ -42,7 +42,7 @@ node {
     }
 
     stage("Create release") {
-        sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${release_version} -n ${release_version} -p"
+        sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -n ${release_version} -p"
     }
 
     stage("Upload RPM files") {
@@ -54,7 +54,7 @@ node {
             echo "Will upload ${file}"
             def file_path = "${pattern}/${file}"
             echo file_path
-            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${release_version} -f \"${file_path}\" --name \"${file}\"" 
+            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -f \"${file_path}\" --name \"${file}\"" 
         }
     }
 }
