@@ -11,6 +11,125 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_475] - 2019-01-27
+
+- Sometimes the policy not found #5366
+- Fixed farm sync issues
+
+## [Dev:Build_474] - 2019-01-23
+
+- Updated Japanese translation file
+- Alphanumeric characters doubled #5337
+- Japanese - Suggestion doubled - now need to enter the letter again #4906
+- BTL request - add display name to reports #5352
+- Fixed "gotResponse" error message
+- Ignore session limit on shield.preview #5174 #5353
+
+## [Dev:Build_473] - 2019-01-22
+
+- Chinese - Conversion window position #5245
+- Japanese - Conversion list window position on FF is not ok #5010
+- can't type in alphanumeric mode in Japanes on safari Mac (KKA P2) #4397
+- fixes ICAP errors on ssl 
+
+## [Dev:Build_472] - 2019-01-21
+
+- Remove phishing and categories from tech preview #5275
+- Enable Category by default #5304
+- Shield-stats email alert attachement incorrect info #5219
+- Shield-cat to show domain category/polic
+- Stuck CTRL #4769
+- Download rule is not working correctly with cloud #5174
+- Fixes for Errors on JER system 
+- Phishing and Categories tasks #4977
+
+## [Dev:Build_471] - 2019-01-20
+
+- Blank tab opened after the pop up is displayed #5226
+- Redirect (proxyless) - cant download files with space in the name #5290
+
+## [Dev:Build_470] - 2019-01-17
+
+- Different results between NetStar and shield cat for some urls #5243
+- AdminUI: Category above Policy - fix the tool tip #4959
+
+
+## [Dev:Build_469] - 2019-01-17
+
+- Liveness & readyness probs for cdr-controller, cdr-dispatcher, preview #5277
+- Pre-installation checks - ubuntu 18.04 update #5231
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin doesn't generate new certificate when FQDN changes #5282
+- Category - search is not working #5268
+- Category - suspected need to be one of the first #5267
+- License counting for white session #5227
+- Tech preview features are not displayed at the admin UI when disable/enable some of them #5171
+
+ 
+## [Dev:Build_468] - 2019-01-16
+
+- AWS alert - reduce memory requirements to be 7/15 #5259
+- Cloud - Allow CEF to take certificate from K8 #5079
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Maccabi online - Can't open documents (error message is attached. worked well outside of shield) #5216
+- Phishing and Categories tasks #4977
+- Category - search is not working #5268
+
+## [Dev:Build_467] - 2019-01-15
+
+- Create a web service for keeping a combined ad block list (generated from current sites) #5120
+- Blank tab opened after the pop up is displayed #5226
+- Empty value for FQDN in Admin #4736
+- False detection of site -online.maccabi4u.co.il #5264
+
+
+## [Dev:Build_466] - 2019-01-14
+
+- Fix phishing report in case the site detected by both runtime and category #5198
+- Multi node - when one node is shut down ./status.sh -n doesn't work #5102
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- Copy certificate instructions from ericom.com to ICAP #4924
+- Blank tab opened after the pop up is displayed #5226
+- Selective Isolation #5194
+
+## [Dev:Build_465.1] - 2019-01-09
+
+- Review and clean categories errors in shield jer #5153
+- Tab Limit should be based on GUID when no Auth #5132
+- Update default CA date #4401
+- CentOS - failed to create cluster #5158
+- NetStar api provide bad answer VS their portal #4970
+- Fix message - Image download failed when skipped #5192
+- KDDI - support chinese inputs #5220
+- Can't open links after Google search #5221
+- Cloud - phishing is not working #5188
+- cloud- fps settings are not working #5180
+- cloud - suspend/ terminate session are not working #5179
+- Cloud - phishing is not working #5188
+
+## [Dev:Build_464] - 2019-01-08
+
+- Catch Admin error #5165
+- When right click menu is empty, it should not be displayed #5089
+- Admin - add new category dialog - missing message #5077
+- AdminUI: Category above Policy - fix the tool tip #4959
+- Admin set Image Quality and FPS - feedback #4862
+
+## [Dev:Build_463] - 2019-01-03
+
+- Shield-browser auto-kill #5086
+- Shield preview and shield blank policy should be reflect at the report #5149
+- Category and Phishing report #5063
+- Debug panel shows policy rules only if not false or disabled #5026
+
+## [Dev:Build_462] - 2018-12-31
+
+- Categories - can't access urls match to category with default policy #5062
+- when using file preview, the url is considered to be uncategorized #5107
+- Clean Couldn't JSON.parse ldap_cache from es-policy-manager #5128
+- Update failed with permission error #4955
+- Category and Phishing report #5063
+
 ## [Dev:Build_461] - 2018-12-25
 
 - Change "Elastic Cloud Farm" to be "External Browser Farm" #5088
