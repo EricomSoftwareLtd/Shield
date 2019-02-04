@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_478] - 2019-02-03
+
+- Autofill fixes - login GitHub
+- Override doesn't work on categories #5278
+- Portal mode links conversion #5402
+- Farm-sync-cont
+- Shield-stats for Hybrid Mode #5306
+- KDDI Shield input languages - issue #5420
+
+
 ## [Dev:Build_477] - 2019-01-30
 
 - Upgrade CEF to use electron 4.x #5092
