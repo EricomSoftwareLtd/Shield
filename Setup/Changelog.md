@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Override doesn't work on categories #5278
 - Portal mode links conversion #5402
 - Farm-sync-cont
-
+- shield-stats for Hybrid Mode #5306
 
 ## [Dev:Build_477] - 2019-01-30
 
