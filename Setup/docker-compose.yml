@@ -8,7 +8,6 @@ services:
         image: 'securebrowsing/shield-dns:latest'
         networks:
             - shield
-        hostname: dns
         deploy:
             replicas: 2
             restart_policy: {condition: any}
@@ -26,7 +25,6 @@ services:
             - '/sys:/host/sys:ro'
         networks:
             - shield
-        hostname: netdata
         ports:
             - {target: 19999, published: 8383, protocol: tcp}
         deploy:
@@ -44,7 +42,6 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock'
         networks:
             - shield
-        hostname: maintenance
         deploy:
             mode: global
             restart_policy: {condition: any}
@@ -153,7 +150,6 @@ services:
 
     shield-admin:
         image: 'securebrowsing/shield-admin:latest'
-        hostname: shield-admin
         ports:
             - '8181:8181'
         environment:
@@ -176,7 +172,6 @@ services:
     icap-server:
         image: 'securebrowsing/icap-server:latest'
         # user: nobody
-        hostname: icap-server
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
@@ -250,7 +245,6 @@ services:
     es-system-configuration:
         image: 'securebrowsing/es-system-configuration:latest'
         # user: nobody
-        hostname: es-system-configuration
         deploy:
             mode: replicated
             replicas: 1
@@ -272,7 +266,6 @@ services:
     es-core-sync:
         image: 'securebrowsing/es-core-sync:latest'
         # user: nobody
-        hostname: es-core-sync
         deploy:
             mode: replicated
             replicas: 1
@@ -290,7 +283,6 @@ services:
     es-system-monitor:
         image: 'securebrowsing/es-system-monitor:latest'
         user: root
-        hostname: es-system-monitor
         deploy:
             mode: replicated
             replicas: 1
@@ -310,7 +302,6 @@ services:
     es-license-manager:
         image: 'securebrowsing/es-license-manager:latest'
         # user: nobody
-        hostname: es-license-manager
         deploy:
             mode: replicated
             replicas: 1
@@ -331,7 +322,6 @@ services:
     es-remote-browser-scaler:
         image: 'securebrowsing/es-remote-browser-scaler:latest'
         user: root
-        hostname: es-remote-browser-scaler
         deploy:
             mode: replicated
             replicas: 1
@@ -349,7 +339,6 @@ services:
             - shield
     proxy-server:
         image: 'securebrowsing/proxy-server:latest'
-        hostname: proxy-server
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -368,7 +357,6 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}            
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
-        hostname: ext-proxy
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -382,7 +370,6 @@ services:
             - 'TZ=UTC'
     ext-proxy-noadblock:
         image: 'securebrowsing/extproxy:latest'
-        hostname: ext-proxy-noadblock
         ulimits:
             nofile: {soft: 65535, hard: 65535}
         networks:
@@ -397,7 +384,6 @@ services:
             - 'ADDBLOCK=no'
     speedtest:
         image: 'securebrowsing/speedtest:latest'
-        hostname: speedtest
         ports:
             - '8185:8185'
         networks:
@@ -411,7 +397,6 @@ services:
             - 'TZ=UTC'
     notifier:
         image: 'securebrowsing/shield-notifier:latest'
-        hostname: notifier
         networks:
             - shield
         deploy:
@@ -423,7 +408,6 @@ services:
             - 'TZ=UTC'
     authproxy:
         image: 'securebrowsing/shield-authproxy:latest'
-        hostname: authproxy
         deploy:
             mode: global
             restart_policy: {condition: any}
@@ -440,7 +424,6 @@ services:
             - 'LOGSTASH_FIELDS=service=authproxy'
     web-service:
         image: 'securebrowsing/shield-web-service:latest'
-        hostname: web-service
         networks:
             - shield
         environment:
@@ -455,7 +438,6 @@ services:
             resources: {limits: {memory: 500MB, cpus: '1'}}
     proxyless-connector:
         image: 'securebrowsing/shield-proxyless-connector:latest'
-        hostname: proxyless-connector
         ports:
             - '80:80'
         networks:
@@ -486,7 +468,6 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}
     cdr-controller:
         image: 'securebrowsing/shield-cdr-controller:latest'
-        hostname: cdr-controller
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
@@ -505,7 +486,6 @@ services:
 
     portainer:
         image: 'securebrowsing/shield-portainer:latest'
-        hostname: portainer
         #Published only for Dev
         ports:
             - '9000:9000'
@@ -540,7 +520,6 @@ services:
 
     es-file-preview:
         image: 'securebrowsing/es-file-preview:latest'
-        hostname: es-file-preview
         environment:
             - 'TZ=UTC'
             - 'LOGSTASH_FIELDS=service=esfilepreview'
