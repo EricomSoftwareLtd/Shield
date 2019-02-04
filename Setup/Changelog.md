@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_479] - 2019-02-04
+
+- KDDI - support multiple syslog servers #5378
+- shield-stats for Hybrid Mode #5306
+- Alert: Browser Farm is not available #5160
+- show farm nodes in shield-stats 
+- Cloud - SSL termination on proxy #5236
+
+
 ## [Dev:Build_478] - 2019-02-03
 
 - Autofill fixes - login GitHub
