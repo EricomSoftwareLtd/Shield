@@ -1,4 +1,4 @@
-#Build Rel-19.01.475.1 on 27/01/19 #UNR#
+#Build Rel-19.01.475.1 on 27/01/19
 SHIELD_VER=8.0.0.latest SHIELD_VER=19.01:Build_475
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
@@ -17,7 +17,7 @@ shield-autoupdate:latest shield-autoupdate:190129-16.14-3699
 es-system-monitor:latest es-system-monitor:190120-20.18-3648
 es-core-sync:latest es-core-sync:190127-15.04-3678
 shield-admin:latest shield-admin:190123-15.06-3673
-icap-server:latest icap-server:190123-15.21-3674
+icap-server:latest icap-server:190205-15.32-19.01.1
 shield-cef:latest shield-cef:190123-14.21-3670
 extproxy:latest extproxy:190116-22.09-3635
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190123-14.35-3672
