@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_480] - 2019-02-05
+
+- Crystal Admin UI (5039) #5443
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- KDDI Shield input languages - issue #5420
+- Remove phishing detection from remote browser #5439
+- Upgrade CEF to use electron 4.0.4 #5092
+
 ## [Dev:Build_479] - 2019-02-04
 
 - KDDI - support multiple syslog servers #5378
