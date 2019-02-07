@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_481] - 2019-02-07
+
+- Cloud - opps something went wrong appears sometimes when no browsers available #5256
+- Proxyless allways allowed on Cloud farm
+- Japanese text updates
+- Backend for #5323
+- Updated to alpine 3.9 #1
+
+
 ## [Dev:Build_480] - 2019-02-05
 
 - Crystal Admin UI (5039) #5443
