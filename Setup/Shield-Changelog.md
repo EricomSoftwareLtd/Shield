@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Enhancement
 
-- Multiple Syslg Servers Support
+- Multiple Syslog Servers Support
 - New Translations for Japanese
 
 ### Bug Fixes
