@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Japanese text updates
 - Backend for #5323
 - Updated to alpine 3.9 #1
-
+- Parse kubernetes pod memory capacity
 
 ## [Dev:Build_480] - 2019-02-05
 
