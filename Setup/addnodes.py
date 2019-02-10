@@ -23,7 +23,7 @@ if "ES_PRE_CHECK_FILE" in os.environ:
 
 container_pattern = re.compile(r'shield-autoupdate')
 
-run_container_template = """docker run --rm  -it \\
+run_container_template = """docker run --rm  -it {5} \\
                   -v /var/run/docker.sock:/var/run/docker.sock \\
                   -v $(which docker):/usr/bin/docker \\
                   -v {0}:/usr/local/ericomshield \\
@@ -98,7 +98,7 @@ class AddNodeExecutor(object):
         if self.verbose:
             args += " --verbose"
         args += " addnode {}".format(" ".join(self.cmd[1:]))
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, args)
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, args, " --network=host ")
 
         subprocess.run(cmd, shell=True)
 
@@ -123,7 +123,7 @@ class AddNodeExecutor(object):
             for index in ip_indx:
                 extend_command += " ".join(self.cmd[index:(index + 2)])
                 extend_command += " "
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command)
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command, "")
 
         res = subprocess.run(cmd, shell=True)
         if res.returncode != 0:
