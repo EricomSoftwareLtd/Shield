@@ -23,7 +23,7 @@ if "ES_PRE_CHECK_FILE" in os.environ:
 
 container_pattern = re.compile(r'shield-autoupdate')
 
-run_container_template = """docker run --rm  -it \\
+run_container_template = """docker run --rm  -it {5} \\
                   -v /var/run/docker.sock:/var/run/docker.sock \\
                   -v $(which docker):/usr/bin/docker \\
                   -v {0}:/usr/local/ericomshield \\
@@ -55,6 +55,7 @@ class AddNodeExecutor(object):
         self.help_required = False
         self.prepare = False
         self.cmd = self.prepare_args_line(command_line)
+        self.attempt = 0
 
     def prepare_args_line(self, commands):
         main_cmd = []
@@ -82,7 +83,7 @@ class AddNodeExecutor(object):
             return "securebrowsing/shield-autoupdate:180916-13.48-2835"
 
     def show_container_help(self):
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, " addnode --help")
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, " addnode --help", "")
 
         output = subprocess.check_output(cmd, shell=True)
         help_arr = output.decode('ASCII').split('\n')
@@ -98,9 +99,21 @@ class AddNodeExecutor(object):
         if self.verbose:
             args += " --verbose"
         args += " addnode {}".format(" ".join(self.cmd[1:]))
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, args)
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, args, " --network=host ")
 
-        subprocess.run(cmd, shell=True)
+        res = subprocess.run(cmd, shell=True)
+        if res.returncode != 0:
+            if self.attempt < 3:
+                print("Build cluster attempt {} failed. Going to retry.".format(self.attempt + 1))
+                self.attempt += 1
+                answer = "yes"
+            else:
+                answer = input("Build cluster failed. Restart? yes/no:")
+                answer = answer.lower()
+            if answer == 'y' or answer == "yes":
+                cmd = "docker swarm leave -f && {}/start.sh".format(es_path)
+                subprocess.run(cmd, shell=True)
+                self.execute_add_node()
 
     def run_node_prepare(self):
         index = -1
@@ -123,7 +136,7 @@ class AddNodeExecutor(object):
             for index in ip_indx:
                 extend_command += " ".join(self.cmd[index:(index + 2)])
                 extend_command += " "
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command)
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command, "")
 
         res = subprocess.run(cmd, shell=True)
         if res.returncode != 0:
