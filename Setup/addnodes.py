@@ -82,7 +82,7 @@ class AddNodeExecutor(object):
             return "securebrowsing/shield-autoupdate:180916-13.48-2835"
 
     def show_container_help(self):
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, " addnode --help")
+        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, " addnode --help", "")
 
         output = subprocess.check_output(cmd, shell=True)
         help_arr = output.decode('ASCII').split('\n')
