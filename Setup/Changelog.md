@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_483] - 2019-02-10
+
+- ELK on Browser Farm #5371
+- Build Helm Package automatically #5401
+- Helm Values Customization #5405
+- Fixed icap crash on Farm Mode
+
 ## [Dev:Build_482] - 2019-02-10
 
 - Blank window when opening a mail from outlook online with shield #5460
