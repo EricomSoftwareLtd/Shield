@@ -105,6 +105,8 @@ class AddNodeExecutor(object):
             answer = input("Build cluster failed. Restart? yes/no:")
             answer = answer.lower()
             if answer == 'y' or answer == "yes":
+                cmd = "docker swarm leave -f && {}/start.sh".format(es_path)
+                subprocess.run(cmd, shell=True)
                 self.execute_add_node()
 
     def run_node_prepare(self):
