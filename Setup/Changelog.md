@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_483] - 2019-02-10
+
+- ELK on Browser Farm #5371
+- Build Helm Package automatically #5401
+- Helm Values Customization #5405
+- Fixed icap crash on Farm Mode
+
+## [Dev:Build_482] - 2019-02-10
+
+- Blank window when opening a mail from outlook online with shield #5460
+- Crystal Rendering Mode Mode (R1) #5039 
+- Copy/ Paste on MAC doesn't work properly #5336
+- Status.sh -e is not working #5328
+- Alert: Browser Farm is not available #5160
+- Bugfix for fast typing Chinese symbols
+
+
 ## [Dev:Build_481] - 2019-02-07
 
 - Cloud - opps something went wrong appears sometimes when no browsers available #5256
