@@ -100,7 +100,8 @@ class AddNodeExecutor(object):
         args += " addnode {}".format(" ".join(self.cmd[1:]))
         cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, args, " --network=host ")
 
-        subprocess.run(cmd, shell=True)
+        res = subprocess.run(cmd, shell=True)
+        print(res)
 
     def run_node_prepare(self):
         index = -1
