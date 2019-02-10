@@ -101,7 +101,11 @@ class AddNodeExecutor(object):
         cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, args, " --network=host ")
 
         res = subprocess.run(cmd, shell=True)
-        print(res)
+        if res.returncode != 0:
+            answer = input("Build cluster failed. Restart? yes/no:")
+            answer = answer.lower()
+            if answer == 'y' or answer == "yes":
+                self.execute_add_node()
 
     def run_node_prepare(self):
         index = -1
