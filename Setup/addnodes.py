@@ -104,7 +104,7 @@ class AddNodeExecutor(object):
         res = subprocess.run(cmd, shell=True)
         if res.returncode != 0:
             if self.attempt < 3:
-                print("Build cluster attempt {} failed. Going to retry.".format(self.attempt))
+                print("Build cluster attempt {} failed. Going to retry.".format(self.attempt + 1))
                 self.attempt += 1
                 answer = "yes"
             else:
