@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_484] - 2019-02-11
+
+- Portal mode - popup support #5450
+- Page frozen after switching tab #5490
+- Exclude IPs for RateLimit #4961
+- KKA- addnode fix increase the time + add tests to weakup swarm if needed #5437
+- status.sh -e is not working #5328
+
+
 ## [Dev:Build_483] - 2019-02-10
 
 - ELK on Browser Farm #5371
