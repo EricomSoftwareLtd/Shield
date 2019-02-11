@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Exclude IPs for RateLimit #4961
 - KKA- addnode fix increase the time + add tests to weakup swarm if needed #5437
 - status.sh -e is not working #5328
+- License enforcement for intelligent isolation #5323
 
 
 ## [Dev:Build_483] - 2019-02-10
