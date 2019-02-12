@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Unreleased]
-
 ## [Prod:19.01.1-Build-475.4] - 07-02-2019
 
 ### Enhancement
