@@ -56,6 +56,7 @@ class AddNodeExecutor(object):
         self.prepare = False
         self.cmd = self.prepare_args_line(command_line)
         self.attempt = 0
+        self.claster_state = {}
 
     def prepare_args_line(self, commands):
         main_cmd = []
@@ -103,13 +104,8 @@ class AddNodeExecutor(object):
 
         res = subprocess.run(cmd, shell=True)
         if res.returncode != 0:
-            if self.attempt < 3:
-                print("Build cluster attempt {} failed. Going to retry.".format(self.attempt + 1))
-                self.attempt += 1
-                answer = "yes"
-            else:
-                answer = input("Build cluster failed. Restart? yes/no:")
-                answer = answer.lower()
+            answer = input("Build cluster failed. Restart? yes/no:")
+            answer = answer.lower()
             if answer == 'y' or answer == "yes":
                 cmd = "docker swarm leave -f && {}/start.sh".format(es_path)
                 subprocess.run(cmd, shell=True)
@@ -143,18 +139,19 @@ class AddNodeExecutor(object):
             exit(res.returncode)
 
     def execute(self):
-        if self.help_required:
-            self.show_container_help()
-            exit(0)
-
-        if not os.path.exists(os.path.join(es_path, "ericomshield_key.pub")):
-            run_sshkey_provider(self.container)
-
-        if self.prepare:
-            self.run_node_prepare()
-            print('Nodes prepared to be shield. Please type ericom password.')
-
-        self.execute_add_node()
+        # if self.help_required:
+        #     self.show_container_help()
+        #     exit(0)
+        #
+        # if not os.path.exists(os.path.join(es_path, "ericomshield_key.pub")):
+        #     run_sshkey_provider(self.container)
+        #
+        # if self.prepare:
+        #     self.run_node_prepare()
+        #     print('Nodes prepared to be shield. Please type ericom password.')
+        #
+        # self.execute_add_node()
+        self.clean_added_nodes()
 
 
 
