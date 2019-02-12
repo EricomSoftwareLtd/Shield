@@ -1,24 +1,24 @@
-#Build Rel-19.01.475.1 on 27/01/19 #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.01:Build_475
+#Build Rel-19.01.475.5 on 06/02/19   #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.01.1:Build_475.5
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:181118-17.20-3222
 shield-collector:latest shield-collector:190116-14.07-3629
-shield-elk:latest shield-elk:190123-14.21-3670
+shield-elk:latest shield-elk:19.01.1
 shield-web-service:latest shield-web-service:181118-15.49-3220
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
 shield-authproxy:latest shield-authproxy:190121-15.35-3654
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
-shield-autoupdate:latest shield-autoupdate:190129-16.14-3699
+shield-autoupdate:latest shield-autoupdate:testAdd
 es-system-monitor:latest es-system-monitor:190120-20.18-3648
 es-core-sync:latest es-core-sync:190127-15.04-3678
-shield-admin:latest shield-admin:190123-15.06-3673
-icap-server:latest icap-server:190123-15.21-3674
-shield-cef:latest shield-cef:190123-14.21-3670
+shield-admin:latest shield-admin:190205-15.32-19.01.1
+icap-server:latest icap-server:190208-12.45-19011
+shield-cef:latest shield-cef:190206-16.50-19.01.1
 extproxy:latest extproxy:190116-22.09-3635
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190123-14.35-3672
 shield-cdr-controller:latest shield-cdr-controller:190123-14.35-3672
