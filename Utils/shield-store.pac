@@ -13,7 +13,7 @@ function FindProxyForURL(url, host) {
 //   Set it to true, only if you need to define rules based on destination IP
     var fResolveIp = false;	
     // Replace SHIELD_IP with your Shield IP Server
-    var shield_server = "<SHIELD_IP>"; //Replace only this occurrence
+    var shield_server = "35.158.211.22"; //Replace only this occurrence
     // Replace SHIELD_PORT if changed:
   	var shield_port = "3128"
     var shield_proxy = "PROXY " + shield_server + ":" + shield_port + ";";
