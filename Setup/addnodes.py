@@ -139,19 +139,19 @@ class AddNodeExecutor(object):
             exit(res.returncode)
 
     def execute(self):
-        # if self.help_required:
-        #     self.show_container_help()
-        #     exit(0)
-        #
-        # if not os.path.exists(os.path.join(es_path, "ericomshield_key.pub")):
-        #     run_sshkey_provider(self.container)
-        #
-        # if self.prepare:
-        #     self.run_node_prepare()
-        #     print('Nodes prepared to be shield. Please type ericom password.')
-        #
-        # self.execute_add_node()
-        self.clean_added_nodes()
+        if self.help_required:
+            self.show_container_help()
+            exit(0)
+
+        if not os.path.exists(os.path.join(es_path, "ericomshield_key.pub")):
+            run_sshkey_provider(self.container)
+
+        if self.prepare:
+            self.run_node_prepare()
+            print('Nodes prepared to be shield. Please type ericom password.')
+
+        self.execute_add_node()
+
 
 
 
