@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_485] - 2019-02-13
+
+- Cloud - apply bandwidth limit to sessions #5440
+- Stay in shield mode -portal mode #5484
+- Scrolling is not working sometimes #5501
+- Page frozen after switching tab #5490
+- Blank window when open a mail from outlook online with shield #5460
+- Admin : Configuration of browser scaler #5373
+- Cloud - "no browsers available" message #5256
+
 ## [Dev:Build_484] - 2019-02-11
 
 - Portal mode - popup support #5450
