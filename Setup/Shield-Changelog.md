@@ -9,15 +9,53 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Unreleased]
+## [Prod:19.01.1-Build-475.4] - 07-02-2019
+
+### Enhancement
+
+- Multiple Syslog Servers Support
+- New Translations for Japanese
+
+### Bug Fixes
+
+- Fixed: status.sh -e is not working
+- Fixed: Add Node doesnt work sometimes
+- Fixed: Improved Multi-Node HA
+- Fixed: Chinese Input Issues
 
 ## [Prod:19.01-Build-475.1] - 03-02-2019
 
 ### New Features
 
+- Categories (production ready)
+- External Browser Farm (on-prem, or Cloud-based) - Tech Preview
+- Elastic Nodes Scale for Browser Farm on Cloud - Tech Preview
+- Intelligent Isolation Mode
+- New File Sanitization Votiro Version
+
 ### Enhancement
 
+- Categories are Enabled by default to support the Intelligent Isolation mode
+- Chinese inputs support
+- New Ericom Certificate with extended expiration date
+- Tab Limit is enforced according to Browser GUID when there is no Authentication
+- User's Display name added to reports
+- Pre-installation checks - ubuntu 18.04
+- Category - search
+- Remote Browser Auto-kill
+
 ### Bug Fixes
+
+- Fixed: Failure occurs when returning from NIC down/up
+- Fixed: Multi node - when one node is shut down ./status.sh -n doesn't work
+- Fixed: Stuck CTRL Key
+- Fixed: Blank tab opened after the pop up is displayed
+- Fixed: Redirect - Can't download files with space in the name
+- Fixed: Chinese - Conversion window position
+- Fixed: Japanese - Conversion list window position on FF
+- Fixed: Japanese - Suggestion doubled - now need to enter the letter again
+- Fixed: Japanese - (Safari MAC) Can't type in alphanumeric mode
+- Fixed: Japanese: Alphanumeric characters doubled
 
 ## [Prod:18.12-Build-461] - 30-12-2018
 
