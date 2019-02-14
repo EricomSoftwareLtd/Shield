@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Prod:18.12.1-Build-461.1] - 14-02-2019
+
+### Enhancement
+
+- New CA Certificate
+
+### Bug Fixes
+
+- Fixed: Can't upload CA Certificate
+
 ## [Prod:18.12-Build-461] - 30-12-2018
 
 ### New Features
