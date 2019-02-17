@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_486] - 2019-02-17
+
+- Cloud - optimize our nginx configuration - preformance part #5468
+- Cloud - apply bandwidth limit to sessions #5440
+- License enforcement for intelligent isolation #5323
+- Tab Limit should be based on GUID when no Auth #5132
+
 ## [Dev:Build_485] - 2019-02-13
 
 - Cloud - apply bandwidth limit to sessions #5440
