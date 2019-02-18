@@ -1,4 +1,4 @@
-#Build Dev:Build_486 on 19/02/17
+#Build Dev:Build_487 on 19/02/17
 SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_487
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
