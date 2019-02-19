@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_487] - 2019-02-19
+
+- Download simple file give errors #5545
+- Admin fixes for 19.02 -part 1 #5537
+- Changes in End User Shield Indicator #5543
+- farm scaler values are not being update #5533
+- External-Farm Address should be trimmed
+
 ## [Dev:Build_486] - 2019-02-17
 
 - Cloud - optimize our nginx configuration - preformance part #5468
