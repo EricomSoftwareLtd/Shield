@@ -10,6 +10,13 @@ if ((EUID != 0)); then
     exit
 fi
 
+# Check if we are a Manager Node
+NODE_LS=$( (docker node ls) 2>&1 )
+if [ $(echo "$NODE_LS" | grep -c "not a swarm manager") -ge 1 ]; then 
+   echo "This node is not a Shield Management Node. Please run this command on one of Management Node"
+   exit 1
+fi
+
 ES_PATH=/usr/local/ericomshield
 cd $ES_PATH
 
