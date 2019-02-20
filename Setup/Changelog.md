@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_488] - 2019-02-20
+
+- Updated ALL external browser farm related strings #5557
+- Printing Policy Change 19.02 #5538
+- Tab Limit should be based on GUID when no Auth #5132
+
 ## [Dev:Build_487] - 2019-02-19
 
 - Download simple file give errors #5545
