@@ -49,7 +49,24 @@ function FindProxyForURL(url, host) {
 //      return "DIRECT";
 
    if (shExpMatch(host, "YouTube.com") || 
-       shExpMatch(host, "NetFlix.com") )
+       shExpMatch(host, "NetFlix.com") || 
+       shExpMatch(host, "vimeo.com") || 
+       shExpMatch(host, "screen.yahoo.com") || 
+       shExpMatch(host, "dailymotion.com") || 
+       shExpMatch(host, "hulu.com") || 
+       shExpMatch(host, "vube.com") || 
+       shExpMatch(host, "twitch.tv") || 
+       shExpMatch(host, "liveleak.com") || 
+       shExpMatch(host, "vine.co") || 
+       shExpMatch(host, "ustream.tv") || 
+       shExpMatch(host, "break.com") || 
+       shExpMatch(host, "tv.com") || 
+       shExpMatch(host, "metacafe.com") || 
+       shExpMatch(host, "viewster.com") ||
+       shExpMatch(host, "force.com") ||      
+       shExpMatch(host, "salesforce.com")      
+           
+      )
       return "DIRECT";
 
 //	If User IP is in a specific Subnet, Use Direct
