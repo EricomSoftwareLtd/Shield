@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_489] - 2019-02-24
+
+- Clean PulseAudio Errors #5555
+- Print PDF directly on IE #5552
+- Changes in End User Shield Indicator #5543
+- License enforcement for intelligent isolation #5323
+
 ## [Dev:Build_488] - 2019-02-20
 
 - Updated ALL external browser farm related strings #5557
