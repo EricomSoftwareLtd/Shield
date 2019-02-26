@@ -22,15 +22,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin: Configuration of Browser Scaler (Dynamic)
 - Autofill User Name/Password (Tech Preview)
 - Crystal Rendering Mode Mode (Tech Preview)
-- Cloud: Show farm sessions data on Admin UI Dashboard
-- Inherit Client Geo Location to the Remote Browser
+- Cloud: Show farm sessions data on Admin UI Dashboard (Tech Preview)
 
 ### Enhancement
 
 - Print PDF directly on IE
 - Changes in End User Shield Indicator
+- Inherit Client Geo Location to the Remote Browser
 - Apply bandwidth limit to sessions
 - Alert: Browser Farm is not available
+
 
 ### Bug Fixes
 
