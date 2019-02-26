@@ -9,6 +9,37 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
+## [Prod:19.02-Build-490] - 26-02-2019
+
+### New Features
+
+- New Policy Option for Printing: 
+  -	Disabled: Printing is Disabled
+  -	Protected: Printing is Enabled if Download is Enabled/Sanitize
+  -	Enable: Printing is Enabled (regardless of Download Policy)
+- License enforcement for intelligent isolation #5323
+- Stay in shield on Redirect Mode
+- Admin: Configuration of Browser Scaler (Dynamic)
+- Autofill User Name/Password (Tech Preview)
+- Crystal Rendering Mode Mode (Tech Preview)
+- Cloud: Show farm sessions data on Admin UI Dashboard
+- Inherit Client Geo Location to the Remote Browser
+
+### Enhancement
+
+- Print PDF directly on IE
+- Changes in End User Shield Indicator
+- Apply bandwidth limit to sessions
+- Alert: Browser Farm is not available
+
+### Bug Fixes
+
+- fixed: Tab Limit should be based on GUID when no Auth
+- fixed: addnode fix increase the time + add tests to weakup swarm if needed
+- fixed: status.sh -e is not working
+- fixed: Copy/ Paste on MAC doesn't work properly
+- fixed:  Override doesn't work on categories
+
 ## [Prod:19.01.1-Build-475.4] - 07-02-2019
 
 ### Enhancement
