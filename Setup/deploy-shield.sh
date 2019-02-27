@@ -199,7 +199,7 @@ fi
 # am_i_leader # Allow to run Deploy on any manager
 
 #if [ "$AM_I_LEADER" == true ]; then
-    retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
 #else
 #    echo "Please run this command on the leader: $LEADER_HOST"
 #fi
