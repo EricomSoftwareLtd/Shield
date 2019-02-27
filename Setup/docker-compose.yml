@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.12
+# YML file for Rel-19.02
 
 services:
     dns:
