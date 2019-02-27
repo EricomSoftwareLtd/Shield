@@ -17,7 +17,7 @@ shield-autoupdate:latest shield-autoupdate:190210-16.27-3798
 es-system-monitor:latest es-system-monitor:190217-19.46-3854
 es-core-sync:latest es-core-sync:190213-15.28-3837
 shield-admin:latest shield-admin:190226-17.30-3917
-icap-server:latest icap-server:190220-16.50-3875
+icap-server:latest icap-server:190227-04.14-3919
 shield-cef:latest shield-cef:190224-15.36-3897
 extproxy:latest extproxy:190206-11.37-3767
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190219-08.42-3858
