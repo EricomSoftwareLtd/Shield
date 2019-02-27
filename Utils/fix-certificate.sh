@@ -6,7 +6,6 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    usage
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
