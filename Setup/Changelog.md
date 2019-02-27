@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_490.1] - 2019-02-27
+## [Dev:Build_490.2] - 2019-02-27
 
 
 - ToGo - Append domain to UPN #5585
@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - status.sh -e on shieldNode returns an error #4810
 - Translations 19.02 #5595
 - Remove print from right click menu when it is protected and download is disable #5571
+- Download with preview mode is not working #5602
+- Zoom in/out is not working with shield on Dev:Build_490.1 #5599
+- CEF fail to run on Kubernetes
+
 
 ## [Dev:Build_489] - 2019-02-24
 
