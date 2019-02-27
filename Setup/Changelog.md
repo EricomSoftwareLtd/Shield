@@ -11,9 +11,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_490] - 2019-02-26
+
+
+- ToGo - Append domain to UPN #5585
+- Browser can't find Consul cef-privatekey #5577
+- Remove print from right click menu when it is protected and download is disable #5571
+- Problem to load pages- network is slow #5562
+- Admin UI - dashboard - it takes time for node list to be displayed #5561
+- Clean PulseAudio Errors #5555
+- Salesforce view email attachment not working properly #5553
+- Admin : Configuration of browser scaler #5373
+- Cloud - Configure Liveness and Readiness Probes #5134
+- status.sh -e on shieldNode returns an error #4810
+
 ## [Dev:Build_489] - 2019-02-24
 
-- Clean PulseAudio Errors #5555
 - Print PDF directly on IE #5552
 - Changes in End User Shield Indicator #5543
 - License enforcement for intelligent isolation #5323
@@ -31,6 +44,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changes in End User Shield Indicator #5543
 - farm scaler values are not being update #5533
 - External-Farm Address should be trimmed
+
 
 ## [Dev:Build_486] - 2019-02-17
 
