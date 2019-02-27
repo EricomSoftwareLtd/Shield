@@ -11,6 +11,150 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_492] - 2019-02-27
+
+- updated version
+
+## [Dev:Build_490.2] - 2019-02-27
+
+- ToGo - Append domain to UPN #5585
+- Browser can't find Consul cef-privatekey #5577
+- Remove print from right click menu when it is protected and download is disable #5571
+- Problem to load pages- network is slow #5562
+- Admin UI - dashboard - it takes time for node list to be displayed #5561
+- Clean PulseAudio Errors #5555
+- Salesforce view email attachment not working properly #5553
+- Admin : Configuration of browser scaler #5373
+- Cloud - Configure Liveness and Readiness Probes #5134
+- status.sh -e on shieldNode returns an error #4810
+- Translations 19.02 #5595
+- Remove print from right click menu when it is protected and download is disable #5571
+- Download with preview mode is not working #5602
+- Zoom in/out is not working with shield on Dev:Build_490.1 #5599
+- CEF fail to run on Kubernetes
+
+## [Dev:Build_489] - 2019-02-24
+
+- Print PDF directly on IE #5552
+- Changes in End User Shield Indicator #5543
+- License enforcement for intelligent isolation #5323
+
+## [Dev:Build_488] - 2019-02-20
+
+- Updated ALL external browser farm related strings #5557
+- Printing Policy Change 19.02 #5538
+- Tab Limit should be based on GUID when no Auth #5132
+
+## [Dev:Build_487] - 2019-02-19
+
+- Download simple file give errors #5545
+- Admin fixes for 19.02 -part 1 #5537
+- Changes in End User Shield Indicator #5543
+- farm scaler values are not being update #5533
+- External-Farm Address should be trimmed
+
+## [Dev:Build_486] - 2019-02-17
+
+- Cloud - optimize our nginx configuration - preformance part #5468
+- Cloud - apply bandwidth limit to sessions #5440
+- License enforcement for intelligent isolation #5323
+- Tab Limit should be based on GUID when no Auth #5132
+
+## [Dev:Build_485] - 2019-02-13
+
+- Cloud - apply bandwidth limit to sessions #5440
+- Stay in shield mode -portal mode #5484
+- Scrolling is not working sometimes #5501
+- Page frozen after switching tab #5490
+- Blank window when open a mail from outlook online with shield #5460
+- Admin : Configuration of browser scaler #5373
+- Cloud - "no browsers available" message #5256
+
+## [Dev:Build_484] - 2019-02-11
+
+- Portal mode - popup support #5450
+- Page frozen after switching tab #5490
+- Exclude IPs for RateLimit #4961
+- KKA- addnode fix increase the time + add tests to weakup swarm if needed #5437
+- status.sh -e is not working #5328
+- License enforcement for intelligent isolation #5323
+
+## [Dev:Build_483] - 2019-02-10
+
+- ELK on Browser Farm #5371
+- Build Helm Package automatically #5401
+- Helm Values Customization #5405
+- Fixed icap crash on Farm Mode
+
+## [Dev:Build_482] - 2019-02-10
+
+- Blank window when opening a mail from outlook online with shield #5460
+- Crystal Rendering Mode Mode (R1) #5039
+- Copy/ Paste on MAC doesn't work properly #5336
+- Status.sh -e is not working #5328
+- Alert: Browser Farm is not available #5160
+- Bugfix for fast typing Chinese symbols
+
+## [Dev:Build_481] - 2019-02-07
+
+- Cloud - opps something went wrong appears sometimes when no browsers available #5256
+- Proxyless allways allowed on Cloud farm
+- Japanese text updates
+- Backend for #5323
+- Updated to alpine 3.9 #1
+- Parse kubernetes pod memory capacity
+
+## [Dev:Build_480] - 2019-02-05
+
+- Crystal Admin UI (5039) #5443
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- KDDI Shield input languages - issue #5420
+- Remove phishing detection from remote browser #5439
+- Upgrade CEF to use electron 4.0.4 #5092
+
+## [Dev:Build_479] - 2019-02-04
+
+- KDDI - support multiple syslog servers #5378
+- shield-stats for Hybrid Mode #5306
+- Alert: Browser Farm is not available #5160
+- show farm nodes in shield-stats
+- Cloud - SSL termination on proxy #5236
+
+## [Dev:Build_478] - 2019-02-03
+
+- Autofill fixes - login GitHub
+- Override doesn't work on categories #5278
+- Portal mode links conversion #5402
+- Farm-sync-cont
+- Shield-stats for Hybrid Mode #5306
+- KDDI Shield input languages - issue #5420
+
+## [Dev:Build_477] - 2019-01-30
+
+- Upgrade CEF to use electron 4.x #5092
+- Collector - missing dmidecode error message #5368
+- Copy/ Paste on MAC doesn't work properly #5336
+- Cloud - Show farm sessions data on Admin UI Dashboard #5240
+- ProxyLess IcapFix
+- Portal mode links conversion #5402
+- More farm-sync work
+
+## [Dev:Build_476] - 2019-01-29
+
+- Inherit Client Geo Location #5360
+- Cloud - all sites default to German #5356
+- Cloud - Pass SystemID to relevant components #5115
+- Cloud - Add connection id to allow tracking #5114
+- No alert when using votiro server on prem in cloud #5351
+- Pre check CPU counting - syntax error #5362
+- Centos - pre check fails on distribution #5345
+- AWS alert - reduce memory requirements to be 7/15 #5259
+- KKA - [[Urgent]][[Investigate]] QA#705718 Failure occurs when returning from NIC down/up. #219 #5098
+- AutoFill : Yahoo mail issues with autofill enabled #5075
+- AutoFill : Docker hub login issue when auto fill is enabled #5076
+- Autofill : Can't login to Salesforce (Google is saving the name + password as password in one line #4555
+- Autofill : Data in forms #4991
+
 ## [Dev:Build_475] - 2019-01-27
 
 - Sometimes the policy not found #5366
@@ -30,7 +174,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Chinese - Conversion window position #5245
 - Japanese - Conversion list window position on FF is not ok #5010
 - can't type in alphanumeric mode in Japanes on safari Mac (KKA P2) #4397
-- fixes ICAP errors on ssl 
+- fixes ICAP errors on ssl
 
 ## [Dev:Build_472] - 2019-01-21
 
@@ -40,7 +184,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Shield-cat to show domain category/polic
 - Stuck CTRL #4769
 - Download rule is not working correctly with cloud #5174
-- Fixes for Errors on JER system 
+- Fixes for Errors on JER system
 - Phishing and Categories tasks #4977
 
 ## [Dev:Build_471] - 2019-01-20
@@ -53,7 +197,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Different results between NetStar and shield cat for some urls #5243
 - AdminUI: Category above Policy - fix the tool tip #4959
 
-
 ## [Dev:Build_469] - 2019-01-17
 
 - Liveness & readyness probs for cdr-controller, cdr-dispatcher, preview #5277
@@ -65,7 +208,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - License counting for white session #5227
 - Tech preview features are not displayed at the admin UI when disable/enable some of them #5171
 
- 
 ## [Dev:Build_468] - 2019-01-16
 
 - AWS alert - reduce memory requirements to be 7/15 #5259
@@ -81,7 +223,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Blank tab opened after the pop up is displayed #5226
 - Empty value for FQDN in Admin #4736
 - False detection of site -online.maccabi4u.co.il #5264
-
 
 ## [Dev:Build_466] - 2019-01-14
 
@@ -147,8 +288,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Phishing works also when it is disabled #5057
 - Shield-cat page to resolve url-category #5001
 - IE - CTRL+V does work (from KKA, P2) #4873
-- Improved shield-cat page 
-- www.expedia.com is white by default 
+- Improved shield-cat page
+- www.expedia.com is white by default
 
 ## [Dev:Build_459] - 2018-12-20
 
@@ -177,10 +318,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Category Table Admin issues #5003
 - list of categories at the admin #5000
 
-
 ## [Dev:Build_456] - 2018-12-17
 
-- Initial + Disabled by default - Autofill data in forms #4991 
+- Initial + Disabled by default - Autofill data in forms #4991
 - Show the category group string in the block message #4977
 - Potential Phishing Detection Feature ( admin | settings | content isolation) #4699
 - Expedia.com is broken - the page is refreshed and new tabs are being opened #4992
@@ -204,7 +344,7 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 ## [Dev:Build_454] - 2018-12-13
 
 - Exclude IPs for RateLimit #4961
-- Progress of Phishing and Categories tasks #4977 
+- Progress of Phishing and Categories tasks #4977
 
 ## [Dev:Build_453] - 2018-12-13
 
@@ -213,13 +353,13 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 - Delete Category doesnt work #4960
 - AdminUI: Category above Policy #4959
 - ADMIN - Resources/ Display Settings not saved #4915
-- Phishing detection In CEF (preload script) 4977 
+- Phishing detection In CEF (preload script) 4977
 
 ## [Dev:Build_452.1] - 2018-12-13
 
 - Screenshot is not being added to the GitHub issue #4204
 - Print should be disabled for files in case download is disabled #4903
-- Phishing and Categories #4964 
+- Phishing and Categories #4964
 - Policies are not working when doing did-navigate-in-page #4956
 - ADMIN - Resources/ Display Settings not saved #4915
 - Admin UI | Resources fix the display #4958
@@ -261,8 +401,8 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 
 - Japanese - problems with the keyboard #4847
 - Implementing Named Users Licensing #4783
-- Update for CentOS support 
-- es-system monitor doesn't function on centos #4908 
+- Update for CentOS support
+- es-system monitor doesn't function on centos #4908
 
 ## [Dev:Build_446] - 2018-12-05
 
@@ -290,7 +430,7 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 - Working by hostname (not by URL) #4850
 - Ugly alert when Votiro license / trial days are over #4738
 - Proxyless Admin UI #4858
-- Cloud preparations 
+- Cloud preparations
 - Download zip with password - fix the password dialog #4852
 - Browser Farm settings in Admin #4857
 
@@ -306,7 +446,7 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 ## [Dev:Build_441] - 2018-11-28
 
 - Added Categories backend in disabled mode
-- Licesing support for Votiro CDR and Named Users Licensing - not ready to test 
+- Licesing support for Votiro CDR and Named Users Licensing - not ready to test
 
 ## [Dev:Build_440] - 2018-11-27
 
@@ -323,11 +463,12 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 - Timeout Session doesnt work on Website with Popup window #4758
 - disable the slow netwrok message does not work - now message is not displayed also when it should #4722
 - Policies - delete multiple lines - does not work as expected #4684
-- file preview - add size limitation #4681	
+- file preview - add size limitation #4681
 - Add the "[]" Symbol Before the URL Name #4721
 
 ## [Dev:Build_438] - 2018-11-19
-- https://www.draw.io/ - works only partially #4650
+
+- <https://www.draw.io/> - works only partially #4650
 - Fields processed as integers (specific settings validation) #4708
 - Disable the slow netwrok message does not work #4722
 - Reset Certificate uploaded and revert to Ericom Certificate #4315

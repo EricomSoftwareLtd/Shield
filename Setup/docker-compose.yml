@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-19.01
+# YML file for Rel-18.12
 
 services:
     dns:
@@ -150,7 +150,6 @@ services:
 
     shield-admin:
         image: 'securebrowsing/shield-admin:latest'
-        hostname: shield-admin
         ports:
             - '8181:8181'
         environment:
@@ -172,6 +171,7 @@ services:
             resources: {limits: {memory: 1GB, cpus: '0.5'}}
     icap-server:
         image: 'securebrowsing/icap-server:latest'
+        # user: nobody
         environment:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
@@ -245,7 +245,6 @@ services:
     es-system-configuration:
         image: 'securebrowsing/es-system-configuration:latest'
         # user: nobody
-        hostname: es-system-configuration
         deploy:
             mode: replicated
             replicas: 1
@@ -266,6 +265,7 @@ services:
             - shield-system-id
     es-core-sync:
         image: 'securebrowsing/es-core-sync:latest'
+        # user: nobody
         deploy:
             mode: replicated
             replicas: 1
@@ -301,6 +301,7 @@ services:
             - shield
     es-license-manager:
         image: 'securebrowsing/es-license-manager:latest'
+        # user: nobody
         deploy:
             mode: replicated
             replicas: 1
@@ -321,7 +322,6 @@ services:
     es-remote-browser-scaler:
         image: 'securebrowsing/es-remote-browser-scaler:latest'
         user: root
-        hostname: es-remote-browser-scaler
         deploy:
             mode: replicated
             replicas: 1
@@ -486,7 +486,6 @@ services:
 
     portainer:
         image: 'securebrowsing/shield-portainer:latest'
-        hostname: portainer
         #Published only for Dev
 #        ports:
 #            - '9000:9000'

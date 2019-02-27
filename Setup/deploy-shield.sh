@@ -58,8 +58,8 @@ done
 
 if [ -z "$JENKINS" ]; then
     if [ ! -f "$EULA_ACCEPTED_FILE" ] || [ ! -f "$ES_MY_IP_FILE" ]; then
-        echo "Ericom Shield has not been configured properly. Please run '$ES_PATH/setup.sh'. Exiting..."
-        exit 1
+        echo "Ericom Shield has not been configured properly. Please run setup.sh."
+#        exit 1  # Do not Exit, Happened several times false positive
     else
         IP_ADDRESS="$(cat "$ES_MY_IP_FILE" | grep -oP '\d+\.\d+\.\d+\.\d+')"
     fi
@@ -199,7 +199,7 @@ fi
 # am_i_leader # Allow to run Deploy on any manager
 
 #if [ "$AM_I_LEADER" == true ]; then
-    retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
+retry_on_failure docker stack deploy -c $ES_YML_FILE $STACK_NAME --with-registry-auth
 #else
 #    echo "Please run this command on the leader: $LEADER_HOST"
 #fi
