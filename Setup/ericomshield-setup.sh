@@ -463,7 +463,8 @@ function install_docker() {
 
         apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
-        apt-get -y --assume-yes --allow-downgrades install "docker-ce=$DOCKER_VERSION*"
+        apt-get -y --assume-yes --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && \
+            apt-mark hold docker-ce
         sleep 5
         systemctl restart docker
         sleep 5
