@@ -1,5 +1,5 @@
-#Build Staging:Build_485 on 19/02/13   #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_485
+#Build Staging:Build_492 on 19/02/27   #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_492
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
@@ -14,20 +14,20 @@ shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190210-16.27-3798
-es-system-monitor:latest es-system-monitor:190207-15.29-3784
+es-system-monitor:latest es-system-monitor:190217-19.46-3854
 es-core-sync:latest es-core-sync:190213-15.28-3837
-shield-admin:latest shield-admin:190213-15.52-3839
-icap-server:latest icap-server:190213-13.39-3828
-shield-cef:latest shield-cef:190213-13.06-3827
+shield-admin:latest shield-admin:190227-09.20-3922
+icap-server:latest icap-server:190227-04.14-3919
+shield-cef:latest shield-cef:190227-14.55-3925
 extproxy:latest extproxy:190206-11.37-3767
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:190212-14.55-3821
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:190219-08.42-3858
 shield-cdr-controller:latest shield-cdr-controller:190210-07.22-3790
 shield-notifier:latest shield-notifier:190206-11.37-3767
-shield-proxyless-connector:latest shield-proxyless-connector:190206-11.37-3767
+shield-proxyless-connector:latest shield-proxyless-connector:190217-08.05-3848
 es-file-preview:latest es-file-preview:190206-11.37-3767
-es-system-configuration:latest es-system-configuration:190213-15.39-3838
-es-license-manager:latest es-license-manager:190206-07.48-3761
+es-system-configuration:latest es-system-configuration:190226-16.55-3916
+es-license-manager:latest es-license-manager:190217-15.09-3851
 es-remote-browser-scaler:latest es-remote-browser-scaler:181126-13.29-3287
-es-policy-manager:latest es-policy-manager:190129-13.59-3692
-shield-dns:latest shield-dns:181029-09.26-3074
+es-policy-manager:latest es-policy-manager:190217-15.09-3851
+shield-dns:latest shield-dns:190217-15.44-3852
 # This needs to be the last line
