@@ -1,4 +1,4 @@
-#Build Staging:Build_492 on 19/02/27   #UNR#
+#Build Staging:Build_492 on 19/02/27   
 SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_492
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
