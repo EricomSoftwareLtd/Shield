@@ -435,6 +435,27 @@ function accept_license() {
     return -1
 }
 
+function update_ubuntu() {
+    local UBUNTU_VER_FILE="/etc/lsb-release"
+    if [ -r "$UBUNTU_VER_FILE" ]; then
+        source "$UBUNTU_VER_FILE"
+
+        apt-get -qq update
+        apt-get -y install software-properties-common || failed_to_install "Failed to install software-properties-common. Exiting!"
+        add-apt-repository universe
+        apt-get -qq update
+        apt-get -y dist-upgrade || failed_to_install "Failed to perform dist-upgrade. Exiting!"
+
+        if [ $DISTRIB_CODENAME = "xenial" ]; then
+            apt-get -y install --install-recommends linux-generic-hwe-16.04
+        fi
+
+        apt-get -y autoremove
+    else
+        failed_to_install "Failed to update Ubuntu: $UBUNTU_VER_FILE is not readable. Exiting!"
+    fi
+}
+
 function install_docker() {
 
     if [ -f "$ES_VER_FILE" ]; then
@@ -450,8 +471,8 @@ function install_docker() {
         apt-get --assume-yes -y install apt-transport-https software-properties-common
 
         #Docker Installation of a specific Version
-        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
         echo -n "apt-get -qq update ..."
         apt-get -qq update
         echo "done"
@@ -463,14 +484,15 @@ function install_docker() {
 
         apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
-        apt-get -y --assume-yes --allow-downgrades install "docker-ce=$DOCKER_VERSION*"
+        apt-get -y --assume-yes --allow-downgrades install "docker-ce=$DOCKER_VERSION*" &&
+            apt-mark hold docker-ce
         sleep 5
         systemctl restart docker
         sleep 5
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
-    if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+    if [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         failed_to_install "Failed to Install/Update Docker, Exiting!"
     fi
 }
@@ -517,7 +539,7 @@ function create_shield_service() {
 }
 
 function check_shield_service_exists() {
-    SHIELD_SERVICE_STATUS=$(sudo systemctl show -p LoadState ericomshield-updater.service | sed 's/LoadState=//g')
+    SHIELD_SERVICE_STATUS=$(systemctl show -p LoadState ericomshield-updater.service | sed 's/LoadState=//g')
     if [[ $SHIELD_SERVICE_STATUS == "not-found" && -f "$ES_PATH/ericomshield-updater.service" ]]; then
         rm -f "$ES_PATH/ericomshield-updater.service"
     fi
@@ -800,6 +822,7 @@ get_precheck_files
 
 get_shield_install_files
 
+update_ubuntu
 install_docker
 
 update_daemon_json
