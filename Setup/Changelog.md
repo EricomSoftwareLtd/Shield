@@ -10,6 +10,58 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased]
+## [Dev:Build_492] - 2019-02-27
+
+- updated version 
+
+## [Dev:Build_490.2] - 2019-02-27
+
+
+- ToGo - Append domain to UPN #5585
+- Browser can't find Consul cef-privatekey #5577
+- Remove print from right click menu when it is protected and download is disable #5571
+- Problem to load pages- network is slow #5562
+- Admin UI - dashboard - it takes time for node list to be displayed #5561
+- Clean PulseAudio Errors #5555
+- Salesforce view email attachment not working properly #5553
+- Admin : Configuration of browser scaler #5373
+- Cloud - Configure Liveness and Readiness Probes #5134
+- status.sh -e on shieldNode returns an error #4810
+- Translations 19.02 #5595
+- Remove print from right click menu when it is protected and download is disable #5571
+- Download with preview mode is not working #5602
+- Zoom in/out is not working with shield on Dev:Build_490.1 #5599
+- CEF fail to run on Kubernetes
+
+
+## [Dev:Build_489] - 2019-02-24
+
+- Print PDF directly on IE #5552
+- Changes in End User Shield Indicator #5543
+- License enforcement for intelligent isolation #5323
+
+## [Dev:Build_488] - 2019-02-20
+
+- Updated ALL external browser farm related strings #5557
+- Printing Policy Change 19.02 #5538
+- Tab Limit should be based on GUID when no Auth #5132
+
+## [Dev:Build_487] - 2019-02-19
+
+- Download simple file give errors #5545
+- Admin fixes for 19.02 -part 1 #5537
+- Changes in End User Shield Indicator #5543
+- farm scaler values are not being update #5533
+- External-Farm Address should be trimmed
+
+
+## [Dev:Build_486] - 2019-02-17
+
+- Cloud - optimize our nginx configuration - preformance part #5468
+- Cloud - apply bandwidth limit to sessions #5440
+- License enforcement for intelligent isolation #5323
+- Tab Limit should be based on GUID when no Auth #5132
+
 
 ## [Dev:Build_485] - 2019-02-13
 
