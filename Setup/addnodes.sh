@@ -1,35 +1,37 @@
-#!/bin/bash
-############################################
-#####   Ericom Shield AddNode          #####
-#######################################LO###
-
-ES_PATH=/usr/local/ericomshield
-ES_VER_FILE="./shield-version.txt"
-LOGFILE="$ES_PATH/ericomshield.log"
-COMMAND_NAME="$0"
+#!/bin/bash -e
+###########################################
+#####   Ericom Shield Addnodes        #####
+###################################LO#####
 
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
+    echo "Usage: $0 [OPTIONS] COMMAND [ARGS]..."
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
 fi
-cd $ES_PATH
 
-echo "Running  $0:"
+BRANCH="master"
+export ES_PATH=/usr/local/ericomshield
+export APP_NAME="$0"
+export ES_VER_FILE="$ES_PATH/shield-version.txt"
+export ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 
-if [ ! -f "$ES_VER_FILE" ]; then
-   echo "$(date): Ericom Shield Update: Cannot find version file" >>"$LOGFILE"   
-   exit 1
+if [ -f "$ES_PATH/.esbranch" ]; then
+    BRANCH=$(cat "$ES_PATH/.esbranch")
 fi
-CONTAINER_TAG="$(grep -r 'node-installer' $ES_VER_FILE | cut -d' ' -f2)"
 
-docker run --rm -it \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-	-v $(which docker):/usr/bin/docker \
-	-v /usr/local/ericomshield:/install \
-	-v $(pwd):/certificate \
-	-e "COMMAND=$COMMAND_NAME" \
-	--network host \
-    securebrowsing/$CONTAINER_TAG ./setup-node.sh "${@}"
+cd "$ES_PATH"
+MAIN_SCRIPT_URL="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/addnodes.py"
+RETURN_CODE=$(curl -so ./addnodes.py -w '%{response_code}' "$MAIN_SCRIPT_URL")
+
+if [ "$RETURN_CODE" != "200" ]; then
+    echo "Error: Cannot find addnodes.py in branch: $BRANCH"
+    exit 1
+fi
+
+ARGS="${@}"
+
+SCRIPT="python3 ./addnodes.py"
+$SCRIPT $ARGS

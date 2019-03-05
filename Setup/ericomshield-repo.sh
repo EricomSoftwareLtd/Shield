@@ -4,11 +4,11 @@
 #######################################BH###
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 if [ -z "$BRANCH" ]; then
-    if [ ! -f "$ES_BRANCH_FILE" ]; then
-      BRANCH=cat "$ES_BRANCH_FILE"
-     else
-      BRANCH="master"
-    fi  
+    if [ -f "$ES_BRANCH_FILE" ]; then
+        BRANCH=$(cat "$ES_BRANCH_FILE")
+    else
+        BRANCH="master"
+    fi
 fi
 
 # Development Repository: (Latest)
@@ -30,8 +30,9 @@ ES_repo_pre_check="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$B
 ES_repo_shield_aliases="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/.shield_aliases"
 ES_repo_restore="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/restore.sh"
 ES_repo_update="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/update.sh"
-ES_repo_preparenode="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/SetupNode/prepare-node.sh"
+ES_repo_preparenode="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/prepare-node.sh"
 ES_repo_swarm_sh="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/deploy-shield.sh"
+ES_repo_spellcheck="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/spellcheck.sh"
 
 # Version and YML files:
 ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"

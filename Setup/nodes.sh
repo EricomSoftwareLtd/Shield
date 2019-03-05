@@ -3,10 +3,10 @@
 #####   Ericom Shield Nodes            #####
 #######################################BH###
 
-KNOWN_LABELS="browser, shield_core, management"
+KNOWN_LABELS="browser, shield_core, management, netdata"
 
 function show_usage() {
-    echo "Usage: $0 [-status][-add-label] [-remove-label] [-show-labels] [-remove-node] [-usage] "
+    echo "Usage: $0 [--status][--add-label] [--remove-label] [--show-labels] [--remove-node] [--help] "
     exit
 }
 
@@ -26,11 +26,11 @@ fi
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-    -status)
+    -s | --status | -status)
         docker node ls
         exit
         ;;
-    -show-labels)
+    --show-labels | -show-labels)
         if [ -z $2 ]; then
             echo "Missing Shield Node Name"
             show_usage
@@ -41,24 +41,30 @@ while [ $# -ne 0 ]; do
             exit
         fi
         ;;
-    -add-label)
+    --add-label | -add-label)
         if [ -z $2 ] || [ -z $3 ]; then
             echo
             echo "Missing Shield Node Name or Label Name"
             show_usage
         else
             echo
-            LABEL=$3
-            if [ "$(echo "$KNOWN_LABELS" | grep -c "$LABEL")" -eq 0 ]; then
-                echo "Warning: Label: $LABEL is not a known Shield label($KNOWN_LABELS)"
-                echo
-            fi
-            echo " Adding Labels for Shield Node: $2"
-            docker node update --label-add "$LABEL"="yes" $2
+            shift
+            NODE=$1
+            shift
+            while [ $# -ne 0 ]; do
+                LABEL=$1
+                if [ "$(echo "$KNOWN_LABELS" | grep -c "$LABEL")" -eq 0 ]; then
+                   echo "Warning: Label: $LABEL is not a known Shield label($KNOWN_LABELS)"
+                   echo
+                fi
+                echo " Adding Labels for Shield Node ($NODE): $LABEL"
+                docker node update --label-add "$LABEL"="yes" $NODE
+            shift
+            done   
             exit
         fi
         ;;
-    -remove-label)
+    --remove-label | -remove-label)
         if [ -z $2 ] || [ -z $3 ]; then
             echo
             echo "Missing Node Name"
@@ -70,7 +76,7 @@ while [ $# -ne 0 ]; do
             exit
         fi
         ;;
-    -remove-node)
+    --remove-node | -remove-node)
         if [ -z $2 ]; then
             echo
             echo "Missing Node Name"
@@ -81,7 +87,7 @@ while [ $# -ne 0 ]; do
             exit
         fi
         ;;
-    #        -usage)
+    #-h | --help)        -usage)
     *)
         show_usage
         ;;

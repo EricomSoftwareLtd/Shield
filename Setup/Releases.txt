@@ -1,5 +1,4 @@
-Rel-18.05 -  Release 18.05 on 27/05/18
-Rel-18.04.1 - Release 18.04.1 on 22/04/18 (18.04 was on 08/04/18)
-Rel-18.03 - Release 18.03 on 11/03/18
-Prod-18.02.1 - Release 18.02 Build 280.3 (Hotfix) on 20/02/18
-Rel-18.01.1 - Release 18.01 on 07/01/18
+1) latest:master
+2) Release 19.01-Build_475.1 on 03/02/19:Rel-19.01
+3) Release 18.12-Build_461 on 30/12/18:Rel-18.12
+4) Release 18.11-Build_436 on 21/11/18:Rel-18.11
