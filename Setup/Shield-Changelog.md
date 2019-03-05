@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Disabled: Printing is Disabled
   - Protected: Printing is Enabled if Download is Enabled/Sanitize
   - Enable: Printing is Enabled (regardless of Download Policy)
-- License enforcement for intelligent isolation #5323
+- License enforcement for intelligent isolation
 - Stay in shield on Redirect Mode
 - Admin: Configuration of Browser Scaler (Dynamic)
 - Autofill User Name/Password (Tech Preview)
