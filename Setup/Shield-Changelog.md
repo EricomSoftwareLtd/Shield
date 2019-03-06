@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Bug Fixes
 
+- fixed: Custom Translations are lost during update
 - fixed: Tab Limit should be based on GUID when no Auth
 - fixed: addnode fix increase the time + add tests to weakup swarm if needed
 - fixed: status.sh -e is not working
