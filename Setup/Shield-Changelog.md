@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Prod:19.02-Build-490] - 26-02-2019
+## [Prod:19.02-Build-492] - 06-03-2019
 
 ### New Features
 
@@ -19,9 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Enable: Printing is Enabled (regardless of Download Policy)
 - License enforcement for intelligent isolation
 - Stay in shield on Redirect Mode
-- Admin: Configuration of Browser Scaler (Dynamic)
-- Autofill User Name/Password (Tech Preview)
-- Crystal Rendering Mode Mode (Tech Preview)
+- Admin: Configuration of Browser Scaler (Tech Preview)
 - Cloud: Show farm sessions data on Admin UI Dashboard (Tech Preview)
 
 ### Enhancement
