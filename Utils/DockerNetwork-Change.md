@@ -38,7 +38,7 @@ shield-stop
 ### 2. Leave the swarm on all nodes. This will stop swarm tasks and disable swarm multi-host overlay networking on the node:
 
 ```bash
-docker swarm leave
+docker swarm leave -f
 ```
 
 ### 3. Remove the docker_gwbridge network:
