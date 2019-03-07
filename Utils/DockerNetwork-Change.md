@@ -9,15 +9,16 @@ sudo vi /etc/docker/daemon.json
 ```
 
 - Add the following:
+```
 {
 "bip": "172.22.0.1/16"
 }
-
-Replace the Subnet 172.22.0.1/16 with the subnet you want to use.
+```
+Replace the Subnet `172.22.0.1/16` with the subnet you want to use.
 
 (If the file doesn’t exist create one)
 
-(if there are other settings, add "bip": "172.22.0.1/16", at the begining after the '{' sign)
+(if there are other settings, add `"bip": "172.22.0.1/16",` at the begining after the '{' sign)
 
 ### 2.	Restart Docker Service:
 
@@ -59,7 +60,7 @@ docker_gwbridge
 
 ### 5. (Optional) Confirm the settings on docker_gwbridge:
 
-docker network inspect docker_gwbridge --format '{{range $k, $v := index .IPAM.Config 0}}{{.| printf "%s: %s " $k}}{{end}}'
+`docker network inspect docker_gwbridge --format '{{range $k, $v := index .IPAM.Config 0}}{{.| printf "%s: %s " $k}}{{end}}'`
 
 ### 6. Start Shield and Recreate your cluster
 
