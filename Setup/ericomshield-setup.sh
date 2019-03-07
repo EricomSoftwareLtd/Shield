@@ -444,7 +444,7 @@ function update_ubuntu() {
         apt-get -y install software-properties-common || failed_to_install "Failed to install software-properties-common. Exiting!"
         add-apt-repository universe
         apt-get -qq update
-        apt-get -y dist-upgrade || failed_to_install "Failed to perform dist-upgrade. Exiting!"
+        DEBIAN_FRONTEND='noninteractive' apt-get -y -o 'Dpkg::Options::=--force-confdef' -o 'Dpkg::Options::=--force-confold' dist-upgrade || failed_to_install "Failed to perform dist-upgrade. Exiting!"
 
         if [ $DISTRIB_CODENAME = "xenial" ]; then
             apt-get -y install --install-recommends linux-generic-hwe-16.04
