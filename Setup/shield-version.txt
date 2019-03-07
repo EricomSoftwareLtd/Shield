@@ -4,7 +4,7 @@ SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_492.1
 shield-configuration:latest shield-configuration:181022-20.45-3029
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
 shield-portainer:latest shield-portainer:180930-11.41-2885
-proxy-server:latest proxy-server:testProxy1
+proxy-server:latest proxy-server:190206-11.37-3767
 shield-collector:latest shield-collector:190130-09.20-3709
 shield-elk:latest shield-elk:190204-11.04-3736
 shield-web-service:latest shield-web-service:181118-15.49-3220
