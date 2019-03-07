@@ -18,9 +18,25 @@ export ES_CONFIG_FILE="$ES_PATH/docker-compose.yml"
 export ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
 export ES_BRANCH_FILE="$ES_PATH/.esbranch"
 export APP_NAME="$0"
+DOCKER_USER="ericomshield1"
+DOCKER_SECRET="Ericom98765$"
 
 if [ -f "$ES_PATH/.esbranch" ]; then
     BRANCH=$(cat "$ES_PATH/.esbranch")
+fi
+
+function docker_login() {
+    echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
+}
+
+if [ ! -d ~/.docker ]; then
+   if [ -d /root/.docker ]; then
+      CURRENT_USERNAME=$(whoami)
+      cp -r /root/.docker ~/
+      chown -R $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
+   else
+       docker_login
+   fi
 fi
 
 ARGS="${@}"
