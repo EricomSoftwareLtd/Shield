@@ -19,6 +19,8 @@ DOCKER_SWARMEXEC_TAG=180128-09.08-1217
 ES_YML_FILE="$ES_PATH/docker-compose.yml"
 EULA_ACCEPTED_FILE="$ES_PATH/.eula_accepted"
 ES_MY_IP_FILE="$ES_PATH/.es_ip_address"
+DOCKER_USER="ericomshield1"
+DOCKER_SECRET="Ericom98765$"
 
 ########################################################################################################################
 ########   Default deploy variables section                                       ######################################
@@ -32,6 +34,22 @@ fi
 ########################################################################################################################
 ###########################   End default section                                                  #####################
 ########################################################################################################################
+
+function docker_login() {
+    echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
+}
+
+if [ ! -d ~/.docker ]; then
+   if [ -d /root/.docker ]; then
+      CURRENT_USERNAME=$(whoami)
+      cp -r /root/.docker ~/
+      chown -R $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
+   else
+       docker_login
+   fi
+fi
+
+
 
 if [ ! -d "$CONSUL_BACKUP_PATH" ]; then
     mkdir -p "$CONSUL_BACKUP_PATH"
