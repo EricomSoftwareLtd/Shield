@@ -43,7 +43,7 @@ if [ ! -d ~/.docker ]; then
    if [ -d /root/.docker ]; then
       CURRENT_USERNAME=$(whoami)
       cp -r /root/.docker ~/
-      chown -r $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
+      chown -R $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
    else
        docker_login
    fi
