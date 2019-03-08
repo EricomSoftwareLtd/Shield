@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_493] - 2019-03-07
+
+- Severe issue at KKA's customer required reboot #5623
+- User Name shouldn't be case sensitive #5641
+- ICAP in farm needs to locate local browsers
+- Farm proxyless without http2 due to firefox limitaiton  #5660
+- Change shield html page #5666
+- Map.baidu.com mouse cursor disappears (custom cursor feature) #5648
+- Use NSS to validate Certificate Authorities #5594
+- Possible fixes for broken sites #5526
+- Google drive is not working with shield #5633
+- ProtectPolicyManager
+- Increase max body size for large file uploads #5613
+- Improve Xorg diagnostics
+- Admin UI - dashboard - it takes time for node list to be displayed #5561
+
+
 ## [Dev:Build_492] - 2019-02-27
 
 - updated version 
