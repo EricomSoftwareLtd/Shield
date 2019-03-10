@@ -30,6 +30,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use api gateway as entry point for ldap api #5608
 - autofill fixes
 - Prepare Helm Package for Shield (Core+Management) #5326
+- dist-upgrade issues confirmation to the user - should be in the BG #5667
+- can't use shield US in farm mode on FF #5657
+- farm on prem - no license #5626
+- farm - upload is not working for a large file #5605
+- Admin : Configuration of browser scaler #5373
+- improve the nodes.sh script #5244
 
 ## [Dev:Build_492] - 2019-02-27
 
