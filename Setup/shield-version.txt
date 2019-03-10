@@ -15,10 +15,10 @@ netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190303-11.01-3929
 es-system-monitor:latest es-system-monitor:190217-19.46-3854
-es-core-sync:latest es-core-sync:190213-15.28-3837
+es-core-sync:latest es-core-sync:190310-07.52-3956
 shield-admin:latest shield-admin:190308-11.36-3953
 icap-server:latest icap-server:190307-12.57-3937
-shield-cef:latest shield-cef:190307-13.41-3939
+shield-cef:latest shield-cef:190310-08.14-3958
 extproxy:latest extproxy:190206-11.37-3767
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190219-08.42-3858
 shield-cdr-controller:latest shield-cdr-controller:190210-07.22-3790

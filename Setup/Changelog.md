@@ -26,7 +26,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Increase max body size for large file uploads #5613
 - Improve Xorg diagnostics
 - Admin UI - dashboard - it takes time for node list to be displayed #5561
-
+- License enforcement for intelligent isolation #5323
+- Use api gateway as entry point for ldap api #5608
+- autofill fixes
+- Prepare Helm Package for Shield (Core+Management) #5326
 
 ## [Dev:Build_492] - 2019-02-27
 
