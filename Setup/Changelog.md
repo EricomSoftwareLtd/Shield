@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_494] - 2019-03-10
+
+- Update to alpine 3.9 to fix curl security issue
+- Fixed icap in Farm 
+
 ## [Dev:Build_493] - 2019-03-07
 
 - Severe issue at KKA's customer required reboot #5623
