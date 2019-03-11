@@ -120,7 +120,7 @@ function check_distrib() {
             DIST_ERROR="Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required"
             return 1
         elif ((VER != ${REC_RELEASE_MAJOR}${REC_RELEASE_MINOR})); then
-            DIST_WARNING="Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended"
+            # DIST_WARNING="Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended"
             return 0
         fi
         return 0
