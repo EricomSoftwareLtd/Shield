@@ -5,7 +5,7 @@
 ES_SETUP_VER="Setup:19.02-0203"
 
 function usage() {
-    echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [-v|--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--help]"
+    echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [-v|--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--no-dist-upgrade] [--help]"
 }
 
 #Check if we are root
@@ -52,6 +52,7 @@ ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
+ES_DIST_UPGRADE=true
 SWITCHED_TO_MULTINODE=false
 NON_INTERACTIVE=false
 
@@ -263,6 +264,10 @@ while [ $# -ne 0 ]; do
         shift
         SHIELD_REGISTRY="$1"
         echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
+        ;;
+    --no-dist-upgrade)
+        log_message "Disabling dist-upgrade"
+        ES_DIST_UPGRADE=false
         ;;
     #        -help)
     *)
@@ -822,7 +827,9 @@ get_precheck_files
 
 get_shield_install_files
 
-update_ubuntu
+if [ "$ES_DIST_UPGRADE" = true ]; then
+    update_ubuntu
+fi
 install_docker
 
 update_daemon_json
