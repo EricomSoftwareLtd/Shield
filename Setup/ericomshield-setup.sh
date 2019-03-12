@@ -117,7 +117,7 @@ function check_distrib() {
     if [[ $VER_S =~ $VER_REGEX ]]; then
         VER="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
         if ((VER < ${MIN_RELEASE_MAJOR}${MIN_RELEASE_MINOR})); then
-            DIST_ERROR="Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required"
+            DIST_ERROR="Old $DIST_REGEX version $VER_S is not supported, please use $DIST_REGEX ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} or higher"
             return 1
         elif ((VER != ${REC_RELEASE_MAJOR}${REC_RELEASE_MINOR})); then
             # DIST_WARNING="Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended"
