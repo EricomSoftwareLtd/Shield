@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Pre-installation checks - ubuntu 18.04 update #5231
 - Add logging file and size limitations for all services
 - dist-upgrade - have an option to cancel it #5691
+- File Transfer reports - rename columns #3413
+- Allow setting the locale in Electron/Chromium #5597
+
 
 ## [Dev:Build_494] - 2019-03-10
 
