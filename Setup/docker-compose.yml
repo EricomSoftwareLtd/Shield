@@ -14,6 +14,10 @@ services:
             placement: {constraints: [node.labels.management==yes]}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 1GB, cpus: '1.5'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
         environment:
             - 'TZ=UTC'
             - 'LOGSTASH_FIELDS=service=dns'
@@ -36,6 +40,11 @@ services:
             placement: {constraints: [node.labels.netdata==yes]}
         environment:
             - 'TZ=UTC'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     maintenance:
         image: 'securebrowsing/shield-maintenance:latest'
         volumes:
@@ -52,6 +61,11 @@ services:
             - 'IMAGE_CLEAN_INTERVAL=1h'
             - 'RUN_TIME=23:59'
             - 'LOGSTASH_FIELDS=service=maintenance'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     collector:
         image: 'securebrowsing/shield-collector:latest'
         networks:
@@ -69,6 +83,11 @@ services:
             restart_policy: {condition: any}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 1GB, cpus: '0.5'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     elk:
         image: 'securebrowsing/shield-elk:latest'
         networks:
@@ -91,6 +110,7 @@ services:
                max-file: "3"
         volumes:
             - 'elastic:/opt/elasticsearch/data'
+
     logspout:
         image: 'securebrowsing/shield-logspout:latest'
         networks:
@@ -106,6 +126,11 @@ services:
         deploy:
             mode: global
             resources: {limits: {cpus: '0.20', memory: 256M}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     consul-server:
         image: 'securebrowsing/shield-configuration:latest'
         networks:
@@ -126,6 +151,11 @@ services:
             - 'LOGSTASH_FIELDS=service=consulserver'
         volumes:
             - {type: bind, source: /usr/local/ericomshield/backup, target: /consul/backup}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     consul:
         image: 'securebrowsing/shield-consul-agent:latest'
         networks:
@@ -145,6 +175,10 @@ services:
             - "SHIELD_SUBNET=${SUB_NET}"
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
 
 ###################################################################### Shield services part ##################################################################
 
@@ -169,6 +203,11 @@ services:
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 1GB, cpus: '0.5'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     icap-server:
         image: 'securebrowsing/icap-server:latest'
         # user: nobody
@@ -192,6 +231,11 @@ services:
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
             resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     shield-browser:
         image: 'securebrowsing/shield-cef:latest'
         user: user
@@ -212,6 +256,7 @@ services:
             - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
             - 'PERF_STATS=true'
             - 'LOGSTASH_FIELDS=service=browser'
+            #- 'LANGUAGE=en-US'
         networks:
             - shield
         deploy:
@@ -227,6 +272,11 @@ services:
             - {type: tmpfs, target: /home}
             - {type: tmpfs, target: /tmp}
             - {type: bind, target: /dev/shm/xorg, source: /media/containershm}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     es-policy-manager:
         image: 'securebrowsing/es-policy-manager:latest'
         environment:
@@ -241,7 +291,12 @@ services:
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
-            resources: {limits: {memory: 500MB, cpus: '1'}}        
+            resources: {limits: {memory: 500MB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     es-system-configuration:
         image: 'securebrowsing/es-system-configuration:latest'
         # user: nobody
@@ -263,6 +318,11 @@ services:
             - shield
         secrets:
             - shield-system-id
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     es-core-sync:
         image: 'securebrowsing/es-core-sync:latest'
         # user: nobody
@@ -280,6 +340,11 @@ services:
             - 'SHIELD_VER=8.0.0.latest'
         networks:
             - shield
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     es-system-monitor:
         image: 'securebrowsing/es-system-monitor:latest'
         user: root
@@ -299,6 +364,11 @@ services:
             - 'SHIELD_VER=8.0.0.latest'
         networks:
             - shield
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     es-license-manager:
         image: 'securebrowsing/es-license-manager:latest'
         # user: nobody
@@ -319,6 +389,11 @@ services:
             - shield
         secrets:
             - shield-system-id
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     es-remote-browser-scaler:
         image: 'securebrowsing/es-remote-browser-scaler:latest'
         user: root
@@ -337,6 +412,11 @@ services:
             - 'LOGSTASH_FIELDS=service=es-remote-browser-scaler'
         networks:
             - shield
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     proxy-server:
         image: 'securebrowsing/proxy-server:latest'
         ulimits:
@@ -354,7 +434,12 @@ services:
             restart_policy: {condition: any}
             update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
-            resources: {limits: {memory: 1GB, cpus: '1'}}            
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
         ulimits:
@@ -368,6 +453,11 @@ services:
             resources: {limits: {memory: 1GB, cpus: '1'}}            
         environment:
             - 'TZ=UTC'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     ext-proxy-noadblock:
         image: 'securebrowsing/extproxy:latest'
         ulimits:
@@ -382,6 +472,11 @@ services:
         environment:
             - 'TZ=UTC'
             - 'ADDBLOCK=no'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     speedtest:
         image: 'securebrowsing/speedtest:latest'
         ports:
@@ -395,6 +490,11 @@ services:
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     notifier:
         image: 'securebrowsing/shield-notifier:latest'
         networks:
@@ -406,6 +506,11 @@ services:
             resources: {limits: {memory: 512MB, cpus: '0.5'}}
         environment:
             - 'TZ=UTC'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     authproxy:
         image: 'securebrowsing/shield-authproxy:latest'
         deploy:
@@ -422,6 +527,11 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=authproxy'
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     web-service:
         image: 'securebrowsing/shield-web-service:latest'
         networks:
@@ -436,6 +546,11 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     proxyless-connector:
         image: 'securebrowsing/shield-proxyless-connector:latest'
         ports:
@@ -450,6 +565,11 @@ services:
             replicas: 1
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 500MB, cpus: '2'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     cdr-dispatcher:
         image: 'securebrowsing/shield-cdr-dispatcher:latest'
         environment:
@@ -466,6 +586,11 @@ services:
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
             resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
     cdr-controller:
         image: 'securebrowsing/shield-cdr-controller:latest'
         environment:
@@ -481,6 +606,11 @@ services:
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
             resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+
 
     ############################### Docker managment part ##############################################################
 
@@ -502,6 +632,10 @@ services:
             update_config: {failure_action: rollback}
             placement: {constraints: [node.labels.management==yes]}
             resources: {limits: {memory: 100MB, cpus: '0.5'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
 
     portainer_agent:
         image: 'portainer/agent:1.1.2'
@@ -517,6 +651,10 @@ services:
         deploy:
             mode: global
             resources: {limits: {memory: 500MB, cpus: '0.5'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
 
     es-file-preview:
         image: 'securebrowsing/es-file-preview:latest'
@@ -532,6 +670,10 @@ services:
             update_config: {parallelism: 1, failure_action: rollback}
             placement: {constraints: [node.labels.shield_core==yes]}
             resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
 
 volumes:
     elastic:
