@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_495] - 2019-03-12
+
+- Fix consul address in auth proxy
+- Update Bandwidth to 10 GB 
+- Fix dns consul-agent discovery in kubernetes mode
+- Cdr named policy 5190 - backend 
+- More strings updates for 19.02.1
+- Strings not displayed properly #5706
+- Pre-installation checks - ubuntu 18.04 update #5231
+- Add logging file and size limitations for all services
+- dist-upgrade - have an option to cancel it #5691
+- File Transfer reports - rename columns #3413
+- Allow setting the locale in Electron/Chromium #5597
+
+
 ## [Dev:Build_494] - 2019-03-10
 
 - Update to alpine 3.9 to fix curl security issue
