@@ -1,4 +1,4 @@
 1) latest:master
-2) Release 19.02-Build_492.2 on 06/03/19:Rel-19.02
+2) Release 19.02.1-Build_492.4 on 13/03/19:Rel-19.02.1
 3) Release 19.01.1-Build_475.5 on 06/02/19:Rel-19.01.1
 4) Release 18.12-Build_461 on 30/12/18:Rel-18.12
