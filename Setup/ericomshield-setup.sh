@@ -201,7 +201,7 @@ function list_versions() {
             break
             ;;
         *)
-            echo "Error: Not valid option, exiting"
+            echo "Error: Not a valid option, exiting"
             ;;
         esac
     done
@@ -392,12 +392,12 @@ function choose_network_interface() {
 }
 
 function failed_to_install() {
-    log_message "An error occurred during the installation: $1, Exiting!"
+    log_message "An error occurred during the installation: $1, exiting"
     exit 1
 }
 
 function failed_to_install_cleaner() {
-    log_message "An error occurred during the installation: $1, Exiting!"
+    log_message "An error occurred during the installation: $1, Exiting"
     if [ "$UPDATE" == true ]; then
         if [ -f "$ES_VER_FILE" ]; then
             mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
@@ -441,10 +441,10 @@ function update_ubuntu() {
         source "$UBUNTU_VER_FILE"
 
         apt-get -qq update
-        apt-get -y install software-properties-common || failed_to_install "Failed to install software-properties-common. Exiting!"
+        apt-get -y install software-properties-common || failed_to_install "Failed to install software-properties-common. Exiting"
         add-apt-repository universe
         apt-get -qq update
-        apt-get -y dist-upgrade || failed_to_install "Failed to perform dist-upgrade. Exiting!"
+        apt-get -y dist-upgrade || failed_to_install "Failed to perform dist-upgrade. Exiting"
 
         if [ $DISTRIB_CODENAME = "xenial" ]; then
             apt-get -y install --install-recommends linux-generic-hwe-16.04
@@ -452,7 +452,7 @@ function update_ubuntu() {
 
         apt-get -y autoremove
     else
-        failed_to_install "Failed to update Ubuntu: $UBUNTU_VER_FILE is not readable. Exiting!"
+        failed_to_install "Failed to update Ubuntu: $UBUNTU_VER_FILE is not readable. Exiting"
     fi
 }
 
@@ -493,7 +493,7 @@ function install_docker() {
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
     if [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-        failed_to_install "Failed to Install/Update Docker, Exiting!"
+        failed_to_install "Failed to Install/Update Docker, exiting"
     fi
 }
 
@@ -511,7 +511,7 @@ function docker_login() {
         if [ $? == 0 ]; then
             echo "Login Succeeded!"
         else
-            failed_to_install_cleaner "Cannot Login to docker, Exiting!"
+            failed_to_install_cleaner "Cannot Login to docker, exiting"
         fi
     fi
 }

@@ -49,7 +49,7 @@ if [ "$RETURN_CODE" != "200" ]; then
     RETURN_CODE=$(curl -so /dev/null -w '%{response_code}' "$MAIN_SCRIPT_URL")
 
     if [ "$RETURN_CODE" != "200" ]; then
-        echo "$BRANCH not exists. Please run sudo $0 --list-versions"
+        echo "$BRANCH does not exist. Please run sudo $0 --list-versions"
         exit 1
     else
         curl -s -S -o "update-old.sh" "$MAIN_SCRIPT_URL"

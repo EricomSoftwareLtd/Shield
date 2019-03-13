@@ -157,7 +157,7 @@ ES_YML_FILE=docker-compose.yml
 
 SWARM=$(test_swarm_exists)
 if [ -z "$SWARM" ]; then
-    echo '#######################Start create swarm#####################'
+    echo '####################### Start create swarm #####################'
     if [ -z "$IP_ADDRESS" ]; then
         NETWORK_INTERFACE=$(get_right_interface)
         for int in $NETWORK_INTERFACE; do
@@ -170,7 +170,7 @@ if [ -z "$SWARM" ]; then
         echo "Swarm init failed"
         exit 1
     fi
-    echo '########################Swarm created########################'
+    echo '######################## Swarm created ########################'
 fi
 
 create_uuid
