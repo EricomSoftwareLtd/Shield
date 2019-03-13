@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_495] - 2019-03-12
+## [Dev:Build_495.1] - 2019-03-13
 
 - Fix consul address in auth proxy
 - Update Bandwidth to 10 GB 
