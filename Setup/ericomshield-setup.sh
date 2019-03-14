@@ -5,7 +5,7 @@
 ES_SETUP_VER="Setup:19.02-0203"
 
 function usage() {
-    echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [-v|--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--help]"
+    echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [-v|--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--no-dist-upgrade] [--help]"
 }
 
 #Check if we are root
@@ -52,6 +52,7 @@ ES_AUTO_UPDATE=false
 ES_FORCE=false
 ES_FORCE_SET_IP_ADDRESS=false
 ES_RUN_DEPLOY=true
+ES_DIST_UPGRADE=true
 SWITCHED_TO_MULTINODE=false
 NON_INTERACTIVE=false
 
@@ -116,10 +117,10 @@ function check_distrib() {
     if [[ $VER_S =~ $VER_REGEX ]]; then
         VER="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
         if ((VER < ${MIN_RELEASE_MAJOR}${MIN_RELEASE_MINOR})); then
-            DIST_ERROR="Your $DIST_REGEX release version is $VER_S but at least ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} is required"
+            DIST_ERROR="Old $DIST_REGEX version $VER_S is not supported, please use $DIST_REGEX ${MIN_RELEASE_MAJOR}.${MIN_RELEASE_MINOR} or higher"
             return 1
         elif ((VER != ${REC_RELEASE_MAJOR}${REC_RELEASE_MINOR})); then
-            DIST_WARNING="Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended"
+            # DIST_WARNING="Your $DIST_REGEX release version is $VER_S but version ${REC_RELEASE_MAJOR}.${REC_RELEASE_MINOR} is recommended"
             return 0
         fi
         return 0
@@ -263,6 +264,10 @@ while [ $# -ne 0 ]; do
         shift
         SHIELD_REGISTRY="$1"
         echo $SHIELD_REGISTRY >"$ES_SHIELD_REGISTRY_FILE"
+        ;;
+    --no-dist-upgrade)
+        log_message "Disabling dist-upgrade"
+        ES_DIST_UPGRADE=false
         ;;
     #        -help)
     *)
@@ -444,7 +449,7 @@ function update_ubuntu() {
         apt-get -y install software-properties-common || failed_to_install "Failed to install software-properties-common. Exiting!"
         add-apt-repository universe
         apt-get -qq update
-        apt-get -y dist-upgrade || failed_to_install "Failed to perform dist-upgrade. Exiting!"
+        DEBIAN_FRONTEND='noninteractive' apt-get -y -o 'Dpkg::Options::=--force-confdef' -o 'Dpkg::Options::=--force-confold' dist-upgrade || failed_to_install "Failed to perform dist-upgrade. Exiting!"
 
         if [ $DISTRIB_CODENAME = "xenial" ]; then
             apt-get -y install --install-recommends linux-generic-hwe-16.04
@@ -822,7 +827,9 @@ get_precheck_files
 
 get_shield_install_files
 
-update_ubuntu
+if [ "$ES_DIST_UPGRADE" = true ]; then
+    update_ubuntu
+fi
 install_docker
 
 update_daemon_json

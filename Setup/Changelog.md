@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_492.5] - 2019-03-14
+
+- More strings updates for 19.02.1
+- Strings not displayed properly #5706
+- Pre-installation checks - ubuntu 18.04 update #5231
+- dist-upgrade - have an option to cancel it #5691
+- Enable SpellCheck tool update
+
 ## [Dev:Build_492] - 2019-02-27
 
 - updated version
