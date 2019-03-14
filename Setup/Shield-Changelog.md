@@ -9,12 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Prod:19.02.1-Build-492.4] - 13-03-2019
+## [Prod:19.02.1-Build-492.5] - 14-03-2019
 
 - AdminUI: Strings not displayed properly in Policy Table
 - AdminUI: Translation updates
 - Installer: Pre-installation checks - ubuntu 18.04 update
 - Installer: dist-upgrade - have an option to cancel it
+- Installer: Enable SpellCheck tool update
 
 ### New Features
 
