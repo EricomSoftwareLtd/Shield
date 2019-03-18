@@ -473,7 +473,7 @@ function install_docker() {
 
     if [ ! -x /usr/bin/docker ] || [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         log_message "***************     Installing docker-engine: $DOCKER_VERSION"
-        apt-get --assume-yes -y install apt-transport-https software-properties-common
+        apt-get -y install apt-transport-https software-properties-common
 
         #Docker Installation of a specific Version
         curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -489,7 +489,7 @@ function install_docker() {
 
         apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
-        apt-get -y --assume-yes --allow-downgrades install "docker-ce=$DOCKER_VERSION*" &&
+        apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" &&
             apt-mark hold docker-ce
         sleep 5
         systemctl restart docker
