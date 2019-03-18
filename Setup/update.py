@@ -103,7 +103,7 @@ class UpdateExecutor():
                     and not self.all_args.fixConflicts:
                 print(' Ericom Shield repo version is {}'.format(d_line.split()[1].split('=')[1]))
                 print(" Current system version is {}".format(second_match[0]))
-                print(" Your EricomShield System is Up to date")
+                print(" Your EricomShield System is up to date")
                 exit(0)
             self.versions_compared = True
 
@@ -238,7 +238,7 @@ class UpdateExecutor():
                     raise Exception()
                 break
             except Exception:
-                print("Error: Not valid option, choose another option")
+                print("Error: Not a valid option, please choose another option")
 
         self.all_args.version = releases_array[choise - 1]
         print("Start update to:{}".format(self.all_args.version))
@@ -267,7 +267,7 @@ class UpdateExecutor():
 
         if self.change_registry:
             self.apply_registry()
-            print("Pause 30 seconds for node return to cluster")
+            print("Pause 30 seconds to allow the node to return to the cluster")
             time.sleep(30)
 
         if self.docker_upgrade or self.force_update:
