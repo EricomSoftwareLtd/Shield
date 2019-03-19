@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Resources - Burst time definition - backend #5499
 - Resources - Burst time definition - Admin #5499
 
-## [Dev:Build_496] - 2019-03-13
+## [Dev:Build_496.1] - 2019-03-13
 
 - Intelligent isolation - do not allow to delete categories #5652
 - Update electron to 4.0.8 to include security fix #5683
