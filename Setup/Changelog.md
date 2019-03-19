@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_497] - 2019-03-18
+
+- Must specify port on farm address #5676
+- Resources - Burst time definition - backend #5499
+- Resources - Burst time definition - Admin #5499
+
 ## [Dev:Build_496.1] - 2019-03-13
 
 - Intelligent isolation - do not allow to delete categories #5652
