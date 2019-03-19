@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [Dev:Build_498] - 2019-03-18
+
+- Can't use customer CA #5734
+- Cloud: Show Deployment in the Admin #5684
+
 ## [Dev:Build_497] - 2019-03-18
 
 - Must specify port on farm address #5676
