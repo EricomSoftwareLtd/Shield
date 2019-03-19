@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
 ## [Dev:Build_498] - 2019-03-18
 
 - Can't use customer CA #5734
@@ -27,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Intelligent isolation - do not allow to delete categories #5652
 - Update electron to 4.0.8 to include security fix #5683
 - Update spellcheck_control.py
+- 2 ICAP Servers
 
 ## [Dev:Build_495.1] - 2019-03-13
 

@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-18.12
+# YML file for Rel-19.03
 
 services:
     dns:
@@ -222,11 +222,9 @@ services:
             nofile: {soft: 65535, hard: 65535}
         networks:
             - shield
-#        ports:
-#            - '1344:1344'
         deploy:
             mode: replicated
-            replicas: 1
+            replicas: 2
             update_config: {failure_action: rollback}
             restart_policy: {condition: any}
             placement: {constraints: [node.labels.shield_core==yes]}
