@@ -161,12 +161,12 @@ function choose_network_interface() {
 }
 
 function failed_to_setup() {
-    log_message "An error occurred during the setup process: $1, Exiting!"
+    log_message "An error occurred during the setup process: $1, exiting"
     exit 1
 }
 
 function failed_to_setup_cleaner() {
-    log_message "An error occurred during the setup process: $1, Exiting!"
+    log_message "An error occurred during the setup process: $1, exiting"
     if [ "$UPDATE" == true ]; then
         if [ -f "$ES_VER_FILE" ]; then
             mv "$ES_VER_FILE_BAK" "$ES_VER_FILE"
@@ -218,7 +218,7 @@ function docker_login() {
         if [ $? == 0 ]; then
             echo "Login Succeeded!"
         else
-            failed_to_setup_cleaner "Cannot Login to docker, Exiting!"
+            failed_to_setup_cleaner "Cannot Login to docker, exiting"
         fi
     fi
 }
