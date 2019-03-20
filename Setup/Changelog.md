@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_499] - 2019-03-20
+
+- Shield scripts - review messages #5700
+- The id for default Votiro named policy is not added #5764
+- Improve tooltips #5664
+- Fixed Proxies dns port #5766
+
 ## [Dev:Build_498] - 2019-03-18
 
 - Can't use customer CA #5734
