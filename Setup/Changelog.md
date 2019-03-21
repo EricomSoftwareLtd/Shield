@@ -11,6 +11,78 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_499] - 2019-03-20
+
+- Shield scripts - review messages #5700
+- The id for default Votiro named policy is not added #5764
+- Improve tooltips #5664
+- Fixed Proxies dns port #5766
+
+## [Dev:Build_498] - 2019-03-18
+
+- Can't use customer CA #5734
+- Cloud: Show Deployment in the Admin #5684
+
+## [Dev:Build_497] - 2019-03-18
+
+- Must specify port on farm address #5676
+- Resources - Burst time definition - backend #5499
+- Resources - Burst time definition - Admin #5499
+
+## [Dev:Build_496.1] - 2019-03-13
+
+- Intelligent isolation - do not allow to delete categories #5652
+- Update electron to 4.0.8 to include security fix #5683
+- Update spellcheck_control.py
+- 2 ICAP Servers
+
+## [Dev:Build_495.1] - 2019-03-13
+
+- Fix consul address in auth proxy
+- Update Bandwidth to 10 GB 
+- Fix dns consul-agent discovery in kubernetes mode
+- Cdr named policy 5190 - backend 
+- More strings updates for 19.02.1
+- Strings not displayed properly #5706
+- Pre-installation checks - ubuntu 18.04 update #5231
+- Add logging file and size limitations for all services
+- dist-upgrade - have an option to cancel it #5691
+- File Transfer reports - rename columns #3413
+- Allow setting the locale in Electron/Chromium #5597
+
+
+## [Dev:Build_494] - 2019-03-10
+
+- Update to alpine 3.9 to fix curl security issue
+- Fixed icap in Farm 
+
+## [Dev:Build_493] - 2019-03-07
+
+- Severe issue at KKA's customer required reboot #5623
+- User Name shouldn't be case sensitive #5641
+- ICAP in farm needs to locate local browsers
+- Farm proxyless without http2 due to firefox limitaiton  #5660
+- Change shield html page #5666
+- Map.baidu.com mouse cursor disappears (custom cursor feature) #5648
+- Use NSS to validate Certificate Authorities #5594
+- Possible fixes for broken sites #5526
+- Google drive is not working with shield #5633
+- ProtectPolicyManager
+- Increase max body size for large file uploads #5613
+- Improve Xorg diagnostics
+- Admin UI - dashboard - it takes time for node list to be displayed #5561
+- License enforcement for intelligent isolation #5323
+- Use api gateway as entry point for ldap api #5608
+- autofill fixes
+- Prepare Helm Package for Shield (Core+Management) #5326
+- dist-upgrade issues confirmation to the user - should be in the BG #5667
+- can't use shield US in farm mode on FF #5657
+- farm on prem - no license #5626
+- farm - upload is not working for a large file #5605
+- Admin : Configuration of browser scaler #5373
+- improve the nodes.sh script #5244
+
 ## [Dev:Build_492] - 2019-02-27
 
 - updated version 
