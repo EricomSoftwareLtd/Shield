@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_500] - 2019-03-24
+
+- Cloud: Show Browser Farm Version #5686
+- Show Votiro Version in the Admin (+recommended) #5462
+- Translation in Admin is not ok if Language is not English (en-us) #5770
 
 ## [Dev:Build_499] - 2019-03-20
 
