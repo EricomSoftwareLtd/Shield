@@ -9,6 +9,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
+## [Unreleased]
+
+## [Rel-19.03:Build_501] - 2019-03-31
+
+### New Features
+
+- Admin: Cloud: Show Deployment in the Admin (Tech Preview)
+- Admin: Cloud: Configuration of browser scaler (Tech Preview)
+- Admin: Cloud:Resources - Burst time definition (Tech Preview)
+- Cloud: Helm Package for Shield (Management and Proxy) (Tech Preview)
+- Cloud: Helm Package for Shield (Log) (Tech Preview)
+
+Alpha Ready:
+- CDR: SASA Integration (Tech Preview)
+- CDR: Named Policy (Tech Preview)
+
+### Enhancement
+
+- Add logging file and size limitations for all services
+- Allow setting the locale in Electron/Chromium
+- Update electron to 4.0.8 to include security fix
+
 ## [Prod:19.02.1-Build-492.5] - 14-03-2019
 
 - AdminUI: Strings not displayed properly in Policy Table
@@ -17,7 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Installer: dist-upgrade - have an option to cancel it
 - Installer: Enable SpellCheck tool update
 
-### New Features
+### New Features 19.02
 
 - New Policy Option for Printing:
   - Disabled: Printing is Disabled
@@ -28,7 +50,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin: Configuration of Browser Scaler (Tech Preview)
 - Cloud: Show farm sessions data on Admin UI Dashboard (Tech Preview)
 
-### Enhancement
+### Enhancement 19.02
 
 - Print PDF directly on IE
 - Changes in End User Shield Indicator
@@ -36,7 +58,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Apply bandwidth limit to sessions
 - Alert: Browser Farm is not available
 
-### Bug Fixes
+### Bug Fixes 19.02
 
 - fixed: Custom Translations are lost during update
 - fixed: Tab Limit should be based on GUID when no Auth
