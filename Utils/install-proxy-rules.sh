@@ -146,7 +146,7 @@ EOF
     chmod +x $ES_PATH/delete-iptable-rules.sh
     cat $ES_PATH/delete-iptable-rules.sh
 
-if [ $(systemctl status es-iptables-rule.service | grep -c 'not-found') -eq "1" ]; then
+if [ $(systemctl list-units es-iptables-rule.service --type=service | grep -c '0 loaded units listed') -eq "1" ]; then
     cat << EOF > $ES_PATH/es-iptables-rule.service
 [Unit]
 Description=Apply DNAT rule for transparent proxy
