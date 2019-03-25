@@ -147,8 +147,8 @@ EOF
     cat $ES_PATH/delete-iptable-rules.sh
 
 
-if [ $(systemctl show --type=service -p LoadState es-iptables-rule.service) && if [ "$LoadState" = "not-found" ]; then
-echo "Service not found, creating"
+eval $(systemctl show --type=service -p LoadState es-iptables-rule.service) && if [ "$LoadState" = "not-found" ]; then
+ echo "Service not found, creating"
     cat << EOF > $ES_PATH/es-iptables-rule.service
 [Unit]
 Description=Apply DNAT rule for transparent proxy
