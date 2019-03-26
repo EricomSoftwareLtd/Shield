@@ -24,7 +24,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bypass Sending Alert Mail and Upstream Proxy #5780
 - Resources - Burst time definition #5499
 
-
 ## [Dev:Build_499] - 2019-03-20
 
 - Shield scripts - review messages #5700
