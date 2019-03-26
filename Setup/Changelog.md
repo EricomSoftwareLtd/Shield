@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_500] - 2019-03-26
+
+- Cloud: Show Browser Farm Version #5686
+- Translation in Admin is not ok if Language is not English (en-us) #5770
+- Show Votiro Version in the Admin (+recommended) #5462
+- Default rule to block aws metadata site - 169.254.169.254 
+- Allow setting the locale in Electron/Chromium #5597
+- Fixed Burst issues 
+- Updated translation files #5722
+- Organize Cloud&K8s settings in the admin #5574
+- Bypass Sending Alert Mail and Upstream Proxy #5780
+- Resources - Burst time definition #5499
 
 ## [Dev:Build_499] - 2019-03-20
 
