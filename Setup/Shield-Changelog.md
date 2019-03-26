@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
+## [Prod:19.02.2-Build-492.6] - 26-03-2019
+
+- Fix for Issue with Firefox 66 (Quantum)
+
 ## [Prod:19.02.1-Build-492.5] - 14-03-2019
 
 - AdminUI: Strings not displayed properly in Policy Table
