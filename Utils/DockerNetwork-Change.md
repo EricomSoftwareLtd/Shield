@@ -78,7 +78,7 @@ docker_gwbridge
 ```bash
 shield-start
 ```
-Wait for the system to be up and running
+Wait for the system to be up and running. 
 Check using shield-status command
 
 ### 7. Add other nodes to your cluster
