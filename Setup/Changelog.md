@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_501] - 2019-03-26
+
+- [[Bug]] QA#727182 ELK container time zone remains in UTC #5778
+- Ensure Electron exits on idle timeout ( Shield-Feedback#281 ) #5768
+
 ## [Dev:Build_500] - 2019-03-26
 
 - Cloud: Show Browser Farm Version #5686
