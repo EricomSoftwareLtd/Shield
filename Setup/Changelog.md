@@ -15,16 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Cloud: Show Browser Farm Version #5686
 - Translation in Admin is not ok if Language is not English (en-us) #5770
-- Ensure Electron exits on idle timeout ( Shield-Feedback#281 ) #5768
 - Show Votiro Version in the Admin (+recommended) #5462
 - Default rule to block aws metadata site - 169.254.169.254 
 - Allow setting the locale in Electron/Chromium #5597
 - Fixed Burst issues 
 - Updated translation files #5722
 - Organize Cloud&K8s settings in the admin #5574
-- Fix NSS; Fix timezone settings #5788
 - Bypass Sending Alert Mail and Upstream Proxy #5780
-- [[Bug]] QA#727182 ELK container time zone remains in UTC #5778
 - Resources - Burst time definition #5499
 
 
