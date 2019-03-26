@@ -11,25 +11,37 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Rel-19.03:Build_501] - 2019-03-31
+## [Rel-19.03:Build_500] - 2019-03-31
 
 ### New Features
 
 - Admin: Cloud: Show Deployment in the Admin (Tech Preview)
 - Admin: Cloud: Configuration of browser scaler (Tech Preview)
-- Admin: Cloud:Resources - Burst time definition (Tech Preview)
+- Admin: Cloud: Resources - Burst Events (Tech Preview)
 - Cloud: Helm Package for Shield (Management and Proxy) (Tech Preview)
 - Cloud: Helm Package for Shield (Log) (Tech Preview)
 
 Alpha Ready:
 - CDR: SASA Integration (Tech Preview)
-- CDR: Named Policy (Tech Preview)
+- CDR: Support Named Policy (Tech Preview)
 
 ### Enhancement
 
 - Add logging file and size limitations for all services
 - Allow setting the locale in Electron/Chromium
-- Update electron to 4.0.8 to include security fix
+- Update Rendering Engine to 4.0.8 to include security fix
+- Added support for custom mouse cursor (e.g. Map.baidu.com)
+- Use NSS to validate Certificate Authorities
+- Update default Bandwidth limit to 10 GB 
+- Updated text messages -Shield scripts and error messages
+- Improve High Availability (2 icap servers)
+
+### Bug Fixes
+
+- fixed: Google drive is not working with shield
+- fixed: Possible fixes for broken sites
+- Pre-installation checks - ubuntu 18.04 update
+- Intelligent isolation - Do not allow to delete categories
 
 ## [Prod:19.02.1-Build-492.5] - 14-03-2019
 
