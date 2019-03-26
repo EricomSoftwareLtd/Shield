@@ -74,7 +74,7 @@ def writeToEnv(proxy, port, username, password, exceptions, flag):
         filepointer.write('HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
         filepointer.write('FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
-        if len(exceptions) > 0:
+        if exceptions:
             filepointer.write('NO_PROXY="{}"\n'.format(exceptions))
         filepointer.close()
 
@@ -100,7 +100,7 @@ def writeToBashrc(proxy, port, username, password, exceptions, flag):
         filepointer.write('export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
         filepointer.write('export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
-        if len(exceptions) > 0:
+        if exceptions:
             filepointer.write('export NO_PROXY="{}"\n'.format(exceptions))
         filepointer.close()
 
@@ -124,7 +124,7 @@ def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
             http_url = make_proxy_url_string(proxy, port, username, password)
             https_url = make_proxy_url_string(proxy, port, username, password, 'https')
             conf_str = 'Environment="HTTP_PROXY={0}" "HTTPS_PROXY={1}"'.format(http_url, https_url)
-            if len(exceptions) > 0:
+            if exceptions:
                 conf_str += ' "NO_PROXY={}"\n'.format(exceptions)
             else:
                 conf_str += '\n'
