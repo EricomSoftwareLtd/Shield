@@ -62,9 +62,21 @@ docker_gwbridge
 
 `docker network inspect docker_gwbridge --format '{{range $k, $v := index .IPAM.Config 0}}{{.| printf "%s: %s " $k}}{{end}}'`
 
-### 6. Start Shield and Recreate your cluster
+### 6. Change Consul Settings in Yaml for single mode:
+
+    consul-server:
+        image: 'securebrowsing/shield-configuration:190314-08.02-3983'
+        networks:
+            - shield
+        deploy:
+            mode: replicated   #single node
+            replicas: 5        #single node
+            #mode: global      #multi node
+
+### 7. Start Shield and Recreate your cluster
 
 ```bash
 shield-start
 ```
-Use add-node.sh to add all the cluster nodes
+
+**Use add-node.sh to add all the cluster nodes**
