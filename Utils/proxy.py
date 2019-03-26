@@ -54,7 +54,7 @@ def writeToApt(proxy, port, username, password, flag):
 
 # This function writes to the environment file
 # Fist deletes the lines containng http:// , https://, ftp://
-def writeToEnv(proxy, port, username, password, flag):
+def writeToEnv(proxy, port, username, password, exceptions, flag):
     # find and delete line containing http://, httpd://, ftp://
     with open(env_, "r+") as opened_file:
         lines = opened_file.readlines()
@@ -74,11 +74,13 @@ def writeToEnv(proxy, port, username, password, flag):
         filepointer.write('HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
         filepointer.write('FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+        if len(exceptions) > 0:
+            filepointer.write('NO_PROXY="{}"\n'.format(exceptions))
         filepointer.close()
 
 
 # This function will write to the
-def writeToBashrc(proxy, port, username, password, flag):
+def writeToBashrc(proxy, port, username, password, exceptions, flag):
     # find and delete http:// , https://, ftp://
     with open(bash_, "r+") as opened_file:
         lines = opened_file.readlines()
@@ -98,6 +100,8 @@ def writeToBashrc(proxy, port, username, password, flag):
         filepointer.write('export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
         filepointer.write('export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+        if len(exceptions) > 0:
+            filepointer.write('export NO_PROXY="{}"\n'.format(exceptions))
         filepointer.close()
 
 
@@ -145,8 +149,8 @@ def set_proxy(flag):
         if password == '':
             password = None
     writeToApt(proxy, port, username, password, flag)
-    writeToEnv(proxy, port, username, password, flag)
-    writeToBashrc(proxy, port, username, password, flag)
+    writeToEnv(proxy, port, username, password, exceptions, flag)
+    writeToBashrc(proxy, port, username, password, exceptions, flag)
     writeDockerServiceConfig(proxy, port, username, password, exceptions, flag)
 
 
