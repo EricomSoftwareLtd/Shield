@@ -89,7 +89,7 @@ while true; do
             export AUTO=true
             $ES_PATH/update.sh "$FORCE_UPDATE"
         else
-            echo "Not running update (I'm not the leader)"
+            echo "This process must be executed on a leader node. Process cannot be completed."
         fi
     fi
     if [ "$FORCE_CHECK" == true ]; then

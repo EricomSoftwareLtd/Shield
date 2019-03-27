@@ -90,7 +90,7 @@ class AddNodeExecutor(object):
         help_arr = output.decode('ASCII').split('\n')
         print('Usage {} [OPTIONS]'.format(app_name))
         print('Options:')
-        print('  --verbose Switch between verbose and short output')
+        print('  --verbose Select between short or more detailed output')
         print("  --prepare  Execute prepare node")
         print("\n".join(help_arr[3:]))
 
@@ -148,7 +148,7 @@ class AddNodeExecutor(object):
 
         if self.prepare:
             self.run_node_prepare()
-            print('Nodes prepared to be shield. Please type ericom password.')
+            print('Nodes are being prepared for Shield. Please enter ericom password.')
 
         self.execute_add_node()
 

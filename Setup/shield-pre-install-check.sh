@@ -82,7 +82,7 @@ if ! declare -f install_docker >/dev/null; then
             echo " ******* docker-engine $DOCKER_VERSION is already installed"
         fi
         if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-            log_message "Failed to Install/Update Docker, Exiting!"
+            log_message "Failed to Install/Update Docker, exiting"
             exit -1
         fi
     }
@@ -97,7 +97,7 @@ if ! declare -f docker_login >/dev/null; then
             if [ $? == 0 ]; then
                 echo "Login Succeeded!"
             else
-                log_message "Cannot Login to docker, Exiting!"
+                log_message "Cannot Login to docker, exiting"
                 exit -1
             fi
         fi

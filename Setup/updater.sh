@@ -16,7 +16,7 @@ ES_PATH="/usr/local/ericomshield"
 if [ -d "$ES_PATH" ]; then
     cd "$ES_PATH"
 else
-    echo "ericomshield directory not found, please install the product first."
+    echo "ericomshield directory was not found. Please install the product first."
     exit
 fi
 
