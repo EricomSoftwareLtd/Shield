@@ -38,19 +38,19 @@ shield-stop
 ### 2. Leave the swarm on all nodes. This will stop swarm tasks and disable swarm multi-host overlay networking on the node:
 
 ```bash
-docker swarm leave -f
+sudo docker swarm leave -f
 ```
 
 ### 3. Remove the docker_gwbridge network:
 
 ```bash
-docker network rm docker_gwbridge
+sudo docker network rm docker_gwbridge
 ```
 
 ### 4. Recreate the docker_gwbridge network using the desired network prefix, setting the desired values:
 
 ```bash
-docker network create  \
+sudo docker network create  \
 --subnet 172.20.0.0/20 \
 --gateway 172.20.0.1 \
 -o com.docker.network.bridge.enable_icc=false \
@@ -60,7 +60,7 @@ docker_gwbridge
 
 ### 5. (Optional) Confirm the settings on docker_gwbridge:
 
-`docker network inspect docker_gwbridge --format '{{range $k, $v := index .IPAM.Config 0}}{{.| printf "%s: %s " $k}}{{end}}'`
+`sudo docker network inspect docker_gwbridge --format '{{range $k, $v := index .IPAM.Config 0}}{{.| printf "%s: %s " $k}}{{end}}'`
 
 ### 6. Change Consul Settings in Yaml for single mode:
 

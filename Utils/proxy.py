@@ -54,7 +54,7 @@ def writeToApt(proxy, port, username, password, flag):
 
 # This function writes to the environment file
 # Fist deletes the lines containng http:// , https://, ftp://
-def writeToEnv(proxy, port, username, password, flag):
+def writeToEnv(proxy, port, username, password, exceptions, flag):
     # find and delete line containing http://, httpd://, ftp://
     with open(env_, "r+") as opened_file:
         lines = opened_file.readlines()
@@ -74,11 +74,13 @@ def writeToEnv(proxy, port, username, password, flag):
         filepointer.write('HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
         filepointer.write('FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+        if exceptions:
+            filepointer.write('NO_PROXY="{}"\n'.format(exceptions))
         filepointer.close()
 
 
 # This function will write to the
-def writeToBashrc(proxy, port, username, password, flag):
+def writeToBashrc(proxy, port, username, password, exceptions, flag):
     # find and delete http:// , https://, ftp://
     with open(bash_, "r+") as opened_file:
         lines = opened_file.readlines()
@@ -98,6 +100,8 @@ def writeToBashrc(proxy, port, username, password, flag):
         filepointer.write('export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
         filepointer.write('export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
         filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+        if exceptions:
+            filepointer.write('export NO_PROXY="{}"\n'.format(exceptions))
         filepointer.close()
 
 
@@ -120,7 +124,7 @@ def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
             http_url = make_proxy_url_string(proxy, port, username, password)
             https_url = make_proxy_url_string(proxy, port, username, password, 'https')
             conf_str = 'Environment="HTTP_PROXY={0}" "HTTPS_PROXY={1}"'.format(http_url, https_url)
-            if len(exceptions) > 0:
+            if exceptions:
                 conf_str += ' "NO_PROXY={}"\n'.format(exceptions)
             else:
                 conf_str += '\n'
@@ -145,14 +149,14 @@ def set_proxy(flag):
         if password == '':
             password = None
     writeToApt(proxy, port, username, password, flag)
-    writeToEnv(proxy, port, username, password, flag)
-    writeToBashrc(proxy, port, username, password, flag)
+    writeToEnv(proxy, port, username, password, exceptions, flag)
+    writeToBashrc(proxy, port, username, password, exceptions, flag)
     writeDockerServiceConfig(proxy, port, username, password, exceptions, flag)
 
 
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
     if not username is None and not password is None:
-        return "http://{0}:{1}@{2}:{3}".format(username, password, proxy, port)
+        return "http://{0}:{1}@{2}:{3}".format(username, password.replace('$', '\$'), proxy, port)
     else:
         return "http://{0}:{1}".format(proxy, port)
 
