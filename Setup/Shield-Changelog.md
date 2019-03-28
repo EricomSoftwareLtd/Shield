@@ -11,10 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Rel-19.03:Build_500] - 2019-03-31
+## [Rel-19.03:Build_50x] - 2019-04-1
 
 ### New Features
 
+- New Virtual Appliance for Deployments (OVA) (Tech Preview)
 - Admin: Cloud: Show Deployment in the Admin (Tech Preview)
 - Admin: Cloud: Configuration of browser scaler (Tech Preview)
 - Admin: Cloud: Resources - Burst Events (Tech Preview)
