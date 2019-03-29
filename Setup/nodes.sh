@@ -57,7 +57,7 @@ while [ $# -ne 0 ]; do
                     echo
                 fi
                 echo " Adding Label '$LABEL' for Shield Node '$NODE'"
-                docker node update --label-add "${LABEL}=yes" "$NODE"
+                docker node update --label-add "${LABEL}=yes" "$NODE" >/dev/null && echo " Label ${LABEL} has been added"
                 shift
             done
             exit
@@ -76,7 +76,7 @@ while [ $# -ne 0 ]; do
             while [ $# -ne 0 ]; do
                 LABEL=$1
                 echo " Removing Label '$LABEL' from Shield Node '$NODE'"
-                docker node update --label-rm "$LABEL" "$NODE"
+                docker node update --label-rm "$LABEL" "$NODE" >/dev/null && echo " Label ${LABEL} has been removed"
                 shift
             done
             exit
