@@ -1,4 +1,4 @@
-#Build Staging:Build_502.1 on 19/03/28   #UNR#
+#Build Staging:Build_502.1 on 28/03/19
 SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_502.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:190314-08.02-3983

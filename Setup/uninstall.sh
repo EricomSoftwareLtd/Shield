@@ -10,7 +10,7 @@ function show_usage() {
     echo "Uninstall Ericom Shield"
     echo "Usage: $0 [-h] [-a]"
     echo "$0 -h : print usage"
-    echo "$0 -a : uninstall all and clean all images and volumes"
+    echo "$0 -a : uninstall and clean all images and volumes"
     exit
 }
 

@@ -20,6 +20,8 @@ fi
 ES_PATH=/usr/local/ericomshield
 cd $ES_PATH
 
+DOCKER_USER="ericomshield1"
+DOCKER_SECRET="Ericom98765$"
 NUM_EXPECTED_SERVICES=$(grep -c image docker-compose.yml)
 
 #Number of running services expected shield-browser
@@ -50,6 +52,20 @@ function get_container_tag() {
 function print_usage() {
     echo "Usage: $0 [-a | --all] [-s | --services] [-n | --nodes] [-e | --errors] [-h | --help]"
 }
+
+function docker_login() {
+    echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
+}
+
+if [ ! -d ~/.docker ]; then
+   if [ -d /root/.docker ]; then
+      CURRENT_USERNAME=$(whoami)
+      cp -r /root/.docker ~/
+      chown -R $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
+   else
+       docker_login
+   fi
+fi
 
 get_container_tag
 

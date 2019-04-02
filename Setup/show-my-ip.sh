@@ -3,7 +3,10 @@
 #####   Ericom Shield showmyIP         #####
 #######################################BH###
 
-IP=$(/sbin/ifconfig | grep 'inet addr:' | grep -v "127.0" | grep -v "172.1" | cut -d: -f2 | awk '{ print $1}')
+IP="$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')"
+if [ -z "$IP" ]; then
+    IP="$(hostname -I | cut -d' ' -f1)"
+fi
 
 echo "***********       "
 echo "                  Ericom Shield"
