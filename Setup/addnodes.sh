@@ -12,14 +12,32 @@ if ((EUID != 0)); then
     exit
 fi
 
+
+
 BRANCH="master"
 export ES_PATH=/usr/local/ericomshield
 export APP_NAME="$0"
 export ES_VER_FILE="$ES_PATH/shield-version.txt"
 export ES_PRE_CHECK_FILE="$ES_PATH/shield-pre-install-check.sh"
+DOCKER_USER="ericomshield1"
+DOCKER_SECRET="Ericom98765$"
 
 if [ -f "$ES_PATH/.esbranch" ]; then
     BRANCH=$(cat "$ES_PATH/.esbranch")
+fi
+
+function docker_login() {
+    echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
+}
+
+if [ ! -d ~/.docker ]; then
+   if [ -d /root/.docker ]; then
+      CURRENT_USERNAME=$(whoami)
+      cp -r /root/.docker ~/
+      chown -R $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
+   else
+       docker_login
+   fi
 fi
 
 cd "$ES_PATH"
