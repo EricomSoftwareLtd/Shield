@@ -1,12 +1,12 @@
-#Build Staging:Build_500 on 26/03/19  #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_500
+#Build Staging:Build_502.1 on 19/03/28   #UNR#
+SHIELD_VER=8.0.0.latest SHIELD_VER=Staging:Build_502.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:190320-13.27-4022
 shield-collector:latest shield-collector:190307-18.35-3950
-shield-elk:latest shield-elk:190312-14.21-3974
+shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190310-12.20-3962
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
 shield-authproxy:latest shield-authproxy:190320-13.27-4022
@@ -18,9 +18,9 @@ es-system-monitor:latest es-system-monitor:190310-12.20-3962
 es-core-sync:latest es-core-sync:190319-09.33-4005
 shield-admin:latest shield-admin:190326-12.31-4050
 icap-server:latest icap-server:190325-12.32-4035
-shield-cef:latest shield-cef:190320-12.21-4017
+shield-cef:latest shield-cef:190327-15.26-4059
 extproxy:latest extproxy:190310-12.20-3962
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:190318-20.39-4002
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:190328-14.03-4063
 shield-cdr-controller:latest shield-cdr-controller:190326-12.45-4051
 shield-notifier:latest shield-notifier:190325-13.42-4039
 shield-proxyless-connector:latest shield-proxyless-connector:190307-13.41-3939
