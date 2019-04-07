@@ -101,7 +101,7 @@ services:
         deploy:
             replicas: 1
             restart_policy: {condition: any}
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: [${ELK_NODE_LABEL}]}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 4GB, cpus: '2'}}
         logging:
