@@ -32,11 +32,11 @@ Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq, firewalld
 Requires: ansible >= 2.7.1, ansible < 2.8
 Requires: python-boto >= 2.25
 Requires: python-boto3 >= 1.4.6
-Requires: python34-click >= 6.7
+Requires: python36-click >= 6.7
 Requires: python-docker-py >= 1.10.6
-Requires: python34-docker-pycreds >= 0.2.1
-Requires: python34-PyYAML >= 3.11
-Requires: python34-texttable >= 1.2.1
+Requires: python36-docker-pycreds >= 0.2.1
+Requires: python36-PyYAML >= 3.11
+Requires: python36-texttable >= 1.2.1
 
 Requires(pre): /usr/sbin/useradd, /usr/sbin/usermod, /usr/bin/getent, /usr/bin/which
 Requires(postun): /usr/sbin/userdel
