@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Adblock list is not synced to farm #5826
 - don't use ext-proxy in farm mode when adblock is off
 - can't install shield on centos and redhat #5886
-
+- Authentication popup - maintain in focus w/o messages in the background #5857
 
 ## [Dev:Build_502] - 2019-03-28
 
