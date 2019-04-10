@@ -11,6 +11,38 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_503] - 2019-04-10
+
+- Safari background tab websocket force disconnect #5867
+- Farm - build 502 - browsers are being terminated #5862
+- Printing is not working #5811
+- Redirects with utf8 location don't work properly #5752
+- Severe issue at KKA's customer required reboot #5623
+- Form is not opened as expected (KKA) #5885
+- [[trouble]] QA#729084(yuchida)Shield site is blank (KKA) #5890
+- Cloud - support idle load timeout in farm #5681
+- Prepare OVA with Shield installed and all images pulled #5629
+- Prepare OVA for Shield Registry (Images and shield files) #5630
+- Resources with accepted invalid certificate don't load #5853
+- Unknown alert ID 27 #5850
+- burst event - when leaving timeout without value, the browsers are being removed #5845
+- URL is incorrect when opening a PDF file #5792
+- problem to load pages- network is slow #5562
+- Unable to display specific page (white screen) - https://biz.kddi.com/ #5796
+- ICAP to pre-publish the default categories table only once #5475
+- Safari background tab websocket force disconnect #5867
+- Farm - build 502 - browsers are being terminated #5862
+- Resources - Burst time definition #5499
+- Increase the number of domain policies supported #5736
+- Votiro - support named policy #5190
+- Admin jquery update to 3.3.1
+- No need to check health of netstar if not used #5812
+- Phishing - not display notification / warning when categotires are disabled #5820
+- Adblock list is not synced to farm #5826
+- don't use ext-proxy in farm mode when adblock is off
+- can't install shield on centos and redhat #5886
+
+
 ## [Dev:Build_502] - 2019-03-28
 
 - Printing is not working #5811
