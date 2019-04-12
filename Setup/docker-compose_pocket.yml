@@ -183,7 +183,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'SHIELD_VER=8.0.0.latest'
-            - 'SHIELD_IP=IP_ADDRESS'
+            - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'LOGSTASH_FIELDS=service=icap'
             #- 'SHIELD_WATERMARK=TRUE'
         ulimits:
@@ -356,7 +356,7 @@ services:
             - shield
         environment:
             - 'TZ=UTC'
-            - 'SHIELD_IP=IP_ADDRESS'
+            - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=webservice'
         deploy:

@@ -228,8 +228,6 @@ function prepare_yml() {
         sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g" "$ES_YML_FILE"
     fi
 
-    sed -i'' "s/IP_ADDRESS/$MY_IP/g" "$ES_YML_FILE"
-
     local TZ="$(date '+%Z')"
     sed -i'' "s#TZ=UTC#TZ=${TZ}#g" "$ES_YML_FILE"
 }
@@ -434,7 +432,7 @@ fi
 
 if [ -n "$MY_IP" ]; then
     echo "Connect swarm to $MY_IP"
-    export IP_ADDRESS="$MY_IP"
+    export SHIELD_IP_ADDRESS="$MY_IP"
 fi
 
 if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
