@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_504] - 2019-04-14
+
+- Allways use WSS
+- Updated alpine 3.9
+- OVA - shield stats doesn't display the shield IP #5889
+ Open	
+
 ## [Dev:Build_503.1] - 2019-04-10
 
 - Safari background tab websocket force disconnect #5867
