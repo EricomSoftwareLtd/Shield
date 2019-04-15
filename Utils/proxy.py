@@ -24,6 +24,7 @@ import sys
 import os.path  # for checking if file is present or not
 import subprocess
 from os import getuid
+import urllib.parse
 
 # run it as sudo
 if getuid() != 0:
@@ -43,12 +44,12 @@ docker_systemd_link = '/etc/systemd/system/multi-user.target.wants/docker.servic
 
 # This function directly writes to the apt.conf file
 def writeToApt(proxy, port, username, password, flag):
-    filepointer = open(apt_, "w")
-    if not flag:
-        filepointer.write('Acquire::http::proxy "{}";\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('Acquire::https::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('Acquire::ftp::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write('Acquire::socks::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+    with open(apt_, "w") as filepointer:
+        if not flag:
+            filepointer.write('Acquire::http::proxy "{}";\n'.format(make_proxy_url_string(proxy, port, username, password)))
+            filepointer.write('Acquire::https::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
+            filepointer.write('Acquire::ftp::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+            filepointer.write('Acquire::socks::proxy  "{}";\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
 
 
 
@@ -66,17 +67,16 @@ def writeToEnv(proxy, port, username, password, exceptions, flag):
 
     # writing starts
     if not flag:
-        filepointer = open(env_, "a")
-        filepointer.write('http_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('https_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('ftp_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write('HTTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write('socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
-        if exceptions:
-            filepointer.write('NO_PROXY="{}"\n'.format(exceptions))
-        filepointer.close()
+        with open(env_, "a") as filepointer:
+            filepointer.write("http_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password)))
+            filepointer.write("https_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'https')))
+            filepointer.write("ftp_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+            filepointer.write("HTTP_PROXY='{}'\n".format(make_proxy_url_string(proxy, port, username, password)))
+            filepointer.write("HTTPS_PROXY='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'https')))
+            filepointer.write("FTP_PROXY='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+            filepointer.write("socks_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+            if exceptions:
+                filepointer.write("NO_PROXY='{}'\n".format(exceptions))
 
 
 # This function will write to the
@@ -92,17 +92,16 @@ def writeToBashrc(proxy, port, username, password, exceptions, flag):
 
     # writing starts
     if not flag:
-        filepointer = open(bash_, "a")
-        filepointer.write('export http_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('export https_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('export ftp_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write('export HTTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password)))
-        filepointer.write('export HTTPS_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'https')))
-        filepointer.write('export FTP_PROXY="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
-        filepointer.write('export socks_proxy="{}"\n'.format(make_proxy_url_string(proxy, port, username, password, 'socks')))
-        if exceptions:
-            filepointer.write('export NO_PROXY="{}"\n'.format(exceptions))
-        filepointer.close()
+        with open(bash_, "a") as filepointer:
+            filepointer.write("export http_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password)))
+            filepointer.write("export https_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'https')))
+            filepointer.write("export ftp_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+            filepointer.write("export HTTP_PROXY='{}'\n".format(make_proxy_url_string(proxy, port, username, password)))
+            filepointer.write("export HTTPS_PROXY='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'https')))
+            filepointer.write("export FTP_PROXY='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'ftp')))
+            filepointer.write("export socks_proxy='{}'\n".format(make_proxy_url_string(proxy, port, username, password, 'socks')))
+            if exceptions:
+                filepointer.write("export NO_PROXY='{}'\n".format(exceptions))
 
 
 def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
@@ -156,7 +155,7 @@ def set_proxy(flag):
 
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
     if not username is None and not password is None:
-        return "http://{0}:{1}@{2}:{3}".format(username, password.replace('$', '\$'), proxy, port)
+        return "http://{0}:{1}@{2}:{3}".format(urllib.parse.quote_plus(username), urllib.parse.quote_plus(password), proxy, port)
     else:
         return "http://{0}:{1}".format(proxy, port)
 
