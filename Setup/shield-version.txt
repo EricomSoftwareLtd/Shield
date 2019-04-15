@@ -1,5 +1,5 @@
-#Build Dev:Build_504 on 19/04/14
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_504
+#Build Dev:Build_504.1 on 19/04/15
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_504.1
 #docker-version 18.03.1
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190411-11.25-4092
@@ -17,7 +17,7 @@ shield-autoupdate:latest shield-autoupdate:190320-09.34-4011
 es-system-monitor:latest es-system-monitor:190310-12.20-3962
 es-core-sync:latest es-core-sync:190411-11.25-4092
 shield-admin:latest shield-admin:190411-13.19-4096
-icap-server:latest icap-server:190411-12.56-4095
+icap-server:latest icap-server:190415-07.42-4097
 shield-cef:latest shield-cef:190410-16.40-4085
 extproxy:latest extproxy:190310-12.20-3962
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190328-14.03-4063

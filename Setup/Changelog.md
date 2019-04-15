@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated alpine 3.9
 - OVA - shield stats doesn't display the shield IP #5889
  Open	
+ - Admin UI - fix the node group display #5866
+ - Can't update Firefox and Chrome with Shield #5436
+ - Windows update failed with shield #4363
+
 
 ## [Dev:Build_503.1] - 2019-04-10
 
