@@ -254,7 +254,7 @@ services:
             - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
             - 'PERF_STATS=true'
             - 'LOGSTASH_FIELDS=service=browser'
-            #- 'LANGUAGE=en-US'
+            - 'LANGUAGE=${RB_LANGUAGE}'
         networks:
             - shield
         deploy:
