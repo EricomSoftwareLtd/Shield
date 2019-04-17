@@ -9,14 +9,86 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Prod:19.01.1-Build-475.4] - 07-02-2019
+## [Unreleased]
+
+## [Rel-19.04:Build_502.1] - 2019-04-07
+
+### New Features
+
+- New Virtual Appliance for Deployments (OVA) (Tech Preview)
+- Admin: Cloud: Show Deployment in the Admin (Tech Preview)
+- Admin: Cloud: Configuration of browser scaler (Tech Preview)
+- Admin: Cloud: Resources - Burst Events (Tech Preview)
+- Cloud: Helm Package for Shield (Management and Proxy) (Tech Preview)
+- Cloud: Helm Package for Shield (Log) (Tech Preview)
+
+Alpha Ready:
+
+- CDR: SASA Integration (Tech Preview)
+- CDR: Support Named Policy (Tech Preview)
 
 ### Enhancement
+
+- Add logging file and size limitations for all services
+- Allow setting the locale in Electron/Chromium
+- Update Rendering Engine to 4.0.8 to include security fix
+- Added support for custom mouse cursor (e.g. Map.baidu.com)
+- Use NSS to validate Certificate Authorities
+- Update default Bandwidth limit to 10 GB
+- Updated text messages -Shield scripts and error messages
+- Improve High Availability (2 icap servers)
+
+### Bug Fixes
+
+- fixed: Google drive is not working with shield
+- fixed: Possible fixes for broken sites
+- Pre-installation checks - ubuntu 18.04 update
+- Intelligent isolation - Do not allow to delete categories
+
+## [Prod:19.02.1-Build-492.5] - 14-03-2019
+
+- AdminUI: Strings not displayed properly in Policy Table
+- AdminUI: Translation updates
+- Installer: Pre-installation checks - ubuntu 18.04 update
+- Installer: dist-upgrade - have an option to cancel it
+- Installer: Enable SpellCheck tool update
+
+### New Features 19.02
+
+- New Policy Option for Printing:
+  - Disabled: Printing is Disabled
+  - Protected: Printing is Enabled if Download is Enabled/Sanitize
+  - Enable: Printing is Enabled (regardless of Download Policy)
+- License enforcement for intelligent isolation
+- Stay in shield on Redirect Mode
+- Admin: Configuration of Browser Scaler (Tech Preview)
+- Cloud: Show farm sessions data on Admin UI Dashboard (Tech Preview)
+
+### Enhancement 19.02
+
+- Print PDF directly on IE
+- Changes in End User Shield Indicator
+- Inherit Client Geo Location to the Remote Browser
+- Apply bandwidth limit to sessions
+- Alert: Browser Farm is not available
+
+### Bug Fixes 19.02
+
+- fixed: Custom Translations are lost during update
+- fixed: Tab Limit should be based on GUID when no Auth
+- fixed: addnode fix increase the time + add tests to weakup swarm if needed
+- fixed: status.sh -e is not working
+- fixed: Copy/ Paste on MAC doesn't work properly
+- fixed:  Override doesn't work on categories
+
+## [Prod:19.01.1-Build-475.4] - 07-02-2019
+
+### Enhancement 19.01.1
 
 - Multiple Syslog Servers Support
 - New Translations for Japanese
 
-### Bug Fixes
+### Bug Fixes 19.01.1
 
 - Fixed: status.sh -e is not working
 - Fixed: Add Node doesnt work sometimes
@@ -25,7 +97,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Prod:19.01-Build-475.1] - 03-02-2019
 
-### New Features
+### New Features 19.01
 
 - Categories (production ready)
 - External Browser Farm (on-prem, or Cloud-based) - Tech Preview
@@ -33,7 +105,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Intelligent Isolation Mode
 - New File Sanitization Votiro Version
 
-### Enhancement
+### Enhancement 19.01
 
 - Categories are Enabled by default to support the Intelligent Isolation mode
 - Chinese inputs support
@@ -44,7 +116,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Category - search
 - Remote Browser Auto-kill
 
-### Bug Fixes
+### Bug Fixes 19.01
 
 - Fixed: Failure occurs when returning from NIC down/up
 - Fixed: Multi node - when one node is shut down ./status.sh -n doesn't work
