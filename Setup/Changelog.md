@@ -11,12 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_505] - 2019-04-15
+## [Dev:Build_505.1] - 2019-04-15
 
 - Computer usernames will not be counted for license #5914
 - Allow adding exceptions in proxy.py #5742
 - add shield-cat and load-test to pac file #5837
 - CDR - Tenant agnostic #1 #5665
+- Proxy-server out of memory #5933
 
 ## [Dev:Build_504] - 2019-04-14
 
