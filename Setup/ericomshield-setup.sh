@@ -22,6 +22,7 @@ LOGFILE="$ES_PATH/ericomshield.log"
 STACK_NAME=shield
 DOCKER_DEFAULT_VERSION="18.03.1"
 DOCKER_VERSION=""
+DOCKER_VERSION_STRING=""
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -465,6 +466,7 @@ function install_docker() {
 
     if [ -f "$ES_VER_FILE" ]; then
         DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+        DOCKER_VERSION_STRING="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f3)"        
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
         DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
@@ -489,8 +491,11 @@ function install_docker() {
 
         apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
-        apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION" "docker-ce-cli=$DOCKER_VERSION" containerd.io &&
-        apt-mark hold docker-ce
+        if [ "$DOCKER_VERSION_STR" = "" ] && [ -x "/usr/bin/docker" ]; then
+          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && apt-mark hold docker-ce
+        else
+          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STR" "docker-ce-cli=$DOCKER_VERSION_STR" containerd.io && apt-mark hold docker-ce
+        fi
         sleep 5
         systemctl restart docker
         sleep 5
