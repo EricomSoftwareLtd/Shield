@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_506] - 2019-04-18
+
+- Setup.sh seems to send pre-test results also when answered no #5956
+- Load test fail - KKA issue #5962
+
 ## [Dev:Build_505.1] - 2019-04-15
 
 - Computer usernames will not be counted for license #5914
