@@ -27,6 +27,7 @@ DOCKER_SECRET="Ericom98765$"
 ##########################################################################################################LO############
 export SUB_NET="10.20.0.0/16"
 export SHIELD_PROXY_PORT="3128"
+export ELK_NODE_LABEL="node.labels.management==yes"
 
 if [ -f "$ES_PATH/customer.env" ]; then
     source "$ES_PATH/customer.env"

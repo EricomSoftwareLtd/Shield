@@ -763,7 +763,7 @@ function am_i_leader() {
 function check_registry() {
     if [ ! -z $SHIELD_REGISTRY ]; then
         log_message "Testing the registry..."
-        if ! docker run --rm "$SHIELD_REGISTRY/alpine:latest" "/bin/true"; then
+        if ! docker run --rm "$SHIELD_REGISTRY/library/alpine:latest" "/bin/true"; then
             log_message "Registry test failed"
             return 1
         else
