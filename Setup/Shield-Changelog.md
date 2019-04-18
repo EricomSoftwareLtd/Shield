@@ -13,10 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### New Features
 
-- New Policy Option for Printing: 
-  -	Disabled: Printing is Disabled
-  -	Protected: Printing is Enabled if Download is Enabled/Sanitize
-  -	Enable: Printing is Enabled (regardless of Download Policy)
+- New Policy Option for Printing:
+  -Disabled: Printing is Disabled
+  -Protected: Printing is Enabled if Download is Enabled/Sanitize
+  -Enable: Printing is Enabled (regardless of Download Policy)
 - License enforcement for intelligent isolation #5323
 - Stay in shield on Redirect Mode
 - Admin: Configuration of Browser Scaler (Dynamic)
