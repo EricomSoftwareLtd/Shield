@@ -9,22 +9,60 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Prod:19.02-Build-490] - 26-02-2019
+## [Rel-19.04:Build_502.1] - 2019-04-07
 
 ### New Features
 
-- New Policy Option for Printing:
-  -Disabled: Printing is Disabled
-  -Protected: Printing is Enabled if Download is Enabled/Sanitize
-  -Enable: Printing is Enabled (regardless of Download Policy)
-- License enforcement for intelligent isolation #5323
-- Stay in shield on Redirect Mode
-- Admin: Configuration of Browser Scaler (Dynamic)
-- Autofill User Name/Password (Tech Preview)
-- Crystal Rendering Mode Mode (Tech Preview)
-- Cloud: Show farm sessions data on Admin UI Dashboard (Tech Preview)
+- New Virtual Appliance for Deployments (OVA) (Tech Preview)
+- Admin: Cloud: Show Deployment in the Admin (Tech Preview)
+- Admin: Cloud: Configuration of browser scaler (Tech Preview)
+- Admin: Cloud: Resources - Burst Events (Tech Preview)
+- Cloud: Helm Package for Shield (Management and Proxy) (Tech Preview)
+- Cloud: Helm Package for Shield (Log) (Tech Preview)
+
+Alpha Ready:
+
+- CDR: SASA Integration (Tech Preview)
+- CDR: Support Named Policy (Tech Preview)
 
 ### Enhancement
+
+- Add logging file and size limitations for all services
+- Allow setting the locale in Electron/Chromium
+- Update Rendering Engine to 4.0.8 to include security fix
+- Added support for custom mouse cursor (e.g. Map.baidu.com)
+- Use NSS to validate Certificate Authorities
+- Update default Bandwidth limit to 10 GB
+- Updated text messages -Shield scripts and error messages
+- Improve High Availability (2 icap servers)
+
+### Bug Fixes
+
+- fixed: Google drive is not working with shield
+- fixed: Possible fixes for broken sites
+- Pre-installation checks - ubuntu 18.04 update
+- Intelligent isolation - Do not allow to delete categories
+
+## [Prod:19.02.1-Build-492.5] - 14-03-2019
+
+- AdminUI: Strings not displayed properly in Policy Table
+- AdminUI: Translation updates
+- Installer: Pre-installation checks - ubuntu 18.04 update
+- Installer: dist-upgrade - have an option to cancel it
+- Installer: Enable SpellCheck tool update
+
+### New Features 19.02
+
+- New Policy Option for Printing:
+  - Disabled: Printing is Disabled
+  - Protected: Printing is Enabled if Download is Enabled/Sanitize
+  - Enable: Printing is Enabled (regardless of Download Policy)
+- License enforcement for intelligent isolation
+- Stay in shield on Redirect Mode
+- Admin: Configuration of Browser Scaler (Tech Preview)
+- Cloud: Show farm sessions data on Admin UI Dashboard (Tech Preview)
+
+### Enhancement 19.02
 
 - Print PDF directly on IE
 - Changes in End User Shield Indicator
@@ -32,9 +70,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Apply bandwidth limit to sessions
 - Alert: Browser Farm is not available
 
+### Bug Fixes 19.02
 
-### Bug Fixes
-
+- fixed: Custom Translations are lost during update
 - fixed: Tab Limit should be based on GUID when no Auth
 - fixed: addnode fix increase the time + add tests to weakup swarm if needed
 - fixed: status.sh -e is not working
