@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-19.04
+# YML file for Rel-19.05
 
 services:
     dns:
@@ -171,6 +171,7 @@ services:
             resources: {limits: {memory: 2GB, cpus: '2'}}
         environment:
             - 'TZ=UTC'
+            # eth2 for Dev
             - "SHIELD_SUBNET=${SUB_NET}"
             - 'RUN_AGENT=yes'
             - 'LOGSTASH_FIELDS=service=consulclient'
@@ -214,7 +215,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'SHIELD_VER=8.0.0.latest'
-            - 'SHIELD_IP=IP_ADDRESS'
+            - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'LOGSTASH_FIELDS=service=icap'
             #- 'SHIELD_WATERMARK=TRUE'
         ulimits:
@@ -253,7 +254,7 @@ services:
             - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
             - 'PERF_STATS=true'
             - 'LOGSTASH_FIELDS=service=browser'
-            #- 'LANGUAGE=en-US'
+            - 'LANGUAGE=${RB_LANGUAGE}'
         networks:
             - shield
         deploy:
@@ -535,7 +536,7 @@ services:
             - shield
         environment:
             - 'TZ=UTC'
-            - 'SHIELD_IP=IP_ADDRESS'
+            - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=webservice'
         deploy:

@@ -13,7 +13,7 @@ app_name = "addnodes.sh"
 if "APP_NAME" in os.environ:
     app_name = os.environ["APP_NAME"]
 
-es_versions_file = os.path.join(es_path,"shield-version.txt")
+es_versions_file = os.path.join(es_path, "shield-version.txt")
 if "ES_VER_FILE" in os.environ:
     es_versions_file = os.environ['ES_VER_FILE']
 
@@ -40,9 +40,11 @@ def run_sshkey_provider(container_name):
                 {1} sshkey'''.format(es_path, container_name)
     res = subprocess.run(cmd, shell=True)
     if res.returncode != 0:
-        subprocess.run("cd /usr/local/ericomshield && rm -f ericomshield_key*", shell=True)
+        subprocess.run(
+            "cd /usr/local/ericomshield && rm -f ericomshield_key*", shell=True)
         print("Error provide sshkey. Please try run 'sudo ./update.sh sshkey'")
         exit(res.returncode)
+
 
 class AddNodeExecutor(object):
     """
@@ -84,7 +86,8 @@ class AddNodeExecutor(object):
             return "securebrowsing/shield-autoupdate:180916-13.48-2835"
 
     def show_container_help(self):
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, " addnode --help", "")
+        cmd = run_container_template.format(
+            es_path, es_precheck_file_path, app_name, self.container, " addnode --help", "")
 
         output = subprocess.check_output(cmd, shell=True)
         help_arr = output.decode('ASCII').split('\n')
@@ -94,13 +97,13 @@ class AddNodeExecutor(object):
         print("  --prepare  Execute prepare node")
         print("\n".join(help_arr[3:]))
 
-
     def execute_add_node(self):
         args = ""
         if self.verbose:
             args += " --verbose"
         args += " addnode {}".format(" ".join(self.cmd[1:]))
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, args, " --network=host ")
+        cmd = run_container_template.format(
+            es_path, es_precheck_file_path, app_name, self.container, args, " --network=host ")
 
         res = subprocess.run(cmd, shell=True)
         if res.returncode != 0:
@@ -114,13 +117,14 @@ class AddNodeExecutor(object):
     def run_node_prepare(self):
         index = -1
         if "-ips" in self.cmd:
-           index = self.cmd.index('-ips')
+            index = self.cmd.index('-ips')
 
         if "--ips" in self.cmd:
-           index = self.cmd.index('--ips')
+            index = self.cmd.index('--ips')
 
         if index > 0:
-            extend_command = " prepare {}".format(" ".join(self.cmd[index:(index + 2)]))
+            extend_command = " prepare {}".format(
+                " ".join(self.cmd[index:(index + 2)]))
         else:
             extend_command = ' prepare '
 
@@ -128,11 +132,13 @@ class AddNodeExecutor(object):
             extend_command = " --verbose " + extend_command
 
         if "-ip" in self.cmd:
-            ip_indx = [i for i, x in enumerate(self.cmd) if self.cmd[i] == '-ip']
+            ip_indx = [i for i, x in enumerate(
+                self.cmd) if self.cmd[i] == '-ip']
             for index in ip_indx:
                 extend_command += " ".join(self.cmd[index:(index + 2)])
                 extend_command += " "
-        cmd = run_container_template.format(es_path, es_precheck_file_path, app_name, self.container, extend_command, "")
+        cmd = run_container_template.format(
+            es_path, es_precheck_file_path, app_name, self.container, extend_command, "")
 
         res = subprocess.run(cmd, shell=True)
         if res.returncode != 0:
@@ -151,8 +157,6 @@ class AddNodeExecutor(object):
             print('Nodes are being prepared for Shield. Please enter ericom password.')
 
         self.execute_add_node()
-
-
 
 
 def main(args):

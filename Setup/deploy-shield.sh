@@ -28,6 +28,7 @@ DOCKER_SECRET="Ericom98765$"
 export SUB_NET="10.20.0.0/16"
 export SHIELD_PROXY_PORT="3128"
 export ELK_NODE_LABEL="node.labels.management==yes"
+export RB_LANGUAGE="en-US"
 
 if [ -f "$ES_PATH/customer.env" ]; then
     source "$ES_PATH/customer.env"
@@ -80,7 +81,7 @@ if [ -z "$JENKINS" ]; then
         echo "Ericom Shield has not been configured properly. Please run setup.sh."
 #        exit 1  # Do not Exit, Happened several times false positive
     else
-        IP_ADDRESS="$(cat "$ES_MY_IP_FILE" | grep -oP '\d+\.\d+\.\d+\.\d+')"
+        export SHIELD_IP_ADDRESS="$(cat "$ES_MY_IP_FILE" | grep -oP '\d+\.\d+\.\d+\.\d+')"
     fi
 
     if ! systemctl start docker; then
@@ -121,10 +122,10 @@ function test_swarm_exists() {
 }
 
 function init_swarm() {
-    if [ -z "$IP_ADDRESS" ]; then
+    if [ -z "$SHIELD_IP_ADDRESS" ]; then
         result=$( (retry_on_failure docker swarm init --advertise-addr $NETWORK_INTERFACE --task-history-limit 0) 2>&1)
     else
-        result=$( (retry_on_failure docker swarm init --advertise-addr $IP_ADDRESS --task-history-limit 0) 2>&1)
+        result=$( (retry_on_failure docker swarm init --advertise-addr $SHIELD_IP_ADDRESS --task-history-limit 0) 2>&1)
     fi
 
     if [[ $result =~ 'already part' ]]; then
@@ -177,7 +178,7 @@ ES_YML_FILE=docker-compose.yml
 SWARM=$(test_swarm_exists)
 if [ -z "$SWARM" ]; then
     echo '####################### Start create swarm #####################'
-    if [ -z "$IP_ADDRESS" ]; then
+    if [ -z "$SHIELD_IP_ADDRESS" ]; then
         NETWORK_INTERFACE=$(get_right_interface)
         for int in $NETWORK_INTERFACE; do
             NETWORK_INTERFACE=$int
