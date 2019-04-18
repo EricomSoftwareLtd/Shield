@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - burst event - when leaving timeout without value, the browsers are being removed #5845
 - URL is incorrect when opening a PDF file #5792
 - problem to load pages- network is slow #5562
-- Unable to display specific page (white screen) - https://biz.kddi.com/ #5796
+- Unable to display specific page (white screen) - <https://biz.kddi.com/> #5796
 - ICAP to pre-publish the default categories table only once #5475
 - Safari background tab websocket force disconnect #5867
 - Farm - build 502 - browsers are being terminated #5862
@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_502] - 2019-03-28
 
 - Printing is not working #5811
-- Always provide file password (if exists) 
+- Always provide file password (if exists)
 
 ## [Dev:Build_501] - 2019-03-26
 
@@ -58,9 +58,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cloud: Show Browser Farm Version #5686
 - Translation in Admin is not ok if Language is not English (en-us) #5770
 - Show Votiro Version in the Admin (+recommended) #5462
-- Default rule to block aws metadata site - 169.254.169.254 
+- Default rule to block aws metadata site - 169.254.169.254
 - Allow setting the locale in Electron/Chromium #5597
-- Fixed Burst issues 
+- Fixed Burst issues
 - Updated translation files #5722
 - Organize Cloud&K8s settings in the admin #5574
 - Bypass Sending Alert Mail and Upstream Proxy #5780
@@ -94,9 +94,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_495.1] - 2019-03-13
 
 - Fix consul address in auth proxy
-- Update Bandwidth to 10 GB 
+- Update Bandwidth to 10 GB
 - Fix dns consul-agent discovery in kubernetes mode
-- Cdr named policy 5190 - backend 
+- Cdr named policy 5190 - backend
 - More strings updates for 19.02.1
 - Strings not displayed properly #5706
 - Pre-installation checks - ubuntu 18.04 update #5231
@@ -105,11 +105,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - File Transfer reports - rename columns #3413
 - Allow setting the locale in Electron/Chromium #5597
 
-
 ## [Dev:Build_494] - 2019-03-10
 
 - Update to alpine 3.9 to fix curl security issue
-- Fixed icap in Farm 
+- Fixed icap in Farm
 
 ## [Dev:Build_493] - 2019-03-07
 
@@ -139,10 +138,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_492] - 2019-02-27
 
-- updated version 
+- updated version
 
 ## [Dev:Build_490.2] - 2019-02-27
-
 
 - ToGo - Append domain to UPN #5585
 - Browser can't find Consul cef-privatekey #5577
@@ -159,7 +157,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Download with preview mode is not working #5602
 - Zoom in/out is not working with shield on Dev:Build_490.1 #5599
 - CEF fail to run on Kubernetes
-
 
 ## [Dev:Build_489] - 2019-02-24
 
@@ -180,7 +177,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changes in End User Shield Indicator #5543
 - farm scaler values are not being update #5533
 - External-Farm Address should be trimmed
-
 
 ## [Dev:Build_486] - 2019-02-17
 
@@ -3055,12 +3051,12 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 
 ## [17.38-Build:173] - 2017-09-18
 
-- **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
+- **(*) New system defaults - system_capacity 40, with min_available_pool 20**
 - Log cleanup for ICAP, Broker and CEF
 - send all AltGr combinations as unicode - fix for @ key #783
 - Admin reports run button refreshes the iframe  #772
 - Added more built-in reports #781 #780 #761 #735
-- **(*) Support non-english file name download  #710 **
+- **(*) Support non-english file name download  #710**
 - Removed pool section from shield-stats
 - Handle case of file download with 0 size  #784 #774
 - **(*) Added web service component to provide certificate and PAC file #782**
