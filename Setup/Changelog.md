@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_507] - 2019-04-23
+
+- Do not count licenses for Applications #5964
+- [SM-Feedback] Blocked applications vs categories #10 #5759
+- page is not displayed when it is blocked/ white and using proxyless mode #5002
+- 19.04 is slower than old shield #5965
+
 ## [Dev:Build_506] - 2019-04-18
 
 - Setup.sh seems to send pre-test results also when answered no #5956
