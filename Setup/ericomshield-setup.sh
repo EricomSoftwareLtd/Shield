@@ -502,7 +502,7 @@ function install_docker() {
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
-    if [ "$(docker version | grep -c Version)" -le 1 ]; then
+    if [ "$(docker version | grep -c $DOCKER_VERSION )" -le 1 ]; then
         failed_to_install "Failed to Install/Update Docker, exiting"
     fi
 }
