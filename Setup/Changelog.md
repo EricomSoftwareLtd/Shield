@@ -13,9 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_508] - 2019-04-25
 
-- Log invalid characters in url path (ICAP)
+- Update Docker to latest (18.09.5)
 - Do npm cache clean --force as a part of the cleanup process - blackduck 
-
+- Log invalid characters in url path (ICAP)
 
 ## [Dev:Build_507] - 2019-04-23
 
