@@ -184,6 +184,7 @@ fi
 %systemd_post media-containershm.mount
 systemctl enable media-containershm.mount >/dev/null 2>&1 || :
 systemctl start media-containershm.mount >/dev/null 2>&1 || :
+systemctl enable docker.service >/dev/null 2>&1 || :
 
 %sysctl_apply "%{_sysctldir}/ericom_shield.conf"
 
