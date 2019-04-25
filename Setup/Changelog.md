@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_509] - 2019-04-25
+
+- [[Investigate]] QA#731188 Docker does not start service on CentOS #316
+- OVA - addnodes is missing #5949
+- Admin - tooltip is too close to the field name #5992
+- new admin UI - spinner indicator spins until refresh #5983
+- new admin UI - add new policy - comment #5982
+- Admin code cleanup #5917
+- Update Admin to work on newer chrome #5670
+- New admin UI - Applications table - can't delete applications #5984
+- BTL - Autofill - sites that doesn't work partial fix #5548
+- AutoFill feature Main issue partial fix #5119
+
 ## [Dev:Build_508] - 2019-04-25
 
 - Update Docker to latest (18.09.5)
