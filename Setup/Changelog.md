@@ -20,7 +20,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - new admin UI - add new policy - comment #5982
 - Admin code cleanup #5917
 - Update Admin to work on newer chrome #5670
-
+- New admin UI - Applications table - can't delete applications #5984
+- BTL - Autofill - sites that doesn't work partial fix #5548
+- AutoFill feature Main issue partial fix #5119
 
 ## [Dev:Build_508] - 2019-04-25
 
