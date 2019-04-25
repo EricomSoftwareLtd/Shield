@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_508] - 2019-04-25
+
+- Log invalid characters in url path (ICAP)
+- Do npm cache clean --force as a part of the cleanup process - blackduck 
+
+
 ## [Dev:Build_507] - 2019-04-23
 
 - Do not count licenses for Applications #5964
