@@ -712,6 +712,7 @@ function get_shield_files() {
     cp ~/show-my-ip.sh "$ES_PATH/show-my-ip.sh"
     curl -s -S -o addnodes.sh "$ES_repo_addnodes"
     chmod +x addnodes.sh
+    curl -s -S -o addnodes.py "$ES_repo_addnodespy"
     curl -s -S -o nodes.sh "$ES_repo_shield_nodes"
     chmod +x nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
