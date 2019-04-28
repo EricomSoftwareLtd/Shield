@@ -587,8 +587,6 @@ function prepare_yml() {
     if [ ! -z "$SHIELD_REGISTRY" ]; then
         sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g" $ES_YML_FILE
     fi
-    #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
-    sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 
     local TZ="$( (test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
     sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
@@ -722,6 +720,7 @@ function get_shield_files() {
     cp ~/show-my-ip.sh "$ES_PATH/show-my-ip.sh"
     curl -s -S -o addnodes.sh "$ES_repo_addnodes"
     chmod +x addnodes.sh
+    curl -s -S -o addnodes.py "$ES_repo_addnodespy"
     curl -s -S -o nodes.sh "$ES_repo_shield_nodes"
     chmod +x nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
@@ -771,7 +770,7 @@ function am_i_leader() {
 function check_registry() {
     if [ ! -z $SHIELD_REGISTRY ]; then
         log_message "Testing the registry..."
-        if ! docker run --rm "$SHIELD_REGISTRY/alpine:latest" "/bin/true"; then
+        if ! docker run --rm "$SHIELD_REGISTRY/library/alpine:latest" "/bin/true"; then        
             log_message "Registry test failed"
             return 1
         else
@@ -959,7 +958,7 @@ fi
 
 if [ -n "$MY_IP" ]; then
     echo "Connect swarm to $MY_IP"
-    export IP_ADDRESS="$MY_IP"
+    export SHIELD_IP_ADDRESS="$MY_IP"
 fi
 
 if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then
