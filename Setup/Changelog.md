@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_509] - 2019-04-25
+## [Dev:Build_509.1] - 2019-04-28
 
 - [[Investigate]] QA#731188 Docker does not start service on CentOS #316
 - OVA - addnodes is missing #5949
@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New admin UI - Applications table - can't delete applications #5984
 - BTL - Autofill - sites that doesn't work partial fix #5548
 - AutoFill feature Main issue partial fix #5119
+- new admin UI - named policy table - Can’t add new name policy #5986
 
 ## [Dev:Build_508] - 2019-04-25
 

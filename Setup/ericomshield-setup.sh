@@ -2,7 +2,7 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-ES_SETUP_VER="Setup:19.05-2504"
+ES_SETUP_VER="Setup:19.05-2804"
 
 function usage() {
     echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [-v|--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--no-dist-upgrade] [--help]"
@@ -491,10 +491,10 @@ function install_docker() {
 
         apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
-        if [ "$DOCKER_VERSION_STR" = "" ] && [ -x "/usr/bin/docker" ]; then
+        if [ "$DOCKER_VERSION_STRING" = "" ]; then
           apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && apt-mark hold docker-ce
         else
-          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STR" "docker-ce-cli=$DOCKER_VERSION_STR" containerd.io && apt-mark hold docker-ce
+          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STRING" "docker-ce-cli=$DOCKER_VERSION_STRING" containerd.io && apt-mark hold docker-ce
         fi
         sleep 5
         systemctl restart docker
@@ -502,8 +502,11 @@ function install_docker() {
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
-    if [ "$(docker version | grep -c $DOCKER_VERSION )" -le 1 ]; then
+    if [ ! -x /usr/bin/docker ]; then
         failed_to_install "Failed to Install/Update Docker, exiting"
+    fi
+    if [ "$(docker version | grep -c $DOCKER_VERSION )" -le 1 ]; then
+        log_message "Warning, Failed to Update Docker Version to: $DOCKER_VERSION"
     fi
 }
 
