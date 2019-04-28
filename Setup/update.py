@@ -189,7 +189,7 @@ class UpdateExecutor():
                 .format(output,self.container, self.get_verbose(), self.docker_version_to_upgrade, os.environ['ES_PATH'])
         subprocess.run(cmd, shell=True)
 
-        cmd = "apt-get install --allow-downgrades -y docker-ce={}".format(self.docker_version_to_upgrade)
+        cmd = "apt-get install --allow-downgrades --allow-change-held-packages -y docker-ce={}".format(self.docker_version_to_upgrade)
         subprocess.run(cmd, shell=True)
 
     def stop_shield(self, resource):
