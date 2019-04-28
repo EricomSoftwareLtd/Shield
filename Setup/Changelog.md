@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_510] - 2019-04-28
+
+- Download with Votiro cloud is not working #5967
+- Dashboard - dynamic node table #5824
+- Alert: System Capacity has been reached #5492
+- Docker update use wrong version name #5997
+
 ## [Dev:Build_509.1] - 2019-04-28
 
 - [[Investigate]] QA#731188 Docker does not start service on CentOS #316
