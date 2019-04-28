@@ -1,5 +1,5 @@
-#Build Dev:Build_509 on 19/04/25
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_509
+#Build Dev:Build_509.1 on 19/04/28
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_509.1
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-xenial
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190418-11.14-4108
@@ -16,7 +16,7 @@ speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190320-09.34-4011
 es-system-monitor:latest es-system-monitor:190424-04.58-4113
 es-core-sync:latest es-core-sync:190424-04.58-4113
-shield-admin:latest shield-admin:190425-09.43-4120
+shield-admin:latest shield-admin:190425-15.14-4122
 icap-server:latest icap-server:190425-09.43-4120
 shield-cef:latest shield-cef:190425-09.43-4120
 extproxy:latest extproxy:190417-12.40-4105
