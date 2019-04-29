@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Reduce remote browser consul registration wait time #6007
 - Admin UI - fix the node group display #5866
-- Increased consul idle timeout - reduce load on consul 
+- Increased consul idle timeout - reduce the load on consul 
 - Pre-cache URL category by ICAP #6009
-- Network is slow message was change to SM request 
+- The network is slow message was changed to SM request 
 
 
 ## [Dev:Build_510] - 2019-04-28
