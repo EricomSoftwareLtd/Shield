@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_512] - 2019-04-30
+
+- Burst Event can be set without enable it at the admin #5856
+- "Burst Events" and "Dynamic Nodes" are no longer "Tech Preview"
+- Do not show burst event table if empty
+- Make sure named policy 'Add' button is enabled after reopening
+- Show Sasa named policies
+
 ## [Dev:Build_511] - 2019-04-29
 
 - Reduce remote browser consul registration wait time #6007
