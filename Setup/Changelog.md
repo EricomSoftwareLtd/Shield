@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_512] - 2019-04-30
+## [Dev:Build_512.1] - 2019-04-30
 
 - Burst Event can be set without enable it at the admin #5856
 - "Burst Events" and "Dynamic Nodes" are no longer "Tech Preview"
