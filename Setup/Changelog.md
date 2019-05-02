@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_513] - 2019-05-2
+
+- Admin failed to load when IPv6 is disabled #6035
+- Dynamic Nodes enabled with no dynamic farm URL #6029
+- new admin UI - add new policy - comment #5982
+- Add LANGUAGE to customer.env #5932
+- Admin dashboard - sessions table #5880
+- admin UI - fix the node group display #5866
+- Alert: System Capacity has been reached #5492
+- Admin : Configuration of browser scaler #5373
+
 ## [Dev:Build_512.1] - 2019-04-30
 
 - Burst Event can be set without enable it at the admin #5856
