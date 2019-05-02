@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Unreleased]
-
 ## [Rel-19.04:Build_502.1] - 2019-04-07
 
 ### New Features
@@ -83,12 +81,12 @@ Alpha Ready:
 
 ## [Prod:19.01.1-Build-475.4] - 07-02-2019
 
-### Enhancement 19.01.1
+### Enhancement
 
 - Multiple Syslog Servers Support
 - New Translations for Japanese
 
-### Bug Fixes 19.01.1
+### Bug Fixes
 
 - Fixed: status.sh -e is not working
 - Fixed: Add Node doesnt work sometimes
@@ -97,7 +95,7 @@ Alpha Ready:
 
 ## [Prod:19.01-Build-475.1] - 03-02-2019
 
-### New Features 19.01
+### New Features
 
 - Categories (production ready)
 - External Browser Farm (on-prem, or Cloud-based) - Tech Preview
@@ -105,7 +103,7 @@ Alpha Ready:
 - Intelligent Isolation Mode
 - New File Sanitization Votiro Version
 
-### Enhancement 19.01
+### Enhancement
 
 - Categories are Enabled by default to support the Intelligent Isolation mode
 - Chinese inputs support
@@ -116,7 +114,7 @@ Alpha Ready:
 - Category - search
 - Remote Browser Auto-kill
 
-### Bug Fixes 19.01
+### Bug Fixes
 
 - Fixed: Failure occurs when returning from NIC down/up
 - Fixed: Multi node - when one node is shut down ./status.sh -n doesn't work

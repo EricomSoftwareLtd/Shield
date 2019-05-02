@@ -11,6 +11,79 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_512.1] - 2019-04-30
+
+- Burst Event can be set without enable it at the admin #5856
+- "Burst Events" and "Dynamic Nodes" are no longer "Tech Preview"
+- Do not show burst event table if empty
+- Make sure named policy 'Add' button is enabled after reopening
+- Show Sasa named policies
+
+## [Dev:Build_511] - 2019-04-29
+
+- Reduce remote browser consul registration wait time #6007
+- Admin UI - fix the node group display #5866
+- Increased consul idle timeout - reduce the load on consul
+- Pre-cache URL category by ICAP #6009
+- The network is slow message was changed to SM request
+
+## [Dev:Build_510] - 2019-04-28
+
+- Download with Votiro cloud is not working #5967
+- Dashboard - dynamic node table #5824
+- Alert: System Capacity has been reached #5492
+- Docker update use wrong version name #5997
+
+## [Dev:Build_509.1] - 2019-04-28
+
+- [[Investigate]] QA#731188 Docker does not start service on CentOS #316
+- OVA - addnodes is missing #5949
+- Admin - tooltip is too close to the field name #5992
+- new admin UI - spinner indicator spins until refresh #5983
+- new admin UI - add new policy - comment #5982
+- Admin code cleanup #5917
+- Update Admin to work on newer chrome #5670
+- New admin UI - Applications table - can't delete applications #5984
+- BTL - Autofill - sites that doesn't work partial fix #5548
+- AutoFill feature Main issue partial fix #5119
+- new admin UI - named policy table - Canâ€™t add new name policy #5986
+
+## [Dev:Build_508] - 2019-04-25
+
+- Update Docker to latest (18.09.5)
+- Do npm cache clean --force as a part of the cleanup process - blackduck 
+- Log invalid characters in url path (ICAP)
+
+## [Dev:Build_507] - 2019-04-23
+
+- Do not count licenses for Applications #5964
+- [SM-Feedback] Blocked applications vs categories #10 #5759
+- page is not displayed when it is blocked/ white and using proxyless mode #5002
+- 19.04 is slower than old shield #5965
+
+## [Dev:Build_506] - 2019-04-18
+
+- Setup.sh seems to send pre-test results also when answered no #5956
+- Load test fail - KKA issue #5962
+
+## [Dev:Build_505.1] - 2019-04-15
+
+- Computer usernames will not be counted for license #5914
+- Allow adding exceptions in proxy.py #5742
+- add shield-cat and load-test to pac file #5837
+- CDR - Tenant agnostic #1 #5665
+- Proxy-server out of memory #5933
+
+## [Dev:Build_504] - 2019-04-14
+
+- Allways use WSS
+- Updated alpine 3.9
+- OVA - shield stats doesn't display the shield IP #5889	
+- Admin UI - fix the node group display #5866
+- Can't update Firefox and Chrome with Shield #5436
+- Windows update failed with shield #4363
+
+
 ## [Dev:Build_503.1] - 2019-04-10
 
 - Safari background tab websocket force disconnect #5867
@@ -28,7 +101,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - burst event - when leaving timeout without value, the browsers are being removed #5845
 - URL is incorrect when opening a PDF file #5792
 - problem to load pages- network is slow #5562
-- Unable to display specific page (white screen) - <https://biz.kddi.com/> #5796
+- Unable to display specific page (white screen) - https://biz.kddi.com/ #5796
 - ICAP to pre-publish the default categories table only once #5475
 - Safari background tab websocket force disconnect #5867
 - Farm - build 502 - browsers are being terminated #5862
@@ -46,7 +119,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_502] - 2019-03-28
 
 - Printing is not working #5811
-- Always provide file password (if exists)
+- Always provide file password (if exists) 
 
 ## [Dev:Build_501] - 2019-03-26
 
@@ -58,9 +131,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cloud: Show Browser Farm Version #5686
 - Translation in Admin is not ok if Language is not English (en-us) #5770
 - Show Votiro Version in the Admin (+recommended) #5462
-- Default rule to block aws metadata site - 169.254.169.254
+- Default rule to block aws metadata site - 169.254.169.254 
 - Allow setting the locale in Electron/Chromium #5597
-- Fixed Burst issues
+- Fixed Burst issues 
 - Updated translation files #5722
 - Organize Cloud&K8s settings in the admin #5574
 - Bypass Sending Alert Mail and Upstream Proxy #5780
@@ -94,9 +167,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_495.1] - 2019-03-13
 
 - Fix consul address in auth proxy
-- Update Bandwidth to 10 GB
+- Update Bandwidth to 10 GB 
 - Fix dns consul-agent discovery in kubernetes mode
-- Cdr named policy 5190 - backend
+- Cdr named policy 5190 - backend 
 - More strings updates for 19.02.1
 - Strings not displayed properly #5706
 - Pre-installation checks - ubuntu 18.04 update #5231
@@ -105,10 +178,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - File Transfer reports - rename columns #3413
 - Allow setting the locale in Electron/Chromium #5597
 
+
 ## [Dev:Build_494] - 2019-03-10
 
 - Update to alpine 3.9 to fix curl security issue
-- Fixed icap in Farm
+- Fixed icap in Farm 
 
 ## [Dev:Build_493] - 2019-03-07
 
@@ -138,9 +212,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_492] - 2019-02-27
 
-- updated version
+- updated version 
 
 ## [Dev:Build_490.2] - 2019-02-27
+
 
 - ToGo - Append domain to UPN #5585
 - Browser can't find Consul cef-privatekey #5577
@@ -157,6 +232,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Download with preview mode is not working #5602
 - Zoom in/out is not working with shield on Dev:Build_490.1 #5599
 - CEF fail to run on Kubernetes
+
 
 ## [Dev:Build_489] - 2019-02-24
 
@@ -177,6 +253,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changes in End User Shield Indicator #5543
 - farm scaler values are not being update #5533
 - External-Farm Address should be trimmed
+
 
 ## [Dev:Build_486] - 2019-02-17
 
@@ -3051,12 +3128,12 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 
 ## [17.38-Build:173] - 2017-09-18
 
-- **(*) New system defaults - system_capacity 40, with min_available_pool 20**
+- **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
 - Log cleanup for ICAP, Broker and CEF
 - send all AltGr combinations as unicode - fix for @ key #783
 - Admin reports run button refreshes the iframe  #772
 - Added more built-in reports #781 #780 #761 #735
-- **(*) Support non-english file name download  #710**
+- **(*) Support non-english file name download  #710 **
 - Removed pool section from shield-stats
 - Handle case of file download with 0 size  #784 #774
 - **(*) Added web service component to provide certificate and PAC file #782**

@@ -7,11 +7,12 @@ remote.host = "192.168.50.78"
 remote.allowAnyHosts = true
 def release_version = 'Unknow'
 def github_repo = "Shield"
+properties([parameters([string(defaultValue: 'Dev', description: 'saddsadadsadsa', name: 'BRANCH_NAME', trim: false)])])
 
 node {
     
     stage("Get latest version") {
-        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "451bb7d7-5c99-4d21-aa3a-1c6a1027406b", branch: "Dev"
+        git url: "https://github.com/EricomSoftwareLtd/Shield.git",  credentialsId: "451bb7d7-5c99-4d21-aa3a-1c6a1027406b", branch: "${BRANCH_NAME}"
     }
 
     withCredentials([usernamePassword(credentialsId: 'ssh-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
@@ -41,7 +42,7 @@ node {
     }
 
     stage("Create release") {
-        sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${release_version} -n ${release_version} -p"
+        sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -n ${release_version} -p"
     }
 
     stage("Upload RPM files") {
@@ -53,10 +54,9 @@ node {
             echo "Will upload ${file}"
             def file_path = "${pattern}/${file}"
             echo file_path
-            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${release_version} -f \"${file_path}\" --name \"${file}\"" 
+            sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -f \"${file_path}\" --name \"${file}\"" 
         }
     }
 }
-
 
 
