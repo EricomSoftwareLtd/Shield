@@ -81,12 +81,12 @@ Alpha Ready:
 
 ## [Prod:19.01.1-Build-475.4] - 07-02-2019
 
-### Enhancement
+### Enhancement 19.01.1
 
 - Multiple Syslog Servers Support
 - New Translations for Japanese
 
-### Bug Fixes
+### Bug Fixes 19.01.1
 
 - Fixed: status.sh -e is not working
 - Fixed: Add Node doesnt work sometimes
@@ -95,7 +95,7 @@ Alpha Ready:
 
 ## [Prod:19.01-Build-475.1] - 03-02-2019
 
-### New Features
+### New Features 19.01
 
 - Categories (production ready)
 - External Browser Farm (on-prem, or Cloud-based) - Tech Preview
@@ -103,7 +103,7 @@ Alpha Ready:
 - Intelligent Isolation Mode
 - New File Sanitization Votiro Version
 
-### Enhancement
+### Enhancement 19.01
 
 - Categories are Enabled by default to support the Intelligent Isolation mode
 - Chinese inputs support
@@ -114,7 +114,7 @@ Alpha Ready:
 - Category - search
 - Remote Browser Auto-kill
 
-### Bug Fixes
+### Bug Fixes 19.01
 
 - Fixed: Failure occurs when returning from NIC down/up
 - Fixed: Multi node - when one node is shut down ./status.sh -n doesn't work
