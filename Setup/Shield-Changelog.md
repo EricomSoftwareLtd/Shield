@@ -9,9 +9,58 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Main Features/Bug Fixes should have (*)
 - User Action Required should have (!)
 
-## [Rel-19.04:Build_502.1] - 2019-04-07
+## [Rel-19.05:Build_xxx] - 2019-05-15
 
 ### New Features
+
+- New Virtual Appliance (Shield and Registry) for Offline Deployments (OVA)
+- CDR: Support Named Policy
+- Page Load Time Improvements
+- Admin: Cloud: Resources - Burst Events
+- Admin: Cloud: Show Deployment in the Admin
+- Admin: Cloud: Dynamic node table
+- Admin: Cloud: Node Group display
+- Cloud: Migrate Management and Proxy Components to K8s
+- Cloud: Migrate Shield (Log) to K8s
+
+### Enhancement
+
+- Update Docker to latest (18.09.5)
+- Computer usernames will not be counted for license
+- Do not count licenses for Applications
+- Update Admin to work on new version of Chrome
+- Increase the number of domain policies supported
+- Alert: System Capacity has been reached
+- Page is not displayed when it is blocked/ white and using Redirect mode
+- "Network is slow" message changed
+- Allways use WSS
+- Allow adding exceptions in proxy.py
+
+### Bug Fixes
+
+- fixed: Docker does not start service on CentOS (QA#731188)
+- fixed: Performance degrade from older version
+- fixed: Log invalid characters in url path
+- fixed: Proxy-server out of memory (QA#)
+- fixed: Can't update Firefox and Chrome with Shield
+- fixed: Windows update failed with shield
+- fixed: Safari background tab websocket force disconnect
+- fixed: Redirects with utf8 location don't work properly
+- fixed: Severe issue at customer required reboot (QA#)
+- fixed: Form is not opened as expected (QA#)
+- fixed: Shield site is opened as blank page (QA#729084)
+- fixed: Resources with accepted invalid certificate don't load
+- fixed: Unable to display specific page (white screen) - <https://biz.kddi.com/> (QA#)
+- fixed: No need to check health of netstar if not used
+- Security: Admin jquery update to 3.3.1
+- fixed: Phishing - not display notification / warning when categories are disabled
+- fixed: Adblock list is not synced to farm
+- fixed: don't use ext-proxy in farm mode when adblock is off
+- fixed: Authentication popup - maintain in focus w/o messages in the background
+
+## [Rel-19.04:Build_502.1] - 2019-04-07
+
+### New Features 19.04
 
 - New Virtual Appliance for Deployments (OVA) (Tech Preview)
 - Admin: Cloud: Show Deployment in the Admin (Tech Preview)
@@ -25,7 +74,7 @@ Alpha Ready:
 - CDR: SASA Integration (Tech Preview)
 - CDR: Support Named Policy (Tech Preview)
 
-### Enhancement
+### Enhancement 19.04
 
 - Add logging file and size limitations for all services
 - Allow setting the locale in Electron/Chromium
@@ -36,7 +85,7 @@ Alpha Ready:
 - Updated text messages -Shield scripts and error messages
 - Improve High Availability (2 icap servers)
 
-### Bug Fixes
+### Bug Fixes 19.04
 
 - fixed: Google drive is not working with shield
 - fixed: Possible fixes for broken sites
@@ -77,7 +126,7 @@ Alpha Ready:
 - fixed: addnode fix increase the time + add tests to weakup swarm if needed
 - fixed: status.sh -e is not working
 - fixed: Copy/ Paste on MAC doesn't work properly
-- fixed:  Override doesn't work on categories
+- fixed: Override doesn't work on categories
 
 ## [Prod:19.01.1-Build-475.4] - 07-02-2019
 

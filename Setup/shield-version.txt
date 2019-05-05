@@ -34,5 +34,5 @@ es-farm-scaler:latest es-farm-scaler:190429-07.15-4130
 es-farm-sync:latest es-farm-sync:190429-07.15-4130
 es-api-gateway:latest es-api-gateway:190424-04.58-4113
 es-ldap-api:latest es-ldap-api:190424-04.58-4113
-es-consul-backup:latest es-consul-backup:190429-13.08-4131
+# es-consul-backup:latest es-shield-consul-backup:190429-13.08-4131
 # This needs to be the last line
