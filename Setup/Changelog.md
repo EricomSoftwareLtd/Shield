@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_514] - 2019-05-5
+
+- Remote Browser crashes when setting bad fps values #6001
+- Sync tech-preview KV with farm 
+- Admin - named policy - default #6058
+- Qhen file sanitize/ preview reach the max limit, the user get internal error #6030
+- Download File Size Limit is not working for Download rule #6031
+- Admin - Named Policy - add policy name to sanitize report #6055
+
 ## [Dev:Build_513] - 2019-05-2
 
 - Admin failed to load when IPv6 is disabled #6035
