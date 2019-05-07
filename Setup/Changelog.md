@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_516] - 2019-05-7
+
+- Add collector settings #6130
+- Admin UI - fix the node group display #5866
+- Fixed nssDB for farm
+- Admin - Named Policy - internal & default policies #6045
+- Admin - merge the Categories into the Policies table #5910
+
 ## [Dev:Build_515] - 2019-05-6
 
 - https://rcpmag.com/Home.aspx - takes 20-30 seconds to load #6022
