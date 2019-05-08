@@ -112,10 +112,10 @@ class UpdateExecutor():
         if 'docker-version' in d_line:
             cmd = "docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1"
             output = subprocess.check_output(cmd, shell=True).decode('UTF-8').strip()
-            line = d_line.split()[2]
-            self.docker_upgrade = line != output
+            version_array  = d_line.split()
+            self.docker_upgrade = version_array[1] != output
             self.docker_upgrade_checked = True
-            self.docker_version_to_upgrade = line
+            self.docker_version_to_upgrade = version_array[2]
 
 
     def run_ssh_key_provider(self):
