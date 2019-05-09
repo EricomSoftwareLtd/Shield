@@ -1,10 +1,10 @@
-#Build Dev:Build_516 on 19/05/07
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_516
+#Build Dev:Build_517 on 19/05/09
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_517
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190418-11.14-4108
 shield-portainer:latest shield-portainer:180930-11.41-2885
-proxy-server:latest proxy-server:190417-12.40-4105
+proxy-server:latest proxy-server:190508-10.22-4187
 shield-collector:latest shield-collector:190429-07.15-4130
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190429-07.15-4130
@@ -16,9 +16,9 @@ speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190506-15.00-4176
 es-system-monitor:latest es-system-monitor:190506-14.02-4172
 es-core-sync:latest es-core-sync:190505-15.13-4156
-shield-admin:latest shield-admin:190507-14.19-4183
+shield-admin:latest shield-admin:190509-16.03-4190
 icap-server:latest icap-server:190506-11.11-4169
-shield-cef:latest shield-cef:190507-08.26-4178
+shield-cef:latest shield-cef:190508-14.28-4189
 extproxy:latest extproxy:190417-12.40-4105
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190505-19.41-4160
 shield-cdr-controller:latest shield-cdr-controller:190505-19.01-4158
