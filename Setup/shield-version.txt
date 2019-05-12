@@ -18,7 +18,7 @@ es-system-monitor:latest es-system-monitor:190506-14.02-4172
 es-core-sync:latest es-core-sync:190505-15.13-4156
 shield-admin:latest shield-admin:190509-16.03-4190
 icap-server:latest icap-server:190506-11.11-4169
-shield-cef:latest shield-cef:190508-14.28-4189
+shield-cef:latest shield-cef:190510-08.42-4191
 extproxy:latest extproxy:190417-12.40-4105
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190505-19.41-4160
 shield-cdr-controller:latest shield-cdr-controller:190505-19.01-4158

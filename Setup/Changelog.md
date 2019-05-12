@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - https://www.bild.de/ - redirects to mobile site #6004
 - Site auto scroll - https://mxtoolbox.com/ReverseLookup.aspx #6082
 - Updated translations 
+- Page layout is changed after selecting checkboxes (from KKA) #5991
+
 
 ## [Dev:Build_516] - 2019-05-7
 
