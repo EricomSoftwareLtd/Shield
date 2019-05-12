@@ -11,12 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_518] - 2019-05-12
+## [Dev:Build_518.1] - 2019-05-12
 
 - https://www.bild.de/ - redirects to mobile site #6004
 - Site auto scroll - https://mxtoolbox.com/ReverseLookup.aspx #6082
 - Page layout is changed after selecting checkboxes (from KKA) #5991
-
+- update Rel 19.04 to latest Dev has failed. #6148
+- Admin - search in the tables does not work #6167
 
 ## [Dev:Build_516] - 2019-05-7
 
