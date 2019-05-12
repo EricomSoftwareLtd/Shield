@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_517] - 2019-05-12
+
+- Admin - policies table - add existing category - nothing happens #6141
+- Admin - policies table - delete categories #6140
+- Updated translations 
+- Admin - Policies default table #5911
+- Admin - Policies - no scrolling #6138
+
 ## [Dev:Build_516] - 2019-05-7
 
 - Add collector settings #6130
