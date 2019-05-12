@@ -13,11 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_518] - 2019-05-12
 
-- Admin - policies table - add existing category - nothing happens #6141
-- Admin - policies table - delete categories #6140
 - https://www.bild.de/ - redirects to mobile site #6004
 - Site auto scroll - https://mxtoolbox.com/ReverseLookup.aspx #6082
-- Updated translations 
 - Page layout is changed after selecting checkboxes (from KKA) #5991
 
 
