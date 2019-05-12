@@ -11,6 +11,48 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_516] - 2019-05-7
+
+- Add collector settings #6130
+- Admin UI - fix the node group display #5866
+- Fixed nssDB for farm
+- Admin - Named Policy - internal & default policies #6045
+- Admin - merge the Categories into the Policies table #5910
+
+## [Dev:Build_515] - 2019-05-6
+
+- https://rcpmag.com/Home.aspx - takes 20-30 seconds to load #6022
+- Show farm version in shield-stats ('browser-farm' section) #6070
+- Remote Browsers Jobs with Succeeded status should not be counted #6066
+- Admin - Named Policy - internal & default policies #6045
+- Korean KB issues - please check #5803
+- no end user feedback mail when using farm mode #5952
+- Alert: System Capacity has been reached #5492
+- OVA - addnodes is missing #5949
+- docker installation failed on addnode.sh #6051
+- update.sh try to update docker any way even if already updated #6049
+- Admin - Named Policy - Defualt policy defined by radio button #5985
+
+## [Dev:Build_514] - 2019-05-5
+
+- Remote Browser crashes when setting bad fps values #6001
+- Sync tech-preview KV with farm 
+- Admin - named policy - default #6058
+- Qhen file sanitize/ preview reach the max limit, the user get internal error #6030
+- Download File Size Limit is not working for Download rule #6031
+- Admin - Named Policy - add policy name to sanitize report #6055
+
+## [Dev:Build_513] - 2019-05-2
+
+- Admin failed to load when IPv6 is disabled #6035
+- Dynamic Nodes enabled with no dynamic farm URL #6029
+- new admin UI - add new policy - comment #5982
+- Add LANGUAGE to customer.env #5932
+- Admin dashboard - sessions table #5880
+- admin UI - fix the node group display #5866
+- Alert: System Capacity has been reached #5492
+- Admin : Configuration of browser scaler #5373
+
 ## [Dev:Build_512.1] - 2019-04-30
 
 - Burst Event can be set without enable it at the admin #5856
