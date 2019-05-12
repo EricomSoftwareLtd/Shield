@@ -13,7 +13,7 @@ shield-authproxy:latest shield-authproxy:190429-07.15-4130
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
-shield-autoupdate:latest shield-autoupdate:190506-15.00-4176
+shield-autoupdate:latest shield-autoupdate:test6148
 es-system-monitor:latest es-system-monitor:190506-14.02-4172
 es-core-sync:latest es-core-sync:190505-15.13-4156
 shield-admin:latest shield-admin:190507-14.19-4183
