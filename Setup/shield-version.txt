@@ -16,7 +16,7 @@ speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190512-08.41-4194
 es-system-monitor:latest es-system-monitor:190506-14.02-4172
 es-core-sync:latest es-core-sync:190505-15.13-4156
-shield-admin:latest shield-admin:190514-09.59-4209
+shield-admin:latest shield-admin:190514-14.48-4210
 icap-server:latest icap-server:190514-09.08-4207
 shield-cef:latest shield-cef:190514-09.08-4207
 extproxy:latest extproxy:190417-12.40-4105
