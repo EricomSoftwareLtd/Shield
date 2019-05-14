@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_520] - 2019-05-14
+
+- policies table is empty #6185
+- AD group is empty when adding a new profile #6178
+- Admin - Policies - clear cache after delete #6176
+- Admin - Named Policy - add policy name to debug panel #6056
+- Autofill Enable/Disable from Admin #6053
+- Admin - search in the tables does not work #6167
+
 ## [Dev:Build_519] - 2019-05-13
 
 - AD group is empty when adding a new profile #6178
