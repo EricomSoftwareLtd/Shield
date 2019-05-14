@@ -14,6 +14,7 @@ Source2:   %{name}.sudoers
 BuildRequires: tar, gzip
 %{?systemd_requires}
 BuildRequires: systemd
+BuildRequires: python36-devel
 
 %if "%{_buildfor_rel}" == "rhel"
 
@@ -29,14 +30,17 @@ Requires: centos-release >= 7-5
 
 Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq, firewalld
 
+# Fix Python bytecompilation
+%global __python %{__python3.6}
+
 Requires: ansible >= 2.7.1, ansible < 2.8
-Requires: python-boto >= 2.25
-Requires: python-boto3 >= 1.4.6
-Requires: python36-click >= 6.7
-Requires: python-docker-py >= 1.10.6
-Requires: python36-docker-pycreds >= 0.2.1
-Requires: python36-PyYAML >= 3.11
-Requires: python36-texttable >= 1.2.1
+# Requires: python-docker-py >= 1.10.6
+# Requires: python-boto >= 2.25
+# Requires: python-boto3 >= 1.4.6
+# Requires: python36-click >= 6.7
+# Requires: python36-docker-pycreds >= 0.2.1
+# Requires: python36-PyYAML >= 3.11
+# Requires: python36-texttable >= 1.2.1
 
 Requires(pre): /usr/sbin/useradd, /usr/sbin/usermod, /usr/bin/getent, /usr/bin/which
 Requires(postun): /usr/sbin/userdel
@@ -98,7 +102,7 @@ prepare_yml() {
 %{__install} -Dp -m 755 "Setup/show-my-ip.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 # %{__install} -Dp -m 755 "Setup/addnodes.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 # %{__install} -Dp -m 755 "Setup/addnodes.py" "%{buildroot}%{_prefix}/local/ericomshield"
-%{__install} -Dp -m 755 "Setup/proxy.py" "%{buildroot}%{_prefix}/local/ericomshield"
+%{__install} -Dp -m 755 "Utils/proxy.py" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/nodes.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/restore.sh" "%{buildroot}%{_prefix}/local/ericomshield"
 %{__install} -Dp -m 755 "Setup/spellcheck.sh" "%{buildroot}%{_prefix}/local/ericomshield"
@@ -143,8 +147,8 @@ prepare_yml "%{buildroot}%{_prefix}/local/ericomshield/docker-compose.yml" "Setu
 %ghost "%{_prefix}/local/ericomshield/ericomshield.log"
 "%{_prefix}/local/ericomshield/*.sh"
 "%{_prefix}/local/ericomshield/*.py"
-"%{_prefix}/local/ericomshield/*.pyc"
-"%{_prefix}/local/ericomshield/*.pyo"
+#"%{_prefix}/local/ericomshield/*.pyc"
+#"%{_prefix}/local/ericomshield/*.pyo"
 "%{_unitdir}/media-containershm.mount"
 "%{_sysusersdir}/%{name}.conf"
 
