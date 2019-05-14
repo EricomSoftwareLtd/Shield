@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_519] - 2019-05-13
+
+- AD group is empty when adding a new profile #6178
+- Admin - import policies is not working - page is stuck #6174
+- Update from Dev_516 to Staging_517 didn't work #6169
+- Admin - Named Policies - Add new policy but not visible in the table #6166
+- update Rel 19.04 to latest Dev has failed. #6148
+
 ## [Dev:Build_518.1] - 2019-05-12
 
 - https://www.bild.de/ - redirects to mobile site #6004
