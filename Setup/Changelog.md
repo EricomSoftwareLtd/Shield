@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_521] - 2019-05-15
+
+- Applications table - defaults table display #6199
+- Admin dashboard - sessions table #5880
+- Updated Strings 
+- Autofill improvments #5548
+
 ## [Dev:Build_520] - 2019-05-14
 
 - policies table is empty #6185
