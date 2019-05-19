@@ -18,8 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin: Cloud: Show Deployment in the Admin
 - Admin: Cloud: Dynamic node table
 - Admin: Cloud: Node Group display
-- Cloud: Migrate Management and Proxy Components to new Orchestration Platform
-- Cloud: Migrate Shield (Log) to K8s
+- Cloud: Migrate Management and Proxy Components to new Orchestration Platform (Tech Preview)
+- Cloud: Migrate Shield (Log) to new Orchestration Platform (Tech Preview)
 
 ### Enhancement
 
