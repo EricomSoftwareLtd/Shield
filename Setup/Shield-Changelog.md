@@ -5,40 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-- Git Issues should be referenced by #
-- Main Features/Bug Fixes should have (*)
-- User Action Required should have (!)
-
-## [Rel-19.05:Build_xxx] - 2019-05-15
+## [Rel-19.05.52x] - 2019-05-22
 
 ### New Features
 
 - New Virtual Appliance (Shield and Registry) for Offline Deployments (OVA)
 - CDR: Support Named Policy
 - Page Load Time Improvements
+- Admin: UX Improvement
+- AutoFill Form Data (Tech Preview)
 - Admin: Cloud: Resources - Burst Events
 - Admin: Cloud: Show Deployment in the Admin
 - Admin: Cloud: Dynamic node table
 - Admin: Cloud: Node Group display
-- Cloud: Migrate Management and Proxy Components to K8s
+- Cloud: Migrate Management and Proxy Components to new Orchestration Platform
 - Cloud: Migrate Shield (Log) to K8s
 
 ### Enhancement
 
-- Update Docker to latest (18.09.5)
+- Docker Updated to latest version (18.09.5)
 - Computer usernames will not be counted for license
-- Do not count licenses for Applications
+- Applications will not be counted for license
 - Update Admin to work on new version of Chrome
 - Increase the number of domain policies supported
 - Alert: System Capacity has been reached
 - Page is not displayed when it is blocked/ white and using Redirect mode
 - "Network is slow" message changed
-- Allways use WSS
+- Allways use WSS (WebSockets over SSL/TLS)
 - Allow adding exceptions in proxy.py
 
 ### Bug Fixes
 
 - fixed: Docker does not start service on CentOS (QA#731188)
+- fixed: Korean Keyboard issues
 - fixed: Performance degrade from older version
 - fixed: Log invalid characters in url path
 - fixed: Proxy-server out of memory (QA#)
