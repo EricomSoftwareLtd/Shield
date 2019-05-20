@@ -56,22 +56,22 @@ node {
 
     }
 
-    #stage("Create release") {
-    #    sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -n ${release_version} -p"
-    #}
+    // stage("Create release") {
+    //     sh "/app/bin/linux/amd64/github-release release -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -n ${release_version} -p"
+    // }
 
-    #stage("Upload RPM files") {
-    #    def release_files_dir = "Setup/rpm/_build/rpm/RPMS/x86_64"
-    #    def pattern = "${docker_path}/${release_files_dir}"
-    #    def files = sh(script: "cd ${pattern} && ls -l | grep rpm", returnStdout: true).split('\n')
-    #    for(def i = 0; i < files.size(); i++) {
-    #        def file = files[i].split(' ').last()
-    #        echo "Will upload ${file}"
-    #        def file_path = "${pattern}/${file}"
-    #        echo file_path
-    #        sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -f \"${file_path}\" --name \"${file}\""
-    #    }
-    #}
+    // stage("Upload RPM files") {
+    //     def release_files_dir = "Setup/rpm/_build/rpm/RPMS/x86_64"
+    //     def pattern = "${docker_path}/${release_files_dir}"
+    //     def files = sh(script: "cd ${pattern} && ls -l | grep rpm", returnStdout: true).split('\n')
+    //     for(def i = 0; i < files.size(); i++) {
+    //         def file = files[i].split(' ').last()
+    //         echo "Will upload ${file}"
+    //         def file_path = "${pattern}/${file}"
+    //         echo file_path
+    //         sh "/app/bin/linux/amd64/github-release upload -s ${env.GITHUB_TOKEN} -u EricomSoftwareLtd -r ${github_repo} -t ${BRANCH_NAME} -f \"${file_path}\" --name \"${file}\""
+    //     }
+    // }
 }
 
 
