@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_520.1] - 2019-05-14
+
+- admin UI - add new named policy is stuck at first try #6214
+- categories license alert should be changed #6212
+- Admin - Named Policies - Add new policy but not visible in the table - need to refresh #6166
+- Applications table - defaults table display #6199
+
 ## [Dev:Build_520] - 2019-05-14
 
 - policies table is empty #6185
