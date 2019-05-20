@@ -11,12 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_521] - 2019-05-15
+## [Dev:Build_521] - 2019-05-20
 
 - Applications table - defaults table display #6199
 - Admin dashboard - sessions table #5880
 - Updated Strings 
 - Autofill improvments #5548
+- Slow typing due to FPS limits #6232
+- KDDI - https://www.baidu.com/ is slow on Edge #6226
+- Admin shows error message on logout, and do not logout #6221
+- categories license alert should be changed #6212
+- KDDI - Slow initial steps on page load #6153
+- OVA - addnodes is missing #5949
+- upgrade to use electron 5 #5892
+- Admin dashboard - sessions table #5880
+
 
 ## [Dev:Build_520] - 2019-05-14
 
