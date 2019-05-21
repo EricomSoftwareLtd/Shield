@@ -52,7 +52,7 @@ node {
             attach_part += " -a ${file_path} "
         }
 
-        sh "hub release create -m ${release_version} ${attach_part} -p ${BRANCH_NAME}"
+        sh "hub release create -m ${release_version} ${attach_part} -p ${release_version}_${env.BUILD_NUMBER}"
 
     }
 
