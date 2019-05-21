@@ -3,7 +3,7 @@
 #####   Ericom Shield Installation     #####
 #######################################BH###
 
-Pre-Requesite: Linux Ubuntu 16.04
+Pre-Requesite: Linux Ubuntu 18.04
 
 Open a Shell:
 Type the following commands:
