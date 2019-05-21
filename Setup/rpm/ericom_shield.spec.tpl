@@ -23,7 +23,7 @@ Requires: redhat-release-server >= 7.5
 
 %else #"%{_buildfor_rel}" == "centos"
 
-Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
+Requires: docker-ce >= 3:${DOCKER_VERSION_LOW}, docker-ce < 3:${DOCKER_VERSION_HIGH}
 Requires: centos-release >= 7-5
 
 %endif
