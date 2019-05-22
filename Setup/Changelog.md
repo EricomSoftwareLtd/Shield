@@ -212,15 +212,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cloud: Show Browser Farm Version #5686
 - Translation in Admin is not ok if Language is not English (en-us) #5770
 - Show Votiro Version in the Admin (+recommended) #5462
-<<<<<<< HEAD
-- Default rule to block aws metadata site - 169.254.169.254 
-- Allow setting the locale in Electron/Chromium #5597
-- Fixed Burst issues 
-=======
 - Default rule to block aws metadata site - 169.254.169.254
 - Allow setting the locale in Electron/Chromium #5597
 - Fixed Burst issues
->>>>>>> LatestRel
 - Updated translation files #5722
 - Organize Cloud&K8s settings in the admin #5574
 - Bypass Sending Alert Mail and Upstream Proxy #5780
@@ -254,15 +248,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_495.1] - 2019-03-13
 
 - Fix consul address in auth proxy
-<<<<<<< HEAD
-- Update Bandwidth to 10 GB 
-- Fix dns consul-agent discovery in kubernetes mode
-- Cdr named policy 5190 - backend 
-=======
 - Update Bandwidth to 10 GB
 - Fix dns consul-agent discovery in kubernetes mode
 - Cdr named policy 5190 - backend
->>>>>>> LatestRel
 - More strings updates for 19.02.1
 - Strings not displayed properly #5706
 - Pre-installation checks - ubuntu 18.04 update #5231
@@ -271,18 +259,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - File Transfer reports - rename columns #3413
 - Allow setting the locale in Electron/Chromium #5597
 
-<<<<<<< HEAD
-
-## [Dev:Build_494] - 2019-03-10
-
-- Update to alpine 3.9 to fix curl security issue
-- Fixed icap in Farm 
-=======
 ## [Dev:Build_494] - 2019-03-10
 
 - Update to alpine 3.9 to fix curl security issue
 - Fixed icap in Farm
->>>>>>> LatestRel
 
 ## [Dev:Build_493] - 2019-03-07
 
@@ -312,18 +292,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_492] - 2019-02-27
 
-<<<<<<< HEAD
-- updated version 
-
-## [Dev:Build_490.2] - 2019-02-27
-
-
-=======
 - updated version
 
 ## [Dev:Build_490.2] - 2019-02-27
 
->>>>>>> LatestRel
 - ToGo - Append domain to UPN #5585
 - Browser can't find Consul cef-privatekey #5577
 - Remove print from right click menu when it is protected and download is disable #5571
@@ -340,10 +312,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Zoom in/out is not working with shield on Dev:Build_490.1 #5599
 - CEF fail to run on Kubernetes
 
-<<<<<<< HEAD
-
-=======
->>>>>>> LatestRel
 ## [Dev:Build_489] - 2019-02-24
 
 - Print PDF directly on IE #5552
@@ -364,10 +332,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - farm scaler values are not being update #5533
 - External-Farm Address should be trimmed
 
-<<<<<<< HEAD
-
-=======
->>>>>>> LatestRel
 ## [Dev:Build_486] - 2019-02-17
 
 - Cloud - optimize our nginx configuration - preformance part #5468
@@ -3074,15 +3038,9 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 - Fixed admin login on multi-node #911
 - Changed defualt file upload/download size to 100MB (was 10MB)
 - Moved CDR components log level settings under the "Logs" #1090
-<<<<<<< HEAD
 
 ## [Dev:Build_197] - 2017-11-1
 
-=======
-
-## [Dev:Build_197] - 2017-11-1
-
->>>>>>> LatestRel
 - Write to the report the sanitization task in case the user has canceled the file's password dialog
 - Re-implemented zip password protected testing by node-7z package - #1075
 - Browser scale parallelism incresed to 8
@@ -3247,20 +3205,12 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 
 ## [17.38-Build:173] - 2017-09-18
 
-<<<<<<< HEAD
-- **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
-=======
 - **(*) New system defaults - system_capacity 40, with min_available_pool 20**
->>>>>>> LatestRel
 - Log cleanup for ICAP, Broker and CEF
 - send all AltGr combinations as unicode - fix for @ key #783
 - Admin reports run button refreshes the iframe  #772
 - Added more built-in reports #781 #780 #761 #735
-<<<<<<< HEAD
-- **(*) Support non-english file name download  #710 **
-=======
 - **(*) Support non-english file name download  #710**
->>>>>>> LatestRel
 - Removed pool section from shield-stats
 - Handle case of file download with 0 size  #784 #774
 - **(*) Added web service component to provide certificate and PAC file #782**
