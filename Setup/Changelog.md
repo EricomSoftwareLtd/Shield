@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_522] - 2019-05-22
+
+- Admin - policies table - subdomain column for categories #6139
+- Admin - Save/Cancel buttons #6046
+- Prepare OVA with Shield installed and all images pulled #5629
+- KDDI - Slow initial steps on page load ( cache https request ) #6153
+- Do not include the 'query' part of the URL when sending to NetSTAR #6219
+- Admin - tooltip is too close to the field name #5992
+
+
 ## [Dev:Build_521] - 2019-05-20
 
 - Applications table - defaults table display #6199
