@@ -15,7 +15,6 @@ sudo vi /etc/docker/daemon.json
 "bip": "172.22.0.1/16"
 }
 ```
-
 Replace the Subnet `172.22.0.1/16` with the subnet you want to use.
 
 (If the file doesn’t exist create one)

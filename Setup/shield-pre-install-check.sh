@@ -113,7 +113,7 @@ function perform_env_test() {
         if read -t 20 -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no)? " choice; then
             case "$choice" in
             "n" | "no" | "NO" | "No")
-                NOUPLOAD="#noUpload"
+                NOUPLOAD="noUpload"
                 ;;
             "y" | "yes" | "YES" | "Yes")
                 NOUPLOAD=""
@@ -125,7 +125,7 @@ function perform_env_test() {
             esac
         else
             #If read fails consider that the user chose "no"
-            NOUPLOAD="#noUpload"
+            NOUPLOAD="noUpload"
             echo "no"
         fi
     fi
@@ -146,7 +146,7 @@ function perform_env_test() {
         -e "FTP_PROXY=$FTP_PROXY" \
         -e "RSYNC_PROXY=$RSYNC_PROXY" \
         --rm --name "shield-collector" \
-        "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh | tee $RESULTS
+        "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh $NOUPLOAD | tee $RESULTS
 
     ERR=$(tail -n1 $RESULTS | grep -c $FAILED_STR)
 

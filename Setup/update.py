@@ -112,10 +112,10 @@ class UpdateExecutor():
         if 'docker-version' in d_line:
             cmd = "docker info -f '{{ .ServerVersion }}' | cut -d'-' -f1"
             output = subprocess.check_output(cmd, shell=True).decode('UTF-8').strip()
-            line = d_line.split()[1]
-            self.docker_upgrade = line != output
+            version_array  = d_line.split()
+            self.docker_upgrade = version_array[1] != output
             self.docker_upgrade_checked = True
-            self.docker_version_to_upgrade = line
+            self.docker_version_to_upgrade = version_array[2]
 
 
     def run_ssh_key_provider(self):
@@ -189,7 +189,7 @@ class UpdateExecutor():
                 .format(output,self.container, self.get_verbose(), self.docker_version_to_upgrade, os.environ['ES_PATH'])
         subprocess.run(cmd, shell=True)
 
-        cmd = "apt-get install --allow-downgrades -y docker-ce={}~ce*".format(self.docker_version_to_upgrade)
+        cmd = "apt-get install --allow-downgrades --allow-change-held-packages -y docker-ce={}".format(self.docker_version_to_upgrade)
         subprocess.run(cmd, shell=True)
 
     def stop_shield(self, resource):
