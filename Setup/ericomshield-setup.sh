@@ -2,7 +2,7 @@
 ############################################
 #####   Ericom Shield Installer        #####
 #######################################BH###
-ES_SETUP_VER="Setup:19.04-0204"
+ES_SETUP_VER="Setup:19.05-2804"
 
 function usage() {
     echo " Usage: $0 [-f|--force] [--autoupdate] [--Dev] [--Staging] [--quickeval] [-v|--version] <version-name> [--list-versions] [--registry] <registry-ip:port> [--no-dist-upgrade] [--help]"
@@ -22,6 +22,7 @@ LOGFILE="$ES_PATH/ericomshield.log"
 STACK_NAME=shield
 DOCKER_DEFAULT_VERSION="18.03.1"
 DOCKER_VERSION=""
+DOCKER_VERSION_STRING=""
 UPDATE=false
 UPDATE_NEED_RESTART=false
 UPDATE_NEED_RESTART_TXT="#UNR#"
@@ -465,6 +466,7 @@ function install_docker() {
 
     if [ -f "$ES_VER_FILE" ]; then
         DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
+        DOCKER_VERSION_STRING="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f3)"        
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
         DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
@@ -489,16 +491,22 @@ function install_docker() {
 
         apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
-        apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" &&
-            apt-mark hold docker-ce
+        if [ "$DOCKER_VERSION_STRING" = "" ]; then
+          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && apt-mark hold docker-ce
+        else
+          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STRING" "docker-ce-cli=$DOCKER_VERSION_STRING" containerd.io && apt-mark hold docker-ce
+        fi
         sleep 5
         systemctl restart docker
         sleep 5
     else
         echo " ******* docker-engine $DOCKER_VERSION is already installed"
     fi
-    if [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+    if [ ! -x /usr/bin/docker ]; then
         failed_to_install "Failed to Install/Update Docker, exiting"
+    fi
+    if [ "$(docker version | grep -c $DOCKER_VERSION )" -le 1 ]; then
+        log_message "Warning, Failed to Update Docker Version to: $DOCKER_VERSION"
     fi
 }
 
@@ -579,8 +587,6 @@ function prepare_yml() {
     if [ ! -z "$SHIELD_REGISTRY" ]; then
         sed -i'' "s/securebrowsing/$SHIELD_REGISTRY\/securebrowsing/g" $ES_YML_FILE
     fi
-    #echo "  sed -i'' 's/IP_ADDRESS/$MY_IP/g' $ES_YML_FILE"
-    sed -i'' "s/IP_ADDRESS/$MY_IP/g" $ES_YML_FILE
 
     local TZ="$( (test -r /etc/timezone && cat /etc/timezone) || echo UTC)"
     sed -i'' "s#TZ=UTC#TZ=${TZ}#g" $ES_YML_FILE
@@ -714,6 +720,7 @@ function get_shield_files() {
     cp ~/show-my-ip.sh "$ES_PATH/show-my-ip.sh"
     curl -s -S -o addnodes.sh "$ES_repo_addnodes"
     chmod +x addnodes.sh
+    curl -s -S -o addnodes.py "$ES_repo_addnodespy"
     curl -s -S -o nodes.sh "$ES_repo_shield_nodes"
     chmod +x nodes.sh
     curl -s -S -o ~/.shield_aliases "$ES_repo_shield_aliases"
@@ -763,7 +770,7 @@ function am_i_leader() {
 function check_registry() {
     if [ ! -z $SHIELD_REGISTRY ]; then
         log_message "Testing the registry..."
-        if ! docker run --rm "$SHIELD_REGISTRY/alpine:latest" "/bin/true"; then
+        if ! docker run --rm "$SHIELD_REGISTRY/library/alpine:latest" "/bin/true"; then        
             log_message "Registry test failed"
             return 1
         else
@@ -862,6 +869,7 @@ if ! check_registry; then
     done
 fi
 
+curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
     echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
@@ -869,7 +877,6 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
     read -n1 -r -p "Press any key to continue..." key
     echo
 
-    curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
     if accept_license "$ES_PATH/Ericom-EULA.txt"; then
         log_message "EULA has been accepted"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
@@ -951,7 +958,7 @@ fi
 
 if [ -n "$MY_IP" ]; then
     echo "Connect swarm to $MY_IP"
-    export IP_ADDRESS="$MY_IP"
+    export SHIELD_IP_ADDRESS="$MY_IP"
 fi
 
 if [ "$ES_RUN_DEPLOY" == true ] && [ "$AM_I_LEADER" == true ]; then

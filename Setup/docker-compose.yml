@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-19.04
+# YML file for Rel-19.05
 
 services:
     dns:
@@ -101,7 +101,7 @@ services:
         deploy:
             replicas: 1
             restart_policy: {condition: any}
-            placement: {constraints: [node.labels.management==yes]}
+            placement: {constraints: ["${ELK_NODE_LABEL}"]}
             update_config: {failure_action: rollback}
             resources: {limits: {memory: 4GB, cpus: '2'}}
         logging:
@@ -161,8 +161,8 @@ services:
         networks:
             - shield
         #Published only for Dev
- #       ports:
- #           - '8500:8500'
+#       ports:
+#           - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -215,7 +215,7 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'SHIELD_VER=8.0.0.latest'
-            - 'SHIELD_IP=IP_ADDRESS'
+            - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'LOGSTASH_FIELDS=service=icap'
             #- 'SHIELD_WATERMARK=TRUE'
         ulimits:
@@ -254,7 +254,7 @@ services:
             - 'SHIELD_SERVICE_NAME={{.Service.Name}}'
             - 'PERF_STATS=true'
             - 'LOGSTASH_FIELDS=service=browser'
-            #- 'LANGUAGE=en-US'
+            - 'LANGUAGE=${RB_LANGUAGE}'
         networks:
             - shield
         deploy:
@@ -536,7 +536,7 @@ services:
             - shield
         environment:
             - 'TZ=UTC'
-            - 'SHIELD_IP=IP_ADDRESS'
+            - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=webservice'
         deploy:

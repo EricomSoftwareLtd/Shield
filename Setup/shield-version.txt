@@ -1,35 +1,38 @@
-#Build Rel-19.04:Build_502.1 on 07/04/19  #UNR#
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.04:Build_502.1
-#docker-version 18.03.1
+#Build Rel-19.05.520.1 on 20/05/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.05:Build_520.1
+#docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
-shield-consul-agent:latest shield-consul-agent:181018-11.29-3005
+shield-consul-agent:latest shield-consul-agent:190418-11.14-4108
 shield-portainer:latest shield-portainer:180930-11.41-2885
-proxy-server:latest proxy-server:190320-13.27-4022
-shield-collector:latest shield-collector:190307-18.35-3950
+proxy-server:latest proxy-server:190508-10.22-4187
+shield-collector:latest shield-collector:190429-07.15-4130
 shield-elk:latest shield-elk:190325-13.42-4039
-shield-web-service:latest shield-web-service:190310-12.20-3962
+shield-web-service:latest shield-web-service:190429-07.15-4130
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:190320-13.27-4022
+shield-authproxy:latest shield-authproxy:190429-07.15-4130
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
-shield-autoupdate:latest shield-autoupdate:190320-09.34-4011
-es-system-monitor:latest es-system-monitor:190310-12.20-3962
-es-core-sync:latest es-core-sync:190319-09.33-4005
-shield-admin:latest shield-admin:190326-12.31-4050
-icap-server:latest icap-server:190325-12.32-4035
-shield-cef:latest shield-cef:190327-15.26-4059
-extproxy:latest extproxy:190310-12.20-3962
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:190328-14.03-4063
-shield-cdr-controller:latest shield-cdr-controller:190326-12.45-4051
-shield-notifier:latest shield-notifier:190325-13.42-4039
+shield-autoupdate:latest shield-autoupdate:190512-08.41-4194
+es-system-monitor:latest es-system-monitor:190506-14.02-4172
+es-core-sync:latest es-core-sync:190505-15.13-4156
+shield-admin:latest shield-admin:190516-15.39-4233
+icap-server:latest icap-server:190514-09.08-4207
+shield-cef:latest shield-cef:190514-09.08-4207
+extproxy:latest extproxy:190417-12.40-4105
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:190514-09.08-4207
+shield-cdr-controller:latest shield-cdr-controller:190505-19.01-4158
+shield-notifier:latest shield-notifier:190429-07.15-4130
 shield-proxyless-connector:latest shield-proxyless-connector:190307-13.41-3939
-es-file-preview:latest es-file-preview:190206-11.37-3767
-es-system-configuration:latest es-system-configuration:190319-11.13-4007
-es-license-manager:latest es-license-manager:190310-12.20-3962
-es-remote-browser-scaler:latest es-remote-browser-scaler:190310-12.20-3962
-es-policy-manager:latest es-policy-manager:190320-09.34-4011
+es-file-preview:latest es-file-preview:190429-07.15-4130
+es-system-configuration:latest es-system-configuration:190507-12.27-4182
+es-license-manager:latest es-license-manager:190429-07.15-4130
+es-remote-browser-scaler:latest es-remote-browser-scaler:190429-07.15-4130
+es-policy-manager:latest es-policy-manager:190514-09.08-4207
 shield-dns:latest shield-dns:190312-14.21-3974
-es-farm-scaler:latest es-farm-scaler:190324-10.27-4029
-es-farm-sync:latest es-farm-sync:190324-14.33-4030
+es-farm-scaler:latest es-farm-scaler:190502-08.03-4151
+es-farm-sync:latest es-farm-sync:190506-10.40-4167
+es-api-gateway:latest es-api-gateway:190424-04.58-4113
+es-ldap-api:latest es-ldap-api:190424-04.58-4113
+# es-consul-backup:latest es-shield-consul-backup:190429-13.08-4131
 # This needs to be the last line

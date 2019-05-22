@@ -11,10 +11,196 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_520.1] - 2019-05-14
+
+- admin UI - add new named policy is stuck at first try #6214
+- categories license alert should be changed #6212
+- Admin - Named Policies - Add new policy but not visible in the table - need to refresh #6166
+- Applications table - defaults table display #6199
+
+## [Dev:Build_520] - 2019-05-14
+
+- policies table is empty #6185
+- AD group is empty when adding a new profile #6178
+- Admin - Policies - clear cache after delete #6176
+- Admin - Named Policy - add policy name to debug panel #6056
+- Autofill Enable/Disable from Admin #6053
+- Admin - search in the tables does not work #6167
+
+## [Dev:Build_519] - 2019-05-13
+
+- AD group is empty when adding a new profile #6178
+- Admin - import policies is not working - page is stuck #6174
+- Update from Dev_516 to Staging_517 didn't work #6169
+- Admin - Named Policies - Add new policy but not visible in the table #6166
+- update Rel 19.04 to latest Dev has failed. #6148
+
+## [Dev:Build_518.1] - 2019-05-12
+
+- https://www.bild.de/ - redirects to mobile site #6004
+- Site auto scroll - https://mxtoolbox.com/ReverseLookup.aspx #6082
+- Page layout is changed after selecting checkboxes (from KKA) #5991
+- update Rel 19.04 to latest Dev has failed. #6148
+- Admin - search in the tables does not work #6167
+
+## [Dev:Build_517] - 2019-05-12
+
+- Admin - policies table - add existing category - nothing happens #6141
+- Admin - policies table - delete categories #6140
+- Updated translations 
+- Admin - Policies default table #5911
+- Admin - Policies - no scrolling #6138
+
+## [Dev:Build_516] - 2019-05-7
+
+- Add collector settings #6130
+- Admin UI - fix the node group display #5866
+- Fixed nssDB for farm
+- Admin - Named Policy - internal & default policies #6045
+- Admin - merge the Categories into the Policies table #5910
+
+## [Dev:Build_515] - 2019-05-6
+
+- https://rcpmag.com/Home.aspx - takes 20-30 seconds to load #6022
+- Show farm version in shield-stats ('browser-farm' section) #6070
+- Remote Browsers Jobs with Succeeded status should not be counted #6066
+- Admin - Named Policy - internal & default policies #6045
+- Korean KB issues - please check #5803
+- no end user feedback mail when using farm mode #5952
+- Alert: System Capacity has been reached #5492
+- OVA - addnodes is missing #5949
+- docker installation failed on addnode.sh #6051
+- update.sh try to update docker any way even if already updated #6049
+- Admin - Named Policy - Defualt policy defined by radio button #5985
+
+## [Dev:Build_514] - 2019-05-5
+
+- Remote Browser crashes when setting bad fps values #6001
+- Sync tech-preview KV with farm 
+- Admin - named policy - default #6058
+- Qhen file sanitize/ preview reach the max limit, the user get internal error #6030
+- Download File Size Limit is not working for Download rule #6031
+- Admin - Named Policy - add policy name to sanitize report #6055
+
+## [Dev:Build_513] - 2019-05-2
+
+- Admin failed to load when IPv6 is disabled #6035
+- Dynamic Nodes enabled with no dynamic farm URL #6029
+- new admin UI - add new policy - comment #5982
+- Add LANGUAGE to customer.env #5932
+- Admin dashboard - sessions table #5880
+- admin UI - fix the node group display #5866
+- Alert: System Capacity has been reached #5492
+- Admin : Configuration of browser scaler #5373
+
+## [Dev:Build_512.1] - 2019-04-30
+
+- Burst Event can be set without enable it at the admin #5856
+- "Burst Events" and "Dynamic Nodes" are no longer "Tech Preview"
+- Do not show burst event table if empty
+- Make sure named policy 'Add' button is enabled after reopening
+- Show Sasa named policies
+
+## [Dev:Build_511] - 2019-04-29
+
+- Reduce remote browser consul registration wait time #6007
+- Admin UI - fix the node group display #5866
+- Increased consul idle timeout - reduce the load on consul
+- Pre-cache URL category by ICAP #6009
+- The network is slow message was changed to SM request
+
+## [Dev:Build_510] - 2019-04-28
+
+- Download with Votiro cloud is not working #5967
+- Dashboard - dynamic node table #5824
+- Alert: System Capacity has been reached #5492
+- Docker update use wrong version name #5997
+
+## [Dev:Build_509.1] - 2019-04-28
+
+- [[Investigate]] QA#731188 Docker does not start service on CentOS #316
+- OVA - addnodes is missing #5949
+- Admin - tooltip is too close to the field name #5992
+- new admin UI - spinner indicator spins until refresh #5983
+- new admin UI - add new policy - comment #5982
+- Admin code cleanup #5917
+- Update Admin to work on newer chrome #5670
+- New admin UI - Applications table - can't delete applications #5984
+- BTL - Autofill - sites that doesn't work partial fix #5548
+- AutoFill feature Main issue partial fix #5119
+- new admin UI - named policy table - Canâ€™t add new name policy #5986
+
+## [Dev:Build_508] - 2019-04-25
+
+- Update Docker to latest (18.09.5)
+- Do npm cache clean --force as a part of the cleanup process - blackduck
+- Log invalid characters in url path (ICAP)
+
+## [Dev:Build_507] - 2019-04-23
+
+- Do not count licenses for Applications #5964
+- [SM-Feedback] Blocked applications vs categories #10 #5759
+- page is not displayed when it is blocked/ white and using proxyless mode #5002
+- 19.04 is slower than old shield #5965
+
+## [Dev:Build_506] - 2019-04-18
+
+- Setup.sh seems to send pre-test results also when answered no #5956
+- Load test fail - KKA issue #5962
+
+## [Dev:Build_505.1] - 2019-04-15
+
+- Computer usernames will not be counted for license #5914
+- Allow adding exceptions in proxy.py #5742
+- add shield-cat and load-test to pac file #5837
+- CDR - Tenant agnostic #1 #5665
+- Proxy-server out of memory #5933
+
+## [Dev:Build_504] - 2019-04-14
+
+- Allways use WSS
+- Updated alpine 3.9
+- OVA - shield stats doesn't display the shield IP #5889
+- Admin UI - fix the node group display #5866
+- Can't update Firefox and Chrome with Shield #5436
+- Windows update failed with shield #4363
+
+## [Dev:Build_503.1] - 2019-04-10
+
+- Safari background tab websocket force disconnect #5867
+- Farm - build 502 - browsers are being terminated #5862
+- Printing is not working #5811
+- Redirects with utf8 location don't work properly #5752
+- Severe issue at KKA's customer required reboot #5623
+- Form is not opened as expected (KKA) #5885
+- [[trouble]] QA#729084(yuchida)Shield site is blank (KKA) #5890
+- Cloud - support idle load timeout in farm #5681
+- Prepare OVA with Shield installed and all images pulled #5629
+- Prepare OVA for Shield Registry (Images and shield files) #5630
+- Resources with accepted invalid certificate don't load #5853
+- Unknown alert ID 27 #5850
+- burst event - when leaving timeout without value, the browsers are being removed #5845
+- URL is incorrect when opening a PDF file #5792
+- problem to load pages- network is slow #5562
+- Unable to display specific page (white screen) - <https://biz.kddi.com/> #5796
+- ICAP to pre-publish the default categories table only once #5475
+- Safari background tab websocket force disconnect #5867
+- Farm - build 502 - browsers are being terminated #5862
+- Resources - Burst time definition #5499
+- Increase the number of domain policies supported #5736
+- Votiro - support named policy #5190
+- Admin jquery update to 3.3.1
+- No need to check health of netstar if not used #5812
+- Phishing - not display notification / warning when categotires are disabled #5820
+- Adblock list is not synced to farm #5826
+- don't use ext-proxy in farm mode when adblock is off
+- can't install shield on centos and redhat #5886
+- Authentication popup - maintain in focus w/o messages in the background #5857
+
 ## [Dev:Build_502] - 2019-03-28
 
 - Printing is not working #5811
-- Always provide file password (if exists) 
+- Always provide file password (if exists)
 
 ## [Dev:Build_501] - 2019-03-26
 
@@ -26,9 +212,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cloud: Show Browser Farm Version #5686
 - Translation in Admin is not ok if Language is not English (en-us) #5770
 - Show Votiro Version in the Admin (+recommended) #5462
-- Default rule to block aws metadata site - 169.254.169.254 
+- Default rule to block aws metadata site - 169.254.169.254
 - Allow setting the locale in Electron/Chromium #5597
-- Fixed Burst issues 
+- Fixed Burst issues
 - Updated translation files #5722
 - Organize Cloud&K8s settings in the admin #5574
 - Bypass Sending Alert Mail and Upstream Proxy #5780
@@ -62,9 +248,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_495.1] - 2019-03-13
 
 - Fix consul address in auth proxy
-- Update Bandwidth to 10 GB 
+- Update Bandwidth to 10 GB
 - Fix dns consul-agent discovery in kubernetes mode
-- Cdr named policy 5190 - backend 
+- Cdr named policy 5190 - backend
 - More strings updates for 19.02.1
 - Strings not displayed properly #5706
 - Pre-installation checks - ubuntu 18.04 update #5231
@@ -73,11 +259,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - File Transfer reports - rename columns #3413
 - Allow setting the locale in Electron/Chromium #5597
 
-
 ## [Dev:Build_494] - 2019-03-10
 
 - Update to alpine 3.9 to fix curl security issue
-- Fixed icap in Farm 
+- Fixed icap in Farm
 
 ## [Dev:Build_493] - 2019-03-07
 
@@ -107,10 +292,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_492] - 2019-02-27
 
-- updated version 
+- updated version
 
 ## [Dev:Build_490.2] - 2019-02-27
-
 
 - ToGo - Append domain to UPN #5585
 - Browser can't find Consul cef-privatekey #5577
@@ -127,7 +311,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Download with preview mode is not working #5602
 - Zoom in/out is not working with shield on Dev:Build_490.1 #5599
 - CEF fail to run on Kubernetes
-
 
 ## [Dev:Build_489] - 2019-02-24
 
@@ -148,7 +331,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Changes in End User Shield Indicator #5543
 - farm scaler values are not being update #5533
 - External-Farm Address should be trimmed
-
 
 ## [Dev:Build_486] - 2019-02-17
 
@@ -3023,12 +3205,12 @@ Correctly set the group ID of the category when domain/URL was blocked due to â€
 
 ## [17.38-Build:173] - 2017-09-18
 
-- **(*) New system defaults - system_capacity 40, with min_available_pool 20 **
+- **(*) New system defaults - system_capacity 40, with min_available_pool 20**
 - Log cleanup for ICAP, Broker and CEF
 - send all AltGr combinations as unicode - fix for @ key #783
 - Admin reports run button refreshes the iframe  #772
 - Added more built-in reports #781 #780 #761 #735
-- **(*) Support non-english file name download  #710 **
+- **(*) Support non-english file name download  #710**
 - Removed pool section from shield-stats
 - Handle case of file download with 0 size  #784 #774
 - **(*) Added web service component to provide certificate and PAC file #782**
