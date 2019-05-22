@@ -869,6 +869,7 @@ if ! check_registry; then
     done
 fi
 
+curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
 if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY" == true ]; then
     echo 'You will now be presented with the End User License Agreement.'
     echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
@@ -876,7 +877,6 @@ if [ "$UPDATE" == false ] && [ ! -f "$EULA_ACCEPTED_FILE" ] && [ "$ES_RUN_DEPLOY
     read -n1 -r -p "Press any key to continue..." key
     echo
 
-    curl -s -S -o "$ES_PATH/Ericom-EULA.txt" "$ES_repo_EULA"
     if accept_license "$ES_PATH/Ericom-EULA.txt"; then
         log_message "EULA has been accepted"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
