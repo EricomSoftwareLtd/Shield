@@ -2,6 +2,7 @@
 
 import argparse, subprocess, re, urllib3, os, time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import certifi
 from argparse import RawTextHelpFormatter
 
 APP_NAME = "./update.sh"
@@ -81,7 +82,7 @@ class UpdateExecutor():
             if 'HTTP_PROXY' in os.environ:
                 http = urllib3.ProxyManager(os.environ['HTTP_PROXY'])
             else:
-                http = urllib3.PoolManager()
+                http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED', ca_certs=certifi.where())
             response = http.request('GET', url)
             return response.data.decode('UTF-8')
         except Exception as ex:
