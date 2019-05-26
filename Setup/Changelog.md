@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_523] - 2019-05-26
+
+- Collector cannot find consul in Dev_522 #6280
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Faster load of crystal pages 
+- cleanup of predefined policies 
 
 ## [Dev:Build_522] - 2019-05-22
 
