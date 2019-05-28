@@ -33,7 +33,7 @@ Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq, firewalld
 # Fix Python bytecompilation
 %global __python %{__python3}
 
-Requires: ansible >= 2.7.1, ansible < 2.8
+Requires: ansible >= 2.7.1
 # Requires: python-docker-py >= 1.10.6
 # Requires: python-boto >= 2.25
 # Requires: python-boto3 >= 1.4.6
