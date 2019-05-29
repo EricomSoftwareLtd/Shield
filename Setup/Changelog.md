@@ -24,7 +24,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - all-in-kube admin resources empty #6337
 - all-in-kube failed to activate the license #6338
 
-
 ## [Dev:Build_523] - 2019-05-26
 
 - Collector cannot find consul in Dev_522 #6280
@@ -41,7 +40,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Do not include the 'query' part of the URL when sending to NetSTAR #6219
 - Admin - tooltip is too close to the field name #5992
 
-
 ## [Dev:Build_521] - 2019-05-20
 
 - Applications table - defaults table display #6199
@@ -56,7 +54,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - OVA - addnodes is missing #5949
 - upgrade to use electron 5 #5892
 - Admin dashboard - sessions table #5880
-
 
 ## [Dev:Build_520] - 2019-05-14
 
