@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_525] - 2019-06-02
+
+- On latest dev (e5) cursor does not change when hovering over links #6356
+- All-in-kube send mail alert test is not working #6325
+- AdminUI - small changes #6235
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Ldap - UPNSuffix is appended also if already exists #6360
+
 ## [Dev:Build_524] - 2019-05-29
 
 - Fix squid crash with upstream proxy
