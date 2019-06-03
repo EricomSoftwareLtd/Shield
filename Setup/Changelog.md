@@ -11,13 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_527] - 2019-06-03
+
+- ldap - ldaps:// authentication is ignored in authproxy #6361
+- Extend "Authentication Chaining" to receive 'X-Authenticated-Group' HTTP header #6266
+
 ## [Dev:Build_526] - 2019-06-03
 
 - Sometimes dispatcher is not running when installing shield #6382
 - Update.sh error #6375
 - All-in-kube dashboard info is missing - dynamic node empty #6374
 - OVA - addnodes is missing #5949
-
 
 ## [Dev:Build_525] - 2019-06-02
 
