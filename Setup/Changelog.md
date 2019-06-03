@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_526] - 2019-06-03
+
+- Sometimes dispatcher is not running when installing shield #6382
+- Update.sh error #6375
+- All-in-kube dashboard info is missing - dynamic node empty #6374
+- OVA - addnodes is missing #5949
+
+
 ## [Dev:Build_525] - 2019-06-02
 
 - On latest dev (e5) cursor does not change when hovering over links #6356
