@@ -1,5 +1,5 @@
-#Build Dev:Build_526 on 19/06/03
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_526
+#Build Dev:Build_527 on 19/06/04
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_527
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190418-11.14-4108
@@ -9,26 +9,26 @@ shield-collector:latest shield-collector:190530-11.30-4283
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190429-07.15-4130
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:190603-09.40-4304
+shield-authproxy:latest shield-authproxy:190603-14.12-4306
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190602-14.22-4295
 es-system-monitor:latest es-system-monitor:190530-11.30-4283
 es-core-sync:latest es-core-sync:190529-10.06-4271
-shield-admin:latest shield-admin:190603-08.39-4302
-icap-server:latest icap-server:190529-11.34-4273
-shield-cef:latest shield-cef:190531-11.45-4289
+shield-admin:latest shield-admin:190603-14.12-4306
+icap-server:latest icap-server:190603-14.12-4306
+shield-cef:latest shield-cef:190603-14.12-4306
 extproxy:latest extproxy:190529-11.34-4273
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190603-07.36-4299
 shield-cdr-controller:latest shield-cdr-controller:190505-19.01-4158
 shield-notifier:latest shield-notifier:190530-11.30-4283
 shield-proxyless-connector:latest shield-proxyless-connector:190307-13.41-3939
 es-file-preview:latest es-file-preview:190429-07.15-4130
-es-system-configuration:latest es-system-configuration:190602-06.30-4291
+es-system-configuration:latest es-system-configuration:190603-14.12-4306
 es-license-manager:latest es-license-manager:190429-07.15-4130
 es-remote-browser-scaler:latest es-remote-browser-scaler:190429-07.15-4130
-es-policy-manager:latest es-policy-manager:190521-18.11-4249
+es-policy-manager:latest es-policy-manager:190603-14.12-4306
 shield-dns:latest shield-dns:190523-19.10-4259
 es-farm-scaler:latest es-farm-scaler:190519-10.30-4235
 es-farm-sync:latest es-farm-sync:190515-16.55-4227
