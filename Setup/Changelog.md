@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_528] - 2019-06-05
+
+- ldap - ldaps:// authentication is ignored in authproxy #6361
+- adminUI - small changes #6235
+- Admin - import policies is not working - page is stuck #6174
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Fix crash on AWS if no InstanceType fetched
+
 ## [Dev:Build_527] - 2019-06-03
 
 - ldap - ldaps:// authentication is ignored in authproxy #6361
