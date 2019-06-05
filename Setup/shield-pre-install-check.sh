@@ -12,7 +12,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_DEFAULT_VERSION="18.03.1"
+DOCKER_DEFAULT_VERSION="18.09.5"
 DOCKER_VERSION="${DOCKER_VERSION:-""}"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 ES_VER_PIC_FILE="./shield-version-pic.txt"
@@ -76,8 +76,8 @@ if ! declare -f install_docker >/dev/null; then
             apt-get -qq update
             echo "done"
             sudo apt-cache policy docker-ce
-            log_message "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-            sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
+            log_message "Installing Docker: docker-ce=$DOCKER_VERSION*"
+            sudo apt-get -y --assume-yes --allow-downgrades install docker-ce="$DOCKER_VERSION*"
         else
             echo " ******* docker-engine $DOCKER_VERSION is already installed"
         fi
