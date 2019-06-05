@@ -1,5 +1,5 @@
-#Build Rel-19.05.520.1 on 20/05/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.05:Build_520.1
+#Build Rel-19.05.1 Build:520.1 on 20/05/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.05.1:Build_520.1
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190418-11.14-4108
@@ -9,7 +9,7 @@ shield-collector:latest shield-collector:190429-07.15-4130
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190429-07.15-4130
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:190429-07.15-4130
+shield-authproxy:latest shield-authproxy:HF520.1
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
@@ -25,7 +25,7 @@ shield-cdr-controller:latest shield-cdr-controller:190505-19.01-4158
 shield-notifier:latest shield-notifier:190429-07.15-4130
 shield-proxyless-connector:latest shield-proxyless-connector:190307-13.41-3939
 es-file-preview:latest es-file-preview:190429-07.15-4130
-es-system-configuration:latest es-system-configuration:190507-12.27-4182
+es-system-configuration:latest es-system-configuration:19.05.HF1
 es-license-manager:latest es-license-manager:190429-07.15-4130
 es-remote-browser-scaler:latest es-remote-browser-scaler:190429-07.15-4130
 es-policy-manager:latest es-policy-manager:190514-09.08-4207
