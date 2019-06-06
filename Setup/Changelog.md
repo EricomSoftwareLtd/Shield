@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_529] - 2019-06-06
+
+- Expedia.com is whitle list in kube mode #6421
+- Shield-pre-install-check.sh does not work #6403
+- All-in-kube license at the dashboard is not being updated #6366
+- Ldap - ldaps:// authentication is ignored in authproxy #6361
+- AdminUI - small changes #6235
+- Admin - import policies is not working - page is stuck #6174
+- Multi farm support #1
+- Multi domain support #1
+- Created Shield support script
+
+
 ## [Dev:Build_528] - 2019-06-05
 
 - ldap - ldaps:// authentication is ignored in authproxy #6361
