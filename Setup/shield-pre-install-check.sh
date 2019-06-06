@@ -87,7 +87,8 @@ if ! declare -f install_docker >/dev/null; then
             echo " ******* docker-engine $DOCKER_VERSION is already installed"
         fi
         if [ ! -x /usr/bin/docker ]; then
-            failed_to_install "Failed to Install/Update Docker, exiting"
+            log_message "Failed to Install/Update Docker, exiting"
+            exit -1
         fi
         if [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
             log_message "Warning, Failed to Update Docker Version to: $DOCKER_VERSION"
