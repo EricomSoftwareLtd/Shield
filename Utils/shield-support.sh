@@ -120,14 +120,9 @@ cp /usr/local/ericomshield/backup/*.json  $TMPDIR/shield 2>/dev/null
 
 echo " Done! "
 
-FILENAME="$(hostname)-$(date +'%Y-%m-%d_%H_%M_%S').tar"
-tar cf /tmp/$FILENAME -C ${TMPDIR}/ .
-
-if $(command -v gzip >/dev/null 2>&1); then
-  gzip /tmp/${FILENAME}
-  FILENAME="${FILENAME}.gz"
-fi
-
+FILENAME="$(hostname)-$(date +'%Y-%m-%d_%H_%M_%S').tgz"
+echo " Preparing the tar file: /tmp/$FILENAME "
+tar czf /tmp/$FILENAME -C ${TMPDIR}/ .
 echo " Done! "
 
 echo "Created /tmp/${FILENAME}"
