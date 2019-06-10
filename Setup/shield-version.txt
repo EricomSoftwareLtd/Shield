@@ -25,7 +25,7 @@ shield-cdr-controller:latest shield-cdr-controller:190505-19.01-4158
 shield-notifier:latest shield-notifier:190530-11.30-4283
 shield-proxyless-connector:latest shield-proxyless-connector:190307-13.41-3939
 es-file-preview:latest es-file-preview:190429-07.15-4130
-es-system-configuration:latest es-system-configuration:190606-15.00-4328
+es-system-configuration:latest es-system-configuration:190607-12.11-4330
 es-license-manager:latest es-license-manager:190429-07.15-4130
 es-remote-browser-scaler:latest es-remote-browser-scaler:190429-07.15-4130
 es-policy-manager:latest es-policy-manager:190603-14.12-4306
