@@ -3,7 +3,7 @@
 #####   Ericom Shield Installer:Helm   #####
 #######################################BH###
 APP="Helm"
-APP_VERSION="2.14.1"
+APP_VERSION="v2.14.1"
 APP_BIN="/usr/local/bin/helm"
 ES_FORCE=false
 ES_CLEAN=false
@@ -40,7 +40,7 @@ while [ $# -ne 0 ]; do
 done
 
 helm_init() {
-    curl -s -o rbac-config.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/$BRANCH/scripts/rbac-config.yaml
+    curl -s -o rbac-config.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/rbac-config.yaml
     kubectl -n kube-system create serviceaccount tiller
     kubectl create clusterrolebinding tiller \
        --clusterrole cluster-admin \
@@ -76,5 +76,7 @@ if [ ES_CLEAN = true ]; then
 fi 
 echo "Init tiller"
 helm_init
+
+helm version
 
 echo "Done!"
