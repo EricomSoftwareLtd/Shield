@@ -19,7 +19,7 @@ We're very pleased that you want to contribute!
       - Install Docker
 
 ```bash
-      curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/install-docker.sh
+      curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/install-docker.sh
       sudo chmod +x install-docker.sh
       sudo ./install-docker.sh
 ```
@@ -30,7 +30,7 @@ We're very pleased that you want to contribute!
 ### 3. Install kubectl
 
 ```bash
-      curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/install-kubectl.sh
+      curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/install-kubectl.sh
       sudo chmod +x install-kubectl.sh
       sudo ./install-kubectl.sh
       - Update ~/.kube/config with Kubeconfig from Rancher:
@@ -39,7 +39,7 @@ We're very pleased that you want to contribute!
 ### 4. Install Helm
 
 ```bash
-      curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/install-helm.sh
+      curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/install-helm.sh
       sudo chmod +x install-helm.sh
       sudo ./install-helm.sh
 ```
@@ -47,7 +47,7 @@ We're very pleased that you want to contribute!
 ### 5. Add Shield Repository
 
 ```bash
-      curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/add-shield-repo.sh
+      curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/add-shield-repo.sh
       sudo chmod +x add-shield-repo.sh
       sudo ./add-shield-repo.sh <-d|--dev>
       helm search shield
@@ -70,8 +70,7 @@ the result should be something like:
 ### 6. Deploy Shield
 
 ```bash
-      curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/deploy-shield.sh
-      curl -s -o custom-values.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/custom-values-local.yaml
+      curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/deploy-shield.sh
       chmod +x deploy-shield.sh
       sudo ./deploy-shield.sh
 ```

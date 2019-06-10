@@ -3,9 +3,13 @@
 #####   Ericom Shield Installer:Helm   #####
 #######################################BH###
 APP="Helm"
+APP_VERSION="2.14.1"
+APP_BIN="/usr/local/bin/helm"
+ES_FORCE=false
+ES_CLEAN=false
 
 function usage() {
-    echo " Usage: $0 "
+    echo " Usage: $0 [-f | --force] [-c | --clean]"
 }
 
 #Check if we are root
@@ -17,36 +21,60 @@ if ((EUID != 0)); then
     exit
 fi
 
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -f | --force)
+        ES_FORCE=true
+        ;;
+    -c | --clean)
+        ES_CLEAN=true
+        ;;
+    #    -h | --help)
+    *)
+        usage
+        exit
+        ;;
+    esac
+    shift
+done
+
 helm_init() {
- kubectl -n kube-system create serviceaccount tiller
- kubectl create clusterrolebinding tiller \
-    --clusterrole cluster-admin \
-    --serviceaccount=kube-system:tiller
- kubectl create -f rbac-config.yaml
- helm init --service-account=tiller
- kubectl create rolebinding default-view --clusterrole=view --serviceaccount=kube-system:default --namespace=kube-system
- kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
-}
-helm_clean() {
- kubectl -n kube-system delete deployment tiller-deploy
- kubectl delete clusterrolebinding tiller
- kubectl -n kube-system delete serviceaccount tiller
+    curl -s -o rbac-config.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/$BRANCH/scripts/rbac-config.yaml
+    kubectl -n kube-system create serviceaccount tiller
+    kubectl create clusterrolebinding tiller \
+       --clusterrole cluster-admin \
+       --serviceaccount=kube-system:tiller
+    kubectl create -f rbac-config.yaml
+    helm init --service-account=tiller
+    kubectl create rolebinding default-view --clusterrole=view --serviceaccount=kube-system:default --namespace=kube-system
+    kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
 }
 
-if [ ! -x /usr/local/bin/helm ]; then
+helm_clean() {
+    kubectl -n kube-system delete deployment tiller-deploy
+    kubectl delete clusterrolebinding tiller
+    kubectl -n kube-system delete serviceaccount tiller
+}
+
+if [ ! -x $APP_BIN ] || [ $ES_FORCE ]; then
    echo "Installing $APP ..."
    curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
    chmod +x get_helm.sh
 
-   ./get_helm.sh -v v2.14.1
+   ./get_helm.sh -v "$APP_VERSION"
    source <(helm completion bash)
    echo "Done!"
  else
   echo "$APP is already installed"
 fi
 
+
+if [ ES_CLEAN = true ]; then
+   echo "Clean tiller"
+   helm_clean
+fi 
 echo "Init tiller"
-helm_clean
 helm_init
 
 echo "Done!"

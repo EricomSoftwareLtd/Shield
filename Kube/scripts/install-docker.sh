@@ -3,10 +3,13 @@
 #####   Ericom Shield Installer:Docker #####
 #######################################BH###
 APP="docker"
+APP_BIN="/usr/bin/docker"
+ES_FORCE=false
 
 function usage() {
     echo " Usage: $0 "
 }
+
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -17,7 +20,22 @@ if ((EUID != 0)); then
     exit
 fi
 
-if [ ! -x /usr/bin/docker ]; then
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -f | --force)
+        ES_FORCE=true
+        ;;
+    #    -h | --help)
+    *)
+        usage
+        exit
+        ;;
+    esac
+    shift
+done
+
+if [ ! -x $APP_BIN ] || [ $ES_FORCE ]; then
    echo "Installing $APP ..."
    curl -fsSL https://get.docker.com -o get-docker.sh
    sh get-docker.sh

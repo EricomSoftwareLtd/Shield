@@ -6,6 +6,7 @@ SHIELD_MNG="yes"
 SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="false"
+BRANCH="Dev"
 
 LOGFILE=last_deploy.log
 
@@ -47,13 +48,13 @@ log_message "***************     Deploying Ericom Shield $VERSION_REPO ..."
 if [ "$SHIELD_MNG"="yes" ]; then
    log_message "***************     Deploying Shield Management"
    kubectl label node --all shield-role/management=accept --overwrite
-   curl -s -o custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/custom-management.yaml
+   curl -s -o custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/$BRANCH/scripts/custom-management.yaml
    helm upgrade --install shield-management    shield-repo/shield --namespace=management -f custom-management.yaml --debug | tee -a "$LOGFILE"
 
 if [ "$SHIELD_PROXY"="yes" ]; then
    log_message "***************     Deploying Shield Proxy"
    kubectl label node --all shield-role/proxy=accept --overwrite
-   curl -s -o custom-proxy.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/custom-proxy.yaml   
+   curl -s -o custom-proxy.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/$BRANCH/scripts/custom-proxy.yaml   
    helm upgrade --install shield-proxy         shield-repo/shield --namespace=proxy -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
 fi   
 
@@ -61,14 +62,14 @@ if [ "$SHIELD_FARM"="yes" ]; then
    log_message "***************     Deploying Shield Farm Services"
    kubectl label node --all shield-role/farm-services=accept --overwrite
    kubectl label node --all shield-role/remote-browsers=accept --overwrite
-   curl -s -o custom-farm.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/custom-farm.yaml      
+   curl -s -o custom-farm.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/$BRANCH/scripts/custom-farm.yaml      
    helm upgrade --install shield-farm-services shield-repo/shield --namespace=farm-services -f custom-farm.yaml --debug | tee -a "$LOGFILE"
 fi   
 
 if [ "$SHIELD_ELK"="yes" ]; then
    log_message "***************     Deploying Shield ELK"
    kubectl label node --all shield-role/elk=accept --overwrite
-   curl -s -o custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/master/scripts/custom-values-elk.yaml   
+   curl -s -o custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/$BRANCH/scripts/custom-values-elk.yaml   
    helm upgrade --install shield-elk           shield-repo/shield --namespace=elk -f custom-values-elk.yaml --debug | tee -a "$LOGFILE"
 fi   
 
