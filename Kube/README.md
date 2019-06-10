@@ -35,8 +35,10 @@ We're very pleased that you want to contribute!
       sudo ./install-kubectl.sh
 ```
 
-- Update ~/.kube/config with Kubeconfig from Rancher:
-(Click on your Cluster, then on "Kubeconfig file" Button, Create a file named "~/.kube/config" with the content of the file)
+Update ~/.kube/config with Kubeconfig from Rancher:
+ - Click on your Cluster, then on "Kubeconfig file" Button, then Copy to Clipboard
+ - On your Linux machine, create a file named "~/.kube/config" with the content of the file
+ 
 Check that kubectl is configured well (client and server):
 
 ```bash
