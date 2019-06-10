@@ -34,7 +34,7 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-if [ ! -x "$APP_BIN" ] || [ $ES_FORCE ]; then
+if [ ! -x "$APP_BIN" ] || [ $ES_FORCE == true ]; then
    echo "Installing $APP ..."
    mkdir -p ~/.kube
 

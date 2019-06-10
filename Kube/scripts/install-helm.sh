@@ -57,7 +57,7 @@ helm_clean() {
     kubectl -n kube-system delete serviceaccount tiller
 }
 
-if [ ! -x $APP_BIN ] || [ $ES_FORCE ]; then
+if [ ! -x $APP_BIN ] || [ $ES_FORCE == true ]; then
    echo "Installing $APP ..."
    curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
    chmod +x get_helm.sh
@@ -70,7 +70,7 @@ if [ ! -x $APP_BIN ] || [ $ES_FORCE ]; then
 fi
 
 
-if [ ES_CLEAN = true ]; then
+if [ ES_CLEAN == true ]; then
    echo "Clean tiller"
    helm_clean
 fi 
