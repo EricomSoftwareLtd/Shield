@@ -30,7 +30,7 @@ We're very pleased that you want to contribute!
 ### 3. Install kubectl
 
 ```bash
-      curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/install-kubectl.sh
+      curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-kubectl.sh
       sudo chmod +x install-kubectl.sh
       sudo ./install-kubectl.sh
       - Update ~/.kube/config with Kubeconfig from Rancher:
