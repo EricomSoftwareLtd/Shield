@@ -50,6 +50,7 @@ if [ "$SHIELD_MNG" == "yes" ]; then
    kubectl label node --all shield-role/management=accept --overwrite
    curl -s -o custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-management.yaml
    helm upgrade --install shield-management    shield-repo/shield --namespace=management -f custom-management.yaml --debug | tee -a "$LOGFILE"
+fi
 
 if [ "$SHIELD_PROXY" == "yes" ]; then
    log_message "***************     Deploying Shield Proxy"
