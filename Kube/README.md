@@ -9,17 +9,17 @@ We're very pleased that you want to contribute!
 
      - Note: If Rancher is not installed follow the instructions in:
 
-[Rancher-README](https://github.com/EricomSoftwareLtd/Shield/Kube/blob/master/Rancher-README.md)
+[Rancher-README](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md)
 
      - Create a Cluster from Rancher:
-[Create-Cluster](https://github.com/EricomSoftwareLtd/Shield/Kube/blob/master/Rancher-README.md#3-create-your-cluster)
+[Create-Cluster](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md#3-create-your-cluster)
 
 ### 2. Add your node to the Cluster
 
       - Install Docker
 
 ```bash
-      curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/install-docker.sh
+      curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
       sudo chmod +x install-docker.sh
       sudo ./install-docker.sh
 ```
@@ -39,17 +39,18 @@ We're very pleased that you want to contribute!
 ### 4. Install Helm
 
 ```bash
-      curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/install-helm.sh
+      curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-helm.sh
       sudo chmod +x install-helm.sh
       sudo ./install-helm.sh
 ```
 
 ### 5. Add Shield Repository
+*** You need a valid Password for the Shield Helm Repository (please ask Ericom)
 
 ```bash
-      curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/add-shield-repo.sh
+      curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/add-shield-repo.sh
       sudo chmod +x add-shield-repo.sh
-      sudo ./add-shield-repo.sh <-d|--dev>
+      sudo ./add-shield-repo.sh <-d|--dev> -p PASSWORD
       helm search shield
 ```
 
@@ -70,7 +71,7 @@ the result should be something like:
 ### 6. Deploy Shield
 
 ```bash
-      curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/Dev/scripts/deploy-shield.sh
+      curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/deploy-shield.sh
       chmod +x deploy-shield.sh
       sudo ./deploy-shield.sh
 ```
