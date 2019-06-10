@@ -40,7 +40,7 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-if [ "$PASSWORD"="" ]; then
+if [ "$PASSWORD" = "" ]; then
    echo " Error: Password is missing"
    usage
    exit
