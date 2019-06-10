@@ -58,32 +58,40 @@ fi
 if ! declare -f install_docker >/dev/null; then
     function install_docker() {
 
-        if [ -f "$ES_VER_FILE" ]; then
-            DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
-        fi
         if [ "$DOCKER_VERSION" = "" ]; then
             DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
             echo "Using default Docker version: $DOCKER_VERSION"
         fi
-        if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-            echo "***************     Installing docker-engine"
-            apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
+
+        if [ ! -x /usr/bin/docker ] || [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+            log_message "***************     Installing docker-engine: $DOCKER_VERSION"
+            apt-get -y install apt-transport-https software-properties-common
 
             #Docker Installation of a specific Version
-            curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-            sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+            curl -fsSL "https://download.docker.com/linux/debian/gpg" | apt-key add -
+            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
             echo -n "apt-get -qq update ..."
             apt-get -qq update
             echo "done"
-            sudo apt-cache policy docker-ce
-            log_message "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-            sudo apt-get -y --assume-yes --allow-downgrades install docker-ce=$DOCKER_VERSION~ce-0~ubuntu
+            apt-cache policy docker-ce
+            echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
+            if [ "$DOCKER_VERSION_STRING" = "" ]; then
+                apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && apt-mark hold docker-ce
+            else
+                apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STRING" "docker-ce-cli=$DOCKER_VERSION_STRING" containerd.io && apt-mark hold docker-ce
+            fi
+            sleep 5
+            systemctl restart docker
+            sleep 5
         else
             echo " ******* docker-engine $DOCKER_VERSION is already installed"
         fi
-        if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+        if [ ! -x /usr/bin/docker ]; then
             log_message "Failed to Install/Update Docker, exiting"
             exit -1
+        fi
+        if [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+            log_message "Warning, Failed to Update Docker Version to: $DOCKER_VERSION"
         fi
     }
 fi

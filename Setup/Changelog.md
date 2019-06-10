@@ -11,6 +11,91 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_529] - 2019-06-06
+
+- Expedia.com is whitle list in kube mode #6421
+- Shield-pre-install-check.sh does not work #6403
+- All-in-kube license at the dashboard is not being updated #6366
+- Ldap - ldaps:// authentication is ignored in authproxy #6361
+- AdminUI - small changes #6235
+- Admin - import policies is not working - page is stuck #6174
+- Multi farm support #1
+- Multi domain support #1
+- Created Shield support script
+
+
+## [Dev:Build_528] - 2019-06-05
+
+- ldap - ldaps:// authentication is ignored in authproxy #6361
+- adminUI - small changes #6235
+- Admin - import policies is not working - page is stuck #6174
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Fix crash on AWS if no InstanceType fetched
+
+## [Dev:Build_527] - 2019-06-03
+
+- ldap - ldaps:// authentication is ignored in authproxy #6361
+- Extend "Authentication Chaining" to receive 'X-Authenticated-Group' HTTP header #6266
+
+## [Dev:Build_526] - 2019-06-03
+
+- Sometimes dispatcher is not running when installing shield #6382
+- Update.sh error #6375
+- All-in-kube dashboard info is missing - dynamic node empty #6374
+- OVA - addnodes is missing #5949
+
+## [Dev:Build_525] - 2019-06-02
+
+- On latest dev (e5) cursor does not change when hovering over links #6356
+- All-in-kube send mail alert test is not working #6325
+- AdminUI - small changes #6235
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Ldap - UPNSuffix is appended also if already exists #6360
+
+## [Dev:Build_524] - 2019-05-29
+
+- Fix squid crash with upstream proxy
+- AdminUI - small changes #6235
+- All-in-kube - critical errors at the consul #6317
+- Admin UI - policies table errors when edit a policy #6281
+- Cloud: ELK should serve all namespaces #5685
+- delete profile should delete the categories / policies associated #6262
+- all-in-kube update certificate is not working #6324
+- all-in-kube no reports #6326
+- all-in-kube admin resources empty #6337
+- all-in-kube failed to activate the license #6338
+
+## [Dev:Build_523] - 2019-05-26
+
+- Collector cannot find consul in Dev_522 #6280
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Faster load of crystal pages 
+- cleanup of predefined policies 
+
+## [Dev:Build_522] - 2019-05-22
+
+- Admin - policies table - subdomain column for categories #6139
+- Admin - Save/Cancel buttons #6046
+- Prepare OVA with Shield installed and all images pulled #5629
+- KDDI - Slow initial steps on page load ( cache https request ) #6153
+- Do not include the 'query' part of the URL when sending to NetSTAR #6219
+- Admin - tooltip is too close to the field name #5992
+
+## [Dev:Build_521] - 2019-05-20
+
+- Applications table - defaults table display #6199
+- Admin dashboard - sessions table #5880
+- Updated Strings 
+- Autofill improvments #5548
+- Slow typing due to FPS limits #6232
+- KDDI - https://www.baidu.com/ is slow on Edge #6226
+- Admin shows error message on logout, and do not logout #6221
+- categories license alert should be changed #6212
+- KDDI - Slow initial steps on page load #6153
+- OVA - addnodes is missing #5949
+- upgrade to use electron 5 #5892
+- Admin dashboard - sessions table #5880
+
 ## [Dev:Build_520] - 2019-05-14
 
 - policies table is empty #6185

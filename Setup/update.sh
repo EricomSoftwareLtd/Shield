@@ -39,6 +39,12 @@ if [ ! -d ~/.docker ]; then
    fi
 fi
 
+PIP_VERSION=$(apt policy python3-pip | grep -i installed | awk '{ print $2 }')
+if [[ "$PIP_VERSION" =~ "(none)" ]]; then
+    apt-get install -y python3-pip
+    python3 -m pip install --upgrade 'urllib3>1.25.2'
+fi
+
 ARGS="${@}"
 
 while [ $# -ne 0 ]; do

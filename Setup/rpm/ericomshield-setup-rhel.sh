@@ -26,7 +26,7 @@ if [ -x /sbin/subscription-manager ]; then
         sudo -E yum-config-manager --enable docker-ee-stable
     fi
 
-    sudo yum install "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield.rhel.x86_64.rpm"
+    sudo yum install -y "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield.rhel.x86_64.rpm"
 
 else
     sudo yum install -y epel-release
@@ -37,7 +37,7 @@ else
     sudo yum-config-manager --disable docker-ce-edge
     sudo yum-config-manager --disable docker-ce-test
 
-    sudo yum install "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield.centos.x86_64.rpm"
+    sudo yum install -y "https://github.com/EricomSoftwareLtd/Shield/releases/download/${ES_GH_REL}/ericom_shield.centos.x86_64.rpm"
 fi
 
 sudo /usr/local/ericomshield/setup.sh
