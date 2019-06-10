@@ -27,7 +27,7 @@ echo "Latest Version : $VERSION_REPO"
 VERSION_DEPLOYED=$(helm list shield | grep shield | awk '{ print $9 }')
 echo "Current Version: $VERSION_DEPLOYED"
 
-if [ "$VERSION_REPO"="$VERSION_DEPLOYED" ]; then
+if [ "$VERSION_REPO" = "$VERSION_DEPLOYED" ]; then
    echo "Same Versions, nothing to do"
    exit
 fi
@@ -50,6 +50,7 @@ if [ "$SHIELD_MNG"="yes" ]; then
    kubectl label node --all shield-role/management=accept --overwrite
    curl -s -o custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Kube/$BRANCH/scripts/custom-management.yaml
    helm upgrade --install shield-management    shield-repo/shield --namespace=management -f custom-management.yaml --debug | tee -a "$LOGFILE"
+fi
 
 if [ "$SHIELD_PROXY"="yes" ]; then
    log_message "***************     Deploying Shield Proxy"
