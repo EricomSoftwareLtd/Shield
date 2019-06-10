@@ -1,0 +1,15 @@
+
+farmservice:  
+  enabled: true
+farm-services:
+  system:
+   name: shield-kube
+  proxyless:
+    sslip:
+      enabled: "no"
+  admin:
+    service:
+     enabled: false
+     type: NodePort
+consul:
+  enabled: true
