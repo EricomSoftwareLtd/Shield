@@ -23,15 +23,22 @@ We're very pleased that you want to contribute!
 
 If this is a single machine installation (where Rancher and Shield are running together on the same machine, use the ports 8080/8443:
 
-- Make sure to enter your linux user name properly
+(Make sure to enter your linux user name properly)
 
-`sudo docker run -d --restart=unless-stopped \ -p 8080:80 -p 8443:443 \ -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \ rancher/rancher:latest`
+```bash
+
+      sudo docker run -d --restart=unless-stopped \ -p 8080:80 -p 8443:443 \ -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \        rancher/rancher:latest
+     
+```
 
 If Rancher and Shield are running on seperated machines, use the ports 80/443:
 
-- Make sure to enter your linux user name properly
+(Make sure to enter your linux user name properly)
 
-`sudo docker run -d --restart=unless-stopped \ -p 80:80 -p 443:443 \ -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \  rancher/rancher:latest`
+```bash
+      sudo docker run -d --restart=unless-stopped \ -p 80:80 -p 443:443 \ -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \  rancher/rancher:latest
+
+```
 
 ### 2. Init your Rancher
 
