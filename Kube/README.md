@@ -7,6 +7,8 @@ We're very pleased that you want to contribute!
 
 ### 1. Create a cluster on Rancher
 
+     - Note: Rancher is a well-known software platform that enables easy deployment and management of Docker and Kubernetes products in production. Rancher is generally installed on an external machine (not part of the cluster), however it can be installed on a cluster machine but the default ports will have to be changed.
+     
      - Note: If Rancher is not installed follow the instructions in:
 
 [Rancher-README](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md)
