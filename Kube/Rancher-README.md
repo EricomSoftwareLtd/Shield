@@ -51,11 +51,11 @@ sudo docker run -d --restart=unless-stopped \
 
 * Open your favorite browser and go to <https://RancherServerIPAddress>. You should see this screen:
 ![Login screen](https://user-images.githubusercontent.com/26378199/48976764-8f505500-f095-11e8-8228-cf85c1d0a1a0.png)
-Enter administrator password and click Continue
+Enter administrator password and click ``Continue``
 
 ![Save URL](https://user-images.githubusercontent.com/26378199/48976784-274e3e80-f096-11e8-95be-c0c4c85ef680.png)
 
-Click "Save URL"
+Click ``Save URL``
 
 ![Start page](https://user-images.githubusercontent.com/26378199/48976795-595fa080-f096-11e8-9495-289a104aaf16.png)
 
@@ -67,14 +67,14 @@ Click ``Add Cluster``
 
 ![Custom](https://user-images.githubusercontent.com/26378199/48976807-8f048980-f096-11e8-9e1b-406d06fbb488.png)
 
-- Fill the name of your Cluster
-- On the Network Provider choose ``Calico``
-- Click Next
+- Fill in the ``Cluster Name`` as desired
+- On the ``Network Provider`` select the **Calico** option 
+- Click ``Next``
 
-Fill all check boxes and copy text in black field, after this click ``Done``
+Mark all the check boxes and copy the text in black. Click ``Done``
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
-Run the previously copied command in terminal and wait until the cluster be ready (very fast).
+Run the previously copied command in a terminal and wait until the cluster be ready (very fast).
 
 Make sure to set the docker hub registry (how)?
