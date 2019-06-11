@@ -15,8 +15,9 @@ chmod +x install-docker.sh
 sudo ./install-docker.sh
 ```
 
-verify that docker is installed properly
-sudo docker version
+  Verify that Docker is installed properly:
+  
+`sudo docker version`
 
 * Create directory to save data:
 
