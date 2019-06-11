@@ -61,7 +61,7 @@ Click "Save URL"
 
 ### 3. Create your Cluster
 
-Click "Add Cluster"
+Click ``Add Cluster``
 
 - Choose Custom (right hand side, under ``Import``)
 
@@ -75,6 +75,6 @@ Fill all check boxes and copy text in black field, after this click ``Done``
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
-Run the previously copied command in terminal and wait until the cluster be ready.
+Run the previously copied command in terminal and wait until the cluster be ready (very fast).
 
 Make sure to set the docker hub registry (how)?
