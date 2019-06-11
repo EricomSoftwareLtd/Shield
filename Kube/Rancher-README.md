@@ -71,10 +71,10 @@ Click "Add Cluster"
 - On the Network Provider choose ``Calico``
 - Click Next
 
-Fill all check boxes and copy text in black field, after this click Done
+Fill all check boxes and copy text in black field, after this click ``Done``
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
-Run copied command in terminal, sit back and wait when cluster be ready  
+Run the previously copied command in terminal and wait until the cluster be ready.
 
-Make sure to set the docker hub registry
+Make sure to set the docker hub registry (how)?
