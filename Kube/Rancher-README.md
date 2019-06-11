@@ -63,9 +63,9 @@ Click "Save URL"
 
 Click "Add Cluster"
 
-- Choose Custom
+- Choose Custom (right hand side, under ``Import``)
 - Fill the name of your Cluster
-- On the Network Provide choose calico 
+- On the Network Provider choose ``Calico``
 - Click Next
 ![Custom](https://user-images.githubusercontent.com/26378199/48976807-8f048980-f096-11e8-9e1b-406d06fbb488.png)
 
