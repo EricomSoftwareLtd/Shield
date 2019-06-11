@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_530] - 2019-06-10
+
+- Http failure notification at the dashboard #6447
+- With Dev_528, sometimes pages get stuck #6437
+- Dev528 - can't play videos #6435
+- Browsers not running on my machine after installation ends #6432
+- Kube - When farm-services loads after proxy, farm-sync does not work #6430
+- Admin - Profiles - hide TTL #6425
+- Can't play movies with autoplay #6415
+- Session is getting stuck when downlading file with special chars #6400
+- Sasa - points to that need to be documented #6392
+- Sasa - named policy not exists #6391
+- Sometimes the page is not responding #6383
+- Remove Session Table from Dashboard #6349
+
 ## [Dev:Build_529] - 2019-06-06
 
 - Expedia.com is whitle list in kube mode #6421

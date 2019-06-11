@@ -1,5 +1,5 @@
-#Build Dev:Build_529 on 19/06/06
-SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_529
+#Build Dev:Build_530 on 19/06/11
+SHIELD_VER=8.0.0.latest SHIELD_VER=Dev:Build_530
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190418-11.14-4108
@@ -15,17 +15,17 @@ netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190602-14.22-4295
 es-system-monitor:latest es-system-monitor:190606-10.10-4320
-es-core-sync:latest es-core-sync:190606-13.50-4326
+es-core-sync:latest es-core-sync:190611-13.52-4347
 shield-admin:latest shield-admin:190606-15.00-4328
-icap-server:latest icap-server:190606-13.50-4326
-shield-cef:latest shield-cef:190603-14.12-4306
+icap-server:latest icap-server:190611-14.08-4348
+shield-cef:latest shield-cef:190611-14.08-4348
 extproxy:latest extproxy:190529-11.34-4273
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:190603-07.36-4299
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:190610-14.59-4339
 shield-cdr-controller:latest shield-cdr-controller:190505-19.01-4158
 shield-notifier:latest shield-notifier:190530-11.30-4283
 shield-proxyless-connector:latest shield-proxyless-connector:190307-13.41-3939
 es-file-preview:latest es-file-preview:190429-07.15-4130
-es-system-configuration:latest es-system-configuration:190610-05.11-4332
+es-system-configuration:latest es-system-configuration:190611-13.52-4347
 es-license-manager:latest es-license-manager:190429-07.15-4130
 es-remote-browser-scaler:latest es-remote-browser-scaler:190429-07.15-4130
 es-policy-manager:latest es-policy-manager:190603-14.12-4306
