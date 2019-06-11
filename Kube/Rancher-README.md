@@ -10,9 +10,9 @@ We're very pleased that you want to contribute!
 * If Docker is not installed - install it using these instructions:
 
 ```bash
-      curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
-      sudo chmod +x install-docker.sh
-      sudo ./install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
+chmod +x install-docker.sh
+sudo ./install-docker.sh
 ```
 
 * Create directory to save data:
@@ -26,12 +26,10 @@ If this is a single machine installation (where Rancher and Shield are running t
 (Make sure to enter your linux user name properly)
 
 ```bash
-
 sudo docker run -d --restart=unless-stopped \
 -p 8080:80 -p 8443:443 \
 -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \
 rancher/rancher:latest
-
 ```
 
 If Rancher and Shield are running on seperated machines, use the ports 80/443:
@@ -39,12 +37,10 @@ If Rancher and Shield are running on seperated machines, use the ports 80/443:
 (Make sure to enter your linux user name properly)
 
 ```bash
-
 sudo docker run -d --restart=unless-stopped \
 -p 80:80 -p 443:443 \
 -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \
 rancher/rancher:latest
-
 ```
 
 ### 2. Init your Rancher
