@@ -27,8 +27,11 @@ If this is a single machine installation (where Rancher and Shield are running t
 
 ```bash
 
-      sudo docker run -d --restart=unless-stopped \ -p 8080:80 -p 8443:443 \ -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \        rancher/rancher:latest
-     
+sudo docker run -d --restart=unless-stopped \
+-p 8080:80 -p 8443:443 \
+-v /home/[LinuxUser]/rancher-store:/var/lib/rancher \
+rancher/rancher:latest
+
 ```
 
 If Rancher and Shield are running on seperated machines, use the ports 80/443:
@@ -36,7 +39,11 @@ If Rancher and Shield are running on seperated machines, use the ports 80/443:
 (Make sure to enter your linux user name properly)
 
 ```bash
-      sudo docker run -d --restart=unless-stopped \ -p 80:80 -p 443:443 \ -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \  rancher/rancher:latest
+
+sudo docker run -d --restart=unless-stopped \
+-p 80:80 -p 443:443 \
+-v /home/[LinuxUser]/rancher-store:/var/lib/rancher \
+rancher/rancher:latest
 
 ```
 
