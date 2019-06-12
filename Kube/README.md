@@ -78,7 +78,6 @@ sudo ./install-helm.sh
 curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/add-shield-repo.sh
 chmod +x add-shield-repo.sh
 sudo ./add-shield-repo.sh <-d|--dev> -p PASSWORD
-helm search shield
 ```
 
 Verify that your repository is properly configured by running
@@ -89,10 +88,7 @@ helm search shield
 
 The result should be something like:
 
-```bash
-NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-shield-repo/shield      19.01.471       19.01.Build_461 A Helm chart for installing Ericom Shield for Kubernetes
-```
+![image](https://user-images.githubusercontent.com/24224420/59362670-8a56a880-8d3c-11e9-9b68-754f726177eb.png)
 
 ### 6. Deploy Shield
 
@@ -112,6 +108,6 @@ Click on ``Move`` and select **Default**
 
 Now, Click on your Cluster (close to the Rancher Icon) and select Default under your Cluster Name
 
-When you see in Workload that the system is up and running (or by running helm status shield),
+When you see in ``Workload`` that the system is up and running (or by running helm status shield),
 you can connect your shield-core system to the Browser Farm
-Server IP will be the IP of your Worker Node, IP will be 30140 and 30080 for Proxy and Web-server respectively
+Server IP will be the IP of your Worker Node. ports will be 30140 and 30080 for Proxy and Web-server respectively.
