@@ -7,7 +7,7 @@ We're very pleased that you want to contribute!
 
 ### 1. Deploy Rancher
 
-* If Docker is not installed - install it using these instructions:
+Docker is required to deploy Rancher. If Docker is not installed - install it using these instructions:
 
 ```bash
 curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
@@ -15,15 +15,15 @@ chmod +x install-docker.sh
 sudo ./install-docker.sh
 ```
 
-  Verify that Docker is installed properly:
+Verify that Docker is installed properly:
   
 `sudo docker version`
 
-* Create directory to save data:
+* Create a directory to save data:
 
 `mkdir -p ./rancher-store`
 
-* Run Rancher.
+* Run Rancher
 
 (Make sure to enter your linux user name properly)
 
@@ -58,8 +58,11 @@ Click ``Add Cluster``
 - On the ``Network Provider`` select the **Calico** option 
 - Click ``Next``
 
-Mark all the check boxes and copy the text in black. Click ``Done``
+Mark all the check boxes and copy the command (text in black box). 
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
-Run the copied command in the terminal and wait until the cluster is ready.
+Run the copied command in the **second** machine, the one planned to run Kubernetes. Wait until the cluster is ready.
+After the cluster is ready, a green message appears in the bottom of the page. Click ``Done``.
+
+The Kubernetes cluster is now up and running with Shield.
