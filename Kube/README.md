@@ -109,7 +109,7 @@ In Rancher, click on the cluster and go to ``Projects/Namespaces`` (top bar).
 Choose Shield deployments and click on the menu on the right
 Click on ``Move`` and select **Default**
 
-![Move](images/moveShieldtoDefault.png)
+![moveShieldtoDefault](https://user-images.githubusercontent.com/24224420/59359032-4f517680-8d36-11e9-9ec0-e6719e8d9141.png)
 
 Now, Click on your Cluster (close to the Rancher Icon) and select Default under your Cluster Name
 
