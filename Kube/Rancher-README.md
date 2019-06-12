@@ -33,6 +33,7 @@ sudo docker run -d --restart=unless-stopped \
   -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \
   rancher/rancher:latest
 ```
+Note: If Rancher is running on the same server where Shield will be deployed, the published ports (left side), should be changed.
 
 ### 2. Init your Rancher
 
@@ -60,7 +61,7 @@ Mark all the check boxes and copy the command (text in black box).
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
-Run the copied command in the **second** machine, the one planned to run Kubernetes. Wait until the cluster is ready.
+Run the copied command on all nodes that will be members of the Shield cluster. Wait until the cluster is ready.
 After the cluster is ready, a green message appears in the bottom of the page. Click ``Done``.
 
-The Kubernetes cluster is now up and running with Shield.
+The Kubernetes cluster is now up and ready to deploy Shield on it.
