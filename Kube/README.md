@@ -31,8 +31,7 @@ sudo ./install-docker.sh
 **Install Rancher Agent on Worker Node**
 
 Go to Rancher. In the Clusters table, select the desired cluster. On the right, select the ``Edit`` option from the menu.
-![Edit](images/addCluster.png)
-
+![addCluster](https://user-images.githubusercontent.com/24224420/59359118-75771680-8d36-11e9-9ab0-3249f1e15210.png)
 
 Scroll down to the ``Customize Node Run Command``. Select the required check boxes and copy the command.
 Run the copied command in the new node machine. Wait until the cluster is ready.
