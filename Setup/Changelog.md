@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_532] - 2019-06-12
+
+- ReadOnly Phishing doesnt seem to work #6463
+- Fixed AuthProxy in Kube
+
 ## [Dev:Build_531] - 2019-06-12
 
 - es-sysetm-configuration errors #6467
