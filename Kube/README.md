@@ -5,11 +5,11 @@ We're very pleased that you want to contribute!
 
 ## Deploying Shield Browser Farm Locally
 
-It is recommended to have at least 2 machines for this deployment. One machine to run Rancher and a second machine to run Kubernetes and Shield. Best practice is an additional, third machine to run kubectl and helm on it, but if not available, these services can run on the same machine running Rancher.
+It is recommended to have, a dedicated machine to run Rancher and Kubectl/Helm Services in order to create the cluster and deploy Shield on it.
 
 ### 1. Create A Cluster On Rancher
 
-Note: Rancher is a well-known software platform that enables easy deployment and management of Docker and Kubernetes products in production. Rancher is generally installed on an external machine (not part of the cluster), however it can be installed on a cluster machine but the default ports will have to be changed.
+Note: Rancher is a well-known software platform that enables easy deployment and management of Docker and Kubernetes products in production.  installed on a cluster machine but the default ports will have to be changed.
      
 Install Rancher and create a Kubernetes cluster using these instructions:
 
