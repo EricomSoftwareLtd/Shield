@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_531] - 2019-06-12
+
+- es-sysetm-configuration errors #6467
+- Kube: Admin nginx get bad certificate #6449
+- Kube - When farm-services loads after proxy, auth proxy cant find proxyless #6429
+- all-in-kube dns settings empty can't browse #6381
+
 ## [Dev:Build_530] - 2019-06-10
 
 - Http failure notification at the dashboard #6447
