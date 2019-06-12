@@ -5,30 +5,39 @@ We're very pleased that you want to contribute!
 
 ## Deploying Shield Browser Farm Locally
 
+It is recommended to have at least 2 machines for this deployment. One machine to run Rancher and a second machine to run Kubernetes and Shield. Best practice is an additional, third machine to run kubectl and helm on it, but if not available, these services can run on the same machine running Rancher.
+
 ### 1. Create a cluster on Rancher
 
-.. Note: Rancher is a well-known software platform that enables easy deployment and management of Docker and Kubernetes products in production. Rancher is generally installed on an external machine (not part of the cluster), however it can be installed on a cluster machine but the default ports will have to be changed.
+Note: Rancher is a well-known software platform that enables easy deployment and management of Docker and Kubernetes products in production. Rancher is generally installed on an external machine (not part of the cluster), however it can be installed on a cluster machine but the default ports will have to be changed.
      
-Note: If Rancher is not installed follow the instructions in:
+Install Rancher and create a Kubernetes cluster using these instructions:
 
-[Rancher-README](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md)
+[Rancher](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md)
 
-Create a Cluster from Rancher:
 
-[Create-Cluster](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md#3-create-your-cluster)
 
-### 2. Add your node to the Cluster
+### 2. Add A New Node To An Existing Cluster
+
+If a new node should be added to an existing cluster, follow these steps:
 
 Install Docker
 
 ```bash
-      curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
-      sudo chmod +x install-docker.sh
-      sudo ./install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
+sudo chmod +x install-docker.sh
+sudo ./install-docker.sh
 ```
 
-      - Install Rancher Agent on Worker Node
-      - Copy and Run Command from Rancher
+Install Rancher Agent on Worker Node
+
+Go to Rancher. In the Clusters table, select the desired cluster. On the right, select the ``Edit`` option from the menu.
+<insert image AddCluster1>
+
+
+Scroll down to the ``Customize Node Run Command``. Select the required check boxes and copy the command.
+Run the copied command in the new node machine. Wait until the cluster is ready.
+After the node is joined to the cluster, a green message appears in the bottom of the page. Click ``Done``.
 
 ### 3. Install kubectl
 
