@@ -44,7 +44,7 @@ Enter administrator password and click ``Continue``
 
 Click ``Save URL``
 
-![Start page](https://user-images.githubusercontent.com/26378199/48976795-595fa080-f096-11e8-9495-289a104aaf16.png)
+![Start page](images/rancherURL.png)
 
 ### 3. Create your Cluster
 
