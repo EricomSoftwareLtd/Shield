@@ -40,11 +40,9 @@ sudo docker run -d --restart=unless-stopped \
 ![Login screen](https://user-images.githubusercontent.com/26378199/48976764-8f505500-f095-11e8-8228-cf85c1d0a1a0.png)
 Enter administrator password and click ``Continue``
 
-![Save URL](https://user-images.githubusercontent.com/26378199/48976784-274e3e80-f096-11e8-95be-c0c4c85ef680.png)
+![Start page](images/rancherURL.png)
 
 Click ``Save URL``
-
-![Start page](images/rancherURL.png)
 
 ### 3. Create your Cluster
 
