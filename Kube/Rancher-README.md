@@ -40,7 +40,7 @@ sudo docker run -d --restart=unless-stopped \
 ![Login screen](https://user-images.githubusercontent.com/26378199/48976764-8f505500-f095-11e8-8228-cf85c1d0a1a0.png)
 Enter administrator password and click ``Continue``
 
-![Start page](images/rancherURL.png)
+![rancherURL](https://user-images.githubusercontent.com/24224420/59359193-917ab800-8d36-11e9-8f68-4d5c66774a31.png)
 
 Click ``Save URL``
 
