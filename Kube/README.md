@@ -31,7 +31,7 @@ sudo ./install-docker.sh
 **Install Rancher Agent on Worker Node**
 
 Go to Rancher. In the Clusters table, select the desired cluster. On the right, select the ``Edit`` option from the menu.
-<insert image AddCluster1>
+![Edit](images/addCluster.png)
 
 
 Scroll down to the ``Customize Node Run Command``. Select the required check boxes and copy the command.
@@ -49,9 +49,9 @@ curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLt
 chmod +x install-kubectl.sh
 sudo ./install-kubectl.sh
 ```
-Update ~/.kube/config with Kubeconfig:
+**Update ~/.kube/config with Kubeconfig**
 
-* In Rancher, click on the Cluster, then on ``Kubeconfig File`` option (top right). Scroll down and select the ``Copy to Clipboard`` option.
+* In Rancher, click on the Cluster, then on ``Kubeconfig File`` option (on the right). Scroll down and select the ``Copy to Clipboard`` option.
 * On the Linux machine, create a file named ``~/.kube/config`` (using sudo) and copy the content of the file.
  
 Once the file is created, check that kubectl is configured properly (client and server):
@@ -88,7 +88,7 @@ Verify that your repository is properly configured by running
 helm search shield
 ```
 
-the result should be something like:
+The result should be something like:
 
 ```bash
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
@@ -103,11 +103,13 @@ chmod +x deploy-shield.sh
 sudo ./deploy-shield.sh
 ```
 
-### 7. Move shield-services to "Default" project
+### 7. Move Shield-Services To Default Project
 
 In Rancher, click on the cluster and go to ``Projects/Namespaces`` (top bar).
-Choose Shield deployments and click on the ... on the right
+Choose Shield deployments and click on the menu on the right
 Click on ``Move`` and select **Default**
+
+![Move](images/moveShieldtoDefault.png)
 
 Now, Click on your Cluster (close to the Rancher Icon) and select Default under your Cluster Name
 
