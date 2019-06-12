@@ -100,14 +100,18 @@ sudo ./deploy-shield.sh
 
 ### 7. Move Shield-Services To Default Project
 
-In Rancher, click on the cluster and go to ``Projects/Namespaces`` (top bar).
-Choose Shield deployments and click on the menu on the right
-Click on ``Move`` and select **Default**
+In Rancher, click on the cluster.
+Select the Shield components (farm-services, management & proxy) and click on the ``Move`` option on top. 
+Select **Default** and confirm. The Shield components are now displayed under the Default project.
 
-![moveShieldtoDefault](https://user-images.githubusercontent.com/24224420/59359032-4f517680-8d36-11e9-9ec0-e6719e8d9141.png)
+![image](https://user-images.githubusercontent.com/24224420/59365676-9e50d900-8d41-11e9-97bb-8d088ef63b89.png)
 
 Now, Click on your Cluster (close to the Rancher Icon) and select Default under your Cluster Name
 
-When you see in ``Workload`` that the system is up and running (or by running helm status shield),
-you can connect your shield-core system to the Browser Farm
-Server IP will be the IP of your Worker Node. ports will be 30140 and 30080 for Proxy and Web-server respectively.
+![image](https://user-images.githubusercontent.com/24224420/59365822-e3750b00-8d41-11e9-8483-801a5fea47fb.png)
+
+
+When you see under ``Workloads`` that the system is up and running (or by running helm status shield),
+you can connect to Shield (using the IP Address of the second machine, the one running Kubernetes).
+To browser Shield, connect using the 3128 port. 
+To connect to Shield Admin Console, use port 30181.
