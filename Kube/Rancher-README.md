@@ -75,6 +75,4 @@ Mark all the check boxes and copy the text in black. Click ``Done``
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
-Run the previously copied command in a terminal and wait until the cluster be ready (very fast).
-
-Make sure to set the docker hub registry (how)?
+Run the previously copied command in a terminal and wait until the cluster is ready.
