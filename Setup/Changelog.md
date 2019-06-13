@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_520.2] - 2019-06-13
+
+- Ext-Proxy cache https sites ( from Dev 522) 
+- ReadOnly Phishing doesnt seem to work #6463
+- https://www.kddi-dsec.com/ might get stuck fix
+
+
 ## [Dev:Build_520.1] - 2019-05-14
 
 - admin UI - add new named policy is stuck at first try #6214
