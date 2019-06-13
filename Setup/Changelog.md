@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_533] - 2019-06-13
+
+- Data type conflict ruin reports #6479
+- Fix External Syslog for Kube #6427
+- Faster page load on search engines #6288
+- Installation of Dev_532 on clean machine is not working properly #6481
+- http failure notification at the dashboard #6447
+- After installing Dev_528 on 126.0.6.3, machine is not working properly #6433
+- support profiles based on X-Authenticated-Groups on https sites 
+
 ## [Dev:Build_532] - 2019-06-12
 
 - ReadOnly Phishing doesnt seem to work #6463
