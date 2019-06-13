@@ -5,41 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-- Git Issues should be referenced by #
-- Main Features/Bug Fixes should have (*)
-- User Action Required should have (!)
-
-## [Rel-19.05:Build_xxx] - 2019-05-15
+## [Rel-19.05.52x] - 2019-05-22
 
 ### New Features
 
+- Admin: Categories merged to Policies Table
+- Admin: Applications & Policies - Defaults table merged into main table for improved UX.
 - New Virtual Appliance (Shield and Registry) for Offline Deployments (OVA)
-- CDR: Support Named Policy
-- Page Load Time Improvements
-- Admin: Cloud: Resources - Burst Events
-- Admin: Cloud: Show Deployment in the Admin
-- Admin: Cloud: Dynamic node table
-- Admin: Cloud: Node Group display
-- Cloud: Migrate Management and Proxy Components to K8s
-- Cloud: Migrate Shield (Log) to K8s
+- Admin: Support Votiro Named Policy
+- Admin: Support Sasa Named Policy (Tech Preview)
+- AutoFill Form Data (Tech Preview)
+- Admin: Cloud - Resources - Burst Events
+- Admin: Could - Dynamic Node Info Table - display node groups deployment in the dashboard"
+- Cloud: Migrate Management and Proxy Components to Kubernetes Orchestration Platform (Tech Preview)
+- Cloud: Migrate Shield-Log to Kubernetes Orchestration Platform (Tech Preview)
 
 ### Enhancement
 
-- Update Docker to latest (18.09.5)
+- Docker Updated to latest version (18.09.5)
 - Computer usernames will not be counted for license
-- Do not count licenses for Applications
+- Applications will not be counted for license
+- Page Load Time Improvements
 - Update Admin to work on new version of Chrome
 - Increase the number of domain policies supported
 - Alert: System Capacity has been reached
 - Page is not displayed when it is blocked/ white and using Redirect mode
 - "Network is slow" message changed
-- Allways use WSS
+- Always use WSS (WebSockets over SSL/TLS)
+- Security: Admin jquery update to 3.3.1
 - Allow adding exceptions in proxy.py
+- proxy.py supported on Centos/RHEL
+- Redirection mode: Blocked pages will be enforced, White pages will be Shielded
 
 ### Bug Fixes
 
+- fixed: Korean Keyboard issues
 - fixed: Docker does not start service on CentOS (QA#731188)
-- fixed: Performance degrade from older version
 - fixed: Log invalid characters in url path
 - fixed: Proxy-server out of memory (QA#)
 - fixed: Can't update Firefox and Chrome with Shield
@@ -52,11 +53,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixed: Resources with accepted invalid certificate don't load
 - fixed: Unable to display specific page (white screen) - <https://biz.kddi.com/> (QA#)
 - fixed: No need to check health of netstar if not used
-- Security: Admin jquery update to 3.3.1
 - fixed: Phishing - not display notification / warning when categories are disabled
 - fixed: Adblock list is not synced to farm
 - fixed: don't use ext-proxy in farm mode when adblock is off
 - fixed: Authentication popup - maintain in focus w/o messages in the background
+- fixed: When Categories are disabled – avoid the check health to Categorization Server
+- fixed: When Categories are disabled - Phishing notification/warning malfunction
+- fixed: Gmail Printing malfunction
+- fixed: Resources with accepted invalid certificate don't load
+- fixed: Issues with installation on CentOS and RHEL, related to Phyton dependencies
 
 ## [Rel-19.04:Build_502.1] - 2019-04-07
 
