@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_534] - 2019-06-16
+
+- Admin - Settings - add a link to download Shield certificate #6497
+- All-in-kube can't get the page to download pac file / certificate #6322
+- Faster page load on search engines #6288
+
 ## [Dev:Build_533] - 2019-06-13
 
 - Data type conflict ruin reports #6479
