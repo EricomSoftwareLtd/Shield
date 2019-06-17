@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_535] - 2019-06-17
+
+- Support for Multi Domain
+- License cleanup
+
 ## [Dev:Build_534] - 2019-06-16
 
 - Admin - Settings - add a link to download Shield certificate #6497
