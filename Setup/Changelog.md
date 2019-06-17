@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_536] - 2019-06-17
+
+- www.g2b.go.kr file download sanitize function issue - important #6505
+
 ## [Dev:Build_535] - 2019-06-17
 
 - Support for Multi Domain
