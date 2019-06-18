@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ReadOnly Phishing doesnt seem to work #6463
 - https://www.kddi-dsec.com/ might get stuck fix
 - Removed capacity alert
+- OVA - addnodes is missing #5949
 
 ## [Dev:Build_520.1] - 2019-05-14
 
