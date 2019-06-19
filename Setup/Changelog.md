@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_538] - 2019-06-19
+
+- kube mode - authentication with cloudconnect.local doesn't work #6521
+- Send Feedback: Close Windows on Cancel #6355
+- Support Multi Active Directories #5677
+
 ## [Dev:Build_537] - 2019-06-18
 
 - OVA update failed #6517
