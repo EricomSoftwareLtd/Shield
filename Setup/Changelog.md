@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_537] - 2019-06-18
+
+- OVA update failed #6517
+- shield preview and shield blank is not working in Kube mode #6508
+
 ## [Dev:Build_536] - 2019-06-17
 
 - www.g2b.go.kr file download sanitize function issue - important #6505
