@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.05.52x] - 2019-05-22
+## [Rel-19.05.520.2] - 19-06-2019
+
+- fixed: ReadOnly Mode for Phishing Issue
+- fixed: OVA - addnodes is missing
+- fixed: Ext-Proxy cache https sites
+- fixed: Website: <https://www.kddi-dsec.com/> might get stuck
+- fixed: Removed capacity alert
+
+## [Rel-19.05.520.1] - 05-06-2019
+
+- fixed: Secured LDAP (ldaps) Issue
+
+## [Rel-19.05.520] - 22-05-2019
 
 ### New Features
 
