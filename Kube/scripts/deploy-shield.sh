@@ -5,7 +5,8 @@
 SHIELD_MNG="yes"
 SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
-SHIELD_ELK="false"
+SHIELD_ELK="yes"
+SET_LABELS="yes"
 BRANCH="Dev"
 
 LOGFILE=last_deploy.log
@@ -47,8 +48,10 @@ log_message "***************     Deploying Ericom Shield $VERSION_REPO ..."
 
 if [ "$SHIELD_FARM" == "yes" ]; then
    log_message "***************     Deploying Shield Farm Services *******************************"
-   kubectl label node --all shield-role/farm-services=accept --overwrite
-   kubectl label node --all shield-role/remote-browsers=accept --overwrite
+   if [ "$SET_LABELS" == "yes" ]; then   
+      kubectl label node --all shield-role/farm-services=accept --overwrite
+      kubectl label node --all shield-role/remote-browsers=accept --overwrite
+   fi   
    curl -s -o custom-farm.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-farm.yaml      
    helm upgrade --install shield-farm-services shield-repo/shield --namespace=farm-services -f custom-farm.yaml --debug | tee -a "$LOGFILE"
    sleep 30
@@ -56,7 +59,9 @@ fi
 
 if [ "$SHIELD_MNG" == "yes" ]; then
    log_message "***************     Deploying Shield Management *******************************"
-   kubectl label node --all shield-role/management=accept --overwrite
+   if [ "$SET_LABELS" == "yes" ]; then      
+     kubectl label node --all shield-role/management=accept --overwrite
+   fi  
    curl -s -o custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-management.yaml
    helm upgrade --install shield-management    shield-repo/shield --namespace=management -f custom-management.yaml --debug | tee -a "$LOGFILE"
    sleep 30
@@ -64,7 +69,9 @@ fi
 
 if [ "$SHIELD_PROXY" == "yes" ]; then
    log_message "***************     Deploying Shield Proxy *******************************"
-   kubectl label node --all shield-role/proxy=accept --overwrite
+   if [ "$SET_LABELS" == "yes" ]; then      
+     kubectl label node --all shield-role/proxy=accept --overwrite
+   fi  
    curl -s -o custom-proxy.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-proxy.yaml   
    helm upgrade --install shield-proxy         shield-repo/shield --namespace=proxy -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
    sleep 30
@@ -72,7 +79,9 @@ fi
 
 if [ "$SHIELD_ELK" == "yes" ]; then
    log_message "***************     Deploying Shield ELK *******************************"
-   kubectl label node --all shield-role/elk=accept --overwrite
+   if [ "$SET_LABELS" == "yes" ]; then      
+      kubectl label node --all shield-role/elk=accept --overwrite
+   fi   
    curl -s -o custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-values-elk.yaml   
    helm upgrade --install shield-elk           shield-repo/shield --namespace=elk -f custom-values-elk.yaml --debug | tee -a "$LOGFILE"
 fi   

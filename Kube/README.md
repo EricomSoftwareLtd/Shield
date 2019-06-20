@@ -20,6 +20,14 @@ Install Rancher and create a Kubernetes cluster using these instructions:
 
 If a new node should be added to an existing cluster, follow these steps:
 
+**Configure OS Settings**
+
+```bash
+      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/configure-sysctl-values.sh
+      sudo chmod +x configure-sysctl-values.sh
+      sudo ./configure-sysctl-values.sh
+```
+
 **Install Docker**
 
 ```bash
@@ -34,6 +42,10 @@ Go to Rancher. In the Clusters table, select the desired cluster. On the right, 
 ![addCluster](https://user-images.githubusercontent.com/24224420/59359118-75771680-8d36-11e9-9ab0-3249f1e15210.png)
 
 Scroll down to the ``Customize Node Run Command``. Select the required check boxes and copy the command.
+For all-in-one, check All.
+For a Cluster-Management Node, check etcd and Control Plane checkboxes.
+For a Worker only Node, check Worker checkbox only.
+
 Run the copied command in the new node machine. Wait until the cluster is ready.
 After the node is joined to the cluster, a green message appears in the bottom of the page. Click ``Done``.
 
@@ -57,7 +69,7 @@ Once the file is created, check that kubectl is configured properly (client and 
 
 ``sudo kubectl version``
 
-The expected outcome is:
+The expected outcome should be something like:
 
 ``Client Version: version.Info{Major:"1", Minor:"14", GitVersion:"v1.14.3", GitCommit:"5e53fd6bc17c0dec8434817e69b04a25d8ae0ff0", GitTreeState:"clean", BuildDate:"2019-06-06T01:44:30Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/amd64"}
 Server Version: version.Info{Major:"1", Minor:"13", GitVersion:"v1.13.5", GitCommit:"2166946f41b36dea2c4626f90a77706f426cdea2", GitTreeState:"clean", BuildDate:"2019-03-25T15:19:22Z", GoVersion:"go1.11.5", Compiler:"gc", Platform:"linux/amd64"}
@@ -90,7 +102,10 @@ The result should be something like:
 
 ![image](https://user-images.githubusercontent.com/24224420/59362670-8a56a880-8d3c-11e9-9b68-754f726177eb.png)
 
-### 6. Deploy Shield
+### 6. Deploy Shiel
+Note: deploy-shield script is provided as an example on how to deploy the system in an all-in-one deployment
+For a more complex deployment, the node labels have to be set on each node according to the desired deployment, 
+then Shield should be deployed using Helm.
 
 ```bash
 curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/deploy-shield.sh
@@ -101,7 +116,7 @@ sudo ./deploy-shield.sh
 ### 7. Move Shield-Services To Default Project
 
 In Rancher, click on the cluster.
-Select the Shield components (farm-services, management & proxy) and click on the ``Move`` option on top. 
+Select the Shield components (management, proxy, farm-services, elk) and click on the ``Move`` option on top. 
 Select **Default** and confirm. The Shield components are now displayed under the Default project.
 
 ![image](https://user-images.githubusercontent.com/24224420/59365676-9e50d900-8d41-11e9-97bb-8d088ef63b89.png)
