@@ -7,6 +7,7 @@ APP_VERSION="v2.14.1"
 APP_BIN="/usr/local/bin/helm"
 ES_FORCE=false
 ES_CLEAN=false
+BRANCH="Dev"
 
 function usage() {
     echo " Usage: $0 [-f | --force] [-c | --clean]"
@@ -40,7 +41,7 @@ while [ $# -ne 0 ]; do
 done
 
 helm_init() {
-    curl -s -o rbac-config.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/rbac-config.yaml
+    curl -s -o rbac-config.yaml "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/rbac-config.yaml"
     kubectl -n kube-system create serviceaccount tiller
     kubectl create clusterrolebinding tiller \
        --clusterrole cluster-admin \
@@ -70,7 +71,7 @@ if [ ! -x $APP_BIN ] || [ $ES_FORCE == true ]; then
 fi
 
 
-if [ ES_CLEAN == true ]; then
+if [ "$ES_CLEAN" == true ]; then
    echo "Clean tiller"
    helm_clean
 fi 
