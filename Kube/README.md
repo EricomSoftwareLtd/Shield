@@ -102,7 +102,7 @@ The result should be something like:
 
 ![image](https://user-images.githubusercontent.com/24224420/59362670-8a56a880-8d3c-11e9-9b68-754f726177eb.png)
 
-### 6. Deploy Shiel
+### 6. Deploy Shield
 Note: deploy-shield script is provided as an example on how to deploy the system in an all-in-one deployment
 For a more complex deployment, the node labels have to be set on each node according to the desired deployment, 
 then Shield should be deployed using Helm.
