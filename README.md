@@ -19,7 +19,7 @@ Ericom Shield will be installed and ericomshield service will be available
 #####   Multi-Node Deployment     #####
 
 After installing Ericom Shield on the Master, you can add additional Nodes 
-Pre-Requesite for new Node: Linux Ubuntu 16.04
+Pre-Requesite for new Node: Linux Ubuntu 18.04
 
 Open a Shell on a New Node:
 

@@ -18,12 +18,12 @@ BuildRequires: python36-devel
 
 %if "%{_buildfor_rel}" == "rhel"
 
-Requires: docker-ee >= 2:${DOCKER_VERSION_LOW}, docker-ee < 2:${DOCKER_VERSION_HIGH}
+Requires: docker-ee >= 3:${DOCKER_VERSION_LOW}, docker-ee < 3:${DOCKER_VERSION_HIGH}
 Requires: redhat-release-server >= 7.5
 
 %else #"%{_buildfor_rel}" == "centos"
 
-Requires: docker-ce >= ${DOCKER_VERSION_LOW}, docker-ce < ${DOCKER_VERSION_HIGH}
+Requires: docker-ce >= 3:${DOCKER_VERSION_LOW}, docker-ce < 3:${DOCKER_VERSION_HIGH}
 Requires: centos-release >= 7-5
 
 %endif
@@ -33,7 +33,7 @@ Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq, firewalld
 # Fix Python bytecompilation
 %global __python %{__python3}
 
-Requires: ansible >= 2.7.1, ansible < 2.8
+Requires: ansible >= 2.7.1
 # Requires: python-docker-py >= 1.10.6
 # Requires: python-boto >= 2.25
 # Requires: python-boto3 >= 1.4.6
