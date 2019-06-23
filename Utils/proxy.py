@@ -92,10 +92,10 @@ def writeToYum(proxy, port, username, password, flag):
     # writing starts
     if not flag:
         with open(YUM_, "a") as filepointer:
-            filepointer.write(f'proxy=http://{proxy}:{port}\n')
+            filepointer.write('proxy=http://{}:{}\n'.format(proxy, port))
             if username:
-                filepointer.write(f'proxy_username={username}\n')
-                filepointer.write(f'proxy_password={password}\n')
+                filepointer.write('proxy_username={}\n'.format(username))
+                filepointer.write('proxy_password={}\n'.format(password))
 
 
 # This function writes to the environment file
