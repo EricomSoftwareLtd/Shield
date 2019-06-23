@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-19.05
+# YML file for Rel-19.03
 
 services:
     dns:
@@ -161,8 +161,8 @@ services:
         networks:
             - shield
         #Published only for Dev
-#       ports:
-#           - '8500:8500'
+        ports:
+            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -615,8 +615,8 @@ services:
     portainer:
         image: 'securebrowsing/shield-portainer:latest'
         #Published only for Dev
-#        ports:
-#            - '9000:9000'
+        ports:
+            - '9000:9000'
         volumes:
             # - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer_v2:/data'
