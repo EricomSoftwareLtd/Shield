@@ -83,7 +83,7 @@ class AddNodeExecutor(object):
                 if container_pattern.match(line):
                     return "securebrowsing/{}".format(line.split()[1].strip())
 
-            return "securebrowsing/shield-autoupdate:180916-13.48-2835"
+            return "securebrowsing/shield-autoupdate:190602-14.22-4295"
 
     def show_container_help(self):
         cmd = run_container_template.format(
