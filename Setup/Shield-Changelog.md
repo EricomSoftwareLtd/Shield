@@ -420,6 +420,351 @@ Alpha Ready:
 - Fixed: Bluecoat firewall cause all urls to be considered as app, hence all are white apps
 - Fixed: QA#687503 PDF Printing Issue
 
+## [Rel-19.04:Build_502.1] - 2019-04-07
+
+### New Features
+
+- New Virtual Appliance for Deployments (OVA) (Tech Preview)
+- Admin: Cloud: Show Deployment in the Admin (Tech Preview)
+- Admin: Cloud: Configuration of browser scaler (Tech Preview)
+- Admin: Cloud: Resources - Burst Events (Tech Preview)
+- Cloud: Helm Package for Shield (Management and Proxy) (Tech Preview)
+- Cloud: Helm Package for Shield (Log) (Tech Preview)
+
+Alpha Ready:
+
+- CDR: SASA Integration (Tech Preview)
+- CDR: Support Named Policy (Tech Preview)
+
+### Enhancement
+
+- Add logging file and size limitations for all services
+- Allow setting the locale in Electron/Chromium
+- Update Rendering Engine to 4.0.8 to include security fix
+- Added support for custom mouse cursor (e.g. Map.baidu.com)
+- Use NSS to validate Certificate Authorities
+- Update default Bandwidth limit to 10 GB
+- Updated text messages -Shield scripts and error messages
+- Improve High Availability (2 icap servers)
+
+### Bug Fixes
+
+- fixed: Google drive is not working with shield
+- fixed: Possible fixes for broken sites
+- Pre-installation checks - ubuntu 18.04 update
+- Intelligent isolation - Do not allow to delete categories
+
+## [Prod:19.02.1-Build-492.5] - 14-03-2019
+
+- AdminUI: Strings not displayed properly in Policy Table
+- AdminUI: Translation updates
+- Installer: Pre-installation checks - ubuntu 18.04 update
+- Installer: dist-upgrade - have an option to cancel it
+- Installer: Enable SpellCheck tool update
+
+### New Features 19.02
+
+- New Policy Option for Printing:
+  - Disabled: Printing is Disabled
+  - Protected: Printing is Enabled if Download is Enabled/Sanitize
+  - Enable: Printing is Enabled (regardless of Download Policy)
+- License enforcement for intelligent isolation
+- Stay in shield on Redirect Mode
+- Admin: Configuration of Browser Scaler (Tech Preview)
+- Cloud: Show farm sessions data on Admin UI Dashboard (Tech Preview)
+
+### Enhancement 19.02
+
+- Print PDF directly on IE
+- Changes in End User Shield Indicator
+- Inherit Client Geo Location to the Remote Browser
+- Apply bandwidth limit to sessions
+- Alert: Browser Farm is not available
+
+### Bug Fixes 19.02
+
+- fixed: Custom Translations are lost during update
+- fixed: Tab Limit should be based on GUID when no Auth
+- fixed: addnode fix increase the time + add tests to weakup swarm if needed
+- fixed: status.sh -e is not working
+- fixed: Copy/ Paste on MAC doesn't work properly
+- fixed:  Override doesn't work on categories
+
+## [Prod:19.01.1-Build-475.4] - 07-02-2019
+
+### Enhancement 19.01.1
+
+- Multiple Syslog Servers Support
+- New Translations for Japanese
+
+### Bug Fixes 19.01.1
+
+- Fixed: status.sh -e is not working
+- Fixed: Add Node doesnt work sometimes
+- Fixed: Improved Multi-Node HA
+- Fixed: Chinese Input Issues
+
+## [Prod:19.01-Build-475.1] - 03-02-2019
+
+### New Features 19.01
+
+- Categories (production ready)
+- External Browser Farm (on-prem, or Cloud-based) - Tech Preview
+- Elastic Nodes Scale for Browser Farm on Cloud - Tech Preview
+- Intelligent Isolation Mode
+- New File Sanitization Votiro Version
+
+### Enhancement 19.01
+
+- Categories are Enabled by default to support the Intelligent Isolation mode
+- Chinese inputs support
+- New Ericom Certificate with extended expiration date
+- Tab Limit is enforced according to Browser GUID when there is no Authentication
+- User's Display name added to reports
+- Pre-installation checks - ubuntu 18.04
+- Category - search
+- Remote Browser Auto-kill
+
+### Bug Fixes 19.01
+
+- Fixed: Failure occurs when returning from NIC down/up
+- Fixed: Multi node - when one node is shut down ./status.sh -n doesn't work
+- Fixed: Stuck CTRL Key
+- Fixed: Blank tab opened after the pop up is displayed
+- Fixed: Redirect - Can't download files with space in the name
+- Fixed: Chinese - Conversion window position
+- Fixed: Japanese - Conversion list window position on FF
+- Fixed: Japanese - Suggestion doubled - now need to enter the letter again
+- Fixed: Japanese - (Safari MAC) Can't type in alphanumeric mode
+- Fixed: Japanese: Alphanumeric characters doubled
+
+## [Prod:18.12-Build-461] - 30-12-2018
+
+### New Features 18.12
+
+- Potential Phishing Detection (Action: Warning, Read-Only, Block) (Tech Preview)
+- Categories (Tech Preview)
+- Centos/RHEL Support
+- Redirection Mode
+- End User: Support Multi-Select in Drop Down Lists
+- Named User Licensing
+- Set Image Quality and FPS
+- Exclude IPs for RateLimit
+- Browser Farm settings in Admin (Tech Preview)
+- Enable/Disable Tech-Preview Features
+- Allow End User Shield Indicator ("[]" Symbol Before the URL Name, edited via the translations file)
+- Ext-Proxy Logs are collected
+
+### Enhancement 18.12
+
+- It is now possible to sign in to chrome
+- Bandwidth Improvements
+- Right-Click Open Link without add-block also on page load failed
+- Support Right/Left CTRL+Shift combination
+- Support ALT + Arrows combinations
+- Alert when Votiro license/trial days are over
+- Notifier service must run on a management node
+- Votiro Anti-Virus Option ('off' by Default)
+- Allow clipboard inside the browser
+- Print disabled for files in case download is disabled
+- File preview -File Size Limitation
+- Reset Certificate uploaded and revert to Ericom Certificate
+
+### Bug Fixes 18.12
+
+- Fixed: Can't upload .JPG files on Gmail
+- Fixed: Can't open PDF file from Google
+- Fixed: Timeout Session doesnt work on Website with Popup window
+- Fixed: Windows/Firefox : Right click menu is not working properly
+- Fixed: Fallback to LDAP is not working
+- Fixed: Japanese - Suggestion doubled
+- Fixed: Japanese - First letter is doubled in Internet Explorer
+- Fixed: Japanese - Output issue
+- Fixed: Japanese - Problems with the keyboard
+- Fixed: Japanese - IME position
+- Fixed: Japanese - IME disabled after typing in the password field
+- Fixed: Japanese - the position of the conversion list window is not correct
+- Fixed: Japanese - some problems with the positioning
+- Fixed: Download zip with password - fix the password dialog
+- Fixed: SMTP alert uses auth when no auth is defined
+- Fixed: Right click -> paste : dialog to use ctrl v is not openning
+- Fixed: Import policies - translations issues
+- Fixed: Disable the slow network message does not work
+- Fixed: Delete multiple policies lines
+- Fixed: When node is not in swarm or no leader, status-node returns a script error
+- Fixed: Zip file + password - encrypt password
+- Fixed: Mac/Firefox: Scroll is broken after cmd+c
+- Fixed: Can print url pdf file when printing is disabled
+
+## [Prod:18.11-Build-436] - 18-11-2018
+
+### New Features 18.11
+
+#### End User Features 18.11
+
+- File Preview
+
+#### Admin Features 18.11
+
+- Maintain customer environment variables during upgrade (proxy, subnet)
+- Proxyless Mode (Tech-Preview)
+- Votiro New Version: 8.1.1
+- External Syslog Configuration from AdminUI
+
+### Enhancement 18.11
+
+- Alert when user is associated to two User Profiles
+- Add Display Name and User Profile to the report/sessions list in Dashboard
+- Alert end user when Javascript is disabled on the browser (may lead to errors)
+- Increase download timeout to 30 min
+- Delete "raw" index in ELK prior to update process
+- WebService Code cleanup - reduce network usage
+- Reset Certificate uploaded and revert to Ericom Certificate
+- Verify all certificates exists
+
+### Bug Fixes 18.11
+
+- Fixed: Uploading files should ignore timeout
+- Fixed: LDAP Login related bugs
+- Fixed: Japanes Keyboard Issues
+- Fixed: Website Salesforce - several issues (Spellcheck, create PDF invoice, cannot set value in dropdown)
+- Fixed: Website Facebook related issues (playing videos & upload photo/video)
+- Fixed: Upload into iFrame
+- Fixed: Zip with password didn’t work properly
+- Fixed: Links are downloaded when they should be opened - fixed
+- Fixed: Several Broken Websites (Foxnews, Zoominfo, etc)
+- Fixed: Custom trust certificate is not working with shield
+- Fixed: No mail alert on a machine with upstream proxy
+
+## [Prod:18.10.2-Build-413.4] - 23-10-2018
+
+- Fixed: Custom Trust Certificate is not working with shield
+- Fixed: QA#708355 Failure addnoteds.sh -b
+
+## [Prod:18.10-Build-413.2] - 14-10-2018
+
+### New Features 18.10
+
+#### End User Features 18.10
+
+- Paste image to Shield
+- Send Feedback (from right click)
+- Pause Shield and Reload (for evaluations)
+
+#### Admin Features 18.10
+
+- Support already authenticated users by downstream proxy (using headers)
+- Support for local registry/cache for docker images
+- Votiro new version: 8.1.0
+
+### Enhancement 18.10
+
+- Performance Improvements:
+- - Several improvements for faster page loading
+- - Lower FPS settings
+- - Lower FPS during scrolling
+- - Reduce bandwidth usage
+- Pre-check is not run by default on update
+- Admin UI - Validation of domain value in policy
+- Admin UI - Import policies should display the name of the file
+- Admin UI - New Japanese Translations
+- Data retention for basic authentication
+
+### Bug Fixes 18.10
+
+- Fixed: Several broken websites
+- Fixed: Delete raw index in ELK if conflicts
+- Fixed: Hide context menu on scroll
+- Fixed: Japanese character conversion candidate display position
+- Fixed: Underline of unconverted character string
+- Fixed: Prevent outside modal clicks and scrolls
+- Fixed: Several LDAP login fixes
+- Fixed: When pasting a big amount of text the page is not responsive
+- Fixed: Drop Down list is repositioned differently according to zoom
+
+## [Prod:18.09-Build-399.1] - 16-09-2018
+
+- Support Nested Groups in Active Directory
+
+## [Prod:18.09-Build-399] - 06-09-2018
+
+### New Features - 18.09
+
+#### End User Features - 18.09
+
+- Save Image from Shield
+- Copy Image from Shield
+- Customized Error Pages (DNS failure, ICAP Error)
+
+### Enhancement - 18.09
+
+- Added Font Missing in Shield
+- Improve Font Display (fonts, color, spacing)
+- Fullscreen message is now more visible
+- Support PDF in iframes
+- Improved DropDown list
+- Updated dialog for opening new tab
+- Improved notification on file downloads
+- URL schemes support
+- Improve internal communication (decrease bandwidth usage)
+- Squid logs size are now rotated
+- Support certificate chain in Custom Trust Certificate
+- Improved support for Admin LDAP login
+
+### Bug Fixes - 18.09
+
+- Fixed: Broken Websites (el-al, whatsapp, pinterest, adp, Bank Leumi, Sharepoint, etc)
+- Fixed: Bandwidth Usage on Scrolling and Cursor Blinking
+- Fixed: Slow scrolling on high latency
+- Fixed: Broker/ICAP/CEF crash on missing default language
+- Fixed: Error while saving Japanese translations
+
+## [Prod:18.08-Build-388.2] - 19-08-2018
+
+### New Features - 18.08
+
+#### End User Features - 18.08
+
+- CDR blocked files notifications include additional details
+- Support file upload to complex pages that have iFrames
+- CDR notifications to include file name for improved UX
+- Slow Network message to End-User
+
+#### Admin Console - 18.08
+
+- Admin login support LDAP
+- New Errors Report was added
+- Added an option to route all traffic (including white-listed) via the Browser farm
+- Added an option to block sites with bad certificate in the policies
+- Applications table – add a rule for application as a 'browser'
+- Validation of CA certificate
+- CDR component can be defined directly or via upstream proxy
+- Limit system capacity according to CPU and Memory
+- Changes XFF and Client-IP to be forward by default
+
+### Enhancements - 18.08
+
+- Two factor authentication support
+- Improved page load times
+- Add error for the user in case some or all files inside a zip file is being blocked
+- Sanitization notification is shown faster and remain until the download to the end user is done
+- Bypass upstream proxy for CDR
+- Deployment:
+  - Full support for upstream proxy
+  - Improved Add-Node
+  - Fix download docker images on slave nodes
+  - Fixed configuration lost after adding nodes
+
+### Bug Fixes - 18.08
+
+- Fixed: Many broken sites
+- Fixed: “loaded dictionary for locale us-en” error
+- Fixed: Limit Logs size for ELK to reduce high disk usage
+- Fixed: Backup issues
+- Fixed: Timeout occur during join new node to cluster #3840
+- Fixed: Bluecoat firewall cause all urls to be considered as app, hence all are white apps
+- Fixed: QA#687503 PDF Printing Issue
+
 ## [Prod:18.07.1-Build-368] - 15-07-2018
 
 ### Enhancements - 18.07.1
