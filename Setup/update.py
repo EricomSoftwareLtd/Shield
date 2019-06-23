@@ -51,7 +51,7 @@ class UpdateExecutor():
         self.version_data = ""
         self.force_update = args.force
         self.deatiled_output = args.verbose
-        self.container = "shield-autoupdate:180916-13.48-2835"
+        self.container = "shield-autoupdate:190602-14.22-4295"
         self.docker_upgrade = False
         self.run_sshkey = args.command == 'sshkey'
         self.version_update = True
