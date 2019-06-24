@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_540] - 2019-06-24
+
+- Proxy-server out of memory #5933
+- OVA - rel 19.05.2 - pre check ended with errors #6538
+- Proxy-server out of memory #5933
+- Fix proxyless mode 
+- Fix consul issue on slow machines
+
 ## [Dev:Build_539] - 2019-06-23
 
 - Korean file download sanitize function issue - important - name of file is Gibberish #6505
