@@ -28,7 +28,7 @@ DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/usr/local/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-CONTAINER_TAG_DEFAULT="shield-collector:190624-08.39-4442"
+CONTAINER_TAG_DEFAULT="shield-collector:190624-13.30-4450"
 
 HW_PLATFORM="$(uname -m)"
 if [ "$HW_PLATFORM" != "x86_64" ]; then
