@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_539] - 2019-06-23
+
+- Korean file download sanitize function issue - important - name of file is Gibberish #6505
+- Proxy.py is not working #6493
+- Fix External Syslog for Kube #6427
+- Added basic farm selection logic
+- Kube - dnsmasq changes
+- Strings for 5677 & 6497 
+- OVA - rel 19.05.2 - pre check ended with errors #6538
+
 ## [Dev:Build_538] - 2019-06-19
 
 - kube mode - authentication with cloudconnect.local doesn't work #6521
