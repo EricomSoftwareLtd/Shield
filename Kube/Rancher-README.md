@@ -10,7 +10,7 @@ We're very pleased that you want to contribute!
 Docker is required to deploy Rancher. If Docker is not installed - install it using these instructions:
 
 ```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
 chmod +x install-docker.sh
 sudo ./install-docker.sh
 ```
@@ -21,16 +21,14 @@ Verify that Docker is installed properly:
 
 * Create a directory to save data:
 
-`mkdir -p ./rancher-store`
+`mkdir -p ~/rancher-store`
 
 * Run Rancher
-
-(Make sure to enter your linux user name properly)
 
 ```bash
 sudo docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
-  -v /home/[LinuxUser]/rancher-store:/var/lib/rancher \
+  -v ~/rancher-store:/var/lib/rancher \
   rancher/rancher:latest
 ```
 Note: If Rancher is running on the same server where Shield will be deployed, the published ports (left side), should be changed.
@@ -61,6 +59,28 @@ Mark all the check boxes and copy the command (text in black box).
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
+### 4. Add Node/s To Your Cluster
+
+For all nodes that will be member of your cluster  that will be added to an existing cluster, follow these steps:
+
+**Configure OS Settings**
+
+```bash
+      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
+      sudo chmod +x configure-sysctl-values.sh
+      sudo ./configure-sysctl-values.sh
+```
+
+**Install Docker**
+
+```bash
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
+sudo chmod +x install-docker.sh
+sudo ./install-docker.sh
+```
+
+**Join Nodes to the Cluster**
+From the Rancher Windows, Click on the "Copy To Clipboard" Button
 Run the copied command on all nodes that will be members of the Shield cluster. Wait until the cluster is ready.
 After the cluster is ready, a green message appears in the bottom of the page. Click ``Done``.
 
