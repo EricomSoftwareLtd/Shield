@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_541] - 2019-06-26
+
+- Upn suffix are not working when enable ldap proxy #6570
+- Mutli domain - should not ignore the domain in case user appear in both ADs #6555
+- Centos installation fails #6254
+- Load Balancer for Domain Controllers #6129
+- pdfjs viewer working in crystal
+
 ## [Dev:Build_540] - 2019-06-24
 
 - Proxy-server out of memory #5933
