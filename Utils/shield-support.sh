@@ -10,7 +10,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-RANCHER="yes"
+RANCHER="no"
 
 echo " Shield Support: Collecting Info and Logs from System and Shield ....."
 
