@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New OVA Available
 - shield-support.sh script for collecting logs from Customer Environment
 - fixed: ReadOnly Mode for Phishing Issue
-- fixed: OVA - addnodes is missing
 - fixed: Ext-Proxy cache https sites
 - fixed: Removed capacity alert
 -	fixed: OVA - addnodes and update issues
