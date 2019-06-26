@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixed: Removed capacity alert
 -	fixed: OVA - addnodes and update issues
 -	fixed: Sometimes activating new system fails
+- fixed: shield-pre-check issue on Docker Install
 
 ## [Rel-19.05.520.1] - 05-06-2019
 
