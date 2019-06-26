@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-19.05.520.2] - 19-06-2019
 
+- New OVA Available
+- shield-support.sh script for collecting logs from Customer Environment
 - fixed: ReadOnly Mode for Phishing Issue
 - fixed: OVA - addnodes is missing
 - fixed: Ext-Proxy cache https sites
-- fixed: Website: <https://www.kddi-dsec.com/> might get stuck
 - fixed: Removed capacity alert
+-	fixed: OVA - addnodes and update issues
+-	fixed: Sometimes activating new system fails
 
 ## [Rel-19.05.520.1] - 05-06-2019
 
