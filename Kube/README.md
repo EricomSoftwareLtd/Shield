@@ -23,7 +23,7 @@ If a new node should be added to an existing cluster, follow these steps:
 **Configure OS Settings**
 
 ```bash
-      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/configure-sysctl-values.sh
+      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
       sudo chmod +x configure-sysctl-values.sh
       sudo ./configure-sysctl-values.sh
 ```
@@ -31,7 +31,7 @@ If a new node should be added to an existing cluster, follow these steps:
 **Install Docker**
 
 ```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
 sudo chmod +x install-docker.sh
 sudo ./install-docker.sh
 ```
@@ -56,7 +56,7 @@ Once all nodes are added to the cluster and the cluster is completely ready, it 
 On the first (Rancher) machine, run these commands to install Kubectl:
 
 ```bash
-curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-kubectl.sh
+curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-kubectl.sh
 chmod +x install-kubectl.sh
 sudo ./install-kubectl.sh
 ```
@@ -78,7 +78,7 @@ Server Version: version.Info{Major:"1", Minor:"13", GitVersion:"v1.13.5", GitCom
 ### 4. Install Helm
 
 ```bash
-curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-helm.sh
+curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-helm.sh
 chmod +x install-helm.sh
 sudo ./install-helm.sh
 ```
@@ -87,7 +87,7 @@ sudo ./install-helm.sh
 *** You need a valid Password for the Shield Helm Repository (please ask Ericom)
 
 ```bash
-curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/add-shield-repo.sh
+curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/add-shield-repo.sh
 chmod +x add-shield-repo.sh
 sudo ./add-shield-repo.sh <-d|--dev> -p PASSWORD
 ```
@@ -108,7 +108,7 @@ For a more complex deployment, the node labels have to be set on each node accor
 then Shield should be deployed using Helm.
 
 ```bash
-curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/deploy-shield.sh
+curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/deploy-shield.sh
 chmod +x deploy-shield.sh
 sudo ./deploy-shield.sh
 ```
@@ -116,6 +116,7 @@ sudo ./deploy-shield.sh
 ### 7. Move Shield-Services To Default Project
 
 In Rancher, click on the cluster.
+Then click on Projects/Namespaces
 Select the Shield components (management, proxy, farm-services, elk) and click on the ``Move`` option on top. 
 Select **Default** and confirm. The Shield components are now displayed under the Default project.
 
