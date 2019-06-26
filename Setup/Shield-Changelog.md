@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Autofill improvments
 - Remove Session Table from Dashboard (GDPR)
 - Send Feedback: Close Windows on Cancel
+- AdminUI: Various Enhancements and Bug Fixes
 
 ### Bug Fixes
 
