@@ -80,6 +80,7 @@ sudo ./install-docker.sh
 ```
 
 **Join Nodes to the Cluster**
+
 From the Rancher Windows, Click on the "Copy To Clipboard" Button
 Run the copied command on all nodes that will be members of the Shield cluster. Wait until the cluster is ready.
 After the cluster is ready, a green message appears in the bottom of the page. Click ``Done``.
