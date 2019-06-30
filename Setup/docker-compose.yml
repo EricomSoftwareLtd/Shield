@@ -608,6 +608,26 @@ services:
             options:
                 max-size: "500M"
                 max-file: "3"
+        
+    es-ldap-proxy:
+        image: 'securebrowsing/es-ldap-proxy:latest'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-ldap-proxy'
+        networks:
+            - shield
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
 
 
     ############################### Docker managment part ##############################################################
