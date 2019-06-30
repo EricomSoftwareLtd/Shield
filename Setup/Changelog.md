@@ -13,9 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_542] - 2019-06-30
 
--
--
--
+- ldap - when the bind account password has special chars (maybe%) it crashes squid #6598
+- add ldap proxy to swarm yml #6590
+- Support Multi Active Directories #5677
+- Enforce Concurrent Sessions per License - Activation part #6251
 
 ## [Dev:Build_541] - 2019-06-26
 
