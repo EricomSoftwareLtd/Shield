@@ -11,6 +11,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_542] - 2019-06-30
+
+- ldap - when the bind account password has special chars (maybe%) it crashes squid #6598
+- add ldap proxy to swarm yml #6590
+- Support Multi Active Directories #5677
+- Enforce Concurrent Sessions per License - Activation part #6251
+
+## [Dev:Build_541] - 2019-06-26
+
+- Upn suffix are not working when enable ldap proxy #6570
+- Mutli domain - should not ignore the domain in case user appear in both ADs #6555
+- Centos installation fails #6254
+- Load Balancer for Domain Controllers #6129
+- pdfjs viewer working in crystal
+
+## [Dev:Build_540] - 2019-06-24
+
+- Proxy-server out of memory #5933
+- OVA - rel 19.05.2 - pre check ended with errors #6538
+- Proxy-server out of memory #5933
+- Fix proxyless mode 
+- Fix consul issue on slow machines
+
+## [Dev:Build_539] - 2019-06-23
+
+- Korean file download sanitize function issue - important - name of file is Gibberish #6505
+- Proxy.py is not working #6493
+- Fix External Syslog for Kube #6427
+- Added basic farm selection logic
+- Kube - dnsmasq changes
+- Strings for 5677 & 6497 
+- OVA - rel 19.05.2 - pre check ended with errors #6538
+
 ## [Dev:Build_538] - 2019-06-19
 
 - kube mode - authentication with cloudconnect.local doesn't work #6521

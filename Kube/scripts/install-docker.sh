@@ -4,6 +4,7 @@
 #######################################BH###
 APP="docker"
 APP_BIN="/usr/bin/docker"
+APP_VERSION="18.09"
 ES_FORCE=false
 
 function usage() {
@@ -35,7 +36,7 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-if [ ! -x $APP_BIN ] || [ $ES_FORCE == true ]; then
+if [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 1 ] || [ $ES_FORCE == true ]; then
    echo "Installing $APP ..."
    curl -fsSL https://get.docker.com -o get-docker.sh
    sh get-docker.sh
