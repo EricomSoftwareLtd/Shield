@@ -16,7 +16,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-SHIELD_REPO="http://helmrepo.shield-service.net:8080/staging"
+SHIELD_REPO="https://helmrepo.shield-service.net/staging"
 
 PASSWORD=""
 
