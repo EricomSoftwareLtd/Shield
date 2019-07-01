@@ -16,7 +16,9 @@ if ((EUID != 0)); then
     exit
 fi
 
-SHIELD_REPO="http://helmrepo.shield-service.net:8080/staging"
+SHIELD_REPO_URL="https://helmrepo.shield-service.net"
+SHIELD_REPO="$SHIELD_REPO_URL/staging"
+
 
 PASSWORD=""
 
@@ -28,10 +30,10 @@ while [ $# -ne 0 ]; do
        PASSWORD=$1
        ;;
     -d | --dev | --Dev) # Dev Channel (master branch for now)
-        SHIELD_REPO="http://helmrepo.shield-service.net:8080/dev"
+        SHIELD_REPO="$SHIELD_REPO_URL/dev"
         ;;
     -s | --staging | --Staging) # Dev Channel (Staging Branch)
-        SHIELD_REPO="http://helmrepo.shield-service.net:8080/staging"
+        SHIELD_REPO="$SHIELD_REPO_URL/staging"
         ;;
     *)
         usage "$0"
