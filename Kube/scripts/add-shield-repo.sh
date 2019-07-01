@@ -19,7 +19,6 @@ fi
 SHIELD_REPO_URL="https://helmrepo.shield-service.net"
 SHIELD_REPO="$SHIELD_REPO_URL/staging"
 
-
 PASSWORD=""
 
 while [ $# -ne 0 ]; do
