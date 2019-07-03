@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_543] - 2019-07-02
+
+- specific file in korean (.hwp) fails to downloaded with shield #6632
+- QA#737494 spellcheck_control.py #337 #6623
+- OVA - need to start shield after adding a node #6615
+- Always use es-ldap-proxy for LDAP authentication #6611
+- Prepare OVA for Kube on Centos #6530
+- spellcheck_control.py #6516
+- es-ldap-proxy is not working on swarm #6641
+
 ## [Dev:Build_542] - 2019-06-30
 
 - ldap - when the bind account password has special chars (maybe%) it crashes squid #6598
