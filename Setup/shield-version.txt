@@ -1,5 +1,5 @@
-#Build Dev:Build_543 on 19/07/02
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_543
+#Build Dev:Build_543.1 on 19/07/02
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_543.1
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
@@ -34,6 +34,6 @@ es-farm-scaler:latest es-farm-scaler:190605-08.56-4313
 es-farm-sync:latest es-farm-sync:190515-16.55-4227
 es-api-gateway:latest es-api-gateway:190424-04.58-4113
 es-ldap-api:latest es-ldap-api:190617-07.17-4397
-es-ldap-proxy:latest es-ldap-proxy:190630-09.24-4482
+es-ldap-proxy:latest es-ldap-proxy:190702-14.34-4504
 # es-consul-backup:latest es-shield-consul-backup:190617-11.14-4400
 # This needs to be the last line
