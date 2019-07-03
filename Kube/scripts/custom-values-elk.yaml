@@ -10,3 +10,5 @@ elk:
     enabled: true
   management:
     enabled: true
+    enableCleaner: true
+    cleanScheduler: "*/5 * * * *"
