@@ -3,7 +3,7 @@
 #####   Ericom Shield Installer:Helm   #####
 #######################################BH###
 APP="Helm"
-APP_VERSION="v2.14.1"
+#APP_VERSION="v2.14.1"
 APP_BIN="/usr/local/bin/helm"
 ES_FORCE=false
 ES_CLEAN=false
@@ -47,7 +47,7 @@ helm_init() {
        --clusterrole cluster-admin \
        --serviceaccount=kube-system:tiller
     kubectl create -f rbac-config.yaml
-    helm init --service-account=tiller
+    helm init --upgrade --service-account=tiller
     kubectl create rolebinding default-view --clusterrole=view --serviceaccount=kube-system:default --namespace=kube-system
     kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
 }
@@ -63,7 +63,7 @@ if [ ! -x $APP_BIN ] || [ $ES_FORCE == true ]; then
    curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
    chmod +x get_helm.sh
 
-   ./get_helm.sh -v "$APP_VERSION"
+   ./get_helm.sh
    source <(helm completion bash)
    echo "Done!"
  else
