@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_544] - 2019-07-07
+
+- Change how DNS works #6657
+- After Installation 30-40 Browsers are running #6646
+- Authentication - save LDAP settings is taking time and give error #6638
+- [[bug]][[Investigate]] QA#738624 dnsmasq name-server settings #348 #6621
+- Enable ldap is stuck + can't enable ldap for admin login #6595
+- All-in-Kube to work with upstream proxy #6582
+- Multi domain - can't authenticate - must specify the upn suffix #6637
+
+
 ## [Dev:Build_543] - 2019-07-02
 
 - specific file in korean (.hwp) fails to downloaded with shield #6632
