@@ -8,7 +8,12 @@ elk:
     enabled: true
   kibana:
     enabled: true
+  fluent-bit-out-syslog:
+    image:
+      esInitElasticsearch: "securebrowsing/es-init-elasticsearch:testLua5"
+      fluentBit: "securebrowsing/es-fluent-bit:testLua5"
   management:
     enabled: true
     enableCleaner: true
     cleanScheduler: "*/5 * * * *"
+    esInitElasticsearch: securebrowsing/es-init-elasticsearch:testLua5
