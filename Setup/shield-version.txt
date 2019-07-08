@@ -1,5 +1,5 @@
-#Build Dev:Build_544 on 19/07/04
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_544
+#Build Dev:Build_545 on 19/07/08
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_545
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
@@ -9,23 +9,23 @@ shield-collector:latest shield-collector:190624-13.30-4450
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190707-14.07-4532
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:190628-11.13-4472
+shield-authproxy:latest shield-authproxy:190708-04.26-4538
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190707-14.07-4532
 es-core-sync:latest es-core-sync:190707-14.07-4532
-shield-admin:latest shield-admin:190707-14.07-4532
+shield-admin:latest shield-admin:190708-09.26-4542
 icap-server:latest icap-server:190707-14.07-4532
 shield-cef:latest shield-cef:190707-05.52-4520
 extproxy:latest extproxy:190529-11.34-4273
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190707-14.07-4532
 shield-cdr-controller:latest shield-cdr-controller:190707-14.07-4532
 shield-notifier:latest shield-notifier:190707-14.07-4532
-shield-proxyless-connector:latest shield-proxyless-connector:190707-13.18-4529
+shield-proxyless-connector:latest shield-proxyless-connector:190708-07.41-4539
 es-file-preview:latest es-file-preview:190429-07.15-4130
-es-system-configuration:latest es-system-configuration:190707-15.12-4536
+es-system-configuration:latest es-system-configuration:190708-07.41-4539
 es-license-manager:latest es-license-manager:190707-14.07-4532
 es-remote-browser-scaler:latest es-remote-browser-scaler:190707-14.07-4532
 es-policy-manager:latest es-policy-manager:190707-14.07-4532
