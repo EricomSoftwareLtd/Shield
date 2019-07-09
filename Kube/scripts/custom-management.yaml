@@ -53,3 +53,7 @@ consul:
   ui:
     service:
       type: NodePort
+  server:
+    nodeSelectorKey: shield-role/farm-services
+    nodeSelectorValue: accept
+    forceNodeLabels: "yes"
