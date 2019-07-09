@@ -11,10 +11,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_546] - 2019-07-09
+
+- Add internal proxy settings to admin #6682
+- Kube - node labels are not working as expected #668
+- Fix External Syslog for Kube #6427
+- All-in-kube partial reports #6326
+
+
 ## [Dev:Build_545] - 2019-07-08
 
 - Kube - can't browse with build 544 #6676
-- adminUI - small changes #6235
+- AdminUI - small changes #6235
+
 
 ## [Dev:Build_544] - 2019-07-07
 
