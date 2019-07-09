@@ -18,16 +18,16 @@ shield-mng:
     # Add access_key_id and secret_access_key
     #remotePath: "S3Storage:<change to real bucket>"
     #remotePath: "SFTPStorage:/home/ericom/backup" This is example dir can be any directory
-    #remotePath: "SFTPStorage:/home/ericom/"
+    remotePath: "SFTPStorage:/home/ericom/"
     config: |
       rclone.conf: |
         [SFTPStorage]
-        # type = sftp
-        # host = 192.168.50.65
-        # user = ericom
-        # key_file = /keys/key_file.pem
-        # pass = c46uZ4VF-RcRdM6EMFCwgoMt27Rjw39GXuk
-        # password is encripted. Can be provided by running 'rclone config' command
+         type = sftp
+         host = 192.168.50.18
+         user = ericom
+         key_file = /keys/key_file.pem
+         #pass = c46uZ4VF-RcRdM6EMFCwgoMt27Rjw39GXuk
+         #password is encripted. Can be provided by running 'rclone config' command
         #[S3Storage]
         # type = s3
         # provider = AWS
@@ -37,11 +37,35 @@ shield-mng:
         # location_constraint = <change desired region us-east-2 for example>
         # secret_access_key = XXXXXX
         # acl = private
-    # key: |
-    #   key_file.pem: |
-    #     ----BEGIN RSA PRIVATE KEY-----
-        
-    #     -----END RSA PRIVATE KEY-----
+    key: |
+      key_file.pem: |
+         -----BEGIN RSA PRIVATE KEY-----
+         MIIEogIBAAKCAQEAxKYPsY8xyDClimUAHXH1dmxjy4y7wIAR8lZChr/aDEoIMnDC
+         Cyh97xdm8SY/MKAuFRBFkj9YiI0YvBMOuA7cN5gMbAcfsDInRz6dDaRZPtiy7MHX
+         PacXIe4a0Ek7/uhVEJPEvWBGYKK6a6+3geZEf5PBuEEKKDUcPAv7ePiEetwKw594
+         2ZEnU7ymXWG83R0VRAD/O+A0Vj2JYObfQlnRFMFTcQfNnE+t9EKPWFJtJdrkORWI
+         waZ51BUIrAONur1IoeiIu/wF/PyvY80/HfxbrZmSP5xH/kqcZZnNA0W3N7qx0g2b
+         xMHpm2M+3TSALjm0V4jO+FiNAfRdjBwCWRnrnwIDAQABAoIBABSG5RJ6yQ6FjXIh
+         0t4//Ahtjgk8WojglX7/ZBhexGsN+0cQoCC8DFE91yALBwOTZNwMA8cdV6eBWvie
+         4KVz36bp9zn7kGI7CgCU154J7srxodO29DnaTD7ddO0TB/E23VJKqnm+J/qEYgNF
+         p1km6TWL/ee22lGSIa1e7tQU1Pdh+642iJHiJcWLsC65XCFnZ/jAwtlvt+MA8UYq
+         oeWekiaQSz75Kmxl52pBY7mjiMmNxX7SjpcfZH9r3ikrT5PZ9T6ZvYBLwdNdKPs1
+         w62O5siY2asz+YQb+Evrtxs2qW/M5NaG8DLHJ/lgYBpRU3NUMyUjvIXpu167TWtT
+         721OaJECgYEA9j2LfNtpvVqqkUbwXa0H4HpMYz8r2wZvcLFEIoZg1nEGB9dtrtKV
+         uclOsJ6YR7URxjMscgeBTIxZDtJCVqpv+MkNrMBzfPMCPrafQw+WHprvG2/Tkggc
+         qhHdKcagKFYwcsY3u8dmFwJd5pvAJSuDBJyOtAVjvL7wKSA4LSIpe3cCgYEAzHFW
+         rW360g2sMamGtR3DgExkIXZD9dGNMoC2dLncBgK6Xe0vpDYy6CZIQY3vMaL7+J3q
+         FW3rHO8bTdKqGR7WwdlqtBcHRvK9d7w7iQxRyy5L7XkXh+SJKjON0opOCuDapBsT
+         CCdLepAG0twZ6qWfR8LNb8vqjKlNK8Dl8AlnSxkCgYA4hkAy1RscwGdPGf2rQ0D/
+         opNOZP3oNT33nHmLg1VPZHqB6k3fR6/fCfrqSD2kmEgQO0cElfx0WfNHl7RquI0j
+         iuN8uGDKWe41/y3n8vf+5onkvnLOntYVpCwknte86qwMbLv2evtQZNaxTSd6YNae
+         hGGtqV8PwLTYe/DpS2JCWQKBgDb3/lsxJ/BUdsj/kNWfxBH5+C47EzjD+BftHaGy
+         22LOVvesL1QSsotSx7jAheCtttv48ZiDbmTgMVIyY0PP0+RZJeR4EJ/V4nWQKd3G
+         bzOXJhkapuYF3492PxqtzyADpyXalbpqflPc58jIHzvE/leYHA6EIHNjjflGq0xn
+         6tr5AoGAbrI6L7A5qmo+6YQsK3k+5vwSmohMp/vdwsTHAqqnROtCkCXtVfp/oB71
+         0Ol+CUxVaVdnF7q+xYoHJkkzIy1YbDNfWfvIWI2rWan6B1bq+ae7lr2zVVhd6ZDb
+         YWSZHAES0BMmeOwLseHMbsCoiwZlQ/2G9PoNWTqL2xphbYWScyQ=
+         -----END RSA PRIVATE KEY-----
 consul:
   enabled: true
   client:
