@@ -7,7 +7,7 @@ SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="yes"
 SET_LABELS="yes"
-BRANCH="Dev"
+BRANCH="Staging"
 
 LOGFILE=last_deploy.log
 
