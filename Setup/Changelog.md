@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Kube - can't browse with build 544 #6676
 - adminUI - small changes #6235
 
+## [Dev:Build_546] - 2019-07-10
+
+- Fixes for US Proxy Issues
+
 ## [Dev:Build_544] - 2019-07-07
 
 - Change how DNS works #6657
