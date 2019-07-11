@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_547] - 2019-07-11
+
+- Enforce Concurrent Sessions per License #6251
+- Enable ldap is stuck + can't enable ldap for admin login #6595
+- Additional domains securedc: value is created a string in consul #6624
+- DNS Settings are empty #6642
+- Multi AD - remove secondary AD #6648
+- Multi domain - error when using secured ldap #6693
+- Admin UI - kerberos error #6696
+- Consulbackup delete remote store #6698
+- White urls display issue #6700
+- Admin - Policies - support importing XL amount of policies #6303
+- Admin UI - fix tab funcationality for upstream proxy sections #6715
+- Admin - button to choose keytab / generate commandfile stay disabled #6709
+
 ## [Dev:Build_546] - 2019-07-09
 
 - Add internal proxy settings to admin #6682
