@@ -44,6 +44,11 @@ if [ -n "$1" ]; then
     fi
 fi
 
+UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
+if [ -z "$UPSTREAM_DNS_SERVERS" ]; then
+    UPSTREAM_DNS_SERVERS="$(systemd-resolve --status | grep -oP 'DNS Servers:\s+\K.+' | paste -sd,)"
+fi
+
 log_message "***************     Deploying Ericom Shield $VERSION_REPO ..."
 
 if [ "$SHIELD_FARM" == "yes" ]; then
@@ -73,7 +78,7 @@ if [ "$SHIELD_PROXY" == "yes" ]; then
      kubectl label node --all shield-role/proxy=accept --overwrite
    fi  
    curl -s -o custom-proxy.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-proxy.yaml   
-   helm upgrade --install shield-proxy         shield-repo/shield --namespace=proxy -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
+   helm upgrade --install shield-proxy         shield-repo/shield --namespace=proxy --set-string "shield-proxy.UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}" -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
    sleep 30
 fi   
 
