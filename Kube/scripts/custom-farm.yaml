@@ -13,3 +13,7 @@ farm-services:
      type: NodePort
 consul:
   enabled: true
+  server:
+    nodeSelectorKey: shield-role/farm-services
+    nodeSelectorValue: accept
+    forceNodeLabels: "yes"
