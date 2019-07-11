@@ -4,7 +4,7 @@ SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_547
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
 shield-portainer:latest shield-portainer:180930-11.41-2885
-proxy-server:latest proxy-server:190711-11.44-4579
+proxy-server:latest proxy-server:190711-15.39-4583
 shield-collector:latest shield-collector:190709-09.20-4554
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190707-14.07-4532
@@ -19,7 +19,7 @@ es-core-sync:latest es-core-sync:190707-14.07-4532
 shield-admin:latest shield-admin:190711-14.35-4581
 icap-server:latest icap-server:190711-10.14-4574
 shield-cef:latest shield-cef:190708-13.25-4547
-extproxy:latest extproxy:190529-11.34-4273
+extproxy:latest extproxy:190711-15.39-4583
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190707-14.07-4532
 shield-cdr-controller:latest shield-cdr-controller:190711-05.38-4566
 shield-notifier:latest shield-notifier:190707-14.07-4532
