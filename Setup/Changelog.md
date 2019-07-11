@@ -23,7 +23,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Consulbackup delete remote store #6698
 - White urls display issue #6700
 - Admin - Policies - support importing XL amount of policies #6303
-
+- Admin UI - fix tab funcationality for upstream proxy sections #6715
+- Admin - button to choose keytab / generate commandfile stay disabled #6709
 
 ## [Dev:Build_546] - 2019-07-09
 
