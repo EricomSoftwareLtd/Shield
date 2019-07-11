@@ -1,5 +1,19 @@
 #!/usr/bin/python2
 
+from __future__ import with_statement
+from __future__ import absolute_import
+from io import open
+
+import getpass  # for taking password input
+import shutil  # for copying file
+import sys
+import os
+import subprocess
+from os import getuid
+import urllib2
+import urllib
+import urlparse
+
 """
 created by :
 Nityananda Gohain
@@ -14,20 +28,6 @@ Three files will be modified
 3) /etc/bash.bashrc
 4) /etc/systemd/system/docker.service.d/http-proxy.conf
 """
-
-from __future__ import with_statement
-from __future__ import absolute_import
-from io import open
-
-import getpass  # for taking password input
-import shutil  # for copying file
-import sys
-import os
-import subprocess
-from os import getuid
-import urllib2
-import urllib
-import urlparse
 
 # run it as sudo
 if getuid() != 0:

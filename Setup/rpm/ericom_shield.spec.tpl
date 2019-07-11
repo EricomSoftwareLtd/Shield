@@ -31,7 +31,7 @@ Requires: centos-release >= 7-5
 Requires: coreutils, util-linux, iproute, grep, gawk, diffutils, jq, firewalld
 
 # Fix Python bytecompilation
-%global __python %{__python3}
+# %global __python %{__python3}
 
 Requires: ansible >= 2.7.1
 # Requires: python-docker-py >= 1.10.6
