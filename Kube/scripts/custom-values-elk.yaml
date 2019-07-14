@@ -2,16 +2,3 @@
 monitoring:
   elk:
     enabled: true
-
-elk:
-  elasticsearch:
-    enabled: true
-    nodeSelectorKey: shield-role/elk
-    nodeSelectorValue: accept
-    forceNodeLabels: "yes"
-  kibana:
-    enabled: true
-  management:
-    enabled: true
-    enableCleaner: true
-    cleanScheduler: "*/5 * * * *"

@@ -2,16 +2,6 @@
 shieldmng:
   enabled: true
 shield-mng:
-  system:
-   name: shield-kube
-  consulvar: |
-    - name: CONSUL_PORT
-      value: "8501"
-    - name: CONSUL_HOST
-      valueFrom:
-        fieldRef:
-            fieldPath: status.hostIP
-  elasticsearchHosts: "http://elasticsearch-master-headless.elk.svc.cluster.local:9200"
   consulBackup:
     enabled: "yes"
     # For S3 change config:
@@ -21,7 +11,8 @@ shield-mng:
     #remotePath: "SFTPStorage:/home/ericom/"
     config: |
       rclone.conf: |
-        [SFTPStorage]
+        [Local]      
+        #[SFTPStorage]
         # type = sftp
         # host = 192.168.50.65
         # user = ericom
@@ -54,6 +45,6 @@ consul:
     service:
       type: NodePort
   server:
-    nodeSelectorKey: shield-role/farm-services
+    nodeSelectorKey: shield-role/management
     nodeSelectorValue: accept
     forceNodeLabels: "yes"
