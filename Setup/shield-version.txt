@@ -1,11 +1,11 @@
-#Build Dev:Build_547 on 19/07/11
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_547
+#Build Dev:Build_548 on 19/07/14
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_548
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:190711-15.39-4583
-shield-collector:latest shield-collector:190709-09.20-4554
+shield-collector:latest shield-collector:190714-05.32-4588
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190707-14.07-4532
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
@@ -15,12 +15,12 @@ netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190707-14.07-4532
-es-core-sync:latest es-core-sync:190707-14.07-4532
+es-core-sync:latest es-core-sync:190714-05.44-4589
 shield-admin:latest shield-admin:190711-14.35-4581
-icap-server:latest icap-server:190711-10.14-4574
-shield-cef:latest shield-cef:190708-13.25-4547
+icap-server:latest icap-server:190714-04.28-4586
+shield-cef:latest shield-cef:190714-05.10-4587
 extproxy:latest extproxy:190711-15.39-4583
-shield-cdr-dispatcher:latest shield-cdr-dispatcher:190707-14.07-4532
+shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
 shield-cdr-controller:latest shield-cdr-controller:190711-05.38-4566
 shield-notifier:latest shield-notifier:190707-14.07-4532
 shield-proxyless-connector:latest shield-proxyless-connector:190708-07.41-4539
@@ -30,7 +30,7 @@ es-license-manager:latest es-license-manager:190707-14.07-4532
 es-remote-browser-scaler:latest es-remote-browser-scaler:190707-14.07-4532
 es-policy-manager:latest es-policy-manager:190707-14.07-4532
 shield-dns:latest shield-dns:190523-19.10-4259
-es-farm-scaler:latest es-farm-scaler:190707-14.07-4532
+es-farm-scaler:latest es-farm-scaler:190714-13.53-4594
 es-farm-sync:latest es-farm-sync:190707-14.07-4532
 es-api-gateway:latest es-api-gateway:190707-14.07-4532
 es-ldap-api:latest es-ldap-api:190707-14.07-4532

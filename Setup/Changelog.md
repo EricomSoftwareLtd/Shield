@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_548] - 2019-07-14
+
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Crystal issue on cnn.com #6591
+- Specific site - video auto-restarts after it is paused #6559
+- Pre check - counting cpu - should give a warning when it is less than 8CPU #6536
+- Es-farm-scaler doesn't delete browsers jobs which contains failed pods #6740
+
 ## [Dev:Build_547] - 2019-07-11
 
 - Enforce Concurrent Sessions per License #6251
