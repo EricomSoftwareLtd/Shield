@@ -18,6 +18,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Specific site - video auto-restarts after it is paused #6559
 - Pre check - counting cpu - should give a warning when it is less than 8CPU #6536
 - Es-farm-scaler doesn't delete browsers jobs which contains failed pods #6740
+- ICAP does not use proxy for redirect checking #6748
+- kerberos admin error after update #6744
+- admin UI - fix tab funcationality for authentication settings #6739
+- Error in reports for Ldap profile #6711
+- admin - button to choose keytab / generate commandfile stay disabled #6709
+- Burst event rules are not being saved #6705
+- [[Question]] QA#738833 (mtsuchido): 'Internal DNS Address' configuration #350
+- [[Bug]][[Investigate]] QA#738778 "Route All Connections Via Browsers Farm" with upstream #349
+- [[bug]][[Investigate]] QA#738624 dnsmasq name-server settings #348
+- [[Investigate]] QA#738623 Resource GET flow(white) when there is an upstream proxy #347
+
 
 ## [Dev:Build_547] - 2019-07-11
 
