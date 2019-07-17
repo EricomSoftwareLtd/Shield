@@ -36,7 +36,7 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-if [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 1 ] || [ $ES_FORCE == true ]; then
+if [ ! -x $APP_BIN ]  || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 1 ] || [ $ES_FORCE == true ]; then
    echo "Installing $APP ..."
    curl -fsSL https://get.docker.com -o get-docker.sh
    sh get-docker.sh
