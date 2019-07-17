@@ -1,3 +1,4 @@
+# Custom Values for Local Cluster   #
 ---
 shieldmng:
   enabled: true
@@ -11,7 +12,7 @@ shield-mng:
     #remotePath: "SFTPStorage:/home/ericom/"
     config: |
       rclone.conf: |
-        [Local]      
+        [Local]
         #[SFTPStorage]
         # type = sftp
         # host = 192.168.50.65
@@ -48,3 +49,8 @@ consul:
     nodeSelectorKey: shield-role/management
     nodeSelectorValue: accept
     forceNodeLabels: "yes"
+   
+monitoring:
+  elk:
+    enabled: true
+

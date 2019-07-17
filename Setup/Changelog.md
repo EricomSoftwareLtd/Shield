@@ -11,6 +11,75 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_548] - 2019-07-14
+
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Crystal issue on cnn.com #6591
+- Specific site - video auto-restarts after it is paused #6559
+- Pre check - counting cpu - should give a warning when it is less than 8CPU #6536
+- Es-farm-scaler doesn't delete browsers jobs which contains failed pods #6740
+- ICAP does not use proxy for redirect checking #6748
+- kerberos admin error after update #6744
+- admin UI - fix tab funcationality for authentication settings #6739
+- Error in reports for Ldap profile #6711
+- admin - button to choose keytab / generate commandfile stay disabled #6709
+- Burst event rules are not being saved #6705
+- [[Question]] QA#738833 (mtsuchido): 'Internal DNS Address' configuration #350
+- [[Bug]][[Investigate]] QA#738778 "Route All Connections Via Browsers Farm" with upstream #349
+- [[bug]][[Investigate]] QA#738624 dnsmasq name-server settings #348
+- [[Investigate]] QA#738623 Resource GET flow(white) when there is an upstream proxy #347
+
+
+## [Dev:Build_547] - 2019-07-11
+
+- Enforce Concurrent Sessions per License #6251
+- Enable ldap is stuck + can't enable ldap for admin login #6595
+- Additional domains securedc: value is created a string in consul #6624
+- DNS Settings are empty #6642
+- Multi AD - remove secondary AD #6648
+- Multi domain - error when using secured ldap #6693
+- Admin UI - kerberos error #6696
+- Consulbackup delete remote store #6698
+- White urls display issue #6700
+- Admin - Policies - support importing XL amount of policies #6303
+- Admin UI - fix tab funcationality for upstream proxy sections #6715
+- Admin - button to choose keytab / generate commandfile stay disabled #6709
+
+## [Dev:Build_546] - 2019-07-09
+
+- Add internal proxy settings to admin #6682
+- Kube - node labels are not working as expected #668
+- Fix External Syslog for Kube #6427
+- All-in-kube partial reports #6326
+
+
+## [Dev:Build_545] - 2019-07-08
+
+- Kube - can't browse with build 544 #6676
+- AdminUI - small changes #6235
+
+
+## [Dev:Build_544] - 2019-07-07
+
+- Change how DNS works #6657
+- After Installation 30-40 Browsers are running #6646
+- Authentication - save LDAP settings is taking time and give error #6638
+- [[bug]][[Investigate]] QA#738624 dnsmasq name-server settings #348 #6621
+- Enable ldap is stuck + can't enable ldap for admin login #6595
+- All-in-Kube to work with upstream proxy #6582
+- Multi domain - can't authenticate - must specify the upn suffix #6637
+
+
+## [Dev:Build_543] - 2019-07-02
+
+- specific file in korean (.hwp) fails to downloaded with shield #6632
+- QA#737494 spellcheck_control.py #337 #6623
+- OVA - need to start shield after adding a node #6615
+- Always use es-ldap-proxy for LDAP authentication #6611
+- Prepare OVA for Kube on Centos #6530
+- spellcheck_control.py #6516
+- es-ldap-proxy is not working on swarm #6641
+
 ## [Dev:Build_542] - 2019-06-30
 
 - ldap - when the bind account password has special chars (maybe%) it crashes squid #6598

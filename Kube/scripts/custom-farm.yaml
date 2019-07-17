@@ -1,15 +1,11 @@
-
-farmservice:  
+farmservice:
   enabled: true
-farm-services:
-  system:
-   name: shield-kube
-  proxyless:
-    sslip:
-      enabled: "no"
-  admin:
-    service:
-     enabled: false
-     type: NodePort
 consul:
   enabled: true
+  server:
+    nodeSelectorKey: shield-role/farm-services
+    nodeSelectorValue: accept
+    forceNodeLabels: "yes"
+#farm-services:  
+#  DISABLE_SPELL_CHECK : "true"
+#  TZ: "IDT"

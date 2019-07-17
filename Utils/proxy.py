@@ -1,4 +1,18 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
+
+from __future__ import with_statement
+from __future__ import absolute_import
+from io import open
+
+import getpass  # for taking password input
+import shutil  # for copying file
+import sys
+import os
+import subprocess
+from os import getuid
+import urllib2
+import urllib
+import urlparse
 
 """
 created by :
@@ -7,7 +21,6 @@ School of Engineering, Tezpur University
 27/10/17
 Modified by Ericom for Ericom Shield
 """
-
 """
 Three files will be modified
 1) /etc/apt/apt.conf
@@ -15,16 +28,6 @@ Three files will be modified
 3) /etc/bash.bashrc
 4) /etc/systemd/system/docker.service.d/http-proxy.conf
 """
-
-# This files takes the location as input and writes the proxy authentication
-
-import getpass  # for taking password input
-import shutil  # for copying file
-import sys
-import os
-import subprocess
-from os import getuid
-import urllib.parse
 
 # run it as sudo
 if getuid() != 0:
@@ -211,8 +214,8 @@ def set_proxy(flag):
 
 
 def make_proxy_url_string(proxy, port, username=None, password=None, protocol='http'):
-    if not username is None and not password is None:
-        return "http://{0}:{1}@{2}:{3}".format(urllib.parse.quote_plus(username), urllib.parse.quote_plus(password), proxy, port)
+    if username and password:
+        return "http://{0}:{1}@{2}:{3}".format(urllib.quote_plus(username), urllib.quote_plus(password), proxy, port)
     else:
         return "http://{0}:{1}".format(proxy, port)
 
@@ -242,6 +245,7 @@ def restore_default():
         print("No backup data...")
         sys.exit()
 
+
 def backup_default():
     # create backup     if not present
     if not os.path.isdir("./.backup_proxy"):
@@ -254,6 +258,7 @@ def backup_default():
             shutil.copy2(BASH_, BASH_BACKUP)
         if os.path.exists(DOCKER_):
             shutil.copy2(DOCKER_, DOCKER_BACKUP)
+
 
 def ref_env():
     # Generate a script that reflects environment variables with shell currently in use
@@ -281,6 +286,7 @@ def ref_env():
         filepointer.write('\n')
         filepointer.write('# Re-execute bashrc to reflect the existing settings, if exists.\n')
         filepointer.write('source {}\n'.format(BASH_))
+
 
 def end_message(flag):
     if not flag:
@@ -319,4 +325,3 @@ if __name__ == "__main__":
         end_message(flag=1)
     else:
         sys.exit()
- 

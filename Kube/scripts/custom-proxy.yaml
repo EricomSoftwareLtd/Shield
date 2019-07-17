@@ -1,20 +1,6 @@
 ---
 shieldproxy:
   enabled: true
-shield-proxy:
-  system:
-    name: shield-kube
-  consulvar: |
-    - name: CONSUL_PORT
-      value: "8501"
-    - name: CONSUL_DNS_PORT
-      value: "8601"
-    - name: CONSUL_HOST
-      valueFrom:
-        fieldRef:
-            fieldPath: status.hostIP
-  cloudProvider: "local"
-
 consul:
   enabled: false
   server:
@@ -26,4 +12,3 @@ consul:
       httPort: 8501
       dnsPort: 8601
       grpcPort: 8503
-
