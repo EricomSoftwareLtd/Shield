@@ -66,13 +66,13 @@ helm_clean() {
 
 if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
     echo "Installing $APP ..."
-    if [ OS = "Ubuntu" ]; then
+    if [[ $OS == "Ubuntu" ]]; then
         curl -fsSL https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -o /tmp/get_helm.sh
         chmod +x /tmp/get_helm.sh
 
         /tmp/get_helm.sh -v "$APP_VERSION"
         rm -f /tmp/get_helm.sh
-    elif [ OS = "RHEL" ]; then
+    elif [[ $OS == "RHEL" ]]; then
         yum install -y https://harbottle.gitlab.io/harbottle-main/7/x86_64/harbottle-main-release.rpm
         yum install -y helm
     fi
