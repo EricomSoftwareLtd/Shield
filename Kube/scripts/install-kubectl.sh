@@ -3,7 +3,7 @@
 #####   Ericom Shield Installer:Kubectl  ###
 #######################################BH###
 APP="Kubectl"
-APP_BIN="kubctl"
+APP_BIN="kubectl"
 ES_FORCE=false
 
 if [ -f /etc/redhat-release ]; then
@@ -40,7 +40,7 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-if ! which "$APP_BIN" || [ $ES_FORCE == true ]; then
+if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
     echo "Installing $APP ..."
     mkdir -p ~/.kube
 
@@ -50,7 +50,7 @@ if ! which "$APP_BIN" || [ $ES_FORCE == true ]; then
         echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
         apt-get update
         apt-get install -y kubectl
-    elif [ OS = "RHEL"]; then
+    elif [ OS = "RHEL" ]; then
         cat <<EOF >/etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
