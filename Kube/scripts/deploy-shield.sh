@@ -9,6 +9,12 @@ SHIELD_ELK="yes"
 SET_LABELS="yes"
 BRANCH="Dev"
 
+# shield-role/management=accept
+# shield-role/proxy=accept
+# shield-role/elk=accept
+# shield-role/farm-services=accept
+# shield-role/remote-browsers=accept
+
 LOGFILE=last_deploy.log
 
 function log_message() {

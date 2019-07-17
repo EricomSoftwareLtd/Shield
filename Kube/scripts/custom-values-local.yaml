@@ -1,0 +1,56 @@
+# Custom Values for Local Cluster   #
+---
+shieldmng:
+  enabled: true
+shield-mng:
+  consulBackup:
+    enabled: "yes"
+    # For S3 change config:
+    # Add access_key_id and secret_access_key
+    #remotePath: "S3Storage:<change to real bucket>"
+    #remotePath: "SFTPStorage:/home/ericom/backup" This is example dir can be any directory
+    #remotePath: "SFTPStorage:/home/ericom/"
+    config: |
+      rclone.conf: |
+        [Local]
+        #[SFTPStorage]
+        # type = sftp
+        # host = 192.168.50.65
+        # user = ericom
+        # key_file = /keys/key_file.pem
+        # pass = c46uZ4VF-RcRdM6EMFCwgoMt27Rjw39GXuk
+        # password is encripted. Can be provided by running 'rclone config' command
+        #[S3Storage]
+        # type = s3
+        # provider = AWS
+        # env_auth = false
+        # access_key_id = XXXXXX
+        # region = <change desired region us-east-2 for example>
+        # location_constraint = <change desired region us-east-2 for example>
+        # secret_access_key = XXXXXX
+        # acl = private
+    # key: |
+    #   key_file.pem: |
+    #     ----BEGIN RSA PRIVATE KEY-----
+        
+    #     -----END RSA PRIVATE KEY-----
+consul:
+  enabled: true
+  client:
+    ports:
+      httPort: 8501
+      dnsPort: 8601
+      grpcPort: 8503
+  cloudProvider: local
+  ui:
+    service:
+      type: NodePort
+  server:
+    nodeSelectorKey: shield-role/management
+    nodeSelectorValue: accept
+    forceNodeLabels: "yes"
+   
+monitoring:
+  elk:
+    enabled: true
+

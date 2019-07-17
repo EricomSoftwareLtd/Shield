@@ -1,4 +1,4 @@
-farmservice:  
+farmservice:
   enabled: true
 consul:
   enabled: true
@@ -6,3 +6,6 @@ consul:
     nodeSelectorKey: shield-role/farm-services
     nodeSelectorValue: accept
     forceNodeLabels: "yes"
+#farm-services:  
+#  DISABLE_SPELL_CHECK : "true"
+#  TZ: "IDT"
