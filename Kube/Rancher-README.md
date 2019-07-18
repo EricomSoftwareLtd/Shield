@@ -18,6 +18,7 @@ Add current user to the docker group:
 ```bash
 sudo usermod -aG docker "$USER"
 ```
+After that logout and login again.
 
 Verify that Docker is installed properly:
   
@@ -82,11 +83,11 @@ curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd
 chmod +x install-docker.sh
 ./install-docker.sh
 ```
-
 Add current user to the docker group:
 ```bash
 sudo usermod -aG docker "$USER"
 ```
+After that logout and login again.
 
 **Join Nodes to the Cluster**
 

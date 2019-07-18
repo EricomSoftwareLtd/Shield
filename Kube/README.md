@@ -119,6 +119,7 @@ Add current user to the docker group:
 ```bash
 sudo usermod -aG docker "$USER"
 ```
+After that Logout and login again.
 
 **Install Rancher Agent on Worker Node**
 
