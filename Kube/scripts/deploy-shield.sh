@@ -7,7 +7,7 @@ SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="yes"
 SET_LABELS="yes"
-BRANCH="Dev"
+BRANCH="Staging"
 
 # shield-role/management=accept
 # shield-role/proxy=accept

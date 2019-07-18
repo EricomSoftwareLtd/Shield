@@ -44,7 +44,7 @@ helm_init() {
         --clusterrole cluster-admin \
         --serviceaccount=kube-system:tiller
     kubectl create -f rbac-config.yaml
-    helm init --service-account=tiller
+    helm init --upgrade --service-account=tiller
     kubectl create rolebinding default-view --clusterrole=view --serviceaccount=kube-system:default --namespace=kube-system
     kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
 }
@@ -60,7 +60,6 @@ if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
     if [[ $OS == "Ubuntu" ]]; then
         curl -fsSL https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -o /tmp/get_helm.sh
         chmod +x /tmp/get_helm.sh
-
         sudo /tmp/get_helm.sh -v "$APP_VERSION"
         rm -f /tmp/get_helm.sh
     elif [[ $OS == "RHEL" ]]; then
