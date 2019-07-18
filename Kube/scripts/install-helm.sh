@@ -19,15 +19,6 @@ function usage() {
     echo " Usage: $0 [-f | --force] [-c | --clean]"
 }
 
-#Check if we are root
-if ((EUID != 0)); then
-    #    sudo su
-    usage
-    echo " Please run it as Root"
-    echo "sudo $0 $@"
-    exit
-fi
-
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -70,11 +61,11 @@ if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
         curl -fsSL https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -o /tmp/get_helm.sh
         chmod +x /tmp/get_helm.sh
 
-        /tmp/get_helm.sh -v "$APP_VERSION"
+        sudo /tmp/get_helm.sh -v "$APP_VERSION"
         rm -f /tmp/get_helm.sh
     elif [[ $OS == "RHEL" ]]; then
-        yum install -y https://harbottle.gitlab.io/harbottle-main/7/x86_64/harbottle-main-release.rpm
-        yum install -y helm
+        sudo yum install -y https://harbottle.gitlab.io/harbottle-main/7/x86_64/harbottle-main-release.rpm
+        sudo yum install -y helm
     fi
     source <(helm completion bash)
     echo "Done!"

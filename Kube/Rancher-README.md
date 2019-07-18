@@ -12,12 +12,17 @@ Docker is required to deploy Rancher. If Docker is not installed - install it us
 ```bash
 curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
 chmod +x install-docker.sh
-sudo ./install-docker.sh
+./install-docker.sh
 ```
+Add current user to the docker group:
+```bash
+sudo usermod -aG docker "$USER"
+```
+After that logout and login again.
 
 Verify that Docker is installed properly:
   
-`sudo docker version`
+`docker version`
 
 * Create a directory to save data:
 
@@ -26,7 +31,7 @@ Verify that Docker is installed properly:
 * Run Rancher
 
 ```bash
-sudo docker run -d --restart=unless-stopped \
+docker run -d --restart=unless-stopped \
   -p 80:80 -p 443:443 \
   -v ~/rancher-store:/var/lib/rancher \
   rancher/rancher:latest
@@ -67,7 +72,7 @@ For all nodes that will be member of your cluster  that will be added to an exis
 
 ```bash
       curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
-      sudo chmod +x configure-sysctl-values.sh
+      chmod +x configure-sysctl-values.sh
       sudo ./configure-sysctl-values.sh
 ```
 
@@ -75,9 +80,14 @@ For all nodes that will be member of your cluster  that will be added to an exis
 
 ```bash
 curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
-sudo chmod +x install-docker.sh
-sudo ./install-docker.sh
+chmod +x install-docker.sh
+./install-docker.sh
 ```
+Add current user to the docker group:
+```bash
+sudo usermod -aG docker "$USER"
+```
+After that logout and login again.
 
 **Join Nodes to the Cluster**
 
