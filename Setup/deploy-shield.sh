@@ -37,7 +37,7 @@ fi
 ########################################################################################################################
 
 UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
-if [ -z "$UPSTREAM_DNS_SERVERS" ]; then
+if [ "$UPSTREAM_DNS_SERVERS" = "127.0.0.53" ]; then
     UPSTREAM_DNS_SERVERS="$(systemd-resolve --status | grep -oP 'DNS Servers:\s+\K.+' | paste -sd,)"
 fi
 export UPSTREAM_DNS_SERVERS
