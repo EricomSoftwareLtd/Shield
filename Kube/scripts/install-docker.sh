@@ -31,6 +31,8 @@ if [ ! -x $APP_BIN ] || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 1 ] |
     curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
     sudo sh /tmp/get-docker.sh
     rm -f /tmp/get-docker.sh
+    sudo systemctl enable docker
+    sudo systemctl start docker
     echo "Done!"
 else
     echo "$APP is already installed"
