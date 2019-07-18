@@ -22,16 +22,16 @@ On the first (Rancher) machine, run these commands to install Kubectl:
 ```bash
 curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-kubectl.sh
 chmod +x install-kubectl.sh
-sudo ./install-kubectl.sh
+./install-kubectl.sh
 ```
 **Update ~/.kube/config with Kubeconfig**
 
 * In Rancher, click on the Cluster, then on ``Kubeconfig File`` option (on the right). Scroll down and select the ``Copy to Clipboard`` option.
-* On the Linux machine, create a file named ``~/.kube/config`` (using sudo) and copy the content of the file.
+* On the Linux machine, create a file named ``~/.kube/config`` and paste clipboard content to the file.
  
 Once the file is created, check that kubectl is configured properly (client and server):
 
-``sudo kubectl version``
+``kubectl version``
 
 The expected outcome should be something like:
 
@@ -44,7 +44,7 @@ Server Version: version.Info{Major:"1", Minor:"13", GitVersion:"v1.13.5", GitCom
 ```bash
 curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-helm.sh
 chmod +x install-helm.sh
-sudo ./install-helm.sh
+./install-helm.sh
 ```
 
 ### 4. Add Shield Repository
@@ -53,7 +53,7 @@ sudo ./install-helm.sh
 ```bash
 curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/add-shield-repo.sh
 chmod +x add-shield-repo.sh
-sudo ./add-shield-repo.sh <-d|--dev> -p PASSWORD
+./add-shield-repo.sh <-d|--dev> -p PASSWORD
 ```
 
 Verify that your repository is properly configured by running
@@ -74,7 +74,7 @@ then Shield should be deployed using Helm.
 ```bash
 curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/deploy-shield.sh
 chmod +x deploy-shield.sh
-sudo ./deploy-shield.sh
+./deploy-shield.sh
 ```
 
 ### 6. Move Shield-Services To Default Project
@@ -104,7 +104,7 @@ If a new node should be added to an existing cluster, follow these steps:
 
 ```bash
       curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
-      sudo chmod +x configure-sysctl-values.sh
+      chmod +x configure-sysctl-values.sh
       sudo ./configure-sysctl-values.sh
 ```
 
@@ -112,8 +112,12 @@ If a new node should be added to an existing cluster, follow these steps:
 
 ```bash
 curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
-sudo chmod +x install-docker.sh
+chmod +x install-docker.sh
 sudo ./install-docker.sh
+```
+Add current user to the docker group:
+```bash
+sudo usermod -aG docker "$USER"
 ```
 
 **Install Rancher Agent on Worker Node**
