@@ -113,7 +113,7 @@ If a new node should be added to an existing cluster, follow these steps:
 ```bash
 curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
 chmod +x install-docker.sh
-sudo ./install-docker.sh
+./install-docker.sh
 ```
 Add current user to the docker group:
 ```bash
