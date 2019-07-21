@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Burst Events on Cloud are done on UTC instead of Admin Time #6260
 - Align all alerts to work in "Dynamic Nodes" mode #5930
 - OVA Preparation #6628
+- add live/ready port to ldap-proxy #6811
 
 ## [Dev:Build_548] - 2019-07-14
 

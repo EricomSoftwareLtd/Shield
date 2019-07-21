@@ -17,7 +17,7 @@ shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190707-14.07-4532
 es-core-sync:latest es-core-sync:190714-05.44-4589
 shield-admin:latest shield-admin:190721-08.37-4616
-icap-server:latest icap-server:190716-13.58-4608
+icap-server:latest icap-server:190721-13.42-4619
 shield-cef:latest shield-cef:190718-10.27-4614
 extproxy:latest extproxy:190715-21.30-4606
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
@@ -28,13 +28,13 @@ es-file-preview:latest es-file-preview:190715-05.43-4596
 es-system-configuration:latest es-system-configuration:190715-21.30-4606
 es-license-manager:latest es-license-manager:190707-14.07-4532
 es-remote-browser-scaler:latest es-remote-browser-scaler:190707-14.07-4532
-es-policy-manager:latest es-policy-manager:190721-08.37-4616
+es-policy-manager:latest es-policy-manager:190721-12.52-4617
 shield-dns:latest shield-dns:190523-19.10-4259
 es-farm-scaler:latest es-farm-scaler:190714-13.53-4594
 es-farm-sync:latest es-farm-sync:190721-08.37-4616
 es-api-gateway:latest es-api-gateway:190707-14.07-4532
 es-ldap-api:latest es-ldap-api:190707-14.07-4532
-es-ldap-proxy:latest es-ldap-proxy:190711-09.36-4572
+es-ldap-proxy:latest es-ldap-proxy:190721-13.55-4620
 es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # es-consul-backup:latest es-shield-consul-backup:190711-09.36-4572
 # es-init-elasticsearch:latest es-init-elasticsearch:190709-07.24-4551
