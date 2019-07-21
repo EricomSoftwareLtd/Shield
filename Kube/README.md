@@ -80,11 +80,17 @@ In Rancher, select ``Nodes`` and for each node you wish to edit, select the ``Ed
 In the ``Edit Node`` dialog, expand the ``Labels`` section and add the desired labels to the node. For each label, set the value 
 **accept**. The possible labels are:
 
-shield-role/elk
-shield-role/farm-services
-shield-role/management
-shield-role/proxy
-shield-role/remote-browsers
+you can copy/paste one or more lines of labels below:
+
+shield-role/management=accept
+
+shield-role/proxy=accept 
+
+shield-role/elk=accept 
+
+shield-role/farm-services=accept 
+
+shield-role/remote-browsers=accept
 
 Press ``Save``. The updated labels now appear on the node details.
 
