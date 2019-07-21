@@ -7,15 +7,6 @@ function usage() {
     echo " Usage: $0 <-d|--dev> <-s|--staging> -p <PASSWORD> "
 }
 
-#Check if we are root
-if ((EUID != 0)); then
-    #    sudo su
-    usage
-    echo " Please run it as Root"
-    echo "sudo $0 $@"
-    exit
-fi
-
 SHIELD_REPO_URL="https://helmrepo.shield-service.net"
 SHIELD_REPO="$SHIELD_REPO_URL/staging"
 
@@ -25,9 +16,9 @@ while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
     -p | --password)
-       shift
-       PASSWORD=$1
-       ;;
+        shift
+        PASSWORD=$1
+        ;;
     -d | --dev | --Dev) # Dev Channel (master branch for now)
         SHIELD_REPO="$SHIELD_REPO_URL/dev"
         ;;
@@ -43,9 +34,9 @@ while [ $# -ne 0 ]; do
 done
 
 if [ "$PASSWORD" == "" ]; then
-   echo " Error: Password is missing"
-   usage
-   exit
+    echo " Error: Password is missing"
+    usage
+    exit
 fi
 
 helm repo add shield-repo --username=ericom --password=$PASSWORD $SHIELD_REPO
