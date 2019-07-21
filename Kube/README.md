@@ -53,7 +53,8 @@ chmod +x install-helm.sh
 ```
 
 ### 4. Add Shield Repository
-*** Shield repository requires a valid password. Please contact Shield Profesional Services team to get one.
+
+Note: Shield repository requires a valid password. Please contact Shield Profesional Services team to get one.
 
 ```bash
 curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/add-shield-repo.sh
