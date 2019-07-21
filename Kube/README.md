@@ -17,7 +17,9 @@ Install Rancher and create a Kubernetes cluster using these instructions:
 
 ### 2. Install Kubectl
 
-On the first (Rancher) machine, run these commands to install Kubectl:
+Kubectl is used for running commands on Kubernetes clusters. For more details, see [here] (https://kubernetes.io/docs/reference/kubectl/overview/).
+
+Install Kubectl on the first machine, where Rancher is installed (the Linux Master). Run these commands:
 
 ```bash
 curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-kubectl.sh
@@ -41,6 +43,9 @@ Server Version: version.Info{Major:"1", Minor:"13", GitVersion:"v1.13.5", GitCom
 
 ### 3. Install Helm
 
+Helm is an application manager, used to run applications on Kubernetes (e.g., Shield). It is recommended to install Helm on the 
+same machine that includes Rancher & Kubectl (Master machine). 
+
 ```bash
 curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-helm.sh
 chmod +x install-helm.sh
@@ -48,7 +53,7 @@ chmod +x install-helm.sh
 ```
 
 ### 4. Add Shield Repository
-*** You need a valid Password for the Shield Helm Repository (please ask Ericom)
+*** Shield repository requires a valid password. Please contact Shield Profesional Services team to get one.
 
 ```bash
 curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/add-shield-repo.sh
@@ -66,7 +71,23 @@ The result should be something like:
 
 ![image](https://user-images.githubusercontent.com/24224420/59362670-8a56a880-8d3c-11e9-9b68-754f726177eb.png)
 
-### 5. Deploy Shield
+### 5. Set Nodes Labels
+
+According to the planned deployment, set the node labels for each machine:
+
+In Rancher, select ``Nodes`` and for each node you wish to edit, select the ``Edit`` option from the menu on the right
+In the ``Edit Node`` dialog, expand the ``Labels`` section and add the desired labels to the node. For each label, set the value 
+**accept**. The possible labels are:
+
+shield-role/elk
+shield-role/farm-services
+shield-role/management
+shield-role/proxy
+shield-role/remote-browsers
+
+Press ``Save``. The updated labels now appear on the node details.
+
+### 6. Deploy Shield
 Note: deploy-shield script is provided as an example on how to deploy the system in an all-in-one deployment
 For a more complex deployment, the node labels have to be set on each node according to the desired deployment, 
 then Shield should be deployed using Helm.
@@ -77,7 +98,7 @@ chmod +x deploy-shield.sh
 ./deploy-shield.sh
 ```
 
-### 6. Move Shield-Services To Default Project
+### 7. Move Shield-Services To Default Project
 
 In Rancher, click on the cluster.
 Then click on Projects/Namespaces
@@ -96,7 +117,7 @@ When you see under ``Workloads`` that the system is up and running (or by runnin
 To connect to Shield on the Proxy Port, connect to the Host IP where the Shield-Proxy Component is running on **3128** port. 
 To connect to Shield Admin Console, connect to the Host IP where the Admn is running and use port **30181**.
 
-### 7. Add Node/s To An Existing Cluster
+### 8. Add Node/s To An Existing Cluster
 
 If a new node should be added to an existing cluster, follow these steps:
 
