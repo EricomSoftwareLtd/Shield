@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_549] - 2019-07-15
+
+- Remove memory pools from proxy server #6778
+- Fluent-bit service is not working in Dev_548 Kube #6772
+- Problem with urls goes white after ~10 seconds - autofill related issue #6753
+- Shield-perf consistent time format #6722
+- DNS Settings are empty #6642
+- Admin | Profiles table - validate after editing & missing tooltip #6525
+- Admin updated Japanese translations 
+- Instructions + Scripts for installing Shield on Centos #6781
+- Burst Events on Cloud are done on UTC instead of Admin Time #6260
+- Align all alerts to work in "Dynamic Nodes" mode #5930
+- OVA Preparation #6628
+
 ## [Dev:Build_548] - 2019-07-14
 
 - Admin - Named Policy - Add Named Policy dialog #6020
