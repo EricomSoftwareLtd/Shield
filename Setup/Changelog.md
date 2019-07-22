@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_550] - 2019-07-22
+ 
+- Zoom is not working with shield #6794
+- Kube installation on centos #6805
+- Mail Alerts are being sent nonstop #6784
+- Can't connect to skype when ldap is enabled #6633
+- WhatsApp desktop and whatsApp wab barcode issues #6754
+- NTLM not working in JLM #6823
+
 ## [Dev:Build_549] - 2019-07-15
 
 - Remove memory pools from proxy server #6778
