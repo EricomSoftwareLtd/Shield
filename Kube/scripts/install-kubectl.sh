@@ -43,7 +43,7 @@ if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
         sudo apt-get update
         sudo apt-get install -y kubectl
     elif [[ $OS == "RHEL" ]]; then
-        sudo cat <<EOF >/etc/yum.repos.d/kubernetes.repo
+        sudo tee -a /etc/yum.repos.d/kubernetes.repo <<EOF
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
