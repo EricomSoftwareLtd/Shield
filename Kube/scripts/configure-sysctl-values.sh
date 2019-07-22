@@ -5,6 +5,15 @@ ES_SYSCTL_FILE="/etc/sysctl.d/30-ericom-shield.conf"
 update_sysctl() {
     cat - >"$ES_SYSCTL_FILE"
     echo "$ES_SYSCTL_FILE has been updated!"
+
+    if [ -f /etc/redhat-release ]; then
+        cat >>"$ES_SYSCTL_FILE" <<EOF
+
+net.bridge.bridge-nf-call-iptables=1
+net.bridge.bridge-nf-call-ip6tables=1
+EOF
+    fi
+
     # apply the values
     sysctl --load="$ES_SYSCTL_FILE" >/dev/null 2>&1
     echo "Values from $ES_SYSCTL_FILE have been applied!"
