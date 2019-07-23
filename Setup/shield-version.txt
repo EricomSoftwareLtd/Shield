@@ -1,5 +1,5 @@
-#Build Dev:Build_550 on 19/07/22
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_550
+#Build Dev:Build_551 on 19/07/23
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_551
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
@@ -19,7 +19,7 @@ es-core-sync:latest es-core-sync:190714-05.44-4589
 shield-admin:latest shield-admin:190722-10.32-4627
 icap-server:latest icap-server:190721-13.42-4619
 shield-cef:latest shield-cef:190718-10.27-4614
-extproxy:latest extproxy:190715-21.30-4606
+extproxy:latest extproxy:190723-16.12-4643
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
 shield-cdr-controller:latest shield-cdr-controller:190721-08.37-4616
 shield-notifier:latest shield-notifier:190707-14.07-4532
@@ -38,6 +38,6 @@ es-ldap-proxy:latest es-ldap-proxy:190721-13.55-4620
 es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # es-consul-backup:latest es-shield-consul-backup:190711-09.36-4572
 # es-init-elasticsearch:latest es-init-elasticsearch:190709-07.24-4551
-# es-fluent-bit:latest es-fluent-bit:190711-09.36-4572
+# es-fluent-bit:latest es-fluent-bit:190723-05.41-4640
 # es-mng-system-monitor:latest es-mng-system-monitor:190722-06.30-4625
 # This needs to be the last line
