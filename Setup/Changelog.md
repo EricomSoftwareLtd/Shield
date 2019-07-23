@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_551] - 2019-07-23
+
+- Add sourcehost variable to logstash config #6155
+- wss via ext-proxy , Asana - not working on swarm env #6758
+
 ## [Dev:Build_550] - 2019-07-22
  
 - Zoom is not working with shield #6794
