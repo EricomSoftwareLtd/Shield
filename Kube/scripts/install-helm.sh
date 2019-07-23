@@ -9,12 +9,6 @@ ES_FORCE=false
 ES_CLEAN=false
 BRANCH="Dev"
 
-if [ -f /etc/redhat-release ]; then
-    OS="RHEL"
-else
-    OS="Ubuntu"
-fi
-
 function usage() {
     echo " Usage: $0 [-f | --force] [-c | --clean]"
 }
@@ -57,15 +51,12 @@ helm_clean() {
 
 if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
     echo "Installing $APP ..."
-    if [[ $OS == "Ubuntu" ]]; then
-        curl -fsSL https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -o /tmp/get_helm.sh
-        chmod +x /tmp/get_helm.sh
-        sudo /tmp/get_helm.sh -v "$APP_VERSION"
-        rm -f /tmp/get_helm.sh
-    elif [[ $OS == "RHEL" ]]; then
-        sudo yum install -y https://harbottle.gitlab.io/harbottle-main/7/x86_64/harbottle-main-release.rpm
-        sudo yum install -y helm
-    fi
+
+    curl -fsSL https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -o /tmp/get_helm.sh
+    chmod +x /tmp/get_helm.sh
+    sudo /tmp/get_helm.sh -v "$APP_VERSION"
+    rm -f /tmp/get_helm.sh
+
     source <(helm completion bash)
     echo "Done!"
 else

@@ -6,7 +6,7 @@ SHIELD_MNG="yes"
 SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="yes"
-SET_LABELS="yes"
+SET_LABELS="No"
 BRANCH="Staging"
 
 # shield-role/management=accept

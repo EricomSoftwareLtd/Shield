@@ -11,6 +11,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_551] - 2019-07-23
+
+- Add sourcehost variable to logstash config #6155
+- wss via ext-proxy , Asana - not working on swarm env #6758
+
+## [Dev:Build_550] - 2019-07-22
+ 
+- Zoom is not working with shield #6794
+- Kube installation on centos #6805
+- Mail Alerts are being sent nonstop #6784
+- Can't connect to skype when ldap is enabled #6633
+- WhatsApp desktop and whatsApp wab barcode issues #6754
+- NTLM not working in JLM #6823
+
+## [Dev:Build_549] - 2019-07-15
+
+- Remove memory pools from proxy server #6778
+- Fluent-bit service is not working in Dev_548 Kube #6772
+- Problem with urls goes white after ~10 seconds - autofill related issue #6753
+- Shield-perf consistent time format #6722
+- DNS Settings are empty #6642
+- Admin | Profiles table - validate after editing & missing tooltip #6525
+- Admin updated Japanese translations 
+- Instructions + Scripts for installing Shield on Centos #6781
+- Burst Events on Cloud are done on UTC instead of Admin Time #6260
+- Align all alerts to work in "Dynamic Nodes" mode #5930
+- OVA Preparation #6628
+- add live/ready port to ldap-proxy #6811
+
 ## [Dev:Build_548] - 2019-07-14
 
 - Admin - Named Policy - Add Named Policy dialog #6020
