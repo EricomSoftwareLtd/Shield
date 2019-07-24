@@ -3,7 +3,7 @@
 #####   Ericom Shield Installer:Helm   #####
 #######################################BH###
 APP="Helm"
-APP_VERSION="v2.14.1"
+APP_VERSION="v2.14.2"
 APP_BIN="helm"
 ES_FORCE=false
 ES_CLEAN=false
