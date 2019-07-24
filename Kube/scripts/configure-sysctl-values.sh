@@ -54,6 +54,8 @@ net.ipv4.tcp_syn_retries=2
 net.ipv4.tcp_synack_retries=2
 net.ipv4.tcp_wmem=4096 65536 16777216
 
+net.ipv4.conf.all.rp_filter=1
+
 #vm.min_free_kbytes=65536
 
 # Connection tracking to prevent dropped connections (usually issue on LBs)
