@@ -33,7 +33,11 @@ done
 
 if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
     echo "Installing $APP ..."
-    mkdir -p ~/.kube
+
+    if ! [ -d "${HOME}/.kube" ]; then
+        mkdir -p "${HOME}/.kube"
+        touch "${HOME}/.kube/config"
+    fi
 
     if [[ $OS == "Ubuntu" ]]; then
         sudo apt-get update &&
