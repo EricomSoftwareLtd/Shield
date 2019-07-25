@@ -93,7 +93,7 @@ if [ "$SHIELD_PROXY" == "yes" ]; then
     if [ ! -f "custom-proxy.yaml" ]; then
         curl -s -o custom-proxy.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-proxy.yaml
     fi
-    helm upgrade --install shield-proxy shield-repo/shield --namespace=proxy --set-string "shield-proxy.TZ=${TZ}" --set-string "shield-proxy.UPSTREAM_DNS_SERVERS=${UPSTREAM_DNS_SERVERS}" -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
+    helm upgrade --install shield-proxy shield-repo/shield --namespace=proxy --set-string "shield-proxy.TZ=${TZ}" --set-string "shield-proxy.UPSTREAM_DNS_SERVERS=$(echo ${UPSTREAM_DNS_SERVERS} | sed 's#,#\\,#g')" -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
     sleep 30
 fi
 
