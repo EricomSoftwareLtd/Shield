@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_552] - 2019-07-25
+
+- The profile is change to "All" at export policies #6836
+
 ## [Dev:Build_551] - 2019-07-23
 
 - Add sourcehost variable to logstash config #6155
