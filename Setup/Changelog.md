@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_553] - 2019-07-25
+
+- LDAP isn't working when default domain name is upper case #6852
+- Farm-sacler will terminate all browser jobs which have even a single pod in the 'Succeeded' phase #6849
+
 ## [Dev:Build_552] - 2019-07-25
 
 - The profile is change to "All" at export policies #6836
