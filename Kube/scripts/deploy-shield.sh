@@ -109,3 +109,4 @@ if [ "$SHIELD_ELK" == "yes" ]; then
 fi
 
 log_message "***************     Done!"
+ 

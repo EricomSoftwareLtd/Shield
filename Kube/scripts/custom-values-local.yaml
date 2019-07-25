@@ -54,4 +54,3 @@ consul:
 monitoring:
   elk:
     enabled: true
-
