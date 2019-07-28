@@ -12,7 +12,7 @@ Note: If you are using Shield-OVA, docker is already installed, so you can skip 
 **Configure OS Settings**
 
 ```bash
-      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
+      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/configure-sysctl-values.sh
       chmod +x configure-sysctl-values.sh
       sudo ./configure-sysctl-values.sh
 ```
@@ -22,7 +22,7 @@ Note: If you are using Shield-OVA, docker is already installed, so you can skip 
 Docker is required to deploy Rancher. If Docker is not installed - install it using these instructions:
 
 ```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 ```
@@ -44,7 +44,7 @@ Verify that Docker is installed properly:
 * Run Rancher
 
 ```bash
-curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/run-rancher.sh
+curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/run-rancher.sh
 chmod +x run-rancher.sh
 ./run-rancher.sh
 ```
@@ -82,7 +82,7 @@ For all nodes that will be member of your cluster  that will be added to an exis
 **Configure OS Settings**
 
 ```bash
-      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
+      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/configure-sysctl-values.sh
       chmod +x configure-sysctl-values.sh
       sudo ./configure-sysctl-values.sh
 ```
@@ -90,7 +90,7 @@ For all nodes that will be member of your cluster  that will be added to an exis
 **Install Docker**
 
 ```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 ```

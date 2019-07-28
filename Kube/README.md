@@ -24,7 +24,7 @@ Kubectl is used for running commands on Kubernetes clusters. For more details, s
 Install Kubectl on the first machine, where Rancher is installed (the Linux Master). Run these commands:
 
 ```bash
-curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-kubectl.sh
+curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/install-kubectl.sh
 chmod +x install-kubectl.sh
 ./install-kubectl.sh
 ```
@@ -52,7 +52,7 @@ Note: If you are using Shield-OVA, helm is already installed, so you can skip th
 Helm is an application manager, used to run applications on Kubernetes (e.g., Shield). It is recommended to install Helm on the same machine that includes Rancher & Kubectl (Master machine).
 
 ```bash
-curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-helm.sh
+curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/install-helm.sh
 chmod +x install-helm.sh
 ./install-helm.sh
 ```
@@ -73,7 +73,7 @@ Server: &version.Version{SemVer:"v2.14.1", GitCommit:"5270352a09c7e8b6e8c9593002
 Note: Shield repository requires a valid password. Please contact Shield Profesional Services team to get one.
 
 ```bash
-curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/add-shield-repo.sh
+curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/add-shield-repo.sh
 chmod +x add-shield-repo.sh
 ./add-shield-repo.sh -p PASSWORD
 ```
@@ -114,7 +114,7 @@ For a more complex deployment, the node labels have to be set on each node accor
 then Shield should be deployed using Helm.
 
 ```bash
-curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/deploy-shield.sh
+curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/deploy-shield.sh
 chmod +x deploy-shield.sh
 ./deploy-shield.sh
 ```
@@ -144,7 +144,7 @@ If a new node should be added to an existing cluster, follow these steps:
 **Configure OS Settings**
 
 ```bash
-      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
+      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/configure-sysctl-values.sh
       chmod +x configure-sysctl-values.sh
       sudo ./configure-sysctl-values.sh
 ```
@@ -152,7 +152,7 @@ If a new node should be added to an existing cluster, follow these steps:
 **Install Docker**
 
 ```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.07/Kube/scripts/install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 ```
