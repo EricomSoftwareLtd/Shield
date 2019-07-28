@@ -13,7 +13,7 @@ Note: Rancher is a well-known software platform that enables easy deployment and
 
 Install Rancher and create a Kubernetes cluster using these instructions:
 
-[Rancher](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md)
+[Rancher](https://github.com/EricomSoftwareLtd/Shield/blob/Rel-19.07/Kube/Rancher-README.md)
 
 ### 2. Install Kubectl
 
