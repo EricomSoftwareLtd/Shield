@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - wss via ext-proxy , Asana - not working on swarm env #6758
 
 ## [Dev:Build_550] - 2019-07-22
- 
+
 - Zoom is not working with shield #6794
 - Kube installation on centos #6805
 - Mail Alerts are being sent nonstop #6784
@@ -42,7 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Shield-perf consistent time format #6722
 - DNS Settings are empty #6642
 - Admin | Profiles table - validate after editing & missing tooltip #6525
-- Admin updated Japanese translations 
+- Admin updated Japanese translations
 - Instructions + Scripts for installing Shield on Centos #6781
 - Burst Events on Cloud are done on UTC instead of Admin Time #6260
 - Align all alerts to work in "Dynamic Nodes" mode #5930
@@ -67,7 +67,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [[bug]][[Investigate]] QA#738624 dnsmasq name-server settings #348
 - [[Investigate]] QA#738623 Resource GET flow(white) when there is an upstream proxy #347
 
-
 ## [Dev:Build_547] - 2019-07-11
 
 - Enforce Concurrent Sessions per License #6251
@@ -90,12 +89,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix External Syslog for Kube #6427
 - All-in-kube partial reports #6326
 
-
 ## [Dev:Build_545] - 2019-07-08
 
 - Kube - can't browse with build 544 #6676
 - AdminUI - small changes #6235
-
 
 ## [Dev:Build_544] - 2019-07-07
 
@@ -106,7 +103,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Enable ldap is stuck + can't enable ldap for admin login #6595
 - All-in-Kube to work with upstream proxy #6582
 - Multi domain - can't authenticate - must specify the upn suffix #6637
-
 
 ## [Dev:Build_543] - 2019-07-02
 
@@ -138,7 +134,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Proxy-server out of memory #5933
 - OVA - rel 19.05.2 - pre check ended with errors #6538
 - Proxy-server out of memory #5933
-- Fix proxyless mode 
+- Fix proxyless mode
 - Fix consul issue on slow machines
 
 ## [Dev:Build_539] - 2019-06-23
@@ -148,7 +144,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix External Syslog for Kube #6427
 - Added basic farm selection logic
 - Kube - dnsmasq changes
-- Strings for 5677 & 6497 
+- Strings for 5677 & 6497
 - OVA - rel 19.05.2 - pre check ended with errors #6538
 
 ## [Dev:Build_538] - 2019-06-19
@@ -185,7 +181,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Installation of Dev_532 on clean machine is not working properly #6481
 - http failure notification at the dashboard #6447
 - After installing Dev_528 on 126.0.6.3, machine is not working properly #6433
-- support profiles based on X-Authenticated-Groups on https sites 
+- support profiles based on X-Authenticated-Groups on https sites
 
 ## [Dev:Build_532] - 2019-06-12
 
@@ -225,7 +221,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Multi farm support #1
 - Multi domain support #1
 - Created Shield support script
-
 
 ## [Dev:Build_528] - 2019-06-05
 
@@ -272,8 +267,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Collector cannot find consul in Dev_522 #6280
 - Admin - Named Policy - Add Named Policy dialog #6020
-- Faster load of crystal pages 
-- cleanup of predefined policies 
+- Faster load of crystal pages
+- cleanup of predefined policies
 
 ## [Dev:Build_522] - 2019-05-22
 
@@ -288,10 +283,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Applications table - defaults table display #6199
 - Admin dashboard - sessions table #5880
-- Updated Strings 
+- Updated Strings
 - Autofill improvments #5548
 - Slow typing due to FPS limits #6232
-- KDDI - https://www.baidu.com/ is slow on Edge #6226
+- KDDI - <https://www.baidu.com/> is slow on Edge #6226
 - Admin shows error message on logout, and do not logout #6221
 - categories license alert should be changed #6212
 - KDDI - Slow initial steps on page load #6153
@@ -318,8 +313,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_518.1] - 2019-05-12
 
-- https://www.bild.de/ - redirects to mobile site #6004
-- Site auto scroll - https://mxtoolbox.com/ReverseLookup.aspx #6082
+- Site <https://www.bild.de/> - redirects to mobile site #6004
+- Site auto scroll - <https://mxtoolbox.com/ReverseLookup.aspx> #6082
 - Page layout is changed after selecting checkboxes (from KKA) #5991
 - update Rel 19.04 to latest Dev has failed. #6148
 - Admin - search in the tables does not work #6167
@@ -328,10 +323,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Admin - policies table - add existing category - nothing happens #6141
 - Admin - policies table - delete categories #6140
-- Updated translations 
+- Updated translations
 - Admin - Policies default table #5911
 - Admin - Policies - no scrolling #6138
-
 
 ## [Dev:Build_516] - 2019-05-7
 
@@ -343,7 +337,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_515] - 2019-05-6
 
-- https://rcpmag.com/Home.aspx - takes 20-30 seconds to load #6022
+- Site <https://rcpmag.com/Home.aspx> - takes 20-30 seconds to load #6022
 - Show farm version in shield-stats ('browser-farm' section) #6070
 - Remote Browsers Jobs with Succeeded status should not be counted #6066
 - Admin - Named Policy - internal & default policies #6045
@@ -358,7 +352,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_514] - 2019-05-5
 
 - Remote Browser crashes when setting bad fps values #6001
-- Sync tech-preview KV with farm 
+- Sync tech-preview KV with farm
 - Admin - named policy - default #6058
 - Qhen file sanitize/ preview reach the max limit, the user get internal error #6030
 - Download File Size Limit is not working for Download rule #6031
