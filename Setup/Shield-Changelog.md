@@ -8,11 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Rel-19.07.553] - 28-07-2019
 
 ### New Features
-if it’s something else, please explain
-3.	I  would change : “Fixed: Align all alerts to work in "Dynamic Nodes" mode“
-To: “”
-4.	I think “Support Multi Active Directories #5677 “ should be removed as we already have “Multiple Domain Support”
-
 
 - Migration to Kubernetes:
   - Support for On-Prem Deployment on Centos
