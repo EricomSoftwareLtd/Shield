@@ -8,11 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Rel-19.07.553] - 28-07-2019
 
 ### New Features
+if it’s something else, please explain
+3.	I  would change : “Fixed: Align all alerts to work in "Dynamic Nodes" mode“
+To: “”
+4.	I think “Support Multi Active Directories #5677 “ should be removed as we already have “Multiple Domain Support”
+
 
 - Migration to Kubernetes:
+  - Support for On-Prem Deployment on Centos
   - New OVA for Shield Kube on Centos
-  - New Instructions for On-Prem Deployment on Centos
-  - Alerts Support
+  - Alerts fully supported on Shield on Kube
+  - Full Support for Upstream Proxy
   - External Syslog
 - Multiple Domain Support
 - Multiple Domain Controller (Load Balancing) Support
@@ -21,10 +27,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Enforce Concurrent Sessions per License
 - Crystal Mode, various enhancements and improvements
-- Admin updated Japanese translations
 - Remove memory pools from proxy server
 - Shield-perf consistent time format
-- Fixed: Align all alerts to work in "Dynamic Nodes" mode
+- spellcheck_control.py (QA#737494)
 
 ### Bug Fixes
 
@@ -41,10 +46,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Resource GET flow(white) when there is an upstream proxy (QA#738623)
 - Fixed: Admin - Policies - support importing XL amount of policies
 - Fixed: Kube - node labels are not working as expected
-- All-in-Kube to work with upstream proxy #6582
-- specific file in korean (.hwp) fails to downloaded with shield #6632
-- QA#737494 spellcheck_control.py #337 #6623
-- Support Multi Active Directories #5677
+- Fixed: specific file in korean (.hwp) fails to downloaded with shield
 
 ## [Rel-19.06.538] - 26-06-2019
 
