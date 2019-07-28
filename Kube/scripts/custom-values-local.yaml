@@ -5,21 +5,21 @@ shieldmng:
 shield-mng:
   consulBackup:
     enabled: "yes"
+    # For sftp backup, uncomment and set the backup path (on the ftp server):
+    #remotePath: "SFTPStorage:/home/ericom/"
+
     # For S3 change config:
     # Add access_key_id and secret_access_key
     #remotePath: "S3Storage:<change to real bucket>"
     #remotePath: "SFTPStorage:/home/ericom/backup" This is example dir can be any directory
-    #remotePath: "SFTPStorage:/home/ericom/"
+
     config: |
       rclone.conf: |
-        [Local]
+    # For sftp backup, uncomment and set the host and user:
         #[SFTPStorage]
         # type = sftp
         # host = 192.168.50.65
         # user = ericom
-        # key_file = /keys/key_file.pem
-        # pass = c46uZ4VF-RcRdM6EMFCwgoMt27Rjw39GXuk
-        # password is encripted. Can be provided by running 'rclone config' command
         #[S3Storage]
         # type = s3
         # provider = AWS
@@ -29,6 +29,7 @@ shield-mng:
         # location_constraint = <change desired region us-east-2 for example>
         # secret_access_key = XXXXXX
         # acl = private
+    # For sftp backup, uncomment and past the certificate:
     # key: |
     #   key_file.pem: |
     #     ----BEGIN RSA PRIVATE KEY-----
@@ -53,4 +54,3 @@ consul:
 monitoring:
   elk:
     enabled: true
-
