@@ -1,5 +1,5 @@
-#Build Dev:Build_553 on 19/07/25
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_553
+#Build Dev:Build_554 on 19/07/29
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.06:Build_554
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
@@ -16,8 +16,8 @@ speedtest:latest speedtest:181010-18.49-2935
 shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190722-15.22-4635
 es-core-sync:latest es-core-sync:190714-05.44-4589
-shield-admin:latest shield-admin:190724-12.03-4644
-icap-server:latest icap-server:190721-13.42-4619
+shield-admin:latest shield-admin:190729-07.07-4649
+icap-server:latest icap-server:190729-07.07-4649
 shield-cef:latest shield-cef:190718-10.27-4614
 extproxy:latest extproxy:190723-16.12-4643
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
@@ -30,7 +30,7 @@ es-license-manager:latest es-license-manager:190707-14.07-4532
 es-remote-browser-scaler:latest es-remote-browser-scaler:190707-14.07-4532
 es-policy-manager:latest es-policy-manager:190721-12.52-4617
 shield-dns:latest shield-dns:190523-19.10-4259
-es-farm-scaler:latest es-farm-scaler:190725-13.52-4648
+es-farm-scaler:latest es-farm-scaler:190729-07.07-4649
 es-farm-sync:latest es-farm-sync:190721-08.37-4616
 es-api-gateway:latest es-api-gateway:190707-14.07-4532
 es-ldap-api:latest es-ldap-api:190707-14.07-4532
@@ -39,5 +39,5 @@ es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # es-consul-backup:latest es-shield-consul-backup:190711-09.36-4572
 # es-init-elasticsearch:latest es-init-elasticsearch:190709-07.24-4551
 # es-fluent-bit:latest es-fluent-bit:190723-05.41-4640
-# es-mng-system-monitor:latest es-mng-system-monitor:190722-06.30-4625
+# es-mng-system-monitor:latest es-mng-system-monitor:190729-07.07-4649
 # This needs to be the last line

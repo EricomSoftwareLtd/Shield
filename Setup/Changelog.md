@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_554] - 2019-07-29
+
+- Farm-sync get too many requests #6841
+- Support multiple groups per Shield Profile #6585
+- Admin - Policies - clear cache after delete #6176
+- Limit docker logs files size #1848
+- Fixed number of browser in dashboard
+- Fixed bug in preview 
+
 ## [Dev:Build_553] - 2019-07-25
 
 - LDAP isn't working when default domain name is upper case #6852
