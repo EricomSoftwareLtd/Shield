@@ -13,12 +13,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_554] - 2019-07-29
 
-- Farm-sync get too many requests #6841
 - Support multiple groups per Shield Profile #6585
 - Admin - Policies - clear cache after delete #6176
 - Limit docker logs files size #1848
 - Fixed number of browser in dashboard
-- Fixed bug in preview 
+- Kube rel-19.07 preview is not working #6864
+- Consul Backup: expose local folder to Custom Values #6877
+- QA#741975(mtsuchido): Upload function of a specific website do not work (#381) #6843
+- Farm-sync get too many requests #6841
+- Kube - Admin UI - Settings - display issue #6707
+- All-in-kube analyzer is not working #6333
+- Admin - import policies is not working (when the file includes bad data) - page is stuck #6174
+
 
 ## [Dev:Build_553] - 2019-07-25
 
