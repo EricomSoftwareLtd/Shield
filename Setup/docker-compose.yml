@@ -438,7 +438,28 @@ services:
             options:
                 max-size: "500M"
                 max-file: "3"
-
+                
+    es-proxy-egress:
+        image: 'securebrowsing/es-proxy-egress:latest'
+        ulimits:
+            nofile: {soft: 65535, hard: 65535}
+        networks:
+            - shield
+        environment:
+            - 'TZ=UTC'
+            - 'SSLEXCLUSION=true'
+            - 'LOGSTASH_FIELDS=service=es-proxy-egress'
+        deploy:
+            mode: replicated
+            replicas: 2
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
         ulimits:
