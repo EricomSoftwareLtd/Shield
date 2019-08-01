@@ -26,6 +26,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin - import policies is not working (when the file includes bad data) - page is stuck #6174
 - [[urgent]][[Investigate]] QA#737875 Pod placement to another node #341 #6889
 - Getting BLANK pages #45 (SM ) #6890
+- Not sanitizing password protected zip file if extension is upper case #6897
+- fix custom managment yaml file from Rel -19.07 #6882
+- Move /api/scaler/browsercount implementation from farm-scaler to farm-sync #6868
+- No Browsers when stopping one Node #6840
+- tab limit without authentication should work #6749
 
 ## [Dev:Build_553] - 2019-07-25
 
