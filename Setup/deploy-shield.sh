@@ -11,7 +11,6 @@ HOST="$(hostname)"
 SECRET_UID="shield-system-id"
 ES_NO_BROWSERS_LABEL='false'
 
-export UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
 PROXY_ENV_FILE="proxy-server.env"
 ES_PATH="/usr/local/ericomshield"
 CONSUL_BACKUP_PATH="$ES_PATH/backup"
@@ -37,21 +36,25 @@ fi
 ###########################   End default section                                                  #####################
 ########################################################################################################################
 
+UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
+if [ "$UPSTREAM_DNS_SERVERS" = "127.0.0.53" ]; then
+    UPSTREAM_DNS_SERVERS="$(systemd-resolve --status | grep -oP 'DNS Servers:\s+\K.+' | paste -sd,)"
+fi
+export UPSTREAM_DNS_SERVERS
+
 function docker_login() {
     echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
 }
 
 if [ ! -d ~/.docker ]; then
-   if [ -d /root/.docker ]; then
-      CURRENT_USERNAME=$(whoami)
-      cp -r /root/.docker ~/
-      chown -R $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
-   else
-       docker_login
-   fi
+    if [ -d /root/.docker ]; then
+        CURRENT_USERNAME=$(whoami)
+        cp -r /root/.docker ~/
+        chown -R $CURRENT_USERNAME:$CURRENT_USERNAME ~/.docker
+    else
+        docker_login
+    fi
 fi
-
-
 
 if [ ! -d "$CONSUL_BACKUP_PATH" ]; then
     mkdir -p "$CONSUL_BACKUP_PATH"
