@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - All-in-kube analyzer is not working #6333
 - Admin - import policies is not working (when the file includes bad data) - page is stuck #6174
 - [[urgent]][[Investigate]] QA#737875 Pod placement to another node #341 #6889
-
+- Getting BLANK pages #45 (SM ) #6890
 
 ## [Dev:Build_553] - 2019-07-25
 
