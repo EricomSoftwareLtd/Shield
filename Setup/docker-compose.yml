@@ -217,6 +217,7 @@ services:
             - 'SHIELD_VER=8.0.0.latest'
             - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'LOGSTASH_FIELDS=service=icap'
+            - 'CHECK_SESSION_LIMIT=${CHECK_SESSION_LIMIT}'
             #- 'SHIELD_WATERMARK=TRUE'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
