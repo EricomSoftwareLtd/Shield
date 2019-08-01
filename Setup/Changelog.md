@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_554] - 2019-07-29
+
+- Support multiple groups per Shield Profile #6585
+- Admin - Policies - clear cache after delete #6176
+- Limit docker logs files size #1848
+- Fixed number of browser in dashboard
+- Kube rel-19.07 preview is not working #6864
+- Consul Backup: expose local folder to Custom Values #6877
+- QA#741975(mtsuchido): Upload function of a specific website do not work (#381) #6843
+- Farm-sync get too many requests #6841
+- Kube - Admin UI - Settings - display issue #6707
+- All-in-kube analyzer is not working #6333
+- Admin - import policies is not working (when the file includes bad data) - page is stuck #6174
+- [[urgent]][[Investigate]] QA#737875 Pod placement to another node #341 #6889
+- Getting BLANK pages #45 (SM ) #6890
+- Not sanitizing password protected zip file if extension is upper case #6897
+- fix custom managment yaml file from Rel -19.07 #6882
+- Move /api/scaler/browsercount implementation from farm-scaler to farm-sync #6868
+- No Browsers when stopping one Node #6840
+- tab limit without authentication should work #6749
+
 ## [Dev:Build_553] - 2019-07-25
 
 - LDAP isn't working when default domain name is upper case #6852
