@@ -4,7 +4,6 @@ shieldproxy:
   enabled: true
 
 #shield-proxy:
-#  CHECK_SESSION_LIMIT: "true"
 #  TZ: "IDT"
 #  checkSessionLimit: true
 

@@ -7,7 +7,7 @@ shield-mng:
   consulBackup:
     enabled: "yes"
     # Local Path (Uncomment to use a specific local folder for backup):
-    #localPath: /home/ericom/test/        
+    #localPath: /home/ericom/shield/backup/
     # For sftp backup, uncomment and set the backup path (on the ftp server):
     #remotePath: "SFTPStorage:/home/ericom/"
     # For S3 change config:
