@@ -43,9 +43,6 @@ shield-mng:
 consul:
   enabled: true
   client:
-    nodeSelectorKey: shield-role/management
-    nodeSelectorValue: accept
-    forceNodeLabels: "yes"
     ports:
       httPort: 8501
       dnsPort: 8601

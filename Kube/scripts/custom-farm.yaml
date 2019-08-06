@@ -10,10 +10,6 @@ farmservice:
 #############################################################
 #   For Internal Use only - Please do not edit this section  
 consul:
-  client:
-    nodeSelectorKey: shield-role/farm-services
-    nodeSelectorValue: accept
-    forceNodeLabels: "yes"
   enabled: true
   server:
     nodeSelectorKey: shield-role/farm-services
