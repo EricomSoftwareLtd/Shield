@@ -5,9 +5,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.06.538] - 26-06-2019
+## [Rel-19.07.553] - 28-07-2019
 
 ### New Features
+
+- Migration to Kubernetes:
+  - Support for On-Prem Deployment on Centos
+  - New OVA for Shield Kube on Centos
+  - Alerts fully supported on Shield on Kube
+  - Full Support for Upstream Proxy
+  - External Syslog
+- Multiple Domain Support
+- Multiple Domain Controller (Load Balancing) Support
+
+### Enhancement
+
+- Enforce Concurrent Sessions per License
+- Crystal Mode, various enhancements and improvements
+- Remove memory pools from proxy server
+- Shield-perf consistent time format
+- spellcheck_control.py (QA#737494)
+
+### Bug Fixes
+
+- Fixed: The profile is change to "All" at export policies
+- Fixed: Add sourcehost variable to logstash config
+- Fixed: Secured Web Socket (wss) Issue
+- Fixed: Zoom is not working with shield
+- Fixed: DNS Settings are empty
+- Fixed: Burst Events on Cloud are done on UTC instead of Admin Time
+- Fixed: Specific site - video auto-restarts after it is paused
+- Fixed: 'Internal DNS Address' configuration (QA#738833)
+- Fixed: "Route All Connections Via Browsers Farm" with upstream (QA#738778)
+- Fixed: dnsmasq name-server settings (QA#738624)
+- Fixed: Resource GET flow(white) when there is an upstream proxy (QA#738623)
+- Fixed: Admin - Policies - support importing XL amount of policies
+- Fixed: Kube - node labels are not working as expected
+- Fixed: specific file in korean (.hwp) fails to downloaded with shield
+
+## [Rel-19.06.538] - 26-06-2019
+
+### New Features 19.06
 
 - Migration to Kubernetes:
   - All Components now running on Kube (Management, Shield-Proxy, Shield-Logs, Browser Farm )Orchestration Platform
@@ -22,7 +60,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin - Settings - Button to download Shield certificate
 - "Authentication Chaining" Support for 'X-Authenticated-Group' HTTP header
 
-### Enhancement
+### Enhancement 19.06
 
 - Performance Improvement:
   - Page Load
@@ -35,7 +73,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Send Feedback: Close Windows on Cancel
 - AdminUI: Various Enhancements and Bug Fixes
 
-### Bug Fixes
+### Bug Fixes 19.06
 
 - fixed: - Session is getting stuck when downlading file with special chars
 - fixed: ReadOnly Mode for Phishing Issue
