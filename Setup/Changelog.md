@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ## [Dev:Build_555] - 2019-08-07
-- Shopping Site - Half page missing - Netline #47 #6898
+- Shopping Site - Half page missing - (NTLN) #47 #6898
 
 ## [Dev:Build_554] - 2019-07-29
 
