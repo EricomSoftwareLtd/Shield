@@ -9,7 +9,7 @@ We're very pleased that you want to contribute!
 
 Note: If you are using Shield-OVA, docker is already installed, so you can skip this step (Go to: 2. Deploy Rancher)
 
-**Configure OS Settings**
+#### **Configure OS Settings**
 
 ```bash
       curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
@@ -17,7 +17,7 @@ Note: If you are using Shield-OVA, docker is already installed, so you can skip 
       sudo ./configure-sysctl-values.sh
 ```
 
-**Install Docker**
+#### **Install Docker**
 
 Docker is required to deploy Rancher. If Docker is not installed - install it using these instructions:
 
@@ -79,7 +79,7 @@ Mark all the check boxes and copy the command (text in black box).
 
 For all nodes that will be member of your cluster  that will be added to an existing cluster, follow these steps:
 
-**Configure OS Settings**
+#### **-Configure OS Settings**
 
 ```bash
       curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
@@ -87,7 +87,7 @@ For all nodes that will be member of your cluster  that will be added to an exis
       sudo ./configure-sysctl-values.sh
 ```
 
-**Install Docker**
+#### **-Install Docker**
 
 ```bash
 curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
@@ -103,7 +103,7 @@ sudo usermod -aG docker "$USER"
 
 After that logout and login again.
 
-**Join Nodes to the Cluster**
+#### **Join Nodes to the Cluster**
 
 From the Rancher Windows, Click on the "Copy To Clipboard" Button
 Run the copied command on all nodes that will be members of the Shield cluster. Wait until the cluster is ready.

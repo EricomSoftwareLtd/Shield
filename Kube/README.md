@@ -141,7 +141,7 @@ To connect to Shield Admin Console, connect to the Host IP where the Admn is run
 
 If a new node should be added to an existing cluster, follow these steps:
 
-**Configure OS Settings**
+#### **Configure OS Settings**
 
 ```bash
       curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
@@ -149,7 +149,7 @@ If a new node should be added to an existing cluster, follow these steps:
       sudo ./configure-sysctl-values.sh
 ```
 
-**Install Docker**
+#### **Install Docker**
 
 ```bash
 curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
@@ -165,7 +165,7 @@ sudo usermod -aG docker "$USER"
 
 After that Logout and login again.
 
-**Install Rancher Agent on Worker Node**
+#### **Install Rancher Agent on Worker Node**
 
 Go to Rancher. In the Clusters table, select the desired cluster. On the right, select the ``Edit`` option from the menu.
 ![addCluster](https://user-images.githubusercontent.com/24224420/59359118-75771680-8d36-11e9-9ab0-3249f1e15210.png)

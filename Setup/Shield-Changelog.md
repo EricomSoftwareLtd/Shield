@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.07.553] - 28-07-2019
+## [Rel-19.07.1-Build_554] - 28-07-2019
+
+- Consul Backup: expose local folder to Custom Values #6877
+
+### Bug Fixes - 19.07.1
+
+- Fixed: Various fixes in High Availability
+- Fixed: Session Limit without authentication works with flag (checkSessionLimit: true)
+- Fixed: File Preview is not working
+- Fixed: Upload function of a specific website do not work (QA#741975)
+- Fixed: Admin - import policies is not working (when the file includes bad data)
+- Fixed: Sometimes Getting BLANK pages
+- Fixed: Not sanitizing password protected zip file if extension is upper case
+
+## [Rel-19.07-Build-553] - 28-07-2019
 
 ### New Features
 
