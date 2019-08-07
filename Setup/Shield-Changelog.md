@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.07.1-Build_554] - 28-07-2019
+## [Rel-19.07.1-Build_554] - 07-08-2019
+
+### Enhancement
 
 - Consul Backup: expose local folder to Custom Values #6877
 
-### Bug Fixes - 19.07.1
+### Bug Fixes
 
 - Fixed: Various fixes in High Availability
 - Fixed: Session Limit without authentication works with flag (checkSessionLimit: true)
@@ -21,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-19.07-Build-553] - 28-07-2019
 
-### New Features
+### New Features - 19.07
 
 - Migration to Kubernetes:
   - Support for On-Prem Deployment on Centos
@@ -32,7 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Multiple Domain Support
 - Multiple Domain Controller (Load Balancing) Support
 
-### Enhancement
+### Enhancement - 19.07
 
 - Enforce Concurrent Sessions per License
 - Crystal Mode, various enhancements and improvements
@@ -40,7 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Shield-perf consistent time format
 - spellcheck_control.py (QA#737494)
 
-### Bug Fixes
+### Bug Fixes - 19.07
 
 - Fixed: The profile is change to "All" at export policies
 - Fixed: Add sourcehost variable to logstash config
