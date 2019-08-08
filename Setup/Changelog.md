@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_555.1] - 2019-08-07
+- Shopping Site - Half page missing - (NTLN) #47 #6898
+
 ## [Dev:Build_554] - 2019-07-29
 
 - Support multiple groups per Shield Profile #6585
