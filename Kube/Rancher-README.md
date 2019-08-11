@@ -1,55 +1,19 @@
 # Ericom Shield (K8s) Readme
 
-Welcome! This repository houses all of the assets required to deploy Ericom Shield on Kubernetes
-We're very pleased that you want to contribute!
-
 ## Deploying Rancher On Prem
 
-### 1. Pre-Requesites
+### Deploy Rancher
 
-Note: If you are using Shield-OVA, docker is already installed, so you can skip this step (Go to: 2. Deploy Rancher)
-
-**Configure OS Settings**
+* On the Rancher Server, create a dedicated folder and run Rancher
 
 ```bash
-      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
-      chmod +x configure-sysctl-values.sh
-      sudo ./configure-sysctl-values.sh
-```
-
-**Install Docker**
-
-Docker is required to deploy Rancher. If Docker is not installed - install it using these instructions:
-
-```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
-chmod +x install-docker.sh
-./install-docker.sh
-```
-
-Add current user to the docker group:
-
-```bash
-sudo usermod -aG docker "$USER"
-```
-
-After that logout and login again.
-
-Verify that Docker is installed properly:
-  
-`docker version`
-
-### 2. Deploy Rancher
-
-* Run Rancher
-
-```bash
+mkdir ~/ericomshield
 curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/run-rancher.sh
 chmod +x run-rancher.sh
 ./run-rancher.sh
 ```
 
-### 3. Init your Rancher
+### Init your Rancher
 
 * Open your favorite browser and go to <https://RancherServerIPAddress:8443>. You should see this screen:
 ![Login screen](https://user-images.githubusercontent.com/26378199/48976764-8f505500-f095-11e8-8228-cf85c1d0a1a0.png)
@@ -59,7 +23,7 @@ Enter administrator password and click ``Continue``
 
 Click ``Save URL``
 
-### 4. Create your Cluster
+### Create your Cluster
 
 Click ``Add Cluster``
 
@@ -75,38 +39,12 @@ Mark all the check boxes and copy the command (text in black box).
 
 ![Text ](https://user-images.githubusercontent.com/26378199/48976838-f0c4f380-f096-11e8-865a-392b2e783aec.png)
 
-### 5. Add Node/s To Your Cluster
-
-For all nodes that will be member of your cluster  that will be added to an existing cluster, follow these steps:
-
-**Configure OS Settings**
-
-```bash
-      curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
-      chmod +x configure-sysctl-values.sh
-      sudo ./configure-sysctl-values.sh
-```
-
-**Install Docker**
-
-```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
-chmod +x install-docker.sh
-./install-docker.sh
-```
-
-Add current user to the docker group:
-
-```bash
-sudo usermod -aG docker "$USER"
-```
-
-After that logout and login again.
-
-**Join Nodes to the Cluster**
+### Add Node/s To Your Cluster
 
 From the Rancher Windows, Click on the "Copy To Clipboard" Button
-Run the copied command on all nodes that will be members of the Shield cluster. Wait until the cluster is ready.
-After the cluster is ready, a green message appears in the bottom of the page. Click ``Done``.
 
-The Kubernetes cluster is now up and ready to deploy Shield on it.
+Run the copied command on EACH Linux machine to join it to the cluster. Make sure the copied command matches the 
+node to join (**Master**/**Worker**). Follow the node joining by clicking on ``Nodes`` in the cluster menu.
+
+Wait until the process is finished. After the node is joined to the cluster, a green message appears at the bottom of the page. 
+Repeat this process per each node until the cluster is complete. Click ``Done``.
