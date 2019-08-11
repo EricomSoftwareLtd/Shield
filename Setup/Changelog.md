@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_556] - 2019-08-11
+- XFF sent on redirect mode #6929
 
 ## [Dev:Build_555.1] - 2019-08-07
 - Shopping Site - Half page missing - (NTLN) #47 #6898
