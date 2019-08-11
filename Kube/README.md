@@ -2,7 +2,7 @@
 
 Welcome! This repository includes all the steps required to deploy Ericom Shield on Kubernetes
 
-## Prepare The Linux Machines##
+## Prepare The Linux Machines
 
 Each Linux machine that takes part in the Shield cluster must be prepared before creating the cluster.
 Please follow these steps and perform them on each machine separately:
