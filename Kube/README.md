@@ -78,6 +78,8 @@ shield-role/remote-browsers=accept
 
 Press ``Save``. The updated labels now appear on the node details.
 
+The Kubernetes cluster is now up and ready to deploy Shield on it.
+
 ### Install Kubectl
 
 Note: If you are using Shield-OVA, kubectl is already installed, so you can skip this step and continue to: **Update ~/.kube/config with Kubeconfig**
