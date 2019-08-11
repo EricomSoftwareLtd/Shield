@@ -4,9 +4,10 @@
 
 ### Deploy Rancher
 
-* Run Rancher
+* On the Rancher Server, create a dedicated folder and run Rancher
 
 ```bash
+mkdir ~/ericomshield
 curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/run-rancher.sh
 chmod +x run-rancher.sh
 ./run-rancher.sh
