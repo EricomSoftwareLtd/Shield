@@ -71,9 +71,13 @@ The possible labels are:
 you can copy/paste one or more lines of labels below:
 
 shield-role/management=accept
+
 shield-role/proxy=accept
+
 shield-role/elk=accept
+
 shield-role/farm-services=accept
+
 shield-role/remote-browsers=accept
 
 Press ``Save``. The updated labels now appear on the node details.
