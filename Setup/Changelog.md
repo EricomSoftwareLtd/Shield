@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_557] - 2019-08-11
+
+- Fixed identifying 'Pending' pods
+- Updated strings - #6737
+- Named user license treshold update #5184
+- Alert for URLs loaded slowly in kube is not working #6895
+- Alert for too many errors in logs in kube is not working #6893
+- ICAP protocol error - proxy is crashing because time is not sync with ICAP #6927
+- Es-farm-sync HA #6867
+- Clear the backup log #6848
+- No Browsers when stopping one Node #6840
+- Alerts when named users license limit is met #5184
+- Admin - import policies is not working (when the file includes bad data) - page is stuck #6174
+- Admin - support override for categories #6763
+
 ## [Dev:Build_556] - 2019-08-11
 - XFF sent on redirect mode #6929
 
