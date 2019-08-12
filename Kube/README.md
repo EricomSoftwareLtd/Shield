@@ -38,9 +38,9 @@ All the machines should be in the same timezone. The recommendation is to config
 To do so, follow these steps. Run:
 
 ```bash
-yum install ntp
-systemctl start ntp
-systemctl enable ntp
+sudo yum install ntp
+sudo systemctl start ntp
+sudo systemctl enable ntp
 ```
 
 Repeat these steps for each machine in the system. 
