@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_558] - 2019-08-13
+
+- Admin - fix link to the documentation #6942
+- icap - read only error (kube )#6939
+- NTLN - text is not clear #6854
+- Change end user message #6799
+- Printing is not possible if Sanitization is not available #5662
+
 ## [Dev:Build_557] - 2019-08-11
 
 - Fixed identifying 'Pending' pods
