@@ -13,7 +13,7 @@ shield-mng:
     # For S3 change config:
     # Add access_key_id and secret_access_key
     #remotePath: "S3Storage:<change to real bucket>"
-    #remotePath: "SFTPStorage:/home/ericom" #This is example dir can be any directory
+    #remotePath: "SFTPStorage:/home/ericom/backup" This is example dir can be any directory
     config: |
       rclone.conf: | # For sftp backup, uncomment and set the host and user:
         [SFTPStorage]
@@ -30,7 +30,6 @@ shield-mng:
         # location_constraint = <change desired region us-east-2 for example>
         # secret_access_key = XXXXXX
         # acl = private
-        
     # For sftp backup, uncomment and past the certificate:
     key: |
       key_file.pem: |
