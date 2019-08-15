@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_560] - 2019-08-15
+
+- kube 559 - fonts issue #6994
+
 ## [Dev:Build_559] - 2019-08-14
 
 - farm-sync /api/v1/session crash when writing big data to logger #6974
