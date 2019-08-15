@@ -4,7 +4,7 @@
 ###########################################BH###
 
 function usage() {
-    echo " Usage: $0 <-d|--dev> <-s|--staging> -p <PASSWORD> "
+    echo " Usage: $0 "
 }
 
 #Check if we are root

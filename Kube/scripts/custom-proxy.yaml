@@ -1,6 +1,14 @@
+# Custom Values for Shield Proxy   #
 ---
 shieldproxy:
   enabled: true
+
+#shield-proxy:
+#  TZ: "IDT"
+#  checkSessionLimit: true
+
+#############################################################
+#   For Internal Use only
 consul:
   enabled: false
   server:
