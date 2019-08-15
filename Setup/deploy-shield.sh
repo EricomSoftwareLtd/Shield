@@ -28,6 +28,7 @@ export SUB_NET="10.20.0.0/16"
 export SHIELD_PROXY_PORT="3128"
 export ELK_NODE_LABEL="node.labels.management==yes"
 export RB_LANGUAGE="en-US"
+export CHECK_SESSION_LIMIT="false"
 
 if [ -f "$ES_PATH/customer.env" ]; then
     source "$ES_PATH/customer.env"
