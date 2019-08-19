@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_561] - 2019-08-19
+
+- 'Inconsistent User Profiles' alert details will show both sAMAccountName and userPrinicipleName (in case they differ) #7002
+- Email alerts for browser-farm include &nbsp #6989
+- Details in Alert critical errors doesnt work #6976
+- Incorrect named user license counting #6968
+- Return back 'connectioninfo' index in ELK #6946
+- KKA - Web mail (IMAP) - conversion candidate window #6292
+
 ## [Dev:Build_560] - 2019-08-15
 
 - kube 559 - fonts issue #6994
