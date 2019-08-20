@@ -358,6 +358,10 @@ function choose_network_interface() {
     local INTERFACE_ADDRESSES=()
     local OPTIONS=()
 
+    if [ -f "/sys/class/net/bonding_masters" ]
+        INTERFACES+=("$(cat /sys/class/net/bonding_masters)")
+    fi
+
     for IFACE in "${INTERFACES[@]}"; do
         OPTIONS+=("Name: \"$IFACE\", IP address: $(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
         INTERFACE_ADDRESSES+=("$(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
