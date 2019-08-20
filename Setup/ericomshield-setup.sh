@@ -358,7 +358,7 @@ function choose_network_interface() {
     local INTERFACE_ADDRESSES=()
     local OPTIONS=()
 
-    if [ -f "/sys/class/net/bonding_masters" ]
+    if [ -f "/sys/class/net/bonding_masters" ]; then
         INTERFACES+=("$(cat /sys/class/net/bonding_masters)")
     fi
 
@@ -470,7 +470,7 @@ function install_docker() {
 
     if [ -f "$ES_VER_FILE" ]; then
         DOCKER_VERSION="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f2)"
-        DOCKER_VERSION_STRING="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f3)"        
+        DOCKER_VERSION_STRING="$(grep -r 'docker-version' "$ES_VER_FILE" | cut -d' ' -f3)"
     fi
     if [ "$DOCKER_VERSION" = "" ]; then
         DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
@@ -496,9 +496,9 @@ function install_docker() {
         apt-cache policy docker-ce
         echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
         if [ "$DOCKER_VERSION_STRING" = "" ]; then
-          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && apt-mark hold docker-ce
+            apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && apt-mark hold docker-ce
         else
-          apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STRING" "docker-ce-cli=$DOCKER_VERSION_STRING" containerd.io && apt-mark hold docker-ce
+            apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STRING" "docker-ce-cli=$DOCKER_VERSION_STRING" containerd.io && apt-mark hold docker-ce
         fi
         sleep 5
         systemctl restart docker
@@ -509,7 +509,7 @@ function install_docker() {
     if [ ! -x /usr/bin/docker ]; then
         failed_to_install "Failed to Install/Update Docker, exiting"
     fi
-    if [ "$(docker version | grep -c $DOCKER_VERSION )" -le 1 ]; then
+    if [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
         log_message "Warning, Failed to Update Docker Version to: $DOCKER_VERSION"
     fi
 }
@@ -774,7 +774,7 @@ function am_i_leader() {
 function check_registry() {
     if [ ! -z $SHIELD_REGISTRY ]; then
         log_message "Testing the registry..."
-        if ! docker run --rm "$SHIELD_REGISTRY/library/alpine:latest" "/bin/true"; then        
+        if ! docker run --rm "$SHIELD_REGISTRY/library/alpine:latest" "/bin/true"; then
             log_message "Registry test failed"
             return 1
         else
