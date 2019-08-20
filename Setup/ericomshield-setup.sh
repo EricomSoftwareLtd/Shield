@@ -363,8 +363,11 @@ function choose_network_interface() {
     fi
 
     for IFACE in "${INTERFACES[@]}"; do
-        OPTIONS+=("Name: \"$IFACE\", IP address: $(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
-        INTERFACE_ADDRESSES+=("$(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')")
+        local IF_ADDR="$(/sbin/ip address show scope global dev $IFACE | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')"
+        if [ ! -z "$IF_ADDR" ]; then
+            OPTIONS+=("Name: \"$IFACE\", IP address: $IF_ADDR")
+            INTERFACE_ADDRESSES+=("$IF_ADDR")
+        fi
     done
 
     if ((${#OPTIONS[@]} == 0)); then
