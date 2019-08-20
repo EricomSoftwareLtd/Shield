@@ -359,7 +359,7 @@ function choose_network_interface() {
     local OPTIONS=()
 
     if [ -f "/sys/class/net/bonding_masters" ]; then
-        INTERFACES+=("$(cat /sys/class/net/bonding_masters)")
+        INTERFACES+=($(cat /sys/class/net/bonding_masters))
     fi
 
     for IFACE in "${INTERFACES[@]}"; do
