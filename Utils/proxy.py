@@ -191,10 +191,10 @@ def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
 def set_proxy(flag):
     proxy, port, username, password, exceptions = "", "", "", "", ""
     if not flag:
-        proxy = input("Enter proxy : ")
-        port = input("Enter port : ")
-        exceptions = input("Enter IPs separated by ',' for direct access : ")
-        username = input("Enter username (if you need) : ")
+        proxy = raw_input("Enter proxy : ")
+        port = raw_input("Enter port : ")
+        exceptions = raw_input("Enter IPs separated by ',' for direct access : ")
+        username = raw_input("Enter username (if you need) : ")
         password = getpass.getpass("Enter password (if you need) : ")
 
         if username == '':
@@ -308,7 +308,7 @@ if __name__ == "__main__":
     print("2:) Remove Proxy")
     print("3:) Restore Backup file")
     print("4:) Exit")
-    choice = int(input("\nchoice (1/2/3/4) : "))
+    choice = int(raw_input("\nchoice (1/2/3/4) : "))
 
     if (choice == 1):
         backup_default()
