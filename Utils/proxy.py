@@ -301,7 +301,7 @@ if __name__ == "__main__":
 
     # choice
     print("----------------------------------------------------------------------------------------------------------------------")
-    print(" If the './.backup_proxy' directory does not exist,the settings before execution are automatically saved as a backup.")
+    print(" If the './.backup_proxy' directory does not exist, the settings before execution are automatically saved as a backup.")
     print(" If the directory exists, it will not overwrite the backup.")
     print("----------------------------------------------------------------------------------------------------------------------")
     print("1:) Set Proxy")
