@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_562] - 2019-08-27
+
+- Dashboard redesign #6394
+- Sessions Report #5642
+- Missing Reports on Kube: Applications and End User feedback
+- Website: fujifilm - black areas in the screen
+- Admin - Profiles - secondary AD issues
+- proxy.py is not working on centos and ubuntu #6493
+- Shield setup: Bonding Interface Support #7042
+
 ## [Dev:Build_561] - 2019-08-19
 
 - 'Inconsistent User Profiles' alert details will show both sAMAccountName and userPrinicipleName (in case they differ) #7002
@@ -52,9 +62,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin - support override for categories #6763
 
 ## [Dev:Build_556] - 2019-08-11
+
 - XFF sent on redirect mode #6929
 
 ## [Dev:Build_555.1] - 2019-08-07
+
 - Shopping Site - Half page missing - (NTLN) #47 #6898
 
 ## [Dev:Build_554] - 2019-07-29

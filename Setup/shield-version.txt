@@ -1,5 +1,5 @@
-#Build Dev:Build_561 on 19/08/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.07:Build_561
+#Build Build_562 on 27/08/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.09:Build_562
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
@@ -9,16 +9,16 @@ shield-collector:latest shield-collector:190811-08.37-4678
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:190707-14.07-4532
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:190819-07.02-79
+shield-authproxy:latest shield-authproxy:190827-11.13-99
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:190811-11.10-4682
 shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190811-07.01-4670
 es-core-sync:latest es-core-sync:190811-12.31-4686
-shield-admin:latest shield-admin:190819-06.36-77
-icap-server:latest icap-server:190819-07.02-79
-shield-cef:latest shield-cef:190819-07.02-79
+shield-admin:latest shield-admin:190827-10.45-97
+icap-server:latest icap-server:190827-11.28-100
+shield-cef:latest shield-cef:190827-11.28-100
 extproxy:latest extproxy:190723-16.12-4643
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
 shield-cdr-controller:latest shield-cdr-controller:190721-08.37-4616
@@ -37,7 +37,8 @@ es-ldap-api:latest es-ldap-api:190811-12.31-4686
 es-ldap-proxy:latest es-ldap-proxy:190725-13.40-4647
 es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # es-consul-backup:latest es-shield-consul-backup:190801-11.56-4664
-# es-init-elasticsearch:latest es-init-elasticsearch:190819-07.16-80
+# es-init-elasticsearch:latest es-init-elasticsearch:190827-10.45-97
 # es-fluent-bit:latest es-fluent-bit:190723-05.41-4640
 # es-mng-system-monitor:latest es-mng-system-monitor:190819-07.16-80
+# shield-virtual-client:latest shield-virtual-client:190827-10.45-97
 # This needs to be the last line
