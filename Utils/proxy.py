@@ -184,8 +184,8 @@ def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
     # If docker is installed, restart the service.
     if os.path.islink(DOCKER_SERVICE_UNIT):
         print(u"reload and restart docker....")
-        subprocess.run(u"systemctl daemon-reload", shell=True)
-        subprocess.run(u"systemctl restart docker", shell=True)
+        subprocess.call(u"systemctl daemon-reload", shell=True)
+        subprocess.call(u"systemctl restart docker", shell=True)
 
 
 def set_proxy(flag):
@@ -239,8 +239,8 @@ def restore_default():
                 os.remove(DOCKER_)
         if os.path.islink(DOCKER_SERVICE_UNIT):
             print(u"reload and restart docker....")
-            subprocess.run(u"systemctl daemon-reload", shell=True)
-            subprocess.run(u"systemctl restart docker", shell=True)
+            subprocess.call(u"systemctl daemon-reload", shell=True)
+            subprocess.call(u"systemctl restart docker", shell=True)
     else:
         print(u"No backup data...")
         sys.exit()
