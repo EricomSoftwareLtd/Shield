@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dashboard redesign #6394
 - Sessions Report #5642
 - Missing Reports on Kube: Applications and End User feedback
+- Added Analyzer to Kube #6915
+- Align all alerts to work in "Dynamic Nodes" mode #5930
 - Website: fujifilm - black areas in the screen
 - Admin - Profiles - secondary AD issues
 - proxy.py is not working on centos and ubuntu #6493
