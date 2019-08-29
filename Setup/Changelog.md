@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_563] - 2019-08-29
+
+- Kube - deploy shield should be updated #7055
+- Need to reshuffle consul after node is turned on again #6967
+- FluentBit should connect to local consul-agent #6926
+- When add additional node to already deployed system, consul not on the same node #6924
+- Kube - White URL's are not in conections reports #6712
+- Dashboard redesign part 1 #6394
+- Sessions Report #5642
+- Kube - Alerts/Reports not working #7025
+- Missing Reports in Kube #6326
+
+
 ## [Dev:Build_562] - 2019-08-27
 
 - Dashboard redesign #6394
