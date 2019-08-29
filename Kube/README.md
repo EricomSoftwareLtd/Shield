@@ -37,11 +37,14 @@ docker version
 All the machines should be in the same timezone. The recommendation is to configure the machines using NTP (Network Time Protocol).
 To do so, follow these steps. Run:
 
+for centos:
 ```bash
 sudo yum install ntp
-sudo systemctl start ntp
-sudo systemctl enable ntp
+sudo systemctl start ntpd
+sudo systemctl enable ntpd
 ```
+for ubuntu: (lev)
+
 
 Repeat these steps for each machine in the system. 
 
