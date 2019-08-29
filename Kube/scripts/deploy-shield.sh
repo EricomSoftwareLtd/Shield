@@ -108,5 +108,10 @@ if [ "$SHIELD_ELK" == "yes" ]; then
     helm upgrade --install shield-elk shield-repo/shield --namespace=elk -f custom-values-elk.yaml --debug | tee -a "$LOGFILE"
 fi
 
+log_message "***************     Deploying Shield Common *******************************"
+if [ ! -f "custom-common.yaml" ]; then
+   curl -s -o custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
+fi
+helm upgrade --install shield-common shield-repo/shield --namespace=shield-common -f custom-common.yaml --debug | tee -a "$LOGFILE"
+
 log_message "***************     Done!"
- 
