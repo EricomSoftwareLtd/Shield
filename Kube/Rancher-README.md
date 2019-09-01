@@ -32,7 +32,7 @@ Click ``Add Cluster``
 ![Custom](https://user-images.githubusercontent.com/26378199/48976807-8f048980-f096-11e8-9e1b-406d06fbb488.png)
 
 -Fill in the ``Cluster Name`` as desired
--On the ``Network Provider`` select the **Calico** option
+-On the ``Network Provider`` select the **Flannel** option
 -Click ``Next``
 
 Mark all the check boxes and copy the command (text in black box).
