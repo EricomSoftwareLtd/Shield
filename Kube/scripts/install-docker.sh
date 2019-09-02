@@ -5,7 +5,6 @@
 APP="docker"
 APP_BIN="/usr/bin/docker"
 APP_VERSION="18.09"
-DOCKER_VERSION="18.09"
 ES_FORCE=false
 
 function usage() {
