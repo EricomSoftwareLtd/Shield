@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_564] - 2019-09-02
 
 - Install Docker 19.03.1 (latest)
+- Admin: Dashboard Fixes
 - Kube: Analyser to show docker version #7082
 - Kube: consul-pod-antiaffinity and upgrade to 1.6.0 #290
 
