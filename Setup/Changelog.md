@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_564] - 2019-09-02
+
+- Install Docker 19.03.1 (latest)
+- Kube: Analyser to show docker version #7082
+- Kube: consul-pod-antiaffinity and upgrade to 1.6.0 #290
+
 ## [Dev:Build_563] - 2019-08-29
 
 - Kube - deploy shield should be updated #7055
@@ -22,7 +28,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Sessions Report #5642
 - Kube - Alerts/Reports not working #7025
 - Missing Reports in Kube #6326
-
 
 ## [Dev:Build_562] - 2019-08-27
 
