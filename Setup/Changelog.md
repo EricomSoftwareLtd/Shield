@@ -11,6 +11,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_564] - 2019-09-02
+
+- Install Docker 19.03.1 (latest)
+- Admin: Dashboard Fixes
+- Kube: Analyser to show docker version #7082
+- Kube: consul-pod-antiaffinity and upgrade to 1.6.0 #290
+
+## [Dev:Build_563] - 2019-08-29
+
+- Kube - deploy shield should be updated #7055
+- Need to reshuffle consul after node is turned on again #6967
+- FluentBit should connect to local consul-agent #6926
+- When add additional node to already deployed system, consul not on the same node #6924
+- Kube - White URL's are not in conections reports #6712
+- Dashboard redesign part 1 #6394
+- Sessions Report #5642
+- Kube - Alerts/Reports not working #7025
+- Missing Reports in Kube #6326
+
+## [Dev:Build_562] - 2019-08-27
+
+- Dashboard redesign #6394
+- Sessions Report #5642
+- Missing Reports on Kube: Applications and End User feedback
+- Added Analyzer to Kube #6915
+- Align all alerts to work in "Dynamic Nodes" mode #5930
+- Website: fujifilm - black areas in the screen
+- Admin - Profiles - secondary AD issues
+- proxy.py is not working on centos and ubuntu #6493
+- Shield setup: Bonding Interface Support #7042
+
+## [Dev:Build_561] - 2019-08-19
+
+- 'Inconsistent User Profiles' alert details will show both sAMAccountName and userPrinicipleName (in case they differ) #7002
+- Email alerts for browser-farm include &nbsp #6989
+- Details in Alert critical errors doesnt work #6976
+- Incorrect named user license counting #6968
+- Return back 'connectioninfo' index in ELK #6946
+- KKA - Web mail (IMAP) - conversion candidate window #6292
+
 ## [Dev:Build_560] - 2019-08-15
 
 - kube 559 - fonts issue #6994
@@ -43,9 +83,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Admin - support override for categories #6763
 
 ## [Dev:Build_556] - 2019-08-11
+
 - XFF sent on redirect mode #6929
 
 ## [Dev:Build_555.1] - 2019-08-07
+
 - Shopping Site - Half page missing - (NTLN) #47 #6898
 
 ## [Dev:Build_554] - 2019-07-29

@@ -29,3 +29,7 @@ for dir in $cleanupdirs; do
     echo "Removing $dir"
     rm -rf $dir
 done
+
+echo "Please reboot your system, to cleanup the machine"
+echo
+sleep 5

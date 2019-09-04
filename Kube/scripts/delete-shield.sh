@@ -5,7 +5,7 @@
 
 SHIELD="shield"
 
-COMPONENTS=(farm-services proxy management elk)
+COMPONENTS=(farm-services proxy management elk common)
 
 read -p "Are you sure you want to delete the deployment? " choice
 case "$choice" in
