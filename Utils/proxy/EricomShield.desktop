@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=EricomShield
+Exec=EricomShield %F
+Icon=EricomShield
+Type=Application
+Categories=Audio;AudioVideo;
+Comment=Music Player and Library
+MimeType=inode/directory;audio/flac;
+Name[en]=Ericom Shield
+Terminal=true
+StartupNotify=true
+NoDisplay=false
