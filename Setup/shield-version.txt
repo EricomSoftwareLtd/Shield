@@ -28,7 +28,7 @@ es-file-preview:latest es-file-preview:190715-05.43-4596
 es-system-configuration:latest es-system-configuration:190811-08.08-4676
 es-license-manager:latest es-license-manager:190811-12.31-4686
 es-remote-browser-scaler:latest es-remote-browser-scaler:190811-12.31-4686
-es-policy-manager:latest es-policy-manager:190811-10.30-4680
+es-policy-manager:latest es-policy-manager:190905-10.53-130
 shield-dns:latest shield-dns:190523-19.10-4259
 es-farm-scaler:latest es-farm-scaler:190904-09.25-124
 es-farm-sync:latest es-farm-sync:190814-06.45-70
