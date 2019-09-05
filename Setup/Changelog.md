@@ -16,9 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dashboard Redesign
 - Session Report #6401 #6395 #6396
 - Restore from the Admin [R3, B2] #4137
-- Scaler doesh't create browsers when pod in pending (terminating) state #7011
+- Scaler doesn't create browsers when pod in pending (terminating) state #7011
 - no alerts when periodic tests failing #7099
-- no alerts when periodic tests failing Action #7099
 - Analyser to show docker version
 - Admin Dashboard - fix max browsers in dashboard #7081
 - 'Inconsistent User Profiles' alert details will show both sAMAccountName/userPrinicipleName #7002
