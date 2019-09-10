@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_566] - 2019-09-10
+
 - Periodic Health Checks Frequency - strange value
 - Reports from the admin UI are not working
 - Kube - local back up file - change the path
 
-## [Dev:Build_564] - 2019-09-04
+## [Dev:Build_565] - 2019-09-04
 
 - Dashboard Redesign
 - Session Report #6401 #6395 #6396
