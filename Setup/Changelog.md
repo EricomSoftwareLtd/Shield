@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_566] - 2019-09-10
+
+- Periodic Health Checks Frequency - strange value
+- Reports from the admin UI are not working
+- Kube - local back up file - change the path
+
+## [Dev:Build_565] - 2019-09-04
+
+- Dashboard Redesign
+- Session Report #6401 #6395 #6396
+- Restore from the Admin [R3, B2] #4137
+- Scaler doesn't create browsers when pod in pending (terminating) state #7011
+- no alerts when periodic tests failing #7099
+- Analyser to show docker version
+- Admin Dashboard - fix max browsers in dashboard #7081
+- 'Inconsistent User Profiles' alert details will show both sAMAccountName/userPrinicipleName #7002
+- FQDN - error #7008
+- Virtual Client - right click command #7022
+
 ## [Dev:Build_564] - 2019-09-02
 
 - Install Docker 19.03.1 (latest)
