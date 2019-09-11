@@ -5,9 +5,58 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.07.553] - 28-07-2019
+## [Rel-19.09.566] - 11-09-2019
 
 ### New Features
+
+- Dashboard Redesign
+- Session Report
+- Restore from the Admin
+
+### Enhancement
+
+- Install Docker 19.03.1 (latest)
+- Missing Reports on Kube
+- Added Analyzer to Kube
+- Alerts when named users license limit is met
+- Alert for URLs loaded slowly in kube is not working
+- Alert for too many errors in logs in kube is not working
+- XFF sent on redirect mode
+- Shield setup: Bonding Interface Support
+
+### Bug Fixes
+
+- Fixed: Admin - Import policies is not working when the file includes bad data
+- Fixed: Admin - support override for categories
+- Fixed: Website - Shopping Site - Half page missing - (NTLN)
+- Fixed: HA - No Browsers when stopping one Node
+- Fixed: Printing is not possible if Sanitization is not available
+- Fixed: Web mail (IMAP) - conversion candidate window
+- Fixed: Website: fujifilm - black areas in the screen
+- Fixed: Kube - White URL's are not in conections reports
+- Fixed: Kube: Analyser to show docker version
+- Fixed: 'Inconsistent User Profiles' alert details will show both sAMAccountName/userPrinicipleName
+- Fixed: HA -Scaler doesn't create browsers when pod in pending (terminating) state
+
+## [Rel-19.07.1-Build_554] - 07-08-2019
+
+### Enhancement 19.07.1
+
+- Consul Backup: expose local folder to Custom Values #6877
+
+### Bug Fixes 19.07.1
+
+- Fixed: Various fixes in High Availability
+- Fixed: Session Limit without authentication works with flag (checkSessionLimit: true)
+- Fixed: File Preview is not working
+- Fixed: Upload function of a specific website do not work (QA#741975)
+- Fixed: Admin - import policies is not working (when the file includes bad data)
+- Fixed: Sometimes Getting BLANK pages
+- Fixed: Not sanitizing password protected zip file if extension is upper case
+
+## [Rel-19.07.553] - 28-07-2019
+
+### New Features 19.07
 
 - Migration to Kubernetes:
   - Support for On-Prem Deployment on Centos
@@ -18,7 +67,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Multiple Domain Support
 - Multiple Domain Controller (Load Balancing) Support
 
-### Enhancement
+### Enhancement 19.07
 
 - Enforce Concurrent Sessions per License
 - Crystal Mode, various enhancements and improvements
@@ -26,7 +75,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Shield-perf consistent time format
 - spellcheck_control.py (QA#737494)
 
-### Bug Fixes
+### Bug Fixes 19.07
 
 - Fixed: The profile is change to "All" at export policies
 - Fixed: Add sourcehost variable to logstash config
