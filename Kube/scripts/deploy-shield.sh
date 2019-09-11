@@ -7,7 +7,7 @@ SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="yes"
 SET_LABELS="No"
-BRANCH="Dev"
+BRANCH="Rel-19.09"
 SHIELD_REPO="shield-repo"
 
 # shield-role/management=accept
