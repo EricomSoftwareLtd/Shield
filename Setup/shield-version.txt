@@ -1,5 +1,5 @@
-#Build Build_566 on 10/09/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.09:Build_566
+#Build Build_567 on 12/10/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.09:Build_567
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
@@ -18,23 +18,23 @@ es-system-monitor:latest es-system-monitor:190903-13.00-121
 es-core-sync:latest es-core-sync:190811-12.31-4686
 shield-admin:latest shield-admin:190909-14.38-145
 icap-server:latest icap-server:190904-09.25-124
-shield-cef:latest shield-cef:190827-11.28-100
+shield-cef:latest shield-cef:190912-15.17-150
 extproxy:latest extproxy:190723-16.12-4643
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
 shield-cdr-controller:latest shield-cdr-controller:190721-08.37-4616
 shield-notifier:latest shield-notifier:190707-14.07-4532
 shield-proxyless-connector:latest shield-proxyless-connector:190708-07.41-4539
 es-file-preview:latest es-file-preview:190715-05.43-4596
-es-system-configuration:latest es-system-configuration:190811-08.08-4676
+es-system-configuration:latest es-system-configuration:190912-15.17-150
 es-license-manager:latest es-license-manager:190811-12.31-4686
 es-remote-browser-scaler:latest es-remote-browser-scaler:190811-12.31-4686
 es-policy-manager:latest es-policy-manager:190905-10.53-130
 shield-dns:latest shield-dns:190523-19.10-4259
-es-farm-scaler:latest es-farm-scaler:190904-09.25-124
+es-farm-scaler:latest es-farm-scaler:190912-15.17-150
 es-farm-sync:latest es-farm-sync:190814-06.45-70
 es-api-gateway:latest es-api-gateway:190707-14.07-4532
 es-ldap-api:latest es-ldap-api:190811-12.31-4686
-es-ldap-proxy:latest es-ldap-proxy:190725-13.40-4647
+es-ldap-proxy:latest es-ldap-proxy:190912-15.17-150
 es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # es-consul-backup:latest es-shield-consul-backup:190801-11.56-4664
 # es-init-elasticsearch:latest es-init-elasticsearch:190829-09.16-109
