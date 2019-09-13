@@ -54,3 +54,11 @@ consul:
     nodeSelectorKey: shield-role/management
     nodeSelectorValue: accept
     forceNodeLabels: "yes"
+  nodeAffinity:
+   requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: shield-role/management
+        operator: In
+        values:
+        - accept
