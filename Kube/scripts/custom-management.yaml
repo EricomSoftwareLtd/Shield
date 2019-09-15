@@ -54,11 +54,5 @@ consul:
     nodeSelectorKey: shield-role/management
     nodeSelectorValue: accept
     forceNodeLabels: "yes"
-  nodeAffinity:
-   requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-    - matchExpressions:
-      - key: shield-role/management
-        operator: In
-        values:
-        - accept
+# If you have 3 Management Nodes uncomment this line    
+#    antiAffinity: hard   

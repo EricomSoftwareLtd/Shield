@@ -26,27 +26,27 @@ chmod +x install-docker.sh
 ```bash
 sudo usermod -aG docker "$USER"
 ```
+
 Logout and login again.
 
 Verify that Docker is installed properly:
 
 ```bash
-docker version 
+docker version
 ```
- 
+
 All the machines should be in the same timezone. The recommendation is to configure the machines using NTP (Network Time Protocol).
 To do so, follow these steps. Run:
 
 for centos:
+
 ```bash
 sudo yum install ntp
 sudo systemctl start ntpd
 sudo systemctl enable ntpd
 ```
-for ubuntu: (lev)
 
-
-Repeat these steps for each machine in the system. 
+Repeat these steps for each machine in the system.
 
 Verify that all machines have: Static IP, unique hostname and are on the same timezone.
 
@@ -189,4 +189,4 @@ Now, click on your Cluster (close to the Rancher Icon) and select Default under 
 When you see under ``Workloads`` that the system is up and running (or by running helm status shield), your system is ready.
 
 To connect to Shield on the Proxy Port, connect to the Host IP where the Shield-Proxy Component is running on **3128** port.
-To connect to Shield Admin Console, connect to the Host IP where the Admin is running and use port **30181**. 
+To connect to Shield Admin Console, connect to the Host IP where the Admin is running and use port **30181**.
