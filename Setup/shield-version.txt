@@ -17,8 +17,8 @@ shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190903-13.00-121
 es-core-sync:latest es-core-sync:190811-12.31-4686
 shield-admin:latest shield-admin:190909-14.38-145
-icap-server:latest icap-server:190912-17.09-152
-shield-cef:latest shield-cef:190912-15.17-150
+icap-server:latest icap-server:190915-10.28-158
+shield-cef:latest shield-cef:190915-10.28-158
 extproxy:latest extproxy:190723-16.12-4643
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
 shield-cdr-controller:latest shield-cdr-controller:190721-08.37-4616
@@ -31,7 +31,7 @@ es-remote-browser-scaler:latest es-remote-browser-scaler:190811-12.31-4686
 es-policy-manager:latest es-policy-manager:190905-10.53-130
 shield-dns:latest shield-dns:190523-19.10-4259
 es-farm-scaler:latest es-farm-scaler:190912-15.17-150
-es-farm-sync:latest es-farm-sync:190814-06.45-70
+es-farm-sync:latest es-farm-sync:190915-09.54-157
 es-api-gateway:latest es-api-gateway:190707-14.07-4532
 es-ldap-api:latest es-ldap-api:190811-12.31-4686
 es-ldap-proxy:latest es-ldap-proxy:190912-15.17-150
@@ -39,6 +39,6 @@ es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # es-consul-backup:latest es-shield-consul-backup:190801-11.56-4664
 # es-init-elasticsearch:latest es-init-elasticsearch:190829-09.16-109
 # es-fluent-bit:latest es-fluent-bit:190723-05.41-4640
-# es-mng-system-monitor:latest es-mng-system-monitor:190912-17.09-152
+# es-mng-system-monitor:latest es-mng-system-monitor:190915-10.28-158
 # shield-virtual-client:latest shield-virtual-client:190827-10.45-97
 # This needs to be the last line
