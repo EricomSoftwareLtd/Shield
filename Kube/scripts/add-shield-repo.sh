@@ -8,7 +8,7 @@ function usage() {
 }
 
 SHIELD_REPO_URL="https://helmrepo.shield-service.net"
-SHIELD_REPO="$SHIELD_REPO_URL/staging"
+SHIELD_REPO="$SHIELD_REPO_URL/rel19091"
 
 PASSWORD=""
 
