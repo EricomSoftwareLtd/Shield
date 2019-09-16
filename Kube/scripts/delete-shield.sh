@@ -19,8 +19,6 @@ y | Y | "yes" | "YES" | "Yes")
     helm delete --purge "common"
     kubectl delete namespace "shield-common"
     ;;
-
-    ;;
 *)
     echo "no"
     echo "Ok!"
