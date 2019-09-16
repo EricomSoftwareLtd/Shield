@@ -1,12 +1,11 @@
 [Desktop Entry]
-Name=EricomShield
-Exec=EricomShield %F
+Name=Ericom Shield
+Exec=AppRun
 Icon=EricomShield
 Type=Application
-Categories=Audio;AudioVideo;
-Comment=Music Player and Library
-MimeType=inode/directory;audio/flac;
+Categories=Network;
 Name[en]=Ericom Shield
 Terminal=true
 StartupNotify=true
 NoDisplay=false
+Hidden=false
