@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-19.09.1_Build_569] - 16-09-2019
+
+### Bug Fixes
+
+- Fixed: HA: Improvement on Node Failure Detection
+- Fixed: HA: No logging until restart fluent-bit on all nodes
+- Fixed: HA: CEF gives "unknow certification authority" error
+- Fixed: HA: Farm is not available "oops" message - shown with 2/3 nodes available
+- Fixed: No alerts when periodic tests failing
+- Fixed: Scaler Fixes for load test issues
+- Fixed: Ldap proxy fails to write AD group list in Consul with big number of Groups
+- Fixed: Ldap proxy fails to bind to AD if Admin password contains double quotes character(s)
+- Fixed: File preview is not working in proxyless mode
+- Fixed: Documentation: Calico in OVA Documentation
+- Fixed: Documentation: SSD is recommended, not required
+
 ## [Rel-19.09.566] - 11-09-2019
 
 ### New Features
@@ -24,7 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - XFF sent on redirect mode
 - Shield setup: Bonding Interface Support
 
-### Bug Fixes
+### Bug Fixes 19.09
 
 - Fixed: Admin - Import policies is not working when the file includes bad data
 - Fixed: Admin - support override for categories
