@@ -10,7 +10,7 @@ Please follow these steps and perform them on each machine separately:
 Configure OS settings:
 
 ```bash
-curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/configure-sysctl-values.sh
+curl -s -o configure-sysctl-values.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/configure-sysctl-values.sh
 chmod +x configure-sysctl-values.sh
 sudo ./configure-sysctl-values.sh
 ```
@@ -18,7 +18,7 @@ sudo ./configure-sysctl-values.sh
 Install Docker:
 
 ```bash
-curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-docker.sh
+curl -s -o install-docker.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-docker.sh
 chmod +x install-docker.sh
 ./install-docker.sh
 ```
@@ -60,7 +60,7 @@ Note: Rancher is a well-known software platform that enables easy deployment and
 
 Install Rancher and create a Kubernetes cluster using these instructions:
 
-[Rancher](https://github.com/EricomSoftwareLtd/Shield/blob/Dev/Kube/Rancher-README.md)
+[Rancher](https://github.com/EricomSoftwareLtd/Shield/blob/Staging/Kube/Rancher-README.md)
 
 ### Set Nodes Labels
 
@@ -96,7 +96,7 @@ Kubectl is used for running commands on Kubernetes clusters. For more details, s
 Install Kubectl on the first machine, where Rancher is installed (the Linux Master). Run these commands:
 
 ```bash
-curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-kubectl.sh
+curl -s -o install-kubectl.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-kubectl.sh
 chmod +x install-kubectl.sh
 ./install-kubectl.sh
 ```
@@ -124,7 +124,7 @@ Helm is an application manager, used to run applications on Kubernetes (e.g., Sh
 Note: If you are using Shield-OVA, helm is already installed so no need to copy it locally. Do run the script itself (./install-helm.sh) to initialize Helm
 
 ```bash
-curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-helm.sh
+curl -s -o install-helm.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/install-helm.sh
 chmod +x install-helm.sh
 ./install-helm.sh
 ```
@@ -147,7 +147,7 @@ Note: Shield repository requires a valid password. Please contact Shield Profess
 Note: If you are using Shield-OVA, helm is already installed so no need to copy it locally. Skip this step and continue to verify the repository.
 
 ```bash
-curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/add-shield-repo.sh
+curl -s -o add-shield-repo.sh  https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/add-shield-repo.sh
 chmod +x add-shield-repo.sh
 ./add-shield-repo.sh -p PASSWORD
 ```
@@ -168,7 +168,7 @@ Note: deploy-shield script is provided as an example on how to deploy the system
 For a more complex deployment, the node labels must be set on each node according to the desired deployment, then Shield should be deployed using Helm.
 
 ```bash
-curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/deploy-shield.sh
+curl -s -o deploy-shield.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/deploy-shield.sh
 chmod +x deploy-shield.sh
 ./deploy-shield.sh
 ```
