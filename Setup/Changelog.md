@@ -11,9 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_569] - 2019-10-16
+
+- HA: Improvement on Node Failure Detection
+- HA: No logging until restart fluent-bit on all nodes #7286
+- no alerts when periodic tests failing #7099
+
 ## [Dev:Build_568] - 2019-10-15
 
-- HA: No logging until restart fluent-bit on all nodes #7286
 - HA: CEF gives "unknow certification authority" error #7285
 - HA: Not-allow bug
 - HA: Farm is not available "oops" message - shown with 2/3 nodes available in HA #7292
