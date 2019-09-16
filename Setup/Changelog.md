@@ -11,6 +11,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_569] - 2019-10-16
+
+- HA: Improvement on Node Failure Detection
+- HA: No logging until restart fluent-bit on all nodes #7286
+- no alerts when periodic tests failing #7099
+
+## [Dev:Build_568] - 2019-10-15
+
+- HA: CEF gives "unknow certification authority" error #7285
+- HA: Not-allow bug
+- HA: Farm is not available "oops" message - shown with 2/3 nodes available in HA #7292
+- Documentation: Fix Calico in OVA Documentation #7293
+- Documentation: Fix that SSD is recommended, not required #7275
+
+## [Dev:Build_567] - 2019-10-12
+
+- 19.09 - CEF gives "unknow certification authority" error #7285
+- Ldap proxy fails to write AD group list in Consul (Value exceeds 524288 bye limit) #7271
+- Ldap proxy fails to bind to AD if Admin password contains double quotes character(s) #7270
+- overly - file preview is not working in proxyless mode #7124
+- KKA load test results - scaler fixes #7060
+- Farm is not available "oops" message - shown with 2/3 nodes available in HA #7292
+
 ## [Dev:Build_566] - 2019-09-10
 
 - Periodic Health Checks Frequency - strange value

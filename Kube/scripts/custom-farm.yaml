@@ -15,3 +15,13 @@ consul:
     nodeSelectorKey: shield-role/farm-services
     nodeSelectorValue: accept
     forceNodeLabels: "yes"
+# If you have 3 Management Nodes, uncomment this line    
+#    antiAffinity: hard
+  nodeAffinity:
+   requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: shield-role/farm-services
+        operator: In
+        values:
+        - accept 
