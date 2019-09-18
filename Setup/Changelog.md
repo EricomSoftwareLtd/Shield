@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_570] - 2019-10-18
+
+- Application policy disappears upon restart (QA#746987) #5658
+- Admin UI: Missing node summary and node list at the dashboard #7321
+- Advanced Link is not Working (QA#744973) #7122
+- Syslog report - missing data #7320
+- Some periodic tests should be skipped when using upstream proxy #7322
+- user.namespaces in centos need to be increased #7330
+- Align release names in Deploy/Delete scripts
+
 ## [Dev:Build_569] - 2019-10-16
 
 - HA: Improvement on Node Failure Detection
