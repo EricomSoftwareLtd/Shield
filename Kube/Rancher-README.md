@@ -8,7 +8,7 @@
 
 ```bash
 mkdir ~/ericomshield
-curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Staging/Kube/scripts/run-rancher.sh
+curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.09.1/Kube/scripts/run-rancher.sh
 chmod +x run-rancher.sh
 ./run-rancher.sh
 ```
@@ -43,8 +43,8 @@ Mark all the check boxes and copy the command (text in black box).
 
 From the Rancher Windows, Click on the "Copy To Clipboard" Button
 
-Run the copied command on EACH Linux machine to join it to the cluster. Make sure the copied command matches the 
+Run the copied command on EACH Linux machine to join it to the cluster. Make sure the copied command matches the
 node to join (**Master**/**Worker**). Follow the node joining by clicking on ``Nodes`` in the cluster menu.
 
-Wait until the process is finished. After the node is joined to the cluster, a green message appears at the bottom of the page. 
+Wait until the process is finished. After the node is joined to the cluster, a green message appears at the bottom of the page.
 Repeat this process per each node until the cluster is complete. Click ``Done``.
