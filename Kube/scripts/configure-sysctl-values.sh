@@ -70,4 +70,7 @@ net.ipv4.neigh.default.gc_thresh3=16384
 
 #increase memory lock for elasticsearch 5
 vm.max_map_count=262144
+
+# increase user namespaces
+user.max_user_namespaces=30405
 EOF
