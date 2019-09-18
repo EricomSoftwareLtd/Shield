@@ -41,7 +41,7 @@ es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # esKibana: docker.elastic.co/kibana/kibana-oss:7.1.1
 # es-consul-backup:latest es-shield-consul-backup:190801-11.56-4664
 # es-init-elasticsearch:latest es-init-elasticsearch:190829-09.16-109
-# es-fluent-bit:latest es-fluent-bit:190723-05.41-4640
+# es-fluent-bit:latest es-fluent-bit:190915-13.30-159
 # es-mng-system-monitor:latest es-mng-system-monitor:190916-10.09-162
 # esConsulBackup: securebrowsing/es-shield-consul-backup:190918-09.08-171
 # shield-virtual-client:latest shield-virtual-client:190909-05.59-140
