@@ -16,8 +16,8 @@ y | Y | "yes" | "YES" | "Yes")
         helm delete --purge "shield-${component}"
         kubectl delete namespace "${component}"
     done
-    helm delete --purge "common"
-    kubectl delete namespace "shield-common"
+    helm delete --purge "shield-common"
+    kubectl delete namespace "shield-common"    
     ;;
 *)
     echo "no"
