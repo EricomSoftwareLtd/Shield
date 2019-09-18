@@ -5,7 +5,7 @@
 
 SHIELD="shield"
 
-COMPONENTS=(farm-services proxy management elk common)
+COMPONENTS=(farm-services proxy management elk)
 
 read -p "Are you sure you want to delete the deployment? " choice
 case "$choice" in
@@ -16,6 +16,8 @@ y | Y | "yes" | "YES" | "Yes")
         helm delete --purge "shield-${component}"
         kubectl delete namespace "${component}"
     done
+    helm delete --purge "shield-common"
+    kubectl delete namespace "shield-common"    
     ;;
 *)
     echo "no"
