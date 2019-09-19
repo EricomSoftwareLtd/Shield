@@ -1,5 +1,5 @@
-#Build Build_570 on 18/09/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.09:Build_570
+#Build Build_571 on 19/09/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.09:Build_571
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
@@ -40,7 +40,7 @@ es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # esNodeGroupsScaler: atlassian/escalator:v1.6.2
 # esKibana: docker.elastic.co/kibana/kibana-oss:7.1.1
 # es-consul-backup:latest es-shield-consul-backup:190801-11.56-4664
-# es-init-elasticsearch:latest es-init-elasticsearch:190829-09.16-109
+# es-init-elasticsearch:latest es-init-elasticsearch:190919-13.19-176
 # es-fluent-bit:latest es-fluent-bit:190915-13.30-159
 # es-mng-system-monitor:latest es-mng-system-monitor:190916-10.09-162
 # esConsulBackup: securebrowsing/es-shield-consul-backup:190918-09.08-171
