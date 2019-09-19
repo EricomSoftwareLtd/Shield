@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_571] - 2019-10-19
+
+- Duplicate application logs #7342
+- Change user.max_user_namespaces on CentOS only
+
 ## [Dev:Build_570] - 2019-10-18
 
 - Application policy disappears upon restart (QA#746987) #5658
