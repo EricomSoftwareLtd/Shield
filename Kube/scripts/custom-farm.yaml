@@ -16,7 +16,7 @@ consul:
     nodeSelectorValue: accept
     forceNodeLabels: "yes"
 # If you have 3 Management Nodes, uncomment this line    
-#    antiAffinity: hard
+  #antiAffinity: hard
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:
