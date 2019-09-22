@@ -108,6 +108,6 @@ log_message "***************     Deploying Shield Common ***********************
 if [ ! -f "custom-common.yaml" ]; then
    curl -s -o custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
 fi
-helm upgrade --install common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
+helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
 
 log_message "***************     Done!"
