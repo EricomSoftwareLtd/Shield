@@ -10,16 +10,15 @@ if ((EUID != 0)); then
     exit
 fi
 
-RANCHER="yes"
-
+echo
 echo " Shield Support: Collecting Info and Logs from System and Shield ....."
+echo 
 
 # Create temp directory
 TMPDIR=$(mktemp -d)
 
 # System info
 echo " Shield Support: Collecting System Info ....."
-
 mkdir -p $TMPDIR/systeminfo
 hostname > $TMPDIR/systeminfo/hostname 2>&1
 hostname -f > $TMPDIR/systeminfo/hostnamefqdn 2>&1
@@ -56,10 +55,10 @@ if [ -f /etc/redhat-release ]; then
   fi
 fi
 echo " Done! "
+echo 
 
 # Docker
 echo " Shield Support: Collecting Docker Info ....."
-
 mkdir -p $TMPDIR/docker
 docker info > $TMPDIR/docker/dockerinfo 2>&1
 docker ps -a > $TMPDIR/docker/dockerpsa 2>&1
@@ -86,10 +85,10 @@ mkdir -p $TMPDIR/systemlogs
 cp /var/log/syslog /var/log/docker* /var/log/system-docker* $TMPDIR/systemlogs 2>/dev/null
 
 echo " Done! "
+echo 
 
 # Rancher logging
-if [ "$RANCHER" = "yes" ]; then
-
+if [ $(docker ps |grep -c rancher) -ge 1 ]; then
    echo " Shield Support: Collecting Rancher Info ....."
    # Discover any server or agent running
    mkdir -p $TMPDIR/rancher/containerinspect
@@ -103,27 +102,47 @@ if [ "$RANCHER" = "yes" ]; then
    done
 
    echo " Done! "
+   echo
 fi
 
 # Shield
+mkdir -p $TMPDIR/shield
 echo " Shield Support: Collecting Shield Info ....."
 
-mkdir -p $TMPDIR/shield
-/usr/local/ericomshield/status.sh -a >$TMPDIR/shield/statusa
-/usr/local/ericomshield/status.sh -n >$TMPDIR/shield/statusn
-/usr/local/ericomshield/status.sh -s >$TMPDIR/shield/statuss
-/usr/local/ericomshield/status.sh -e >$TMPDIR/shield/statuse
-cp /usr/local/ericomshield/*.log  $TMPDIR/shield 2>/dev/null
-cp /usr/local/ericomshield/*.yml  $TMPDIR/shield 2>/dev/null
-cp /usr/local/ericomshield/*.txt  $TMPDIR/shield 2>/dev/null
-cp /usr/local/ericomshield/backup/*.json  $TMPDIR/shield 2>/dev/null
+if [ $(which "kubectl") >/dev/null ]; then
+  kubectl get namespaces >$TMPDIR/shield/k8s-namespaces
+  kubectl get nodes >$TMPDIR/shield/k8s-nodes
+  kubectl get pods -o wide --all-namespaces >$TMPDIR/shield/k8s-pods
+fi
 
+if [ -d ~/shield/ ]; then
+   cp -r ~/shield/  $TMPDIR/shield/ 2>/dev/null
+fi
+
+if [ -d /usr/local/ericomshield/ ]; then
+   /usr/local/ericomshield/status.sh -a >$TMPDIR/shield/statusa
+   if [ "$?" -eq "0" ]; then
+     /usr/local/ericomshield/status.sh -n >$TMPDIR/shield/statusn
+     /usr/local/ericomshield/status.sh -s >$TMPDIR/shield/statuss
+     /usr/local/ericomshield/status.sh -e >$TMPDIR/shield/statuse
+   fi
+   cp /usr/local/ericomshield/*.log  $TMPDIR/shield 2>/dev/null
+   cp /usr/local/ericomshield/*.yml  $TMPDIR/shield 2>/dev/null
+   cp /usr/local/ericomshield/*.txt  $TMPDIR/shield 2>/dev/null
+   cp /usr/local/ericomshield/backup/*.json  $TMPDIR/shield 2>/dev/null
+fi
 echo " Done! "
+echo
 
 FILENAME="$(hostname)-$(date +'%Y-%m-%d_%H_%M_%S').tgz"
 echo " Preparing the tar file: /tmp/$FILENAME "
 tar czf /tmp/$FILENAME -C ${TMPDIR}/ .
-echo " Done! "
+rm -rf ${TMPDIR}
 
-echo "Created /tmp/${FILENAME}"
-echo "You can now remove ${TMPDIR}"
+echo " Done! "
+echo
+echo "Created:"
+ls -lah "/tmp/$FILENAME"
+echo
+echo "Please send this file /tmp/${FILENAME} to Ericom Support"
+echo
