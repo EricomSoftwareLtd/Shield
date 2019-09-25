@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_573] - 2019-10-25
 
-- Analzer is not working on swarm and break the admin #7367
+- Analyzer is not working on swarm and break the admin #7367
 - Application report is not working on swarm #7365
 - backup / restore issue #7345
 - daily back up is missing #7341
