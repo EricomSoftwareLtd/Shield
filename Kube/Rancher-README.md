@@ -8,7 +8,7 @@
 
 ```bash
 mkdir ~/ericomshield
-curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-19.09.1/Kube/scripts/run-rancher.sh
+curl -s -o run-rancher.sh https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Rel-Dev/Kube/scripts/run-rancher.sh
 chmod +x run-rancher.sh
 ./run-rancher.sh
 ```
