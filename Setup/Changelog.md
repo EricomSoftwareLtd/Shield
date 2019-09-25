@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_573] - 2019-10-23
+
+- daily back up is missing #7341
+- backup / restore issue #7345
+- Shield - Video problems on MacOS SM#58 #7308
+- Align all alerts to work in "Dynamic Nodes" mode #5930
+- Users Reports #6981
+- Dashboard - browser gauge #7324
+- google docs - conversion candidate window #7005
+- Incorrect error message "URL's domain blocked by policy" when policy-manager not responding #5316
+- missing File Transfer > failure reports #7070
+- Admin - Settings - add a link to download Shield certificate #6497
+- Kube: Complete missing shield-stats fields (available in swarm) #6959
+- Blocked page on IE receives an error HTTP 403 instead of the Blocked Page #7281
+- authproxy has wrong proxyless ip in hosts.squid #7348
+- Shield - Video problems on MacOS SM#58 #7308
+
 ## [Dev:Build_572] - 2019-10-19
 
 - Duplicate application logs #7342
