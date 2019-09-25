@@ -1,0 +1,27 @@
+#!/bin/bash
+
+HERE="$(dirname "$(readlink -f "${0}")")" #"
+
+# Allow the AppImage to be symlinked to e.g., /usr/bin/commandname
+# or called with ./Some*.AppImage commandname ...
+
+if [ ! -z $APPIMAGE ]; then
+    BINARY_NAME=$(basename "$ARGV0")
+else
+    BINARY_NAME=$(basename "$0")
+fi
+if [ ! -z "$1" ] && [ -e "$HERE/bin/$1" ]; then
+    MAIN="$HERE/bin/$1"
+    shift
+elif [ ! -z "$1" ] && [ -e "$HERE/usr/bin/$1" ]; then
+    MAIN="$HERE/usr/bin/$1"
+    shift
+elif [ -e "$HERE/bin/$BINARY_NAME" ]; then
+    MAIN="$HERE/bin/$BINARY_NAME"
+elif [ -e "$HERE/usr/bin/$BINARY_NAME" ]; then
+    MAIN="$HERE/usr/bin/$BINARY_NAME"
+else
+    exec "$HERE/usr/bin/python3" "$HERE/usr/bin/proxy.py"
+fi
+
+exec "${MAIN}" "$@"
