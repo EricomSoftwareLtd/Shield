@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Bug Fixes
 
+- Fixed: Enabled self monitoring for fluent-bit and add livenessProbe for this container
 - Fixed: Analyzer is not working on swarm and break the admin
 - Fixed: Application report is not working on swarm
 - Fixed: Backup/Restore issue
