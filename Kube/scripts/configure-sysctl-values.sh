@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+echo "Disabling swap"
+swapoff -a
+echo "Removing swap partition, original fstab file could be found at /etc/fstab.bak"
+sed -i.bak '/swap/ s/^#*/#/' /etc/fstab
+
 ES_SYSCTL_FILE="/etc/sysctl.d/30-ericom-shield.conf"
 
 update_sysctl() {
