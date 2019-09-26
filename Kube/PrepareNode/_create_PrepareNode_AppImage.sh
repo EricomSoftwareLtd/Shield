@@ -35,7 +35,7 @@ docker run --user "$(id -u):$(id -g)" \
     -e "CONDA_PKGS_DIRS=/Packages" \
     -e "CONDA_ENVS_PATH=/AppDir" \
     -w "/tmp" \
-    continuumio/miniconda3 conda create -p /AppDir/usr python ansible --copy --no-default-packages -y
+    continuumio/miniconda3 conda create -p /AppDir/usr -c conda-forge ansible --copy --no-default-packages -y
 
 #cp -T "$DIR/../proxy3.py" "$APPIMAGE_DIR/usr/bin/proxy.py"
 

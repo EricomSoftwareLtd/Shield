@@ -21,7 +21,7 @@ elif [ -e "$HERE/bin/$BINARY_NAME" ]; then
 elif [ -e "$HERE/usr/bin/$BINARY_NAME" ]; then
     MAIN="$HERE/usr/bin/$BINARY_NAME"
 else
-    exec "$HERE/usr/bin/python3" "$HERE/usr/bin/proxy.py"
+    exec "$HERE/usr/bin/python3" "$HERE/usr/bin/ansible"
 fi
 
 exec "${MAIN}" "$@"
