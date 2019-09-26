@@ -7,7 +7,7 @@ SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="yes"
 SET_LABELS="No"
-BRANCH="Rel-19.09.1"
+BRANCH="Staging"
 SHIELD_REPO="shield-repo"
 # For Local Use ..
 #SHIELD_REPO=".."
