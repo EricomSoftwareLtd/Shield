@@ -5,9 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.09.2_Build_572] - 23-09-2019
+## [Rel-19.09.3_Build_573] - 18-09-2019
 
 ### Bug Fixes
+
+- Fixed: Enabled self monitoring for fluent-bit and add livenessProbe for this container
+- Fixed: Analyzer is not working on swarm and break the admin
+- Fixed: Application report is not working on swarm
+- Fixed: Backup/Restore issue
+- Fixed: Daily back up is missing
+- Fixed: Add proxy.py to ova
+
+## [Rel-19.09.2_Build_572] - 23-09-2019
+
+### Bug Fixes 19.09.2
 
 - Fixed: Shield-management-consul on farm node
 - Fixed: Duplicate application logs
@@ -16,7 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-19.09.1_Build_570] - 18-09-2019
 
-### Bug Fixes 19.9.1
+### Bug Fixes 19.09.1
 
 - Fixed: Application policy disappears upon restart (QA#746987)
 - Fixed: Admin UI: Missing node summary and node list at the dashboard
