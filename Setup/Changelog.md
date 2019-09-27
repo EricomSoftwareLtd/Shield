@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_573] - 2019-10-25
+
+- Analyzer is not working on swarm and break the admin #7367
+- Application report is not working on swarm #7365
+- backup / restore issue #7345
+- daily back up is missing #7341
+- Add proxy.py to ova #7089
+- changes in applications list should be kept after restart / update (swarm) #5658
+
 ## [Dev:Build_572] - 2019-10-19
 
 - Duplicate application logs #7342

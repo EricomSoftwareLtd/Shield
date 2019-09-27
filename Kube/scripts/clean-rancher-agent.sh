@@ -1,10 +1,11 @@
 #!/bin/bash
 ################################################
-#####   Ericom Shield Installer:add_repo   #####
+#####   Ericom Shield: Cleaner             #####
 ###########################################BH###
+ES_ALL=false
 
 function usage() {
-    echo " Usage: $0 "
+    echo " Usage: $0 [-a | --all]"
 }
 
 #Check if we are root
@@ -15,6 +16,21 @@ if ((EUID != 0)); then
     echo "sudo $0 $@"
     exit
 fi
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -a | --all)
+        ES_ALL=true
+        ;;
+    #    -h | --help)
+    *)
+        usage
+        exit
+        ;;
+    esac
+    shift
+done
 
 echo
 echo "This script will cleanup Rancher (and any other container running on this node"
@@ -29,6 +45,10 @@ for dir in $cleanupdirs; do
     echo "Removing $dir"
     rm -rf $dir
 done
+
+if [ "$ES_ALL" == "yes" ]; then
+   docker system prune -a -f
+fi
 
 echo "Please reboot your system, to cleanup the machine"
 echo
