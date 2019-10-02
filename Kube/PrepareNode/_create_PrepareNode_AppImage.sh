@@ -38,6 +38,7 @@ docker run --user "$(id -u):$(id -g)" \
     continuumio/miniconda3 conda create -p /AppDir/usr -c conda-forge ansible --copy --no-default-packages -y
 
 #cp -T "$DIR/../proxy3.py" "$APPIMAGE_DIR/usr/bin/proxy.py"
+cp "$DIR/disable_firewalld.yaml" "$DIR/prepare_node_playbook.yaml" "$DIR/prepare_node_tasks.yaml" "$DIR/daemon.json" "$DIR/../scripts/configure-sysctl-values.sh" "$APPIMAGE_DIR"
 
 "$APPIMAGETOOL" "$APPIMAGE_DIR" "$APPIMAGE"
 
