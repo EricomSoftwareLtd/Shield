@@ -5,9 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.09.2_Build_572] - 23-09-2019
+## [Rel-19.09.4_Build_576] - 06-10-2019
 
 ### Bug Fixes
+
+- Fixed: Missing syslog and reports
+- Fixed: 'too many open files' error
+- Fixed: Shield Setting Lost
+
+## [Rel-19.09.2_Build_572] - 23-09-2019
+
+### Bug Fixes-19.09.2
 
 - Fixed: Shield-management-consul on farm node
 - Fixed: Duplicate application logs
