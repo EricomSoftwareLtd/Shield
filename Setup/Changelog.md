@@ -11,6 +11,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_576] - 2019-10-19
+
+- Missing syslog and reports #7418
+- restore/ backup issues #7412
+- Consul_backup should restore only on system start #7428
+- Admin UI should be restarted after consul_backup is up #7395
+- translations - the admin UI shows the default values after restart shield-management #7416
+- Scaler should only count running pods when calculating current number of pods
+- 
+## [Dev:Build_573] - 2019-10-25
+
+- Analyzer is not working on swarm and break the admin #7367
+- Application report is not working on swarm #7365
+- backup / restore issue #7345
+- daily back up is missing #7341
+- Add proxy.py to ova #7089
+- changes in applications list should be kept after restart / update (swarm) #5658
+
 ## [Dev:Build_572] - 2019-10-19
 
 - Duplicate application logs #7342
