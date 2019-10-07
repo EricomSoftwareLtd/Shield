@@ -64,6 +64,10 @@ net.ipv4.tcp_wmem=4096 65536 16777216
 
 net.ipv4.conf.all.rp_filter=1
 
+# By default, traffic from containers connected to the default bridge network
+# is not forwarded to the outside world. Enable forwarding.
+net.ipv4.conf.all.forwarding=1
+
 #vm.min_free_kbytes=65536
 
 # Connection tracking to prevent dropped connections (usually issue on LBs)
