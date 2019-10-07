@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+echo "Disabling swap"
+swapoff -a
+echo "Removing swap partition, original fstab file could be found at /etc/fstab.bak"
+sed -i.bak '/swap/ s/^#*/#/' /etc/fstab
+
 ES_SYSCTL_FILE="/etc/sysctl.d/30-ericom-shield.conf"
 
 update_sysctl() {
@@ -58,6 +63,10 @@ net.ipv4.tcp_synack_retries=2
 net.ipv4.tcp_wmem=4096 65536 16777216
 
 net.ipv4.conf.all.rp_filter=1
+
+# By default, traffic from containers connected to the default bridge network
+# is not forwarded to the outside world. Enable forwarding.
+net.ipv4.conf.all.forwarding=1
 
 #vm.min_free_kbytes=65536
 
