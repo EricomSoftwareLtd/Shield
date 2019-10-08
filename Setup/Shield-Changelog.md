@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+## [Rel-19.09.4_Build_577] - 08-10-2019
+
+### Bug Fixes
+
+- Default application policy bug #7436
+- Missing syslog and reports - White #7418
+
 ## [Rel-19.09.4_Build_576] - 06-10-2019
 
 ### Bug Fixes
