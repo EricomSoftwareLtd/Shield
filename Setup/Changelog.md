@@ -11,16 +11,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_576] - 2019-10-19
+## [Dev:Build_577] - 2019-09-08
+
+- Default application policy bug #7436
+- Missing syslog and reports - White #7418
+
+## [Dev:Build_576] - 2019-09-06
 
 - Missing syslog and reports #7418
 - restore/ backup issues #7412
 - Consul_backup should restore only on system start #7428
 - Admin UI should be restarted after consul_backup is up #7395
 - translations - the admin UI shows the default values after restart shield-management #7416
-- Scaler should only count running pods when calculating current number of pods
-- 
-## [Dev:Build_573] - 2019-10-25
+- Scaler should only count running pods when calculating current number of pods #7429
+
+## [Dev:Build_573] - 2019-09-25
 
 - Analyzer is not working on swarm and break the admin #7367
 - Application report is not working on swarm #7365
@@ -29,19 +34,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add proxy.py to ova #7089
 - changes in applications list should be kept after restart / update (swarm) #5658
 
-## [Dev:Build_572] - 2019-10-19
+## [Dev:Build_572] - 2019-09-19
 
 - Duplicate application logs #7342
 - Change user.max_user_namespaces on CentOS only
 - Align release names in Deploy/Delete scripts #7336
 - Shield-management-consul on farm node #450 #7346
 
-## [Dev:Build_571] - 2019-10-19
+## [Dev:Build_571] - 2019-09-19
 
 - Duplicate application logs #7342
 - Change user.max_user_namespaces on CentOS only
 
-## [Dev:Build_570] - 2019-10-18
+## [Dev:Build_570] - 2019-09-18
 
 - Application policy disappears upon restart (QA#746987) #5658
 - Admin UI: Missing node summary and node list at the dashboard #7321
@@ -51,13 +56,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - user.namespaces in centos need to be increased #7330
 - Align release names in Deploy/Delete scripts
 
-## [Dev:Build_569] - 2019-10-16
+## [Dev:Build_569] - 2019-09-16
 
 - HA: Improvement on Node Failure Detection
 - HA: No logging until restart fluent-bit on all nodes #7286
 - no alerts when periodic tests failing #7099
 
-## [Dev:Build_568] - 2019-10-15
+## [Dev:Build_568] - 2019-09-15
 
 - HA: CEF gives "unknow certification authority" error #7285
 - HA: Not-allow bug
@@ -65,7 +70,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Documentation: Fix Calico in OVA Documentation #7293
 - Documentation: Fix that SSD is recommended, not required #7275
 
-## [Dev:Build_567] - 2019-10-12
+## [Dev:Build_567] - 2019-09-12
 
 - 19.09 - CEF gives "unknow certification authority" error #7285
 - Ldap proxy fails to write AD group list in Consul (Value exceeds 524288 bye limit) #7271
