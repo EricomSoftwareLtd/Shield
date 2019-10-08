@@ -46,7 +46,20 @@ if [ "$VERSION_REPO" == "$VERSION_DEPLOYED" ]; then
     exit
 fi
 
-TZ="$(date +%Z)"
+get_timezone() {
+    local TZ
+    if [ -h /etc/localtime ]; then
+        TZ=":$(readlink /etc/localtime | sed 's/\/usr\/share\/zoneinfo\///')"
+    elif [ -f /etc/timezone ]; then
+        TZ="$(cat /etc/timezone)"
+    else
+        TZ=":$(find /usr/share/zoneinfo/ -type f -exec md5sum {} \; | grep "^$(md5sum /etc/localtime | cut -d' ' -f1)" | sed 's/.*\/usr\/share\/zoneinfo\///' | head -n 1)" #"
+    fi
+
+    echo $TZ
+}
+
+TZ="$(get_timezone)"
 
 UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
 if [ "$UPSTREAM_DNS_SERVERS" = "127.0.0.53" ]; then
