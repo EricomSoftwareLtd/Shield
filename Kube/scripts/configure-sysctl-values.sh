@@ -19,6 +19,10 @@ net.bridge.bridge-nf-call-ip6tables=1
 
 # increase user namespaces
 user.max_user_namespaces=30405
+
+# increase min free space to 2GB
+vm.min_free_kbytes=2048000
+
 EOF
     fi
 
