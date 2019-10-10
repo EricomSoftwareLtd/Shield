@@ -5,35 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-
-## [Rel-19.09.4_Build_577] - 08-10-2019
-
-### Bug Fixes
-
-- Default application policy bug #7436
-- Missing syslog and reports - White #7418
-
-## [Rel-19.09.4_Build_576] - 06-10-2019
+## [Rel-19.09.3_Build_573] - 18-09-2019
 
 ### Bug Fixes
 
-- Fixed: Missing syslog and reports
-- Fixed: 'too many open files' error
-- Fixed: Shield Setting Lost
-
-## [Rel-19.09.2_Build_572] - 23-09-2019
-
-### Bug Fixes-19.09.2
-
-- Fixed: Shield-management-consul on farm node
-- Fixed: Duplicate application logs
-- Fixed: Change user.max_user_namespaces on CentOS only
-- Fixed: Align release names in Deploy/Delete scripts
-
-## [Rel-19.09.1_Build_570] - 18-09-2019
-
-### Bug Fixes 19.9.1
-
+- Fixed: Analyzer is not working on swarm and break the admin
+- Fixed: Application report is not working on swarm
+- Fixed: Backup/Restore issue
+- Fixed: Daily back up is missing
+- Fixed: Add proxy.py to ova
 - Fixed: Application policy disappears upon restart (QA#746987)
 - Fixed: Admin UI: Missing node summary and node list at the dashboard
 - Fixed: Admin UI: Advanced Link is not Working (QA#744973)
