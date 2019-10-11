@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
-## [Dev:Build_577] - 2019-09-08
+## [Dev:Build_578] - 2019-09-10
 
 - Missing syslog and reports - White #7418
 
