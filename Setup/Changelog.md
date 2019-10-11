@@ -11,10 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [Dev:Build_577] - 2019-09-08
+
+- Missing syslog and reports - White #7418
+
 ## [Dev:Build_577] - 2019-09-08
 
 - Default application policy bug #7436
-- Missing syslog and reports - White #7418
 
 ## [Dev:Build_576] - 2019-09-06
 
