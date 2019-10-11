@@ -4,7 +4,7 @@
 ###########################################BH###
 
 function usage() {
-    echo " Usage: $0 <-d|--dev> <-s|--staging> -p <PASSWORD> "
+    echo " Usage: $0 <-d|--dev> <-s|--staging> -p <PASSWORD> <-v|--version VERSION>"
 }
 
 SHIELD_REPO_URL="https://helmrepo.shield-service.net"
@@ -18,6 +18,10 @@ while [ $# -ne 0 ]; do
     -p | --password)
         shift
         PASSWORD=$1
+        ;;
+    -v | --version)
+        shift
+        SHIELD_REPO="$SHIELD_REPO_URL/$1"
         ;;
     -d | --dev | --Dev) # Dev Channel (master branch for now)
         SHIELD_REPO="$SHIELD_REPO_URL/dev"
