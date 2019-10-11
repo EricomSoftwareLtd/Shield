@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+echo "Disabling swap"
+swapoff -a
+echo "Removing swap partition, original fstab file could be found at /etc/fstab.bak"
+sed -i.bak '/swap/ s/^#*/#/' /etc/fstab
+
 ES_SYSCTL_FILE="/etc/sysctl.d/30-ericom-shield.conf"
 
 update_sysctl() {
@@ -14,6 +19,10 @@ net.bridge.bridge-nf-call-ip6tables=1
 
 # increase user namespaces
 user.max_user_namespaces=30405
+
+# increase min free space to 2GB
+vm.min_free_kbytes=2048000
+
 EOF
     fi
 
@@ -59,6 +68,10 @@ net.ipv4.tcp_wmem=4096 65536 16777216
 
 net.ipv4.conf.all.rp_filter=1
 
+# By default, traffic from containers connected to the default bridge network
+# is not forwarded to the outside world. Enable forwarding.
+net.ipv4.conf.all.forwarding=1
+
 #vm.min_free_kbytes=65536
 
 # Connection tracking to prevent dropped connections (usually issue on LBs)
@@ -73,4 +86,11 @@ net.ipv4.neigh.default.gc_thresh3=16384
 
 #increase memory lock for elasticsearch 5
 vm.max_map_count=262144
+
+# Fixes the "fluent-bit-config 17 [2019/10/04 12:55:27] 
+# [error] [plugins/in_tail/tail_fs.c:169 errno=24] Too many open files" - type
+# errors
+
+fs.inotify.max_user_instances=1024
+
 EOF
