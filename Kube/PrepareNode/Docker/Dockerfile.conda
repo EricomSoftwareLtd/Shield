@@ -1,0 +1,9 @@
+FROM continuumio/miniconda3:latest
+
+MAINTAINER Andrew Novikov <Andrew.Novikov@artezio.com>
+
+RUN mkdir /AppDir
+WORKDIR /tmp
+ENV CONDA_PKGS_DIRS="/Packages" CONDA_ENVS_PATH="/AppDir"
+
+RUN conda create -p /AppDir/usr -c conda-forge ansible --copy --no-default-packages -y
