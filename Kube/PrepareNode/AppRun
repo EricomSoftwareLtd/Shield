@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 APPDIR="$(dirname "$(readlink -f "${0}")")" #"
+
+export PYTHON="$APPDIR/usr/bin/python3"
+export ANSIBLE_PLAYBOOK="$APPDIR/usr/bin/ansible-playbook"
 
 # Allow the AppImage to be symlinked to e.g., /usr/bin/commandname
 # or called with ./Some*.AppImage commandname ...
@@ -21,7 +24,7 @@ elif [ -e "$APPDIR/bin/$BINARY_NAME" ]; then
 elif [ -e "$APPDIR/usr/bin/$BINARY_NAME" ]; then
     MAIN="$APPDIR/usr/bin/$BINARY_NAME"
 else
-    exec "$APPDIR/usr/bin/python3" "$APPDIR/usr/bin/ansible"
+    exec "$PYTHON" "$APPDIR/prepare_node.py" "$@"
 fi
 
 exec "${MAIN}" "$@"
