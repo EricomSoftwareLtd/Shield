@@ -26,12 +26,8 @@ APPIMAGE_DIR="$(mktemp -d)" || {
 
 cp "$DIR/AppRun" "$DIR/EricomShield.desktop" "$DIR/EricomShield.svg" "$APPIMAGE_DIR"
 
-if ! docker image inspect "$DOCKER_SSHPASS_BUILDER_IMG_TAG" >/dev/null 2>&1; then
-    docker build -t "$DOCKER_SSHPASS_BUILDER_IMG_TAG" -f "${DIR}/Docker/Dockerfile.sshpass" "${DIR}/Docker"
-fi
-if ! docker image inspect "$DOCKER_CONDA_BUILDER_IMG_TAG" >/dev/null 2>&1; then
-    docker build -t "$DOCKER_CONDA_BUILDER_IMG_TAG" -f "${DIR}/Docker/Dockerfile.conda" "${DIR}/Docker"
-fi
+docker build -t "$DOCKER_SSHPASS_BUILDER_IMG_TAG" -f "${DIR}/Docker/Dockerfile.sshpass" "${DIR}/Docker"
+docker build -t "$DOCKER_CONDA_BUILDER_IMG_TAG" -f "${DIR}/Docker/Dockerfile.conda" "${DIR}/Docker"
 
 docker run --user "$(id -u):$(id -g)" \
     -v "$APPIMAGE_DIR:/AppDir2" \

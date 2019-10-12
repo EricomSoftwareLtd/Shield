@@ -2,8 +2,11 @@ FROM continuumio/miniconda3:latest
 
 MAINTAINER Andrew Novikov <Andrew.Novikov@artezio.com>
 
+RUN apt-get update && apt-get install -y binutils
+
 RUN mkdir /AppDir
 WORKDIR /tmp
 ENV CONDA_PKGS_DIRS="/Packages" CONDA_ENVS_PATH="/AppDir"
 
 RUN conda create -p /AppDir/usr -c conda-forge ansible --copy --no-default-packages -y
+RUN find /AppDir -type f | xargs strip --strip-unneeded || true
