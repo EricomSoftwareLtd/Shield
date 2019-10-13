@@ -7,7 +7,7 @@ SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="yes"
 SET_LABELS="No"
-BRANCH="Rel-19.09.4"
+BRANCH="Staging"
 SHIELD_REPO="shield-repo"
 # For Local Use ..
 #SHIELD_REPO=".."
@@ -33,20 +33,35 @@ function log_message() {
 helm repo update
 helm search shield
 
-echo "$(LC_ALL=C date): Deploying Shield" > "$LOGFILE"
+log_message " *** Deploying Shield *** "
 
 VERSION_REPO=$(helm search shield | grep shield | awk '{ print $2 }')
 log_message "Latest Version : $VERSION_REPO"
 
-VERSION_DEPLOYED=$(helm list shield | grep shield | awk '{ print $9 }')
+VERSION_DEPLOYED=$(helm list shield | grep -m 1 shield | awk '{ print $9 }')
 log_message "Current Version: $VERSION_DEPLOYED"
 
-if [ "$VERSION_REPO" == "$VERSION_DEPLOYED" ]; then
+if [ "shield-$VERSION_REPO" == "$VERSION_DEPLOYED" ]; then
     echo "Same Versions, nothing to do"
     exit
 fi
 
-TZ="$(date +%Z)"
+get_timezone() {
+    local TZ
+    if [ -h /etc/localtime ]; then
+        TZ=":$(readlink /etc/localtime | sed 's/\/usr\/share\/zoneinfo\///')"
+    elif [ -f /etc/timezone ]; then
+        TZ="$(cat /etc/timezone)"
+    elif [ -f /etc/localtime ]; then
+        TZ=":$(find /usr/share/zoneinfo/ -type f -exec md5sum {} \; | grep "^$(md5sum /etc/localtime | cut -d' ' -f1)" | sed 's/.*\/usr\/share\/zoneinfo\///' | head -n 1)" #"
+    else
+        TZ="$(date +%Z)"
+    fi
+
+    echo $TZ
+}
+
+TZ="$(get_timezone)"
 
 UPSTREAM_DNS_SERVERS="$(grep -oP 'nameserver\s+\K.+' /etc/resolv.conf | cut -d, -f2- | paste -sd,)"
 if [ "$UPSTREAM_DNS_SERVERS" = "127.0.0.53" ]; then
@@ -62,7 +77,7 @@ if [ "$SHIELD_FARM" == "yes" ]; then
         kubectl label node --all shield-role/remote-browsers=accept --overwrite
     fi
     if [ ! -f "custom-farm.yaml" ]; then
-       curl -s -o custom-farm.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-farm.yaml
+        curl -s -o custom-farm.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-farm.yaml
     fi
 
     helm upgrade --install shield-farm-services $SHIELD_REPO/shield --namespace=farm-services --set-string "farm-services.TZ=${TZ}" -f custom-farm.yaml --debug | tee -a "$LOGFILE"
@@ -75,7 +90,7 @@ if [ "$SHIELD_MNG" == "yes" ]; then
         kubectl label node --all shield-role/management=accept --overwrite
     fi
     if [ ! -f "custom-management.yaml" ]; then
-       curl -s -o custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-management.yaml
+        curl -s -o custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-management.yaml
     fi
     helm upgrade --install shield-management $SHIELD_REPO/shield --namespace=management --set-string "shield-mng.TZ=${TZ}" -f custom-management.yaml --debug | tee -a "$LOGFILE"
     sleep 30
@@ -99,14 +114,14 @@ if [ "$SHIELD_ELK" == "yes" ]; then
         kubectl label node --all shield-role/elk=accept --overwrite
     fi
     if [ ! -f "custom-values-elk" ]; then
-       curl -s -o custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-values-elk.yaml
+        curl -s -o custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-values-elk.yaml
     fi
     helm upgrade --install shield-elk $SHIELD_REPO/shield --namespace=elk -f custom-values-elk.yaml --debug | tee -a "$LOGFILE"
 fi
 
 log_message "***************     Deploying Shield Common *******************************"
 if [ ! -f "custom-common.yaml" ]; then
-   curl -s -o custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
+    curl -s -o custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
 fi
 helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
 
