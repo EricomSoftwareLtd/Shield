@@ -6,7 +6,7 @@
 
 DIR="$(dirname "$(readlink -f "${0}")")" #"
 
-APPIMAGE="preparenode-x86_64.AppImage"
+APPIMAGE="shield-prepare-nodes"
 
 APPIMAGETOOL_URL="https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
 APPIMAGETOOL="/tmp/appimagetool-x86_64.AppImage"
