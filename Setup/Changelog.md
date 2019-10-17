@@ -13,8 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_581] - 2019-09-18
 
-- flash on http://www.mext.go.jp/programin/app/ #7465
 - kube - Admin cannot be accessed in Dev580 #7464
+- kube - browsers are not available in Dev580 #7467
+- flash on http://www.mext.go.jp/programin/app/ #7465
 
 ## [Dev:Build_580] - 2019-09-16
 
