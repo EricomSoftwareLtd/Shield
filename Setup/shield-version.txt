@@ -1,37 +1,37 @@
-#Build Build_573 on 25/09/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.09:Build_573
+#Build Build_578 on 11/10/19
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.09:Build_578
 #docker-version 18.09.5 5:18.09.5~3-0~ubuntu-*
-shield-configuration:latest shield-configuration:HF573
+shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:190811-07.01-4670
-shield-collector:latest shield-collector:HF573
+shield-collector:latest shield-collector:190916-11.31-168
 shield-elk:latest shield-elk:190325-13.42-4039
-shield-web-service:latest shield-web-service:190707-14.07-4532
+shield-web-service:latest shield-web-service:19.09.575-HF
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:190811-10.30-4680
+shield-authproxy:latest shield-authproxy:190923-15.08-187
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:190811-11.10-4682
 shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190903-13.00-121
-es-core-sync:latest es-core-sync:190811-12.31-4686
-shield-admin:latest shield-admin:HF573
-icap-server:latest icap-server:190915-10.28-158
+es-core-sync:latest es-core-sync:19.09.575-HF
+shield-admin:latest shield-admin:19.09.575-HF
+icap-server:latest icap-server:19.09.576-HF
 shield-cef:latest shield-cef:190915-10.28-158
 extproxy:latest extproxy:190723-16.12-4643
 shield-cdr-dispatcher:latest shield-cdr-dispatcher:190714-07.21-4590
 shield-cdr-controller:latest shield-cdr-controller:190909-06.20-141
-shield-notifier:latest shield-notifier:190707-14.07-4532
+shield-notifier:latest shield-notifier:19.09.575-HF
 shield-proxyless-connector:latest shield-proxyless-connector:190708-07.41-4539
 es-file-preview:latest es-file-preview:190715-05.43-4596
-es-system-configuration:latest es-system-configuration:190912-15.17-150
-es-license-manager:latest es-license-manager:190811-12.31-4686
+es-system-configuration:latest es-system-configuration:19.09.575-HF
+es-license-manager:latest es-license-manager:19.09.575-HF
 es-remote-browser-scaler:latest es-remote-browser-scaler:190811-12.31-4686
-es-policy-manager:latest es-policy-manager:190905-10.53-130
+es-policy-manager:latest es-policy-manager:19.09.575-HF
 shield-dns:latest shield-dns:190523-19.10-4259
-es-farm-scaler:latest es-farm-scaler:190912-15.17-150
-es-farm-sync:latest es-farm-sync:190916-10.09-162
+es-farm-scaler:latest es-farm-scaler:19.09.575-HF
+es-farm-sync:latest es-farm-sync:19.09.575-HF
 es-api-gateway:latest es-api-gateway:190707-14.07-4532
 es-ldap-api:latest es-ldap-api:190811-12.31-4686
 es-ldap-proxy:latest es-ldap-proxy:190912-15.17-150
@@ -39,12 +39,13 @@ es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # esBrowserScheduler: securebrowsing/k8s-browser-scheduler:190110-12.24
 # esNodeGroupsScaler: atlassian/escalator:v1.6.2
 # esKibana: docker.elastic.co/kibana/kibana-oss:7.1.1
-# es-consul-backup:latest es-shield-consul-backup:190924-13.46-196
-# es-init-elasticsearch:latest es-init-elasticsearch:190922-10.52-178
-# es-fluent-bit:latest es-fluent-bit:190915-13.30-159
-# es-mng-system-monitor:latest es-mng-system-monitor:190916-10.09-162
-# esConsulBackup: securebrowsing/es-shield-consul-backup:190918-09.08-171
-# shield-virtual-client:latest shield-virtual-client:190909-05.59-140
+# es-consul-backup:latest es-shield-consul-backup:190801-11.56-4664
+# esInitElasticsearch: securebrowsing/es-init-elasticsearch:191010-10.55-211
+# es-fluent-bit:latest es-fluent-bit:190928-14.39-205
+# esSystemMonitor: securebrowsing/es-mng-system-monitor:19.09.575-HF
+# esConsulBackup: securebrowsing/es-shield-consul-backup:19.09.576-HF
+# esVirtualClient: securebrowsing/es-virtual-client:190909-05.59-140
 # esExternalDNS: registry.opensource.zalan.do/teapot/external-dns:v0.5.12
 # esInitElasticsearch: securebrowsing/es-init-elasticsearch:190911-13.07-148
+# esProxyEgress: securebrowsing/es-proxy-egress:190707-13.18-4529
 # This needs to be the last line

@@ -7,7 +7,7 @@ SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
 SHIELD_ELK="yes"
 SET_LABELS="No"
-BRANCH="Staging"
+BRANCH="Dev"
 SHIELD_REPO="shield-repo"
 # For Local Use ..
 #SHIELD_REPO=".."
@@ -33,15 +33,15 @@ function log_message() {
 helm repo update
 helm search shield
 
-echo "$(LC_ALL=C date): Deploying Shield" >"$LOGFILE"
+log_message " *** Deploying Shield *** "
 
 VERSION_REPO=$(helm search shield | grep shield | awk '{ print $2 }')
 log_message "Latest Version : $VERSION_REPO"
 
-VERSION_DEPLOYED=$(helm list shield | grep shield | awk '{ print $9 }')
+VERSION_DEPLOYED=$(helm list shield | grep -m 1 shield | awk '{ print $9 }')
 log_message "Current Version: $VERSION_DEPLOYED"
 
-if [ "$VERSION_REPO" == "$VERSION_DEPLOYED" ]; then
+if [ "shield-$VERSION_REPO" == "$VERSION_DEPLOYED" ]; then
     echo "Same Versions, nothing to do"
     exit
 fi
