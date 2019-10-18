@@ -24,7 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - specific web site is not loading when category set to white #4999
 - Nodes and attributes with non-standard namespace (SVG) #7417
 - Domain Reconnection doesn't work when delay is over 2 seconds #7414
-- Crystal mode - specific site - can't paused the video #6829
+- Crystal - FMS video with simple source for Crystal #7340
+- Crystal - specific site - can't paused the video #6829
 - Crystal - In YouTube the fullscreen button doesn't work #6788
 - Blocked page on IE receives an error HTTP 403 instead of the Blocked Page #7281
 - Kube: Complete missing shield-stats fields (available in swarm) #6959
