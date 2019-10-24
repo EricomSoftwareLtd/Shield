@@ -7,15 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-19.09.4_Build_578] - 10-10-2019
 
-### Bug Fixes
+### Bug Fixes Build_579
 
-- Fixed: Missing syslog and reports - White #7418
+- Fixed: cookies for init domain in redirect mode
+- Fixed: Video problems on MacOS
+
+## [Rel-19.09.4_Build_578] - 10-10-2019
+
+### Bug Fixes Build_578
+
+- Fixed: Missing syslog and reports - White
 
 ## [Rel-19.09.4_Build_577] - 08-10-2019
 
 ### Bug Fixes Build_577
 
-- Fixed: Default application policy bug #7436
+- Fixed: Default application policy bug
 
 ## [Rel-19.09.4_Build_576] - 06-10-2019
 
