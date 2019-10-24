@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [Dev:Build_582] - 2019-09-18
+
+- Admin 'Nodes List' table (Kube) : num browsers is always 'NA' #7501
+- outlook.office365.com is stuck #7511
+- dev 581 - admin error #7490
+- Alert:No free browser #7409
+
 ## [Dev:Build_581] - 2019-09-18
 
 - kube - Admin cannot be accessed in Dev580 #7464
