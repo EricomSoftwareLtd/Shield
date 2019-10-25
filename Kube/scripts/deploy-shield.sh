@@ -49,11 +49,11 @@ fi
 get_timezone() {
     local TZ
     if [ -h /etc/localtime ]; then
-        TZ=":$(readlink -m /etc/localtime | sed 's|.*/usr/share/zoneinfo/||')"
+        TZ="$(readlink -m /etc/localtime | sed 's|.*/usr/share/zoneinfo/||')"
     elif [ -f /etc/timezone ]; then
         TZ="$(cat /etc/timezone)"
     elif [ -f /etc/localtime ]; then
-        TZ=":$(find /usr/share/zoneinfo/ -type f -exec md5sum {} \; | grep "^$(md5sum /etc/localtime | cut -d' ' -f1)" | sed 's|.*/usr/share/zoneinfo/||' | head -n 1)" #"
+        TZ="$(find /usr/share/zoneinfo/ -type f -exec md5sum {} \; | grep "^$(md5sum /etc/localtime | cut -d' ' -f1)" | sed 's|.*/usr/share/zoneinfo/||' | head -n 1)" #"
     else
         TZ="$(date +%Z)"
     fi
