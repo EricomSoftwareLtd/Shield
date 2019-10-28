@@ -9,7 +9,7 @@ shield-collector:latest shield-collector:190916-11.31-168
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:19.09.575-HF
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
-shield-authproxy:latest shield-authproxy:190923-15.08-187
+shield-authproxy:latest shield-authproxy:19.09.579-HF
 shield-logspout:latest shield-logspout:171123-17.23-642
 netdata:latest netdata:180114-08.17-1026
 speedtest:latest speedtest:190811-11.10-4682
