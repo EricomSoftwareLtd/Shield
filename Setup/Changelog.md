@@ -11,10 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_579] - 2019-09-24
+## [Dev:Build_579] - 2019-09-28
 
 - fix cookies for init domain in redirect mode #7453 
 - Shield - Video problems on MacOS SM#58 #7308
+- swarm - auth proxy is not running #7477
 
 ## [Dev:Build_578] - 2019-09-10
 
