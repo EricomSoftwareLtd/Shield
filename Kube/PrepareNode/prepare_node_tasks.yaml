@@ -30,7 +30,7 @@
     replace: '# \1'
 - name: Copy configure-sysctl-values.sh 
   copy:
-    src: ../scripts/configure-sysctl-values.sh 
+    src: ./configure-sysctl-values.sh 
     dest: /tmp/configure-sysctl-values.sh
     owner: root
     group: root
