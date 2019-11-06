@@ -26,7 +26,8 @@ elif [ -e "$APPDIR/bin/$BINARY_NAME" ]; then
 elif [ -e "$APPDIR/usr/bin/$BINARY_NAME" ]; then
     MAIN="$APPDIR/usr/bin/$BINARY_NAME"
 else
-    exec "$PYTHON" "$APPDIR/prepare_node.py" "$@"
+    "$PYTHON" "$APPDIR/prepare_node.py" "$@"
+    exit $?
 fi
 
 exec "${MAIN}" "$@"
