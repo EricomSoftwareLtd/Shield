@@ -8,7 +8,6 @@ import subprocess
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PYTHON = "{}/usr/bin/python3".format(SCRIPT_DIR)
 ANSIBLE_PLAYBOOK = "{}/usr/bin/ansible-playbook".format(SCRIPT_DIR)
-STTY_BIN = "/bin/stty"
 
 parser = argparse.ArgumentParser(
     description='Prepare nodes for Ericom Shield.')
@@ -28,7 +27,5 @@ addnode_command = [os.getenv('PYTHON', PYTHON), os.getenv('ANSIBLE_PLAYBOOK', AN
 addnode_command.extend(unknown_args)
 addnode_command.append("prepare_node_playbook.yaml")
 
-if os.path.isfile(STTY_BIN):
-    subprocess.run([STTY_BIN, 'sane'])
 result = subprocess.run(args=addnode_command, cwd=SCRIPT_DIR)
 sys.exit(result.returncode)
