@@ -6,12 +6,16 @@ echo "Removing swap partition, original fstab file could be found at /etc/fstab.
 sed -i.bak '/swap/ s/^#*/#/' /etc/fstab
 
 ES_SYSCTL_FILE="/etc/sysctl.d/30-ericom-shield.conf"
+ES_MOD_LOAD_FILE="/etc/modules-load.d/30-ericom-shield.conf"
 
 update_sysctl() {
     cat - >"$ES_SYSCTL_FILE"
     echo "$ES_SYSCTL_FILE has been updated!"
 
     if [ -f /etc/redhat-release ]; then
+        echo "br_netfilter" >"$ES_MOD_LOAD_FILE"
+        systemctl restart systemd-modules-load.service
+
         cat >>"$ES_SYSCTL_FILE" <<EOF
 
 net.bridge.bridge-nf-call-iptables=1
