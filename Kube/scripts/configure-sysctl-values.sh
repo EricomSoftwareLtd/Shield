@@ -6,12 +6,16 @@ echo "Removing swap partition, original fstab file could be found at /etc/fstab.
 sed -i.bak '/swap/ s/^#*/#/' /etc/fstab
 
 ES_SYSCTL_FILE="/etc/sysctl.d/30-ericom-shield.conf"
+ES_MOD_LOAD_FILE="/etc/modules-load.d/30-ericom-shield.conf"
 
 update_sysctl() {
     cat - >"$ES_SYSCTL_FILE"
     echo "$ES_SYSCTL_FILE has been updated!"
 
     if [ -f /etc/redhat-release ]; then
+        echo "br_netfilter" >"$ES_MOD_LOAD_FILE"
+        systemctl restart systemd-modules-load.service
+
         cat >>"$ES_SYSCTL_FILE" <<EOF
 
 net.bridge.bridge-nf-call-iptables=1
@@ -86,6 +90,9 @@ net.ipv4.neigh.default.gc_thresh3=16384
 
 #increase memory lock for elasticsearch 5
 vm.max_map_count=262144
+
+# Decrease vm.swappiness
+vm.swappiness=1
 
 # Fixes the "fluent-bit-config 17 [2019/10/04 12:55:27] 
 # [error] [plugins/in_tail/tail_fs.c:169 errno=24] Too many open files" - type
