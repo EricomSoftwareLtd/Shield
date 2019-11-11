@@ -25,3 +25,5 @@ consul:
         operator: In
         values:
         - accept 
+minio:
+  enabled: true
