@@ -7,7 +7,7 @@ APP_VERSION="v2.14.2"
 APP_BIN="helm"
 ES_FORCE=false
 ES_CLEAN=false
-BRANCH="Rel-19.09.5"
+BRANCH="Rel-19.09.6"
 
 function usage() {
     echo " Usage: $0 [-f | --force] [-c | --clean]"
