@@ -1,0 +1,5 @@
+1) latest:master
+2) Release 19.09.6-Build_579 on 14/11/2019:rel19096
+2) Release 19.09.5-Build_579 on 14/11/2019:rel19096
+4) Staging Channel:staging
+5) Dev Channel:dev
