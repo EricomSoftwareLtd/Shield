@@ -1,0 +1,4 @@
+
+export KUBECONFIG="$(pwd)/kube_config_rancher-cluster.yml"
+
+HOSTNAME="10.99.74.194.xip.io"

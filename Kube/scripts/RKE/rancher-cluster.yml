@@ -1,0 +1,22 @@
+nodes:
+  - address: 10.99.74.195
+    user: ericom
+    role: [controlplane,worker,etcd]
+  - address: 10.99.74.196
+    user: ericom
+    role: [controlplane,worker,etcd]
+  - address: 10.99.74.197
+    user: ericom
+    role: [controlplane,worker,etcd]
+
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+
+network:
+    plugin: flannel
+    options:
+#        flannel_iface: eth1
+        flannel_backend_type: vxlan
