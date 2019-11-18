@@ -50,12 +50,10 @@ consul:
   ui:
     service:
       type: NodePort
-  server:
-    nodeSelectorKey: shield-role/management
-    nodeSelectorValue: accept
-    forceNodeLabels: "yes"
-# If you have 3 Management Nodes uncomment this line    
-  #antiAffinity: hard   
+  nodeSelector:
+    shield-role/elk: accept
+    shield-role/proxy: accept
+    shield-role/management: accept
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:
