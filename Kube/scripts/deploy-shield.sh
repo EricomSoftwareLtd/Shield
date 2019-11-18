@@ -171,7 +171,7 @@ done
 
 log_message "***************     Ericom Shield Kube Setup $BRANCH ..."
 
-accept_eula
+#accept_eula
 
 helm repo update
 helm search shield
@@ -267,7 +267,6 @@ if [ "$SHIELD_ELK" == "yes" ]; then
     helm upgrade --install shield-elk $SHIELD_REPO/shield --namespace=elk\
                  --set-string "elk.TZ=${TZ}" --set-string "elk.CLUSTER_SYSTEM_ID=$SYSTEMID"\
                  -f custom-values-elk.yaml --debug | tee -a "$LOGFILE"
-
 fi
 
 log_message "***************     Deploying Shield Common *******************************"
