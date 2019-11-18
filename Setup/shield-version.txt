@@ -5,7 +5,7 @@ shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
 shield-portainer:latest shield-portainer:180930-11.41-2885
 proxy-server:latest proxy-server:190811-07.01-4670
-shield-collector:latest shield-collector:190916-11.31-168
+shield-collector:latest shield-collector:190924-07.25-192
 shield-elk:latest shield-elk:190325-13.42-4039
 shield-web-service:latest shield-web-service:19.09.575-HF
 shield-maintenance:latest shield-maintenance:181029-09.26-3074
@@ -16,7 +16,7 @@ speedtest:latest speedtest:190811-11.10-4682
 shield-autoupdate:latest shield-autoupdate:190701-13.13-4491
 es-system-monitor:latest es-system-monitor:190903-13.00-121
 es-core-sync:latest es-core-sync:19.09.575-HF
-shield-admin:latest shield-admin:19.09.575-HF
+shield-admin:latest shield-admin:19.09.575-HF2
 icap-server:latest icap-server:19.09.579-HF
 shield-cef:latest shield-cef:19.09.579-HF
 extproxy:latest extproxy:19.09.579-HF
