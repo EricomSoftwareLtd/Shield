@@ -100,7 +100,7 @@ function accept_eula() {
 get_timezone() {
     local TZ
     if [ -h /etc/localtime ]; then
-        TZ=":$(readlink /etc/localtime | sed 's/\/usr\/share\/zoneinfo\///')"
+         TZ=":$(readlink /etc/localtime | sed 's|.*/usr/share/zoneinfo/||')"
     elif [ -f /etc/timezone ]; then
         TZ="$(cat /etc/timezone)"
     elif [ -f /etc/localtime ]; then

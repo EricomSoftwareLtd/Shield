@@ -2,7 +2,7 @@
 ############################################
 #####   Ericom Shield Running Rancher  #####
 #######################################BH###
-APP="Helm"
+APP="Rancher"
 APP_VERSION="v2.2.6"
 
 mkdir -p ~/rancher-store
