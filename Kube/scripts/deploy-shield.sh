@@ -32,7 +32,9 @@ echo $SYSTEMID
 LOGFILE=last_deploy.log
 
 function usage() {
-    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-f|--force] [--help]"
+    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [--help]"
+    echo
+    echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
 
 function log_message() {
@@ -150,6 +152,9 @@ while [ $# -ne 0 ]; do
     -o | --overwrite)
         ES_OVERWRITE=true
         ;;
+    -L | --local)
+        SHIELD_REPO=".."
+        ;;        
     -f | --force)
         ES_FORCE=true
         ;;
@@ -173,24 +178,26 @@ log_message "***************     Ericom Shield Kube Setup $BRANCH ..."
 
 #accept_eula
 
-helm repo update
-helm search shield
-
-VERSION_REPO=$(helm search shield | grep shield | awk '{ print $2 }')
-log_message "Latest Version on Repo: $VERSION_REPO"
+if [ SHIELD_REPO = "shield-repo" ]; then
+   helm repo update
+   helm search shield
+   VERSION_REPO=$(helm search shield | grep shield | awk '{ print $2 }')
+   log_message "Latest Version on Repo: $VERSION_REPO"
+fi
 
 VERSION_DEPLOYED=$(helm list | grep -m 1 shield | awk '{ print $9 }')
-if [ ! -z $VERSION_DEPLOYED ] && [ $(helm list | grep -c $VERSION_DEPLOYED) == "$SHIELD_NS_COUNT" ]; then
+if [ ! -z "$VERSION_DEPLOYED" ] && [ $(helm list | grep -c "$VERSION_DEPLOYED") = "$SHIELD_NS_COUNT" ]; then
    VERSION_DEPLOYED=$(helm list | grep -m 1 shield | awk '{ print $9 }')
    log_message "Current Version Deployed: $VERSION_DEPLOYED"
   else
+   echo "$VERSION_DEPLOYED"
    log_message "Shield is not fully deployed"    
    VERSION_DEPLOYED=""
 fi
 
-if [ "shield-$VERSION_REPO" == "$VERSION_DEPLOYED" ]; then
+if [ "shield-$VERSION_REPO" = "$VERSION_DEPLOYED" ]; then
     echo "Your EricomShield System is Up to date ($VERSION_REPO)"
-    if [ ! $ES_FORCE = true ]; then
+    if [ "$ES_FORCE" = false ]; then
        exit
     fi   
 fi
@@ -210,13 +217,19 @@ if [ -f "$ES_BRANCH_FILE" ]; then
     BRANCH="master"
 fi
 
+log_message "***************     Deploying Shield Common *******************************"
+if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-common.yaml" ]; then
+    download_and_check custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
+fi
+helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
+
 if [ "$SHIELD_FARM" == "yes" ]; then
     log_message "***************     Deploying Shield Farm Services *******************************"
     if [ "$SET_LABELS" == "yes" ]; then
         kubectl label node --all shield-role/farm-services=accept --overwrite
         kubectl label node --all shield-role/remote-browsers=accept --overwrite
     fi
-    if [ $ES_OVERWRITE ] || [ ! -f "custom-farm.yaml" ]; then
+    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-farm.yaml" ]; then
         download_and_check custom-farm.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-farm.yaml
     fi
 
@@ -231,7 +244,7 @@ if [ "$SHIELD_MNG" == "yes" ]; then
     if [ "$SET_LABELS" == "yes" ]; then
         kubectl label node --all shield-role/management=accept --overwrite
     fi
-    if [ $ES_OVERWRITE ] || [ ! -f "custom-management.yaml" ]; then
+    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-management.yaml" ]; then
         download_and_check custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-management.yaml
     fi
     helm upgrade --install shield-management $SHIELD_REPO/shield --namespace=management\
@@ -246,7 +259,7 @@ if [ "$SHIELD_PROXY" == "yes" ]; then
     if [ "$SET_LABELS" == "yes" ]; then
         kubectl label node --all shield-role/proxy=accept --overwrite
     fi
-    if [ ES_OVERWRITE ] || [ ! -f "custom-proxy.yaml" ]; then
+    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-proxy.yaml" ]; then
         download_and_check custom-proxy.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-proxy.yaml
     fi
     helm upgrade --install shield-proxy $SHIELD_REPO/shield --namespace=proxy\
@@ -261,18 +274,13 @@ if [ "$SHIELD_ELK" == "yes" ]; then
     if [ "$SET_LABELS" == "yes" ]; then
         kubectl label node --all shield-role/elk=accept --overwrite
     fi
-    if [ $ES_OVERWRITE ] || [ ! -f "custom-values-elk" ]; then
+    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-values-elk" ]; then
         download_and_check custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-values-elk.yaml
     fi
     helm upgrade --install shield-elk $SHIELD_REPO/shield --namespace=elk\
                  --set-string "elk.TZ=${TZ}" --set-string "elk.CLUSTER_SYSTEM_ID=$SYSTEMID"\
                  -f custom-values-elk.yaml --debug | tee -a "$LOGFILE"
-fi
 
-log_message "***************     Deploying Shield Common *******************************"
-if [ $ES_OVERWRITE ] || [ ! -f "custom-common.yaml" ]; then
-    download_and_check custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
 fi
-helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
 
 log_message "***************     Done!"
