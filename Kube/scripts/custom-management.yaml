@@ -50,10 +50,6 @@ consul:
   ui:
     service:
       type: NodePort
-  nodeSelector:
-    shield-role/elk: accept
-    shield-role/proxy: accept
-    shield-role/management: accept
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:

@@ -11,9 +11,6 @@ farmservice:
 #   For Internal Use only - Please do not edit this section  
 consul:
   enabled: true
-  nodeSelector:
-    shield-role/farm-services: accept
-    shield-role/remote-browsers: accept
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:
