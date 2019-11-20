@@ -212,8 +212,6 @@ log_message "***************     Deploying Ericom Shield $VERSION_REPO ..."
 
 if [ -f "$ES_BRANCH_FILE" ]; then
     BRANCH=$(cat "$ES_BRANCH_FILE")
-else
-    BRANCH="master"
 fi
 
 log_message "***************     Deploying Shield Common *******************************"
