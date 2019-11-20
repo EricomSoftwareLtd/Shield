@@ -25,8 +25,8 @@ function log_message() {
     return 0
 }
 
-function download_and_check(){
-    curl -s -S -o "$1" "$2"   
+function download_and_check() {
+    curl -s -S -o "$1" "$2"
     if [ ! -f "$1" ] || [ $(grep -c "$NOT_FOUND_STR" "$1") -ge 1 ]; then
         echo "Error: cannot download "$1", exiting"
         exit 1
@@ -77,8 +77,8 @@ function list_versions() {
     echo -n $BRANCH >"$ES_BRANCH_FILE"
     REPO=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
     SHIELD_REPO="$SHIELD_REPO_URL/$REPO"
-    
-    echo "$SHIELD_REPO" "$BRANCH" 
+
+    echo "$SHIELD_REPO" "$BRANCH"
 }
 
 while [ $# -ne 0 ]; do
@@ -98,9 +98,9 @@ while [ $# -ne 0 ]; do
         ;;
     -s | --staging) # Staging Channel (staging Branch)
         SHIELD_REPO="$SHIELD_REPO_URL/staging"
-        echo -n "Staging" >"$ES_BRANCH_FILE"        
+        echo -n "Staging" >"$ES_BRANCH_FILE"
         ;;
-    -l | --list-versions) 
+    -l | --list-versions)
         list_versions
         ;;
     *)
