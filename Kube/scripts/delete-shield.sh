@@ -26,31 +26,31 @@ function log_message() {
     return 0
 }
 
-only_namespace(){
-   case "$1" in
+only_namespace() {
+    case "$1" in
     shield-management)
         COMPONENTS=(management)
-     ;;    
+        ;;
     shield-proxy)
         COMPONENTS=(proxy)
-     ;;    
+        ;;
     shield-farm)
         COMPONENTS=(farm-services)
-     ;;    
-    shield-elk)     
+        ;;
+    shield-elk)
         COMPONENTS=(elk)
-     ;;
+        ;;
     *)
         usage
         exit
         ;;
-   esac 
+    esac
 }
 
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
-    -n | --namespace) 
+    -n | --namespace)
         shift
         only_namespace "$1"
         ;;
@@ -70,8 +70,8 @@ while [ $# -ne 0 ]; do
 done
 
 if [ "$ES_CONF" = false ]; then
-   read -p "Are you sure you want to delete the deployment? " choice
-   case "$choice" in
+    read -p "Are you sure you want to delete the deployment? " choice
+    case "$choice" in
     y | Y | "yes" | "YES" | "Yes")
         echo "yes"
         ES_CONF=true
@@ -84,11 +84,11 @@ if [ "$ES_CONF" = false ]; then
 fi
 
 if [ "$ES_CONF" = true ]; then
-   echo "***************     Uninstalling $SHIELD"
-   for component in "${COMPONENTS[@]}"; do
-       helm delete --purge "shield-${component}"   
-       if [ "$ES_DELETE_NAMESPACE" = true ]; then   
-          kubectl delete namespace "${component}"
-       fi    
-   done
-fi   
+    echo "***************     Uninstalling $SHIELD"
+    for component in "${COMPONENTS[@]}"; do
+        helm delete --purge "shield-${component}"
+        if [ "$ES_DELETE_NAMESPACE" = true ]; then
+            kubectl delete namespace "${component}"
+        fi
+    done
+fi

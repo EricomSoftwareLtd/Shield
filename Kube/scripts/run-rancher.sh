@@ -4,8 +4,8 @@
 #######################################BH###
 APP="Rancher"
 APP_VERSION="v2.2.8"
-# This release comes with the latest Kubernetes versions, i.e. v1.13.10, v1.14.6, v1.15.3, 
-# for Rancher launched Kubernetes clusters to address the Kubernetes security announcement. 
+# This release comes with the latest Kubernetes versions, i.e. v1.13.10, v1.14.6, v1.15.3,
+# for Rancher launched Kubernetes clusters to address the Kubernetes security announcement.
 # Rancher recommends upgrading all Kubernetes clusters to these Kubernetes versions.
 
 mkdir -p ~/rancher-store

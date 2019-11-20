@@ -47,7 +47,7 @@ for dir in $cleanupdirs; do
 done
 
 if [ "$ES_ALL" == "true" ]; then
-   docker system prune -a -f
+    docker system prune -a -f
 fi
 
 echo "Please reboot your system, to cleanup the machine"
