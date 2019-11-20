@@ -264,6 +264,7 @@ if [ "$SHIELD_PROXY" == "yes" ]; then
     fi
     helm upgrade --install shield-proxy $SHIELD_REPO/shield --namespace=proxy\
                  --set-string "proxy.TZ=${TZ}" --set-string "proxy.CLUSTER_SYSTEM_ID=$SYSTEMID"\
+                 --set-string "proxy.UPSTREAM_DNS_SERVERS=$(echo ${UPSTREAM_DNS_SERVERS} | sed 's#,#\\,#g')"\
                  -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
 
     sleep 30
