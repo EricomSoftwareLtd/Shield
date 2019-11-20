@@ -29,16 +29,16 @@ function log_message() {
 only_namespace(){
    case "$1" in
     shield-management)
-        COMPONENTS=(management common)
+        COMPONENTS=(management)
      ;;    
     shield-proxy)
-        COMPONENTS=(proxy common)
+        COMPONENTS=(proxy)
      ;;    
     shield-farm)
-        COMPONENTS=(farm-services common)
+        COMPONENTS=(farm-services)
      ;;    
     shield-elk)     
-        COMPONENTS=(elk common)
+        COMPONENTS=(elk)
      ;;
     *)
         usage
