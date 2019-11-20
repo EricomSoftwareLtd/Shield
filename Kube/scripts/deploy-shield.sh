@@ -10,10 +10,10 @@ SET_LABELS="No"
 ES_FORCE=false
 ES_OVERWRITE=false
 NOT_FOUND_STR="404: Not Found"
-ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Ericom-EULA.txt"
 EULA_ACCEPTED_FILE=".eula_accepted"
 ES_BRANCH_FILE=".esbranch"
 BRANCH="Dev"
+ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
 SHIELD_NS_COUNT=5
 SHIELD_REPO="shield-repo"
 # For Local Use ..
