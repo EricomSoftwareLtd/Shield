@@ -13,7 +13,7 @@
 11. Create a record in your DNS to point to the node (or nodes) reserved for a load balancer (10.99.74.194.xip.io is used in this example);
 12. Edit the file named “common”, set RANCHER_LB_HOSTNAME="10.99.74.194.xip.io" (or use the FQDN record from your DNS);
 13. Edit rancher-cluster.yml, replace 10.99.74.194 with the IP address of your load balancer (copy this section to add additional load balancers);
-14. Replace addresses in other sections with the addresses of non-load balancer nodes reserved for your cluster (add or remove these sections as needed), add regular worker nodes with role: [worker] only (do not add the “app: ingressrancher” label to these nodes – this is for the Rancher load balancers only);
+14. Replace addresses in other sections with the addresses of non-load balancer nodes reserved for your cluster (add or remove these sections as needed), add regular worker nodes with role: [worker] only (do not add the “system-role/ingress-rancher: accept” label to these nodes – this is for the Rancher load balancers only);
 15. Replace “ericom” in user: ericom with the user from step 8.
 16. Run 0_rke_up.sh. Make sure there are no errors;
 17. Run 1_install_tiller.sh. Make sure there are no errors;

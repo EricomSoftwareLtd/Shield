@@ -3,16 +3,34 @@ nodes:
     user: ericom
     role: [worker]
     labels:
-      app: ingressrancher
+      system-role/ingress-rancher: accept
   - address: 10.99.74.195
     user: ericom
     role: [controlplane,worker,etcd]
+    labels:
+      shield-role/elk: accept
+      shield-role/farm-services: accept
+      shield-role/management: accept
+      shield-role/proxy: accept
+      shield-role/remote-browsers: accept
   - address: 10.99.74.196
     user: ericom
     role: [controlplane,worker,etcd]
+    labels:
+      shield-role/elk: accept
+      shield-role/farm-services: accept
+      shield-role/management: accept
+      shield-role/proxy: accept
+      shield-role/remote-browsers: accept
   - address: 10.99.74.197
     user: ericom
     role: [controlplane,worker,etcd]
+    labels:
+      shield-role/elk: accept
+      shield-role/farm-services: accept
+      shield-role/management: accept
+      shield-role/proxy: accept
+      shield-role/remote-browsers: accept
 
 services:
   etcd:
@@ -23,7 +41,7 @@ services:
 ingress:
   provider: nginx
   node_selector:
-    app: ingressrancher
+    system-role/ingress-rancher: accept
   extra_args:
     http-port: 8442
     https-port: 8443
