@@ -31,5 +31,5 @@ ingress:
 network:
     plugin: flannel
     options:
-#        flannel_iface: eth1
         flannel_backend_type: vxlan
+#        flannel_iface: eth1

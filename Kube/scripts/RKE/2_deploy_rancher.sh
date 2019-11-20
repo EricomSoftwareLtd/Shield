@@ -7,7 +7,7 @@ helm install rancher-stable/rancher \
     --namespace cattle-system \
     --set hostname=$RANCHER_LB_HOSTNAME \
     --set ingress.tls.source=secret \
-    --set privateCA=true \
+    --set privateCA=true
 
 kubectl -n cattle-system delete secret tls-ca || :
 kubectl -n cattle-system delete secret tls-rancher-ingress || :

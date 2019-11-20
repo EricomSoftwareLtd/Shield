@@ -17,4 +17,4 @@ helm init --service-account tiller
 # helm init --service-account tiller \
 #  --tiller-image registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:<tag>
 
-kubectl -n kube-system  rollout status deploy/tiller-deploy
+kubectl -n kube-system rollout status deploy/tiller-deploy
