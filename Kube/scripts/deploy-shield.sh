@@ -245,7 +245,7 @@ if [ "$SHIELD_MNG" == "yes" ]; then
         download_and_check custom-management.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-management.yaml
     fi
     helm upgrade --install shield-management $SHIELD_REPO/shield --namespace=management \
-        --set-string "management.TZ=${TZ}" --set-string "management.CLUSTER_SYSTEM_ID=$SYSTEMID" \
+        --set-string "shield-mng.TZ=${TZ}" --set-string "shield-mng.CLUSTER_SYSTEM_ID=$SYSTEMID" \
         -f custom-management.yaml --debug | tee -a "$LOGFILE"
 
     sleep 30
@@ -260,8 +260,8 @@ if [ "$SHIELD_PROXY" == "yes" ]; then
         download_and_check custom-proxy.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-proxy.yaml
     fi
     helm upgrade --install shield-proxy $SHIELD_REPO/shield --namespace=proxy \
-        --set-string "proxy.TZ=${TZ}" --set-string "proxy.CLUSTER_SYSTEM_ID=$SYSTEMID" \
-        --set-string "proxy.UPSTREAM_DNS_SERVERS=$(echo ${UPSTREAM_DNS_SERVERS} | sed 's#,#\\,#g')" \
+        --set-string "shield-proxy.TZ=${TZ}" --set-string "shield-proxy.CLUSTER_SYSTEM_ID=$SYSTEMID" \
+        --set-string "shield-proxy.UPSTREAM_DNS_SERVERS=$(echo ${UPSTREAM_DNS_SERVERS} | sed 's#,#\\,#g')" \
         -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
 
     sleep 30
