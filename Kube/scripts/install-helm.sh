@@ -72,6 +72,9 @@ if [ "$ES_CLEAN" == true ]; then
     helm_init
 fi
 
+# wait 5 secs to let tiller starting
+sleep 5
+
 helm version
 
 echo "Done!"
