@@ -1,5 +1,4 @@
 1) latest:master:master
+2) Release 19.11-Build_590 on 27/11/2019:rel1911:Rel-19.11
 2) Release 19.09.6-Build_579 on 14/11/2019:rel19096:Rel-19.09.6
-3) Release 19.09.5-Build_579 on 14/11/2019:rel19095:Rel-19.09.5
-4) Staging Channel:staging:Staging
-5) Dev Channel:dev:Dev
+4) Release 19.09.5-Build_579 on 14/11/2019:rel19095:Rel-19.09.5
