@@ -12,7 +12,7 @@ ES_BRANCH_FILE=".esbranch"
 LOGFILE=last_deploy.log
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version] <version-name> [--list-versions] "
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-l|--list-versions]"
 }
 
 function log_message() {

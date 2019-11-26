@@ -40,7 +40,7 @@ if ((EUID != 0)); then
 fi
 
 function usage() {
-    echo " Usage: $0 [-f|--force] [--help]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-f|--force] [--help]"
 }
 
 # Create the Ericom empty dir if necessary
@@ -86,74 +86,78 @@ download_and_check "$ES_file_prepare_servers" "$ES_repo_prepare_servers" "+x"
 
 log_message "***************     Ericom Shield Installer $BRANCH ..."
 
-#1.	Run configure-sysctl-values.sh
-echo
-log_message "***************     Configure sysctl values"
-source "./$ES_file_sysctl"
-if [ $? != 0 ]; then
-   log_message "*************** $ES_file_sysctl Failed, Exiting!"
-   exit 1
-fi   
+if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
+   #1.  Run configure-sysctl-values.sh
+   echo
+   log_message "***************     Configure sysctl values"
+   source "./$ES_file_sysctl"
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_sysctl Failed, Exiting!"
+      exit 1
+   fi
 
-#2.	Install-docker.sh
-echo
-log_message "***************     Installing Docker"
-#source "./$ES_file_docker"
-if [ $? != 0 ]; then
-   log_message "*************** $ES_file_docker Failed, Exiting!"
-   exit 1
-fi   
+   #2.  install-docker.sh
+   echo
+   log_message "***************     Installing Docker"
+   source "./$ES_file_docker"
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_docker Failed, Exiting!"
+      exit 1
+   fi
 
-#3.	install-kubectl.sh
-echo
-log_message "***************     Installing Kubectl"
-source "./$ES_file_kubectl"
-if [ $? != 0 ]; then
-   log_message "*************** $ES_file_kubectl Failed, Exiting!"
-   exit 1
-fi   
+   #3.  install-kubectl.sh
+   echo
+   log_message "***************     Installing Kubectl"
+   source "./$ES_file_kubectl"
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_kubectl Failed, Exiting!"
+      exit 1
+   fi
 
-#4.	run-rancher.sh
-echo
-log_message "***************     Running Rancher Server"
-source "./$ES_file_rancher"
-if [ $? != 0 ]; then
-   log_message "*************** $ES_file_run_rancher Failed, Exiting!"
-   exit 1
-fi
+   #4.  run-rancher.sh
+   if [  $(docker ps | grep -c rancher) -lt 1 ]; then
+      echo
+      log_message "***************     Running Rancher Server"
+      source "./$ES_file_rancher"
+      if [ $? != 0 ]; then
+         log_message "*************** $ES_file_run_rancher Failed, Exiting!"
+         exit 1
+      fi
+     else
+      echo "Rancher is already running"
+   fi
 
-if [ ! -f ~/.kube/config ]; then
    echo
    echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
-   exit
+   exit 0
+else
+
+   #4. install-helm.sh
+   echo
+   log_message "***************     Installing Helm"
+   bash "./$ES_file_helm"
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_helm Failed, Exiting!"
+      exit 1
+   fi
+
+   #5. Adding Shield Repo
+   echo
+   log_message "***************     Adding Shield Repo"
+   source "./$ES_file_addrepo" $@ -s
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_repo Failed, Exiting!"
+      exit 1
+   fi
+
+   #6. Deploy Shield
+   log_message "***************     Deploy Shield"
+   bash "./$ES_file_deploy_shield"
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
+      exit 1
+   fi
+   log_message "***************     Done !!!"   
 fi
 
-#4.	install-helm.sh
-echo
-log_message "***************     Installing Helm"
-source "./$ES_file_helm"
-if [ $? != 0 ]; then
-   log_message "*************** $ES_file_helm Failed, Exiting!"
-   exit 1
-fi
-
-#5. Adding Shield Repo
-echo
-log_message "***************     Adding Shield Repo"
-source "./$ES_file_addrepo" -p Ericom123$
-if [ $? != 0 ]; then
-   log_message "*************** $ES_file_repo Failed, Exiting!"
-   exit 1
-fi
-
-#6 Deploy Shield
-log_message "***************     Deploy Shield"
-#source "./$ES_file_deploy_shield"
-if [ $? != 0 ]; then
-   log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
-   exit 1
-fi
-
-#3.	sudo usermod -aG docker "$USER"
-#8.	KubeConfig
-#13.	Move to Default
+#7.    Move to Default
