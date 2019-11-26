@@ -5,10 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.09.3_Build_573] - 18-09-2019
+## [Rel-19.09.4_Build_578] - 10-10-2019
 
 ### Bug Fixes
 
+- Fixed: Missing syslog and reports - White #7418
+
+## [Rel-19.09.4_Build_577] - 08-10-2019
+
+### Bug Fixes Build_577
+
+- Fixed: Default application policy bug #7436
+
+## [Rel-19.09.4_Build_576] - 06-10-2019
+
+### Bug Fixes Build_576
+
+- Fixed: Missing syslog and reports
+- Fixed: 'too many open files' error
+- Fixed: Shield Setting Lost
+
+## [Rel-19.09.2_Build_572] - 23-09-2019
+
+### Bug Fixes-19.09.2
 - Fixed: Enabled self monitoring for fluent-bit and add livenessProbe for this container
 - Fixed: Analyzer is not working on swarm and break the admin
 - Fixed: Application report is not working on swarm

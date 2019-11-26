@@ -15,7 +15,7 @@ consul:
     enabled: no
   client:
     join: 
-      - management-consul-server.management.svc.cluster.local
+      - shield-management-consul-server.management.svc.cluster.local
     ports:
       httPort: 8501
       dnsPort: 8601

@@ -11,12 +11,6 @@ farmservice:
 #   For Internal Use only - Please do not edit this section  
 consul:
   enabled: true
-  server:
-    nodeSelectorKey: shield-role/farm-services
-    nodeSelectorValue: accept
-    forceNodeLabels: "yes"
-# If you have 3 Management Nodes, uncomment this line    
-  #antiAffinity: hard
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:
@@ -24,4 +18,6 @@ consul:
       - key: shield-role/farm-services
         operator: In
         values:
-        - accept 
+        - accept
+minio:
+  enabled: false

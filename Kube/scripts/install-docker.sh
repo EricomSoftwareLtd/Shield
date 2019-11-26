@@ -26,7 +26,7 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-if [ ! -x $APP_BIN ] || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 1 ] || [ $ES_FORCE == true ]; then
+if [ ! -x "$APP_BIN" ] || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 0 ] || [ "$ES_FORCE" = true ]; then
     echo "Installing $APP ..."
     DOCKER_SCRIPT_URL="https://releases.rancher.com/install-docker/$APP_VERSION.sh"
     curl -LJ --progress-bar $DOCKER_SCRIPT_URL | sh

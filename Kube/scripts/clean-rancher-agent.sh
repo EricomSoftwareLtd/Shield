@@ -45,9 +45,8 @@ for dir in $cleanupdirs; do
     echo "Removing $dir"
     rm -rf $dir
 done
-
-if [ "$ES_ALL" == "yes" ]; then
-   docker system prune -a -f
+if [ "$ES_ALL" == "true" ]; then
+    docker system prune -a -f
 fi
 
 echo "Please reboot your system, to cleanup the machine"
