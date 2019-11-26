@@ -10,7 +10,7 @@ ES_CLEAN=false
 BRANCH="Staging"
 
 function usage() {
-    echo " Usage: $0 [-f | --force] [-c | --clean]"
+    echo " Usage: $0 [-f|--force] [-c|--clean] [-h|--help]"
 }
 
 while [ $# -ne 0 ]; do
@@ -59,6 +59,8 @@ if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
 
     source <(helm completion bash)
     echo "Done!"
+    echo "Init tiller"
+    helm_init
 else
     echo "$APP is already installed"
 fi
@@ -66,9 +68,12 @@ fi
 if [ "$ES_CLEAN" == true ]; then
     echo "Clean tiller"
     helm_clean
+    echo "Init tiller"
+    helm_init
 fi
-echo "Init tiller"
-helm_init
+
+# wait 5 secs to let tiller starting
+sleep 5
 
 helm version
 

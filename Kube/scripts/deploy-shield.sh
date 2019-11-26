@@ -32,7 +32,7 @@ echo $SYSTEMID
 LOGFILE=last_deploy.log
 
 function usage() {
-    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [--help]"
+    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-h|--help]"
     echo
     echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
@@ -162,7 +162,7 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
-    #        -help)
+    #        -h|--help)
     *)
         usage
         exit
