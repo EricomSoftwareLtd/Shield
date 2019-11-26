@@ -15,7 +15,7 @@ ES_repo_helm="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH
 ES_repo_addrepo="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/add-shield-repo.sh"
 ES_repo_deploy_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/deploy-shield.sh"
 ES_repo_delete_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/delete-shield.sh"
-ES_repo_preparenode="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/scripts/prepare-node.sh"
+ES_repo_prepare_servers="https://github.com/EricomSoftwareLtd/Shield/releases/download/$BRANCH/shield-prepare-servers"
 
 ES_file_sysctl="configure-sysctl-values.sh"
 ES_file_rancher="run-rancher.sh"
@@ -25,8 +25,8 @@ ES_file_helm="install-helm.sh"
 ES_file_addrepo="add-shield-repo.sh"
 ES_file_deploy_shield="deploy-shield.sh"
 ES_file_delete_shield="delete-shield.sh"
-ES_file_preparenode="prepare-node.sh"
-ES_PATH="./ericomshield"
+ES_file_prepare_servers="shield-prepare-servers"
+ES_PATH="$HOME/ericomshield"
 
 LOGFILE="last_deploy.log"
 
@@ -80,7 +80,7 @@ download_and_check "$ES_file_helm" "$ES_repo_helm" "+x"
 download_and_check "$ES_file_addrepo" "$ES_repo_addrepo" "+x"
 download_and_check "$ES_file_deploy_shield" "$ES_repo_deploy_shield" "+x"
 download_and_check "$ES_file_delete_shield" "$ES_repo_delete_shield" "+x"
-#download_and_check "$ES_file_preparenode" "$ES_repo_preparenode" "+x"
+download_and_check "$ES_file_prepare_servers" "$ES_repo_prepare_servers" "+x"
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
