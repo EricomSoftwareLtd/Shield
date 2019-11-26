@@ -12,7 +12,7 @@ fi
 
 echo
 echo " Shield Support: Collecting Info and Logs from System and Shield ....."
-echo
+echo 
 
 # Create temp directory
 TMPDIR=$(mktemp -d)
@@ -55,7 +55,7 @@ if [ -f /etc/redhat-release ]; then
   fi
 fi
 echo " Done! "
-echo
+echo 
 
 # Docker
 echo " Shield Support: Collecting Docker Info ....."
@@ -85,7 +85,7 @@ mkdir -p $TMPDIR/systemlogs
 cp /var/log/syslog /var/log/docker* /var/log/system-docker* $TMPDIR/systemlogs 2>/dev/null
 
 echo " Done! "
-echo
+echo 
 
 # Rancher logging
 if [ $(docker ps |grep -c rancher) -ge 1 ]; then
@@ -119,10 +119,6 @@ if [ -d ~/shield/ ]; then
    cp -r ~/shield/  $TMPDIR/shield/ 2>/dev/null
 fi
 
-if [ -d ~/shield/ ]; then
-   cp -r ~/shield/  $TMPDIR/shield/ 2>/dev/null
-fi
-
 if [ -d /usr/local/ericomshield/ ]; then
    /usr/local/ericomshield/status.sh -a >$TMPDIR/shield/statusa
    if [ "$?" -eq "0" ]; then
@@ -145,7 +141,8 @@ rm -rf ${TMPDIR}
 
 echo " Done! "
 echo
-echo "Created /tmp/${FILENAME}"
+echo "Created:"
+ls -lah "/tmp/$FILENAME"
 echo
 echo "Please send this file /tmp/${FILENAME} to Ericom Support"
 echo
