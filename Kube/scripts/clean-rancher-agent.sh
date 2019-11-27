@@ -5,7 +5,7 @@
 ES_ALL=false
 
 function usage() {
-    echo " Usage: $0 [-a | --all]"
+    echo " Usage: $0 [-a|--all] [-h|--help]"
 }
 
 #Check if we are root
