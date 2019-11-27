@@ -11,54 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_582] - 2019-09-18
+## [Dev:Build_579] - 2019-09-28
 
-- Admin 'Nodes List' table (Kube) : num browsers is always 'NA' #7501
-- outlook.office365.com is stuck #7511
-- dev 581 - admin error #7490
-- Alert:No free browser #7409
-
-## [Dev:Build_581] - 2019-09-18
-
-- kube - Admin cannot be accessed in Dev580 #7464
-- kube - browsers are not available in Dev580 #7467
-- flash on http://www.mext.go.jp/programin/app/ #7465
-
-## [Dev:Build_580] - 2019-09-16
-
-- Health-Check point for Shield #2962
-- google docs - conversion candidate window #7005
-- specific web site is not loading when category set to white #4999
-- Nodes and attributes with non-standard namespace (SVG) #7417
-- Domain Reconnection doesn't work when delay is over 2 seconds #7414
-- Crystal - FMS video with simple source for Crystal #7340
-- Crystal - specific site - can't paused the video #6829
-- Crystal - In YouTube the fullscreen button doesn't work #6788
-- Blocked page on IE receives an error HTTP 403 instead of the Blocked Page #7281
-- Kube: Complete missing shield-stats fields (available in swarm) #6959
-- Monitor Shield Services in Kube #7435
-- Align all alerts to work in "Dynamic Nodes" mode #5930
-- Retrieve Original Files from the Admin #7309
-- File Original Retrieval - Phase 2 #7380
-- Ability to Retrieve the Original (infected?) File #1290
-- Dashboard - browser gauge #7324
-- Node Summary is not using the labels/roles #7258
-- Ldap Admin login is not working #7318
-- Users Reports Fixes #6981
-- FQDN - error #7008
-- indicator spins forever when edit application table #7437
-- missing File Transfer > failure reports #7070
-- Admin - Settings - add a link to download Shield certificate #6497
-- Current TZ info #7434
-- Burst Events on Cloud are done on UTC instead of Admin Time #6260
-- authproxy has wrong proxyless ip in hosts.squid #7348
-- Incorrect error message "URL's domain blocked by policy" when policy-manager not responding #5316
-- Sanitization fails (on JLM) with "Internal Error 03" #7255
-- connection made to cef also in IE mode #7347
-- members of Domain Users AD group are not being published #7103
-- add proxy.py to ova #7089
-- PrepareNode for Kube #7049
-- NodeSelector for Consul Agent #6925
+- fix cookies for init domain in redirect mode #7453 
+- Shield - Video problems on MacOS SM#58 #7308
+- swarm - auth proxy is not running #7477
 
 ## [Dev:Build_578] - 2019-09-10
 

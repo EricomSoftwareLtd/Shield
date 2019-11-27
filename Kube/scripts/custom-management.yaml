@@ -50,6 +50,8 @@ consul:
   ui:
     service:
       type: NodePort
+# If you have 3 Management Nodes uncomment this line    
+  #antiAffinity: hard   
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:
