@@ -8,7 +8,8 @@ SHIELD_REPO="$SHIELD_REPO_URL/master"
 NOT_FOUND_STR="404: Not Found"
 
 PASSWORD=""
-ES_BRANCH_FILE=".esbranch"
+ES_PATH="$HOME/ericomshield"
+ES_BRANCH_FILE="$ES_PATH/.esbranch"
 LOGFILE=last_deploy.log
 
 function usage() {
@@ -80,6 +81,10 @@ function list_versions() {
 
     echo "$SHIELD_REPO" "$BRANCH"
 }
+
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
 
 while [ $# -ne 0 ]; do
     arg="$1"

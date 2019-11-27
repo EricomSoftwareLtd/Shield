@@ -11,7 +11,7 @@ ES_DELETE_NAMESPACE=true
 COMPONENTS=(farm-services proxy management elk common)
 
 function usage() {
-    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-s|--silent] [-k|--keep-namespace] [--help]"
+    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-s|--silent] [-k|--keep-namespace] [-h|--help]"
     echo
     echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
@@ -60,7 +60,7 @@ while [ $# -ne 0 ]; do
     -s | --silent)
         ES_CONF=true
         ;;
-    #        -help)
+    #        -h | --help)
     *)
         usage
         exit
