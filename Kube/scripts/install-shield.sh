@@ -4,8 +4,35 @@
 #######################################BH###
 
 NOT_FOUND_STR="404: Not Found"
-ES_BRANCH_FILE=".esbranch"
-BRANCH="Staging"
+ES_PATH="$HOME/ericomshield"
+ES_BRANCH_FILE="$ES_PATH/.esbranch"
+BRANCH="master"
+LOGFILE="last_deploy.log"
+
+function usage() {
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-f|--force] [-h|--help]"
+}
+
+#Check if we are root
+if ((EUID != 0)); then
+    #    sudo su
+    usage
+    echo " Please run it as Root"
+    echo "sudo $0 $@"
+    exit
+fi
+
+# Create the Ericom empty dir if necessary
+if [ ! -d $ES_PATH ]; then
+    mkdir -p $ES_PATH
+    chmod 0755 $ES_PATH
+fi
+
+cd "$ES_PATH" || exit 1
+
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
 
 ES_repo_sysctl="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/configure-sysctl-values.sh"
 ES_repo_docker="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/install-docker.sh"
@@ -26,30 +53,6 @@ ES_file_addrepo="add-shield-repo.sh"
 ES_file_deploy_shield="deploy-shield.sh"
 ES_file_delete_shield="delete-shield.sh"
 ES_file_prepare_servers="shield-prepare-servers"
-ES_PATH="$HOME/ericomshield"
-
-LOGFILE="last_deploy.log"
-
-#Check if we are root
-if ((EUID != 0)); then
-    #    sudo su
-    usage
-    echo " Please run it as Root"
-    echo "sudo $0 $@"
-    exit
-fi
-
-function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-f|--force] [--help]"
-}
-
-# Create the Ericom empty dir if necessary
-if [ ! -d $ES_PATH ]; then
-    mkdir -p $ES_PATH
-    chmod 0755 $ES_PATH
-fi
-
-cd "$ES_PATH" || exit 1
 
 function log_message() {
     local PREV_RET_CODE=$?
@@ -115,16 +118,12 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
    fi
 
    #4.  run-rancher.sh
-   if [  $(docker ps | grep -c rancher) -lt 1 ]; then
-      echo
-      log_message "***************     Running Rancher Server"
-      source "./$ES_file_rancher"
-      if [ $? != 0 ]; then
-         log_message "*************** $ES_file_run_rancher Failed, Exiting!"
-         exit 1
-      fi
-     else
-      echo "Rancher is already running"
+   echo
+   log_message "***************     Running Rancher Server"
+   source "./$ES_file_rancher"
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_run_rancher Failed, Exiting!"
+      exit 1
    fi
 
    echo
