@@ -2,7 +2,6 @@
 ############################################
 #####   Ericom Shield Support          #####
 #######################################BH###
-
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su

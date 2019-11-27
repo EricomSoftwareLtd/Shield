@@ -1,7 +1,7 @@
 version: '3.3'
 
 # Ericom Shield Stack Description
-# YML file for Rel-19.05
+# YML file for Rel-19.03
 
 services:
     dns:
@@ -161,8 +161,8 @@ services:
         networks:
             - shield
         #Published only for Dev
-#       ports:
-#           - '8500:8500'
+        ports:
+            - '8500:8500'
         deploy:
             mode: replicated
             replicas: 1
@@ -217,6 +217,7 @@ services:
             - 'SHIELD_VER=8.0.0.latest'
             - 'SHIELD_IP=${SHIELD_IP_ADDRESS}'
             - 'LOGSTASH_FIELDS=service=icap'
+            - 'CHECK_SESSION_LIMIT=${CHECK_SESSION_LIMIT}'
             #- 'SHIELD_WATERMARK=TRUE'
         ulimits:
             nofile: {soft: 65535, hard: 65535}
@@ -437,7 +438,28 @@ services:
             options:
                 max-size: "500M"
                 max-file: "3"
-
+                
+    es-proxy-egress:
+        image: 'securebrowsing/es-proxy-egress:latest'
+        ulimits:
+            nofile: {soft: 65535, hard: 65535}
+        networks:
+            - shield
+        environment:
+            - 'TZ=UTC'
+            - 'SSLEXCLUSION=true'
+            - 'LOGSTASH_FIELDS=service=es-proxy-egress'
+        deploy:
+            mode: replicated
+            replicas: 2
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, delay: 10s, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
     ext-proxy:
         image: 'securebrowsing/extproxy:latest'
         ulimits:
@@ -595,6 +617,26 @@ services:
             - 'TZ=UTC'
             - 'NODE_ENV=production'
             - 'LOGSTASH_FIELDS=service=cdrcontroller'
+        networks:
+            - shield
+        deploy:
+            mode: replicated
+            replicas: 1
+            restart_policy: {condition: any}
+            update_config: {parallelism: 1, failure_action: rollback}
+            placement: {constraints: [node.labels.shield_core==yes]}
+            resources: {limits: {memory: 1GB, cpus: '1'}}
+        logging:
+            options:
+                max-size: "500M"
+                max-file: "3"
+        
+    es-ldap-proxy:
+        image: 'securebrowsing/es-ldap-proxy:latest'
+        environment:
+            - 'TZ=UTC'
+            - 'NODE_ENV=production'
+            - 'LOGSTASH_FIELDS=service=es-ldap-proxy'
         networks:
             - shield
         deploy:

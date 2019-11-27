@@ -1,0 +1,62 @@
+# Custom Values for Management   #
+---
+shieldmng:
+  enabled: true
+shield-mng:
+#  TZ: "IDT"
+  consulBackup:
+    enabled: "yes"
+    # Local Path (Uncomment to use a specific local folder for backup):
+    #localPath: /home/ericom/shield/backup/
+    # For sftp backup, uncomment and set the backup path (on the ftp server):
+    #remotePath: "SFTPStorage:/home/ericom/"
+    # For S3 change config:
+    # Add access_key_id and secret_access_key
+    #remotePath: "S3Storage:<change to real bucket>"
+    #remotePath: "SFTPStorage:/home/ericom/backup" This is example dir can be any directory
+    config: |
+      rclone.conf: | # For sftp backup, uncomment and set the host and user:
+        [SFTPStorage]
+        # type = sftp
+        # host = 192.168.50.18
+        # user = ericom
+        # key_file = /keys/key_file.pem
+        #[S3Storage]
+        # type = s3
+        # provider = AWS
+        # env_auth = false
+        # access_key_id = XXXXXX
+        # region = <change desired region us-east-2 for example>
+        # location_constraint = <change desired region us-east-2 for example>
+        # secret_access_key = XXXXXX
+        # acl = private
+    # For sftp backup, uncomment and past the certificate:
+    key: |
+      key_file.pem: |
+        -----BEGIN RSA PRIVATE KEY-----
+        
+        -----END RSA PRIVATE KEY-----
+
+#############################################################
+#   For Internal Use only - Please do not edit this section
+consul:
+  enabled: true
+  client:
+    ports:
+      httPort: 8501
+      dnsPort: 8601
+      grpcPort: 8503
+  cloudProvider: local
+  ui:
+    service:
+      type: NodePort
+# If you have 3 Management Nodes uncomment this line    
+  #antiAffinity: hard   
+  nodeAffinity:
+   requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: shield-role/management
+        operator: In
+        values:
+        - accept

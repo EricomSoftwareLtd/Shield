@@ -1,0 +1,76 @@
+- name: Install additional repositories
+  yum:
+    name:
+      - epel-release
+      - https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
+      # - https://harbottle.gitlab.io/harbottle-main/7/x86_64/harbottle-main-release.rpm
+    state: present
+- name: Enable the elrepo-kernel repository
+  shell: yum-config-manager --enable elrepo-kernel
+- name: Add Docker repository
+  yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+- name: Install the latest versions of Docker and Docker-related packages
+  yum:
+    name:
+      - perl
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+      - docker-ce
+      - kernel-lt
+    state: latest
+    enablerepo: elrepo-kernel
+- name: Set the latest kernel as default
+  shell: "grub2-set-default 0"
+- name: Turn off swap space
+  shell: swapoff -a
+- name: Permanently disable swap in /etc/fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^([-_=/a-zA-Z0-9]+\sswap\s+sw.*)$'
+    replace: '# \1'
+- name: Copy configure-sysctl-values.sh 
+  copy:
+    src: ./configure-sysctl-values.sh 
+    dest: /tmp/configure-sysctl-values.sh
+    owner: root
+    group: root
+    mode: 0755
+- name: Run configure-sysctl-values.sh
+  shell: "/tmp/configure-sysctl-values.sh"
+  args:
+    chdir: /tmp
+- name: Create /etc/docker directory
+  file:
+    path: /etc/docker
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+- name: Copy daemon.json
+  copy:
+    src: ./daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+- name: Enable docker
+  systemd:
+    name: docker
+    enabled: yes
+    masked: no
+    state: started
+- import_tasks: disable_firewalld.yaml
+- name: Reboot node(s)
+  reboot:
+- name: Remove old kernels and extra packages
+  yum:
+    name:
+        - kernel-3.10*
+    state: absent

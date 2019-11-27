@@ -11,24 +11,484 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [Dev:Build_520.3] - 2019-06-13
+## [Dev:Build_579] - 2019-09-28
 
-- Ext-Proxy cache https sites ( from Dev 522) 
+- fix cookies for init domain in redirect mode #7453 
+- Shield - Video problems on MacOS SM#58 #7308
+- swarm - auth proxy is not running #7477
+
+## [Dev:Build_578] - 2019-09-10
+
+- Missing syslog and reports - White #7418
+
+## [Dev:Build_577] - 2019-09-08
+
+- Default application policy bug #7436
+
+## [Dev:Build_576] - 2019-09-06
+
+- Missing syslog and reports #7418
+- restore/ backup issues #7412
+- Consul_backup should restore only on system start #7428
+- Admin UI should be restarted after consul_backup is up #7395
+- translations - the admin UI shows the default values after restart shield-management #7416
+- Scaler should only count running pods when calculating current number of pods #7429
+
+## [Dev:Build_573] - 2019-09-25
+
+- Analyzer is not working on swarm and break the admin #7367
+- Application report is not working on swarm #7365
+- backup / restore issue #7345
+- daily back up is missing #7341
+- Add proxy.py to ova #7089
+- changes in applications list should be kept after restart / update (swarm) #5658
+
+## [Dev:Build_572] - 2019-09-19
+
+- Duplicate application logs #7342
+- Change user.max_user_namespaces on CentOS only
+- Align release names in Deploy/Delete scripts #7336
+- Shield-management-consul on farm node #450 #7346
+
+## [Dev:Build_571] - 2019-09-19
+
+- Duplicate application logs #7342
+- Change user.max_user_namespaces on CentOS only
+
+## [Dev:Build_570] - 2019-09-18
+
+- Application policy disappears upon restart (QA#746987) #5658
+- Admin UI: Missing node summary and node list at the dashboard #7321
+- Advanced Link is not Working (QA#744973) #7122
+- Syslog report - missing data #7320
+- Some periodic tests should be skipped when using upstream proxy #7322
+- user.namespaces in centos need to be increased #7330
+- Align release names in Deploy/Delete scripts
+
+## [Dev:Build_569] - 2019-09-16
+
+- HA: Improvement on Node Failure Detection
+- HA: No logging until restart fluent-bit on all nodes #7286
+- no alerts when periodic tests failing #7099
+
+## [Dev:Build_568] - 2019-09-15
+
+- HA: CEF gives "unknow certification authority" error #7285
+- HA: Not-allow bug
+- HA: Farm is not available "oops" message - shown with 2/3 nodes available in HA #7292
+- Documentation: Fix Calico in OVA Documentation #7293
+- Documentation: Fix that SSD is recommended, not required #7275
+
+## [Dev:Build_567] - 2019-09-12
+
+- 19.09 - CEF gives "unknow certification authority" error #7285
+- Ldap proxy fails to write AD group list in Consul (Value exceeds 524288 bye limit) #7271
+- Ldap proxy fails to bind to AD if Admin password contains double quotes character(s) #7270
+- overly - file preview is not working in proxyless mode #7124
+- KKA load test results - scaler fixes #7060
+- Farm is not available "oops" message - shown with 2/3 nodes available in HA #7292
+
+## [Dev:Build_566] - 2019-09-10
+
+- Periodic Health Checks Frequency - strange value
+- Reports from the admin UI are not working
+- Kube - local back up file - change the path
+
+## [Dev:Build_565] - 2019-09-04
+
+- Dashboard Redesign
+- Session Report #6401 #6395 #6396
+- Restore from the Admin [R3, B2] #4137
+- Scaler doesn't create browsers when pod in pending (terminating) state #7011
+- no alerts when periodic tests failing #7099
+- Analyser to show docker version
+- Admin Dashboard - fix max browsers in dashboard #7081
+- 'Inconsistent User Profiles' alert details will show both sAMAccountName/userPrinicipleName #7002
+- FQDN - error #7008
+- Virtual Client - right click command #7022
+
+## [Dev:Build_564] - 2019-09-02
+
+- Install Docker 19.03.1 (latest)
+- Admin: Dashboard Fixes
+- Kube: Analyser to show docker version #7082
+- Kube: consul-pod-antiaffinity and upgrade to 1.6.0 #290
+
+## [Dev:Build_563] - 2019-08-29
+
+- Kube - deploy shield should be updated #7055
+- Need to reshuffle consul after node is turned on again #6967
+- FluentBit should connect to local consul-agent #6926
+- When add additional node to already deployed system, consul not on the same node #6924
+- Kube - White URL's are not in conections reports #6712
+- Dashboard redesign part 1 #6394
+- Sessions Report #5642
+- Kube - Alerts/Reports not working #7025
+- Missing Reports in Kube #6326
+
+## [Dev:Build_562] - 2019-08-27
+
+- Dashboard redesign #6394
+- Sessions Report #5642
+- Missing Reports on Kube: Applications and End User feedback
+- Added Analyzer to Kube #6915
+- Align all alerts to work in "Dynamic Nodes" mode #5930
+- Website: fujifilm - black areas in the screen
+- Admin - Profiles - secondary AD issues
+- proxy.py is not working on centos and ubuntu #6493
+- Shield setup: Bonding Interface Support #7042
+
+## [Dev:Build_561] - 2019-08-19
+
+- 'Inconsistent User Profiles' alert details will show both sAMAccountName and userPrinicipleName (in case they differ) #7002
+- Email alerts for browser-farm include &nbsp #6989
+- Details in Alert critical errors doesnt work #6976
+- Incorrect named user license counting #6968
+- Return back 'connectioninfo' index in ELK #6946
+- KKA - Web mail (IMAP) - conversion candidate window #6292
+
+## [Dev:Build_560] - 2019-08-15
+
+- kube 559 - fonts issue #6994
+
+## [Dev:Build_559] - 2019-08-14
+
+- farm-sync /api/v1/session crash when writing big data to logger #6974
+
+## [Dev:Build_558] - 2019-08-13
+
+- Admin - fix link to the documentation #6942
+- icap - read only error (kube )#6939
+- NTLN - text is not clear #6854
+- Change end user message #6799
+- Printing is not possible if Sanitization is not available #5662
+
+## [Dev:Build_557] - 2019-08-11
+
+- Fixed identifying 'Pending' pods
+- Updated strings - #6737
+- Named user license treshold update #5184
+- Alert for URLs loaded slowly in kube is not working #6895
+- Alert for too many errors in logs in kube is not working #6893
+- ICAP protocol error - proxy is crashing because time is not sync with ICAP #6927
+- Es-farm-sync HA #6867
+- Clear the backup log #6848
+- No Browsers when stopping one Node #6840
+- Alerts when named users license limit is met #5184
+- Admin - import policies is not working (when the file includes bad data) - page is stuck #6174
+- Admin - support override for categories #6763
+
+## [Dev:Build_556] - 2019-08-11
+
+- XFF sent on redirect mode #6929
+
+## [Dev:Build_555.1] - 2019-08-07
+
+- Shopping Site - Half page missing - (NTLN) #47 #6898
+
+## [Dev:Build_554] - 2019-07-29
+
+- Support multiple groups per Shield Profile #6585
+- Admin - Policies - clear cache after delete #6176
+- Limit docker logs files size #1848
+- Fixed number of browser in dashboard
+- Kube rel-19.07 preview is not working #6864
+- Consul Backup: expose local folder to Custom Values #6877
+- QA#741975(mtsuchido): Upload function of a specific website do not work (#381) #6843
+- Farm-sync get too many requests #6841
+- Kube - Admin UI - Settings - display issue #6707
+- All-in-kube analyzer is not working #6333
+- Admin - import policies is not working (when the file includes bad data) - page is stuck #6174
+- [[urgent]][[Investigate]] QA#737875 Pod placement to another node #341 #6889
+- Getting BLANK pages #45 (SM ) #6890
+- Not sanitizing password protected zip file if extension is upper case #6897
+- fix custom managment yaml file from Rel -19.07 #6882
+- Move /api/scaler/browsercount implementation from farm-scaler to farm-sync #6868
+- No Browsers when stopping one Node #6840
+- tab limit without authentication should work #6749
+
+## [Dev:Build_553] - 2019-07-25
+
+- LDAP isn't working when default domain name is upper case #6852
+- Farm-sacler will terminate all browser jobs which have even a single pod in the 'Succeeded' phase #6849
+
+## [Dev:Build_552] - 2019-07-25
+
+- The profile is change to "All" at export policies #6836
+
+## [Dev:Build_551] - 2019-07-23
+
+- Add sourcehost variable to logstash config #6155
+- wss via ext-proxy , Asana - not working on swarm env #6758
+
+## [Dev:Build_550] - 2019-07-22
+
+- Zoom is not working with shield #6794
+- Kube installation on centos #6805
+- Mail Alerts are being sent nonstop #6784
+- Can't connect to skype when ldap is enabled #6633
+- WhatsApp desktop and whatsApp wab barcode issues #6754
+- NTLM not working in JLM #6823
+
+## [Dev:Build_549] - 2019-07-15
+
+- Remove memory pools from proxy server #6778
+- Fluent-bit service is not working in Dev_548 Kube #6772
+- Problem with urls goes white after ~10 seconds - autofill related issue #6753
+- Shield-perf consistent time format #6722
+- DNS Settings are empty #6642
+- Admin | Profiles table - validate after editing & missing tooltip #6525
+- Admin updated Japanese translations
+- Instructions + Scripts for installing Shield on Centos #6781
+- Burst Events on Cloud are done on UTC instead of Admin Time #6260
+- Align all alerts to work in "Dynamic Nodes" mode #5930
+- OVA Preparation #6628
+- add live/ready port to ldap-proxy #6811
+
+## [Dev:Build_548] - 2019-07-14
+
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Crystal issue on cnn.com #6591
+- Specific site - video auto-restarts after it is paused #6559
+- Pre check - counting cpu - should give a warning when it is less than 8CPU #6536
+- Es-farm-scaler doesn't delete browsers jobs which contains failed pods #6740
+- ICAP does not use proxy for redirect checking #6748
+- kerberos admin error after update #6744
+- admin UI - fix tab funcationality for authentication settings #6739
+- Error in reports for Ldap profile #6711
+- admin - button to choose keytab / generate commandfile stay disabled #6709
+- Burst event rules are not being saved #6705
+- [[Question]] QA#738833 (mtsuchido): 'Internal DNS Address' configuration #350
+- [[Bug]][[Investigate]] QA#738778 "Route All Connections Via Browsers Farm" with upstream #349
+- [[bug]][[Investigate]] QA#738624 dnsmasq name-server settings #348
+- [[Investigate]] QA#738623 Resource GET flow(white) when there is an upstream proxy #347
+
+## [Dev:Build_547] - 2019-07-11
+
+- Enforce Concurrent Sessions per License #6251
+- Enable ldap is stuck + can't enable ldap for admin login #6595
+- Additional domains securedc: value is created a string in consul #6624
+- DNS Settings are empty #6642
+- Multi AD - remove secondary AD #6648
+- Multi domain - error when using secured ldap #6693
+- Admin UI - kerberos error #6696
+- Consulbackup delete remote store #6698
+- White urls display issue #6700
+- Admin - Policies - support importing XL amount of policies #6303
+- Admin UI - fix tab funcationality for upstream proxy sections #6715
+- Admin - button to choose keytab / generate commandfile stay disabled #6709
+
+## [Dev:Build_546] - 2019-07-09
+
+- Add internal proxy settings to admin #6682
+- Kube - node labels are not working as expected #668
+- Fix External Syslog for Kube #6427
+- All-in-kube partial reports #6326
+
+## [Dev:Build_545] - 2019-07-08
+
+- Kube - can't browse with build 544 #6676
+- AdminUI - small changes #6235
+
+## [Dev:Build_544] - 2019-07-07
+
+- Change how DNS works #6657
+- After Installation 30-40 Browsers are running #6646
+- Authentication - save LDAP settings is taking time and give error #6638
+- [[bug]][[Investigate]] QA#738624 dnsmasq name-server settings #348 #6621
+- Enable ldap is stuck + can't enable ldap for admin login #6595
+- All-in-Kube to work with upstream proxy #6582
+- Multi domain - can't authenticate - must specify the upn suffix #6637
+
+## [Dev:Build_543] - 2019-07-02
+
+- specific file in korean (.hwp) fails to downloaded with shield #6632
+- QA#737494 spellcheck_control.py #337 #6623
+- OVA - need to start shield after adding a node #6615
+- Always use es-ldap-proxy for LDAP authentication #6611
+- Prepare OVA for Kube on Centos #6530
+- spellcheck_control.py #6516
+- es-ldap-proxy is not working on swarm #6641
+
+## [Dev:Build_542] - 2019-06-30
+
+- ldap - when the bind account password has special chars (maybe%) it crashes squid #6598
+- add ldap proxy to swarm yml #6590
+- Support Multi Active Directories #5677
+- Enforce Concurrent Sessions per License - Activation part #6251
+
+## [Dev:Build_541] - 2019-06-26
+
+- Upn suffix are not working when enable ldap proxy #6570
+- Mutli domain - should not ignore the domain in case user appear in both ADs #6555
+- Centos installation fails #6254
+- Load Balancer for Domain Controllers #6129
+- pdfjs viewer working in crystal
+
+## [Dev:Build_540] - 2019-06-24
+
+- Proxy-server out of memory #5933
+- OVA - rel 19.05.2 - pre check ended with errors #6538
+- Proxy-server out of memory #5933
+- Fix proxyless mode
+- Fix consul issue on slow machines
+
+## [Dev:Build_539] - 2019-06-23
+
+- Korean file download sanitize function issue - important - name of file is Gibberish #6505
+- Proxy.py is not working #6493
+- Fix External Syslog for Kube #6427
+- Added basic farm selection logic
+- Kube - dnsmasq changes
+- Strings for 5677 & 6497
+- OVA - rel 19.05.2 - pre check ended with errors #6538
+
+## [Dev:Build_538] - 2019-06-19
+
+- kube mode - authentication with cloudconnect.local doesn't work #6521
+- Send Feedback: Close Windows on Cancel #6355
+- Support Multi Active Directories #5677
+
+## [Dev:Build_537] - 2019-06-18
+
+- OVA update failed #6517
+- shield preview and shield blank is not working in Kube mode #6508
+
+## [Dev:Build_536] - 2019-06-17
+
+- www.g2b.go.kr file download sanitize function issue - important #6505
+
+## [Dev:Build_535] - 2019-06-17
+
+- Support for Multi Domain
+- License cleanup
+
+## [Dev:Build_534] - 2019-06-16
+
+- Admin - Settings - add a link to download Shield certificate #6497
+- All-in-kube can't get the page to download pac file / certificate #6322
+- Faster page load on search engines #6288
+
+## [Dev:Build_533] - 2019-06-13
+
+- Data type conflict ruin reports #6479
+- Fix External Syslog for Kube #6427
+- Faster page load on search engines #6288
+- Installation of Dev_532 on clean machine is not working properly #6481
+- http failure notification at the dashboard #6447
+- After installing Dev_528 on 126.0.6.3, machine is not working properly #6433
+- support profiles based on X-Authenticated-Groups on https sites
+
+## [Dev:Build_532] - 2019-06-12
+
 - ReadOnly Phishing doesnt seem to work #6463
-- <https://www.kddi-dsec.com/> might get stuck fix
-- Removed capacity alert
+- Fixed AuthProxy in Kube
+
+## [Dev:Build_531] - 2019-06-12
+
+- es-sysetm-configuration errors #6467
+- Kube: Admin nginx get bad certificate #6449
+- Kube - When farm-services loads after proxy, auth proxy cant find proxyless #6429
+- all-in-kube dns settings empty can't browse #6381
+
+## [Dev:Build_530] - 2019-06-10
+
+- Http failure notification at the dashboard #6447
+- With Dev_528, sometimes pages get stuck #6437
+- Dev528 - can't play videos #6435
+- Browsers not running on my machine after installation ends #6432
+- Kube - When farm-services loads after proxy, farm-sync does not work #6430
+- Admin - Profiles - hide TTL #6425
+- Can't play movies with autoplay #6415
+- Session is getting stuck when downlading file with special chars #6400
+- Sasa - points to that need to be documented #6392
+- Sasa - named policy not exists #6391
+- Sometimes the page is not responding #6383
+- Remove Session Table from Dashboard #6349
+
+## [Dev:Build_529] - 2019-06-06
+
+- Expedia.com is whitle list in kube mode #6421
+- Shield-pre-install-check.sh does not work #6403
+- All-in-kube license at the dashboard is not being updated #6366
+- Ldap - ldaps:// authentication is ignored in authproxy #6361
+- AdminUI - small changes #6235
+- Admin - import policies is not working - page is stuck #6174
+- Multi farm support #1
+- Multi domain support #1
+- Created Shield support script
+
+## [Dev:Build_528] - 2019-06-05
+
+- ldap - ldaps:// authentication is ignored in authproxy #6361
+- adminUI - small changes #6235
+- Admin - import policies is not working - page is stuck #6174
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Fix crash on AWS if no InstanceType fetched
+
+## [Dev:Build_527] - 2019-06-03
+
+- ldap - ldaps:// authentication is ignored in authproxy #6361
+- Extend "Authentication Chaining" to receive 'X-Authenticated-Group' HTTP header #6266
+
+## [Dev:Build_526] - 2019-06-03
+
+- Sometimes dispatcher is not running when installing shield #6382
+- Update.sh error #6375
+- All-in-kube dashboard info is missing - dynamic node empty #6374
 - OVA - addnodes is missing #5949
 
-## [Rel-19.05.520.1] - 05-06-2019-06
+## [Dev:Build_525] - 2019-06-02
 
-- fixed: Secured LDAP (ldaps) Issue
+- On latest dev (e5) cursor does not change when hovering over links #6356
+- All-in-kube send mail alert test is not working #6325
+- AdminUI - small changes #6235
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Ldap - UPNSuffix is appended also if already exists #6360
 
-## [Dev:Build_520.1] - 2019-05-14
+## [Dev:Build_524] - 2019-05-29
 
-- admin UI - add new named policy is stuck at first try #6214
-- categories license alert should be changed #6212
-- Admin - Named Policies - Add new policy but not visible in the table - need to refresh #6166
+- Fix squid crash with upstream proxy
+- AdminUI - small changes #6235
+- All-in-kube - critical errors at the consul #6317
+- Admin UI - policies table errors when edit a policy #6281
+- Cloud: ELK should serve all namespaces #5685
+- delete profile should delete the categories / policies associated #6262
+- all-in-kube update certificate is not working #6324
+- all-in-kube no reports #6326
+- all-in-kube admin resources empty #6337
+- all-in-kube failed to activate the license #6338
+
+## [Dev:Build_523] - 2019-05-26
+
+- Collector cannot find consul in Dev_522 #6280
+- Admin - Named Policy - Add Named Policy dialog #6020
+- Faster load of crystal pages
+- cleanup of predefined policies
+
+## [Dev:Build_522] - 2019-05-22
+
+- Admin - policies table - subdomain column for categories #6139
+- Admin - Save/Cancel buttons #6046
+- Prepare OVA with Shield installed and all images pulled #5629
+- KDDI - Slow initial steps on page load ( cache https request ) #6153
+- Do not include the 'query' part of the URL when sending to NetSTAR #6219
+- Admin - tooltip is too close to the field name #5992
+
+## [Dev:Build_521] - 2019-05-20
+
 - Applications table - defaults table display #6199
+- Admin dashboard - sessions table #5880
+- Updated Strings
+- Autofill improvments #5548
+- Slow typing due to FPS limits #6232
+- KDDI - <https://www.baidu.com/> is slow on Edge #6226
+- Admin shows error message on logout, and do not logout #6221
+- categories license alert should be changed #6212
+- KDDI - Slow initial steps on page load #6153
+- OVA - addnodes is missing #5949
+- upgrade to use electron 5 #5892
+- Admin dashboard - sessions table #5880
 
 ## [Dev:Build_520] - 2019-05-14
 
@@ -49,8 +509,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_518.1] - 2019-05-12
 
-- https://www.bild.de/ - redirects to mobile site #6004
-- Site auto scroll - https://mxtoolbox.com/ReverseLookup.aspx #6082
+- Site <https://www.bild.de/> - redirects to mobile site #6004
+- Site auto scroll - <https://mxtoolbox.com/ReverseLookup.aspx> #6082
 - Page layout is changed after selecting checkboxes (from KKA) #5991
 - update Rel 19.04 to latest Dev has failed. #6148
 - Admin - search in the tables does not work #6167
@@ -59,7 +519,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Admin - policies table - add existing category - nothing happens #6141
 - Admin - policies table - delete categories #6140
-- Updated translations 
+- Updated translations
 - Admin - Policies default table #5911
 - Admin - Policies - no scrolling #6138
 
@@ -73,7 +533,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Dev:Build_515] - 2019-05-6
 
-- https://rcpmag.com/Home.aspx - takes 20-30 seconds to load #6022
+- Site <https://rcpmag.com/Home.aspx> - takes 20-30 seconds to load #6022
 - Show farm version in shield-stats ('browser-farm' section) #6070
 - Remote Browsers Jobs with Succeeded status should not be counted #6066
 - Admin - Named Policy - internal & default policies #6045
@@ -88,7 +548,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Dev:Build_514] - 2019-05-5
 
 - Remote Browser crashes when setting bad fps values #6001
-- Sync tech-preview KV with farm 
+- Sync tech-preview KV with farm
 - Admin - named policy - default #6058
 - Qhen file sanitize/ preview reach the max limit, the user get internal error #6030
 - Download File Size Limit is not working for Download rule #6031

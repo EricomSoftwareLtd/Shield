@@ -1,0 +1,4 @@
+---
+monitoring:
+  elk:
+    enabled: true

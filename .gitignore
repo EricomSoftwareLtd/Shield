@@ -2,3 +2,4 @@
 *.iml
 *shield_crt*
 *__pycache__*
+Kube/scripts/last_deploy.log
