@@ -143,7 +143,7 @@ else
    #5. Adding Shield Repo
    echo
    log_message "***************     Adding Shield Repo"
-   source "./$ES_file_addrepo" $@ -s
+   source "./$ES_file_addrepo" $@
    if [ $? != 0 ]; then
       log_message "*************** $ES_file_repo Failed, Exiting!"
       exit 1
