@@ -5,11 +5,65 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.09.4_Build_578] - 10-10-2019
+## [Rel-19.11_Build_590] - 27-11-2019 - Kubernetes Version Only
+
+### New Features
+- Improvement 
+- Change Intelligent Mode License Definition
+- Admin: Services Page
+- Admin: Users Reports (Active Session, Active Users, Named Users)
+- PrepareServers Utility
+- TechPreview: Retrieve Original Files (CDR) from the Admin
+- TechPreview: Crystal Many Improvements and Bug Fixes, Closed to Feature Parity
+- Cloud Ready Improvements
+
+### Enhancement
+- system ID is now defined by K8s Cluster ID
+- ELK Stability Improvements and Bug Fixes
+- Votiro version is now displayed at the admin
+- Remove "too many critical" and "url slow" alerts
+- Monitor Shield Services in Kube
+- New Alert: "One of Shield Services is Not Running"
+- New Alert: "No free Remote Browser"
+- Hide anti-phishing settings from Admin when Category feature is not present
+- Dashboard Notifications - Add start timestamp
+- Health-Check point for Shield http://<SHIELD_SERVER>/health
+- User sessions report - add a notification when no active sessions
 
 ### Bug Fixes
+- Fixed: system ID change when redeploy shield
+- Fixed: Kibana in elk namespace some times crashed
+- Fixed: Kibana server is not ready yet
+- Fixed: Kibana time out after restart shield
+- Fixed: Phishing section is missing from the admin
+- Fixed: outlook.office365.com is stuck
+- Fixed: Scaler on AWS fails to calculate max remote browsers : "Missing credentials in config"
+- Fixed: "Must connect using SSL encryption" message
+- Fixed: flash on http://www.mext.go.jp/programin/app/
+- Fixed: google docs - conversion candidate window
+- Fixed: Blocked page on IE receives an error HTTP 403 instead of the Blocked Page
+- Fixed: Align all alerts to work in "Dynamic Nodes" mode
+- Fixed: Indicator spins forever when edit application table
+- Fixed: members of Domain Users AD group are not being published
 
-- Fixed: Missing syslog and reports - White #7418
+## [Rel-19.09.6_Build_579] - 14-11-2019
+
+### Bug Fixes Rel-19.09.6
+
+- Fixed: Authproxy issue for Swarm
+
+## [Rel-19.09.5_Build_579] - 28-10-2019
+
+### Bug Fixes Build_579
+
+- Fixed: cookies for init domain in redirect mode
+- Fixed: Video problems on MacOS
+
+## [Rel-19.09.4_Build_578] - 10-10-2019
+
+### Bug Fixes Build_578
+
+- Fixed: Missing syslog and reports - White
 
 ## [Rel-19.09.4_Build_577] - 08-10-2019
 
@@ -69,13 +123,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-19.09.566] - 11-09-2019
 
-### New Features
+### New Features 19.09
 
 - Dashboard Redesign
 - Session Report
 - Restore from the Admin
 
-### Enhancement
+### Enhancement 19.09
 
 - Install Docker 19.03.1 (latest)
 - Missing Reports on Kube
