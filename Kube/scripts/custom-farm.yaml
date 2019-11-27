@@ -11,6 +11,8 @@ farmservice:
 #   For Internal Use only - Please do not edit this section  
 consul:
   enabled: true
+# If you have 3 Management Nodes, uncomment this line    
+  #antiAffinity: hard
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:

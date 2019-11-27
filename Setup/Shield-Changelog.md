@@ -5,11 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-19.09.6_Build_579] - 14-11-2019
+
+### Bug Fixes Rel-19.09.6
+
+- Fixed: Authproxy issue for Swarm
+
+## [Rel-19.09.5_Build_579] - 28-10-2019
+
+### Bug Fixes Build_579
+
+- Fixed: cookies for init domain in redirect mode
+- Fixed: Video problems on MacOS
+
 ## [Rel-19.09.4_Build_578] - 10-10-2019
 
-### Bug Fixes
+### Bug Fixes Build_578
 
-- Fixed: Missing syslog and reports - White #7418
+- Fixed: Missing syslog and reports - White
 
 ## [Rel-19.09.4_Build_577] - 08-10-2019
 
@@ -69,13 +82,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-19.09.566] - 11-09-2019
 
-### New Features
+### New Features 19.09
 
 - Dashboard Redesign
 - Session Report
 - Restore from the Admin
 
-### Enhancement
+### Enhancement 19.09
 
 - Install Docker 19.03.1 (latest)
 - Missing Reports on Kube
