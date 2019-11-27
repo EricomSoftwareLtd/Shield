@@ -6,7 +6,7 @@
 NOT_FOUND_STR="404: Not Found"
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-BRANCH="master"
+BRANCH="Rel-19.11"
 LOGFILE="last_deploy.log"
 
 function usage() {
