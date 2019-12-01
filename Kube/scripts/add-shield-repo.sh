@@ -63,13 +63,9 @@ function list_versions() {
             OPTION="4)"
             break
             ;;
-        "5")
-            echo "5."
-            OPTION="5)"
-            break
-            ;;
         *)
             echo "Error: Not a valid option, exiting"
+            exit
             ;;
         esac
     done
