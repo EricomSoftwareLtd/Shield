@@ -17,8 +17,8 @@ while [ $# -ne 0 ]; do
     -f | --force)
         ES_FORCE=true
         ;;
-    #    -h | --help)
-    *)
+    -h | --help)
+    #*)
         usage
         exit
         ;;
