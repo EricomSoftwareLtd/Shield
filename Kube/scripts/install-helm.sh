@@ -22,8 +22,8 @@ while [ $# -ne 0 ]; do
     -c | --clean)
         ES_CLEAN=true
         ;;
-    #    -h | --help)
-    *)
+    -h | --help)
+#    *)
         usage
         exit
         ;;
