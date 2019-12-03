@@ -25,8 +25,7 @@ addnode_command = [os.getenv('PYTHON', PYTHON), os.getenv('ANSIBLE_PLAYBOOK', AN
                    "-u", args.ansible_username,
                    "-k", "-K"]
 addnode_command.extend(unknown_args)
-addnode_command.append("{}/ansible/es_nodes.yaml".format(SCRIPT_DIR))
+addnode_command.append("{}/ansible_playbooks/es_nodes.yaml".format(SCRIPT_DIR))
 
-#result = subprocess.run(args=addnode_command, cwd=SCRIPT_DIR)
-result = subprocess.run(args=addnode_command)
+result = subprocess.run(args=addnode_command) #, cwd=SCRIPT_DIR)
 sys.exit(result.returncode)
