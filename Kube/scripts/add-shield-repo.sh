@@ -10,7 +10,7 @@ NOT_FOUND_STR="404: Not Found"
 PASSWORD=""
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-LOGFILE=last_deploy.log
+LOGFILE="$ES_PATH/last_deploy.log"
 
 function usage() {
     echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-l|--list-versions]"
@@ -25,6 +25,12 @@ function log_message() {
     fi
     return 0
 }
+
+# Create the Ericom empty dir if necessary
+if [ ! -d $ES_PATH ]; then
+    mkdir -p $ES_PATH
+    chmod 0755 $ES_PATH
+fi
 
 function download_and_check() {
     curl -s -S -o "$1" "$2"

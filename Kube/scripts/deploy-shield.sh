@@ -13,6 +13,7 @@ NOT_FOUND_STR="404: Not Found"
 EULA_ACCEPTED_FILE=".eula_accepted"
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
+LOGFILE="$ES_PATH/last_deploy.log"
 BRANCH="master"
 ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
 SHIELD_NS_COUNT=5
@@ -30,13 +31,12 @@ echo $SYSTEMID
 # shield-role/farm-services=accept
 # shield-role/remote-browsers=accept
 
-LOGFILE=last_deploy.log
-
 function usage() {
     echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-h|--help]"
     echo
     echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
+
 
 function log_message() {
     local PREV_RET_CODE=$?
