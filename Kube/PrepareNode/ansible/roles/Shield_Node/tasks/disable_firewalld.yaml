@@ -2,7 +2,7 @@
 - name: Make sure firewalld is installed
   package:
     name: firewalld
-    state: installed
+    state: present
 
 - name: Make sure firewalld is disabled
   systemd:
