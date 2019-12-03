@@ -32,7 +32,9 @@
 
 - import_tasks: configure-docker_common.yaml
 
-- import_tasks: disable_firewalld.yaml
+- import_tasks: add-user-to-group-docker_common.yaml
+
+- import_tasks: disable-firewalld_common.yaml
 
 - name: Reboot node(s)
   reboot:
