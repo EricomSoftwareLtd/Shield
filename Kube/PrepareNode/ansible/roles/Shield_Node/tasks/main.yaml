@@ -1,4 +1,12 @@
 ---
+- name: Include distribution specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version}}.yaml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yaml"
+        - "{{ ansible_distribution }}.yaml"
+      paths: ../vars
 - name: Include distribution specific install
   include: "{{ item }}"
   with_first_found:
@@ -6,11 +14,3 @@
     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yaml"
     - "{{ ansible_distribution }}.yaml"
   tags: tasks
-
-- name: Include distribution specific variables
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_version}}.yaml"
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yaml"
-    - "{{ ansible_distribution }}.yaml"
-  tags: vars

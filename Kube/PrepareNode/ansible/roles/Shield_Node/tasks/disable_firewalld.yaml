@@ -1,21 +1,15 @@
 ---
 - name: Make sure firewalld is installed
-  yum: name=firewalld state=installed
-  tags:
-    - install
-    - firewalld
+  package:
+    name: firewalld
+    state: installed
 
 - name: Make sure firewalld is disabled
-  systemd: name=firewalld enabled=no
-  tags:
-    - install
-    - atomic
-    - firewalld
+  systemd:
+    name: firewalld
+    enabled: no
 
 - name: Make sure firewalld is stopped
-  systemd: name=firewalld state=stopped
-  ignore_errors: yes
-  tags:
-    - install
-    - atomic
-    - firewalld
+  systemd:
+    name: firewalld
+    state: stopped
