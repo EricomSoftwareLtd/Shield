@@ -7,4 +7,4 @@ export PYTHON="$APPDIR/usr/bin/python3"
 export ANSIBLE_PLAYBOOK="$APPDIR/usr/bin/ansible-playbook"
 export ANSIBLE_HOST_KEY_CHECKING="False"
 
-"$PYTHON" "$APPDIR/AppRun.py" "$@"
+"$PYTHON" "$APPDIR/shield-prepare-servers.py" "$@"
