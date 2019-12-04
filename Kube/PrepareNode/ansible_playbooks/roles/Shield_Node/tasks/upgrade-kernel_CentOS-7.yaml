@@ -1,5 +1,5 @@
 ---
-- name: Install the elrepo repository
+- name: Install the ELRepo repository
   yum:
     name:
       - https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
