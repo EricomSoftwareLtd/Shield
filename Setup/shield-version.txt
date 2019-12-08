@@ -48,4 +48,4 @@ es-proxy-egress:latest es-proxy-egress:190707-13.18-4529
 # esExternalDNS: registry.opensource.zalan.do/teapot/external-dns:v0.5.12
 # esInitElasticsearch: securebrowsing/es-init-elasticsearch:190911-13.07-148
 # esProxyEgress: securebrowsing/es-proxy-egress:190707-13.18-4529
-# This needs to be the last line
+# This needs to be the last line 
