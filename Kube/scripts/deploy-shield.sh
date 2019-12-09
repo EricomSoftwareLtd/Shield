@@ -273,7 +273,7 @@ if [ "$SHIELD_ELK" == "yes" ]; then
     if [ "$SET_LABELS" == "yes" ]; then
         kubectl label node --all shield-role/elk=accept --overwrite
     fi
-    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-values-elk" ]; then
+    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-values-elk.yaml" ]; then
         download_and_check custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-values-elk.yaml
     fi
     helm upgrade --install shield-elk $SHIELD_REPO/shield --namespace=elk \
