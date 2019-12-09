@@ -5,6 +5,7 @@ APPDIR="$(dirname "$(readlink -f "${0}")")" #"
 export PATH="$APPDIR/bin:$APPDIR/usr/bin:$PATH"
 export PYTHON="$APPDIR/usr/bin/python3"
 export ANSIBLE_PLAYBOOK="$APPDIR/usr/bin/ansible-playbook"
+export ANSIBLE_CONFIG="$APPDIR/ansible_playbooks/ansible.cfg"
 export ANSIBLE_HOST_KEY_CHECKING="False"
 
 "$PYTHON" "$APPDIR/shield-prepare-servers.py" "$@"
