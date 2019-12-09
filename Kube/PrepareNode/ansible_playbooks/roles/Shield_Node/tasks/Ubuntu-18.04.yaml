@@ -1,6 +1,11 @@
 ---
 - import_tasks: wait-for-apt_Ubuntu.yaml
 
+- name: Update and upgrade apt packages
+  apt:
+    upgrade: dist
+    update_cache: yes
+
 - name: Install Docker dependencies
   apt:
     name:
@@ -21,11 +26,6 @@
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
     state: present
-
-- name: Update and upgrade apt packages
-  apt:
-    upgrade: dist
-    update_cache: yes
 
 - name: Install Docker
   apt:
