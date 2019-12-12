@@ -83,7 +83,7 @@ download_and_check "$ES_file_helm" "$ES_repo_helm" "+x"
 download_and_check "$ES_file_addrepo" "$ES_repo_addrepo" "+x"
 download_and_check "$ES_file_deploy_shield" "$ES_repo_deploy_shield" "+x"
 download_and_check "$ES_file_delete_shield" "$ES_repo_delete_shield" "+x"
-download_and_check "$ES_file_prepare_servers" "$ES_repo_prepare_servers" "+x"
+#download_and_check "$ES_file_prepare_servers" "$ES_repo_prepare_servers" "+x"
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
