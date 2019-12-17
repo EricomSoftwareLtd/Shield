@@ -1,5 +1,5 @@
 #Build Build_579 on 17/12/19
-SHIELD_VER=8.0.0.latest SHIELD_VER=19.09.6:Build_579
+SHIELD_VER=8.0.0.latest SHIELD_VER=19.09.7:Build_579
 #docker-version 19.03.5 5:19.03.5~3-0~ubuntu-*
 shield-configuration:latest shield-configuration:190314-08.02-3983
 shield-consul-agent:latest shield-consul-agent:190624-14.49-4452
