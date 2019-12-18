@@ -201,6 +201,10 @@ function move_namespaces
 log_message "***************     Ericom Shield Installer $BRANCH ..."
 
 if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
+
+   #0.1.  Downloading Files
+   download_files
+   
    #1.  Run configure-sysctl-values.sh
    echo
    log_message "***************     Configure sysctl values"
