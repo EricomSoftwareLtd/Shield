@@ -9,7 +9,7 @@ ES_BRANCH_FILE="$ES_PATH/.esbranch"
 BRANCH="master"
 LOGFILE="$ES_PATH/last_deploy.log"
 CLUSTER_NAME="shield-cluster"
-RANCHER_CLI="false"
+RANCHER_CLI="true"
 
 function usage() {
     echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-f|--force] [-h|--help]"
@@ -154,7 +154,7 @@ function create_cluster(){
    fi  
 
    echo "Rancher login:"
-   rancher login $LOCAL_RANCHER_SERVER_URL --token $RANCHER_API_KEY
+   sudo rancher login --token $RANCHER_API_KEY --skip-verify $RANCHER_SERVER_URL
    sleep 5
    echo "Creating the Cluster:"
    rancher cluster create --network-provider flannel $CLUSTER_NAME
@@ -241,7 +241,7 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
       exit 1
    fi
 
-   if [ $RANCHER_CLI="true"]; then
+   if [ $RANCHER_CLI="true" ]; then
       install_if_not_installed jq
       sleep 5
       install_rancher_cli
