@@ -9,6 +9,7 @@ ES_BRANCH_FILE="$ES_PATH/.esbranch"
 BRANCH="master"
 LOGFILE="$ES_PATH/last_deploy.log"
 CLUSTER_NAME="shield-cluster"
+CLUSTER_CREATED="false"
 RANCHER_CLI="true"
 
 function usage() {
@@ -129,7 +130,7 @@ function generate_rancher_token() {
     fi
     echo "LOGINTOKEN=$LOGINTOKEN"
     if [ "$LOGINTOKEN" = null ]; then
-      exit
+       return 1
     fi
     # Create API key good forever
     RANCHER_API_KEY=`curl -k -s 'https://127.0.0.1:8443/v3/token' -H 'Content-Type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"type":"token","description":"for shield installations"}' | jq -r .token`
@@ -141,56 +142,56 @@ function generate_rancher_token() {
     SERVER_URL_JSN="{\"name\":\"server-url\",\"value\":\"${RANCHER_SERVER_URL}\"}"
     echo $SERVER_URL_JSN
     curl -k 'https://127.0.0.1:8443/v3/settings/server-url' -H 'Content-Type: application/json' -H "Authorization: Bearer $RANCHER_API_KEY" -X PUT --data-binary "$SERVER_URL_JSN"
+    return 0
 }
 
 # Create Cluster (Thx to Andrei)
 function create_cluster(){
-   
+
    if [ -z $RANCHER_API_KEY ]; then
       # Read the API details
       echo "It didnt work, please Create Rancher Token from UI"
       read -p 'Enter server URL https://<SERVER_URL>: ' LOCAL_RANCHER_SERVER_URL
       read -p 'Enter server BEARER TOKEN: ' RANCHER_API_KEY
-   fi  
+   fi
 
    echo "Rancher login:"
-   sudo rancher login --token $RANCHER_API_KEY --skip-verify $RANCHER_SERVER_URL
+   sudo rancher login --token $RANCHER_API_KEY --skip-verify $LOCAL_RANCHER_SERVER_URL
    sleep 5
    echo "Creating the Cluster:"
    rancher cluster create --network-provider flannel $CLUSTER_NAME
    rancher context switch
    echo "Registering node:"
-#   rancher cluster add-node $CLUSTER_NAME > setnode
-#   cat setnode
-#   sed -i 1d setnode
-#   line=$(head -n 1 setnode)
-#   adds=" --etcd --controlplane --worker"
-#   eval $line$adds
    ADD_NODE_CMD=$(rancher cluster add-node $CLUSTER_NAME | grep docker)
    ROLES_CMD=" --etcd --controlplane --worker"
 
-   eval $ADD_NODE_CMD$ROLES_CMD
-   sleep 5
-   rancher cluster kf $CLUSTER_NAME > ~/.kube/config
-   sleep 180
+   if [ ! -z $ADD_NODE_CMD ]; then
+      return 1
+    else
+      eval $ADD_NODE_CMD$ROLES_CMD
+      sleep 5
+      rancher cluster kf $CLUSTER_NAME > ~/.kube/config
+      sleep 180
+   fi
+   return 0
 }
 
 function move_namespaces
 {   
    # Create (if not exist) and moving Namespaces
-      if [ $(kubectl create namespace elk | grep -c elk) < 1 ]; then
+      if [ $(kubectl create namespace elk | grep -c elk) -ge 1 ]; then
       kubectl create namespace elk
    fi
    rancher namespaces move elk Default
-   if [ $(kubectl create namespace farm-services | grep -c farm-services) < 1 ]; then   
+   if [ $(kubectl create namespace farm-services | grep -c farm-services) -ge 1 ]; then
       kubectl create namespace farm-services
    fi   
    rancher namespaces move farm-services Default
-   if [ $(kubectl create namespace management | grep -c management) < 1 ]; then   
+   if [ $(kubectl create namespace management | grep -c management) -ge 1 ]; then
       kubectl create namespace management
    fi   
    rancher namespaces move management Default
-   if [ $(kubectl create namespace proxy | grep -c proxy) < 1 ]; then   
+   if [ $(kubectl create namespace proxy | grep -c proxy) -ge 1 ]; then
       kubectl create namespace proxy
    fi   
    rancher namespaces move proxy Default
@@ -266,6 +267,16 @@ if [ $? != 0 ]; then
    log_message "*************** $ES_file_helm Failed, Exiting!"
    exit 1
 fi
+
+#while :
+#    do
+#       TILLERSTATE=$(kubectl get deployment.apps/tiller-deploy -n kube-system | grep 1/1 )
+#       echo "Waiting for state to become available.: $TILLERSTATE" | tee -a $LOGFILE
+#       if [[ $TILLERSTATE -ge 1 ]] ;then
+#           break
+#       fi
+#       sleep 10
+#done
 
 #5. Adding Shield Repo
 echo
