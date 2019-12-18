@@ -161,11 +161,13 @@ function create_cluster(){
    echo "Creating the Cluster:"
    rancher cluster create --network-provider flannel $CLUSTER_NAME
    rancher context switch
+   CLUSTER_CREATED="true"
+   sleep 5
    echo "Registering node:"
    ADD_NODE_CMD=$(rancher cluster add-node $CLUSTER_NAME | grep docker)
    ROLES_CMD=" --etcd --controlplane --worker"
 
-   if [ ! -z $ADD_NODE_CMD ]; then
+   if [ ! -z ${ADD_NODE_CMD} ]; then
       return 1
     else
       eval $ADD_NODE_CMD$ROLES_CMD
@@ -179,22 +181,26 @@ function create_cluster(){
 function move_namespaces
 {   
    # Create (if not exist) and moving Namespaces
-      if [ $(kubectl create namespace elk | grep -c elk) -ge 1 ]; then
+   if [ $(kubectl get namespace elk | grep -c active) -ge 1 ]; then
       kubectl create namespace elk
    fi
    rancher namespaces move elk Default
-   if [ $(kubectl create namespace farm-services | grep -c farm-services) -ge 1 ]; then
+   if [ $(kubectl get namespace farm-services  | grep -c active) -ge 1 ]; then
       kubectl create namespace farm-services
    fi   
    rancher namespaces move farm-services Default
-   if [ $(kubectl create namespace management | grep -c management) -ge 1 ]; then
+   if [ $(kubectl get namespace management | grep -c active) -ge 1 ]; then
       kubectl create namespace management
    fi   
    rancher namespaces move management Default
-   if [ $(kubectl create namespace proxy | grep -c proxy) -ge 1 ]; then
+   if [ $(kubectl get namespace proxy | grep -c active) -ge 1 ]; then
       kubectl create namespace proxy
    fi   
-   rancher namespaces move proxy Default
+   rancher namespaces move management Default
+   if [ $(kubectl get namespace common | grep -c active) -ge 1 ]; then
+      kubectl create namespace common
+   fi   
+   rancher namespaces move common Default
    sleep 5
 }
 
@@ -247,12 +253,20 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
       sleep 5
       install_rancher_cli
       sleep 5
+      # wait launched rancher
+      log_message "Waiting for Rancher"
+      while ! curl -s -k "${RANCHER_SERVER_URL}/ping"; 
+      do 
+        sleep 3; 
+      done
+
       generate_rancher_token
       sleep 5
       create_cluster
       sleep 5
       move_namespaces
-   else
+   fi
+   if [ $CLUSTER_CREATED="false" ]; then
      echo
      echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
      exit 0
