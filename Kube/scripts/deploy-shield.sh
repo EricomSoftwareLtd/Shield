@@ -37,7 +37,6 @@ function usage() {
     echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
 
-
 function log_message() {
     local PREV_RET_CODE=$?
     echo "$@"
@@ -221,9 +220,9 @@ if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-common.yaml" ]; then
 fi
 helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
 
-if [ "$SHIELD_FARM" == "yes" ]; then
+if [ "$SHIELD_FARM" = "yes" ]; then
     log_message "***************     Deploying Shield Farm Services *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/farm-services=accept --overwrite
         kubectl label node --all shield-role/remote-browsers=accept --overwrite
     fi
@@ -237,9 +236,9 @@ if [ "$SHIELD_FARM" == "yes" ]; then
     sleep 30
 fi
 
-if [ "$SHIELD_MNG" == "yes" ]; then
+if [ "$SHIELD_MNG" = "yes" ]; then
     log_message "***************     Deploying Shield Management *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/management=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-management.yaml" ]; then
@@ -252,9 +251,9 @@ if [ "$SHIELD_MNG" == "yes" ]; then
     sleep 30
 fi
 
-if [ "$SHIELD_PROXY" == "yes" ]; then
+if [ "$SHIELD_PROXY" = "yes" ]; then
     log_message "***************     Deploying Shield Proxy *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/proxy=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-proxy.yaml" ]; then
@@ -268,9 +267,9 @@ if [ "$SHIELD_PROXY" == "yes" ]; then
     sleep 30
 fi
 
-if [ "$SHIELD_ELK" == "yes" ]; then
+if [ "$SHIELD_ELK" = "yes" ]; then
     log_message "***************     Deploying Shield ELK *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/elk=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-values-elk" ]; then

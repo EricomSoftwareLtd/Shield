@@ -8,9 +8,11 @@ ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 BRANCH="master"
 LOGFILE="$ES_PATH/last_deploy.log"
+RANCHER_CLI="false"
+RANCHER_URL_FILE="$ES_PATH/.esrancherurl"
+RANCHER_TOKEN_FILE="$ES_PATH/.esranchertoken"
 CLUSTER_NAME="shield-cluster"
 CLUSTER_CREATED="false"
-RANCHER_CLI="true"
 
 function usage() {
     echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-f|--force] [-h|--help]"
@@ -94,10 +96,7 @@ function download_files() {
 
 #########################################################################################################################
 
-CLUSTER_NAME="shield-cluster"
-ES_repo_rancher_cli="https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.xz"
-ES_file_rancher_cli="rancher-linux-amd64-v2.3.2.tar.xz"
-RANCHER_API_KEY="NDY"
+RANCHER_API_TOKEN="NDY"
 RANCHER_SERVER_URL="NDY"
 LOCAL_RANCHER_SERVER_URL="https://127.0.0.1:8443"
 
@@ -119,6 +118,16 @@ function install_rancher_cli() {
 
 # Generate Rancher Token (Thx to Erez)
 function generate_rancher_token() {
+    #read es_rancher files
+
+    if [ -f $RANCHER_URL_FILE ];then
+       RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
+    fi
+
+    if [ -f $RANCHER_TOKEN_FILE ];then
+       RANCHER_API_TOKEN=$(cat $RANCHER_TOKEN_FILE)
+    fi
+
     # Login token good for 1 minute
     LOGINTOKEN=`curl -k -s 'https://127.0.0.1:8443/v3-public/localProviders/local?action=login' -H 'content-type: application/json' --data-binary '{"username":"admin","password":"admin","ttl":60000}' | jq -r .token`
     if [ "$LOGINTOKEN" = null ]; then
@@ -131,31 +140,81 @@ function generate_rancher_token() {
     if [ "$LOGINTOKEN" = null ]; then
        return 1
     fi
-    # Create API key good forever
-    RANCHER_API_KEY=`curl -k -s 'https://127.0.0.1:8443/v3/token' -H 'Content-Type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"type":"token","description":"for shield installations"}' | jq -r .token`
-    echo "API Key: ${RANCHER_API_KEY}"
+    # Create API Token good forever
+    RANCHER_API_TOKEN=`curl -k -s 'https://127.0.0.1:8443/v3/token' -H 'Content-Type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"type":"token","description":"for shield installations"}' | jq -r .token`
+    echo "API Token: ${RANCHER_API_TOKEN}"
+    echo $RANCHER_API_TOKEN > $RANCHER_TOKEN_FILE    
     # Set server-url
-    MY_IP="$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')"
-    RANCHER_SERVER_URL="https://$MY_IP:8443"
     echo "SERVER_URL=$RANCHER_SERVER_URL"
     SERVER_URL_JSN="{\"name\":\"server-url\",\"value\":\"${RANCHER_SERVER_URL}\"}"
     echo $SERVER_URL_JSN
-    curl -k 'https://127.0.0.1:8443/v3/settings/server-url' -H 'Content-Type: application/json' -H "Authorization: Bearer $RANCHER_API_KEY" -X PUT --data-binary "$SERVER_URL_JSN"
+    curl -k 'https://127.0.0.1:8443/v3/settings/server-url' -H 'Content-Type: application/json' -H "Authorization: Bearer $RANCHER_API_TOKEN" -X PUT --data-binary "$SERVER_URL_JSN"
+    return 0
+}
+
+# Wait until Rancher is launched
+function wait_for_rancher(){
+    #read es_rancher files
+    #read es_rancher files
+    if [ -f $RANCHER_URL_FILE ];then
+       RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
+     else
+       MY_IP="$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')"
+       RANCHER_SERVER_URL="https://$MY_IP:8443"
+       echo $RANCHER_SERVER_URL > $RANCHER_URL_FILE
+    fi   
+    log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
+    RANCHER_PONG="NDY"
+    wait_count=0
+    while [ ! "$RANCHER_PONG" = "pong" ] && ((wait_count < 10)); do
+      echo -n .
+      sleep 3
+      wait_count=$((wait_count + 1))
+      RANCHER_PONG=$(curl -s -k "${RANCHER_SERVER_URL}/ping")
+      echo "$RANCHER_PONG"
+    done
+    if [ ! "$RANCHER_PONG" = "pong" ]; then
+      echo
+      log_message "Error: Cannot Connect to Rancher on: ${RANCHER_SERVER_URL}"
+      exit 1
+     else
+      echo "ok!"
+      return 0
+    fi
+}
+
+function wait_for_rancher_cluster(){
+    # Wait until Cluster is available
+    log_message "Waiting for Shield Cluster state to become available ."
+    CLUSTER_STATE=0
+    wait_count=0
+    while [ "$CLUSTER_STATE" -lt 1 ] && ((wait_count < 30)); do
+      echo -n .
+      sleep 10
+      wait_count=$((wait_count + 1))
+      CLUSTER_STATE=$(rancher cluster shield-cluster | grep -c -w available)
+    done
+    if [ "$CLUSTER_STATE" -lt 1 ]; then
+      echo
+      log_message "Error: Shield Cluster is not available, please check on Rancher UI."
+      exit 1
+    fi
+    echo "ok!"
     return 0
 }
 
 # Create Cluster (Thx to Andrei)
-function create_cluster(){
+function create_rancher_cluster(){
 
-   if [ -z $RANCHER_API_KEY ]; then
+   if [ -z $RANCHER_API_TOKEN ]; then
       # Read the API details
       echo "It didnt work, please Create Rancher Token from UI"
       read -p 'Enter server URL https://<SERVER_URL>: ' LOCAL_RANCHER_SERVER_URL
-      read -p 'Enter server BEARER TOKEN: ' RANCHER_API_KEY
+      read -p 'Enter server BEARER TOKEN: ' RANCHER_API_TOKEN
    fi
 
    echo "Rancher login:"
-   sudo rancher login --token $RANCHER_API_KEY --skip-verify $LOCAL_RANCHER_SERVER_URL
+   rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
    sleep 5
    echo "Creating the Cluster:"
    rancher cluster create --network-provider flannel $CLUSTER_NAME
@@ -166,14 +225,16 @@ function create_cluster(){
    ADD_NODE_CMD=$(rancher cluster add-node $CLUSTER_NAME | grep docker)
    ROLES_CMD=" --etcd --controlplane --worker"
 
-   if [ ! -z ${ADD_NODE_CMD} ]; then
+   if [ ! -z "${ADD_NODE_CMD}" ]; then
       return 1
     else
       eval $ADD_NODE_CMD$ROLES_CMD
-      sleep 5
-      rancher cluster kf $CLUSTER_NAME > ~/.kube/config
-      sleep 180
    fi
+   
+   wait_for_rancher_cluster
+   
+   rancher cluster kf $CLUSTER_NAME > ~/.kube/config
+   
    return 0
 }
 
@@ -201,6 +262,27 @@ function move_namespaces
    fi   
    rancher namespaces move common Default
    sleep 5
+}
+
+function wait_for_tiller(){
+    # Wait until Tiller is available
+    log_message "Waiting for Tiller state to become available.: $TILLERSTATE"
+    TILLERSTATE=0
+    wait_count=0
+    while [ "$TILLERSTATE" -lt 1 ] && ((wait_count < 10)); do
+      echo -n .
+      sleep 3
+      wait_count=$((wait_count + 1))
+      TILLERSTATE=$(kubectl get deployment.apps/tiller-deploy -n kube-system | grep -c 1/1 )
+    done
+    if [ "$TILLERSTATE" -lt 1 ]; then
+      echo
+      log_message "Error: Tiller Deployment is not available "
+      exit 1
+     else
+      echo "ok!"
+      return 0
+    fi
 }
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
@@ -247,29 +329,26 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
       exit 1
    fi
 
-   if [ $RANCHER_CLI="true" ]; then
+   if [ $RANCHER_CLI = "true" ]; then
+
       install_if_not_installed jq
-      sleep 5
+
       install_rancher_cli
-      sleep 5
-      # wait launched rancher
-      log_message "Waiting for Rancher"
-      while ! curl -s -k "${RANCHER_SERVER_URL}/ping"; 
-      do 
-        sleep 3; 
-      done
+
+      wait_for_rancher
 
       generate_rancher_token
-      sleep 5
-      create_cluster
-      sleep 5
+
+      create_rancher_cluster
+
       move_namespaces
    fi
-   if [ $CLUSTER_CREATED="false" ]; then
+
+   if [ $CLUSTER_CREATED = "false" ]; then
      echo
      echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
      exit 0
-   fi  
+   fi
 fi
 
 #4. install-helm.sh
@@ -281,15 +360,7 @@ if [ $? != 0 ]; then
    exit 1
 fi
 
-#while :
-#    do
-#       TILLERSTATE=$(kubectl get deployment.apps/tiller-deploy -n kube-system | grep 1/1 )
-#       echo "Waiting for state to become available.: $TILLERSTATE" | tee -a $LOGFILE
-#       if [[ $TILLERSTATE -ge 1 ]] ;then
-#           break
-#       fi
-#       sleep 10
-#done
+wait_for_tiller
 
 #5. Adding Shield Repo
 echo
