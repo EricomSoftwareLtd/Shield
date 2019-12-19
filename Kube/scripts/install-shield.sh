@@ -47,7 +47,7 @@ ES_repo_helm="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH
 ES_repo_addrepo="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/add-shield-repo.sh"
 ES_repo_deploy_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/deploy-shield.sh"
 ES_repo_delete_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/delete-shield.sh"
-ES_repo_prepare_servers= "https://github.com/EricomSoftwareLtd/Shield/releases/download/shield-prepare-servers-$BRANCH/shield-prepare-servers"
+ES_repo_prepare_servers="https://github.com/EricomSoftwareLtd/Shield/releases/download/shield-prepare-servers-$BRANCH/shield-prepare-servers"
 ES_repo_rancher_cli="https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.xz"
 
 ES_file_sysctl="configure-sysctl-values.sh"
