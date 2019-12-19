@@ -219,6 +219,8 @@ function create_rancher_cluster(){
    echo "Creating the Cluster:"
    rancher cluster create --network-provider flannel $CLUSTER_NAME
    rancher context switch
+   echo "Rancher login (again):"
+   rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
    CLUSTER_CREATED="true"
    sleep 5
    echo "Registering node:"
