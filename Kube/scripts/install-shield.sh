@@ -225,7 +225,7 @@ function create_rancher_cluster(){
    ADD_NODE_CMD=$(rancher cluster add-node $CLUSTER_NAME | grep docker)
    ROLES_CMD=" --etcd --controlplane --worker"
 
-   if [ ! -z "${ADD_NODE_CMD}" ]; then
+   if [ -z "${ADD_NODE_CMD}" ]; then
       return 1
     else
       eval $ADD_NODE_CMD$ROLES_CMD
