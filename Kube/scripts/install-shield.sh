@@ -19,27 +19,6 @@ function usage() {
     echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-r|--ranchercli] [-f|--force] [-h|--help]"
 }
 
-while [ $# -ne 0 ]; do
-    arg="$1"
-    case "$arg" in
-    -d | --dev) # Dev Channel (dev branch)
-        echo -n "Dev" >"$ES_BRANCH_FILE"
-        ;;
-    -s | --staging) # Staging Channel (staging Branch)
-        echo -n "Staging" >"$ES_BRANCH_FILE"
-        ;;
-    -r | --ranchercli)
-        RANCHER_CLI=true
-        ;;
-    -h | --help)
-#    *)
-        usage
-        exit
-        ;;
-    esac
-    shift
-done
-
 #Check if we are root
 if ((EUID != 0)); then
     # sudo su
@@ -56,6 +35,27 @@ if [ ! -d $ES_PATH ]; then
 fi
 
 cd "$ES_PATH" || exit 1
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -d | --dev) # Dev Channel (dev branch)
+        echo -n "Dev" >"$ES_BRANCH_FILE"
+        ;;
+    -s | --staging) # Staging Channel (staging Branch)
+        echo -n "Staging" >"$ES_BRANCH_FILE"
+        ;;
+    -r | --ranchercli)
+        RANCHER_CLI="true"
+        ;;
+    -h | --help)
+#    *)
+        usage
+        exit
+        ;;
+    esac
+    shift
+done
 
 if [ -f "$ES_BRANCH_FILE" ]; then
     BRANCH=$(cat "$ES_BRANCH_FILE")
@@ -271,23 +271,23 @@ function create_rancher_cluster(){
 function move_namespaces
 {   
    # Create (if not exist) and moving Namespaces
-   if [ $(kubectl get namespace | grep elk | grep -c Active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep elk | grep -c Active) -le 0 ]; then
       kubectl create namespace elk
    fi
    rancher namespaces move elk Default
-   if [ $(kubectl get namespace | grep farm-services  | grep -c Active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep farm-services  | grep -c Active) -le 0 ]; then
       kubectl create namespace farm-services
    fi   
    rancher namespaces move farm-services Default
-   if [ $(kubectl get namespace | grep management | grep -c Active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep management | grep -c Active) -le 0 ]; then
       kubectl create namespace management
    fi   
    rancher namespaces move management Default
-   if [ $(kubectl get namespace | grep proxy | grep -c Active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep proxy | grep -c Active) -le 0 ]; then
       kubectl create namespace proxy
    fi   
    rancher namespaces move management Default
-   if [ $(kubectl get namespace | grep common | grep -c Active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep common | grep -c Active) -le 0 ]; then
       kubectl create namespace common
    fi   
    rancher namespaces move common Default
@@ -302,7 +302,7 @@ function wait_for_tiller(){
       echo -n .
       sleep 3
       wait_count=$((wait_count + 1))
-      TILLERSTATE=$(kubectl get deployment.apps/tiller-deploy -n kube-system | grep -c 1/1 )
+      TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1 )
     done
     if [ "$TILLERSTATE" -lt 1 ]; then
       echo

@@ -110,7 +110,8 @@ while [ $# -ne 0 ]; do
     -l | --list-versions)
         list_versions
         ;;
-    *)
+    -h | --help)
+#    *)
         usage "$0"
         exit
         ;;
