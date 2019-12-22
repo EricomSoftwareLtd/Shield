@@ -36,6 +36,8 @@ fi
 
 cd "$ES_PATH" || exit 1
 
+args="$@"
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -414,7 +416,7 @@ step
 #5. Adding Shield Repo
 echo
 log_message "***************     Adding Shield Repo"
-source "./$ES_file_addrepo" $@
+source "./$ES_file_addrepo" "$args"
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_repo Failed, Exiting!"
    exit 1
