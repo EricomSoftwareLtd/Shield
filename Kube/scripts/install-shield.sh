@@ -4,6 +4,7 @@
 #######################################BH###
 
 NOT_FOUND_STR="404: Not Found"
+STEP_BY_STEP="false"
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 BRANCH="master"
@@ -15,8 +16,29 @@ CLUSTER_NAME="shield-cluster"
 CLUSTER_CREATED="false"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-f|--force] [-h|--help]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-r|--ranchercli] [-f|--force] [-h|--help]"
 }
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -d | --dev) # Dev Channel (dev branch)
+        echo -n "Dev" >"$ES_BRANCH_FILE"
+        ;;
+    -s | --staging) # Staging Channel (staging Branch)
+        echo -n "Staging" >"$ES_BRANCH_FILE"
+        ;;
+    -r | --ranchercli)
+        RANCHER_CLI=true
+        ;;
+    -h | --help)
+#    *)
+        usage
+        exit
+        ;;
+    esac
+    shift
+done
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -69,6 +91,12 @@ function log_message() {
         return 1
     fi
     return 0
+}
+
+function step() {
+    if [ $STEP_BY_STEP = "true" ];then
+       read -p 'Press Enter to continue...' ENTER
+    fi
 }
 
 function download_and_check() {
@@ -184,19 +212,19 @@ function wait_for_rancher(){
 }
 
 function wait_for_rancher_cluster(){
-    # Wait until Cluster is available
-    log_message "Waiting for Shield Cluster state to become available ."
+    # Wait until Cluster is active
+    log_message "Waiting for Shield Cluster state to become active ."
     CLUSTER_STATE=0
     wait_count=0
     while [ "$CLUSTER_STATE" -lt 1 ] && ((wait_count < 30)); do
       echo -n .
       sleep 10
       wait_count=$((wait_count + 1))
-      CLUSTER_STATE=$(rancher cluster shield-cluster | grep -c -w available)
+      CLUSTER_STATE=$(rancher cluster shield-cluster | grep -c -w active)
     done
     if [ "$CLUSTER_STATE" -lt 1 ]; then
       echo
-      log_message "Error: Shield Cluster is not available, please check on Rancher UI."
+      log_message "Error: Shield Cluster is not active, please check on Rancher UI."
       exit 1
     fi
     echo "ok!"
@@ -243,27 +271,26 @@ function create_rancher_cluster(){
 function move_namespaces
 {   
    # Create (if not exist) and moving Namespaces
-   if [ $(kubectl get namespace elk | grep -c active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep elk | grep -c Active) -ge 1 ]; then
       kubectl create namespace elk
    fi
    rancher namespaces move elk Default
-   if [ $(kubectl get namespace farm-services  | grep -c active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep farm-services  | grep -c Active) -ge 1 ]; then
       kubectl create namespace farm-services
    fi   
    rancher namespaces move farm-services Default
-   if [ $(kubectl get namespace management | grep -c active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep management | grep -c Active) -ge 1 ]; then
       kubectl create namespace management
    fi   
    rancher namespaces move management Default
-   if [ $(kubectl get namespace proxy | grep -c active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep proxy | grep -c Active) -ge 1 ]; then
       kubectl create namespace proxy
    fi   
    rancher namespaces move management Default
-   if [ $(kubectl get namespace common | grep -c active) -ge 1 ]; then
+   if [ $(kubectl get namespace | grep common | grep -c Active) -ge 1 ]; then
       kubectl create namespace common
    fi   
    rancher namespaces move common Default
-   sleep 5
 }
 
 function wait_for_tiller(){
@@ -304,6 +331,8 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
       exit 1
    fi
 
+   step
+
    #2.  install-docker.sh
    echo
    log_message "***************     Installing Docker"
@@ -313,6 +342,8 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
       exit 1
    fi
 
+   step
+
    #3.  install-kubectl.sh
    echo
    log_message "***************     Installing Kubectl"
@@ -321,6 +352,8 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
       log_message "*************** $ES_file_kubectl Failed, Exiting!"
       exit 1
    fi
+   
+   step
 
    #4.  run-rancher.sh
    echo
@@ -337,13 +370,23 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
 
       install_rancher_cli
 
+      step
+
       wait_for_rancher
+
+      step
 
       generate_rancher_token
 
+      step
+
       create_rancher_cluster
 
+      step
+
       move_namespaces
+
+      step
    fi
 
    if [ $CLUSTER_CREATED = "false" ]; then
@@ -362,7 +405,11 @@ if [ $? != 0 ]; then
    exit 1
 fi
 
+step
+
 wait_for_tiller
+
+step
 
 #5. Adding Shield Repo
 echo
@@ -372,6 +419,8 @@ if [ $? != 0 ]; then
    log_message "*************** $ES_file_repo Failed, Exiting!"
    exit 1
 fi
+
+step
 
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
