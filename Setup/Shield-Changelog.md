@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-19.12_Build_590] - 27-11-2019 - Kubernetes Version Only
+
+### New Features
+
+- Change Intelligent Mode License Definition
+- Admin: Services Page
+- Admin: Users Reports (Active Session, Active Users, Named Users)
+- TechPreview: Retrieve Original Files (CDR) from the Admin
+- TechPreview: Crystal - Many Improvements and Bug Fixes
+
+### Enhancement
+
+- ELK Stability Improvements and Bug Fixes
+- Votiro version is now displayed at the admin
+- Monitor Shield Services in Kube
+- New Alerts:
+    - "Some replicas of the following services are not running: ServicesList"
+    - "There are currently no standby remote browsers"
+- Removed two alerts:
+    - "High number of critical errors in the log"
+    - "Some URLs loaded too slow by the Browsers Farm"
+- Hide anti-phishing settings from Admin when there is no Category license
+- Dashboard Notifications - Add start timestamp
+- Health-Check point for Shield http://<SHIELD_SERVER>/health
+
+### Bug Fixes
+
+- Fixed: system ID change when redeploy shield
+- Fixed: Kibana in elk namespace crash
+- Fixed: Kibana server is not ready yet
+- Fixed: Kibana time out after restart shield
+- Fixed: Phishing section is missing from the admin
+- Fixed: outlook.com is stuck
+- Fixed: Scaler on AWS fails to calculate max remote browsers : "Missing credentials in config"
+- Fixed: "Must connect using SSL encryption" message
+- Fixed: flash on http://www.mext.go.jp/programin/app/
+- Fixed: google docs - conversion candidate window
+- Fixed: Blocked page on IE receives an error HTTP 403 instead of the Blocked Page
+- Fixed: Align all alerts to work in "Dynamic Nodes" mode
+- Fixed: Indicator spins forever when edit application table
+- Fixed: members of Domain Users AD group are not being published
+
 ## [Rel-19.09.6_Build_579] - 14-11-2019
 
 ### Bug Fixes Rel-19.09.6
