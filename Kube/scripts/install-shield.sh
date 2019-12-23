@@ -416,7 +416,7 @@ step
 #5. Adding Shield Repo
 echo
 log_message "***************     Adding Shield Repo"
-"./$ES_file_addrepo" "{$args}"
+"./$ES_file_addrepo" $args
 
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_repo Failed, Exiting!"
@@ -427,7 +427,7 @@ step
 
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
-"./$ES_file_deploy_shield" "{$args}"
+"./$ES_file_deploy_shield" $args
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
    exit 1

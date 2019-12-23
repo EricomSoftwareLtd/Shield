@@ -122,7 +122,7 @@ done
 if [ "$PASSWORD" == "" ]; then
     echo " Error: Password is missing"
     usage
-    exit
+    exit 1
 fi
 
 helm repo add shield-repo --username=ericom --password=$PASSWORD $SHIELD_REPO
