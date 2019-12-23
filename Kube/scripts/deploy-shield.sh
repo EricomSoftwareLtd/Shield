@@ -162,8 +162,8 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
-    #        -h|--help)
-    *)
+    -h | --help)
+#    *)
         usage
         exit
         ;;

@@ -16,7 +16,7 @@ CLUSTER_NAME="shield-cluster"
 CLUSTER_CREATED="false"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-r|--ranchercli] [-f|--force] [-h|--help]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-R|--ranchercli] [-f|--force] [-h|--help]"
 }
 
 #Check if we are root
@@ -47,7 +47,7 @@ while [ $# -ne 0 ]; do
     -s | --staging) # Staging Channel (staging Branch)
         echo -n "Staging" >"$ES_BRANCH_FILE"
         ;;
-    -r | --ranchercli)
+    -R | --ranchercli)
         RANCHER_CLI="true"
         ;;
     -h | --help)
@@ -321,7 +321,7 @@ log_message "***************     Ericom Shield Installer $BRANCH ..."
 
 if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
 
-   #0.1.  Downloading Files
+   #0.  Downloading Files
    download_files
    
    #1.  Run configure-sysctl-values.sh
@@ -416,7 +416,8 @@ step
 #5. Adding Shield Repo
 echo
 log_message "***************     Adding Shield Repo"
-source "./$ES_file_addrepo" "$args"
+"./$ES_file_addrepo" "{$args}"
+
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_repo Failed, Exiting!"
    exit 1
@@ -426,7 +427,7 @@ step
 
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
-bash "./$ES_file_deploy_shield"
+"./$ES_file_deploy_shield" "{$args}"
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
    exit 1
