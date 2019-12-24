@@ -3,10 +3,11 @@
 #####   Ericom Shield Installer:Helm   #####
 #######################################BH###
 APP="Helm"
-APP_VERSION="v2.14.2"
+APP_VERSION="v2.14.3"
 APP_BIN="helm"
 ES_FORCE=false
 ES_CLEAN=false
+ES_INIT=false
 BRANCH="master"
 
 function usage() {
@@ -16,6 +17,9 @@ function usage() {
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
+    -i | --init)
+        ES_INIT=true
+        ;;
     -f | --force)
         ES_FORCE=true
         ;;
@@ -23,7 +27,7 @@ while [ $# -ne 0 ]; do
         ES_CLEAN=true
         ;;
     -h | --help)
-#    *)
+        #    *)
         usage
         exit
         ;;
@@ -32,7 +36,9 @@ while [ $# -ne 0 ]; do
 done
 
 helm_init() {
-    curl -s -o rbac-config.yaml "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/rbac-config.yaml"
+    if ! [ -f rbac-config.yaml ]; then
+        curl -s -o rbac-config.yaml "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/rbac-config.yaml"
+    fi
     kubectl -n kube-system create serviceaccount tiller
     kubectl create clusterrolebinding tiller \
         --clusterrole cluster-admin \
@@ -58,9 +64,11 @@ if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
     rm -f /tmp/get_helm.sh
 
     source <(helm completion bash)
-    echo "Done!"
-    echo "Init tiller"
-    helm_init
+
+    docker pull "gcr.io/kubernetes-helm/tiller:$APP_VERSION"
+
+    echo "Helm has been installed"
+    ES_INIT=true
 else
     echo "$APP is already installed"
 fi
@@ -68,6 +76,10 @@ fi
 if [ "$ES_CLEAN" == true ]; then
     echo "Clean tiller"
     helm_clean
+    ES_INIT=true
+fi
+
+if [ "$ES_INIT" == true ]; then
     echo "Init tiller"
     helm_init
 fi
