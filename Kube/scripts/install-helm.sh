@@ -44,7 +44,7 @@ helm_init() {
         --clusterrole cluster-admin \
         --serviceaccount=kube-system:tiller
     kubectl create -f rbac-config.yaml
-    helm init --upgrade --service-account=tiller
+    helm init --upgrade --wait --service-account=tiller
     kubectl create rolebinding default-view --clusterrole=view --serviceaccount=kube-system:default --namespace=kube-system
     kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
 }
