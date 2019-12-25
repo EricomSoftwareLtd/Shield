@@ -38,6 +38,9 @@ echo "Abort the script with 'Ctrl c' if this is not what you want to do (5s)"
 echo
 sleep 5
 
+rm -f ~/.kube/config
+rm -f ~/.rancher/cli2.json
+
 docker rm -f $(docker ps -qa)
 docker volume rm $(docker volume ls -q)
 cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke"

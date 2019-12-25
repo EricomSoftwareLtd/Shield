@@ -3,11 +3,14 @@
 shieldmng:
   enabled: true
 shield-mng:
+# Time Zone (By default Rancher Server OS' TimeZone is used)
 #  TZ: "IDT"
+# Define Replica Number for Shield Components (HA:2(default), No HA:1)
+#  hascale: 1
+
   consulBackup:
-    enabled: "yes"
     # Local Path (Uncomment to use a specific local folder for backup):
-    #localPath: /home/ericom/shield/backup/
+    #localPath: /home/ericomshield/backup/
     # For sftp backup, uncomment and set the backup path (on the ftp server):
     #remotePath: "SFTPStorage:/home/ericom/"
     # For S3 change config:
@@ -40,6 +43,7 @@ shield-mng:
 #############################################################
 #   For Internal Use only - Please do not edit this section
 consul:
+ # replicas: 1
   enabled: true
   client:
     ports:

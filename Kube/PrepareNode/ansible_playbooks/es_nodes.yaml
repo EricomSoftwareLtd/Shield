@@ -1,0 +1,5 @@
+---
+- name: Prepare Servers for Ericom Shield
+  hosts: all
+  roles:
+     - { role: Shield_Node, become: yes }
