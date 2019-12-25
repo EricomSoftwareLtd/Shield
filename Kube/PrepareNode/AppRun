@@ -5,29 +5,7 @@ APPDIR="$(dirname "$(readlink -f "${0}")")" #"
 export PATH="$APPDIR/bin:$APPDIR/usr/bin:$PATH"
 export PYTHON="$APPDIR/usr/bin/python3"
 export ANSIBLE_PLAYBOOK="$APPDIR/usr/bin/ansible-playbook"
+export ANSIBLE_CONFIG="$APPDIR/ansible_playbooks/ansible.cfg"
 export ANSIBLE_HOST_KEY_CHECKING="False"
 
-# Allow the AppImage to be symlinked to e.g., /usr/bin/commandname
-# or called with ./Some*.AppImage commandname ...
-
-if [ ! -z "$APPIMAGE" ]; then
-    BINARY_NAME="$(basename "$ARGV0")"
-else
-    BINARY_NAME="$(basename "$0")"
-fi
-if [ ! -z "$1" ] && [ -e "$APPDIR/bin/$1" ]; then
-    MAIN="$APPDIR/bin/$1"
-    shift
-elif [ ! -z "$1" ] && [ -e "$APPDIR/usr/bin/$1" ]; then
-    MAIN="$APPDIR/usr/bin/$1"
-    shift
-elif [ -e "$APPDIR/bin/$BINARY_NAME" ]; then
-    MAIN="$APPDIR/bin/$BINARY_NAME"
-elif [ -e "$APPDIR/usr/bin/$BINARY_NAME" ]; then
-    MAIN="$APPDIR/usr/bin/$BINARY_NAME"
-else
-    "$PYTHON" "$APPDIR/prepare_node.py" "$@"
-    exit $?
-fi
-
-exec "${MAIN}" "$@"
+"$PYTHON" "$APPDIR/shield-prepare-servers.py" "$@"

@@ -1,6 +1,0 @@
----
-- name: Prepare Node
-  hosts: all
-  become: True
-  tasks:
-    - import_tasks: prepare_node_tasks.yaml
