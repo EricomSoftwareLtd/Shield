@@ -47,6 +47,9 @@ while [ $# -ne 0 ]; do
     -s | --staging) # Staging Channel (staging Branch)
         echo -n "Staging" >"$ES_BRANCH_FILE"
         ;;
+    -v | --version)
+        shift
+        echo -n "$1" >"$ES_BRANCH_FILE"
     -R | --ranchercli)
         RANCHER_CLI="true"
         ;;
