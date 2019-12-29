@@ -80,13 +80,7 @@ function list_versions() {
     echo -n $BRANCH >"$ES_BRANCH_FILE"
     REPO=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
     SHIELD_REPO="$SHIELD_REPO_URL/$REPO"
-
-    echo "$SHIELD_REPO" "$BRANCH"
 }
-
-if [ -f "$ES_BRANCH_FILE" ]; then
-    BRANCH=$(cat "$ES_BRANCH_FILE")
-fi
 
 while [ $# -ne 0 ]; do
     arg="$1"
@@ -97,7 +91,11 @@ while [ $# -ne 0 ]; do
         ;;
     -v | --version)
         shift
-        SHIELD_REPO="$SHIELD_REPO_URL/$1"
+        echo -n "$1" >"$ES_BRANCH_FILE"
+        REPO=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+        REPO=$(echo ${REPO//[-.]/})
+        SHIELD_REPO="$SHIELD_REPO_URL/$REPO"
+        echo $SHIELD_REPO
         ;;
     -d | --dev) # Dev Channel (dev branch)
         SHIELD_REPO="$SHIELD_REPO_URL/dev"
@@ -118,6 +116,13 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
+
+echo "Branch:" "$BRANCH"
+echo "Shield-Repo:" "$SHIELD_REPO"
 
 if [ "$PASSWORD" == "" ]; then
     echo " Error: Password is missing"
