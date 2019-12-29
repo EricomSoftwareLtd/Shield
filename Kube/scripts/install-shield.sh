@@ -50,6 +50,7 @@ while [ $# -ne 0 ]; do
     -v | --version)
         shift
         echo -n "$1" >"$ES_BRANCH_FILE"
+        ;;        
     -R | --ranchercli)
         RANCHER_CLI="true"
         ;;
