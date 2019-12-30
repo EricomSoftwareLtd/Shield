@@ -1,0 +1,24 @@
+---
+- name: Upgrade all packages
+  dnf:
+    name: "*"
+    state: latest
+
+- name: Install the latest version of Podman and Podman Docker CLI packages
+  dnf:
+    name:
+      - podman-docker
+    state: latest
+
+- import_tasks: disable-swap_common.yaml
+
+- import_tasks: sysctl_common.yaml
+
+- import_tasks: disable-firewalld_common.yaml
+
+- name: Reboot node(s)
+  reboot:
+
+- name: Autoremove unneeded packages installed as dependencies
+  dnf:
+    autoremove: yes

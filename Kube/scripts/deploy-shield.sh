@@ -13,6 +13,7 @@ NOT_FOUND_STR="404: Not Found"
 EULA_ACCEPTED_FILE=".eula_accepted"
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
+LOGFILE="$ES_PATH/last_deploy.log"
 BRANCH="master"
 ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
 SHIELD_NS_COUNT=5
@@ -29,8 +30,6 @@ echo $SYSTEMID
 # shield-role/elk=accept
 # shield-role/farm-services=accept
 # shield-role/remote-browsers=accept
-
-LOGFILE=last_deploy.log
 
 function usage() {
     echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-h|--help]"
@@ -163,8 +162,8 @@ while [ $# -ne 0 ]; do
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
-    #        -h|--help)
-    *)
+    -h | --help)
+#    *)
         usage
         exit
         ;;
@@ -221,9 +220,9 @@ if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-common.yaml" ]; then
 fi
 helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
 
-if [ "$SHIELD_FARM" == "yes" ]; then
+if [ "$SHIELD_FARM" = "yes" ]; then
     log_message "***************     Deploying Shield Farm Services *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/farm-services=accept --overwrite
         kubectl label node --all shield-role/remote-browsers=accept --overwrite
     fi
@@ -237,9 +236,9 @@ if [ "$SHIELD_FARM" == "yes" ]; then
     sleep 30
 fi
 
-if [ "$SHIELD_MNG" == "yes" ]; then
+if [ "$SHIELD_MNG" = "yes" ]; then
     log_message "***************     Deploying Shield Management *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/management=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-management.yaml" ]; then
@@ -252,9 +251,9 @@ if [ "$SHIELD_MNG" == "yes" ]; then
     sleep 30
 fi
 
-if [ "$SHIELD_PROXY" == "yes" ]; then
+if [ "$SHIELD_PROXY" = "yes" ]; then
     log_message "***************     Deploying Shield Proxy *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/proxy=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-proxy.yaml" ]; then
@@ -268,12 +267,12 @@ if [ "$SHIELD_PROXY" == "yes" ]; then
     sleep 30
 fi
 
-if [ "$SHIELD_ELK" == "yes" ]; then
+if [ "$SHIELD_ELK" = "yes" ]; then
     log_message "***************     Deploying Shield ELK *******************************"
-    if [ "$SET_LABELS" == "yes" ]; then
+    if [ "$SET_LABELS" = "yes" ]; then
         kubectl label node --all shield-role/elk=accept --overwrite
     fi
-    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-values-elk" ]; then
+    if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-values-elk.yaml" ]; then
         download_and_check custom-values-elk.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-values-elk.yaml
     fi
     helm upgrade --install shield-elk $SHIELD_REPO/shield --namespace=elk \
@@ -283,3 +282,4 @@ if [ "$SHIELD_ELK" == "yes" ]; then
 fi
 
 log_message "***************     Done!"
+exit 0

@@ -10,7 +10,7 @@ NOT_FOUND_STR="404: Not Found"
 PASSWORD=""
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-LOGFILE=last_deploy.log
+LOGFILE="$ES_PATH/last_deploy.log"
 
 function usage() {
     echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-l|--list-versions]"
@@ -25,6 +25,12 @@ function log_message() {
     fi
     return 0
 }
+
+# Create the Ericom empty dir if necessary
+if [ ! -d $ES_PATH ]; then
+    mkdir -p $ES_PATH
+    chmod 0755 $ES_PATH
+fi
 
 function download_and_check() {
     curl -s -S -o "$1" "$2"
@@ -74,13 +80,7 @@ function list_versions() {
     echo -n $BRANCH >"$ES_BRANCH_FILE"
     REPO=$(grep "$OPTION" Releases.txt | cut -d':' -f2)
     SHIELD_REPO="$SHIELD_REPO_URL/$REPO"
-
-    echo "$SHIELD_REPO" "$BRANCH"
 }
-
-if [ -f "$ES_BRANCH_FILE" ]; then
-    BRANCH=$(cat "$ES_BRANCH_FILE")
-fi
 
 while [ $# -ne 0 ]; do
     arg="$1"
@@ -91,7 +91,11 @@ while [ $# -ne 0 ]; do
         ;;
     -v | --version)
         shift
-        SHIELD_REPO="$SHIELD_REPO_URL/$1"
+        echo -n "$1" >"$ES_BRANCH_FILE"
+        REPO=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+        REPO=$(echo ${REPO//[-.]/})
+        SHIELD_REPO="$SHIELD_REPO_URL/$REPO"
+        echo $SHIELD_REPO
         ;;
     -d | --dev) # Dev Channel (dev branch)
         SHIELD_REPO="$SHIELD_REPO_URL/dev"
@@ -104,7 +108,8 @@ while [ $# -ne 0 ]; do
     -l | --list-versions)
         list_versions
         ;;
-    *)
+    -h | --help)
+#    *)
         usage "$0"
         exit
         ;;
@@ -112,10 +117,17 @@ while [ $# -ne 0 ]; do
     shift
 done
 
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
+
+echo "Branch:" "$BRANCH"
+echo "Shield-Repo:" "$SHIELD_REPO"
+
 if [ "$PASSWORD" == "" ]; then
     echo " Error: Password is missing"
     usage
-    exit
+    exit 1
 fi
 
 helm repo add shield-repo --username=ericom --password=$PASSWORD $SHIELD_REPO
