@@ -225,7 +225,7 @@ function wait_for_rancher_cluster(){
     log_message "Waiting for Shield Cluster state to become active ."
     CLUSTER_STATE=0
     wait_count=0
-    while [ "$CLUSTER_STATE" -lt 1 ] && ((wait_count < 30)); do
+    while [ "$CLUSTER_STATE" -lt 1 ] && ((wait_count < 60)); do
       echo -n .
       sleep 10
       wait_count=$((wait_count + 1))
@@ -295,7 +295,7 @@ function move_namespaces
    if [ $(kubectl get namespace | grep proxy | grep -c Active) -le 0 ]; then
       kubectl create namespace proxy
    fi   
-   rancher namespaces move management Default
+   rancher namespaces move proxy Default
    if [ $(kubectl get namespace | grep common | grep -c Active) -le 0 ]; then
       kubectl create namespace common
    fi   
@@ -307,7 +307,7 @@ function wait_for_tiller(){
     log_message "Waiting for Tiller state to become available.: $TILLERSTATE"
     TILLERSTATE=0
     wait_count=0
-    while [ "$TILLERSTATE" -lt 1 ] && ((wait_count < 10)); do
+    while [ "$TILLERSTATE" -lt 1 ] && ((wait_count < 60)); do
       echo -n .
       sleep 3
       wait_count=$((wait_count + 1))
