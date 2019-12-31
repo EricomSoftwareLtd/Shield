@@ -119,6 +119,7 @@ function download_and_check() {
 }
 
 function download_files() {
+    echo "downloading files"
     download_and_check "$ES_file_sysctl" "$ES_repo_sysctl" "+x"
     download_and_check "$ES_file_docker" "$ES_repo_docker" "+x"
     download_and_check "$ES_file_kubectl" "$ES_repo_kubectl" "+x"
@@ -129,6 +130,7 @@ function download_files() {
     download_and_check "$ES_file_delete_shield" "$ES_repo_delete_shield" "+x"
     download_and_check "$ES_file_cluster_config" "$ES_repo_cluster_config"
     curl -sL -S -o "$ES_file_prepare_servers" "$ES_repo_prepare_servers"
+    echo "done!"    
 }
 
 #########################################################################################################################
@@ -326,10 +328,10 @@ function wait_for_tiller(){
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 log_message "***************     Ericom Shield Installer $BRANCH ..."
 
-if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
-
    #0.  Downloading Files
    download_files
+
+if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
    
    #1.  Run configure-sysctl-values.sh
    echo
