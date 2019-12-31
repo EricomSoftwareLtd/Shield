@@ -77,6 +77,7 @@ ES_repo_deploy_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shiel
 ES_repo_delete_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/delete-shield.sh"
 ES_repo_prepare_servers="https://github.com/EricomSoftwareLtd/Shield/releases/download/$BRANCH/shield-prepare-servers"
 ES_repo_rancher_cli="https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.xz"
+ES_repo_cluster_config="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/cluster.json"
 
 ES_file_sysctl="configure-sysctl-values.sh"
 ES_file_rancher="run-rancher.sh"
@@ -88,6 +89,7 @@ ES_file_deploy_shield="deploy-shield.sh"
 ES_file_delete_shield="delete-shield.sh"
 ES_file_prepare_servers="shield-prepare-servers"
 ES_file_rancher_cli="rancher-linux-amd64-v2.3.2.tar.xz"
+ES_file_cluster_config="cluster.json"
 
 function log_message() {
     local PREV_RET_CODE=$?
@@ -125,6 +127,7 @@ function download_files() {
     download_and_check "$ES_file_addrepo" "$ES_repo_addrepo" "+x"
     download_and_check "$ES_file_deploy_shield" "$ES_repo_deploy_shield" "+x"
     download_and_check "$ES_file_delete_shield" "$ES_repo_delete_shield" "+x"
+    download_and_check "$ES_file_cluster_config" "$ES_repo_cluster_config"
     curl -sL -S -o "$ES_file_prepare_servers" "$ES_repo_prepare_servers"
 }
 
@@ -251,7 +254,7 @@ function create_rancher_cluster(){
    rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
    sleep 5
    echo "Creating the Cluster:"
-   rancher cluster create --network-provider flannel $CLUSTER_NAME
+   rancher cluster create --network-provider flannel --rke-config $ES_PATH/$ES_file_cluster_config $CLUSTER_NAME
    rancher context switch
    echo "Rancher login (again):"
    rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
