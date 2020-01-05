@@ -314,6 +314,14 @@ function wait_for_tiller(){
       sleep 3
       wait_count=$((wait_count + 1))
       TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1 )
+      # if after 90 sec still not available, try to re-install
+      if [ wait_count = 30 ]; then
+        bash "./$ES_file_helm" -c
+        if [ $? != 0 ]; then
+           log_message "*************** $ES_file_helm Failed, Exiting!"
+           exit 1
+        fi
+      fi  
     done
     if [ "$TILLERSTATE" -lt 1 ]; then
       echo
@@ -416,7 +424,6 @@ log_message "***************     Installing Helm"
 bash "./$ES_file_helm"
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_helm Failed, Exiting!"
-   echo "Please try: ./ericomshield/install-helm.sh -c"
    exit 1
 fi
 
