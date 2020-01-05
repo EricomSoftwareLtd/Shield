@@ -77,6 +77,7 @@ ES_repo_deploy_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shiel
 ES_repo_delete_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/delete-shield.sh"
 ES_repo_prepare_servers="https://github.com/EricomSoftwareLtd/Shield/releases/download/$BRANCH/shield-prepare-servers"
 ES_repo_rancher_cli="https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.xz"
+ES_repo_cluster_config="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/cluster.json"
 
 ES_file_sysctl="configure-sysctl-values.sh"
 ES_file_rancher="run-rancher.sh"
@@ -88,6 +89,7 @@ ES_file_deploy_shield="deploy-shield.sh"
 ES_file_delete_shield="delete-shield.sh"
 ES_file_prepare_servers="shield-prepare-servers"
 ES_file_rancher_cli="rancher-linux-amd64-v2.3.2.tar.xz"
+ES_file_cluster_config="cluster.json"
 
 function log_message() {
     local PREV_RET_CODE=$?
@@ -117,6 +119,7 @@ function download_and_check() {
 }
 
 function download_files() {
+    echo "downloading files"
     download_and_check "$ES_file_sysctl" "$ES_repo_sysctl" "+x"
     download_and_check "$ES_file_docker" "$ES_repo_docker" "+x"
     download_and_check "$ES_file_kubectl" "$ES_repo_kubectl" "+x"
@@ -125,7 +128,9 @@ function download_files() {
     download_and_check "$ES_file_addrepo" "$ES_repo_addrepo" "+x"
     download_and_check "$ES_file_deploy_shield" "$ES_repo_deploy_shield" "+x"
     download_and_check "$ES_file_delete_shield" "$ES_repo_delete_shield" "+x"
+    download_and_check "$ES_file_cluster_config" "$ES_repo_cluster_config"
     curl -sL -S -o "$ES_file_prepare_servers" "$ES_repo_prepare_servers"
+    echo "done!"    
 }
 
 #########################################################################################################################
@@ -222,7 +227,7 @@ function wait_for_rancher_cluster(){
     log_message "Waiting for Shield Cluster state to become active ."
     CLUSTER_STATE=0
     wait_count=0
-    while [ "$CLUSTER_STATE" -lt 1 ] && ((wait_count < 30)); do
+    while [ "$CLUSTER_STATE" -lt 1 ] && ((wait_count < 60)); do
       echo -n .
       sleep 10
       wait_count=$((wait_count + 1))
@@ -251,7 +256,7 @@ function create_rancher_cluster(){
    rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
    sleep 5
    echo "Creating the Cluster:"
-   rancher cluster create --network-provider flannel $CLUSTER_NAME
+   rancher cluster create --network-provider flannel --rke-config $ES_PATH/$ES_file_cluster_config $CLUSTER_NAME
    rancher context switch
    echo "Rancher login (again):"
    rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
@@ -292,7 +297,7 @@ function move_namespaces
    if [ $(kubectl get namespace | grep proxy | grep -c Active) -le 0 ]; then
       kubectl create namespace proxy
    fi   
-   rancher namespaces move management Default
+   rancher namespaces move proxy Default
    if [ $(kubectl get namespace | grep common | grep -c Active) -le 0 ]; then
       kubectl create namespace common
    fi   
@@ -304,7 +309,7 @@ function wait_for_tiller(){
     log_message "Waiting for Tiller state to become available.: $TILLERSTATE"
     TILLERSTATE=0
     wait_count=0
-    while [ "$TILLERSTATE" -lt 1 ] && ((wait_count < 10)); do
+    while [ "$TILLERSTATE" -lt 1 ] && ((wait_count < 60)); do
       echo -n .
       sleep 3
       wait_count=$((wait_count + 1))
@@ -323,10 +328,10 @@ function wait_for_tiller(){
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 log_message "***************     Ericom Shield Installer $BRANCH ..."
 
-if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
-
    #0.  Downloading Files
    download_files
+
+if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
    
    #1.  Run configure-sysctl-values.sh
    echo
