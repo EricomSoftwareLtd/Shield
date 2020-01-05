@@ -393,18 +393,21 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
 
       create_rancher_cluster
 
+      if [ $? = 0 ]; then
+         step
+         move_namespaces
+      fi
+
       step
 
-      move_namespaces
-
-      step
    fi
 
-   if [ $CLUSTER_CREATED = "false" ]; then
-     echo
-     echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
-     exit 0
-   fi
+fi
+
+if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
+   echo
+   echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
+   exit 0
 fi
 
 #4. install-helm.sh
@@ -413,6 +416,7 @@ log_message "***************     Installing Helm"
 bash "./$ES_file_helm"
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_helm Failed, Exiting!"
+   echo "Please try: ./ericomshield/install-helm.sh -c"
    exit 1
 fi
 
