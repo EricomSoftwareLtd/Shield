@@ -205,7 +205,7 @@ function wait_for_rancher(){
     log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
     RANCHER_PONG="NDY"
     wait_count=0
-    while [ ! "$RANCHER_PONG" = "pong" ] && ((wait_count < 10)); do
+    while [ ! "$RANCHER_PONG" = "pong" ] && ((wait_count < 20)); do
       echo -n .
       sleep 3
       wait_count=$((wait_count + 1))
