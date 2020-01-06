@@ -205,7 +205,7 @@ function wait_for_rancher(){
     log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
     RANCHER_PONG="NDY"
     wait_count=0
-    while [ ! "$RANCHER_PONG" = "pong" ] && ((wait_count < 10)); do
+    while [ ! "$RANCHER_PONG" = "pong" ] && ((wait_count < 20)); do
       echo -n .
       sleep 3
       wait_count=$((wait_count + 1))
@@ -314,6 +314,14 @@ function wait_for_tiller(){
       sleep 3
       wait_count=$((wait_count + 1))
       TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1 )
+      # if after 90 sec still not available, try to re-install
+      if [ wait_count = 30 ]; then
+        bash "./$ES_file_helm" -c
+        if [ $? != 0 ]; then
+           log_message "*************** $ES_file_helm Failed, Exiting!"
+           exit 1
+        fi
+      fi  
     done
     if [ "$TILLERSTATE" -lt 1 ]; then
       echo
@@ -393,18 +401,21 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
 
       create_rancher_cluster
 
+      if [ $? = 0 ]; then
+         step
+         move_namespaces
+      fi
+
       step
 
-      move_namespaces
-
-      step
    fi
 
-   if [ $CLUSTER_CREATED = "false" ]; then
-     echo
-     echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
-     exit 0
-   fi
+fi
+
+if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
+   echo
+   echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
+   exit 0
 fi
 
 #4. install-helm.sh
