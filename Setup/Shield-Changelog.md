@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+## [Rel-19.12_Build_605] - 06-01-2020 - Kubernetes Version Only
+
+### New Features
+
+- Phishing Detection and KPIs using Google Web Risk API
+- New Reports for Risky Sites 
+- New Policy Action: Read Only
+- Hardened and Offline OVA Support (Ubuntu 18.04)
+- Load Balancer for Votiro
+- TechPreview: Crystal - Many Improvements and Bug Fixes
+
+### Enhancement
+
+- Admin UI: EULA Approval in the first login
+- Admin UI: Policy Changes: Improve UI and UX
+- Install-shield option for using Rancher CLI (-R)
+
+### Bug Fixes
+
+- Fixed: deploy-shield should wait for tiller to be ready
+- Fixed: Google spreadsheets - double click is mandatory for entering input
+- Fixed: Microsoft Team doesnt work well
+- Fixed: Services - online doc link should be customizable
+- Fixed: Application rules force browser (QA#757044)
+- Fixed: Sometimes images cannot be downloded
+
 ## [Rel-19.11_Build_590] - 27-11-2019 - Kubernetes Version Only
 
 ### New Features
