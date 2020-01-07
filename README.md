@@ -1,39 +1,30 @@
-# Ericom Shield
-############################################
-#####   Ericom Shield Installation     #####
-#######################################BH###
+# Ericom Shield (K8s) Readme
 
-Pre-Requesite: Linux Ubuntu 18.04
+Welcome! This repository includes all the steps required to deploy Ericom Shield on Kubernetes
 
-Open a Shell:
-Type the following commands:
+## Install Shield
 
-*wget ericom.com/shield/setup.sh*
+Install Shield:
 
-*chmod +x setup.sh*
+```bash
+wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/install-shield.sh
+chmod +x ./install-shield.sh
+sudo ./install-shield.sh -R --label -p <PASSWORD>
+```
+Installation Process can take 10-30 minutes depending on the machine and the internet connection
 
-*./setup.sh*
+Help:
 
-Ericom Shield will be installed and ericomshield service will be available
+sudo ./install-shield.sh
 
-#####   Multi-Node Deployment     #####
+-R |--ranchercli:  (Deploy using Rancher CLI)  
 
-After installing Ericom Shield on the Master, you can add additional Nodes 
-Pre-Requesite for new Node: Linux Ubuntu 18.04
+-l |--label: Set all labels on the created node  
 
-Open a Shell on a New Node:
-
-Prepare the node to join Ericom Shield Swarm Cluster:
-
-*sudo wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/prepare-node.sh"*
-
-*sudo chmod +x prepare-node.sh*
-
-*sudo ./prepare-node.sh*
-
-=======
-On the Master Machine:
-
-Ericom Shield Setup Node:
-
-*sudo usr/local/ericomshield/addnodes.sh -ips xx.xx.xx.xx,yy.yy.yy.yy*
+-p <PASSWORD>: Password for Shield Repository  
+  
+-v |--version <version-name>: Install a specific version (Branch Name)
+  
+To connect to Rancher Admin Console, connect to the Host IP where the Admin is running and use port **8443**.  
+To connect to Shield Admin Console, connect to the Host IP where the Admin is running and use port **30181**.  
+To connect to Shield on the Proxy Port, connect to the Host IP where the Shield-Proxy Component is running on **3128** port.  
