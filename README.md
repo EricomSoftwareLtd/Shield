@@ -21,6 +21,6 @@ sudo ./install-shield.sh
 
 -v |--version : Install a specific version (Branch Name)
 
-To connect to Rancher Admin Console, connect to the Host IP where the Admin is running and use port 8443.
-To connect to Shield Admin Console, connect to the Host IP where the Admin is running and use port 30181.
-To connect to Shield on the Proxy Port, connect to the Host IP where the Shield-Proxy Component is running on 3128 port.
+To connect to Rancher Admin Console, connect to the Host IP where the Admin is running and use port 8443.  
+To connect to Shield Admin Console, connect to the Host IP where the Admin is running and use port 30181.  
+To connect to Shield on the Proxy Port, connect to the Host IP where the Shield-Proxy Component is running on 3128 port.  
