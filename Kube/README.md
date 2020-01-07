@@ -14,11 +14,16 @@ sudo ./install-shield.sh -p <PASSWOED> -R --label
 Installation Process can take 10-30 minutes depending on the machine and the internet connection
 
 Help:
-sudo ./install-shield.sh 
--R|--ranchercli:  (Deploy using Rancher CLI)
--l|--label: Set all labels on the created node
+
+sudo ./install-shield.sh
+
+-R |--ranchercli:  (Deploy using Rancher CLI)
+
+-l |--label: Set all labels on the created node
+
 -p <PASSWORD>: Password for Shield Repository
--v|--version <version-name>: Install a specific version (Branch Name)
+  
+-v |--version <version-name>: Install a specific version (Branch Name)
   
 To connect to Rancher Admin Console, connect to the Host IP where the Admin is running and use port **8443**.
 To connect to Shield Admin Console, connect to the Host IP where the Admin is running and use port **30181**.
