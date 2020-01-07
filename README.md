@@ -1,39 +1,26 @@
-# Ericom Shield
-############################################
-#####   Ericom Shield Installation     #####
-#######################################BH###
+Ericom Shield (K8s) Readme
+Welcome! This repository includes all the steps required to deploy Ericom Shield on Kubernetes
 
-Pre-Requesite: Linux Ubuntu 18.04
+Install Shield
+Install Shield:
 
-Open a Shell:
-Type the following commands:
+wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/install-shield.sh
+chmod +x ./install-shield.sh
+sudo ./install-shield.sh -R --label -p <PASSWORD>
+Installation Process can take 10-30 minutes depending on the machine and the internet connection
 
-*wget ericom.com/shield/setup.sh*
+Help:
 
-*chmod +x setup.sh*
+sudo ./install-shield.sh
 
-*./setup.sh*
+-R |--ranchercli: (Deploy using Rancher CLI)
 
-Ericom Shield will be installed and ericomshield service will be available
+-l |--label: Set all labels on the created node
 
-#####   Multi-Node Deployment     #####
+-p : Password for Shield Repository
 
-After installing Ericom Shield on the Master, you can add additional Nodes 
-Pre-Requesite for new Node: Linux Ubuntu 18.04
+-v |--version : Install a specific version (Branch Name)
 
-Open a Shell on a New Node:
-
-Prepare the node to join Ericom Shield Swarm Cluster:
-
-*sudo wget "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/SetupNode/prepare-node.sh"*
-
-*sudo chmod +x prepare-node.sh*
-
-*sudo ./prepare-node.sh*
-
-=======
-On the Master Machine:
-
-Ericom Shield Setup Node:
-
-*sudo usr/local/ericomshield/addnodes.sh -ips xx.xx.xx.xx,yy.yy.yy.yy*
+To connect to Rancher Admin Console, connect to the Host IP where the Admin is running and use port 8443.
+To connect to Shield Admin Console, connect to the Host IP where the Admin is running and use port 30181.
+To connect to Shield on the Proxy Port, connect to the Host IP where the Shield-Proxy Component is running on 3128 port.
