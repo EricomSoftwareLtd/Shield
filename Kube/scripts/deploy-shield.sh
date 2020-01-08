@@ -15,7 +15,6 @@ ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 LOGFILE="$ES_PATH/last_deploy.log"
 BRANCH="master"
-ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
 SHIELD_NS_COUNT=5
 SHIELD_REPO="shield-repo"
 # For Local Use ..
@@ -32,7 +31,7 @@ echo $SYSTEMID
 # shield-role/remote-browsers=accept
 
 function usage() {
-    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-h|--help]"
+    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-v|--version] [-h|--help]"
     echo
     echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
@@ -81,6 +80,7 @@ function accept_license() {
 }
 
 function accept_eula() {
+    ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
     download_and_check "Ericom-EULA.txt" "$ES_repo_EULA"
     if [ ! -f "$EULA_ACCEPTED_FILE" ]; then
         echo 'You will now be presented with the End User License Agreement.'
@@ -158,6 +158,10 @@ while [ $# -ne 0 ]; do
     -f | --force)
         ES_FORCE=true
         ;;
+    -v | --version)
+        shift
+        echo -n "$1" >"$ES_BRANCH_FILE"
+        ;;        
     -approve-eula)
         log_message "EULA has been accepted from Command Line"
         date -Iminutes >"$EULA_ACCEPTED_FILE"
@@ -170,6 +174,10 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
