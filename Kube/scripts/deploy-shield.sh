@@ -153,7 +153,9 @@ while [ $# -ne 0 ]; do
         ES_OVERWRITE=true
         ;;
     -L | --local)
-        SHIELD_REPO=".."
+        shift
+        SHIELD_REPO="${1:-..}"
+        echo $SHIELD_REPO
         ;;
     -f | --force)
         ES_FORCE=true
