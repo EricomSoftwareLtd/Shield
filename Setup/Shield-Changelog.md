@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.12_Build_606] - xx-01-2020 - Kubernetes Version Only --- Not Released Yet
+## [Rel-19.12_Build_606] - 12-01-2020 - Kubernetes Version Only
 
 ### Bug Fixes
 
