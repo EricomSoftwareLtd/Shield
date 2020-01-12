@@ -16,7 +16,7 @@ CLUSTER_NAME="shield-cluster"
 CLUSTER_CREATED="false"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-R|--ranchercli] [-f|--force] [-h|--help]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-l|--label] [-R|--ranchercli] [-f|--force] [-h|--help]"
 }
 
 #Check if we are root
