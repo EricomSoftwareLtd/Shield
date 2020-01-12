@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Bug Fixes
 
 - Fixed: Users cannot login to google services (e.g. gmail)
+- Fixed: PDF file content doesn't show (font missing)
 
 ## [Rel-19.12_Build_605] - 06-01-2020 - Kubernetes Version Only
 
