@@ -657,8 +657,8 @@ services:
     portainer:
         image: 'securebrowsing/shield-portainer:latest'
         #Published only for Dev
-        ports:
-            - '9000:9000'
+#        ports:
+#            - '9000:9000'
         volumes:
             # - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer_v2:/data'
