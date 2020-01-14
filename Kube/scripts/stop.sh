@@ -3,7 +3,7 @@
 #####   Ericom Shield Stop             #####
 #######################################BH###
 
-ES_PATH=/usr/local/ericomshield
+ES_PATH="$HOME/ericomshield"
 LOGFILE="$ES_PATH/ericomshield.log"
 STACK_NAME=shield
 
@@ -28,10 +28,6 @@ fi
 
 echo "***********       Stopping Ericom Shield "
 echo "***********       "
-if [ -z "$(docker info | grep -i 'swarm: active')" ]; then
-    echo "Ericom Shield is not running on this machine"
-    exit 0
-fi
 echo "$(date): Stopping Ericom Shield" >>"$LOGFILE"
 docker stack rm $STACK_NAME
 echo "Waiting for $STACK_NAME to stop..."

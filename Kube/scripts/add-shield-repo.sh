@@ -10,7 +10,7 @@ NOT_FOUND_STR="404: Not Found"
 PASSWORD=""
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-LOGFILE="$ES_PATH/last_deploy.log"
+LOGFILE="$ES_PATH/ericomshield.log"
 
 function usage() {
     echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-l|--list-versions]"

@@ -7,6 +7,8 @@ SHIELD="shield"
 ES_SILENT=false
 ES_CONF=false
 ES_DELETE_NAMESPACE=true
+ES_PATH="$HOME/ericomshield"
+LOGFILE="$ES_PATH/ericomshield.log"
 
 COMPONENTS=(farm-services proxy management elk common)
 
@@ -84,7 +86,7 @@ if [ "$ES_CONF" = false ]; then
 fi
 
 if [ "$ES_CONF" = true ]; then
-    echo "***************     Uninstalling $SHIELD"
+    log_message "***************     Uninstalling $SHIELD"
     for component in "${COMPONENTS[@]}"; do
         helm delete --purge "shield-${component}"
         if [ "$ES_DELETE_NAMESPACE" = true ]; then

@@ -22,7 +22,7 @@ if [ ! -z $1 ]; then
     show_usage
 fi
 
-ES_PATH=/usr/local/ericomshield
+ES_PATH="$HOME/ericomshield"
 cd $ES_PATH
 
 echo "Running deploy-shield.sh:"
