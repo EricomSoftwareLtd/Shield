@@ -2,6 +2,8 @@
 
 source common
 
+helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
+
 helm install rancher-stable/rancher \
     --name rancher \
     --namespace cattle-system \
