@@ -18,3 +18,4 @@ helm init --service-account tiller
 #  --tiller-image registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:<tag>
 
 kubectl -n kube-system rollout status deploy/tiller-deploy
+kubectl --namespace=kube-system wait --for=condition=Available --timeout=5m apiservices/v1beta1.metrics.k8s.io
