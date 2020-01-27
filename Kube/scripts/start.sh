@@ -3,27 +3,15 @@
 #####   Ericom Shield Run              #####
 #######################################BH###
 
-function show_usage() {
-    echo "Start Ericom Shield"
-    echo "Usage: $0 "
-    exit
-}
-
-#Check if we are root
-if ((EUID != 0)); then
-    #    sudo su
-    echo " Please run it as Root"
-    echo "sudo $0 $@"
-    show_usage
-    exit
-fi
-
-if [ ! -z $1 ]; then
-    show_usage
-fi
-
 ES_PATH="$HOME/ericomshield"
-cd $ES_PATH
+LOGFILE="$ES_PATH/ericomshield.log"
 
-echo "Running deploy-shield.sh:"
-./deploy-shield.sh
+cd "$ES_PATH" || exit 1
+
+echo "***********       Deploying Ericom Shield "
+echo "***********       "
+echo "$(date): Deploying Ericom Shield" >>"$LOGFILE"
+
+$ES_PATH/deploy-shield.sh -L .
+echo "done"
+
