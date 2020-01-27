@@ -42,6 +42,12 @@ function log_message() {
     return 0
 }
 
+# Create the Ericom empty dir if necessary
+if [ ! -d $ES_PATH ]; then
+    mkdir -p $ES_PATH
+    chmod 0755 $ES_PATH
+fi
+
 function download_and_check() {
     curl -s -S -o "$1" "$2"
     if [ ! -f "$1" ] || [ $(grep -c "$NOT_FOUND_STR" "$1") -ge 1 ]; then
@@ -107,8 +113,14 @@ while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
     -n | --namespace)
-        shift
-        only_namespace "$1"
+       if [ -z "$2" ]; then
+         echo "missing namespace"
+         usage
+         exit
+        else
+         shift
+         only_namespace "$1"
+        fi
         ;;
     -l | --label)
         SET_LABELS="yes"
@@ -117,9 +129,13 @@ while [ $# -ne 0 ]; do
         ES_OVERWRITE=true
         ;;
     -L | --local)
-        shift
-        SHIELD_REPO="${1:-..}"
-        echo $SHIELD_REPO
+        if [ -z "$2" ]; then
+          SHIELD_REPO=".."
+         else
+          SHIELD_REPO="$2"
+          shift
+        fi
+        echo "Local Repo: $SHIELD_REPO"
         ;;
     -f | --force)
         ES_FORCE=true
@@ -142,7 +158,10 @@ check_tiller
 SYSTEMID=$(kubectl get namespace kube-system -o=jsonpath='{.metadata.uid}')
 echo $SYSTEMID
 
+# Only when working online (using non-Local-repo)
 if [ SHIELD_REPO = "shield-repo" ]; then
+    cd "$ES_PATH" || exit 1
+
     helm repo update
     helm search shield
     VERSION_REPO=$(helm search shield | grep shield | awk '{ print $2 }')
