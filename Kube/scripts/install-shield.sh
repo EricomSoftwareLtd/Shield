@@ -344,7 +344,7 @@ function wait_for_tiller(){
 log_message "***************     Ericom Shield Installer $BRANCH ..."
 
    #0.  Downloading Files
-if [ ES_OFFLINE = "false" ]; then 
+if [ $ES_OFFLINE = "false" ]; then 
    download_files
 fi   
 
