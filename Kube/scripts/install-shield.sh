@@ -56,7 +56,7 @@ while [ $# -ne 0 ]; do
     -R | --ranchercli)
         RANCHER_CLI="true"
         ;;
-    -O | --offline
+    -O | --offline)
         ES_OFFLINE="true"
         ;;
     -h | --help)
