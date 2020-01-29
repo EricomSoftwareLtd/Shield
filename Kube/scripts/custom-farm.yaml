@@ -4,18 +4,26 @@ farmservice:
   enabled: true
 
 #farm-services:  
+
+# If you have 2 or more farm-services Nodes, uncomment this line
+ #antiAffinity: hard
+
 # Disable Spell Check in Browser (default:true)
 #  DISABLE_SPELL_CHECK : "true"
+
 # Time Zone (By default Rancher Server OS' TimeZone is used)
 #  TZ: "IDT"
-# Define Replica Number for Shield Components (HA:2(default), No HA:1)
+
+# Define Replica Number for Shield Components (
+#  HA mode hascale:2  (default)
+#  non HA mode hascale:1 
 #  hascale: 1
 
 #############################################################
 #   For Internal Use only - Please do not edit this section  
 consul:
   enabled: true
-# If you have 3 Management Nodes, uncomment this line    
+# If you have 3 farm-services Nodes, uncomment this line    
   #antiAffinity: hard
   nodeAffinity:
    requiredDuringSchedulingIgnoredDuringExecution:

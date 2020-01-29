@@ -3,8 +3,8 @@ monitoring:
    enabled: true
 elk:
    elasticsearch:
-    elasticsearchDataPath: "/var/elk/data"
+    elasticsearchDataPath: "/var/elk"
     elasticsearchSnapshotPath: "/var/elk/snapshots"
    management:
     fullSnapshotSchedule: "0 0 * * 6"
-    dailySnapshotSchedule: "0 * * * 0"
+    dailySnapshotSchedule: "0 * * * *"
