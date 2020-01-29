@@ -8,7 +8,7 @@ APP_VERSION="19.03.2"
 ES_FORCE=false
 
 function usage() {
-    echo " Usage: $0 "
+    echo " Usage: $0 [-f|--force]"
 }
 
 while [ $# -ne 0 ]; do

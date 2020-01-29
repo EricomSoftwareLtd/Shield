@@ -40,7 +40,7 @@ sleep 5
 
 docker rm -f $(docker ps -qa)
 docker volume rm $(docker volume ls -q)
-cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke /ericomshield/rancher-store"
+cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke /ericomshield/rancher-store ~/.helm"
 for dir in $cleanupdirs; do
     echo "Removing $dir"
     rm -rf $dir
@@ -49,7 +49,7 @@ if [ "$ES_ALL" == "true" ]; then
     docker system prune -a -f
 fi
 
-rm -f ~/kube/config
+rm -f ~/.kube/config
 
 echo "Please reboot your system, to cleanup the machine"
 echo

@@ -10,10 +10,10 @@ NOT_FOUND_STR="404: Not Found"
 PASSWORD=""
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-LOGFILE="$ES_PATH/last_deploy.log"
+LOGFILE="$ES_PATH/ericomshield.log"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-l|--list-versions]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases]"
 }
 
 function log_message() {
@@ -41,7 +41,7 @@ function download_and_check() {
 }
 
 function list_versions() {
-    ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Setup/Releases-kube.txt"
+    ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/Releases-kube.txt"
     echo "Getting $ES_repo_versions"
     download_and_check "Releases.txt" $ES_repo_versions
 
@@ -105,7 +105,7 @@ while [ $# -ne 0 ]; do
         SHIELD_REPO="$SHIELD_REPO_URL/staging"
         echo -n "Staging" >"$ES_BRANCH_FILE"
         ;;
-    -l | --list-versions)
+    -r | --releases) # List the official releases
         list_versions
         ;;
     -h | --help)
