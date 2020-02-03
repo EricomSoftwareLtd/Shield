@@ -62,6 +62,7 @@ consul:
   cloudProvider: local
 #  ui:
 #    service:
+#      enabled: true
 #      type: NodePort
 # If you have 3 Management Nodes uncomment this line    
   #antiAffinity: hard   
