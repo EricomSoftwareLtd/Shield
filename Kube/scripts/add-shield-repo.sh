@@ -13,7 +13,7 @@ ES_BRANCH_FILE="$ES_PATH/.esbranch"
 LOGFILE="$ES_PATH/ericomshield.log"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--release]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases]"
 }
 
 function log_message() {
@@ -105,7 +105,7 @@ while [ $# -ne 0 ]; do
         SHIELD_REPO="$SHIELD_REPO_URL/staging"
         echo -n "Staging" >"$ES_BRANCH_FILE"
         ;;
-    -r | --release) # List the official releases
+    -r | --releases) # List the official releases
         list_versions
         ;;
     -h | --help)
