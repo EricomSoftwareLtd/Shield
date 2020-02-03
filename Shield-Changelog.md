@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.01_Build_616] - 03-02-2020 - Kubernetes Version Only
+
+### New Features
+
+- ELK Automatic Snapshots
+- OVA - Offline
+- New Rancher Version: 2.3.4
+- Admin UI for hosted customers
+
+### Enhancement
+
+- Default Votiro URL changed to cdr.ericom.com
+- Remote Browser Scaler - Algorithm Improvement
+- Reports - organize the connections and users under one category
+- Block activation of named user license if no AD
+- Phishing Global Service
+- Google WebRisk API working with Local DB
+- Monitoring & Alerts for Hosted environment
+- Admin User is still available when LDAP Login is defined
+
+### Bug Fixes
+
+- Fixed: Admin UI Dashboard doesn't show Nodes table when system has a node with no labels
+- Fixed: CDR settings are not kept and not restored
+- Fixed: File preview - display issues
+
 ## [Rel-19.12_Build_606] - 12-01-2020 - Kubernetes Version Only
 
 ### Bug Fixes
