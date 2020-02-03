@@ -60,9 +60,10 @@ consul:
       dnsPort: 8601
       grpcPort: 8503
   cloudProvider: local
-  ui:
-    service:
-      type: NodePort
+#  ui:
+#    service:
+#      enabled: true
+#      type: NodePort
 # If you have 3 Management Nodes uncomment this line    
   #antiAffinity: hard   
   nodeAffinity:
