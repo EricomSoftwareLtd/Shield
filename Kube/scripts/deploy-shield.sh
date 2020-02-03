@@ -13,16 +13,12 @@ NOT_FOUND_STR="404: Not Found"
 EULA_ACCEPTED_FILE=".eula_accepted"
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
-LOGFILE="$ES_PATH/last_deploy.log"
+LOGFILE="$ES_PATH/ericomshield.log"
+LAST_DEPLOY_LOGFILE="$ES_PATH/last_deploy.log"
 BRANCH="master"
 SHIELD_NS_COUNT=5
 SHIELD_REPO="shield-repo"
-# For Local Use ..
-#SHIELD_REPO=".."
-SYSTEMID=$(kubectl get namespace kube-system -o=jsonpath='{.metadata.uid}')
 DRY_RUN="" #"--dry-run"
-
-echo $SYSTEMID
 
 # shield-role/management=accept
 # shield-role/proxy=accept
@@ -46,6 +42,12 @@ function log_message() {
     return 0
 }
 
+# Create the Ericom empty dir if necessary
+if [ ! -d $ES_PATH ]; then
+    mkdir -p $ES_PATH
+    chmod 0755 $ES_PATH
+fi
+
 function download_and_check() {
     curl -s -S -o "$1" "$2"
     if [ ! -f "$1" ] || [ $(grep -c "$NOT_FOUND_STR" "$1") -ge 1 ]; then
@@ -54,48 +56,16 @@ function download_and_check() {
     fi
 }
 
-function accept_license() {
-    export LESSSECURE=1
-    while less -P"%pb\% Press h for help or q to quit" "$1" &&
-        read -p "Do you accept the EULA (yes/no/anything else to display it again)? " choice; do
-        case "$choice" in
-        y | Y | n | N)
-            echo 'Please, type "yes" or "no"'
-            read -n1 -r -p "Press any key to continue..." key
-            ;;
-        "yes" | "YES" | "Yes")
-            echo "yes"
-            return 0
-            ;;
-        "no" | "NO" | "No")
-            echo "no"
-            break
-            ;;
-        *) ;;
-
-        esac
-    done
-
-    return -1
-}
-
-function accept_eula() {
-    ES_repo_EULA="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/Ericom-EULA.txt"
-    download_and_check "Ericom-EULA.txt" "$ES_repo_EULA"
-    if [ ! -f "$EULA_ACCEPTED_FILE" ]; then
-        echo 'You will now be presented with the End User License Agreement.'
-        echo 'Use PgUp/PgDn/Arrow keys for navigation, q to exit.'
-        echo 'Please, read the EULA carefully, then accept it to continue the installation process or reject to exit.'
-        read -n1 -r -p "Press any key to continue..." key
-        echo
-
-        if accept_license "Ericom-EULA.txt"; then
-            log_message "EULA has been accepted"
-            date -Iminutes >"$EULA_ACCEPTED_FILE"
-        else
-            log_message "EULA has not been accepted, exiting..."
-            exit
-        fi
+function check_tiller(){
+    # Check if Tiller is available
+    TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1 )
+    if [ "$TILLERSTATE" -lt 1 ]; then
+      echo
+      log_message "Error: Tiller Deployment is not available "
+      exit 1
+     else
+      echo "ok!"
+      return 0
     fi
 }
 
@@ -143,8 +113,14 @@ while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
     -n | --namespace)
-        shift
-        only_namespace "$1"
+       if [ -z "$2" ]; then
+         echo "missing namespace"
+         usage
+         exit
+        else
+         shift
+         only_namespace "$1"
+        fi
         ;;
     -l | --label)
         SET_LABELS="yes"
@@ -153,18 +129,16 @@ while [ $# -ne 0 ]; do
         ES_OVERWRITE=true
         ;;
     -L | --local)
-        SHIELD_REPO=".."
+        if [ -z "$2" ]; then
+          SHIELD_REPO=".."
+         else
+          SHIELD_REPO="$2"
+          shift
+        fi
+        echo "Local Repo: $SHIELD_REPO"
         ;;
     -f | --force)
         ES_FORCE=true
-        ;;
-    -v | --version)
-        shift
-        echo -n "$1" >"$ES_BRANCH_FILE"
-        ;;        
-    -approve-eula)
-        log_message "EULA has been accepted from Command Line"
-        date -Iminutes >"$EULA_ACCEPTED_FILE"
         ;;
     -h | --help)
 #    *)
@@ -183,9 +157,15 @@ fi
 
 log_message "***************     Ericom Shield Kube Setup $BRANCH ..."
 
-#accept_eula
+check_tiller
 
+SYSTEMID=$(kubectl get namespace kube-system -o=jsonpath='{.metadata.uid}')
+echo $SYSTEMID
+
+# Only when working online (using non-Local-repo)
 if [ SHIELD_REPO = "shield-repo" ]; then
+    cd "$ES_PATH" || exit 1
+
     helm repo update
     helm search shield
     VERSION_REPO=$(helm search shield | grep shield | awk '{ print $2 }')
@@ -216,17 +196,18 @@ if [ "$UPSTREAM_DNS_SERVERS" = "127.0.0.53" ]; then
     UPSTREAM_DNS_SERVERS="$(systemd-resolve --status | grep -oP 'DNS Servers:\s+\K.+' | paste -sd,)"
 fi
 
-log_message "***************     Deploying Ericom Shield $VERSION_REPO ..."
-
 if [ -f "$ES_BRANCH_FILE" ]; then
     BRANCH=$(cat "$ES_BRANCH_FILE")
 fi
+
+log_message "***************     Deploying Ericom Shield from Branch:$BRANCH Repo:$VERSION_REPO on System:$SYSTEMID ..."
+echo "***************     Deploying Ericom Shield from Branch:$BRANCH Repo:$VERSION_REPO ..." > "$LAST_DEPLOY_LOGFILE"
 
 log_message "***************     Deploying Shield Common *******************************"
 if [ "$ES_OVERWRITE" = true ] || [ ! -f "custom-common.yaml" ]; then
     download_and_check custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
 fi
-helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LOGFILE"
+helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
 
 if [ "$SHIELD_FARM" = "yes" ]; then
     log_message "***************     Deploying Shield Farm Services *******************************"
@@ -240,7 +221,7 @@ if [ "$SHIELD_FARM" = "yes" ]; then
 
     helm upgrade --install shield-farm-services $SHIELD_REPO/shield --namespace=farm-services \
         --set-string "farm-services.TZ=${TZ}" --set-string "farm-services.CLUSTER_SYSTEM_ID=$SYSTEMID" \
-        -f custom-farm.yaml --debug | tee -a "$LOGFILE"
+        -f custom-farm.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
     sleep 30
 fi
 
@@ -254,7 +235,7 @@ if [ "$SHIELD_MNG" = "yes" ]; then
     fi
     helm upgrade --install shield-management $SHIELD_REPO/shield --namespace=management \
         --set-string "shield-mng.TZ=${TZ}" --set-string "shield-mng.CLUSTER_SYSTEM_ID=$SYSTEMID" \
-        -f custom-management.yaml --debug | tee -a "$LOGFILE"
+        -f custom-management.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
 
     sleep 30
 fi
@@ -270,7 +251,7 @@ if [ "$SHIELD_PROXY" = "yes" ]; then
     helm upgrade --install shield-proxy $SHIELD_REPO/shield --namespace=proxy \
         --set-string "shield-proxy.TZ=${TZ}" --set-string "shield-proxy.CLUSTER_SYSTEM_ID=$SYSTEMID" \
         --set-string "shield-proxy.UPSTREAM_DNS_SERVERS=$(echo ${UPSTREAM_DNS_SERVERS} | sed 's#,#\\,#g')" \
-        -f custom-proxy.yaml --debug | tee -a "$LOGFILE"
+        -f custom-proxy.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
 
     sleep 30
 fi
@@ -285,7 +266,7 @@ if [ "$SHIELD_ELK" = "yes" ]; then
     fi
     helm upgrade --install shield-elk $SHIELD_REPO/shield --namespace=elk \
         --set-string "elk.TZ=${TZ}" --set-string "elk.CLUSTER_SYSTEM_ID=$SYSTEMID" \
-        -f custom-values-elk.yaml --debug | tee -a "$LOGFILE"
+        -f custom-values-elk.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
 
 fi
 

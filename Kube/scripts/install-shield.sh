@@ -8,8 +8,10 @@ STEP_BY_STEP="false"
 ES_PATH="$HOME/ericomshield"
 ES_BRANCH_FILE="$ES_PATH/.esbranch"
 BRANCH="master"
-LOGFILE="$ES_PATH/last_deploy.log"
+LOGFILE="$ES_PATH/ericomshield.log"
+ES_OFFLINE="false"
 RANCHER_CLI="false"
+RANCHER_CLI_VERSION="v2.3.2"
 RANCHER_URL_FILE="$ES_PATH/.esrancherurl"
 RANCHER_TOKEN_FILE="$ES_PATH/.esranchertoken"
 CLUSTER_NAME="shield-cluster"
@@ -54,6 +56,9 @@ while [ $# -ne 0 ]; do
     -R | --ranchercli)
         RANCHER_CLI="true"
         ;;
+    -O | --offline)
+        ES_OFFLINE="true"
+        ;;
     -h | --help)
 #    *)
         usage
@@ -75,8 +80,8 @@ ES_repo_helm="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH
 ES_repo_addrepo="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/add-shield-repo.sh"
 ES_repo_deploy_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/deploy-shield.sh"
 ES_repo_delete_shield="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/delete-shield.sh"
-ES_repo_prepare_servers="https://github.com/EricomSoftwareLtd/Shield/releases/download/$BRANCH/shield-prepare-servers"
-ES_repo_rancher_cli="https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.xz"
+ES_repo_prepare_servers="https://github.com/EricomSoftwareLtd/Shield/releases/download/shield-prepare-servers-$BRANCH/shield-prepare-servers"
+ES_repo_rancher_cli="https://github.com/rancher/cli/releases/download/$RANCHER_CLI_VERSION/rancher-linux-amd64-$RANCHER_CLI_VERSION.tar.xz"
 ES_repo_cluster_config="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/cluster.json"
 
 ES_file_sysctl="configure-sysctl-values.sh"
@@ -88,7 +93,7 @@ ES_file_addrepo="add-shield-repo.sh"
 ES_file_deploy_shield="deploy-shield.sh"
 ES_file_delete_shield="delete-shield.sh"
 ES_file_prepare_servers="shield-prepare-servers"
-ES_file_rancher_cli="rancher-linux-amd64-v2.3.2.tar.xz"
+ES_file_rancher_cli="rancher-linux-amd64-$RANCHER_CLI_VERSION.tar.xz"
 ES_file_cluster_config="cluster.json"
 
 function log_message() {
@@ -107,6 +112,8 @@ function step() {
     fi
 }
 
+# download TO (local-file) FROM (remote-url) 
+# [+x] chmod executable
 function download_and_check() {
     curl -sL -S -o "$1" "$2"
     if [ ! -f "$1" ] || [ $(grep -c -x "$NOT_FOUND_STR" "$1") -ge 1 ]; then
@@ -337,7 +344,9 @@ function wait_for_tiller(){
 log_message "***************     Ericom Shield Installer $BRANCH ..."
 
    #0.  Downloading Files
+if [ $ES_OFFLINE = "false" ]; then
    download_files
+fi   
 
 if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
    
