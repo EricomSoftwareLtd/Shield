@@ -16,6 +16,7 @@ if [  $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
     echo "Running Rancher ($APP_VERSION)"
     docker run -d --restart=unless-stopped \
               -p 8443:443 \
+              -e CATTLE_SYSTEM_CATALOG=bundled \
               -v $ES_RANCHER_STORE:/var/lib/rancher \
               rancher/rancher:$APP_VERSION
  else
