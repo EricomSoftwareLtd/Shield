@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - ELK Automatic Snapshots
 - OVA - Offline
-- New Rancher Version: 2.3.4
+- New Rancher Version: 2.3.5
 - Admin UI for hosted customers
 
 ### Enhancement
