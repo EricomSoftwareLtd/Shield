@@ -52,7 +52,7 @@ while [ $# -ne 0 ]; do
     -v | --version)
         shift
         echo -n "$1" >"$ES_BRANCH_FILE"
-        ;;        
+        ;;
     -R | --ranchercli)
         RANCHER_CLI="true"
         ;;
@@ -60,7 +60,7 @@ while [ $# -ne 0 ]; do
         ES_OFFLINE="true"
         ;;
     -h | --help)
-#    *)
+        #    *)
         usage
         exit
         ;;
@@ -107,12 +107,12 @@ function log_message() {
 }
 
 function step() {
-    if [ $STEP_BY_STEP = "true" ];then
-       read -p 'Press Enter to continue...' ENTER
+    if [ $STEP_BY_STEP = "true" ]; then
+        read -p 'Press Enter to continue...' ENTER
     fi
 }
 
-# download TO (local-file) FROM (remote-url) 
+# download TO (local-file) FROM (remote-url)
 # [+x] chmod executable
 function download_and_check() {
     curl -sL -S -o "$1" "$2"
@@ -121,7 +121,7 @@ function download_and_check() {
         exit 1
     fi
     if [ "$3a" = "+xa" ]; then
-       chmod +x "$1"
+        chmod +x "$1"
     fi
 }
 
@@ -137,7 +137,7 @@ function download_files() {
     download_and_check "$ES_file_delete_shield" "$ES_repo_delete_shield" "+x"
     download_and_check "$ES_file_cluster_config" "$ES_repo_cluster_config"
     curl -sL -S -o "$ES_file_prepare_servers" "$ES_repo_prepare_servers"
-    echo "done!"    
+    echo "done!"
 }
 
 #########################################################################################################################
@@ -154,11 +154,13 @@ function install_if_not_installed() {
 }
 
 function install_rancher_cli() {
-    if ! which rancher >/dev/null ; then
-       wget "$ES_repo_rancher_cli"
-       tar xf "$ES_file_rancher_cli"
-       mv rancher-*/rancher /usr/bin/
-       rm -rf rancher-*
+    if ! which rancher >/dev/null; then
+        pushd "$(mktemp -d)"
+        wget "$ES_repo_rancher_cli"
+        tar xf "$ES_file_rancher_cli"
+        mv rancher-*/rancher /usr/bin/
+        rm -rf rancher-*
+        popd
     fi
 }
 
@@ -166,30 +168,30 @@ function install_rancher_cli() {
 function generate_rancher_token() {
     #read es_rancher files
 
-    if [ -f $RANCHER_URL_FILE ];then
-       RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
+    if [ -f $RANCHER_URL_FILE ]; then
+        RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
     fi
 
-    if [ -f $RANCHER_TOKEN_FILE ];then
-       RANCHER_API_TOKEN=$(cat $RANCHER_TOKEN_FILE)
+    if [ -f $RANCHER_TOKEN_FILE ]; then
+        RANCHER_API_TOKEN=$(cat $RANCHER_TOKEN_FILE)
     fi
 
     # Login token good for 1 minute
-    LOGINTOKEN=`curl -k -s 'https://127.0.0.1:8443/v3-public/localProviders/local?action=login' -H 'content-type: application/json' --data-binary '{"username":"admin","password":"admin","ttl":60000}' | jq -r .token`
+    LOGINTOKEN=$(curl -k -s 'https://127.0.0.1:8443/v3-public/localProviders/local?action=login' -H 'content-type: application/json' --data-binary '{"username":"admin","password":"admin","ttl":60000}' | jq -r .token)
     if [ "$LOGINTOKEN" = null ]; then
-        LOGINTOKEN=`curl -k -s 'https://127.0.0.1:8443/v3-public/localProviders/local?action=login' -H 'content-type: application/json' --data-binary '{"username":"admin","password":"ericomshield","ttl":60000}' | jq -r .token`
-        else
+        LOGINTOKEN=$(curl -k -s 'https://127.0.0.1:8443/v3-public/localProviders/local?action=login' -H 'content-type: application/json' --data-binary '{"username":"admin","password":"ericomshield","ttl":60000}' | jq -r .token)
+    else
         # Change password
         curl -k -s 'https://127.0.0.1:8443/v3/users?action=changepassword' -H 'Content-Type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"currentPassword":"admin","newPassword":"ericomshield"}'
     fi
     echo "LOGINTOKEN=$LOGINTOKEN"
     if [ "$LOGINTOKEN" = null ]; then
-       return 1
+        return 1
     fi
     # Create API Token good forever
-    RANCHER_API_TOKEN=`curl -k -s 'https://127.0.0.1:8443/v3/token' -H 'Content-Type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"type":"token","description":"for shield installations"}' | jq -r .token`
+    RANCHER_API_TOKEN=$(curl -k -s 'https://127.0.0.1:8443/v3/token' -H 'Content-Type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"type":"token","description":"for shield installations"}' | jq -r .token)
     echo "API Token: ${RANCHER_API_TOKEN}"
-    echo $RANCHER_API_TOKEN > $RANCHER_TOKEN_FILE    
+    echo $RANCHER_API_TOKEN >$RANCHER_TOKEN_FILE
     # Set server-url
     echo "SERVER_URL=$RANCHER_SERVER_URL"
     SERVER_URL_JSN="{\"name\":\"server-url\",\"value\":\"${RANCHER_SERVER_URL}\"}"
@@ -199,241 +201,240 @@ function generate_rancher_token() {
 }
 
 # Wait until Rancher is launched
-function wait_for_rancher(){
+function wait_for_rancher() {
     #read es_rancher files
     #read es_rancher files
-    if [ -f $RANCHER_URL_FILE ];then
-       RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
-     else
-       MY_IP="$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')"
-       RANCHER_SERVER_URL="https://$MY_IP:8443"
-       echo $RANCHER_SERVER_URL > $RANCHER_URL_FILE
-    fi   
+    if [ -f $RANCHER_URL_FILE ]; then
+        RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
+    else
+        MY_IP="$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')"
+        RANCHER_SERVER_URL="https://$MY_IP:8443"
+        echo $RANCHER_SERVER_URL >$RANCHER_URL_FILE
+    fi
     log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
     RANCHER_PONG="NDY"
     wait_count=0
     while [ ! "$RANCHER_PONG" = "pong" ] && ((wait_count < 20)); do
-      echo -n .
-      sleep 3
-      wait_count=$((wait_count + 1))
-      RANCHER_PONG=$(curl -s -k "${RANCHER_SERVER_URL}/ping")
-      echo "$RANCHER_PONG"
+        echo -n .
+        sleep 3
+        wait_count=$((wait_count + 1))
+        RANCHER_PONG=$(curl -s -k "${RANCHER_SERVER_URL}/ping")
+        echo "$RANCHER_PONG"
     done
     if [ ! "$RANCHER_PONG" = "pong" ]; then
-      echo
-      log_message "Error: Cannot Connect to Rancher on: ${RANCHER_SERVER_URL}"
-      exit 1
-     else
-      echo "ok!"
-      return 0
+        echo
+        log_message "Error: Cannot Connect to Rancher on: ${RANCHER_SERVER_URL}"
+        exit 1
+    else
+        echo "ok!"
+        return 0
     fi
 }
 
-function wait_for_rancher_cluster(){
+function wait_for_rancher_cluster() {
     # Wait until Cluster is active
     log_message "Waiting for Shield Cluster state to become active ."
     CLUSTER_STATE=0
     wait_count=0
     while [ "$CLUSTER_STATE" -lt 1 ] && ((wait_count < 60)); do
-      echo -n .
-      sleep 10
-      wait_count=$((wait_count + 1))
-      CLUSTER_STATE=$(rancher cluster shield-cluster | grep -c -w active)
+        echo -n .
+        sleep 10
+        wait_count=$((wait_count + 1))
+        CLUSTER_STATE=$(rancher cluster shield-cluster | grep -c -w active)
     done
     if [ "$CLUSTER_STATE" -lt 1 ]; then
-      echo
-      log_message "Error: Shield Cluster is not active, please check on Rancher UI."
-      exit 1
+        echo
+        log_message "Error: Shield Cluster is not active, please check on Rancher UI."
+        exit 1
     fi
     echo "ok!"
     return 0
 }
 
 # Create Cluster (Thx to Andrei)
-function create_rancher_cluster(){
+function create_rancher_cluster() {
 
-   if [ -z $RANCHER_API_TOKEN ]; then
-      # Read the API details
-      echo "It didnt work, please Create Rancher Token from UI"
-      read -p 'Enter server URL https://<SERVER_URL>: ' LOCAL_RANCHER_SERVER_URL
-      read -p 'Enter server BEARER TOKEN: ' RANCHER_API_TOKEN
-   fi
+    if [ -z $RANCHER_API_TOKEN ]; then
+        # Read the API details
+        echo "It didnt work, please Create Rancher Token from UI"
+        read -p 'Enter server URL https://<SERVER_URL>: ' LOCAL_RANCHER_SERVER_URL
+        read -p 'Enter server BEARER TOKEN: ' RANCHER_API_TOKEN
+    fi
 
-   echo "Rancher login:"
-   rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
-   sleep 5
-   echo "Creating the Cluster:"
-   rancher cluster create --network-provider flannel --rke-config $ES_PATH/$ES_file_cluster_config $CLUSTER_NAME
-   rancher context switch
-   echo "Rancher login (again):"
-   rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
-   CLUSTER_CREATED="true"
-   sleep 5
-   echo "Registering node:"
-   ADD_NODE_CMD=$(rancher cluster add-node $CLUSTER_NAME | grep docker)
-   ROLES_CMD=" --etcd --controlplane --worker"
+    echo "Rancher login:"
+    rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
+    sleep 5
+    echo "Creating the Cluster:"
+    rancher cluster create --network-provider flannel --rke-config $ES_PATH/$ES_file_cluster_config $CLUSTER_NAME
+    rancher context switch
+    echo "Rancher login (again):"
+    rancher login --token $RANCHER_API_TOKEN --skip-verify $LOCAL_RANCHER_SERVER_URL
+    CLUSTER_CREATED="true"
+    sleep 5
+    echo "Registering node:"
+    ADD_NODE_CMD=$(rancher cluster add-node $CLUSTER_NAME | grep docker)
+    ROLES_CMD=" --etcd --controlplane --worker"
 
-   if [ -z "${ADD_NODE_CMD}" ]; then
-      return 1
+    if [ -z "${ADD_NODE_CMD}" ]; then
+        return 1
     else
-      eval $ADD_NODE_CMD$ROLES_CMD
-   fi
-   
-   wait_for_rancher_cluster
-   
-   rancher cluster kf $CLUSTER_NAME > ~/.kube/config
-   
-   return 0
+        eval $ADD_NODE_CMD$ROLES_CMD
+    fi
+
+    wait_for_rancher_cluster
+
+    rancher cluster kf $CLUSTER_NAME >~/.kube/config
+
+    return 0
 }
 
-function move_namespaces
-{   
-   # Create (if not exist) and moving Namespaces
-   if [ $(kubectl get namespace | grep elk | grep -c Active) -le 0 ]; then
-      kubectl create namespace elk
-   fi
-   rancher namespaces move elk Default
-   if [ $(kubectl get namespace | grep farm-services  | grep -c Active) -le 0 ]; then
-      kubectl create namespace farm-services
-   fi   
-   rancher namespaces move farm-services Default
-   if [ $(kubectl get namespace | grep management | grep -c Active) -le 0 ]; then
-      kubectl create namespace management
-   fi   
-   rancher namespaces move management Default
-   if [ $(kubectl get namespace | grep proxy | grep -c Active) -le 0 ]; then
-      kubectl create namespace proxy
-   fi   
-   rancher namespaces move proxy Default
-   if [ $(kubectl get namespace | grep common | grep -c Active) -le 0 ]; then
-      kubectl create namespace common
-   fi   
-   rancher namespaces move common Default
+function move_namespaces() {
+    # Create (if not exist) and moving Namespaces
+    if [ $(kubectl get namespace | grep elk | grep -c Active) -le 0 ]; then
+        kubectl create namespace elk
+    fi
+    rancher namespaces move elk Default
+    if [ $(kubectl get namespace | grep farm-services | grep -c Active) -le 0 ]; then
+        kubectl create namespace farm-services
+    fi
+    rancher namespaces move farm-services Default
+    if [ $(kubectl get namespace | grep management | grep -c Active) -le 0 ]; then
+        kubectl create namespace management
+    fi
+    rancher namespaces move management Default
+    if [ $(kubectl get namespace | grep proxy | grep -c Active) -le 0 ]; then
+        kubectl create namespace proxy
+    fi
+    rancher namespaces move proxy Default
+    if [ $(kubectl get namespace | grep common | grep -c Active) -le 0 ]; then
+        kubectl create namespace common
+    fi
+    rancher namespaces move common Default
 }
 
-function wait_for_tiller(){
+function wait_for_tiller() {
     # Wait until Tiller is available
     log_message "Waiting for Tiller state to become available.: $TILLERSTATE"
     TILLERSTATE=0
     wait_count=0
     while [ "$TILLERSTATE" -lt 1 ] && ((wait_count < 60)); do
-      echo -n .
-      sleep 3
-      wait_count=$((wait_count + 1))
-      TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1 )
-      # if after 90 sec still not available, try to re-install
-      if [ wait_count = 30 ]; then
-        bash "./$ES_file_helm" -c
-        if [ $? != 0 ]; then
-           log_message "*************** $ES_file_helm Failed, Exiting!"
-           exit 1
+        echo -n .
+        sleep 3
+        wait_count=$((wait_count + 1))
+        TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1)
+        # if after 90 sec still not available, try to re-install
+        if [ wait_count = 30 ]; then
+            bash "./$ES_file_helm" -c
+            if [ $? != 0 ]; then
+                log_message "*************** $ES_file_helm Failed, Exiting!"
+                exit 1
+            fi
         fi
-      fi  
     done
     if [ "$TILLERSTATE" -lt 1 ]; then
-      echo
-      log_message "Error: Tiller Deployment is not available "
-      exit 1
-     else
-      echo "ok!"
-      return 0
+        echo
+        log_message "Error: Tiller Deployment is not available "
+        exit 1
+    else
+        echo "ok!"
+        return 0
     fi
 }
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 log_message "***************     Ericom Shield Installer $BRANCH ..."
 
-   #0.  Downloading Files
+#0.  Downloading Files
 if [ $ES_OFFLINE = "false" ]; then
-   download_files
-fi   
+    download_files
+fi
 
 if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
-   
-   #1.  Run configure-sysctl-values.sh
-   echo
-   log_message "***************     Configure sysctl values"
-   source "./$ES_file_sysctl"
-   if [ $? != 0 ]; then
-      log_message "*************** $ES_file_sysctl Failed, Exiting!"
-      exit 1
-   fi
 
-   step
+    #1.  Run configure-sysctl-values.sh
+    echo
+    log_message "***************     Configure sysctl values"
+    source "./$ES_file_sysctl"
+    if [ $? != 0 ]; then
+        log_message "*************** $ES_file_sysctl Failed, Exiting!"
+        exit 1
+    fi
 
-   #2.  install-docker.sh
-   echo
-   log_message "***************     Installing Docker"
-   source "./$ES_file_docker"
-   if [ $? != 0 ]; then
-      log_message "*************** $ES_file_docker Failed, Exiting!"
-      exit 1
-   fi
+    step
 
-   step
+    #2.  install-docker.sh
+    echo
+    log_message "***************     Installing Docker"
+    source "./$ES_file_docker"
+    if [ $? != 0 ]; then
+        log_message "*************** $ES_file_docker Failed, Exiting!"
+        exit 1
+    fi
 
-   #3.  install-kubectl.sh
-   echo
-   log_message "***************     Installing Kubectl"
-   source "./$ES_file_kubectl"
-   if [ $? != 0 ]; then
-      log_message "*************** $ES_file_kubectl Failed, Exiting!"
-      exit 1
-   fi
-   
-   step
+    step
 
-   #4.  run-rancher.sh
-   echo
-   log_message "***************     Running Rancher Server"
-   source "./$ES_file_rancher"
-   if [ $? != 0 ]; then
-      log_message "*************** $ES_file_run_rancher Failed, Exiting!"
-      exit 1
-   fi
+    #3.  install-kubectl.sh
+    echo
+    log_message "***************     Installing Kubectl"
+    source "./$ES_file_kubectl"
+    if [ $? != 0 ]; then
+        log_message "*************** $ES_file_kubectl Failed, Exiting!"
+        exit 1
+    fi
 
-   if [ $RANCHER_CLI = "true" ]; then
+    step
 
-      install_if_not_installed jq
+    #4.  run-rancher.sh
+    echo
+    log_message "***************     Running Rancher Server"
+    source "./$ES_file_rancher"
+    if [ $? != 0 ]; then
+        log_message "*************** $ES_file_run_rancher Failed, Exiting!"
+        exit 1
+    fi
 
-      install_rancher_cli
+    if [ $RANCHER_CLI = "true" ]; then
 
-      step
+        install_if_not_installed jq
 
-      wait_for_rancher
+        install_rancher_cli
 
-      step
+        step
 
-      generate_rancher_token
+        wait_for_rancher
 
-      step
+        step
 
-      create_rancher_cluster
+        generate_rancher_token
 
-      if [ $? = 0 ]; then
-         step
-         move_namespaces
-      fi
+        step
 
-      step
+        create_rancher_cluster
 
-   fi
+        if [ $? = 0 ]; then
+            step
+            move_namespaces
+        fi
+
+        step
+
+    fi
 
 fi
 
 if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
-   echo
-   echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
-   exit 0
+    echo
+    echo "Please Create your cluster, Set Labels, Set ~/.kube/config and come back...."
+    exit 0
 fi
 
 #4. install-helm.sh
 echo
 log_message "***************     Installing Helm"
-bash "./$ES_file_helm"
+bash "./$ES_file_helm" -i
 if [ $? != 0 ]; then
-   log_message "*************** $ES_file_helm Failed, Exiting!"
-   exit 1
+    log_message "*************** $ES_file_helm Failed, Exiting!"
+    exit 1
 fi
 
 step
@@ -447,8 +448,8 @@ echo
 log_message "***************     Adding Shield Repo"
 "./$ES_file_addrepo" $args
 if [ $? != 0 ]; then
-   log_message "*************** $ES_file_repo Failed, Exiting!"
-   exit 1
+    log_message "*************** $ES_file_repo Failed, Exiting!"
+    exit 1
 fi
 
 step
@@ -457,7 +458,7 @@ step
 log_message "***************     Deploy Shield"
 "./$ES_file_deploy_shield" $args
 if [ $? != 0 ]; then
-   log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
-   exit 1
+    log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
+    exit 1
 fi
-log_message "***************     Done !!!"   
+log_message "***************     Done !!!"
