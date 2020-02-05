@@ -10,16 +10,24 @@ APP_VERSION="v2.3.5"
 ES_PATH="$HOME/ericomshield"
 ES_RANCHER_STORE="$ES_PATH/rancher-store"
 
-mkdir -p "$ES_RANCHER_STORE"
-if [  $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
+if ! [ -d "$ES_RANCHER_STORE" ]; then
+    mkdir -p "$ES_RANCHER_STORE"
+    docker run --rm -it \
+        -v $ES_RANCHER_STORE:/var-lib-rancher \
+        --entrypoint /bin/sh \
+        rancher/rancher:$APP_VERSION \
+        -c "cp -rp /var/lib/rancher/. /var-lib-rancher/"
+fi
+
+if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
     echo
     echo "Running Rancher ($APP_VERSION)"
     docker run -d --restart=unless-stopped \
-              -p 8443:443 \
-              -e CATTLE_SYSTEM_CATALOG=bundled \
-              -v $ES_RANCHER_STORE:/var/lib/rancher \
-              rancher/rancher:$APP_VERSION
- else
+        -p 8443:443 \
+        -e CATTLE_SYSTEM_CATALOG=bundled \
+        -v $ES_RANCHER_STORE:/var/lib/rancher \
+        rancher/rancher:$APP_VERSION
+else
     echo "Rancher is already running"
 fi
 
