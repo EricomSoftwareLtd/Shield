@@ -155,10 +155,12 @@ function install_if_not_installed() {
 
 function install_rancher_cli() {
     if ! which rancher >/dev/null ; then
+       pushd "$(mktemp -d)"
        wget "$ES_repo_rancher_cli"
        tar xf "$ES_file_rancher_cli"
        mv rancher-*/rancher /usr/bin/
        rm -rf rancher-*
+       popd
     fi
 }
 
