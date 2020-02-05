@@ -432,7 +432,7 @@ fi
 #4. install-helm.sh
 echo
 log_message "***************     Installing Helm"
-bash "./$ES_file_helm"
+bash "./$ES_file_helm" -i
 if [ $? != 0 ]; then
    log_message "*************** $ES_file_helm Failed, Exiting!"
    exit 1
