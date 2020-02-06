@@ -6,5 +6,6 @@ elk:
     elasticsearchDataPath: "/var/elk"
     elasticsearchSnapshotPath: "/var/elk/snapshots"
    management:
+#    enableSnapshots: true
     fullSnapshotSchedule: "0 0 * * 6"
     dailySnapshotSchedule: "0 * * * *"

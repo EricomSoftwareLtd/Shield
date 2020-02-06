@@ -12,6 +12,9 @@ ES_RANCHER_STORE="$ES_PATH/rancher-store"
 
 if ! [ -d "$ES_RANCHER_STORE" ]; then
     mkdir -p "$ES_RANCHER_STORE"
+fi
+
+if ! ls -1qA "$ES_RANCHER_STORE" | grep -q .; then
     docker run --rm -it \
         -v $ES_RANCHER_STORE:/var-lib-rancher \
         --entrypoint /bin/sh \
