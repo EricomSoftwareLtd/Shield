@@ -3,7 +3,9 @@
 shieldmng:
   enabled: true
 shield-mng:
+#uncomment the following line to set custom Auth Proxy Port
 
+# customAuthProxyPort: 3128
 # If you have 2 or more management Nodes, uncomment this line 
 #  antiAffinity: hard
 
