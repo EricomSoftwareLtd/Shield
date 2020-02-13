@@ -23,7 +23,7 @@ if ! ls -1qA "$ES_RANCHER_STORE" | grep -q .; then
 fi
 
 if ! [ -z "$HTTP_PROXY" ]; then
-    RANCHER_PROXY_VARS=" -e HTTP_PROXY=\"${HTTP_PROXY}\" -e HTTPS_PROXY=\"${HTTPS_PROXY}\" -e NO_PROXY=\"localhost,127.0.0.1,0.0.0.0,${NO_PROXY}\""
+    RANCHER_PROXY_VARS="-e HTTP_PROXY=${HTTP_PROXY} -e HTTPS_PROXY=${HTTPS_PROXY} -e NO_PROXY=localhost,127.0.0.1,0.0.0.0,${NO_PROXY}"
 fi
 
 if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
