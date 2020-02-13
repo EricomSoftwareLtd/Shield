@@ -22,12 +22,16 @@ if ! ls -1qA "$ES_RANCHER_STORE" | grep -q .; then
         -c "cp -rp /var/lib/rancher/. /var-lib-rancher/"
 fi
 
+if ! [ -z "$HTTP_PROXY" ]; then
+    RANCHER_PROXY_VARS=" -e HTTP_PROXY=\"${HTTP_PROXY}\" -e HTTPS_PROXY=\"${HTTPS_PROXY}\" -e NO_PROXY=\"localhost,127.0.0.1,0.0.0.0,${NO_PROXY}\""
+fi
+
 if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
     echo
     echo "Running Rancher ($APP_VERSION)"
     docker run -d --restart=unless-stopped \
         -p 8443:443 \
-        -e CATTLE_SYSTEM_CATALOG=bundled \
+        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} \
         -v $ES_RANCHER_STORE:/var/lib/rancher \
         rancher/rancher:$APP_VERSION
 else
