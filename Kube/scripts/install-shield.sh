@@ -68,6 +68,29 @@ while [ $# -ne 0 ]; do
     shift
 done
 
+function get_outgoing_ip() {
+    local ADDR=$(echo $1 | grep -oP '.*://\K([0-9\.]*)') #'
+    if [ -z $ADDR ]; then
+        ADDR=$1
+    fi
+    ip route get $ADDR | awk -F"src " 'NR==1{split($2,a," ");print a[1]}'
+}
+
+function get_my_ip() {
+    local MY_IP="$(get_outgoing_ip 8.8.8.8)"
+    if [ -z $MY_IP ]; then
+        MY_IP="$(get_outgoing_ip $HTTP_PROXY)"
+    fi
+    if [ -z $MY_IP ]; then
+        MY_IP="$(get_outgoing_ip $http_proxy)"
+    fi
+    echo $MY_IP
+}
+
+get_my_ip
+
+export no_proxy="localhost,127.0.0.1,0.0.0.0,$(get_my_ip),$no_proxy"
+
 if [ -f "$ES_BRANCH_FILE" ]; then
     BRANCH=$(cat "$ES_BRANCH_FILE")
 fi
@@ -203,12 +226,10 @@ function generate_rancher_token() {
 # Wait until Rancher is launched
 function wait_for_rancher() {
     #read es_rancher files
-    #read es_rancher files
     if [ -f $RANCHER_URL_FILE ]; then
         RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
     else
-        MY_IP="$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')"
-        RANCHER_SERVER_URL="https://$MY_IP:8443"
+        RANCHER_SERVER_URL="https://$(get_my_ip):8443"
         echo $RANCHER_SERVER_URL >$RANCHER_URL_FILE
     fi
     log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
