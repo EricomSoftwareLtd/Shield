@@ -2,9 +2,9 @@
 ---
 shieldproxy:
   enabled: true
-
+#uncomment the following lines to set custom Auth Proxy Port
 #shield-proxy:
-
+#   customAuthProxyPort: 3128
 # If you have 2 or more proxy Nodes, uncomment this line 
  #antiAffinity: hard
 
