@@ -6,13 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## [Rel-20.01.1_Build_621] - 17-02-2020 - Kubernetes Version Only
+## [Rel-20.01.1_Build_622] - 17-02-2020 - Kubernetes Version Only
 
 ### Bug Fixes
 
-- Increase Health-check Frequency for Remote Browser 
+- Increase Health-check Frequency for Remote Browser
 
-## [Rel-20.01.1_Build_621] - 16-02-2020 - Kubernetes Version Only
+## [Rel-20.01.1_Build_621] - 16-02-2020
 
 ### Bug Fixes
 
@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Authentication window appears twice and more when open white url
 - Fixed: portal.azure.com login impossible
 
-## [Rel-20.01_Build_616] - 03-02-2020 - Kubernetes Version Only
+## [Rel-20.01_Build_616] - 03-02-2020
 
 ### New Features
 
