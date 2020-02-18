@@ -245,6 +245,53 @@ def restore_default():
         print(u"No backup data...")
         sys.exit()
 
+def backup_default():
+    # create backup     if not present
+    if not os.path.isdir("./.backup_proxy"):
+        os.makedirs("./.backup_proxy")
+        if os.path.exists(APT_):
+            shutil.copy2(APT_, APT_BACKUP)
+        if os.path.exists(ENV_):
+            shutil.copy2(ENV_, ENV_BACKUP)
+        if os.path.exists(BASH_):
+            shutil.copy2(BASH_, BASH_BACKUP)
+        if os.path.exists(DOCKER_):
+            shutil.copy2(DOCKER_, DOCKER_BACKUP)
+
+def ref_env():
+    # Generate a script that reflects environment variables with shell currently in use
+    with open(RESTORE_SCRIPT, "w") as filepointer:
+        filepointer.write('#!/bin/bash\n')
+        filepointer.write('\n')
+        filepointer.write('# Once all delet\n')
+        filepointer.write('unset http_proxy\n')
+        filepointer.write('unset https_proxy\n')
+        filepointer.write('unset ftp_proxy\n')
+        filepointer.write('unset socks_proxy\n')
+        filepointer.write('unset no_proxy\n')
+        filepointer.write('unset HTTP_PROXY\n')
+        filepointer.write('unset HTTPS_PROXY\n')
+        filepointer.write('unset FTP_PROXY\n')
+        filepointer.write('unset SOCKS_PROXY\n')
+        filepointer.write('unset NO_PROXY\n')
+        filepointer.write('\n')
+        filepointer.write('# If it exists, reset the existing definition of env.\n')
+        with open(ENV_, "r") as filepointer2:
+            lines = filepointer2.readlines()
+            for line in lines:
+                if r"_proxy=" in line or r"_PROXY=" in line:
+                    filepointer.write('export {}\n'.format(line))
+        filepointer.write('\n')
+        filepointer.write('# Re-execute bashrc to reflect the existing settings, if exists.\n')
+        filepointer.write('source {}\n'.format(BASH_))
+
+def end_message(flag):
+    if not flag:
+        print("DONE!")
+        print("Plese run the command '$ source {}'.".format(BASH_))
+    else:
+        print("DONE!")
+        print("Plese run the command '$ source /etc/bash.restore'.")
 
 def backup_default():
     # create backup     if not present
