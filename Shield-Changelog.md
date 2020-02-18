@@ -1,11 +1,51 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-19.12_Build_606] - 12-01-2020 - Kubernetes Version Only
+## [Rel-20.01.2_Build_622] - 17-02-2020 - Kubernetes Version Only
+
+### Bug Fixes
+
+- Increase Health-check Frequency for Remote Browser
+
+## [Rel-20.01.1_Build_621] - 16-02-2020
+
+### Bug Fixes
+
+- Fixed: Allow elasticsearch to failover to another node
+- Fixed: Phishing message point to new page
+- Fixed: Applications report is empty in Dev616 although I used several applications
+- Fixed: Authentication window appears twice and more when open white url
+- Fixed: portal.azure.com login impossible
+
+## [Rel-20.01_Build_616] - 03-02-2020
+
+### New Features
+
+- ELK Automatic Snapshots
+- OVA - Offline
+- New Rancher Version: 2.3.5
+- Admin UI for hosted customers
+
+### Enhancement
+
+- Default Votiro URL changed to cdr.ericom.com
+- Remote Browser Scaler - Algorithm Improvement
+- Reports - organize the connections and users under one category
+- Block activation of named user license if no AD
+- Phishing Global Service
+- Google WebRisk API working with Local DB
+- Monitoring & Alerts for Hosted environment
+- Admin User is still available when LDAP Login is defined
+
+### Bug Fixes
+
+- Fixed: Admin UI Dashboard doesn't show Nodes table when system has a node with no labels
+- Fixed: CDR settings are not kept and not restored
+- Fixed: File preview - display issues
+
+## [Rel-19.12.1_Build_606] - 12-01-2020 - Kubernetes Version Only
 
 ### Bug Fixes
 
