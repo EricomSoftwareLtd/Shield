@@ -1,5 +1,5 @@
 1) latest:master:master
-2) Release 20.01.1-Build_621 on 03/02/2020:rel20011:Rel-20.01.1
+2) Release 20.01.2-Build_622 on 17/02/2020:rel20012:Rel-20.01.2
 3) Release 19.12.1-Build_606 on 12/01/2020:rel19121:Rel-19.12.1
 4) Release 19.11-Build_590 on 27/11/2019:rel1911:Rel-19.11
  
