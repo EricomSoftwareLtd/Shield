@@ -3,7 +3,17 @@
 farmservice:
   enabled: true
 
-#farm-services:  
+farm-services:  
+ doNotDelete: true
+# proxyless:
+#  sslip:
+#   enabled: false
+#If you are collocating elk to a different system uncomment it here and supply the server info
+# elasticHost: "10.10.0.1:9200"
+# to use *.sslip.io certificate for proxyless uncomment this
+# proxyless:
+#  sslip:
+#   enabled: true
 
 # If you have 2 or more farm-services Nodes, uncomment this line
  #antiAffinity: hard
