@@ -27,7 +27,7 @@ DRY_RUN="" #"--dry-run"
 # shield-role/remote-browsers=accept
 
 function usage() {
-    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-h|--help]"
+    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-v|--version] [-h|--help]"
     echo
     echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
@@ -148,6 +148,10 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
