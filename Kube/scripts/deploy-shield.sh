@@ -119,7 +119,10 @@ while [ $# -ne 0 ]; do
          exit
         else
          shift
-         only_namespace "$1"
+         while [ ! -z "$1" ]; do
+            only_namespace "$1"
+            shift
+         done
         fi
         ;;
     -l | --label)
