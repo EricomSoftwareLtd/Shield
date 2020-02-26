@@ -156,6 +156,10 @@ while [ $# -ne 0 ]; do
     shift
 done
 
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
+
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 log_message "***************     Ericom Shield Kube Setup $BRANCH ..."
