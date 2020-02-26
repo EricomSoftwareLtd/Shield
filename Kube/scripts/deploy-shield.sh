@@ -122,9 +122,8 @@ while [ $# -ne 0 ]; do
          usage
          exit
         else
-         shift
-         while [ ! -z "$1" ] && [[ "$1" == *"shield-"* ]] ; do
-            only_namespace "$1"
+         while [ ! -z "$2" ] && [[ "$2" == *"shield-"* ]] ; do
+            only_namespace "$2"
             shift
          done
         fi
