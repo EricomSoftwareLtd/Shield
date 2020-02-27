@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.01.3_Build_626] - 27-02-2020 - Kubernetes Version Only
+
+### Enhancements
+
+- Add Client Side Performance Statistics to Connection Performance Report
+
 ## [Rel-20.01.2_Build_622] - 17-02-2020 - Kubernetes Version Only
 
 ### Bug Fixes
