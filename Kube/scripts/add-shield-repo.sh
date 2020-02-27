@@ -4,7 +4,7 @@
 ###########################################BH###
 
 SHIELD_REPO_URL="https://helmrepo.shield-service.net"
-SHIELD_REPO="$SHIELD_REPO_URL/rel20012"
+SHIELD_REPO="$SHIELD_REPO_URL/rel20013"
 NOT_FOUND_STR="404: Not Found"
 
 PASSWORD=""
