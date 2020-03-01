@@ -3,7 +3,7 @@ shield-common:
   enabled: true
 
 common:
- doNotDelete: true
+  doNotDelete: true
 
 #If you are collocating elk to a different system uncomment it here and supply the server info
 # fluent-bit-out-syslog:

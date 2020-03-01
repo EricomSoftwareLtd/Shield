@@ -3,6 +3,8 @@
 #####   Ericom Shield: Cleaner             #####
 ###########################################BH###
 ES_ALL=false
+ES_PATH="$HOME/ericomshield"
+ES_RANCHER_STORE="$ES_PATH/rancher-store"
 
 function usage() {
     echo " Usage: $0 [-a|--all] [-h|--help]"
@@ -40,7 +42,7 @@ sleep 5
 
 docker rm -f $(docker ps -qa)
 docker volume rm $(docker volume ls -q)
-cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke /ericomshield/rancher-store ~/.helm"
+cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $ES_RANCHER_STORE $HOME/.helm"
 for dir in $cleanupdirs; do
     echo "Removing $dir"
     rm -rf $dir

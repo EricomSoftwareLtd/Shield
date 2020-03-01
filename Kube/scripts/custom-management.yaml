@@ -3,13 +3,14 @@
 shieldmng:
   enabled: true
 shield-mng:
- doNotDelete: true
+  doNotDelete: true
 
 #If you are collocating elk to a different system uncomment it here and supply the server info
-# elasticHost: "10.10.0.1:9200"
+#  elasticHost: "10.10.0.1:9200"
+
 #uncomment the following line to set custom Auth Proxy Port
 
-# customAuthProxyPort: 3128
+#  customAuthProxyPort: 8080
 # If you have 2 or more management Nodes, uncomment this line 
 #  antiAffinity: hard
 
@@ -23,7 +24,7 @@ shield-mng:
 #  tenantadmin:
 #    enabled: true
 
- consulBackup:
+  consulBackup:
     # Local Path (Uncomment to use a specific local folder for backup):
     #localPath: /home/ericomshield/backup/
     # For sftp backup, uncomment and set the backup path (on the ftp server):

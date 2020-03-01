@@ -6,16 +6,16 @@ elk:
     elasticsearchDataPath: "/var/elk"
     elasticsearchSnapshotPath: "/var/elk/snapshots"
    management:
-    doNotDelete: true
-#    elasticIngress: true
-#    elasticIngressPort: "9200"
-#    consulvar: |
-#     - name: CONSUL_HOST
-#       valueFrom:
-#        fieldRef:
-#         fieldPath: status.hostIP
-#     - name: CONSUL_PORT
-#       value: "8501"
-#    enableSnapshots: true
-#    fullSnapshotSchedule: "0 0 * * 6"
-#    dailySnapshotSchedule: "0 * * * *"
+     doNotDelete: true
+#     elasticIngress: true
+#     elasticIngressPort: "9200"
+#     consulvar: |
+#      - name: CONSUL_HOST
+#        valueFrom:
+#         fieldRef:
+#          fieldPath: status.hostIP
+#      - name: CONSUL_PORT
+#        value: "8501"
+#     enableSnapshots: true
+#     fullSnapshotSchedule: "0 0 * * 6"
+#     dailySnapshotSchedule: "0 * * * *"
