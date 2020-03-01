@@ -2,6 +2,7 @@
 ############################################
 #####   Ericom Shield Deploy Shield    #####
 #######################################BH###
+
 SHIELD_MNG="yes"
 SHIELD_PROXY="yes"
 SHIELD_FARM="yes"
@@ -27,7 +28,7 @@ DRY_RUN="" #"--dry-run"
 # shield-role/remote-browsers=accept
 
 function usage() {
-    echo " Usage: $0 [-n|--namespace <NAMESPACE>] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-h|--help]"
+    echo " Usage: $0 [-n|--namespace <NAMESPACE> (<NAMESPACE>)] [-l|--label] [-o|--overwrite] [-L|--local] [-f|--force] [-h|--help]"
     echo
     echo "    namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
 }
@@ -83,12 +84,15 @@ get_timezone() {
 
     echo $TZ
 }
-
+FIRST_NAMESPACE="true"
 only_namespace() {
-    SHIELD_MNG="no"
-    SHIELD_PROXY="no"
-    SHIELD_FARM="no"
-    SHIELD_ELK="no"
+    if [ $FIRST_NAMESPACE == "true" ]; then
+        SHIELD_MNG="no"
+        SHIELD_PROXY="no"
+        SHIELD_FARM="no"
+        SHIELD_ELK="no"
+        FIRST_NAMESPACE="false"
+    fi
     case "$1" in
     shield-management)
         SHIELD_MNG="yes"
@@ -118,8 +122,10 @@ while [ $# -ne 0 ]; do
          usage
          exit
         else
-         shift
-         only_namespace "$1"
+         while [ ! -z "$2" ] && [[ "$2" == *"shield-"* ]] ; do
+            only_namespace "$2"
+            shift
+         done
         fi
         ;;
     -l | --label)
@@ -148,6 +154,10 @@ while [ $# -ne 0 ]; do
     esac
     shift
 done
+
+if [ -f "$ES_BRANCH_FILE" ]; then
+    BRANCH=$(cat "$ES_BRANCH_FILE")
+fi
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
