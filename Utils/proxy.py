@@ -197,6 +197,7 @@ def set_proxy(flag):
     host_name = socket.gethostname() 
     host_ip = socket.gethostbyname(host_name) 
     default_exceptions = default_exceptions + host_ip + "," + host_name
+    
     if not flag:
         proxy = raw_input(u"Enter proxy : ")
         port = raw_input(u"Enter port : ")
