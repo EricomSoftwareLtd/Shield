@@ -28,6 +28,8 @@ Three files will be modified
 3) /etc/bash.bashrc
 4) /etc/systemd/system/docker.service.d/http-proxy.conf
 """
+# Importing socket library 
+import socket 
 
 # run it as sudo
 if getuid() != 0:
@@ -190,10 +192,16 @@ def writeDockerServiceConfig(proxy, port, username, password, exceptions, flag):
 
 def set_proxy(flag):
     proxy, port, username, password, exceptions = u"", u"", u"", u"", u""
+    default_exceptions = u",0.0.0.0,127.0.0.1,localhost,"
+
+    host_name = socket.gethostname() 
+    host_ip = socket.gethostbyname(host_name) 
+    default_exceptions = default_exceptions + host_ip + "," + host_name
     if not flag:
         proxy = raw_input(u"Enter proxy : ")
         port = raw_input(u"Enter port : ")
         exceptions = raw_input(u"Enter IPs separated by ',' for direct access : ")
+        exceptions = exceptions + default_exceptions
         username = raw_input(u"Enter username (if you need) : ")
         password = getpass.getpass(u"Enter password (if you need) : ")
 
@@ -203,6 +211,9 @@ def set_proxy(flag):
         if password == u'':
             password = None
 
+    print "http_proxy=" + proxy + ":" + port
+    print "no_proxy=" + exceptions
+    
     if not os.path.isfile(REDHAT_RELEASE_FILE):
         writeToApt(proxy, port, username, password, flag)
     else:
