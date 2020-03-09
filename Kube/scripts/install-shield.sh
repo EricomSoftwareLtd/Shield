@@ -230,9 +230,9 @@ function wait_for_rancher() {
         RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
     else
         if [ $ES_OFFLINE = "false" ]; then
-            RANCHER_SERVER_URL="https://127.0.0.1:8443"
-        else
             RANCHER_SERVER_URL="https://$(get_my_ip):8443"
+        else
+            RANCHER_SERVER_URL="https://127.0.0.1:8443"
         fi
         echo $RANCHER_SERVER_URL >$RANCHER_URL_FILE
     fi
