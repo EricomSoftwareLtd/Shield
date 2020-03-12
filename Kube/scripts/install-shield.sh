@@ -20,7 +20,7 @@ CLUSTER_CREATED="false"
 function usage() {
     echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-l|--label] [-R|--ranchercli] [-f|--force] [-h|--help]"
 }
-
+ericomshield
 #Check if we are root
 if ((EUID != 0)); then
     # sudo su
@@ -229,11 +229,8 @@ function wait_for_rancher() {
     if [ -f $RANCHER_URL_FILE ]; then
         RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
     else
-        if [ $ES_OFFLINE = "false" ]; then
-            RANCHER_SERVER_URL="https://$(get_my_ip):8443"
-        else
-            RANCHER_SERVER_URL="https://127.0.0.1:8443"
-        fi
+        RANCHER_SERVER_URL="https://$(get_my_ip):8443"
+
         echo $RANCHER_SERVER_URL >$RANCHER_URL_FILE
     fi
     log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
