@@ -5,6 +5,7 @@ shield-common:
 common:
   doNotDelete: true
 
+# Split Mode: Replace the IP below to the Farm-Service IP and Uncomment these lines:
 #If you are collocating elk to a different system uncomment it here and supply the server info
 # fluent-bit-out-syslog:
 #  elasticHost: "10.10.0.1:9200"

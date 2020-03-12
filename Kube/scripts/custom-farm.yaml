@@ -5,16 +5,17 @@ farmservice:
 
 farm-services:  
   doNotDelete: true
-#  extProxyIngress: false
-#  extProxyIngressPort: 30128
 
 #If you are collocating elk to a different system uncomment it here and supply the server info
 #  elasticHost: "10.10.0.1:9200"
 
+# Split-Mode: Uncomment these lines:
 # to use *.sslip.io certificate for proxyless uncomment this
 #  proxyless:
 #    sslip:
 #      enabled: true
+#  extProxyIngress: true
+#  extProxyIngressPort: 30128
 
 # If you have 2 or more farm-services Nodes, uncomment this line
 #  antiAffinity: hard

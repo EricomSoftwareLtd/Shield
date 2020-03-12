@@ -5,6 +5,13 @@ shieldmng:
 shield-mng:
   doNotDelete: true
 
+# Split-Mode: Replace the IP below to the Farm-Service IP and Uncomment these lines:
+#farmAddress: |
+#  - name: FARMURL
+#    value: https://10-10-0-1.sslip.io:30443
+#  - name: FARMENABLED
+#    value: 'true'
+
 #If you are collocating elk to a different system uncomment it here and supply the server info
 #  elasticHost: "10.10.0.1:9200"
 
