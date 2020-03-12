@@ -2,16 +2,25 @@
 ---
 shieldproxy:
   enabled: true
-#uncomment the following lines to set custom Auth Proxy Port
+
 shield-proxy:
- doNotDelete: true
+  doNotDelete: true
+
+# Split-Mode: Replace the IP below to the Farm-Service IP and Uncomment these lines:
+#farmAddress: |
+#  - name: FARMURL
+#    value: https://10-10-0-1.sslip.io:30443
+#  - name: FARMENABLED
+#    value: 'true'
 
 #If you are collocating elk to a different system uncomment it here and supply the server info
-# elasticHost: "10.10.0.1:9200"
+#  elasticHost: "10.10.0.1:9200"
 
-#   customAuthProxyPort: 3128
+#uncomment the following lines to set custom Auth Proxy Port
+#  customAuthProxyPort: 3128
+
 # If you have 2 or more proxy Nodes, uncomment this line 
- #antiAffinity: hard
+#  antiAffinity: hard
 
 # Time Zone (By default Rancher Server OS' TimeZone is used)
 #  TZ: "IDT"
