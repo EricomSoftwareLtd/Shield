@@ -229,11 +229,8 @@ function wait_for_rancher() {
     if [ -f $RANCHER_URL_FILE ]; then
         RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
     else
-        if [ $ES_OFFLINE = "false" ]; then
-            RANCHER_SERVER_URL="https://$(get_my_ip):8443"
-        else
-            RANCHER_SERVER_URL="https://127.0.0.1:8443"
-        fi
+        RANCHER_SERVER_URL="https://$(get_my_ip):8443"
+
         echo $RANCHER_SERVER_URL >$RANCHER_URL_FILE
     fi
     log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
@@ -509,9 +506,23 @@ echo
         fi
     else
         echo "offline mode: skipping adding Shield Repo"
+
     fi
 step
+   if [ $ES_OFFLINE = "true" ]; then
+   
+        echo "notice : you are running in offline mode"
+        echo "we need to edit a container that is not working correctly in rancher."
+        echo "please connect to rancher ui > select shield cluster"
+        echo "on the menu on top, click the cluster name and select 'system'"
+        echo "click on metrics-server under kube-system"
+        echo "click on the ... in the right top corner and select 'view/edit YAML'"
+        echo "change the value of ImagePullPolicy from 'Always' to 'Never'"
+        sleep 5
+        echo "when you are done, press enter to continue the deployment"
 
+        read -p "Press enter to continue"
+    fi
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
 "./$ES_file_deploy_shield" $args
