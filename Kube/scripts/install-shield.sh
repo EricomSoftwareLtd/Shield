@@ -230,6 +230,7 @@ function wait_for_rancher() {
         RANCHER_SERVER_URL=$(cat $RANCHER_URL_FILE)
     else
         RANCHER_SERVER_URL="https://$(get_my_ip):8443"
+
         echo $RANCHER_SERVER_URL >$RANCHER_URL_FILE
     fi
     log_message "Waiting for Rancher: ${RANCHER_SERVER_URL}"
@@ -371,7 +372,7 @@ if [ $ES_OFFLINE = "false" ]; then
 fi
 
 if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
-
+    
     #1.  Run configure-sysctl-values.sh
     echo
     log_message "***************     Configure sysctl values"
@@ -382,27 +383,41 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
     fi
 
     step
-
+    
     #2.  install-docker.sh
-    echo
-    log_message "***************     Installing Docker"
-    source "./$ES_file_docker"
-    if [ $? != 0 ]; then
-        log_message "*************** $ES_file_docker Failed, Exiting!"
-        exit 1
+    if [ $ES_OFFLINE = "false" ]; then #if we run offline, we cant download docker
+        echo
+        log_message "***************     Installing Docker"
+        source "./$ES_file_docker"
+        if [ $? != 0 ]; then
+            log_message "*************** $ES_file_docker Failed, Exiting!"
+            exit 1
+        fi
+    else
+        docker version
+        if [ $? != 0 ]; then
+            echo "offline mode: docker is not installed..."
+            exit 1
+        fi
     fi
-
     step
 
     #3.  install-kubectl.sh
-    echo
-    log_message "***************     Installing Kubectl"
-    source "./$ES_file_kubectl"
-    if [ $? != 0 ]; then
-        log_message "*************** $ES_file_kubectl Failed, Exiting!"
-        exit 1
+    if [ $ES_OFFLINE = "false" ]; then
+        echo
+        log_message "***************     Installing Kubectl"
+        source "./$ES_file_kubectl"
+        if [ $? != 0 ]; then
+            log_message "*************** $ES_file_kubectl Failed, Exiting!"
+            exit 1
+        fi
+    else
+        kubectl version --client
+        if [ $? != 0 ]; then
+            echo "offline mode: kubectl is not installed..."
+            exit 1
+        fi
     fi
-
     step
 
     #4.  run-rancher.sh
@@ -416,10 +431,25 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
 
     if [ $RANCHER_CLI = "true" ]; then
 
-        install_if_not_installed jq
+        if [ $ES_OFFLINE = "false" ]; then
+            install_if_not_installed jq
+        else
+            jq --version
+            if [ $? != 0 ]; then
+                echo "offline mode: jq is not installed..."
+                exit 1
+            fi
+        fi
 
-        install_rancher_cli
-
+        if [ $ES_OFFLINE = "false" ]; then
+            install_rancher_cli
+        else
+            rancher --version
+            if [ $? != 0 ]; then
+                echo "offline mode: rancher cli is not installed..."
+                exit 1
+            fi
+        fi
         step
 
         wait_for_rancher
@@ -450,7 +480,8 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
 fi
 
 #4. install-helm.sh
-echo
+echo 
+# there is no offline check because the helm installation script is checking if helm is installed.
 log_message "***************     Installing Helm"
 bash "./$ES_file_helm" -i
 if [ $? != 0 ]; then
@@ -466,15 +497,32 @@ step
 
 #5. Adding Shield Repo
 echo
-log_message "***************     Adding Shield Repo"
-"./$ES_file_addrepo" $args
-if [ $? != 0 ]; then
-    log_message "*************** $ES_file_repo Failed, Exiting!"
-    exit 1
-fi
+   if [ $ES_OFFLINE = "false" ]; then
+        log_message "***************     Adding Shield Repo"
+        "./$ES_file_addrepo" $args
+        if [ $? != 0 ]; then
+            log_message "*************** $ES_file_repo Failed, Exiting!"
+            exit 1
+        fi
+    else
+        echo "offline mode: skipping adding Shield Repo"
 
+    fi
 step
+   if [ $ES_OFFLINE = "true" ]; then
+   
+        echo "notice : you are running in offline mode"
+        echo "we need to edit a container that is not working correctly in rancher."
+        echo "please connect to rancher ui > select shield cluster"
+        echo "on the menu on top, click the cluster name and select 'system'"
+        echo "click on metrics-server under kube-system"
+        echo "click on the ... in the right top corner and select 'view/edit YAML'"
+        echo "change the value of ImagePullPolicy from 'Always' to 'Never'"
+        sleep 5
+        echo "when you are done, press enter to continue the deployment"
 
+        read -p "Press enter to continue"
+    fi
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
 "./$ES_file_deploy_shield" $args

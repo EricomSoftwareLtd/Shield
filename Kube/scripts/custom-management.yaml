@@ -5,7 +5,7 @@ shieldmng:
 shield-mng:
   doNotDelete: true
 
-# Split-Mode: uncomment these lines and replace the IP (enter the IP of the server running the Browser Farm)
+# Split-Mode: uncomment these lines and replace the IP (dashes separated) of the server running the Browser Farm
 #farmAddress: |
 #  - name: FARMURL
 #    value: https://10-10-0-1.sslip.io:30443
@@ -19,7 +19,13 @@ shield-mng:
 # Uncomment the following lines to set custom Auth Proxy Port
 #  customAuthProxyPort: 8080
 
-# If you have 2 or more management Nodes, uncomment this line 
+# If you are collocating elk to a different system uncomment it here and supply the server info
+#  elasticHost: "10.10.0.1:9200"
+
+# Uncomment the following line to set custom Auth Proxy Port
+#  customAuthProxyPort: 8080
+
+#  If you have 2 or more management Nodes, uncomment this line 
 #  antiAffinity: hard
 
 # Time Zone (By default Rancher Server OS' TimeZone is used)
