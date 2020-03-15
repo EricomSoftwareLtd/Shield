@@ -6,18 +6,19 @@ shieldproxy:
 shield-proxy:
   doNotDelete: true
 
-# Split-Mode: Replace the IP below to the Farm-Service IP and Uncomment these lines:
+# Split-Mode: uncomment these lines and replace the IP (dashes separated) of the server running the Browser Farm=======
 #farmAddress: |
 #  - name: FARMURL
 #    value: https://10-10-0-1.sslip.io:30443
 #  - name: FARMENABLED
 #    value: 'true'
 
-#If you are collocating elk to a different system uncomment it here and supply the server info
+# When ELK is running on a different system (e.g. Split Mode), uncomment this 
+# line and replace the IP (enter the IP of the server running ELK)
 #  elasticHost: "10.10.0.1:9200"
 
-#uncomment the following lines to set custom Auth Proxy Port
-#  customAuthProxyPort: 3128
+# Uncomment the following lines to set custom Auth Proxy Port
+#   customAuthProxyPort: 3128
 
 # If you have 2 or more proxy Nodes, uncomment this line 
 #  antiAffinity: hard

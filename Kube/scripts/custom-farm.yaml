@@ -6,16 +6,16 @@ farmservice:
 farm-services:  
   doNotDelete: true
 
-#If you are collocating elk to a different system uncomment it here and supply the server info
-#  elasticHost: "10.10.0.1:9200"
-
-# Split-Mode: Uncomment these lines:
-# to use *.sslip.io certificate for proxyless uncomment this
+# Split-Mode: uncomment these lines:
 #  proxyless:
 #    sslip:
 #      enabled: true
 #  extProxyIngress: true
 #  extProxyIngressPort: 30128
+
+# When ELK is running on a different system (e.g. Split Mode), uncomment this 
+# line and replace the IP (enter the IP of the server running ELK)
+#  elasticHost: "10.10.0.1:9200"
 
 # If you have 2 or more farm-services Nodes, uncomment this line
 #  antiAffinity: hard
