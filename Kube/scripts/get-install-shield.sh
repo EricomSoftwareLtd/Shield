@@ -28,5 +28,5 @@ fi
 
 rm ./install-shield.sh
 wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/install-shield.sh
-chmod +x ericomshield-setup.sh
-bash ./ericomshield-setup.sh $@
+chmod +x install-shield.sh
+bash ./install-shield.sh $@
