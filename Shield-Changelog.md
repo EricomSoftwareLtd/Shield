@@ -3,6 +3,24 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.02_Build_630] - 15-03-2020
+
+### New Features
+
+- Support Shield in Split Deployment (Management+Proxy | Browser_Farm+ELK)
+- Clean Connections report with new visualization and Export to csv option
+
+### Enhancement
+
+- Have all shield-perf counters on the connetioninfo index
+
+### Bug Fixes
+
+- Fixed: Link for more information from phishing updated
+- Fixed: Crystal - video autoplay on ynet
+- Fixed: Crystal cannot type in some inputs (e.g. google login username)
+- Fixed: Alert on Connectivity when there is no connection on Management Server
+
 ## [Rel-20.01.2_Build_622] - 17-02-2020 - Kubernetes Version Only
 
 ### Bug Fixes
