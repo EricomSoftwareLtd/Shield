@@ -3,10 +3,22 @@
 farmservice:
   enabled: true
 
-#farm-services:  
+farm-services:  
+  doNotDelete: true
+
+# Split-Mode: uncomment these lines:
+#  proxyless:
+#    sslip:
+#      enabled: true
+#  extProxyIngress: true
+#  extProxyIngressPort: 30128
+
+# When ELK is running on a different system (e.g. Split Mode), uncomment this 
+# line and replace the IP (enter the IP of the server running ELK)
+#  elasticHost: "10.10.0.1:9200"
 
 # If you have 2 or more farm-services Nodes, uncomment this line
- #antiAffinity: hard
+#  antiAffinity: hard
 
 # Disable Spell Check in Browser (default:true)
 #  DISABLE_SPELL_CHECK : "true"
