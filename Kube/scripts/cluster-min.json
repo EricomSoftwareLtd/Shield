@@ -10,9 +10,9 @@
       "kubelet": {
          "extraArgs": {
             "eviction-hard": "memory.available<0.2Gi,nodefs.available<10%",
-            "kube-reserved": "cpu=1,memory=1Gi",
+            "kube-reserved": "cpu=0.2,memory=0.5Gi",
             "kube-reserved-cgroup": "/system",
-            "system-reserved": "cpu=1,memory=0.5Gi",
+            "system-reserved": "cpu=0.2,memory=0.3Gi",
             "system-reserved-cgroup": "/system"
          }
       }
