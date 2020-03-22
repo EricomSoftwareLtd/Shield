@@ -13,7 +13,7 @@ DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 SHIELD_CLI='shield-cli'
 SHIELD_CMD="/usr/bin/$SHIELD_CLI"
-VERSION="Rel-20.01.632"
+VERSION="Rel-20.03.632"
 ES_file_install_shield_local="install-shield-local.sh"
 
 function usage() {
