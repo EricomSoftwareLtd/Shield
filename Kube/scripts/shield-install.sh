@@ -84,13 +84,18 @@ fi
 docker_login
 
 DOCKER_BIN=$(which docker)
-SHIELD_DOCKER_CMD="docker run --rm -d -it --name shield-cli --privileged \
+SHIELD_CLI_DOCKER_CMD="sudo docker run --rm -it --privileged \
                   -v $HOME/.kube:/home/ericom/.kube \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -v $DOCKER_BIN:/usr/bin/docker --user 1000:$DOCKER_GID securebrowsing/es-shield-cli:$VERSION bash"
 
-echo "$SHIELD_DOCKER_CMD" > $SHIELD_CMD
+echo "$SHIELD_CLI_DOCKER_CMD" > $SHIELD_CMD
 chmod +x $SHIELD_CMD
+
+SHIELD_DOCKER_CMD="docker run --rm -d -it --name shield-cli --privileged \
+                  -v $HOME/.kube:/home/ericom/.kube \
+                  -v /var/run/docker.sock:/var/run/docker.sock \
+                  -v $DOCKER_BIN:/usr/bin/docker --user 1000:$DOCKER_GID securebrowsing/es-shield-cli:$VERSION bash"
 
 if [ $(docker ps -a | grep -c shield-cli) -lt 1 ]; then
    $SHIELD_DOCKER_CMD $@
@@ -101,4 +106,6 @@ docker cp shield-cli:/home/ericom/ericomshield .
 
 cd "$ES_PATH"
 
-source "./$ES_file_install_shield_local"
+"./$ES_file_install_shield_local" $@
+
+docker rm -f shield-cli
