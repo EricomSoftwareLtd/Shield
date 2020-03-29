@@ -19,7 +19,7 @@ ES_VERSION_FILE="$ES_PATH/.esversion"
 ES_file_install_shield_local="install-shield-local.sh"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases] [-l|--label] [-h|--help]"
 }
 
 #Check if we are root
@@ -172,6 +172,15 @@ docker_login
 
 #TODO: Check if Docker Tag exists if not error
 
+docker image pull securebrowsing/es-shield-cli:$VERSION
+if [ $(docker image ls | grep -c $VERSION) -lt 1 ]; then
+   echo
+   echo "Error: Cannot Pull Docker image es-shield-cli: $VERSION"
+   echo "  Verify the version exists and the password is correct "
+   exit 1
+fi
+
+
 DOCKER_BIN=$(which docker)
 SHIELD_CLI_DOCKER_CMD="sudo docker run --rm -it --privileged \
                   -v $HOME/.kube:/home/ericom/.kube \
@@ -190,15 +199,9 @@ if [ $(docker ps -a | grep -c shield-cli) -lt 1 ]; then
    $SHIELD_DOCKER_CMD $@
 fi
 
-if [ $(docker ps -a | grep -c shield-cli) -lt 1 ]; then
-   echo
-   echo "Error: Cannot find: $VERSION "
-   exit 1
-fi
-
 cd "$HOME"
 
-if [ $(ls -l $ES_PATH *.yaml | wc -l) -gt 1 ]; then
+if [ ls "$ES_PATH/*.yaml" &>/dev/nul ]; then
    echo "Keeping Custom Yaml"
    mkdir -p /tmp/yaml
    mv $ES_PATH/*.yaml /tmp/yaml/

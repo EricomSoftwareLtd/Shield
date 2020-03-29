@@ -8,7 +8,6 @@ APP_BIN="helm"
 ES_FORCE=false
 ES_CLEAN=false
 ES_INIT=false
-BRANCH="master"
 
 function usage() {
     echo " Usage: $0 [-f|--force] [-c|--clean] [-h|--help]"
@@ -37,7 +36,7 @@ done
 
 helm_init() {
     if ! [ -f rbac-config.yaml ]; then
-        curl -s -o rbac-config.yaml "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/rbac-config.yaml"
+        curl -s -o rbac-config.yaml "https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/rbac-config.yaml"
     fi
     kubectl -n kube-system create serviceaccount tiller
     kubectl create clusterrolebinding tiller \

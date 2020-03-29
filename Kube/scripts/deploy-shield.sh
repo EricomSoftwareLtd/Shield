@@ -20,7 +20,7 @@ LAST_DEPLOY_LOGFILE="$ES_PATH/last_deploy.log"
 BRANCH="master"
 SHIELD_NS_COUNT=5
 SHIELD_REPO="shield-repo"
-DRY_RUN="" #"--dry-run"
+DEBUG="" #"--debug"
 
 # shield-role/management=accept
 # shield-role/proxy=accept
@@ -220,7 +220,7 @@ log_message "***************     Deploying Shield Common ***********************
 if [ "$ES_OVERWRITE" = "true" ] || [ ! -f "custom-common.yaml" ]; then
     download_and_check custom-common.yaml https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/custom-common.yaml
 fi
-helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
+helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f custom-common.yaml $DEBUG | tee -a "$LAST_DEPLOY_LOGFILE"
 
 if [ "$SHIELD_FARM" = "yes" ]; then
     log_message "***************     Deploying Shield Farm Services *******************************"
@@ -234,7 +234,7 @@ if [ "$SHIELD_FARM" = "yes" ]; then
 
     helm upgrade --install shield-farm-services $SHIELD_REPO/shield --namespace=farm-services \
         --set-string "farm-services.TZ=${TZ}" --set-string "farm-services.CLUSTER_SYSTEM_ID=$SYSTEMID" \
-        -f custom-farm.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
+        -f custom-farm.yaml $DEBUG | tee -a "$LAST_DEPLOY_LOGFILE"
     sleep 30
 fi
 
@@ -248,7 +248,7 @@ if [ "$SHIELD_MNG" = "yes" ]; then
     fi
     helm upgrade --install shield-management $SHIELD_REPO/shield --namespace=management \
         --set-string "shield-mng.TZ=${TZ}" --set-string "shield-mng.CLUSTER_SYSTEM_ID=$SYSTEMID" \
-        -f custom-management.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
+        -f custom-management.yaml $DEBUG | tee -a "$LAST_DEPLOY_LOGFILE"
 
     sleep 30
 fi
@@ -264,7 +264,7 @@ if [ "$SHIELD_PROXY" = "yes" ]; then
     helm upgrade --install shield-proxy $SHIELD_REPO/shield --namespace=proxy \
         --set-string "shield-proxy.TZ=${TZ}" --set-string "shield-proxy.CLUSTER_SYSTEM_ID=$SYSTEMID" \
         --set-string "shield-proxy.UPSTREAM_DNS_SERVERS=$(echo ${UPSTREAM_DNS_SERVERS} | sed 's#,#\\,#g')" \
-        -f custom-proxy.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
+        -f custom-proxy.yaml $DEBUG | tee -a "$LAST_DEPLOY_LOGFILE"
 
     sleep 30
 fi
@@ -279,9 +279,12 @@ if [ "$SHIELD_ELK" = "yes" ]; then
     fi
     helm upgrade --install shield-elk $SHIELD_REPO/shield --namespace=elk \
         --set-string "elk.TZ=${TZ}" --set-string "elk.CLUSTER_SYSTEM_ID=$SYSTEMID" \
-        -f custom-values-elk.yaml --debug | tee -a "$LAST_DEPLOY_LOGFILE"
+        -f custom-values-elk.yaml $DEBUG | tee -a "$LAST_DEPLOY_LOGFILE"
 
 fi
 
 log_message "***************     Done!"
+
+helm list
+
 exit 0

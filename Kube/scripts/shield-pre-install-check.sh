@@ -25,7 +25,6 @@ NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/tmp/ericomshield"
-ES_BRANCH_FILE="$ES_PATH/.esbranch"
 CONTAINER_TAG_DEFAULT="shield-collector:200107-15.12-493"
 
 HW_PLATFORM="$(uname -m)"
@@ -33,15 +32,6 @@ if [ "$HW_PLATFORM" != "x86_64" ]; then
     log_message "Current hardware platform is $HW_PLATFORM. Shield can be installed on x86_64 only. Exiting..."
     exit 1
 fi
-
-if [ -z "$BRANCH" ]; then
-    if [ -f "$ES_BRANCH_FILE" ]; then
-        BRANCH=$(cat "$ES_BRANCH_FILE")
-    else
-        BRANCH="master"
-    fi
-fi
-ES_repo_ver="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Setup/shield-version.txt"
 
 if ! declare -f log_message >/dev/null; then
     function log_message() {

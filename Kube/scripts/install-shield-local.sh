@@ -6,13 +6,11 @@
 NOT_FOUND_STR="404: Not Found"
 STEP_BY_STEP="false"
 ES_PATH="$HOME/ericomshield"
-ES_BRANCH_FILE="$ES_PATH/.esbranch"
-BRANCH="master"
 LOGFILE="$ES_PATH/ericomshield.log"
 ES_OFFLINE="false"
 
 function usage() {
-    echo " Usage: $0 [-l|--label] [-R|--ranchercli] [-f|--force] [-h|--help]"
+    echo " Usage: $0 [-l|--label] [-f|--force] [-h|--help]"
 }
 
 #Check if we are root
@@ -54,7 +52,8 @@ done
 
 ES_file_sysctl="configure-sysctl-values.sh"
 ES_file_rancher="run-rancher.sh"
-ES_file_rancher_cli="rancher-cli.sh"
+ES_file_rancher_cli="install-rancher-cli.sh"
+ES_file_create_cluster="create-cluster.sh"
 ES_file_kubectl="install-kubectl.sh"
 ES_file_helm="install-helm.sh"
 ES_file_deploy_shield="deploy-shield.sh"
@@ -121,7 +120,7 @@ function wait_for_tiller() {
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 log_message "***************     Ericom Shield Installer LOCAL ..."
 
-if [ -x "$(command -v docker) ]; then
+if [ ! -x "/usr/bin/docker" ]; then
    log_message "FATAL: Docker is not installed exiting..."
    exit 1
 fi
@@ -139,21 +138,13 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
 
     step
     #2.  install-kubectl.sh
-    #TODO map kubectl bin from shield-cli to host
-    if [ $ES_OFFLINE = "false" ]; then
-        echo
-        log_message "***************     Installing Kubectl"
-        source "./$ES_file_kubectl"
-        if [ $? != 0 ]; then
-            log_message "*************** $ES_file_kubectl Failed, Exiting!"
-            exit 1
-        fi
-    else
-        kubectl version --client
-        if [ $? != 0 ]; then
-            echo "offline mode: kubectl is not installed..."
-            exit 1
-        fi
+    #TODO: map kubectl bin from shield-cli to host
+    echo
+    log_message "***************     Installing Kubectl"
+    source "./$ES_file_kubectl"
+    if [ $? != 0 ]; then
+       log_message "*************** $ES_file_kubectl Failed, Exiting!"
+       exit 1
     fi
     step
 
@@ -166,9 +157,18 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
         exit 1
     fi
 
+    #5.  install-rancher-cli
+    log_message "***************     Installing Rancher CLI"
     source "./$ES_file_rancher_cli"
     if [ $? != 0 ]; then
-       log_message "*************** $ES_file_run_rancher Failed, Exiting!"
+       log_message "*************** $ES_file_run_rancher_cli Failed, Exiting!"
+       exit 1
+    fi  
+    #6.  create-cluster.sh
+    log_message "***************     Creating SHIELD Cluster"
+    source "./$ES_file_create_cluster"
+    if [ $? != 0 ]; then
+       log_message "*************** $ES_file_create_cluster Failed, Exiting!"
        exit 1
     fi
 fi
@@ -179,11 +179,11 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
     exit 0
 fi
 
-#4. install-helm.sh
+#5. install-helm.sh
 echo 
 #TODO map helm bin from shield-cli to host
-log_message "******-*********     Installing Helm"
-if ! which "$APP_BIN" >/dev/null ; then
+if ! which helm >/dev/null ]; then
+   log_message "***************     Installing Helm"
    bash "./$ES_file_helm" -i
    if [ $? != 0 ]; then
       log_message "*************** $ES_file_helm Failed, Exiting!"
@@ -199,7 +199,7 @@ step
 
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
-"./$ES_file_deploy_shield" -L .
+"./$ES_file_deploy_shield" -L . $@
 if [ $? != 0 ]; then
     log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
     exit 1
