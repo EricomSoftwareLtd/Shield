@@ -38,9 +38,6 @@ while [ $# -ne 0 ]; do
     -O | --offline)
         ES_OFFLINE="true"
         ;;
-    -m | --min-cluster)
-        ES_CLUSTER_MIN="true"
-        ;;
     -h | --help)
         #    *)
         usage
@@ -166,7 +163,7 @@ if [ ! -f ~/.kube/config ] || [ $(cat ~/.kube/config | wc -l) -le 1 ]; then
     fi  
     #6.  create-cluster.sh
     log_message "***************     Creating SHIELD Cluster"
-    source "./$ES_file_create_cluster"
+    source "./$ES_file_create_cluster" $@
     if [ $? != 0 ]; then
        log_message "*************** $ES_file_create_cluster Failed, Exiting!"
        exit 1
@@ -199,7 +196,7 @@ step
 
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
-"./$ES_file_deploy_shield" -L . $@
+"./$ES_file_deploy_shield" -L . $args
 if [ $? != 0 ]; then
     log_message "*************** $ES_file_deploy_shield Failed, Exiting!"
     exit 1

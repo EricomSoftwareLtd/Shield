@@ -225,6 +225,7 @@ helm upgrade --install shield-common $SHIELD_REPO/shield --namespace=common -f c
 if [ "$SHIELD_FARM" = "yes" ]; then
     log_message "***************     Deploying Shield Farm Services *******************************"
     if [ "$SET_LABELS" = "yes" ]; then
+        log_message "Setting Labels: farm-services, remote-browsers"
         kubectl label node --all shield-role/farm-services=accept --overwrite
         kubectl label node --all shield-role/remote-browsers=accept --overwrite
     fi
@@ -241,6 +242,7 @@ fi
 if [ "$SHIELD_MNG" = "yes" ]; then
     log_message "***************     Deploying Shield Management *******************************"
     if [ "$SET_LABELS" = "yes" ]; then
+        log_message "Setting Labels: management"
         kubectl label node --all shield-role/management=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = "true" ] || [ ! -f "custom-management.yaml" ]; then
@@ -256,6 +258,7 @@ fi
 if [ "$SHIELD_PROXY" = "yes" ]; then
     log_message "***************     Deploying Shield Proxy *******************************"
     if [ "$SET_LABELS" = "yes" ]; then
+        log_message "Setting Labels: proxy"
         kubectl label node --all shield-role/proxy=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = "true" ] || [ ! -f "custom-proxy.yaml" ]; then
@@ -272,6 +275,7 @@ fi
 if [ "$SHIELD_ELK" = "yes" ]; then
     log_message "***************     Deploying Shield ELK *******************************"
     if [ "$SET_LABELS" = "yes" ]; then
+        log_message "Setting Labels: elk"
         kubectl label node --all shield-role/elk=accept --overwrite
     fi
     if [ "$ES_OVERWRITE" = "true" ] || [ ! -f "custom-values-elk.yaml" ]; then

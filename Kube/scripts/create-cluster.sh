@@ -13,13 +13,12 @@ RANCHER_URL_FILE="$ES_PATH/.esrancherurl"
 RANCHER_TOKEN_FILE="$ES_PATH/.esranchertoken"
 CLUSTER_NAME="shield-cluster"
 CLUSTER_CREATED="false"   # Flag for Cluster Creation
-ES_CLUSTER_MIN="false"    # If true use Minimum Node Allocation for K8s
 RANCHER_API_TOKEN="NDY"
 RANCHER_SERVER_URL="NDY"
 LOCAL_RANCHER_SERVER_URL="https://127.0.0.1:8443"
 
 function usage() {
-     echo " Usage: $0 [-h|--help]"
+     echo " Usage: $0 [-m|--min-cluster] [-h|--help]"
 }
 
 #Check if we are root
@@ -30,6 +29,21 @@ if ((EUID != 0)); then
     echo "sudo $0 $@"
     exit
 fi
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -m | --min-cluster)
+        ES_file_cluster_config="cluster-min.json"
+        ;;
+    -h | --help)
+        #    *)
+        usage
+        exit
+        ;;
+    esac
+    shift
+done
 
 function log_message() {
     local PREV_RET_CODE=$?
