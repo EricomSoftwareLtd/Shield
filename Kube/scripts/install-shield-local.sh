@@ -196,6 +196,7 @@ step
 
 #6. Deploy Shield
 log_message "***************     Deploy Shield"
+echo "./$ES_file_deploy_shield" -L . "$args"
 "./$ES_file_deploy_shield" -L . $args
 if [ $? != 0 ]; then
     log_message "*************** $ES_file_deploy_shield Failed, Exiting!"

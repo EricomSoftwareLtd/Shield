@@ -103,6 +103,8 @@ function list_versions() {
     echo -n $VERSION >"$ES_VERSION_FILE"
 }
 
+args="$@"
+
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
@@ -213,6 +215,6 @@ fi
 
 cd "$ES_PATH"
 
-"./$ES_file_install_shield_local" $@
+"./$ES_file_install_shield_local" $args
 
 docker rm -f shield-cli
