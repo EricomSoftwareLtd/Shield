@@ -121,8 +121,7 @@ function wait_for_tiller() {
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 log_message "***************     Ericom Shield Installer LOCAL ..."
 
-docker version
-if [ $? != 0 ]; then
+if [ -x "$(command -v docker) ]; then
    log_message "FATAL: Docker is not installed exiting..."
    exit 1
 fi
@@ -183,11 +182,13 @@ fi
 #4. install-helm.sh
 echo 
 #TODO map helm bin from shield-cli to host
-log_message "***************     Installing Helm"
-bash "./$ES_file_helm" -i
-if [ $? != 0 ]; then
-    log_message "*************** $ES_file_helm Failed, Exiting!"
-    exit 1
+log_message "******-*********     Installing Helm"
+if ! which "$APP_BIN" >/dev/null ; then
+   bash "./$ES_file_helm" -i
+   if [ $? != 0 ]; then
+      log_message "*************** $ES_file_helm Failed, Exiting!"
+      exit 1
+   fi   
 fi
 
 step
