@@ -4,21 +4,40 @@
 #######################################BH###
 
 ES_PATH="$HOME/ericomshield"
-BRANCH="master"
 NOT_FOUND_STR="404: Not Found"
 LOGFILE="$ES_PATH/ericomshield.log"
-ES_repo_docker="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/install-docker.sh"
+ES_repo_docker="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/install-docker.sh"
 ES_file_docker="install-docker.sh"
+ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/shield-releases.txt"
+ES_repo_versions_file="shield-releases.txt"
 DOCKER_USER="ericomshield1"
-DOCKER_SECRET="Ericom98765$"
+PASSWORD=""
 SHIELD_CLI='shield-cli'
 SHIELD_CMD="/usr/bin/$SHIELD_CLI"
-VERSION="Rel-20.03.632"
+VERSION="master"
+ES_VERSION_FILE="$ES_PATH/.esversion"
 ES_file_install_shield_local="install-shield-local.sh"
 
 function usage() {
-    echo " Usage: $0  [-h|--help]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases]"
 }
+
+#Check if we are root
+if ((EUID != 0)); then
+    # sudo su
+    usage
+    echo " Please run it as Root"
+    echo "sudo $0 $@"
+    exit
+fi
+
+# Create the Ericom empty dir if necessary
+if [ ! -d $ES_PATH ]; then
+    mkdir -p $ES_PATH
+    chmod 0755 $ES_PATH
+fi
+
+cd "$ES_PATH" || exit 1
 
 function log_message() {
     local PREV_RET_CODE=$?
@@ -31,18 +50,6 @@ function log_message() {
     fi   
     return 0
 }
-
-while [ $# -ne 0 ]; do
-    arg="$1"
-    case "$arg" in
-    -h | --help)
-#    *)
-        usage
-        exit
-        ;;
-    esac
-    shift
-done
 
 # download TO (local-file) FROM (remote-url) 
 # [+x] chmod executable
@@ -57,10 +64,90 @@ function download_and_check() {
     fi
 }
 
+function list_versions() {
+    echo "Getting $ES_repo_versions"
+    download_and_check $ES_repo_versions_file $ES_repo_versions
+
+    while true; do
+        cat $ES_repo_versions_file | cut -d':' -f1
+        read -p "Please select the Release you want to install/update (1-4):" choice
+        case "$choice" in
+        "1" | "latest")
+            echo 'latest'
+            OPTION="1)"
+            break
+            ;;
+        "2")
+            echo "2."
+            OPTION="2)"
+            break
+            ;;
+        "3")
+            echo "3."
+            OPTION="3)"
+            break
+            ;;
+        "4")
+            echo "4."
+            OPTION="4)"
+            break
+            ;;
+        *)
+            echo "Error: Not a valid option, exiting"
+            exit
+            ;;
+        esac
+    done
+    grep "$OPTION" $ES_repo_versions_file
+    VERSION=$(grep "$OPTION" $ES_repo_versions_file | cut -d':' -f3)
+    echo -n $VERSION >"$ES_VERSION_FILE"
+}
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -p | --password)
+        shift
+        PASSWORD=$1
+        ;;
+    -v | --version)
+        shift
+        echo -n "$1" >"$ES_VERSION_FILE"
+        ;;
+    -d | --dev) # Dev Channel
+        echo -n "Dev" >"$ES_VERSION_FILE"
+        ;;
+    -s | --staging) # Staging Channel
+        echo -n "Staging" >"$ES_VERSION_FILE"
+        ;;
+    -r | --releases) # List the official releases
+        list_versions
+        ;;
+    -h | --help)
+#    *)
+        usage "$0"
+        exit
+        ;;
+    esac
+    shift
+done
+
+if [ -f "$ES_VERSION_FILE" ]; then
+    VERSION=$(cat "$ES_VERSION_FILE")
+fi
+
+echo "Version:" "$VERSION"
+
+if [ "$PASSWORD" == "" ]; then
+    echo " Error: Password is missing"
+    usage
+    exit 1
+fi
+
 function docker_login() {
     if [ "$(docker info | grep -c Username)" -eq 0 ]; then
        echo "docker login" $DOCKER_USER
-       echo "$DOCKER_SECRET" | docker login --username=$DOCKER_USER --password-stdin
+       echo "$PASSWORD" | docker login --username=$DOCKER_USER --password-stdin
        if [ $? == 0 ]; then
           echo "Login Succeeded!"
         else
@@ -83,6 +170,8 @@ if [ ! -x "/usr/bin/docker" ]; then
 fi
 docker_login
 
+#TODO: Check if Docker Tag exists if not error
+
 DOCKER_BIN=$(which docker)
 SHIELD_CLI_DOCKER_CMD="sudo docker run --rm -it --privileged \
                   -v $HOME/.kube:/home/ericom/.kube \
@@ -100,9 +189,24 @@ SHIELD_DOCKER_CMD="docker run --rm -d -it --name shield-cli --privileged \
 if [ $(docker ps -a | grep -c shield-cli) -lt 1 ]; then
    $SHIELD_DOCKER_CMD $@
 fi
+
+if [ $(docker ps -a | grep -c shield-cli) -lt 1 ]; then
+   echo
+   echo "Error: Cannot find: $VERSION "
+   exit 1
+fi
+
 cd "$HOME"
 
-docker cp shield-cli:/home/ericom/ericomshield .
+if [ $(ls -l $ES_PATH *.yaml | wc -l) -gt 1 ]; then
+   echo "Keeping Custom Yaml"
+   mkdir -p /tmp/yaml
+   mv $ES_PATH/*.yaml /tmp/yaml/
+   docker cp shield-cli:/home/ericom/ericomshield .
+   mv /tmp/yaml/*.yaml $ES_PATH
+ else
+   docker cp shield-cli:/home/ericom/ericomshield .
+fi
 
 cd "$ES_PATH"
 
