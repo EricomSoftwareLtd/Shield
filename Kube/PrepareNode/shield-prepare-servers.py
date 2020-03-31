@@ -14,6 +14,9 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-u', '--user', metavar='USER', dest='ansible_username',
                     type=str, required=True, help='username to use to connect to a node via SSH')
 
+parser.add_argument('--offline-mode', dest='offline_mode', action='store_true')
+parser.set_defaults(offline_mode=False)
+
 parser.add_argument('--offline-registry', metavar='OFFLINE_REGISTRY', dest='offline_registry',
                     type=str, required=False, help='IP address and port of the Offline Registry <address:port>')
 
@@ -26,6 +29,8 @@ node_list = ",".join(args.node_address) + ','
 extra_vars = []
 if args.offline_registry:
     extra_vars.append("offline_registry_address={0}".format(args.offline_registry))
+if args.offline_mode:
+    extra_vars.append("shield_offline_mode=True")
 
 addnode_command = [os.getenv('PYTHON', PYTHON), os.getenv('ANSIBLE_PLAYBOOK', ANSIBLE_PLAYBOOK),
                    "-i", node_list,
