@@ -21,9 +21,9 @@ def add_in_subsection_consul(reg, subsection):
 
 
 parser = argparse.ArgumentParser(
-    description='Add Private Repository address to custom values YAML.')
+    description='Add Offline Registry address to custom values YAML.')
 parser.add_argument('repo', type=str,
-                    nargs=1, help='IP address and port of the Private Repository <address:port>')
+                    nargs=1, help='IP address and port of the Offline Registry <address:port>')
 parser.add_argument('shield_yaml_name', type=str,
                     nargs=1, help='Shield custom values YAML file')
 parser.add_argument('consul_yaml_name', type=str,
