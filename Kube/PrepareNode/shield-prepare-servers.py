@@ -14,11 +14,12 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-u', '--user', metavar='USER', dest='ansible_username',
                     type=str, required=True, help='username to use to connect to a node via SSH')
 
-parser.add_argument('--offline-mode', dest='offline_mode', action='store_true')
+parser.add_argument('--offline-mode', dest='offline_mode', action='store_true',
+                    help='Do not execute tasks that require connection to the Internet')
 parser.set_defaults(offline_mode=False)
 
-parser.add_argument('--offline-registry', metavar='OFFLINE_REGISTRY', dest='offline_registry',
-                    type=str, required=False, help='IP address and port of the Offline Registry <address:port>')
+parser.add_argument('--offline-registry', metavar='<address:port>', dest='offline_registry',
+                    type=str, required=False, help='IP address and port of the Offline Registry')
 
 parser.add_argument('node_address', metavar='address', type=str,
                     nargs='+', help='IP address or domain name of a node to configure')
