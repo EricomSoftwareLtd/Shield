@@ -44,7 +44,7 @@ docker run --user "$(id -u):$(id -g)" \
     "$DOCKER_CONDA_BUILDER_IMG_TAG" cp -dR /AppDir/. /AppDir2
 
 #cp -T "$DIR/../proxy3.py" "$APPIMAGE_DIR/usr/bin/proxy.py"
-cp -r "$DIR/ansible_playbooks" "$DIR/shield-prepare-servers.py" "$APPIMAGE_DIR"
+cp -r "$DIR/ansible_playbooks" "$DIR/shield-prepare-servers.py" "$DIR/add-registry.py" "$APPIMAGE_DIR"
 
 "$APPIMAGETOOL" "$APPIMAGE_DIR" "$APPIMAGE"
 
