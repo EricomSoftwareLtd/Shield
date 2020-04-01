@@ -5,6 +5,7 @@
   apt:
     upgrade: dist
     update_cache: yes
+  when: shield_offline_mode is not defined or not shield_offline_mode
 
 - name: Install Docker dependencies
   apt:
@@ -16,16 +17,19 @@
       - software-properties-common
       - python-yaml
     state: latest
+  when: shield_offline_mode is not defined or not shield_offline_mode
 
 - name: Add Docker key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
+  when: shield_offline_mode is not defined or not shield_offline_mode
 
 - name: Add Docker repository
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
     state: present
+  when: shield_offline_mode is not defined or not shield_offline_mode
 
 - name: Install Docker
   apt:
@@ -34,6 +38,7 @@
       - docker-ce-cli
       - containerd.io
     state: latest
+  when: shield_offline_mode is not defined or not shield_offline_mode
 
 - import_tasks: disable-swap_common.yaml
 

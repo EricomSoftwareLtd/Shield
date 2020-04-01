@@ -8,4 +8,9 @@ export ANSIBLE_PLAYBOOK="$APPDIR/usr/bin/ansible-playbook"
 export ANSIBLE_CONFIG="$APPDIR/ansible_playbooks/ansible.cfg"
 export ANSIBLE_HOST_KEY_CHECKING="False"
 
-"$PYTHON" "$APPDIR/shield-prepare-servers.py" "$@"
+if [ "$1" = "add-registry" ]; then
+    shift
+    "$PYTHON" "$APPDIR/add-registry.py" "$@"
+else
+    "$PYTHON" "$APPDIR/shield-prepare-servers.py" "$@"
+fi

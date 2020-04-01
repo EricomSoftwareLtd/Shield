@@ -1,0 +1,10 @@
+{
+{% if offline_registry_address is defined %}
+  "insecure-registries": ["{{ offline_registry_address }}"],
+{% endif %}
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "10" 
+  }
+}
