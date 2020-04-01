@@ -3,12 +3,14 @@
   dnf:
     name: "*"
     state: latest
+  when: shield_offline_mode is not defined or not shield_offline_mode
 
 - name: Install the latest version of Podman and Podman Docker CLI packages
   dnf:
     name:
       - podman-docker
     state: latest
+  when: shield_offline_mode is not defined or not shield_offline_mode
 
 - import_tasks: disable-swap_common.yaml
 

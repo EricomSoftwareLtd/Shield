@@ -14,18 +14,36 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-u', '--user', metavar='USER', dest='ansible_username',
                     type=str, required=True, help='username to use to connect to a node via SSH')
 
+parser.add_argument('--offline-mode', dest='offline_mode', action='store_true',
+                    help='Do not execute tasks that require connection to the Internet')
+parser.set_defaults(offline_mode=False)
+
+parser.add_argument('--offline-registry', metavar='<address:port>', dest='offline_registry',
+                    type=str, required=False, help='IP address and port of the Offline Registry')
+
 parser.add_argument('node_address', metavar='address', type=str,
                     nargs='+', help='IP address or domain name of a node to configure')
 args, unknown_args = parser.parse_known_args()
 
 node_list = ",".join(args.node_address) + ','
 
+extra_vars = []
+if args.offline_registry:
+    extra_vars.append("offline_registry_address={0}".format(args.offline_registry))
+if args.offline_mode:
+    extra_vars.append("shield_offline_mode=True")
+
 addnode_command = [os.getenv('PYTHON', PYTHON), os.getenv('ANSIBLE_PLAYBOOK', ANSIBLE_PLAYBOOK),
                    "-i", node_list,
                    "-u", args.ansible_username,
-                   "-k", "-K"]
+                   "-k", "-K"
+                   ]
+if extra_vars:
+    addnode_command.append("--extra-vars")
+    addnode_command.append(" ".join(extra_vars))
+
 addnode_command.extend(unknown_args)
 addnode_command.append("{}/ansible_playbooks/es_nodes.yaml".format(SCRIPT_DIR))
 
-result = subprocess.run(args=addnode_command) #, cwd=SCRIPT_DIR)
+result = subprocess.run(args=addnode_command)  # , cwd=SCRIPT_DIR)
 sys.exit(result.returncode)

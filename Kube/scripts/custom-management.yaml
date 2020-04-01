@@ -16,12 +16,6 @@ shield-mng:
 # line and replace the IP (enter the IP of the server running ELK)
 #  elasticHost: "10.10.0.1:9200"
 
-# Uncomment the following lines to set custom Auth Proxy Port
-#  customAuthProxyPort: 8080
-
-# If you are collocating elk to a different system uncomment it here and supply the server info
-#  elasticHost: "10.10.0.1:9200"
-
 # Uncomment the following line to set custom Auth Proxy Port
 #  customAuthProxyPort: 8080
 
