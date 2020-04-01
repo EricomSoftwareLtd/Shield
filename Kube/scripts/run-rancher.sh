@@ -14,24 +14,19 @@ if ! [ -d "$ES_RANCHER_STORE" ]; then
     mkdir -p "$ES_RANCHER_STORE"
 fi
 
+if ! ls -1qA "$ES_RANCHER_STORE" | grep -q .; then
+    docker run --rm -it \
+        -v $ES_RANCHER_STORE:/var-lib-rancher \
+        --entrypoint /bin/sh \
+        rancher/rancher:$APP_VERSION \
+        -c "cp -rp /var/lib/rancher/. /var-lib-rancher/"
+fi
+
 if [ ! -z "$http_proxy" ] && [ -z "$HTTP_PROXY" ]; then
     HTTP_PROXY="$http_proxy"
 fi
 if [ ! -z "$HTTP_PROXY" ]; then
     RANCHER_PROXY_VARS="-e HTTP_PROXY=${HTTP_PROXY} -e HTTPS_PROXY=${HTTPS_PROXY} -e NO_PROXY=localhost,127.0.0.1,0.0.0.0,${NO_PROXY}"
-fi
-if [ ! -z "$ES_OFFLINE_REGISTRY" ]; then
-    RANCHER_REGISTRY_VARS="-e CATTLE_SYSTEM_DEFAULT_REGISTRY=${ES_OFFLINE_REGISTRY}"
-    ES_OFFLINE_REGISTRY_PREFIX="$ES_OFFLINE_REGISTRY/"
-fi
-
-if ! ls -1qA "$ES_RANCHER_STORE" | grep -q .; then
-    docker run --rm -it \
-        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} ${RANCHER_REGISTRY_VARS} \
-        -v $ES_RANCHER_STORE:/var-lib-rancher \
-        --entrypoint /bin/sh \
-        "${ES_OFFLINE_REGISTRY_PREFIX}rancher/rancher:$APP_VERSION" \
-        -c "cp -rp /var/lib/rancher/. /var-lib-rancher/"
 fi
 
 if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
@@ -39,9 +34,9 @@ if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
     echo "Running Rancher ($APP_VERSION)"
     docker run -d --restart=unless-stopped \
         -p 8443:443 \
-        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} ${RANCHER_REGISTRY_VARS} \
+        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} \
         -v $ES_RANCHER_STORE:/var/lib/rancher \
-        "${ES_OFFLINE_REGISTRY_PREFIX}rancher/rancher:$APP_VERSION"
+        rancher/rancher:$APP_VERSION
 else
     echo "Rancher is already running"
 fi
