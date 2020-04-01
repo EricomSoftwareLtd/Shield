@@ -3,7 +3,7 @@
 #####   Ericom Shield Running Rancher  #####
 #######################################BH###
 APP="Rancher"
-APP_VERSION="v2.3.5"
+APP_VERSION="v2.3.6"
 # This release comes with the latest Kubernetes versions, i.e. v1.13.10, v1.14.6, v1.15.3,
 # for Rancher launched Kubernetes clusters to address the Kubernetes security announcement.
 # Rancher recommends upgrading all Kubernetes clusters to these Kubernetes versions.
@@ -29,12 +29,16 @@ if [ ! -z "$HTTP_PROXY" ]; then
     RANCHER_PROXY_VARS="-e HTTP_PROXY=${HTTP_PROXY} -e HTTPS_PROXY=${HTTPS_PROXY} -e NO_PROXY=localhost,127.0.0.1,0.0.0.0,${NO_PROXY}"
 fi
 
+if [ ! -z "$ES_OFFLINE_REGISTRY" ]; then
+    RANCHER_REGISTRY_VARS="-e CATTLE_SYSTEM_DEFAULT_REGISTRY=${ES_OFFLINE_REGISTRY}"
+fi
+
 if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
     echo
     echo "Running Rancher ($APP_VERSION)"
     docker run -d --restart=unless-stopped \
         -p 8443:443 \
-        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} \
+        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} ${RANCHER_REGISTRY_VARS} \
         -v $ES_RANCHER_STORE:/var/lib/rancher \
         rancher/rancher:$APP_VERSION
 else
