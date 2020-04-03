@@ -10,23 +10,49 @@ APP_VERSION="v2.3.6"
 ES_PATH="$HOME/ericomshield"
 ES_RANCHER_STORE="$ES_PATH/rancher-store"
 
+if [ ! -z "$http_proxy" ] && [ -z "$HTTP_PROXY" ]; then
+    HTTP_PROXY="$http_proxy"
+fi
+if [ ! -z "$HTTP_PROXY" ]; then
+    RANCHER_PROXY_VARS="-e HTTP_PROXY=${HTTP_PROXY} -e HTTPS_PROXY=${HTTPS_PROXY} -e NO_PROXY=localhost,127.0.0.1,0.0.0.0,${NO_PROXY}"
+fi
+if [ ! -z "$ES_OFFLINE_REGISTRY" ]; then
+    RANCHER_REGISTRY_VARS="-e CATTLE_SYSTEM_DEFAULT_REGISTRY=${ES_OFFLINE_REGISTRY}"
+    ES_OFFLINE_REGISTRY_PREFIX="$ES_OFFLINE_REGISTRY/"
+fi
+ES_RANCHER_IMAGE="${ES_OFFLINE_REGISTRY_PREFIX}rancher/rancher:$APP_VERSION"
+
+function usage() {
+    echo " Usage: $0 [-h|--help] [--print-docker-images]"
+}
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    -h | --help)
+        #    *)
+        usage
+        exit
+        ;;
+    --print-docker-images)
+        echo "${ES_RANCHER_IMAGE}"
+        exit
+        ;;
+    esac
+    shift
+done
+
 if ! [ -d "$ES_RANCHER_STORE" ]; then
     mkdir -p "$ES_RANCHER_STORE"
 fi
 
 if ! ls -1qA "$ES_RANCHER_STORE" | grep -q .; then
     docker run --rm -it \
+        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} ${RANCHER_REGISTRY_VARS} \
         -v $ES_RANCHER_STORE:/var-lib-rancher \
         --entrypoint /bin/sh \
-        rancher/rancher:$APP_VERSION \
+        "${ES_RANCHER_IMAGE}" \
         -c "cp -rp /var/lib/rancher/. /var-lib-rancher/"
-fi
-
-if [ ! -z "$http_proxy" ] && [ -z "$HTTP_PROXY" ]; then
-    HTTP_PROXY="$http_proxy"
-fi
-if [ ! -z "$HTTP_PROXY" ]; then
-    RANCHER_PROXY_VARS="-e HTTP_PROXY=${HTTP_PROXY} -e HTTPS_PROXY=${HTTPS_PROXY} -e NO_PROXY=localhost,127.0.0.1,0.0.0.0,${NO_PROXY}"
 fi
 
 if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
@@ -34,9 +60,9 @@ if [ $(docker ps | grep -c rancher/rancher:) -lt 1 ]; then
     echo "Running Rancher ($APP_VERSION)"
     docker run -d --restart=unless-stopped \
         -p 8443:443 \
-        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} \
+        -e CATTLE_SYSTEM_CATALOG=bundled ${RANCHER_PROXY_VARS} ${RANCHER_REGISTRY_VARS} \
         -v $ES_RANCHER_STORE:/var/lib/rancher \
-        rancher/rancher:$APP_VERSION
+        "${ES_RANCHER_IMAGE}"
 else
     echo "Rancher is already running"
 fi
