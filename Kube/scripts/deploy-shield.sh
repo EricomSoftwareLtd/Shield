@@ -57,20 +57,6 @@ function download_and_check() {
     fi
 }
 
-function check_tiller(){
-    echo "Checking if Tiller is running..."
-    # Check if Tiller is available
-    TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1 )
-    if [ "$TILLERSTATE" -lt 1 ]; then
-      echo
-      log_message "Error: Tiller Deployment is not available "
-      exit 1
-     else
-      echo "ok!"
-      return 0
-    fi
-}
-
 get_timezone() {
     local TZ
     if [ -h /etc/localtime ]; then
@@ -166,8 +152,6 @@ fi
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 
 log_message "***************     Ericom Shield Kube Setup $BRANCH ..."
-
-check_tiller
 
 SYSTEMID=$(kubectl get namespace kube-system -o=jsonpath='{.metadata.uid}')
 echo $SYSTEMID
