@@ -343,34 +343,6 @@ function move_namespaces() {
     rancher namespaces move common Default
 }
 
-function wait_for_tiller() {
-    # Wait until Tiller is available
-    log_message "Waiting for Tiller state to become available.: $TILLERSTATE"
-    TILLERSTATE=0
-    wait_count=0
-    while [ "$TILLERSTATE" -lt 1 ] && ((wait_count < 60)); do
-        echo -n .
-        sleep 3
-        wait_count=$((wait_count + 1))
-        TILLERSTATE=$(kubectl -n kube-system get deployments | grep tiller-deploy | grep -c 1/1)
-        # if after 90 sec still not available, try to re-install
-        if [ wait_count = 30 ]; then
-            bash "./$ES_file_helm" -c
-            if [ $? != 0 ]; then
-                log_message "*************** $ES_file_helm Failed, Exiting!"
-                exit 1
-            fi
-        fi
-    done
-    if [ "$TILLERSTATE" -lt 1 ]; then
-        echo
-        log_message "Error: Tiller Deployment is not available "
-        exit 1
-    else
-        echo "ok!"
-        return 0
-    fi
-}
 
 ##################      MAIN: EVERYTHING STARTS HERE: ##########################
 log_message "***************     Ericom Shield Installer $BRANCH ..."
@@ -500,9 +472,6 @@ fi
 
 step
 
-wait_for_tiller
-
-step
 
 #5. Adding Shield Repo
 echo
