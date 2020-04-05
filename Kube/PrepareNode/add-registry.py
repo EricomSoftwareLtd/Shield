@@ -61,6 +61,7 @@ with open(shield_yaml_name, 'r') as shield_values:
             yaml.dump(shield_yaml_dic, out_shield_yaml_dic)
 
         if consul_yaml_dic:
+            add_in_subsection_elk(repo, consul_yaml_dic['global'])
             add_in_subsection_consul(repo, consul_yaml_dic['image'])
             add_in_subsection_consul(repo, consul_yaml_dic['metrics']['image'])
             add_in_subsection_consul(
