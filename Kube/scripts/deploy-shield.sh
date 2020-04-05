@@ -183,14 +183,14 @@ if [ SHIELD_REPO = "shield-repo" ]; then
     cd "$ES_PATH" || exit 1
 
     helm repo update
-    helm search shield
-    VERSION_REPO=$(helm search shield | grep shield | awk '{ print $2 }')
+    helm search repo shield
+    VERSION_REPO=$(helm search repo shield | grep shield | awk '{ print $2 }')
     log_message "Latest Version on Repo: $VERSION_REPO"
 fi
 
-VERSION_DEPLOYED=$(helm list | grep -m 1 shield | awk '{ print $9 }')
-if [ ! -z "$VERSION_DEPLOYED" ] && [ $(helm list | grep -c "$VERSION_DEPLOYED") = "$SHIELD_NS_COUNT" ]; then
-    VERSION_DEPLOYED=$(helm list | grep -m 1 shield | awk '{ print $9 }')
+VERSION_DEPLOYED=$(helm ls --all-namespaces| grep -m 1 shield | awk '{ print $9 }')
+if [ ! -z "$VERSION_DEPLOYED" ] && [ $(helm ls --all-namespaces | grep -c "$VERSION_DEPLOYED") = "$SHIELD_NS_COUNT" ]; then
+    VERSION_DEPLOYED=$(helm ls --all-namespaces | grep -m 1 shield | awk '{ print $9 }')
     log_message "Current Version Deployed: $VERSION_DEPLOYED"
 else
     echo "$VERSION_DEPLOYED"

@@ -133,4 +133,4 @@ fi
 helm repo add shield-repo --username=ericom --password=$PASSWORD $SHIELD_REPO
 helm repo update
 
-helm search shield
+helm search repo shield
