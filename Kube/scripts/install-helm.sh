@@ -35,6 +35,10 @@ while [ $# -ne 0 ]; do
         usage
         exit
         ;;
+    --print-app-version)
+        echo "${APP_VERSION}"
+        exit
+        ;;
     --print-docker-images)
         echo "${ES_TILLER_IMAGE}"
         exit
