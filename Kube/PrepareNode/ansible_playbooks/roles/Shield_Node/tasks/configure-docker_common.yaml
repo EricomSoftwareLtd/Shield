@@ -7,13 +7,13 @@
     group: root
     mode: 0755
 
-- name: Copy daemon.json
-  copy:
-    src: daemon.json
+- name: Configure daemon.json
+  template:
+    src: daemon.json.j2
     dest: /etc/docker/daemon.json
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
 
 - name: Enable docker
   systemd:

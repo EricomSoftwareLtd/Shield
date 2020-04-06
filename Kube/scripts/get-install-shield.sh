@@ -6,7 +6,6 @@
 #Check if we are root
 if ((EUID != 0)); then
     #    sudo su
-    echo "Usage: $0 [-force] [-autoupdate] [-staging] [-quickeval] [-usage]"
     echo " Please run it as Root"
     echo "sudo $0 $@"
     exit
@@ -28,5 +27,5 @@ fi
 
 rm ./install-shield.sh
 wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/$BRANCH/Kube/scripts/install-shield.sh
-chmod +x ericomshield-setup.sh
-bash ./ericomshield-setup.sh $@
+chmod +x install-shield.sh
+bash ./install-shield.sh $@

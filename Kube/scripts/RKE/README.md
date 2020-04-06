@@ -2,10 +2,10 @@
 
 1. Prepare at least four nodes running CentOS 7 (or Ubuntu 18.04). Refer to https://rancher.com/docs/rancher/v2.x/en/installation/requirements/ for Rancher node requirements. Refer to the corresponding Shield documentation for Shield node requirements; also prepare one workstation;
 1. At least one node should be reserved for load-balancing proxy acting as a gateway to the Rancher Cluster (minimum amount of memory and CPU resources is required for this type of node(s));
-1. Make sure you have a separate Linux workstation with an SSH client, ssh-keygen and ssh-copy-id programs. This is further referred to as administrator’s workstation;
+1. Make sure you have a separate Linux workstation with an SSH client, ssh-keygen and ssh-copy-id programs. This is further referred to as **administrator’s workstation**;
 1. Make sure you have a working local Domain Name System that you can control (for production installations only, it is not necessary for testing);
 1.
-    1. Clone the repository with Shield scripts `git clone --branch SHIELD-4086-Rancher-HA --single-branch https://github.com/EricomSoftwareLtd/Shield.git && cd Shield/Kube/scripts/RKE`;
+    1. On the **administrator workstation**, clone the repository with Shield scripts `git clone --branch Rel-20.03 --single-branch https://github.com/EricomSoftwareLtd/Shield.git && cd Shield/Kube/scripts/RKE`;
     1. Download or install (follow the corresponding installation instructions) on the administrator’s workstation the latest stable versions of kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/), helm 2 (e.g. https://github.com/helm/helm/releases/tag/v2.16.1),
         1. and RKE (https://rancher.com/docs/rke/latest/en/installation/#download-the-rke-binary save the binary in the directory containing the RKE scripts as rke_linux-amd64);
 1. Install Docker on all nodes (use shield-prepare-nodes from the administrator’s workstation to prepare CentOS 7/Ubuntu 18.04 nodes);

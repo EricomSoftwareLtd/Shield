@@ -3,6 +3,41 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.03_Build_636] - 31-03-2020 - Kubernetes Version Only
+
+### New Features
+
+- Support Shield in Split Mode Deployment (Management + Proxy  | Browser Farm + ELK)
+- Reports New visualization with Export to CSV option
+- Proxy-Authorization Headers Support
+- New CDR Vendor Support: Opswat
+- Offline Deployment Support: OVA for Offline Repository
+
+### Enhancement
+
+- Have all shield-perf counters on the connetionInfo index
+- Connectivity Test - Configurable.
+- Max Browsers Count should be based on the Allocatable CPU.
+- Shield Installer (in Docker).
+- Customized ext-proxy error page.
+- Session History report - Remove duplicities from report content
+
+### Bug Fixes
+
+- Fixed: Shield Alert emails are not received
+- Fixed: Link for more information from phishing updated
+- Fixed: Crystal - many input types can't be edited
+- Fixed: Crystal - convert relative mouse coordinates
+- Fixed: Crystal - video auto play on ynet
+- Fixed: Crystal - cannot type in some inputs (e.g. google login username)
+- Fixed: Alert on Connectivity when there is no connection on Management Server
+- Fixed: Squid errors due to certificate issues (ifilter)
+- Fixed: Admin UI - Applications table - search does not work
+- Fixed: Sasa - Remove "Embedded files not supported and were removed" message
+- Fixed: Sasa - Doesn't support file type conversion
+- Fixed: Policies exporting - double-byte characters in comments are not supported
+- Fixed: OVA online - fail to update shield.
+
 ## [Rel-20.01.2_Build_622] - 17-02-2020 - Kubernetes Version Only
 
 ### Bug Fixes

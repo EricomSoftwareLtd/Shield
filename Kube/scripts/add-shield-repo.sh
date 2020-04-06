@@ -41,7 +41,7 @@ function download_and_check() {
 }
 
 function list_versions() {
-    ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/Releases-kube.txt"
+    ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/Releases-kube.txt"
     echo "Getting $ES_repo_versions"
     download_and_check "Releases.txt" $ES_repo_versions
 
