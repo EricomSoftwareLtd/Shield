@@ -9,8 +9,13 @@ ES_FORCE=false
 ES_CLEAN=false
 ES_INIT=false
 
+if [ ! -z "${ES_OFFLINE_REGISTRY}" ]; then
+    ES_OFFLINE_REGISTRY_PREFIX="${ES_OFFLINE_REGISTRY}/"
+fi
+ES_TILLER_IMAGE="${ES_OFFLINE_REGISTRY_PREFIX}gcr.io/kubernetes-helm/tiller:${APP_VERSION}"
+
 function usage() {
-    echo " Usage: $0 [-f|--force] [-c|--clean] [-h|--help]"
+    echo " Usage: $0 [-f|--force] [-c|--clean] [-h|--help] [--print-docker-images]"
 }
 
 while [ $# -ne 0 ]; do
@@ -30,6 +35,10 @@ while [ $# -ne 0 ]; do
         usage
         exit
         ;;
+    --print-docker-images)
+        echo "${ES_TILLER_IMAGE}"
+        exit
+        ;;
     esac
     shift
 done
@@ -39,7 +48,7 @@ done
 if ! which "$APP_BIN" >/dev/null || [ $ES_FORCE == true ]; then
     echo "Installing $APP ..."
     curl -fsSL https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -o /tmp/get_helm.sh
-    chmod +x /tmp/get_helm.sh
+    sudo chmod +x /tmp/get_helm.sh
     sudo /tmp/get_helm.sh -v "$APP_VERSION"
     rm -f /tmp/get_helm.sh
     source <(helm completion bash)

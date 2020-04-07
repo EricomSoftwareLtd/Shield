@@ -6,11 +6,11 @@ shield-mng:
   doNotDelete: true
 
 # Split-Mode: uncomment these lines and replace the IP (dashes separated) of the server running the Browser Farm
-#farmAddress: |
-#  - name: FARMURL
-#    value: https://10-10-0-1.sslip.io:30443
-#  - name: FARMENABLED
-#    value: 'true'
+#  farmAddress: |
+#    - name: FARMURL
+#      value: https://10-10-0-1.sslip.io:30443
+#    - name: FARMENABLED
+#      value: 'true'
 
 # When ELK is running on a different system (e.g. Split Mode), uncomment this 
 # line and replace the IP (enter the IP of the server running ELK)
