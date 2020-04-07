@@ -5,7 +5,7 @@
 3. Download https://github.com/EricomSoftwareLtd/Shield/releases/download/shield-prepare-servers-Rel-20.03/shield-prepare-servers and make it executable: chmod +x  shield-prepare-servers;
 4. Run `./shield-prepare-servers -u <USER> --offline-mode --offline-registry "$ES_OFFLINE_REGISTRY" <NODE1> <NODE2> …` (e.g. `./shield-prepare-servers -u ericom --offline-mode --offline-registry "192.168.56.1:5000" 192.168.56.101`) This will configure Docker on all nodes to use the Offline Registry VM;
 5. Navigate to a directory where you have local Shield Helm charts (usually located at /home/ericom/ericomshield/shield-repo);
-6. Run `./shield-prepare-servers add-registry "$ES_OFFLINE_REGISTRY" shield-repo/shield/values.yaml shield-repo/shield/charts/consul/values.yaml` This will update the Helm chars to use the  Offline Registry VM;
+6. Run `./shield-prepare-servers add-registry "$ES_OFFLINE_REGISTRY" shield-repo/shield/values.yaml shield-repo/shield/charts/consul/values.yaml` This will update the Helm charts to use the  Offline Registry VM;
 7. Create Shield cluster and deploy Shield as usual.
 
 # Upgrading an Existing Shield Installation
@@ -19,5 +19,5 @@
 7. Choose the latest Kubernetes version; ![Screenshot 2020-04-02 at 14 24 36](https://user-images.githubusercontent.com/11456918/78457742-1b748280-76b5-11ea-84fe-33c1c4f67990.png)
 8. Update the cluster by clicking "Save"; ![Screenshot 2020-04-02 at 14 25 08](https://user-images.githubusercontent.com/11456918/78457745-1ca5af80-76b5-11ea-90f5-0c80929ec5ad.png)
 9. Navigate to a directory where you have local Shield Helm charts (a copy of https://github.com/EricomSoftwareLtd/Kube/tree/Dev/shield inside a directory usually named shield-repo);
-10. Run `./shield-prepare-servers add-registry "$ES_OFFLINE_REGISTRY" shield-repo/shield/values.yaml shield-repo/shield/charts/consul/values.yaml` This will update the Helm chars to use the  Offline Registry VM;
+10. Run `./shield-prepare-servers add-registry "$ES_OFFLINE_REGISTRY" shield-repo/shield/values.yaml shield-repo/shield/charts/consul/values.yaml` This will update the Helm charts to use the  Offline Registry VM;
 11. Run `deploy-shield.sh`. This will update Shield.
