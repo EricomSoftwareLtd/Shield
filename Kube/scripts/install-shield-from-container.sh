@@ -99,7 +99,7 @@ function list_versions() {
         esac
     done
     grep "$OPTION" $ES_repo_versions_file
-    VERSION=$(grep "$OPTION" $ES_repo_versions_file | cut -d':' -f3)
+    VERSION=$(grep "$OPTION" $ES_repo_versions_file | cut -d':' -f2)
     echo -n $VERSION >"$ES_VERSION_FILE"
 }
 
