@@ -17,9 +17,10 @@ SHIELD_CMD="/usr/bin/$SHIELD_CLI"
 VERSION="master"
 ES_VERSION_FILE="$ES_PATH/.esversion"
 ES_file_install_shield_local="install-shield-local.sh"
+ES_file_prepare_servers="shield-prepare-servers"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases] [--registry] [-l|--label] [-h|--help]"
+    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases] [--registry <Shield-Registry-IP:Port>] [-l|--label] [-h|--help]"
 }
 
 #Check if we are root
@@ -239,6 +240,10 @@ else
 fi
 
 cd "$ES_PATH"
+
+if [ ! -z "$ES_OFFLINE_REGISTRY" ]; then
+    ./$ES_file_prepare_servers add-registry "$ES_OFFLINE_REGISTRY" ./shield/values.yaml ./shield/charts/consul/values.yaml
+fi
 
 "./$ES_file_install_shield_local" $args
 
