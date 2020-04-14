@@ -12,7 +12,7 @@ def image_has_reg(reg, str):
     match = ADDR_RE_PATTERN.search(str)
     if match:
         if match.group(1) == reg:
-            print('"{0}" already contains "{1}", skipping...'.format(str, reg))
+            print('WARNING: "{0}" already contains "{1}", skipping...'.format(str, reg))
             return True
     return False
 
