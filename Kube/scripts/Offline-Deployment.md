@@ -14,7 +14,8 @@
 2. Kill the running Rancher instance (use `docker ps | grep "rancher/rancher:"` to find it);
 3. Run `export ES_OFFLINE_REGISTRY="<Offline Registry VM Address>:5000"`;
 4. Run `./shield-prepare-servers -u <USER> --offline-mode --offline-registry "$ES_OFFLINE_REGISTRY" <NODE1> <NODE2> …` This will configure Docker on all nodes to use the Offline Registry VM. Note that the Rancher node needs to be reconfigured too;
-5. Restart Rancher by running the run-rancher.sh script (make sure the ES_OFFLINE_REGISTRY is exported);
+4.1. Run `sudo systemctl reload docker`;
+5. Restart Rancher by running the run-rancher.sh script (make sure the ES_OFFLINE_REGISTRY is exported by running `echo $ES_OFFLINE_REGISTRY`);
 6. Open the Rancher UI and edit cluster settings; ![Screenshot 2020-04-02 at 14 23 52](https://user-images.githubusercontent.com/11456918/78457741-19aabf00-76b5-11ea-8549-1b5b91a238aa.png)
 7. Choose the latest Kubernetes version; ![Screenshot 2020-04-02 at 14 24 36](https://user-images.githubusercontent.com/11456918/78457742-1b748280-76b5-11ea-84fe-33c1c4f67990.png)
 8. Update the cluster by clicking "Save"; ![Screenshot 2020-04-02 at 14 25 08](https://user-images.githubusercontent.com/11456918/78457745-1ca5af80-76b5-11ea-90f5-0c80929ec5ad.png)
