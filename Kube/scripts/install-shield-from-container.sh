@@ -69,8 +69,12 @@ function list_versions() {
     echo "Getting $ES_repo_versions"
     download_and_check $ES_repo_versions_file $ES_repo_versions
 
-    while true; do
-        cat $ES_repo_versions_file | cut -d':' -f1
+    if [ ! -z "$1" ]; then
+      OPTION="$1"
+    fi
+
+    while [ -z "$OPTION" ]; do
+        cat $ES_repo_versions_file | cut -d':' -f1 | grep -v Dev | grep -v Staging
         read -p "Please select the Release you want to install/update (1-4):" choice
         case "$choice" in
         "1" | "latest")
@@ -101,6 +105,10 @@ function list_versions() {
     done
     grep "$OPTION" $ES_repo_versions_file
     VERSION=$(grep "$OPTION" $ES_repo_versions_file | cut -d':' -f2)
+    if [ -z "$VERSION" ]; then
+      log_message "Cannot find Version, exiting"
+      exit 1
+    fi 
     echo -n $VERSION >"$ES_VERSION_FILE"
 }
 
@@ -118,10 +126,10 @@ while [ $# -ne 0 ]; do
         echo -n "$1" >"$ES_VERSION_FILE"
         ;;
     -d | --dev) # Dev Channel
-        echo -n "Dev" >"$ES_VERSION_FILE"
+        list_versions "Dev"
         ;;
     -s | --staging) # Staging Channel
-        echo -n "Staging" >"$ES_VERSION_FILE"
+        list_versions "Staging"
         ;;
     -r | --releases) # List the official releases
         list_versions
