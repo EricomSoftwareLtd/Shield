@@ -15,7 +15,7 @@ elk:
 #         fieldRef:
 #          fieldPath: status.hostIP
 #      - name: CONSUL_PORT
-#        value: "8501"
+#        value: "8500"
 #     enableSnapshots: true
 #     fullSnapshotSchedule: "0 0 * * 6"
 #     dailySnapshotSchedule: "0 * * * *"
