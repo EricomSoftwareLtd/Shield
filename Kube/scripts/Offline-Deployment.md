@@ -2,6 +2,7 @@
 
 1. Download and start the [Offline Registry VM](https://shield-ova.s3.amazonaws.com/shield-kube-rel-20.03-registry.ova); write down its address. Docker registry will be available on port 5000;
 2. On the node which you are going to use for Rancher, `export ES_OFFLINE_REGISTRY="<Offline Registry VM Address>:5000"`;
+to verify, run echo $ES_OFFLINE_REGISTRY 
 3. Download https://github.com/EricomSoftwareLtd/Shield/releases/download/shield-prepare-servers-Rel-20.03/shield-prepare-servers and make it executable: chmod +x  shield-prepare-servers;
 4. Run `./shield-prepare-servers -u <USER> --offline-mode --offline-registry "$ES_OFFLINE_REGISTRY" <NODE1> <NODE2> …` (e.g. `./shield-prepare-servers -u ericom --offline-mode --offline-registry "192.168.56.1:5000" 192.168.56.101`) This will configure Docker on all nodes to use the Offline Registry VM;
 5. Navigate to a directory where you have local Shield Helm charts (usually located at /home/ericom/ericomshield/shield-repo);
