@@ -1,7 +1,7 @@
 @Library('shared-main@e5687a5c2e454582ffbe2c2c57370e837cffdcab')
 import com.ericom.jenkins.UpdateVerNum
 
-def branch = 'updateVerionNum' //todo: change to mastert
+def branch = 'master' 
 def uvn 
 def tag
 
@@ -79,7 +79,7 @@ agent any
                             }//script
                             build job: '/OVA/promote-OVA', parameters: [
                                 string(name: 'fileName', value: "shield-kube-${promotionType}-${tag}.ova"), 
-                                string(name: 'destinationFileName', value: "shield-kube-Rel-${fileNameTag}.ova")] //TODO: decide if we should use a capital letter in Rel or not
+                                string(name: 'destinationFileName', value: "shield-kube-Rel-${fileNameTag}.ova")]
 
                         break
                         
