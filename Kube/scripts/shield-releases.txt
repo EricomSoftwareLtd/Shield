@@ -1,4 +1,0 @@
-1) latest:Rel-20.03.639
-2) Release 20.03-Build_639 on 20/04/2020:Rel-20.03.639
-3) Staging:Rel-20.03.639
-4) Dev:Rel-20.04.640

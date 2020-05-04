@@ -1,9 +1,0 @@
----
-- name: Turn off swap space
-  shell: swapoff -a
-
-- name: Permanently disable swap in /etc/fstab
-  replace:
-    path: /etc/fstab
-    regexp: '^([-_=/a-zA-Z0-9\.]+\s+[-_=/a-zA-Z0-9\.]+\s+swap\s+.*)$'
-    replace: '# \1'

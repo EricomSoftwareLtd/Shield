@@ -1,9 +1,0 @@
-FROM alpine:latest
-
-MAINTAINER Andrew Novikov <Andrew.Novikov@artezio.com>
-
-RUN mkdir /AppDir
-WORKDIR /tmp
-RUN apk add -U git build-base
-RUN git clone git://github.com/kevinburke/sshpass.git
-RUN cd sshpass && ./configure LDFLAGS=-static --prefix=/AppDir && make && make install
