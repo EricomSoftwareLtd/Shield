@@ -3,7 +3,22 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-20.03_Build_636] - 31-03-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_641] - 06-05-2020 - Kubernetes Version Only
+
+### Enhancement
+
+- SHIELD-5920 - Supports offline deployment (including install on clean ubuntu (not ova))
+- shield ova: Support for VM with more than 8 CPU
+
+## [Rel-20.03_Build_639] - 21-04-2020 - Kubernetes Version Only
+
+### Bug Fixes
+
+- Fixed: Stream Mode is sending Video in Frame Mode (QA#774332)
+- Message on Old Chrome Version (#669)
+
+
+## [Rel-20.03_Build_638] - 06-04-2020 - Kubernetes Version Only
 
 ### New Features
 
@@ -12,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Proxy-Authorization Headers Support
 - New CDR Vendor Support: Opswat
 - Offline Deployment Support: OVA for Offline Repository
+- Rancher High Availability (Cluster) Support
 
 ### Enhancement
 
