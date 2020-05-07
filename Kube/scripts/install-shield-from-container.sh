@@ -237,7 +237,7 @@ fi
 
 cd "$HOME"
 
-if [ "$(ls "$ES_PATH/*.yaml" | wc -l)" -ge "1" ]; then
+if [ "$(ls $ES_PATH/*.yaml | wc -l)" -ge "1" ]; then
     echo "Keeping Custom Yaml"
     mkdir -p /tmp/yaml
     mv $ES_PATH/*.yaml /tmp/yaml/
