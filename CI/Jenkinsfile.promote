@@ -28,6 +28,8 @@ agent any
                 script{ //checkout to branch in order to not run in detached head
                     sh(label: "checkout ${branch}",
                         script: "git checkout ${branch}")
+                    sh 'pwd'
+                    sh 'ls'
                 }//script
             }//steps
         } // stage
