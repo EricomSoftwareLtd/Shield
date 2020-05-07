@@ -3,7 +3,7 @@
 #####   Ericom Shield: Install Shield  #####
 #######################################BH###
 echo "File is deprecated"
-echo " Execuitng: ./install-shield-from-container.sh"
+echo " Executing: ./install-shield-from-container.sh"
 
 rm ./install-shield-fom-container.sh
 wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/install-shield-from-container.sh

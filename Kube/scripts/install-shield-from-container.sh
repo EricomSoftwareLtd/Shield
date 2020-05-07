@@ -8,8 +8,8 @@ NOT_FOUND_STR="404: Not Found"
 LOGFILE="$ES_PATH/ericomshield.log"
 ES_repo_docker="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/install-docker.sh"
 ES_file_docker="install-docker.sh"
-ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Shield-Releases.txt"
-ES_repo_versions_file="Shield-Releases.txt"
+ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/shield-releases.txt"
+ES_repo_versions_file="shield-releases.txt"
 DOCKER_USER="ericomshield1"
 PASSWORD=""
 SHIELD_CLI='shield-cli'
@@ -237,7 +237,7 @@ fi
 
 cd "$HOME"
 
-if [ ls "$ES_PATH/*.yaml" ] &>/dev/nul; then
+if [ "$(ls "$ES_PATH/*.yaml" | wc -l)" -ge "1" ]; then
     echo "Keeping Custom Yaml"
     mkdir -p /tmp/yaml
     mv $ES_PATH/*.yaml /tmp/yaml/
@@ -247,10 +247,16 @@ else
     docker cp shield-cli:/home/ericom/ericomshield .
 fi
 
+docker cp shield-cli:/usr/bin/kubectl   /usr/local/bin/
+docker cp shield-cli:/usr/bin/helm      /usr/local/bin/
+docker cp shield-cli:/usr/bin/rancher   /usr/local/bin/
+
+export PATH="/usr/local/bin:$PATH"
+
 cd "$ES_PATH"
 
 if [ ! -z "$ES_OFFLINE_REGISTRY" ]; then
-    ./$ES_file_prepare_servers add-registry "$ES_OFFLINE_REGISTRY" ./shield/values.yaml ./shield/charts/consul/values.yaml
+    ./$ES_file_prepare_servers add-registry "$ES_OFFLINE_REGISTRY" ./shield
 fi
 
 "./$ES_file_install_shield_local" $args
