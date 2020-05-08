@@ -5,7 +5,7 @@
 echo "File is deprecated"
 echo " Executing: ./install-shield-from-container.sh"
 
-rm ./install-shield-fom-container.sh
+rm -f ./install-shield-fom-container.sh
 wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-shield-from-container.sh
 chmod +x install-shield-from-container.sh
 bash ./install-shield-from-container.sh $@
