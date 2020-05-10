@@ -14,7 +14,7 @@ if ((EUID != 0)); then
     exit
 fi
 
-rm ./install-shield-fom-container.sh
+rm ./install-shield-from-container.sh
 wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-shield-from-container.sh
 chmod +x install-shield-from-container.sh
 bash ./install-shield-from-container.sh $@
