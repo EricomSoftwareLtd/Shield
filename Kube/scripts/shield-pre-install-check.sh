@@ -12,10 +12,10 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_DEFAULT_VERSION="19.03.5"
+DOCKER_DEFAULT_VERSION="19.03.8"
 DOCKER_VERSION="${DOCKER_VERSION:-""}"
-DOCKER_VERSION_STRING="5:19.03.5*"
-DOCKER_DEFAULT_VERSION_STRING="5:19.03.5*"
+DOCKER_VERSION_STRING="5:19.03.8*"
+DOCKER_DEFAULT_VERSION_STRING="5:19.03.8*"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 RESULTS="./results-pre-check.log"
 UPLOAD_ACCEPTED_FILE="./.upload_accepted"
@@ -25,7 +25,7 @@ NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/tmp/ericomshield"
-CONTAINER_TAG_DEFAULT="shield-collector:200107-15.12-493"
+CONTAINER_TAG_DEFAULT="shield-collector:200402-08.39-172"
 
 HW_PLATFORM="$(uname -m)"
 if [ "$HW_PLATFORM" != "x86_64" ]; then
