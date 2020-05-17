@@ -3,13 +3,14 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-20.03_Build_641] - 21-04-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_641] - 06-05-2020 - Kubernetes Version Only
 
-### Bug Fixes
+### Enhancement
 
-- Fixed: Offline installation
+- SHIELD-5920 - Supports offline deployment (including install on clean ubuntu (not ova))
+- shield ova: Support for VM with more than 8 CPU
 
-## [Rel-20.03_Build_639] - 16-04-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_639] - 21-04-2020 - Kubernetes Version Only
 
 ### Bug Fixes
 
