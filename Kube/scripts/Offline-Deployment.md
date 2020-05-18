@@ -40,7 +40,7 @@ Then execute the following to clean the apt cache:
     Run  `export ES_OFFLINE_REGISTRY="<Offline Registry VM Address>:5000"`; 
     make sure the ES_OFFLINE_REGISTRY is exported by running `echo $ES_OFFLINE_REGISTRY`);
     run ./run-rancher.sh;  (see note about it beneath)
-5. Open the Rancher UI and edit cluster settings; ![Screenshot 2020-04-02 at 14 23 52](https://user-images.githubusercontent.com/11456918/78457741-19aabf00-76b5-11ea-8549-1b5b91a238aa.png)
+5. Open the Rancher UI and edit cluster settings; select latest kb8 version ![Screenshot 2020-04-02 at 14 23 52](https://user-images.githubusercontent.com/11456918/78457741-19aabf00-76b5-11ea-8549-1b5b91a238aa.png)
 7. Choose the latest Kubernetes version; ![Screenshot 2020-04-02 at 14 24 36](https://user-images.githubusercontent.com/11456918/78457742-1b748280-76b5-11ea-84fe-33c1c4f67990.png)
 8. Update the cluster by clicking "Save"; ![Screenshot 2020-04-02 at 14 25 08](https://user-images.githubusercontent.com/11456918/78457745-1ca5af80-76b5-11ea-90f5-0c80929ec5ad.png);
    
