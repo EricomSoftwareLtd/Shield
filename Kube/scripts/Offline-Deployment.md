@@ -39,7 +39,7 @@ Then execute the following to clean the apt cache:
     scp ericom@<Offline Registry VM Address>:/home/ericom/ericomshield/run-rancher.sh /home/ericom/ericomshield)
     Run  `export ES_OFFLINE_REGISTRY="<Offline Registry VM Address>:5000"`; 
     make sure the ES_OFFLINE_REGISTRY is exported by running `echo $ES_OFFLINE_REGISTRY`);
-    run ./run-rancher.sh;
+    run ./run-rancher.sh;  (see note about it beneath)
 5. Open the Rancher UI and edit cluster settings; ![Screenshot 2020-04-02 at 14 23 52](https://user-images.githubusercontent.com/11456918/78457741-19aabf00-76b5-11ea-8549-1b5b91a238aa.png)
 7. Choose the latest Kubernetes version; ![Screenshot 2020-04-02 at 14 24 36](https://user-images.githubusercontent.com/11456918/78457742-1b748280-76b5-11ea-84fe-33c1c4f67990.png)
 8. Update the cluster by clicking "Save"; ![Screenshot 2020-04-02 at 14 25 08](https://user-images.githubusercontent.com/11456918/78457745-1ca5af80-76b5-11ea-90f5-0c80929ec5ad.png);
@@ -48,3 +48,12 @@ Then execute the following to clean the apt cache:
   Download `install-shield-from-container.sh` from `http://<Offline Registry VM Address>/ericomshield/install-shield-from-  container.sh` (e.g. `wget http://10.100.200.153/ericomshield/install-shield-from-container.sh`, you may also download it using scp from `ericom@<Offline Registry VM Address>:~/ericomshield/install-shield-from-container.sh`); run `chmod +x install-shield-from-container.sh`;
    Run `sudo ./install-shield-from-container.sh --version <NEW_VERSION> --registry <Offline Registry VM Address>:5000`  
 (e.g. `./install-shield-from-container.sh --version Rel-20.03.642 --registry 10.100.200.153:5000`);
+
+
+note:
+when copy files from registry to shield machine, make sure the permissions are correct and the owner is the correct (ericom)
+if not change as needed
+example:
+`chown ericom run-rancher.sh`;
+will change the owner to ericom if needed.;
+need to run it without sudo.;
