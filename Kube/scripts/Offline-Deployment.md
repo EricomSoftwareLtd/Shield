@@ -10,7 +10,8 @@
 6. backup if needed `install-shield-from-container.sh` under ericomshield folder.
    copy `install-shield-from-container.sh` from ova registry machine:;
    Download `install-shield-from-container.sh` from `http://<Offline Registry VM Address>/ericomshield/install-shield-from-container.sh` (e.g. `wget http://10.100.200.153/ericomshield/install-shield-from-container.sh`, you may also download it using scp from `ericom@<Offline Registry VM Address>:~/ericomshield/install-shield-from-container.sh`); run `chmod +x install-shield-from-container.sh`;
-7. Run `sudo ./install-shield-from-container.sh --version <VERSION> --registry <Offline Registry VM Address>:5000`  
+7. set shield labels in cluster or use -l in the following command to set all labels:
+Run `sudo ./install-shield-from-container.sh --version <VERSION> --registry <Offline Registry VM Address>:5000`  
 (e.g. `sudo ./install-shield-from-container.sh --version Rel-20.03.641 --registry 10.100.200.153:5000`);  
 (use -l if you want to set all the labels)
 8. Add other nodes to the cluster as usual.
