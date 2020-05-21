@@ -20,7 +20,27 @@ ES_file_install_shield_local="install-shield-local.sh"
 ES_file_prepare_servers="shield-prepare-servers"
 
 function usage() {
-    echo " Usage: $0 -p <PASSWORD> [-d|--dev] [-s|--staging] [-v|--version <version-name>] [-r|--releases] [--registry <Shield-Registry-IP:Port>] [-l|--label] [-h|--help]"
+    if ! [[ $0 != "$BASH_SOURCE" ]]; then
+      CMD="./install-shield.sh"
+     else
+      CMD=$0 
+    fi
+    #these ones are un-documented: [-d|--dev] [-s|--staging]
+    echo
+    echo " Usage: "
+    echo "$CMD -p <PASSWORD> [-v|--version <version-name>] [-r|--releases] [--registry <Shield-Registry-IP:Port>] [-n|--namespace <NAMESPACE> (<NAMESPACE>)] [-l|--label] [-h|--help]"
+
+    if [ "-$1" = "-h" ]; then
+        echo
+        echo "   -p <PASSWORD>        Password provided by Ericom"
+        echo "   -v                   Install a specific version (e.g. Rel-20.05.645)"
+        echo "   -r                   List the last 3 official Releases"
+        echo "   --registry <IP:Port> Offline Registry"
+        echo "   -n <NS> [NS]         Install specific Namespace(s)"
+        echo "   -l                   Set Label(s) on the node"
+        echo "   -h                   Display this message"
+    fi
+    echo
 }
 
 #Check if we are root
@@ -140,7 +160,7 @@ while [ $# -ne 0 ]; do
         ;;
     -h | --help)
         #    *)
-        usage "$0"
+        usage "h"
         exit
         ;;
     esac
@@ -176,8 +196,6 @@ function docker_login() {
     fi
 }
 
-DOCKER_GID=$(getent group docker | awk -F: '{print $3}')
-
 if [ ! -x "/usr/bin/docker" ]; then
     download_and_check "$ES_file_docker" "$ES_repo_docker" "+x"
     log_message "***************     Installing Docker"
@@ -187,6 +205,8 @@ if [ ! -x "/usr/bin/docker" ]; then
         exit 1
     fi
 fi
+
+DOCKER_GID=$(getent group docker | awk -F: '{print $3}')
 
 if [ -z "$ES_OFFLINE_REGISTRY" ]; then
     docker_login
@@ -206,8 +226,6 @@ else
 EOF
     systemctl reload docker
 fi
-
-#TODO: Check if Docker Tag exists if not error
 
 docker image pull "${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION"
 if [ $(docker image ls | grep -c $VERSION) -lt 1 ]; then
