@@ -25,7 +25,7 @@ NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/tmp/ericomshield"
-CONTAINER_TAG_DEFAULT="shield-collector:200402-08.39-172"
+CONTAINER_TAG_DEFAULT="shield-collector:200519-15.18-43"
 
 HW_PLATFORM="$(uname -m)"
 if [ "$HW_PLATFORM" != "x86_64" ]; then
