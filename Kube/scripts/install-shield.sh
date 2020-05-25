@@ -3,6 +3,7 @@
 #####   Ericom Shield: Install Shield  #####
 #######################################BH###
 
+FILE_SERVER="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts"
 #Check if we are root
 if ((EUID != 0)); then
     # sudo su
@@ -11,11 +12,26 @@ if ((EUID != 0)); then
     exit
 fi
 
+args="$@"
+
+while [ $# -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+    --registry) # Specify Offline Registry address and port
+        shift
+        export ES_OFFLINE_REGISTRY="$1"
+        FILE_SERVER=$(echo $ES_OFFLINE_REGISTRY | cut -d ":" -f1 )
+        FILE_SERVER="http://$FILE_SERVER/ericomshield"
+        ;;
+    esac
+    shift
+done
+
 echo " Executing: ./install-shield-from-container.sh"
 
-wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts/install-shield-from-container.sh -O install-shield-from-container.sh
+wget "$FILE_SERVER/install-shield-from-container.sh" -O install-shield-from-container.sh
 chmod +x install-shield-from-container.sh
-bash ./install-shield-from-container.sh $@
+bash ./install-shield-from-container.sh $args
 
 if [ $? != 0 ]; then
    echo
