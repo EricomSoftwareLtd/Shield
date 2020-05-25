@@ -1,5 +1,5 @@
 1) latest Release 20.03.641:Rel-20.03.641
 2) Release 20.03.641 on 04.05.2020:Rel-20.03.641
 3) Release 20.03.639 on 20.04.2020:Rel-20.03.639
-4) Staging:Rel-20.03.639
+4) Staging:Rel-20.05.647
 5) Dev:Rel-20.05.647
