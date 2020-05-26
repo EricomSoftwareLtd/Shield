@@ -21,7 +21,7 @@ ES_file_prepare_servers="shield-prepare-servers"
 
 function usage() {
     if ! [[ $0 != "$BASH_SOURCE" ]]; then
-      CMD="./install-shield.sh"
+      CMD=$(ps -o comm= $PPID)
      else
       CMD=$0 
     fi
@@ -37,6 +37,7 @@ function usage() {
         echo "   -r                   List the last 3 official Releases"
         echo "   --registry <IP:Port> Offline Registry"
         echo "   -n <NS> [NS]         Install specific Namespace(s)"
+        echo "                        Namespaces: shield-management, shield-proxy, shield-farm, shield-elk"
         echo "   -l                   Set Label(s) on the node"
         echo "   -h                   Display this message"
     fi
@@ -71,6 +72,7 @@ function log_message() {
     fi
     return 0
 }
+log_message "********    $0 $@"
 
 # download TO (local-file) FROM (remote-url)
 # [+x] chmod executable
@@ -95,7 +97,7 @@ function list_versions() {
 
     while [ -z "$OPTION" ]; do
         cat $ES_repo_versions_file | cut -d':' -f1 | grep -v Dev | grep -v Staging
-        read -p "Please select the Release you want to install/update (1-4):" choice
+        read -p "Please select the Release you want to install/update (1-3):" choice
         case "$choice" in
         "1" | "latest")
             echo 'latest'
@@ -110,11 +112,6 @@ function list_versions() {
         "3")
             echo "3."
             OPTION="3)"
-            break
-            ;;
-        "4")
-            echo "4."
-            OPTION="4)"
             break
             ;;
         *)
