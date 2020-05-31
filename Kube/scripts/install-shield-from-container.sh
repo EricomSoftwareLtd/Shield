@@ -14,7 +14,7 @@ DOCKER_USER="ericomshield1"
 PASSWORD=""
 SHIELD_CLI='shield-cli'
 SHIELD_CMD="/usr/bin/$SHIELD_CLI"
-VERSION="master"
+VERSION="latest"
 ES_VERSION_FILE="$ES_PATH/.esversion"
 ES_file_install_shield_local="install-shield-local.sh"
 ES_file_prepare_servers="shield-prepare-servers"
@@ -166,6 +166,10 @@ done
 
 if [ ! -z "$ES_OFFLINE_REGISTRY" ]; then
     ES_OFFLINE_REGISTRY_PREFIX="$ES_OFFLINE_REGISTRY/"
+fi
+
+if [ $VERSION = "latest" ]; then
+   list_versions "latest"
 fi
 
 if [ -f "$ES_VERSION_FILE" ]; then
