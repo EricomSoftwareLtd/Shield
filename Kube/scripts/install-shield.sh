@@ -27,9 +27,29 @@ while [ $# -ne 0 ]; do
     shift
 done
 
-echo " Executing: ./install-shield-from-container.sh"
+wget "$FILE_SERVER/install-shield-from-container.sh" --tries 3 -O install-shield-from-container-new.sh
+# An Error Occured Downloading the install script
+if [ $? != 0 ]; then
+   rm -f install-shield-from-container-new.sh
+   if [ -f install-shield-from-container.sh ]; then
+      # File Cannot be downloaded but local file exists, assuming OFFLINE_MODE
+      args="$args -O"
+     else
+      # Cannot Install Shield,  
+      echo
+      echo " Cannot Download $FILE_SERVER/install-shield-from-container.sh"
+      echo " Make sure you are connected to the internet or the Offline Registry is available"
+      echo
+      echo "*************** Installation Failed, Exiting!"
+      echo
+      
+      exit 1
+   fi
+  else
+   mv  install-shield-from-container-new.sh install-shield-from-container.sh
+fi
 
-wget "$FILE_SERVER/install-shield-from-container.sh" -O install-shield-from-container.sh
+echo " Executing: ./install-shield-from-container.sh $args"
 chmod +x install-shield-from-container.sh
 bash ./install-shield-from-container.sh $args
 

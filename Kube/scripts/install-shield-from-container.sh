@@ -174,7 +174,8 @@ fi
 
 echo "Version:" "$VERSION"
 
-if [ -z "$ES_OFFLINE_REGISTRY" ] && [ "$PASSWORD" == "" ]; then
+# Require Password if Not working with Offline Registry and if Docker is not logged in
+if [ -z "$ES_OFFLINE_REGISTRY" ] && [ "$PASSWORD" == "" ] && [ "$(docker info | grep -c Username)" -eq 0 ]; then
     echo " Error: Password is missing"
     usage
     exit 1
