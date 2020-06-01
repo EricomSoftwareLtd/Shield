@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - AdminUI - Reports | System section has been removed
 - Consul backup location (on new installation): /home/ericom/ericomshield
-- Multi Tenant Admin - step 1
+- Multi Tenant - Multiple Proxy/Managements can work with a single Farm /ELK
 - X-Authenticated-User Format
 - New Rancher version: 2.3.7
 - Integrate NetSTAR Category List Update
