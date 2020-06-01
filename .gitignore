@@ -3,3 +3,4 @@
 *shield_crt*
 *__pycache__*
 Kube/scripts/last_deploy.log
+sync-shield-scripts.sh

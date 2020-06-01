@@ -4,7 +4,7 @@
 #######################################BH###
 APP="docker"
 APP_BIN="/usr/bin/docker"
-APP_VERSION="19.03.2"
+APP_VERSION="19.03.8"
 ES_FORCE=false
 
 function usage() {

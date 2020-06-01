@@ -1,3 +1,0 @@
----
-- name: Wait for apt-daily-upgrade
-  shell: systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
