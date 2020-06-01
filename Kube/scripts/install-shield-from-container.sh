@@ -183,22 +183,23 @@ fi
 if [ $VERSION = "latest" ]; then
    list_versions "latest"
 fi
-
 echo "Version:" "$VERSION"
 
 # Require Password if Not working with Offline Registry and if Docker is not logged in
 if [ -z "$ES_OFFLINE_REGISTRY" ] && [ "$PASSWORD" == "" ]; then
-   if [ "$(grep -c auth $DOCKER_LOGIN_FILE)" -lt 1 ]; then
+    if ! [ -f  $DOCKER_LOGIN_FILE ] || [ $(grep -c auth $DOCKER_LOGIN_FILE) -lt 1 ]; then
       echo " Error: Password is missing"
       usage
       exit 1
      else
-      echo "Already logged in" 
-   fi  
+      echo "Already logged in"
+   fi
 fi
 
+exit
+
 function docker_login() {
-    if [ "$(grep -c auth $DOCKER_LOGIN_FILE)" -lt 1 ]; then
+    if ! [ -f  $DOCKER_LOGIN_FILE ] || [ $(grep -c auth $DOCKER_LOGIN_FILE) -lt 1 ]; then
         echo "docker login" $DOCKER_USER
         echo "$PASSWORD" | docker login --username=$DOCKER_USER --password-stdin
         if [ $? == 0 ]; then
