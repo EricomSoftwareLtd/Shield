@@ -196,8 +196,6 @@ if [ -z "$ES_OFFLINE_REGISTRY" ] && [ "$PASSWORD" == "" ]; then
    fi
 fi
 
-exit
-
 function docker_login() {
     if ! [ -f  $DOCKER_LOGIN_FILE ] || [ $(grep -c auth $DOCKER_LOGIN_FILE) -lt 1 ]; then
         echo "docker login" $DOCKER_USER
