@@ -4,7 +4,7 @@
 #######################################BH###
 
 ES_OFFLINE="false"
-FILE_SERVER="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/Dev/Kube/scripts"
+FILE_SERVER="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts"
 #Check if we are root
 if ((EUID != 0)); then
     # sudo su

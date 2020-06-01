@@ -300,10 +300,10 @@ def ref_env():
 def end_message(flag):
     if not flag:
         print("DONE!")
-        print("Plese run the command '$ source {}'.".format(BASH_))
+        print("Please run the command '$ source {}'.".format(BASH_))
     else:
         print("DONE!")
-        print("Plese run the command '$ source /etc/bash.restore'.")
+        print("Please run the command '$ source /etc/bash.restore'.")
 
 def backup_default():
     # create backup     if not present
