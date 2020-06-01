@@ -9,7 +9,7 @@ Install Shield:
 ```bash
 wget https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts/install-shield.sh
 chmod +x ./install-shield.sh
-sudo ./install-shield-from-container.sh -d -p Ericom98***$ -l
+sudo ./install-shield.sh -d -p Ericom98***$ -l
 
 ```
 Installation Process can take 10-30 minutes depending on the machine and the internet connection
