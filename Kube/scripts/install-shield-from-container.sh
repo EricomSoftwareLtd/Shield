@@ -168,12 +168,14 @@ if [ ! -z "$ES_OFFLINE_REGISTRY" ]; then
     ES_OFFLINE_REGISTRY_PREFIX="$ES_OFFLINE_REGISTRY/"
 fi
 
-if [ $VERSION = "latest" ]; then
-   list_versions "latest"
-fi
-
+#check if there is a version to use
 if [ -f "$ES_VERSION_FILE" ]; then
     VERSION=$(cat "$ES_VERSION_FILE")
+fi
+
+#if version = latest check what is the latest
+if [ $VERSION = "latest" ]; then
+   list_versions "latest"
 fi
 
 echo "Version:" "$VERSION"
