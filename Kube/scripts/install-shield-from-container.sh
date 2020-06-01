@@ -12,12 +12,14 @@ ES_repo_versions="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/mas
 ES_repo_versions_file="shield-releases.txt"
 DOCKER_USER="ericomshield1"
 PASSWORD=""
+DOCKER_LOGIN_FILE="$HOME/.docker/config.json"
 SHIELD_CLI='shield-cli'
 SHIELD_CMD="/usr/bin/$SHIELD_CLI"
 VERSION="latest"
 ES_VERSION_FILE="$ES_PATH/.esversion"
 ES_file_install_shield_local="install-shield-local.sh"
 ES_file_prepare_servers="shield-prepare-servers"
+ES_OFFLINE="false"
 
 function usage() {
     if ! [[ $0 != "$BASH_SOURCE" ]]; then
@@ -25,7 +27,7 @@ function usage() {
      else
       CMD=$0 
     fi
-    #these ones are un-documented: [-d|--dev] [-s|--staging]
+    #these ones are un-documented: [-d|--dev] [-s|--staging] [-O|Offline]
     echo
     echo " Usage: "
     echo "$CMD -p <PASSWORD> [-v|--version <version-name>] [-r|--releases] [--registry <Shield-Registry-IP:Port>] [-n|--namespace <NAMESPACE> (<NAMESPACE>)] [-l|--label] [-h|--help]"
@@ -33,7 +35,7 @@ function usage() {
     if [ "-$1" = "-h" ]; then
         echo
         echo "   -p <PASSWORD>        Password provided by Ericom"
-        echo "   -v                   Install a specific version (e.g. Rel-20.05.645)"
+        echo "   -v                   Install a specific version (e.g. Rel-20.05.649)"
         echo "   -r                   List the last 3 official Releases"
         echo "   --registry <IP:Port> Offline Registry"
         echo "   -n <NS> [NS]         Install specific Namespace(s)"
@@ -151,9 +153,13 @@ while [ $# -ne 0 ]; do
     -r | --releases) # List the official releases
         list_versions
         ;;
+    -O | --Offline) # Offline Mode
+        ES_OFFLINE="true"
+        ;;
     --registry) # Specify Offline Registry address and port
         shift
         export ES_OFFLINE_REGISTRY="$1"
+        ES_OFFLINE="true"
         ;;
     -h | --help)
         #    *)
@@ -181,14 +187,18 @@ fi
 echo "Version:" "$VERSION"
 
 # Require Password if Not working with Offline Registry and if Docker is not logged in
-if [ -z "$ES_OFFLINE_REGISTRY" ] && [ "$PASSWORD" == "" ] && [ "$(docker info | grep -c Username)" -eq 0 ]; then
-    echo " Error: Password is missing"
-    usage
-    exit 1
+if [ -z "$ES_OFFLINE_REGISTRY" ] && [ "$PASSWORD" == "" ]; then
+   if [ "$(grep -c auth $DOCKER_LOGIN_FILE)" -lt 1 ]; then
+      echo " Error: Password is missing"
+      usage
+      exit 1
+     else
+      echo "Already logged in" 
+   fi  
 fi
 
 function docker_login() {
-    if [ "$(docker info | grep -c Username)" -eq 0 ]; then
+    if [ "$(grep -c auth $DOCKER_LOGIN_FILE)" -lt 1 ]; then
         echo "docker login" $DOCKER_USER
         echo "$PASSWORD" | docker login --username=$DOCKER_USER --password-stdin
         if [ $? == 0 ]; then
@@ -213,7 +223,9 @@ fi
 DOCKER_GID=$(getent group docker | awk -F: '{print $3}')
 
 if [ -z "$ES_OFFLINE_REGISTRY" ]; then
-    docker_login
+    if [ $ES_OFFLINE = "false" ]; then
+       docker_login
+    fi   
 else
     if [ ! -d /etc/docker ]; then
         mkdir /etc/docker
@@ -231,7 +243,9 @@ EOF
     systemctl reload docker
 fi
 
-docker image pull "${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION"
+if [ $ES_OFFLINE = "false" ]; then
+   docker image pull "${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION"
+fi   
 if [ $(docker image ls | grep -c $VERSION) -lt 1 ]; then
     echo
     echo "Error: Cannot Pull Docker image es-shield-cli: $VERSION"
