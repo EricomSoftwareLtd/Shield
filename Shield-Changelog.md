@@ -3,13 +3,13 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-20.05.649] - 01-06-2020 - Kubernetes Version Only
+## [Rel-20.05.649] - 01-06-2020
 
-### New Features - Rel-20.05
+### New Features
 
 - Support for SAML Authentication - Proxyless
 
-### Enhancement - Rel-20.05
+### Enhancements
 
 - AdminUI - Reports | System section has been removed
 - Consul backup location (on new installation): /home/ericom/ericomshield
@@ -19,14 +19,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Integrate NetSTAR Category List Update
 - Shield Support for SUB CA
 
-### Bug Fixes - Rel-20.05
+### Bug Fixes
 
-- Fixed: Alt Gr Key (Switzerland Keyboard) doesnt work
-- Fixed: web.whatsapp.com does not work
+- Fixed: Alt Gr Key (issue on Swiss Keyboard)
+- Fixed: Problem with web.whatsapp.com 
 - Fixed: Can't edit Read-Only rule for categories
 - Fixed: False Votiro Alerts
 - Fixed: OPSWAT keepalive URL fails against older versions
-- TechPreview: Crystal - Many Improvements and Bug Fixes
 - Fixed: Crystal - URL with anchor in wikipedia.org
 - Fixed: Crystal - video does play and pause repeatedly
 - Fixed: Crystal - Autoplay videos from ynet keeps doing play/pause
@@ -37,14 +36,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Crystal - Multi select list is not working as expected
 - Fixed: Crystal - Document selection color
 
-## [Rel-20.03_Build_641] - 06-05-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_641] - 06-05-2020
 
-### Enhancement
+### Enhancements
 
 - SHIELD-5920 - Supports offline deployment (including install on clean ubuntu (not ova))
 - shield ova: Support for VM with more than 8 CPU
 
-## [Rel-20.03_Build_639] - 21-04-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_639] - 21-04-2020
 
 ### Bug Fixes
 
@@ -52,9 +51,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Message on Old Chrome Version (#669)
 
 
-## [Rel-20.03_Build_638] - 06-04-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_638] - 06-04-2020
 
-### New Features - Rel-20.03
+### New Features
 
 - Support Shield in Split Mode Deployment (Management + Proxy  | Browser Farm + ELK)
 - Reports New visualization with Export to CSV option
@@ -63,7 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Offline Deployment Support: OVA for Offline Repository
 - Rancher High Availability (Cluster) Support
 
-### Enhancement - Rel-20.03
+### Enhancements
 
 - Have all shield-perf counters on the connetionInfo index
 - Connectivity Test - Configurable.
@@ -72,7 +71,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Customized ext-proxy error page.
 - Session History report - Remove duplicities from report content
 
-### Bug Fixes - Rel-20.03 
+### Bug Fixes
 
 - Fixed: Shield Alert emails are not received
 - Fixed: Link for more information from phishing updated
@@ -88,15 +87,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Policies exporting - double-byte characters in comments are not supported
 - Fixed: OVA online - fail to update shield.
 
-## [Rel-20.01.2_Build_622] - 17-02-2020 - Kubernetes Version Only
+## [Rel-20.01.2_Build_622] - 17-02-2020
 
-### Bug Fixes - Rel-20.01.2
+### Bug Fixes
 
 - Increase Health-check Frequency for Remote Browser
 
 ## [Rel-20.01.1_Build_621] - 16-02-2020
 
-### Bug Fixes - Rel-20.01.1
+### Bug Fixes
 
 - Fixed: Allow elasticsearch to failover to another node
 - Fixed: Phishing message point to new page
@@ -106,14 +105,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-20.01_Build_616] - 03-02-2020
 
-### New Features - Rel-20.01
+### New Features
 
 - ELK Automatic Snapshots
 - OVA - Offline
 - New Rancher Version: 2.3.5
 - Admin UI for hosted customers
 
-### Enhancement - Rel-20.01
+### Enhancements
 
 - Default Votiro URL changed to cdr.ericom.com
 - Remote Browser Scaler - Algorithm Improvement
@@ -124,22 +123,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Monitoring & Alerts for Hosted environment
 - Admin User is still available when LDAP Login is defined
 
-### Bug Fixes - Rel-20.01
+### Bug Fixes
 
 - Fixed: Admin UI Dashboard doesn't show Nodes table when system has a node with no labels
 - Fixed: CDR settings are not kept and not restored
 - Fixed: File preview - display issues
 
-## [Rel-19.12.1_Build_606] - 12-01-2020 - Kubernetes Version Only
+## [Rel-19.12.1_Build_606] - 12-01-2020
 
-### Bug Fixes - Rel-19.12.1
+### Bug Fixes
 
 - Fixed: Users cannot login to google services (e.g. gmail)
 - Fixed: PDF file content doesn't show (font missing)
 
-## [Rel-19.12_Build_605] - 06-01-2020 - Kubernetes Version Only
+## [Rel-19.12_Build_605] - 06-01-2020
 
-### New Features -Rel-19.12 
+### New Features
 
 - Phishing Detection and KPIs using Google Web Risk API
 - New Reports for Risky Sites 
@@ -148,13 +147,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Load Balancer for Votiro
 - TechPreview: Crystal - Many Improvements and Bug Fixes
 
-### Enhancement - Rel-19.12
+### Enhancements
 
 - Admin UI: EULA Approval in the first login
 - Admin UI: Policy Changes: Improve UI and UX
 - Install-shield option for using Rancher CLI (-R)
 
-### Bug Fixes - Rel-19.12
+### Bug Fixes
 
 - Fixed: deploy-shield should wait for tiller to be ready
 - Fixed: Google spreadsheets - double click is mandatory for entering input
@@ -163,9 +162,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Application rules force browser (QA#757044)
 - Fixed: Sometimes images cannot be downloded
 
-## [Rel-19.11_Build_590] - 27-11-2019 - Kubernetes Version Only
+## [Rel-19.11_Build_590] - 27-11-2019
 
-### New Features - Rel-19.11
+### New Features
 
 - Change Intelligent Mode License Definition
 - Admin: Services Page
@@ -188,7 +187,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dashboard Notifications - Add start timestamp
 - Health-Check point for Shield http://<SHIELD_SERVER>/health
 
-### Bug Fixes - Rel-19.11
+### Bug Fixes
 
 - Fixed: system ID change when redeploy shield
 - Fixed: Kibana in elk namespace crash
