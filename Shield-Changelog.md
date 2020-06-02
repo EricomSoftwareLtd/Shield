@@ -3,13 +3,13 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-20.05.649] - 01-06-2020 - Kubernetes Version Only
+## [Rel-20.05.649] - 01-06-2020
 
-### New Features - Rel-20.05
+### New Features
 
 - Support for SAML Authentication - Proxyless
 
-### Enhancement - Rel-20.05
+### Enhancements
 
 - AdminUI - Reports | System section has been removed
 - Consul backup location (on new installation): /home/ericom/ericomshield
@@ -19,14 +19,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Integrate NetSTAR Category List Update
 - Shield Support for SUB CA
 
-### Bug Fixes - Rel-20.05
+### Bug Fixes
 
-- Fixed: Alt Gr Key (Switzerland Keyboard) doesnt work
-- Fixed: web.whatsapp.com does not work
+- Fixed: Alt Gr Key (issue on Swiss Keyboard)
+- Fixed: Problem with web.whatsapp.com 
 - Fixed: Can't edit Read-Only rule for categories
 - Fixed: False Votiro Alerts
 - Fixed: OPSWAT keepalive URL fails against older versions
-- TechPreview: Crystal - Many Improvements and Bug Fixes
 - Fixed: Crystal - URL with anchor in wikipedia.org
 - Fixed: Crystal - video does play and pause repeatedly
 - Fixed: Crystal - Autoplay videos from ynet keeps doing play/pause
@@ -37,22 +36,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Crystal - Multi select list is not working as expected
 - Fixed: Crystal - Document selection color
 
-## [Rel-20.03_Build_641] - 06-05-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_641] - 06-05-2020
 
-### Enhancement
+### Enhancement - Rel-20.03.2
 
 - SHIELD-5920 - Supports offline deployment (including install on clean ubuntu (not ova))
 - shield ova: Support for VM with more than 8 CPU
 
-## [Rel-20.03_Build_639] - 21-04-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_639] - 21-04-2020
 
-### Bug Fixes
+### Bug Fixes - Rel-20.03.1
 
 - Fixed: Stream Mode is sending Video in Frame Mode (QA#774332)
 - Message on Old Chrome Version (#669)
 
 
-## [Rel-20.03_Build_638] - 06-04-2020 - Kubernetes Version Only
+## [Rel-20.03_Build_638] - 06-04-2020
 
 ### New Features - Rel-20.03
 
@@ -88,7 +87,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Policies exporting - double-byte characters in comments are not supported
 - Fixed: OVA online - fail to update shield.
 
-## [Rel-20.01.2_Build_622] - 17-02-2020 - Kubernetes Version Only
+## [Rel-20.01.2_Build_622] - 17-02-2020
 
 ### Bug Fixes - Rel-20.01.2
 
@@ -130,7 +129,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: CDR settings are not kept and not restored
 - Fixed: File preview - display issues
 
-## [Rel-19.12.1_Build_606] - 12-01-2020 - Kubernetes Version Only
+## [Rel-19.12.1_Build_606] - 12-01-2020
 
 ### Bug Fixes - Rel-19.12.1
 
