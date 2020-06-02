@@ -38,14 +38,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-20.03_Build_641] - 06-05-2020
 
-### Enhancements
+### Enhancement - Rel-20.03.2
 
 - SHIELD-5920 - Supports offline deployment (including install on clean ubuntu (not ova))
 - shield ova: Support for VM with more than 8 CPU
 
 ## [Rel-20.03_Build_639] - 21-04-2020
 
-### Bug Fixes
+### Bug Fixes - Rel-20.03.1
 
 - Fixed: Stream Mode is sending Video in Frame Mode (QA#774332)
 - Message on Old Chrome Version (#669)
@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-20.03_Build_638] - 06-04-2020
 
-### New Features
+### New Features - Rel-20.03
 
 - Support Shield in Split Mode Deployment (Management + Proxy  | Browser Farm + ELK)
 - Reports New visualization with Export to CSV option
@@ -62,7 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Offline Deployment Support: OVA for Offline Repository
 - Rancher High Availability (Cluster) Support
 
-### Enhancements
+### Enhancement - Rel-20.03
 
 - Have all shield-perf counters on the connetionInfo index
 - Connectivity Test - Configurable.
@@ -71,7 +71,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Customized ext-proxy error page.
 - Session History report - Remove duplicities from report content
 
-### Bug Fixes
+### Bug Fixes - Rel-20.03 
 
 - Fixed: Shield Alert emails are not received
 - Fixed: Link for more information from phishing updated
@@ -89,13 +89,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-20.01.2_Build_622] - 17-02-2020
 
-### Bug Fixes
+### Bug Fixes - Rel-20.01.2
 
 - Increase Health-check Frequency for Remote Browser
 
 ## [Rel-20.01.1_Build_621] - 16-02-2020
 
-### Bug Fixes
+### Bug Fixes - Rel-20.01.1
 
 - Fixed: Allow elasticsearch to failover to another node
 - Fixed: Phishing message point to new page
@@ -105,14 +105,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-20.01_Build_616] - 03-02-2020
 
-### New Features
+### New Features - Rel-20.01
 
 - ELK Automatic Snapshots
 - OVA - Offline
 - New Rancher Version: 2.3.5
 - Admin UI for hosted customers
 
-### Enhancements
+### Enhancement - Rel-20.01
 
 - Default Votiro URL changed to cdr.ericom.com
 - Remote Browser Scaler - Algorithm Improvement
@@ -123,7 +123,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Monitoring & Alerts for Hosted environment
 - Admin User is still available when LDAP Login is defined
 
-### Bug Fixes
+### Bug Fixes - Rel-20.01
 
 - Fixed: Admin UI Dashboard doesn't show Nodes table when system has a node with no labels
 - Fixed: CDR settings are not kept and not restored
@@ -131,14 +131,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Rel-19.12.1_Build_606] - 12-01-2020
 
-### Bug Fixes
+### Bug Fixes - Rel-19.12.1
 
 - Fixed: Users cannot login to google services (e.g. gmail)
 - Fixed: PDF file content doesn't show (font missing)
 
-## [Rel-19.12_Build_605] - 06-01-2020
+## [Rel-19.12_Build_605] - 06-01-2020 - Kubernetes Version Only
 
-### New Features
+### New Features -Rel-19.12 
 
 - Phishing Detection and KPIs using Google Web Risk API
 - New Reports for Risky Sites 
@@ -147,13 +147,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Load Balancer for Votiro
 - TechPreview: Crystal - Many Improvements and Bug Fixes
 
-### Enhancements
+### Enhancement - Rel-19.12
 
 - Admin UI: EULA Approval in the first login
 - Admin UI: Policy Changes: Improve UI and UX
 - Install-shield option for using Rancher CLI (-R)
 
-### Bug Fixes
+### Bug Fixes - Rel-19.12
 
 - Fixed: deploy-shield should wait for tiller to be ready
 - Fixed: Google spreadsheets - double click is mandatory for entering input
@@ -162,9 +162,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Application rules force browser (QA#757044)
 - Fixed: Sometimes images cannot be downloded
 
-## [Rel-19.11_Build_590] - 27-11-2019
+## [Rel-19.11_Build_590] - 27-11-2019 - Kubernetes Version Only
 
-### New Features
+### New Features - Rel-19.11
 
 - Change Intelligent Mode License Definition
 - Admin: Services Page
@@ -187,7 +187,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dashboard Notifications - Add start timestamp
 - Health-Check point for Shield http://<SHIELD_SERVER>/health
 
-### Bug Fixes
+### Bug Fixes - Rel-19.11
 
 - Fixed: system ID change when redeploy shield
 - Fixed: Kibana in elk namespace crash
