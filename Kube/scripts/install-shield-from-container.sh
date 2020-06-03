@@ -242,7 +242,7 @@ EOF
     systemctl reload docker
 fi
 
-if [ $ES_OFFLINE = "false" ] && [ ! -z "${ES_OFFLINE_REGISTRY_PREFIX}" ]; then
+if [ $ES_OFFLINE = "false" ] || [ ! -z "${ES_OFFLINE_REGISTRY_PREFIX}" ]; then
    docker image pull "${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION"
 fi   
 if [ $(docker image ls | grep -c $VERSION) -lt 1 ]; then
