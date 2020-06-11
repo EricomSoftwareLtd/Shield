@@ -266,9 +266,10 @@ SHIELD_DOCKER_CMD="docker run --rm -d -it --name shield-cli --privileged \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -v $DOCKER_BIN:/usr/bin/docker --user 1000:$DOCKER_GID ${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION bash"
 
-if [ $(docker ps -a | grep -c shield-cli) -lt 1 ]; then
-    $SHIELD_DOCKER_CMD $@
-fi
+# Remove running container
+docker rm -f shield-cli
+# Running (new) container
+$SHIELD_DOCKER_CMD $@
 
 cd "$HOME"
 
