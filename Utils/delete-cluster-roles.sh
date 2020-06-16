@@ -1,0 +1,10 @@
+kubectl delete clusterrole/consul-cluster-role
+kubectl delete clusterrolebinding/consul-role-binding-management
+kubectl delete clusterrolebinding/consul-cluster-role-binding-management
+kubectl delete clusterrolebinding/consul-role-binding-farm-services
+kubectl delete clusterrole/shield-common-fluent-bit-out-syslog
+kubectl delete clusterrolebinding/shield-common-fluent-bit-out-syslog
+kubectl delete clusterrolebinding/shield-farm-sync
+kubectl delete clusterrolebinding/shield-account-farm-services
+kubectl delete clusterrolebinding/shield-account-management
+kubectl delete clusterrole/elk-manager
