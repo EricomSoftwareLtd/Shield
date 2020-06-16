@@ -8,3 +8,4 @@ kubectl delete clusterrolebinding/shield-farm-sync
 kubectl delete clusterrolebinding/shield-account-farm-services
 kubectl delete clusterrolebinding/shield-account-management
 kubectl delete clusterrole/elk-manager
+kubectl delete clusterrolebinding/elk-manager
