@@ -350,10 +350,10 @@ def ref_env():
 def end_message(flag):
     if not flag:
         print(u"DONE!")
-        print(u"Plese run the command '$ source {}'.".format(BASH_))
+        print(u"Please run the command '$ source {}'.".format(BASH_))
     else:
         print(u"DONE!")
-        print(u"Plese run the command '$ source /etc/bash.restore'.")
+        print(u"Please run the command '$ source /etc/bash.restore'.")
 
 
 if __name__ == u"__main__":
