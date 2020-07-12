@@ -1,0 +1,107 @@
+@Library('shared-main@master')
+import com.ericom.jenkins.UpdateVerNum
+
+def branch = 'master' 
+def uvn 
+def tag
+
+pipeline{
+
+    agent any
+    options { timestamps () }
+
+    parameters{
+        choice(name: 'promotionType', choices: ['dev', 'staging', 'release'], description: 'Please choose')
+        string (name: 'newDevTag', defaultValue: "Null", description:'New promotion number(not always used)')
+    }//parameters
+
+    stages{
+        stage("echo parameters"){
+            steps{
+                script{
+                    params.each {param ->
+                        println "${param.key} -> ${param.value} "
+                    }                                        
+                }//script
+            }//steps
+        }//stage
+        
+        stage("init"){
+            steps{
+                script{
+                    uvn = new UpdateVerNum(steps,promotionType,newDevTag)
+                } //script
+            }//steps
+        }//stage
+
+        stage("checkout branch"){
+            steps{
+                script{ //checkout to branch in order to not run in detached head
+                    sh(label: "checkout ${branch}",
+                        script: "git checkout ${branch}")
+                    sh 'pwd'
+                    sh 'ls'
+                }//script
+            }//steps
+        } // stage
+
+        stage("update version file"){
+            steps{
+                script{
+                    uvn.updateVersionNum()
+                } //script
+            } // steps
+        } // stage
+        
+        stage("commit new dev version changes"){
+            steps{
+                script{
+                    withCredentials([sshUserPrivateKey(credentialsId: 'gitsshkey', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
+                        withEnv(['GIT_SSH_COMMAND=ssh -o StrictHostKeyChecking=no -i ${SSH_KEY}']) {
+                            tag = uvn.commitAndPush().trim()
+                            log.info("promotionType is: ${promotionType}")
+                            log.info("tag is: ${tag}")
+                        } // withEnv
+                    }//withCredentials
+
+                }//script
+            }//steps
+        }//stage
+
+        stage("Trigger additional pipelines - OVA"){
+            when{
+                expression{
+                    promotionType  == 'staging' || promotionType == 'release' ;
+                }//expression
+            }//when
+            steps{
+                script{
+                    switch(promotionType) {
+                        case 'staging':
+                            build job: '/OVA/Create-agent-Run-ova', parameters: [
+                                string(name: 'param_ova_name', value: "${promotionType}-${tag}"), 
+                                string(name: 'param_build_version', value: tag)]
+                        break
+
+                        case 'release':
+                            script{
+                                fileNameTag = sh(label:'Create deployment tag' ,script: """ 
+                                    echo ${tag} | grep -Po '\\d\\d\\.\\d\\d(\\.\\d\\d)?(?=\\.)' 
+                                """, returnStdout: true)
+                                log.info("fileNameTag: ${fileNameTag}")
+                            }//script
+                            build job: '/OVA/promote-OVA', parameters: [
+                                string(name: 'fileName', value: "shield-kube-${promotionType}-${tag}.ova"), 
+                                string(name: 'destinationFileName', value: "shield-kube-Rel-${fileNameTag}.ova")]
+
+                        break
+                        
+                        default:
+                            log.info("How did you get here?")
+                    } // switch
+                }//script
+            }//steps
+        }//stage
+
+    }//stages
+}//pipeline
