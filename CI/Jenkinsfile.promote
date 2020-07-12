@@ -7,7 +7,8 @@ def tag
 
 pipeline{
 
-agent any
+    agent any
+    options { timestamps () }
 
     parameters{
         choice(name: 'promotionType', choices: ['dev', 'staging', 'release'], description: 'Please choose')
@@ -15,6 +16,16 @@ agent any
     }//parameters
 
     stages{
+        stage("echo parameters"){
+            steps{
+                script{
+                    params.each {param ->
+                        println "${param.key} -> ${param.value} "
+                    }                                        
+                }//script
+            }//steps
+        }//stage
+        
         stage("init"){
             steps{
                 script{
