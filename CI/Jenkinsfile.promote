@@ -1,4 +1,4 @@
-@Library('shared-main@1.0')
+@Library('shared-main@master')
 import com.ericom.jenkins.UpdateVerNum
 
 def branch = 'master' 
