@@ -1,7 +1,7 @@
 #!/bin/bash
-###################################################
-#####   Ericom Shield Pre-Installation-Checks #####
-###################################################
+#################################################
+#####   Ericom Shield Pre-Install-Check     #####
+############################################BH###
 
 #Check if we are root
 if ((EUID != 0)); then
@@ -16,7 +16,7 @@ DOCKER_DEFAULT_VERSION="19.03.8"
 DOCKER_VERSION="${DOCKER_VERSION:-""}"
 DOCKER_VERSION_STRING="5:19.03.8*"
 DOCKER_DEFAULT_VERSION_STRING="5:19.03.8*"
-LOGFILE="${LOGFILE:-./pre-installation-checks.log}"
+LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 RESULTS="./results-pre-check.log"
 UPLOAD_ACCEPTED_FILE="./.upload_accepted"
 FAILED_STR="failed"
@@ -100,10 +100,10 @@ fi
 function perform_env_test() {
     local ERR=0
 
-    log_message "Running pre-installation-checks ..."
+    log_message "Running pre-install-check ..."
 
     if [ ! -f "$UPLOAD_ACCEPTED_FILE" ]; then
-        if read -t 20 -p "Do you agree to send the pre-installation-checks results anonymously to Ericom (yes/no)? " choice; then
+        if read -t 20 -p "Do you agree to send the pre-check results anonymously to Ericom (yes/no)? " choice; then
             case "$choice" in
             "n" | "no" | "NO" | "No")
                 NOUPLOAD="noUpload"
@@ -146,10 +146,10 @@ function perform_env_test() {
     cat $RESULTS >>"$LOGFILE"
 
     if ((ERR != 0)); then
-        log_message "pre-installation-checks: Exiting due to previous errors, please check $RESULTS..."
+        log_message "shield-pre-install-check: Exiting due to previous errors, please check $RESULTS..."
         return 1
     fi
-    log_message "pre-installation-checks passed!"
+    log_message "shield-pre-install-check passed!"
     return 0
 }
 
@@ -165,7 +165,7 @@ if [ "$CONTAINER_TAG" = "" ]; then
 fi
 
 if ! [[ $0 != "$BASH_SOURCE" ]]; then
-    echo "***************         Ericom Shield pre-installation checks ..."
+    echo "***************         Ericom Shield Pre-Install Check ..."
     echo "***************         "
     echo "***************         This script validates customer's environment and assess if it is ready for Ericom Shield Installation."
     echo "***************         The script checks for known misconfigurations and HW/OS issues"
