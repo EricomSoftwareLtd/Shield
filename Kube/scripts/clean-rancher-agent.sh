@@ -2,7 +2,8 @@
 ################################################
 #####   Ericom Shield: Cleaner             #####
 ###########################################BH###
-ES_ALL=false
+ES_ALL="false"
+CLEAN_RANCHER_STORE="false"
 ES_PATH="$HOME/ericomshield"
 ES_RANCHER_STORE="$ES_PATH/rancher-store"
 
@@ -22,8 +23,11 @@ fi
 while [ $# -ne 0 ]; do
     arg="$1"
     case "$arg" in
+    -rs | --rancher-store)
+        CLEAN_RANCHER_STORE="true"
+        ;;
     -a | --all)
-        ES_ALL=true
+        ES_ALL="true"
         ;;
     #    -h | --help)
     *)
@@ -42,11 +46,18 @@ sleep 5
 
 docker rm -f $(docker ps -qa)
 docker volume rm $(docker volume ls -q)
-cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $ES_RANCHER_STORE $HOME/.helm"
+
+if [ "$ES_ALL" == "true" ] || [ "$CLEAN_RANCHER_STORE" == "true" ]; then
+   cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $ES_RANCHER_STORE $HOME/.helm"
+ else
+   cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $HOME/.helm"
+fi
+
 for dir in $cleanupdirs; do
     echo "Removing $dir"
     rm -rf $dir
 done
+
 if [ "$ES_ALL" == "true" ]; then
     docker system prune -a -f
 fi

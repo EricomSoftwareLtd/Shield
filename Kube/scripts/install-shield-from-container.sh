@@ -277,6 +277,9 @@ cd "$HOME"
 
 # if shield-repo is already under shield folder => Rename it
 if [ -d $ES_PATH/shield ]; then
+    # remove the old old one
+    rm -f $ES_PATH/shield-old
+    #move the current one to old
     mv $ES_PATH/shield $ES_PATH/shield-old
 fi
 
