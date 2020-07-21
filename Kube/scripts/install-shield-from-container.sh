@@ -266,7 +266,7 @@ SHIELD_DOCKER_CMD="docker run --rm -d -it --name shield-cli --privileged \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -v $DOCKER_BIN:/usr/bin/docker --user 1000:$DOCKER_GID ${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION bash"
 
-if [ $(docker ps -a | grep -c shield-cli) -lt 1 ];then
+if [ $(docker ps -a | grep -c shield-cli) -ge 1 ];then
    # Remove running container
    docker rm -f shield-cli
 fi   
@@ -278,12 +278,12 @@ cd "$HOME"
 # if shield-repo is already under shield folder => Rename it
 if [ -d $ES_PATH/shield ]; then
     # remove the old old one
-    rm -f $ES_PATH/shield-old
+    rm -rf $ES_PATH/shield-old
     #move the current one to old
     mv $ES_PATH/shield $ES_PATH/shield-old
 fi
 
-if [ "$(ls $ES_PATH/*.yaml | wc -l)" -ge "1" ]; then
+if [ "$(ls $ES_PATH/*.yaml 2> /dev/null | wc -l)" -ge "1" ]; then
     echo "Keeping Custom Yaml"
     mkdir -p /tmp/yaml
     mv $ES_PATH/*.yaml /tmp/yaml/
