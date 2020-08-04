@@ -13,6 +13,7 @@ pipeline{
     parameters{
         choice(name: 'promotionType', choices: ['dev', 'staging', 'release'], description: 'Please choose')
         string (name: 'newDevTag', defaultValue: "Null", description:'New promotion number(not always used)')
+        choice(name: 'triggerOVAsForStaging', choices: ['true', 'false'], description: "Only relavent when choosing promotion type staging. Choose false if you don't want to trigger building new OVAs this staging")
     }//parameters
 
     stages{
@@ -78,9 +79,13 @@ pipeline{
                 script{
                     switch(promotionType) {
                         case 'staging':
-                            build job: '/OVA/Create-agent-Run-ova', parameters: [
-                                string(name: 'param_ova_name', value: "${promotionType}-${tag}"), 
-                                string(name: 'param_build_version', value: tag)]
+                            if (triggerOVAsForStaging == 'true'){
+                                build job: '/OVA/Create-agent-Run-ova', parameters: [
+                                    string(name: 'param_ova_name', value: "${promotionType}-${tag}"), 
+                                    string(name: 'param_build_version', value: tag)]
+                            }else{
+                                println ("Skipping OVAs trigger because triggerOVAsForStaging isn't true")
+                            }
                         break
 
                         case 'release':
