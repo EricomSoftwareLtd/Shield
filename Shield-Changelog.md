@@ -3,6 +3,38 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.07.667] - 2020-08-05
+
+### New Features
+
+- License Enforcement Changes
+- X-Authenticated-User Header Format
+- Headers for Resources in White
+- TLS 1.3 Support
+
+### Enhancements
+
+- Helm v3
+- DNS lookups even when using upstream proxy
+- Increase Memory Limit for Ext-Proxy
+- Many Crystal fixes
+- Added Log Navigation (in session)
+
+### Bug Fixes
+
+- Fixed: CA Certificate Issues
+- Fixed: Admin FQDN Cert not working
+- Fixed: CDR Opswat Fixes
+- Fixed: Workaround for Rancher Issue for Offline Deployment
+- Fixed: All google/gmail sites causing issues
+- Fixed: Google drive issue
+- Fixed: ELK node scheduling rules
+- Fixed: Phishing Read-Only - clipboard is not disabled
+- Fixed: Analyzer Health Check skips connectivity test (even when there is no upstream proxy) 
+- Fixed: Every Save in the Admin adds characters to ca-passphrase key in consul (\) 
+- Fixed: CA0000069129: Japanese Keyboard Can not delete characters with Back space key (QA#782283)
+- Fixed: CA0000069157: Scaler doesnt clean Succeeded pods which do not have a parent Job 
+
 ## [Rel-20.05.649] - 01-06-2020
 
 ### New Features
