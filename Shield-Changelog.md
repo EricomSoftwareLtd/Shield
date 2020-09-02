@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.07.668] - 2020-09-02
+
+### Bug Fixes
+
+- Fixed: checkSessionLimit flag doesnt work
+- Fixed: delete-shield.sh error
+
 ## [Rel-20.07.667] - 2020-08-05
 
 ### New Features
