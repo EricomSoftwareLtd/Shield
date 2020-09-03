@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Every Save in the Admin adds characters to ca-passphrase key in consul (\) 
 - Fixed: CA0000069129: Japanese Keyboard Can not delete characters with Back space key (QA#782283)
 - Fixed: CA0000069157: Scaler doesnt clean Succeeded pods which do not have a parent Job 
+- Fixed: CA0000068374: In rare cases, when you reboot Shield, CDR settings are not updated and files cannot be sanitized.(QA#778847)
 
 ## [Rel-20.05.649] - 01-06-2020
 
