@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.07.669] - 2020-09-30
+
+### Bug Fixes
+
+- Fixed: auth-proxy runs out of memory (CA0000070324,QA#789057)
+- Fixed: Resource limits of es-proxy-auth (CA0000070363,QA#789246)
+
 ## [Rel-20.07.668] - 2020-09-02
 
 ### Bug Fixes
