@@ -13,14 +13,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Enhancements
 
 - Set Resource Limit for all PODs 
-- Proxy Autorization header is not passed to upstream proxy (QA#728526)
+- Proxy Authorization header is not passed to upstream proxy (QA#728526)
 
 ### Bug Fixes
 
 - Fixed: X-Forwarded-For extra character (QA#788852)
 - Fixed: X-Authenticated-User format in white
 - Fixed: Kibana - missing reports when navigating within the session 
-- Fixed: Japanese input bug in firefox (QA#787953)
+- Fixed: Japanese input bug in Firefox (QA#787953)
 - Fixed: consul backup restore back to default the settings on specific machine
 - Fixed: Aligning sysctl_common.conf and configure-sysctl-values.sh 
 - Fixed: For accesses within the same domain, only the first access is logged (CA0000068373/QA#779601)
