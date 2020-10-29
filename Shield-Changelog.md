@@ -3,6 +3,28 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.10.685] - 2020-10-28
+
+### New Features
+
+- Horizontal Pod Autoscaler (HPA) Services on Kubernetes
+- External Objects In Whitelisted Domains
+
+### Enhancements
+
+- Set Resource Limit for all PODs 
+- Proxy Authorization header is not passed to upstream proxy (QA#728526)
+
+### Bug Fixes
+
+- Fixed: X-Forwarded-For extra character (QA#788852)
+- Fixed: X-Authenticated-User format in white
+- Fixed: Kibana - missing reports when navigating within the session 
+- Fixed: Japanese input bug in Firefox (QA#787953)
+- Fixed: consul backup restore back to default the settings on specific machine
+- Fixed: Aligning sysctl_common.conf and configure-sysctl-values.sh 
+- Fixed: For accesses within the same domain, only the first access is logged (CA0000068373/QA#779601)
+
 ## [Rel-20.07.669] - 2020-09-30
 
 ### Bug Fixes
