@@ -1,5 +1,5 @@
-1) latest Release Rel-20.11.696 on 30.11.2020:Rel-20.11.696
+1) latest Release Rel-20.11.698 on 30.11.2020:Rel-20.11.698
 2) Release Rel-20.10.685 on 02.11.2020:Rel-20.10.685
 3) Release Rel-20.07.669 on 30.09.2020:Rel-20.07.669
-4) Staging:Rel-20.11.696
+4) Staging:Rel-20.11.698
 5) Dev:Rel-20.11.698

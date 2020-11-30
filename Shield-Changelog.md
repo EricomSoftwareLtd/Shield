@@ -3,6 +3,24 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Rel-20.11.696] - 2020-11-26
+
+### New Features
+
+- Visual Indicator in browser of using Shield
+- Landing Page for Shield
+
+### Enhancements
+
+- Setup NodeLocal DNS (dns caching)
+
+### Bug Fixes
+
+- Fixed: Security Issue from BTL - Retrieving cookies
+- Fixed: Named License going up and down (BTL)
+- Fixed: External object appear in url naviagation syslog
+- Fixed: grep commands for ITEC - a few missing fields
+
 ## [Rel-20.10.685] - 2020-10-28
 
 ### New Features
