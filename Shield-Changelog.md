@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Security Issue from BTL - Retrieving cookies
 - Fixed: Named License going up and down (BTL)
 - Fixed: External object appear in url naviagation syslog
-- Fixed: grep commands for ITEC - a few missing fields
+- Fixed: grep commands on syslog a few missing fields (CA0000068373)
 
 ## [Rel-20.10.685] - 2020-10-28
 
