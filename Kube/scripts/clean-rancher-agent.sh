@@ -62,7 +62,12 @@ if [ "$ES_ALL" == "true" ]; then
     docker system prune -a -f
 fi
 
-rm -f ~/.kube/config
+if [ "$ES_ALL" == "true" ]; then
+    docker system prune -a -f
+    rm -f ~/.kube/config
+   else 
+    mv -f ~/.kube/config ~/.kube/config.org  
+fi
 
 echo "Please reboot your system, to cleanup the machine"
 echo
