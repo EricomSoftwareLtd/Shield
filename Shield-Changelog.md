@@ -1,9 +1,49 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-20.11.696] - 2020-11-26
+- Git Issues should be referenced by #
+- Main Features/Bug Fixes should have (*)
+- User Action Required should have (!)
+
+## [Unreleased] - don't remove this line, used in CI
+
+## [Rel-21.01.712] - 2021-01-20
+
+### New Features
+
+- Admin Auditing
+- Admin SAML Authentication (?)
+- Proxy Chain - Shield Integration with DLP Systems
+
+### Enhancements
+
+- Security Improvement
+- Admin will block users after several failed logins
+- Improve Shield startup load process
+- Move Log Infrastructure to filebeat+logstash
+- Align Auth-proxy logs collected as other containers
+- clean-rancher-agent will not remove kube config file by default
+- Domain policy to be case insensitive
+- Unify shield-ova and registry-ova (same ova for both)
+- Update Display Name from AD on Profile All Users in Shield
+- Increase Config Backup History Length to 30 days
+
+### Bug Fixes
+
+- Fixed: Github website says that the browser version is not supported
+- Fixed: UPS website popups not working
+- Fixed: Double Click in google drive not opening files
+- Fixed: store.ferrari.com in Crystal issues
+- Fixed: Page Jumps without user input
+- Fixed: PDF issue at bar123.co.il 
+- Fixed: Japanese - space key is not working as expected in FF
+- Fixed: docker version in shield-prepare-servers 
+
+## [Rel-20.11.698] - 2020-11-26
 
 ### New Features
 
