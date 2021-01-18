@@ -15,33 +15,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### New Features
 
-- Admin Auditing
-- Admin SAML Authentication (?)
+- Admin Auditing - New functionality and new reports 
+- Admin SAML Authentication
 - Proxy Chain - Shield Integration with DLP Systems
+- Start-up process redesigned
 
 ### Enhancements
 
-- Security Improvement
-- Admin will block users after several failed logins
-- Improve Shield startup load process
+- Security Improvements
+- Admin login is blocked after several failed login attempts
 - Move Log Infrastructure to filebeat+logstash
 - Align Auth-proxy logs collected as other containers
 - clean-rancher-agent will not remove kube config file by default
 - Domain policy to be case insensitive
-- Unify shield-ova and registry-ova (same ova for both)
+- Unify shield-ova and registry-ova
 - Update Display Name from AD on Profile All Users in Shield
 - Increase Config Backup History Length to 30 days
 
 ### Bug Fixes
 
-- Fixed: Github website says that the browser version is not supported
+- Fixed: Github website displays message "browser version is not supported"
 - Fixed: UPS website popups not working
 - Fixed: Double Click in google drive not opening files
 - Fixed: store.ferrari.com in Crystal issues
-- Fixed: Page Jumps without user input
+- Fixed: Page jumps without user input
 - Fixed: PDF issue at bar123.co.il 
-- Fixed: Japanese - space key is not working as expected in FF
-- Fixed: docker version in shield-prepare-servers 
+- Fixed: Japanese KB - space key is not working as expected in FF
+- Fixed: docker version in shield-prepare-servers (GitHub #727)
+- Fixed: External Objects for the checkSessionLimit = true scenario (CA0000068373)
 
 ## [Rel-20.11.698] - 2020-11-26
 
