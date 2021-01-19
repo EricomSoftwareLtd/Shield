@@ -16,7 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### New Features
 
 - Admin Auditing - New functionality and new reports 
-- Admin SAML Authentication
+- SAML Authentication - support ADFS
+- SAML Authentication - Support proxy mode
 - Proxy Chain - Shield Integration with DLP Systems
 - Start-up process redesigned
 
