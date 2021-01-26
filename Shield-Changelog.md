@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
-## [Rel-21.01.712] - 2021-01-20
+## [Rel-21.01.719] - 2021-01-25
 
 ### New Features
 
@@ -44,6 +44,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Japanese KB - space key is not working as expected in FF
 - Fixed: docker version in shield-prepare-servers (GitHub #727)
 - Fixed: External Objects for the checkSessionLimit = true scenario (CA0000068373)
+
+### Important Upgrade Note
+
+- Due to change in Backup/Restore functionality, upgrading from a previous release requires manual restore of the system configuration using a backup file
+- Procedure:
+- Make sure you have a backup from your last changes
+- Stop the system
+- Upgrade the system
+- Go to the Admin and Restore using your backup file 
 
 ## [Rel-20.11.698] - 2020-11-26
 
