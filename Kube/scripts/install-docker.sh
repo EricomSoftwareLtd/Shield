@@ -4,7 +4,7 @@
 #######################################BH###
 APP="docker"
 APP_BIN="/usr/bin/docker"
-APP_VERSION="19.03.8"
+APP_VERSION="19.03"
 ES_FORCE=false
 
 function usage() {
@@ -28,11 +28,9 @@ done
 
 if [ ! -x "$APP_BIN" ] || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 0 ] || [ "$ES_FORCE" = true ]; then
     echo "Installing $APP ..."
-    DOCKER_SCRIPT_URL="https://releases.rancher.com/install-docker/$APP_VERSION.sh"
-    curl -LJ --progress-bar $DOCKER_SCRIPT_URL | sh
-    sudo systemctl enable docker
-    sudo systemctl start docker
-    sudo usermod -aG docker "$USER" 
+    sudo apt install -y "docker.io=${APP_VERSION}*"
+    sudo systemctl enable --now docker
+    sudo usermod -aG docker "$USER"
     echo "Done!"
 else
     echo "$APP is already installed"

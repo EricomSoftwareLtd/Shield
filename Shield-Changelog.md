@@ -1,9 +1,64 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Rel-20.11.696] - 2020-11-26
+- Git Issues should be referenced by #
+- Main Features/Bug Fixes should have (*)
+- User Action Required should have (!)
+
+## [Unreleased] - don't remove this line, used in CI
+
+## [Rel-21.01.719] - 2021-01-25
+
+### New Features
+
+- Admin Auditing - New functionality and new reports 
+- SAML Authentication - support ADFS
+- SAML Authentication - Support proxy mode
+- Proxy Chain - Shield Integration with DLP Systems
+- Start-up process redesigned
+
+### Enhancements
+
+- Security Improvements
+- Admin login is blocked after several failed login attempts
+- Move Log Infrastructure to filebeat+logstash
+- Align Auth-proxy logs collected as other containers
+- clean-rancher-agent will not remove kube config file by default
+- Domain policy to be case insensitive
+- Unify shield-ova and registry-ova
+- Update Display Name from AD on Profile All Users in Shield
+- Increase Config Backup History Length to 30 days
+
+### Bug Fixes
+
+- Fixed: Github website displays message "browser version is not supported"
+- Fixed: UPS website popups not working
+- Fixed: Double Click in google drive not opening files
+- Fixed: store.ferrari.com in Crystal issues
+- Fixed: Page jumps without user input
+- Fixed: PDF issue at bar123.co.il 
+- Fixed: Japanese KB - space key is not working as expected in FF
+- Fixed: docker version in shield-prepare-servers (GitHub #727)
+- Fixed: External Objects for the checkSessionLimit = true scenario (CA0000068373)
+- Fixed: Settings reverted to default when using Shield (CA0000071811/QA#797937)
+- Fixed: Missing Settings after Reboot (rarely) (CA0000068374/QA#778847)
+- Fixed: Shield became unavailable due to high CPU usage (CA0000070539/QA#790355)
+- Fixed: Unable to Browse with Shield (CA0000070539/CA0000070985/QA#792025) 
+
+### Important Upgrade Note
+
+- Due to change in Backup/Restore functionality, upgrading from a previous release requires manual restore of the system configuration using a backup file
+- Procedure:
+- Make sure you have a backup from your last changes
+- Stop the system
+- Upgrade the system
+- Go to the Admin and Restore using your backup file 
+
+## [Rel-20.11.698] - 2020-11-26
 
 ### New Features
 
