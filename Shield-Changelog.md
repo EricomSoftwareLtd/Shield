@@ -44,6 +44,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Japanese KB - space key is not working as expected in FF
 - Fixed: docker version in shield-prepare-servers (GitHub #727)
 - Fixed: External Objects for the checkSessionLimit = true scenario (CA0000068373)
+- Fixed: Settings reverted to default when using Shield (CA0000071811/QA#797937)
+- Fixed: In rare cases, when you reboot Shield, the setting value of the file (CA0000068374/QA#778847)
+- Fixed: Settings reverted to default when using Shield (CA0000071811/QA#797937)
+- Fixed: Shield became unavailable due to high CPU usage (CA0000070539/QA#790355)
+- Fixed: About the event that Shield browsing becomes impossible (CA0000070539/CA0000070985/QA#792025) 
 
 ### Important Upgrade Note
 
