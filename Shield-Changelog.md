@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.01.736] - 2021-02-22 - Hotfix
+
+### Bug Fixes
+
+- SHIELD-8805 - squid crash on some virtualization environments
+- SHIELD-8602 - After installing 21.01, "SQUID.ERR" is displayed (CA0000073262/QA#807695)
+- SHIELD-8620 - es-proxy-auth is down after upgrade (CA0000073280/QA#807842)
+- SHIELD-8567 - Split Mode Issues in Rel-21.01
+- SHIELD-8269 - <misim.gov.il> does not work
+- SHIELD-8629 - Shield does not trust the certificate of <productbrandstandards.com>
+- SHIELD-8459 - There is no notification when there is no more available users license
+
+### Enhancements
+
+- Support Ext-Proxy to be DaemonSet on Browsers Nodes
+
 ## [Rel-21.01.719] - 2021-01-25
 
 ### New Features
