@@ -23,8 +23,8 @@ timedatectl set-time "$DATE_PAST"
 
 docker exec -it $RANCHER_CONTAINER_ID sh -c "mv /var/lib/rancher/k3s/server/tls /var/lib/rancher/k3s/server/tls.${DATE_ORIG_ISO}"
 docker container restart $RANCHER_CONTAINER_ID
-sleep 15
+sleep 150
 docker container restart $RANCHER_CONTAINER_ID
-sleep 15
+sleep 150
 cleanup
 docker container restart $RANCHER_CONTAINER_ID
