@@ -28,6 +28,8 @@ done
 
 if [ ! -x "$APP_BIN" ] || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 0 ] || [ "$ES_FORCE" = true ]; then
     echo "Installing $APP ..."
+    sudo apt-get -y install software-properties-common || exit $?
+    sudo add-apt-repository universe
     sudo apt install -y "docker.io=${APP_VERSION}*"
     sudo systemctl enable --now docker
     sudo usermod -aG docker "$USER"

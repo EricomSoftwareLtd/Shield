@@ -5,6 +5,7 @@
 
 ES_OFFLINE="false"
 FILE_SERVER="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts"
+REGISTRY_FILE_SERVER_PORT=85
 #Check if we are root
 if ((EUID != 0)); then
     # sudo su
@@ -21,7 +22,7 @@ while [ $# -ne 0 ]; do
     --registry) # Specify Offline Registry address and port
         shift
         export ES_OFFLINE_REGISTRY="$1"
-        FILE_SERVER=$(echo $ES_OFFLINE_REGISTRY | cut -d ":" -f1 )
+        FILE_SERVER="$(echo $ES_OFFLINE_REGISTRY | cut -d ":" -f1 ):$REGISTRY_FILE_SERVER_PORT"
         FILE_SERVER="http://$FILE_SERVER/ericomshield"
         ;;
     -O | --Offline) # Offline Mode
