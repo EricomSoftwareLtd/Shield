@@ -11,12 +11,70 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+### New Features
+
+- White-labeling for Partners (Admin and Shield Pages) 
+- Smart Read-Only - Social media site in read only beside Login page
+- Logging Output 
+- Ericom Antivirus for White
+- Improve shield client security - block Dev-tools
+- Auto Fill at policy level
+- Allow Direct File downloads for large files 
+- 
+### Enhancements
+
+- New Underlying Rendering Engine Version
+- Many Crystal Bug Fixes and Enhancements
+- Admin - Improved UI Style
+- Policy for Japanese domain name (CA0000074113/QA#813428) 
+- New CDR Option: None 
+- Remove IE Mode from Access list 
+- Remove MTLS from the Admin 
+- Remove Flash Support 
+- DLP support for Copy/Paste - Clipboard 
+
+### Bug Fixes
+
+- Security - RCE vulnerability by Ericomshield speedtest micro service
+- Fixed: Various Phishing bugs 
+- Fixed: Playing video in whatsapp web not working 
+- Fixed: Media playback not muted (and plays full volume) 
+- Fixed: Rancher's certificate rotation (CA0000073539,QA#809378)
+- Fixed: Gmail is getting stuck 
+- Fixed: <https://www.jal.co.jp/jp/ja/> stuck and slow 
+- Fixed: Suspend R/O Tab Timeout (min) should be ignored while upload is in progress 
+- Fixed: whatsapp web + slack web  typing cursor placement
+- Fixed: White Listed sites should not be SSL Bumped 
+- Fixed: White Listed sites with bad certificate could be accessed  
+- Fixed: Shield includes workstations when counting named user licenses 
+- Fixed: Credentials are not checked for potential SQL injection when adding or editing a tenant 
+- Fixed: Shield fails to display PDF from strauss-water.com 
+- Fixed: <misim.gov.il> is taking too long too load 
+- Fixed: Some settings are initialized after shield-stop/start.sh (CA0000073451/QA#808835) 
+- Fixed: CA0000073358: [QA#808247 sfukumoto] System pods will not start after reboot
+- Fixed: es-proxy-auth crash (CA0000073280/QA#807842) 
+- Fixed: Issues with Korean Keyboard 
+- Fixed: Download PDF from anchor with download attribute 
+
+## [Rel-21.01.743] - 2021-02-22 - Hotfix
+
+### Bug Fixes
+
+- Fixed: Icap protocol error when proxy authorization is being forward 
+
+
+## [Rel-21.01.742] - 2021-02-22 - Hotfix
+
+### Bug Fixes
+
+- Fixed: squid crash on some virtualization environments
+
 ## [Rel-21.01.736] - 2021-02-22 - Hotfix
 
 ### Bug Fixes
 
-- Fixed:  squid crash on some virtualization environments
-- Fixed:  After installing 21.01, "SQUID.ERR" is displayed (CA0000073262/QA#807695)
+- Fixed: squid crash on some virtualization environments
+- Fixed: After installing 21.01, "SQUID.ERR" is displayed (CA0000073262/QA#807695)
 - Fixed: es-proxy-auth is down after upgrade (CA0000073280/QA#807842)
 - Fixed: Split Mode Issues in Rel-21.01
 - Fixed: <misim.gov.il> does not work
