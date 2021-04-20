@@ -5,6 +5,7 @@
 APP="docker"
 APP_BIN="/usr/bin/docker"
 APP_VERSION="19.03"
+CONTAINERD_VERSION="1.2"
 ES_FORCE=false
 
 function usage() {
@@ -32,7 +33,9 @@ if [ ! -x "$APP_BIN" ] || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 0 ]
     sudo apt-get -y install software-properties-common || exit $?
     sudo add-apt-repository universe || exit $?
     sudo apt-get update || exit $?
-    sudo apt-get install -y "docker.io=${APP_VERSION}*" || exit $?
+    sudo apt-mark unhold docker.io
+    sudo apt-get install -y "docker.io=${APP_VERSION}*" "containerd=${CONTAINERD_VERSION}*" || exit $?
+    sudo apt-mark hold docker.io
     sudo systemctl enable --now docker || exit $?
     sudo usermod -aG docker "$USER"
     echo "Done!"
