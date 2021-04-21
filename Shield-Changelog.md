@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### New Features
 
-- White-labeling for Partners (Admin and Shield Pages) 
+- White-labelling for Partners (Admin and Shield Pages) 
 - Smart Read-Only - Social media site in read only beside Login page
 - Logging Shipping Output (Elasticsearch,HTTP,S3,Splunk,Syslog)
 - Ericom Antivirus for White
