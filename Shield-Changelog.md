@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.01.743] - 2021-04-13 - Hotfix
+
+### Bug Fixes
+
+- Fixed: Icap protocol error when proxy authorization is being forward
+- Fixed: Allow End User To Pause Shield> feature doesnt work
+
+## [Rel-21.01.742] - 2021-03-14 - Hotfix
+
+### Bug Fixes
+
+- Fixed: squid crash on some virtualization environments
+- Fixed: Access to Votiro Bypass (CA0000073779/QA#811563)
+- Fixed: Proxy-Authorization is not always passed
+- Fixed: Settings are not restored, when backup is from another system
+
 ## [Rel-21.01.736] - 2021-02-22 - Hotfix
 
 ### Bug Fixes
