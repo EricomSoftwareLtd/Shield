@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.04.753] - 2021-04-28
+
 ### New Features
 
 - White-labeling for Partners (Admin and Shield Pages) 
