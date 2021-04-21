@@ -58,14 +58,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Issues with Korean Keyboard 
 - Fixed: Download PDF from anchor with download attribute 
 
-## [Rel-21.01.743] - 2021-02-22 - Hotfix
+## [Rel-21.01.743] - 2021-04-13 - Hotfix
 
 ### Bug Fixes
 
 - Fixed: Icap protocol error when proxy authorization is being forward
 - Fixed: Allow End User To Pause Shield> feature doesnt work
 
-## [Rel-21.01.742] - 2021-02-22 - Hotfix
+## [Rel-21.01.742] - 2021-03-14 - Hotfix
 
 ### Bug Fixes
 
