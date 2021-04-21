@@ -17,28 +17,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - White-labeling for Partners (Admin and Shield Pages) 
 - Smart Read-Only - Social media site in read only beside Login page
-- Logging Output 
+- Logging Shipping Output (Elasticsearch,HTTP,S3,Splunk,Syslog)
 - Ericom Antivirus for White
 - Improve shield client security - block Dev-tools
 - Auto Fill at policy level
 - Allow Direct File downloads for large files 
-- 
+ 
 ### Enhancements
 
-- New Underlying Rendering Engine Version
-- Many Crystal Bug Fixes and Enhancements
+- Upgrade Underlying Rendering Engine
+- Many Bug Fixes for Crystal
+- Removed Flash Support (as per flashplayer/end-of-life)
 - Admin - Improved UI Style
 - Policy for Japanese domain name (CA0000074113/QA#813428) 
-- New CDR Option: None 
+- New CDR Option: None
+- Syslog Host is now defined under Log Shipping Host
 - Remove IE Mode from Access list 
 - Remove MTLS from the Admin 
-- Remove Flash Support 
 - DLP support for Copy/Paste - Clipboard 
+- Various Security Enhancements:
+  - Hardened Remote Browser
+  - Sanitization of SVG and CSS in Crystal Mode
+  - Updated jQuery
+  - RCE vulnerability by Ericomshield speedtest micro service
 
 ### Bug Fixes
 
-- Security - RCE vulnerability by Ericomshield speedtest micro service
 - Fixed: Various Phishing bugs 
+- Fixed: Compatibility View Settings for IE (CA0000073958/QA#812542)
 - Fixed: Playing video in whatsapp web not working 
 - Fixed: Media playback not muted (and plays full volume) 
 - Fixed: Rancher's certificate rotation (CA0000073539,QA#809378)
@@ -48,6 +54,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: whatsapp web + slack web  typing cursor placement
 - Fixed: White Listed sites should not be SSL Bumped 
 - Fixed: White Listed sites with bad certificate could be accessed  
+- Fixed: White Listed should be sent to syslog (CA0000074132/QA#813050)
+- Fixed: Not possible to mark text correctly (CA0000072616/QA#803399)
 - Fixed: Shield includes workstations when counting named user licenses 
 - Fixed: Credentials are not checked for potential SQL injection when adding or editing a tenant 
 - Fixed: Shield fails to display PDF from strauss-water.com 
@@ -55,7 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Some settings are initialized after shield-stop/start.sh (CA0000073451/QA#808835) 
 - Fixed: CA0000073358: [QA#808247 sfukumoto] System pods will not start after reboot
 - Fixed: es-proxy-auth crash (CA0000073280/QA#807842) 
-- Fixed: Issues with Korean Keyboard 
+- Fixed: Few Korean Bug Fixes
 - Fixed: Download PDF from anchor with download attribute 
 
 ## [Rel-21.01.743] - 2021-04-13 - Hotfix
