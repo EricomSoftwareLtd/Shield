@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
-## [Rel-21.04.753] - 2021-04-28
+## [Rel-21.04.757] - 2021-04-28
 
 ### New Features
 
@@ -65,6 +65,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: es-proxy-auth crash (CA0000073280/QA#807842) 
 - Fixed: Few Korean Bug Fixes
 - Fixed: Download PDF from anchor with download attribute 
+- Fixed: Memory Issue with Proxies
 
 ## [Rel-21.01.743] - 2021-04-13 - Hotfix
 
