@@ -47,7 +47,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Shield fails to display PDF from <strauss-water.com>
 - Fixed: SAML SSO - return on POST works only if IP address is specified
 
-## [Rel-31.02.721] - 2021-01-31
+## [Rel-21.01.721] - 2021-01-31
 
 ### New Features/Enhancements:
 
