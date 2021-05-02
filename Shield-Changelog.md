@@ -15,19 +15,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### New Features
 
-- White-labelling for Partners (Admin and Shield Pages) 
+- White labelling for Partners (Admin and Shield Pages) 
 - Smart Read-Only - Social media site in read only beside Login page
 - Logging Shipping Output (Elasticsearch,HTTP,S3,Splunk,Syslog)
 - Ericom Antivirus for White
-- Improve shield client security - block Dev-tools
+- Improve shield client security - block Dev-tools.
 - Auto Fill at policy level
-- Allow Direct File downloads for large files 
+- Allow Direct File downloads for large files.
  
 ### Enhancements
 
+- Upgrade Rancher and Kubernetes Versions (Rancher:v2.4.15, k8s: 1.18.16)
 - Upgrade Underlying Rendering Engine
 - Many Bug Fixes for Crystal
-- Removed Flash Support (as per flashplayer/end-of-life)
+- Removed Flash Support (as per [flashplayer/end-of-life](https://www.adobe.com/il_en/products/flashplayer/end-of-life.html) )
 - Admin - Improved UI Style
 - Policy for Japanese domain name (CA0000074113/QA#813428) 
 - New CDR Option: None
