@@ -48,25 +48,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Compatibility View Settings for IE (CA0000073958/QA#812542)
 - Fixed: Playing video in whatsapp web not working 
 - Fixed: Media playback not muted (and plays full volume) 
-- Fixed: Rancher's certificate rotation (CA0000073539,QA#809378)
-- Fixed: Gmail is getting stuck 
-- Fixed: <https://www.jal.co.jp/jp/ja/> stuck and slow 
+- Fixed: Rancher's certificate rotation Script (CA0000073539,QA#809378)
+- Fixed: <www.jal.co.jp/jp/ja/> stuck and slow 
 - Fixed: Suspend R/O Tab Timeout (min) should be ignored while upload is in progress 
 - Fixed: whatsapp web + slack web  typing cursor placement
 - Fixed: White Listed sites should not be SSL Bumped 
 - Fixed: White Listed sites with bad certificate could be accessed  
 - Fixed: White Listed should be sent to syslog (CA0000074132/QA#813050)
+- Fixed: Information is broken when logs exceeding 1024 bytes are sent to syslog (CA0000073376)
 - Fixed: Not possible to mark text correctly (CA0000072616/QA#803399)
 - Fixed: Shield includes workstations when counting named user licenses 
-- Fixed: Credentials are not checked for potential SQL injection when adding or editing a tenant 
-- Fixed: Shield fails to display PDF from strauss-water.com 
+- Fixed: One of Shield admins fails to log in to Shield console with his (valid) AD account (CA0000073652)
+- Fixed: Shield fails to display PDF from <strauss-water.com>
 - Fixed: <misim.gov.il> is taking too long too load 
 - Fixed: Some settings are initialized after shield-stop/start.sh (CA0000073451/QA#808835) 
-- Fixed: CA0000073358: [QA#808247 sfukumoto] System pods will not start after reboot
-- Fixed: es-proxy-auth crash (CA0000073280/QA#807842) 
+- Fixed: "Applications" reverts to default values after reboot (CA0000074187/QA#813730)
+- Fixed: System pods will not start after reboot (CA0000073358/QA#808247)
+- Fixed: Votiro server is not recognized after Shield startup (CA0000073208/QA#807295)
+- Fixed: es-proxy-auth crash (CA0000073280/QA#807842)
 - Fixed: Few Korean Bug Fixes
-- Fixed: Download PDF from anchor with download attribute 
-- Fixed: Memory Issue with Proxies
+- Fixed: Download PDF from anchor with download attribute
+- Fixed: Screen collapse in crystal (CA0000072614/QA#803394)
 
 ## [Rel-21.01.743] - 2021-04-13 - Hotfix
 
