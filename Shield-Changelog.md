@@ -70,6 +70,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Download PDF from anchor with download attribute
 - Fixed: Screen collapse in crystal (CA0000072614/QA#803394)
 
+### Known Issues and Limitations
+
+- Several syslog addresses are not supported anymore
+ 
 ## [Rel-21.01.743] - 2021-04-13 - Hotfix
 
 ### Bug Fixes
