@@ -73,7 +73,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Known Issues and Limitations
 
 - Several syslog addresses are not supported anymore
- 
+
+### Upgrade Note
+
+- Due to upgrade of Rancher and Kubernetes the following has to be done before upgrading Shield:
+- Upgrade Rancher first 
+  - Stop Rancher: ( docker stop $(docker ps | grep rancher/rancher: | awk '{ print $1 }') )
+  - Run Rancher from the new version
+- Update the Kubernetes Version from Rancher (Edit Cluster) 
+- Continue with the upgrade process.
+
 ## [Rel-21.01.743] - 2021-04-13 - Hotfix
 
 ### Bug Fixes
