@@ -12,10 +12,10 @@ if ((EUID != 0)); then
     exit
 fi
 
-DOCKER_DEFAULT_VERSION="19.03.8"
-DOCKER_VERSION="${DOCKER_VERSION:-""}"
-DOCKER_VERSION_STRING="5:19.03.8*"
-DOCKER_DEFAULT_VERSION_STRING="5:19.03.8*"
+APP="docker"
+APP_BIN="/usr/bin/docker"
+APP_VERSION="19.03"
+CONTAINERD_VERSION="1.2"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 RESULTS="./results-pre-check.log"
 UPLOAD_ACCEPTED_FILE="./.upload_accepted"
@@ -25,7 +25,7 @@ NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/tmp/ericomshield"
-CONTAINER_TAG_DEFAULT="shield-collector:200519-15.18-43"
+CONTAINER_TAG_DEFAULT="shield-collector:210317-13.38-38"
 
 HW_PLATFORM="$(uname -m)"
 if [ "$HW_PLATFORM" != "x86_64" ]; then
@@ -48,33 +48,22 @@ fi
 if ! declare -f install_docker >/dev/null; then
     function install_docker() {
 
-        if [ "$DOCKER_VERSION" = "" ]; then
-            DOCKER_VERSION="$DOCKER_DEFAULT_VERSION"
-            DOCKER_VERSION_STRING="$DOCKER_DEFAULT_VERSION_STRING"
-            echo "Using default Docker version: $DOCKER_VERSION_STRING:$DOCKER_VERSION"
+      if [ ! -x "$APP_BIN" ] ; then
+           echo "Installing $APP ..."
+           sudo apt-get update || exit $?
+           sudo apt-get -y install software-properties-common || exit $?
+           sudo add-apt-repository universe || exit $?
+           sudo apt-get update || exit $?
+           sudo apt-mark unhold docker.io
+           sudo apt-get install -y "docker.io=${APP_VERSION}*" "containerd=${CONTAINERD_VERSION}*" || exit $?
+           sudo apt-mark hold docker.io
+           sudo systemctl enable --now docker || exit $?
+           sudo usermod -aG docker "$USER"
+           echo "Done!"
+         else
+            echo " ******* docker is already installed"
         fi
-        if [ "$(docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
-            echo "***************     Installing docker-engine: $DOCKER_VERSION"            
-            apt-get --assume-yes -y install apt-transport-https software-properties-common python-software-properties
-
-            #Docker Installation of a specific Version
-            curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-            add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-            echo -n "apt-get -qq update ..."
-            apt-get -qq update
-            echo "done"
-            apt-cache policy docker-ce
-            log_message "Installing Docker: docker-ce=$DOCKER_VERSION~ce-0~ubuntu"
-            echo "Installing Docker: docker-ce=$DOCKER_VERSION*"
-            if [ "$DOCKER_VERSION_STRING" = "" ]; then
-               apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION*" && apt-mark hold docker-ce
-             else
-               apt-get -y --allow-change-held-packages --allow-downgrades install "docker-ce=$DOCKER_VERSION_STRING" "docker-ce-cli=$DOCKER_VERSION_STRING" containerd.io && apt-mark hold docker-ce
-            fi
-        else
-            echo " ******* docker-engine $DOCKER_VERSION is already installed"
-        fi
-        if [ "$(sudo docker version | grep -c $DOCKER_VERSION)" -le 1 ]; then
+        if [ ! -x "$APP_BIN" ] ; then
             log_message "Failed to Install/Update Docker, exiting"
             exit -1
         fi
