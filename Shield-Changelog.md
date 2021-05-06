@@ -1,4 +1,4 @@
-# Changelog
+# Changelog for Shield On-Prem
 
 All notable changes to this project will be documented in this file.
 
@@ -10,6 +10,78 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - User Action Required should have (!)
 
 ## [Unreleased] - don't remove this line, used in CI
+
+## [Rel-21.04.757] - 2021-04-28
+
+### New Features
+
+- White labelling for Partners (Admin and Shield Pages) 
+- Smart Read-Only - Social media site in read only beside Login page
+- Logging Shipping Output (Elasticsearch,HTTP,S3,Splunk,Syslog)
+- Ericom Antivirus for White
+- Improve shield client security - block Dev-tools.
+- Auto Fill at policy level
+- Allow Direct File downloads for large files.
+ 
+### Enhancements
+
+- Upgrade Rancher and Kubernetes Versions (Rancher:v2.4.15, k8s: 1.18.16)
+- Upgrade Underlying Rendering Engine
+- Many Bug Fixes for Crystal
+- Removed Flash Support (as per [flashplayer/end-of-life](https://www.adobe.com/il_en/products/flashplayer/end-of-life.html) )
+- Admin - Improved UI Style
+- Policy for Japanese domain name (CA0000074113/QA#813428) 
+- New CDR Option: None
+- Syslog Host is now defined under Log Shipping Host
+- Remove IE Mode from Access list 
+- Remove MTLS from the Admin 
+- DLP support for Copy/Paste - Clipboard 
+- Various Security Enhancements:
+  - Hardened Remote Browser
+  - Sanitization of SVG and CSS in Crystal Mode
+  - Updated jQuery
+  - RCE vulnerability by Ericomshield speedtest micro service
+
+### Bug Fixes
+
+- Fixed: Various Phishing bugs 
+- Fixed: Compatibility View Settings for IE (CA0000073958/QA#812542)
+- Fixed: Playing video in whatsapp web not working 
+- Fixed: Media playback not muted (and plays full volume) 
+- Fixed: Rancher's certificate rotation Script (CA0000073539,QA#809378)
+- Fixed: <www.jal.co.jp/jp/ja/> stuck and slow 
+- Fixed: Suspend R/O Tab Timeout (min) should be ignored while upload is in progress 
+- Fixed: whatsapp web + slack web  typing cursor placement
+- Fixed: White Listed sites should not be SSL Bumped 
+- Fixed: White Listed sites with bad certificate could be accessed  
+- Fixed: White Listed should be sent to syslog (CA0000074132/QA#813050)
+- Fixed: Information is broken when logs exceeding 1024 bytes are sent to syslog (CA0000073376)
+- Fixed: Not possible to mark text correctly (CA0000072616/QA#803399)
+- Fixed: Shield includes workstations when counting named user licenses 
+- Fixed: One of Shield admins fails to log in to Shield console with his (valid) AD account (CA0000073652)
+- Fixed: Shield fails to display PDF from <strauss-water.com>
+- Fixed: <misim.gov.il> is taking too long too load 
+- Fixed: Some settings are initialized after shield-stop/start.sh (CA0000073451/QA#808835) 
+- Fixed: "Applications" reverts to default values after reboot (CA0000074187/QA#813730)
+- Fixed: System pods will not start after reboot (CA0000073358/QA#808247)
+- Fixed: Votiro server is not recognized after Shield startup (CA0000073208/QA#807295)
+- Fixed: es-proxy-auth crash (CA0000073280/QA#807842)
+- Fixed: Few Korean Bug Fixes
+- Fixed: Download PDF from anchor with download attribute
+- Fixed: Screen collapse in crystal (CA0000072614/QA#803394)
+
+### Known Issues and Limitations
+
+- Several syslog addresses are not supported anymore
+
+### Upgrade Note
+
+- Due to upgrade of Rancher and Kubernetes the following has to be done before upgrading Shield:
+- Upgrade Rancher first 
+  - Stop Rancher: ( docker stop $(docker ps | grep rancher/rancher: | awk '{ print $1 }') )
+  - Run Rancher from the new version
+- Update the Kubernetes Version from Rancher (Edit Cluster) 
+- Continue with the upgrade process.
 
 ## [Rel-21.01.743] - 2021-04-13 - Hotfix
 
@@ -31,8 +103,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Bug Fixes
 
-- Fixed:  squid crash on some virtualization environments
-- Fixed:  After installing 21.01, "SQUID.ERR" is displayed (CA0000073262/QA#807695)
+- Fixed: squid crash on some virtualization environments
+- Fixed: After installing 21.01, "SQUID.ERR" is displayed (CA0000073262/QA#807695)
 - Fixed: es-proxy-auth is down after upgrade (CA0000073280/QA#807842)
 - Fixed: Split Mode Issues in Rel-21.01
 - Fixed: <misim.gov.il> does not work
