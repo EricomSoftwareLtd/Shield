@@ -11,6 +11,34 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.04.762] - 2021-05-09
+
+### New Features
+
+- Smart Read-Only - Social media site in read only beside Login page & search
+- Log Shipping Output Enhancements (Elasticsearch,HTTP,S3,Splunk,Syslog)
+- Suspicious Site Enhancements
+  - New Phishing Feed (ZTEdge)
+  - Suspected Sites Report
+  - Enable Category  (NetSTAR) per Tenant
+- Client-Side Certificate Support
+- Admin-API (Beta)
+
+### Enhancements
+
+- Policy for Japanese domain name (CA0000074113/QA#813428) 
+- Changes to the report view (CA0000073403/QA#808653)
+- Whitelisted should be sent to syslog (CA0000074132/QA#813050)
+ 
+### Bug Fixes
+
+- Fixed: Queens Medical - when Yahoo Captcha appears, user is unable to login to yahoo mail
+- Fixed: Media playback not muted (and plays full volume) 
+- Fixed: playing video in whatsapp web not working 
+- Fixed: Not possible to mark text correctly (CA0000072616/QA#803399)
+- Fixed: Shield Cloud with Cisco Umbrella 
+- Fixed: Proxyless mode allows to run site in white mode
+
 ## [Rel-21.03.746] - 2021-03-21
 
 ### New Features
