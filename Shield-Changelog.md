@@ -69,6 +69,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Few Korean Bug Fixes
 - Fixed: Download PDF from anchor with download attribute
 - Fixed: Screen collapse in crystal (CA0000072614/QA#803394)
+- Fixed: There are cases where Active sessions remain even though there are no users using them (CA0000074584/QA#815865)
 
 ### Known Issues and Limitations
 
