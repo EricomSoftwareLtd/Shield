@@ -1,8 +1,8 @@
-1) latest Release Rel-21.04.757 on 30.04.2021:Rel-21.04.757
+1) latest Release Rel-21.04.758 on 06.05.2021:Rel-21.04.758
 2) Release Rel-21.01.743 on 05.13.2021:Rel-21.01.743
 3) Release Rel-20.11.698 on 30.11.2020:Rel-20.11.698
-4) Staging:Rel-21.04.757
-5) Dev:Rel-21.04.760
-6) cloud-qa:Rel-21.04.760
-7) cloud-staging:Rel-21.04.751
-8) cloud-production:Rel-21.04.751
+4) Staging:Rel-21.04.758
+5) Dev:Rel-21.05.764
+6) cloud-qa:Rel-21.05.764
+7) cloud-staging:Rel-21.04.763
+8) cloud-production:Rel-21.04.763
