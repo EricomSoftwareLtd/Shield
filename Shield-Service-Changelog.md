@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.04.764] - 2021-05-26
+
+- New Format for Blocked Pages and Malware
+
 ## [Rel-21.04.762] - 2021-05-09
 
 ### New Features
