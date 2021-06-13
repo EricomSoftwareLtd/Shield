@@ -11,6 +11,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.06.769] - 2021-06-13
+
+### New Features
+
+- Support List of Users for Admin (Cloud-admin and Tenant-Admin) 
+- Support Role Based Access Admin (Cloud-admin and Tenant-Admin)
+- New Format for all Squid Error Pages 
+
+### Enhancements
+
+- Hardened Tenant-Proxy
+- Block Applications from Tenant Proxy
+
+### Bug Fixes
+
+- Export to CSV (reports) with non English Characters
+- Gmail ending up out of Shield
+
 ## [Rel-21.04.764] - 2021-05-26
 
 - New Format for Blocked Pages and Malware
