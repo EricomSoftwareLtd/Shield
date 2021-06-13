@@ -13,7 +13,7 @@ function FindProxyForURL(url, host) {
 //   Set it to true, only if you need to define rules based on destination IP
     var fResolveIp = false;	
     // Replace SHIELD_IP with your Shield IP Server
-    var shield_server = "13.56.148.26"; 
+    var shield_server = "shield-proxy.ericomcloud.net"; 
 //var shield_server = "togo-proxy.shield-service.net"; 
     // Replace SHIELD_PORT if changed:
     var shield_port = "3128"
@@ -48,27 +48,6 @@ function FindProxyForURL(url, host) {
 //   if (shExpMatch(host, "*.cnn.com") || 
 //       shExpMatch(host, "*.gov.il") )
 //      return "DIRECT";
-
-   if (shExpMatch(host, "YouTube.com") || 
-       shExpMatch(host, "NetFlix.com") || 
-       shExpMatch(host, "vimeo.com") || 
-       shExpMatch(host, "screen.yahoo.com") || 
-       shExpMatch(host, "dailymotion.com") || 
-       shExpMatch(host, "hulu.com") || 
-       shExpMatch(host, "vube.com") || 
-       shExpMatch(host, "twitch.tv") || 
-       shExpMatch(host, "liveleak.com") || 
-       shExpMatch(host, "vine.co") || 
-       shExpMatch(host, "ustream.tv") || 
-       shExpMatch(host, "break.com") || 
-       shExpMatch(host, "tv.com") || 
-       shExpMatch(host, "metacafe.com") || 
-       shExpMatch(host, "viewster.com") ||
-       shExpMatch(host, "force.com") ||      
-       shExpMatch(host, "salesforce.com")      
-           
-      )
-      return "DIRECT";
 
 //	If User IP is in a specific Subnet, Use Direct
 //   Important Note: isInNet is a function that can impact performance

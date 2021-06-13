@@ -29,12 +29,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Export to CSV (reports) with non English Characters
 - Gmail ending up out of Shield
 
-## [Rel-21.04.764] - 2021-05-25
+## [Rel-21.04.764] - 2021-05-26
 
-### New Features
-
-- New Format for Blocked Pages
-- New Format for Blocked Page for Malware
+- New Format for Blocked Pages and Malware
 
 ## [Rel-21.04.762] - 2021-05-09
 
