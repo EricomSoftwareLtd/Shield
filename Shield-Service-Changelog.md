@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.06.769] - 2021-06-13
+
+### New Features
+
+- Support Role Based Access in Admin 
+- Support List of Users for the Admin  
+- New Format for all Squid Error Pages 
+
+### Bug Fixes
+
+- Export to CSV (reports) with non English Characters
+- Gmail ending up out of Shield 
+
+## [Rel-21.04.764] - 2021-05-25
+
+### New Features
+
+- New Format for Blocked Pages
+- New Format for Blocked Page for Malware
+
 ## [Rel-21.04.762] - 2021-05-09
 
 ### New Features
