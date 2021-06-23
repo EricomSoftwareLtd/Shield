@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.06.773] - 2021-06-26
+
+### New Features
+
+- Automatically Add User Location on Google URLs (google.com/youtube.com) (SHIELD-9702)
+-     gmail is not supported yet
+-     May require to clean browser cache
+- Suspected Sites (URL) Detection in White (SHIELD-9832)
+
+### Enhancements
+
+- Additional License option for Tenant (Targeted Isolation)
+- New Partner in Tenant Settings (NS) 
+
+### Bug Fixes
+
+- Fixed: Security - Cookies are editable and not immutable (SHIELD-9810)
+- Fixed: Blocked Upload Report does not show correct Site (SHIELD-9809/CI-13)
+- Fixed: The option to open Zoom as native doesnt exist with shield (SHIELD-9658)
+-  Fixed: App DENIED  is missing from the applications report (SHIELD-9812)
+
 ## [Rel-21.06.769] - 2021-06-13
 
 ### New Features
@@ -26,8 +47,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Bug Fixes
 
-- Export to CSV (reports) with non English Characters
-- Gmail ending up out of Shield
+- Fixed: Export to CSV (reports) with non English Characters
+- Fixed: Gmail ending up out of Shield
 
 ## [Rel-21.04.764] - 2021-05-26
 
