@@ -16,8 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### New Features
 
 - Automatically Add User Location on Google URLs (google.com/youtube.com) (SHIELD-9702)
--     gmail is not supported yet
--     May require to clean browser cache
+- Notes: gmail is not supported yet, May require to clean browser cache
 - Suspected Sites (URL) Detection in White (SHIELD-9832)
 
 ### Enhancements
