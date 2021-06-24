@@ -17,8 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New Labels for Policy Access: Allow/Deny (SHIELD-9655)
 - Suspected Sites (URL) Detection in Allow mode (SHIELD-9832)
-- Automatically Add User Location on Google URLs (google.com/youtube.com) (SHIELD-9702)
-- Notes: gmail is not supported yet, May require to clean browser cache
+- New Access Option: 'Allow no SSL Bump'
+- Limitation: 'Anti virus' is not supported in 'Allow [no ssl bump]' (SHIELD-9906)
 
 ### Enhancements
 
@@ -30,7 +30,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Security - Cookies are editable and not immutable (SHIELD-9810)
 - Fixed: Blocked Upload Report does not show correct Site (SHIELD-9809/CI-13)
 - Fixed: The option to open Zoom as native doesnt exist with shield (SHIELD-9658)
--  Fixed: App DENIED  is missing from the applications report (SHIELD-9812)
+- Fixed: Empty page displayed after SAML authentication with domain identification (SHIELD-9893)
+- Fixed: App is missing from the applications report (SHIELD-9812)
 
 ## [Rel-21.06.769] - 2021-06-13
 
