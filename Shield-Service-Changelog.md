@@ -23,7 +23,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Enhancements
 
 - Additional License option for Tenant (Targeted Isolation)
-- New Partner in Tenant Settings (NS) 
+- New Partner in Tenant Settings (NS)
+- When printing is disabled, display a notification when a user tries to print (SHIELD-9393)
 
 ### Bug Fixes
 
