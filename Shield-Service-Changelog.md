@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Security - Cookies are editable and not immutable (SHIELD-9810)
 - Fixed: Blocked Upload Report does not show correct Site (SHIELD-9809/CI-13)
 - Fixed: The option to open Zoom as native doesnt exist with shield (SHIELD-9658)
-- Fixed: Empty page displayed after SAML authentication with domain identification (SHIELD-9893)
+- Fixed: Shield loads blank page (edreams) (SHIELD-9736)
 - Fixed: App is missing from the applications report (SHIELD-9812)
 
 ## [Rel-21.06.769] - 2021-06-13
