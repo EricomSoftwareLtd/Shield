@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New Labels for Policy Access: Allow/Deny (SHIELD-9655)
 - Suspected Sites (URL) Detection in Allow mode (SHIELD-9832)
 - New Access Option: 'Allow no SSL Bump'
+- Add User Location on Google URLs (Google/YouTube) (SHIELD-9702)
 - Limitation: 'Anti virus' is not supported in 'Allow [no ssl bump]' (SHIELD-9906)
 
 ### Enhancements
