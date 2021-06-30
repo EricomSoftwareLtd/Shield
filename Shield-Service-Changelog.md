@@ -11,6 +11,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.06.776] - 2021-06-29
+
+### New Features
+
+- New Labels for Policy Access: Allow/Deny (SHIELD-9655)
+- Suspected Sites (URL) Detection in Allow mode (SHIELD-9832)
+- New Access Option: 'Allow no SSL Bump'
+- Add User Location on Google URLs (Google/YouTube) (SHIELD-9702)
+- Limitation: 'Anti virus' is not supported in 'Allow [no ssl bump]' (SHIELD-9906)
+
+### Enhancements
+
+- Additional License option for Tenant (Targeted Isolation)
+- New Partner in Tenant Settings (NS)
+- When printing is disabled, display a notification when a user tries to print (SHIELD-9393)
+
+### Bug Fixes
+
+- Fixed: Security - Cookies are editable and not immutable (SHIELD-9810)
+- Fixed: Blocked Upload Report does not show correct Site (SHIELD-9809/CI-13)
+- Fixed: The option to open Zoom as native doesnt exist with shield (SHIELD-9658)
+- Fixed: Shield loads blank page (edreams) (SHIELD-9736)
+- Fixed: App is missing from the applications report (SHIELD-9812)
+
 ## [Rel-21.06.769] - 2021-06-13
 
 ### New Features
@@ -26,8 +50,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Bug Fixes
 
-- Export to CSV (reports) with non English Characters
-- Gmail ending up out of Shield
+- Fixed: Export to CSV (reports) with non English Characters
+- Fixed: Gmail ending up out of Shield
 
 ## [Rel-21.04.764] - 2021-05-26
 
