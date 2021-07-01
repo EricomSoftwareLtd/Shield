@@ -6,4 +6,3 @@
 6) cloud-qa:Rel-21.06.776
 7) cloud-staging:Rel-21.06.776
 8) cloud-production:Rel-21.06.776
-
