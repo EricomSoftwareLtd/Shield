@@ -17,11 +17,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New Format for Blocked/Error Pages
 - New Format for Blocked Page for Malware
-- Suspected Sites (URL) Detection in White 
+- New Labels for Policy Access: Allow/Deny
+- Suspected Sites (URL) Detection in Allow mode
+- New Access Option: 'Allow no SSL Bump'
 - All printings (converted to PDFs by Shield) should be sanitized
 - Remove cdr.ericom.com from On-prem install. 
-- Support Role Based Access in Admin 
-- Support List of Users for the Admin  
+- Support List of Users for Admin
+- Support Role Based Access Admin
  
 ### Enhancements
 
@@ -35,6 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: dropbox.com - upload folder behaves as upload file 
 - Fixed: Crystal - instagram.com  display is bad 
 - Fixed: Crystal - Print - CTRL + P is not working
+- Fixed: Export to CSV (reports) with non English Characters
 
 ## [Rel-21.04.758] - 2021-05-06
 
