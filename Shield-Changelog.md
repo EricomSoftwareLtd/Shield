@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove cdr.ericom.com from On-prem install. 
 - Support List of Users for Admin
 - Support Role Based Access Admin
+- Support client certificate auth to sites - proxyless
+- New Format for Error Pages 
  
 ### Enhancements
 
