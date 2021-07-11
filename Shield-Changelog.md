@@ -26,6 +26,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support Role Based Access Admin
 - Support client certificate auth to sites - proxyless
 - New Format for Error Pages 
+- Suspected Sites in Policy  
+- Add user location on URL
+
  
 ### Enhancements
 
