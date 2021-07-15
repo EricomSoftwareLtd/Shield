@@ -29,8 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Suspected Sites in Policy  
 - Add user location on URL
 
- 
-### Enhancements
+ ### Enhancements
 
 - When printing is disabled, Disabled is displayed in right-click menu
 
@@ -43,6 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed: Crystal - instagram.com  display is bad 
 - Fixed: Crystal - Print - CTRL + P is not working
 - Fixed: Export to CSV (reports) with non English Characters
+- Fixed: Incorrect printing of a webpage <https://bdi.co.il>
 
 ## [Rel-21.04.758] - 2021-05-06
 
