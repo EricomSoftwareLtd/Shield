@@ -11,6 +11,39 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.07.779] - 2021-07-14
+
+### New Features
+
+- New Format for Blocked/Error Pages
+- New Format for Blocked Page for Malware
+- New Labels for Policy Access: Allow/Deny
+- Suspected Sites (URL) Detection in Allow mode
+- New Access Option: 'Allow no SSL Bump'
+- All printings (converted to PDFs by Shield) should be sanitized
+- Remove cdr.ericom.com from On-prem install. 
+- Support List of Users for Admin
+- Support Role Based Access Admin
+- Support client certificate auth to sites - proxyless
+- New Format for Error Pages 
+- Suspected Sites in Policy  
+- Add user location on URL
+
+ ### Enhancements
+
+- When printing is disabled, Disabled is displayed in right-click menu
+
+### Bug Fixes
+
+- Fixed: The option to open Zoom as native doesnt exist with shield 
+- Fixed: Macys does not work on white 
+- Fixed: Rotate Ranchers Certificate (CA0000073539, [QA#809378] ) 
+- Fixed: dropbox.com - upload folder behaves as upload file 
+- Fixed: Crystal - instagram.com  display is bad 
+- Fixed: Crystal - Print - CTRL + P is not working
+- Fixed: Export to CSV (reports) with non English Characters
+- Fixed: Incorrect printing of a webpage <https://bdi.co.il>
+
 ## [Rel-21.04.758] - 2021-05-06
 
 ### New Features
