@@ -11,6 +11,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+
+## [Rel-21.06.776] - 2021-07-31
+
+### New Features
+
+- Analyze Domain/URL from Admin (Service Section)
+
+### Enhancements
+
+- Add AV Blocked to Risk Summary Report
+- CDR SASA Block Message Reason added to report and end-user message
+- Print Protected Policy: generated PDFs by Shield are sanitized
+- Page for clearing Shield cookies/localstorage/cache http://shield-stat
+
+### Bug Fixes
+
+- Fixed: Ctrl+C is not working properly on Shield Cloud (CA0000075929/QA#826417)
+- Fixed: About security when the application is Allow by default (CA0000075993/QA#826893) 
+- Fixed: White sessions - main page is not displayed when allow resources = No
+- Fixed: Gmail attachment does not fully load in Shield
+- Fixed: Categories are not exported when exporting policies via the Admin UI 
+- Fixed: Copy-and-paste problem with Crystal rendering (CA0000075004/QA#819860)
+- Fixed: Opening PDF from gmail shows incomplete document
+- Fixed: Screens not rendering well in Relativity app
+- Fixed: Smart-read only needs to support MFA (PIN entry) 
+
+## [Dev:776.1] - 2021-07-04 => Dev
+
+- SHIELD-9953 - Macys does not work on white
+
+## [Dev:776] - 2021-06-29 => Dev
+
+- SHIELD-9702 - Add User Location on Google URLs (re-enabled)
+- SHIELD-9915 - Cant import a policy with access Allow, No SSL Bump
+- SHIELD-9871 - Cant open gmail.com when Override Geolocation enabled 
+- 
+
+
+
+
 ## [Rel-21.06.776] - 2021-06-29
 
 ### New Features
