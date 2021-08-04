@@ -11,6 +11,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.07.785] - 2021-08-01
+
+### New Features
+
+- Analyze Domain/URL from Admin (Service Section)
+
+### Enhancements
+
+- Add AV Blocked to Risk Summary Report
+- CDR SASA Block Message Reason added to report and end-user message
+- Print Protected Policy: generated PDFs by Shield are sanitized
+- Page for clearing Shield cookies/localstorage/cache http://shield-clear (tech-preview)
+
+### Bug Fixes
+
+- Fixed: Ctrl+C is not working properly on Shield Cloud (CA0000075929/QA#826417)
+- Fixed: White sessions - main page is not displayed when allow resources = No
+- Fixed: Gmail attachment does not fully load in Shield
+- Fixed: Categories are not exported when exporting policies via the Admin UI 
+- Fixed: Copy-and-paste problem with Crystal rendering (CA0000075004/QA#819860)
+- Fixed: Opening PDF from gmail shows incomplete document
+- Fixed: Screens not rendering well in Relativity app
+- Fixed: Smart-read only needs to support MFA (PIN entry) 
+
 ## [Rel-21.06.776] - 2021-06-29
 
 ### New Features
