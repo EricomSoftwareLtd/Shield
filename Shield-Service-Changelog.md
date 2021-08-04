@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add AV Blocked to Risk Summary Report
 - CDR SASA Block Message Reason added to report and end-user message
 - Print Protected Policy: generated PDFs by Shield are sanitized
-- Page for clearing Shield cookies/localstorage/cache http://shield-stat (tech-preview)
+- Page for clearing Shield cookies/localstorage/cache http://shield-clear (tech-preview)
 
 ### Bug Fixes
 
