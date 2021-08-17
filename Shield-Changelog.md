@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.07.780] - 2021-08-15
+
+### New Features
+
+- New Option for Print Policy: Sanitize
+- Allow Resources on White based on ref
+
 ## [Rel-21.07.779] - 2021-07-14
 
 ### New Features
