@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+
+## [Rel-21.08.7xx] - 2021-08-xx
+
+### New Features
+
+- Display Release Notes to Admin on Login
+- Application Management per Tenant
+- View application logs report per Tenant
+- New Print Policy Option: Sanitize (Sanitize the generated PDF File)
+
+### Enhancements
+
+- Changes in Download Policy
+
+### Bug Fixes
+
+- Fixed: Ctrl+C is not working properly on Shield Cloud (CA0000075929/QA#826417)
+
+
 ## [Rel-21.07.785] - 2021-08-01
 
 ### New Features
