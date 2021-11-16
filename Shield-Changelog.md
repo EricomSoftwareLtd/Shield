@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.07.780.1] - 2021-11-03
+
+### Bug Fixes
+- Cannot print PDF file in some cases
+- Unable to upload files in IE11 
+- Incorrect policy match
+- Download OPSWAT will fail on password protected files
+- Japanese translations for Rel-21.07 HF
+
 ## [Rel-21.07.780] - 2021-08-15
 
 ### New Features
