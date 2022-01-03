@@ -11,6 +11,46 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased] - don't remove this line, used in CI
 
+## [Rel-21.11.816.2] - 2022-01-03
+
+### New Features
+- Built-in internal DLP for shield mode - this feature is turned off by default 
+- Applications export/Import – available only if custom application is enabled
+- Clipboard new policy - Protected: Disables copy/paste between isolated session and local system; Enables copy/paste between isolated sessions that share this policy option
+- Clipboard character limits
+- Clipboard control of image copy
+ 
+### Enhancements
+- DLP internal/external: control DLP via policy (per category/domain)
+- Upgrade of core remote browser components (electron)
+- Auto select report type if category contains only one report type
+- Upgrade of core remote browser components (electron)
+- Changes in Download Policy to make it more clear
+- Add AV Blocked to Risk Summary Report
+- Improve Scaler scale frequency triggering – when below critical threshold
+- Edit Application Policy Rule should open a window
+- Update logstash - remove JndiLookup from log4j (CVE-2021-44228)
+
+### Bug Fixes
+- Fixed: playing video in whatsapp web not working (Crystal)
+- Fixed: Context menu "Search with Google" is not respecting "Remain in Shield Boundary"
+- Fixed: Unable to Re-Edit and Save Japanese Domains
+- Fixed: Pop-up windows "Connecting you securely" after some inactivity is not removed
+- Fixed: File download operation fails sometimes
+- Fixed: Date picker popup does not work in stream mode
+- Fixed: Ctrl+C is not working properly on Shield Cloud (CA0000075929/QA#826417)
+- Fixed: Gmail attachment does not fully load in Shield
+- Fixed: Categories are not exported when exporting policies via the Admin UI
+- Fixed: Copy-and-paste problem with Crystal rendering (CA0000075004/QA#819860)
+- Fixed: Opening PDF from gmail shows incomplete document
+- Fixed: Socket hang up when trying to connect to Opswat
+- Fixed: Broken Page Whitelisted site in IE11 (CA0000078154/QA#841415)
+- Fixed: Tooltips are not displayed in some sites
+- Fixed: Crystal - google search: ldap "={0}" returns blank white screen (works in Pixel mode)
+- Fixed: White Listed should be sent to syslog (CA0000074132/QA#813050), 
+Limitation: protocol is hard coded ‘https’,  parameters are missing
+
+
 ## [Rel-21.07.780.2] - 2021-12-01
 
 ### Bug Fixes
