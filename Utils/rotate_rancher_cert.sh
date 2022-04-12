@@ -4,11 +4,7 @@ set -e
 set -x
 
 export LC_TIME=C
-
 DATE_ORIG="$(date -d 'now' '+%F %T')"
-DATE_ORIG_ISO="$(date -Iseconds)"
-CERT_END_DATE="$(openssl x509 -noout -enddate -in "/home/ericom/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
-DATE_PAST="$(date -d "$CERT_END_DATE - 1 months" '+%F %T')"
 
 function cleanup() {
     timedatectl set-ntp off
@@ -16,17 +12,41 @@ function cleanup() {
     timedatectl set-ntp on
 }
 
-trap cleanup EXIT
-
 RANCHER_CONTAINER_ID=$(docker ps | grep 'rancher/rancher:' | awk '{print $1}')
 
-docker exec -it $RANCHER_CONTAINER_ID sh -c "kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify" || :
+if [[ -z "$RANCHER_CONTAINER_ID" ]]; then
+    echo "Could not find Rancher container"
+    exit 1
+fi
 
-timedatectl set-ntp off
-timedatectl set-time "$DATE_PAST"
+RANCHER_IMAGE_VERSION=$(docker container inspect --format '{{.Config.Image}}' $RANCHER_CONTAINER_ID | grep -oP '^rancher/rancher:v\K([0-9]+\.[0-9]+)')
 
-docker container restart $RANCHER_CONTAINER_ID
-sleep 150
-cleanup
-docker exec -it $RANCHER_CONTAINER_ID sh -c "mv /var/lib/rancher/k3s/server/tls/dynamic-cert.json /var/lib/rancher/k3s/server/tls/dynamic-cert.json.${DATE_ORIG_ISO}" || :
-docker container restart $RANCHER_CONTAINER_ID
+if [[ "$RANCHER_IMAGE_VERSION" = "2.3" ]]; then
+
+    docker exec -it $RANCHER_CONTAINER_ID sh -c 'mv /var/lib/rancher/k3s/server/tls /var/lib/rancher/k3s/server/tls.$(date -Iseconds)'
+    docker container stop $RANCHER_CONTAINER_ID
+    # sleep 150
+    docker container rm -f $RANCHER_CONTAINER_ID
+
+    ./run-rancher.sh
+
+else
+
+    DATE_ORIG_ISO="$(date -Iseconds)"
+    CERT_END_DATE="$(openssl x509 -noout -enddate -in "/home/ericom/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
+    DATE_BEFORE_CERT_END="$(date -d "$CERT_END_DATE - 1 months" '+%F %T')"
+
+    trap cleanup EXIT
+
+    docker exec -it $RANCHER_CONTAINER_ID sh -c "kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify" || :
+
+    timedatectl set-ntp off
+    timedatectl set-time "$DATE_BEFORE_CERT_END"
+
+    docker container restart $RANCHER_CONTAINER_ID
+    sleep 150
+    cleanup
+    docker exec -it $RANCHER_CONTAINER_ID sh -c "mv /var/lib/rancher/k3s/server/tls/dynamic-cert.json /var/lib/rancher/k3s/server/tls/dynamic-cert.json.${DATE_ORIG_ISO}" || :
+    docker container restart $RANCHER_CONTAINER_ID
+
+fi
