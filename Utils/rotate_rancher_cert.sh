@@ -27,7 +27,8 @@ if [[ "$RANCHER_IMAGE_VERSION" = "2.3" ]]; then
     docker container stop $RANCHER_CONTAINER_ID
     # sleep 150
     docker container rm -f $RANCHER_CONTAINER_ID
-
+    
+    export HOME="/home/ericom"
     ./run-rancher.sh
 
 else
