@@ -29,7 +29,7 @@ if [[ "$RANCHER_IMAGE_VERSION" = "2.3" ]]; then
     docker container rm -f $RANCHER_CONTAINER_ID
     
     export HOME="/home/ericom"
-    ./run-rancher.sh
+    "$HOME/ericomshield/run-rancher.sh"
 
 else
 
@@ -39,6 +39,7 @@ else
 
     trap cleanup EXIT
 
+    docker exec -it $RANCHER_CONTAINER_ID sh -c "mv /var/lib/rancher/k3s/server/tls/dynamic-cert.json /var/lib/rancher/k3s/server/tls/dynamic-cert.json.${DATE_ORIG_ISO}" || :
     docker exec -it $RANCHER_CONTAINER_ID sh -c "kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify" || :
 
     timedatectl set-ntp off
@@ -47,7 +48,6 @@ else
     docker container restart $RANCHER_CONTAINER_ID
     sleep 150
     cleanup
-    docker exec -it $RANCHER_CONTAINER_ID sh -c "mv /var/lib/rancher/k3s/server/tls/dynamic-cert.json /var/lib/rancher/k3s/server/tls/dynamic-cert.json.${DATE_ORIG_ISO}" || :
     docker container restart $RANCHER_CONTAINER_ID
 
 fi
