@@ -40,7 +40,7 @@ else
     trap cleanup EXIT
 
     docker exec -it $RANCHER_CONTAINER_ID sh -c "mv /var/lib/rancher/k3s/server/tls/dynamic-cert.json /var/lib/rancher/k3s/server/tls/dynamic-cert.json.${DATE_ORIG_ISO}" || :
-    docker exec -it $RANCHER_CONTAINER_ID sh -c 'kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify' || :
+    docker exec -it $RANCHER_CONTAINER_ID sh -c 'kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify; kubectl delete secret -n cattle-system serving-cert --insecure-skip-tls-verify' || :
 
     timedatectl set-ntp off
     timedatectl set-time "$DATE_BEFORE_CERT_END"
@@ -53,5 +53,7 @@ else
     docker exec -it $RANCHER_CONTAINER_ID bash -c 'cd /var/lib/rancher/k3s/server/tls && for i in $(ls *.crt); do echo $i; openssl x509 -noout -startdate -enddate -in $i; done' || :
     echo "Rancher k3s certificate validity information:"
     docker exec -it $RANCHER_CONTAINER_ID sh -c 'openssl s_client -connect localhost:6443 -showcerts </dev/null 2>&1 | openssl x509 -noout -startdate -enddate'
+    echo "Rancher UI certificate validity information:"
+    docker exec -it $RANCHER_CONTAINER_ID sh -c 'openssl s_client -connect localhost:443 -showcerts </dev/null 2>&1 | openssl x509 -noout -startdate -enddate'
 
 fi
