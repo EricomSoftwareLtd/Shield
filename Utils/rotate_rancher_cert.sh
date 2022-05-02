@@ -49,6 +49,9 @@ else
     sleep 150
     cleanup
     docker container restart $RANCHER_CONTAINER_ID
+    echo "Inforation on the validity of Rancher certificates:"
     docker exec -it $RANCHER_CONTAINER_ID bash -c 'cd /var/lib/rancher/k3s/server/tls && for i in $(ls *.crt); do echo $i; openssl x509 -noout -startdate -enddate -in $i; done' || :
+    echo "Rancher k3s certificate validity information:"
+    docker exec -it $RANCHER_CONTAINER_ID sh -c 'openssl s_client -connect localhost:6443 -showcerts </dev/null 2>&1 | openssl x509 -noout -startdate -enddate'
 
 fi
