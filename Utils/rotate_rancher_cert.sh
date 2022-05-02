@@ -40,7 +40,7 @@ else
     trap cleanup EXIT
 
     docker exec -it $RANCHER_CONTAINER_ID sh -c "mv /var/lib/rancher/k3s/server/tls/dynamic-cert.json /var/lib/rancher/k3s/server/tls/dynamic-cert.json.${DATE_ORIG_ISO}" || :
-    docker exec -it $RANCHER_CONTAINER_ID sh -c "kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify" || :
+    docker exec -it $RANCHER_CONTAINER_ID sh -c 'kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify' || :
 
     timedatectl set-ntp off
     timedatectl set-time "$DATE_BEFORE_CERT_END"
@@ -49,5 +49,6 @@ else
     sleep 150
     cleanup
     docker container restart $RANCHER_CONTAINER_ID
+    docker exec -it $RANCHER_CONTAINER_ID bash -c 'cd /var/lib/rancher/k3s/server/tls && for i in $(ls *.crt); do echo $i; openssl x509 -noout -startdate -enddate -in $i; done' || :
 
 fi
