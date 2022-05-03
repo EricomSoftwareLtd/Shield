@@ -19,7 +19,7 @@ if [[ -z "$RANCHER_CONTAINER_ID" ]]; then
     exit 1
 fi
 
-RANCHER_IMAGE_VERSION=$(docker exec -it $RANCHER_CONTAINER_ID sh -c 'echo $CATTLE_SERVER_VERSION | sed -E "s#^v([0-9]+\.[0-9]+)\.[0-9]+#\1#"')
+RANCHER_IMAGE_VERSION=$(docker exec -it $RANCHER_CONTAINER_ID sh -c 'echo $CATTLE_SERVER_VERSION | sed -E "s#^v([0-9]+\.[0-9]+)\.[0-9]+$#\1#"')
 
 if [[ "$RANCHER_IMAGE_VERSION" = "2.4" ]]; then
 
