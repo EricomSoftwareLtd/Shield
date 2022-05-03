@@ -19,19 +19,9 @@ if [[ -z "$RANCHER_CONTAINER_ID" ]]; then
     exit 1
 fi
 
-RANCHER_IMAGE_VERSION=$(docker container inspect --format '{{.Config.Image}}' $RANCHER_CONTAINER_ID | grep -oP '^rancher/rancher:v\K([0-9]+\.[0-9]+)')
+RANCHER_IMAGE_VERSION=$(docker exec -it $RANCHER_CONTAINER_ID sh -c 'echo $CATTLE_SERVER_VERSION | sed -E "s#^v([0-9]+\.[0-9]+)\.[0-9]+#\1#"')
 
-if [[ "$RANCHER_IMAGE_VERSION" = "2.3" ]]; then
-
-    docker exec -it $RANCHER_CONTAINER_ID sh -c 'mv /var/lib/rancher/k3s/server/tls /var/lib/rancher/k3s/server/tls.$(date -Iseconds)'
-    docker container stop $RANCHER_CONTAINER_ID
-    # sleep 150
-    docker container rm -f $RANCHER_CONTAINER_ID
-    
-    export HOME="/home/ericom"
-    "$HOME/ericomshield/run-rancher.sh"
-
-else
+if [[ "$RANCHER_IMAGE_VERSION" = "2.4" ]]; then
 
     DATE_ORIG_ISO="$(date -Iseconds)"
     CERT_END_DATE="$(openssl x509 -noout -enddate -in "/home/ericom/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
@@ -56,5 +46,15 @@ else
     docker exec -it $RANCHER_CONTAINER_ID sh -c 'openssl s_client -connect localhost:6443 -showcerts </dev/null 2>&1 | openssl x509 -noout -startdate -enddate' || :
     echo "Rancher UI certificate validity information:"
     docker exec -it $RANCHER_CONTAINER_ID sh -c 'openssl s_client -connect localhost:443 -showcerts </dev/null 2>&1 | openssl x509 -noout -startdate -enddate' || :
+
+else
+
+    docker exec -it $RANCHER_CONTAINER_ID sh -c 'mv /var/lib/rancher/k3s/server/tls /var/lib/rancher/k3s/server/tls.$(date -Iseconds)'
+    docker container stop $RANCHER_CONTAINER_ID
+    # sleep 150
+    docker container rm -f $RANCHER_CONTAINER_ID
+    
+    export HOME="/home/ericom"
+    "$HOME/ericomshield/run-rancher.sh"
 
 fi
