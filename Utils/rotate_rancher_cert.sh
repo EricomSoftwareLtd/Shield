@@ -19,9 +19,9 @@ if [[ -z "$RANCHER_CONTAINER_ID" ]]; then
     exit 1
 fi
 
-RANCHER_IMAGE_VERSION=$(docker exec -it $RANCHER_CONTAINER_ID sh -c 'echo $CATTLE_SERVER_VERSION | sed -E "s#^v([0-9]+\.[0-9]+)\.[0-9]+$#\1#"')
+RANCHER_IMAGE_VERSION=$(docker exec -it $RANCHER_CONTAINER_ID sh -c 'echo $CATTLE_SERVER_VERSION | grep -oE "v[0-9]+\.[0-9]+"')
 
-if [[ "$RANCHER_IMAGE_VERSION" = "2.4" ]]; then
+if [[ "$RANCHER_IMAGE_VERSION" = "v2.4" ]]; then
 
     DATE_ORIG_ISO="$(date -Iseconds)"
     CERT_END_DATE="$(openssl x509 -noout -enddate -in "/home/ericom/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
