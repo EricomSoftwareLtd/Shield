@@ -1,4 +1,4 @@
-#!/usr/bin/sudo /bin/bash
+#!/usr/bin/sudo -E /bin/bash
 
 set -e
 set -x
