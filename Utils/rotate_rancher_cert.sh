@@ -1,4 +1,4 @@
-#!/usr/bin/sudo -E /bin/bash
+#!/usr/bin/env -S sudo -E bash
 
 set -e
 set -x
