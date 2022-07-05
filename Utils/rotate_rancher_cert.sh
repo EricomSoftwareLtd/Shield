@@ -1,4 +1,6 @@
-#!/usr/bin/env -S sudo -E bash
+#!/bin/bash
+if [ "$1" != "--do-run" ]; then exec sudo -E bash -- "$0" --do-run "$@"; fi
+shift
 
 set -e
 set -x
@@ -16,25 +18,25 @@ function cleanup() {
 
 RANCHER_CONTAINER_ID=$(docker ps | grep 'rancher/rancher:' | awk '{print $1}')
 
-if [[ -z "$RANCHER_CONTAINER_ID" ]]; then
+if [[ -z $RANCHER_CONTAINER_ID ]]; then
     echo "[Error] Could not find Rancher container."
     exit 1
 fi
 
 RANCHER_IMAGE_VERSION=$(docker ps | grep 'rancher/rancher:' | awk '{print $2}')
 
-if [[ -z "$RANCHER_IMAGE_VERSION" ]]; then
+if [[ -z $RANCHER_IMAGE_VERSION ]]; then
     echo "[Error] Could not find Rancher Version."
     exit 1
 fi
 
-if [[ "$RANCHER_IMAGE_VERSION" =~ ^rancher/rancher:v2\.4 ]]; then
+if [[ $RANCHER_IMAGE_VERSION =~ ^rancher/rancher:v2\.4 ]]; then
 
     DATE_ORIG_ISO="$(date -Iseconds)"
     #CERT_END_DATE="$(openssl x509 -noout -enddate -in "/home/ericom/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
     CERT_END_DATE="$(openssl x509 -noout -enddate -in "$HOME/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
 
-    if [[ -z "$CERT_END_DATE" ]]; then
+    if [[ -z $CERT_END_DATE ]]; then
         echo "[Error] Could not read certificate expiration date."
         exit 1
     fi
