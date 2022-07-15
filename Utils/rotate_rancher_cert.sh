@@ -12,7 +12,9 @@ DATE_ORIG="$(date -d 'now' '+%F %T')"
 
 function cleanup() {
     timedatectl set-ntp off
+    sleep 5
     timedatectl set-time "$DATE_ORIG"
+    sleep 5
     timedatectl set-ntp on
 }
 
@@ -49,6 +51,7 @@ if [[ $RANCHER_IMAGE_VERSION =~ ^rancher/rancher:v2\.4 ]]; then
     docker exec -it $RANCHER_CONTAINER_ID sh -c 'kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify; kubectl delete secret -n cattle-system serving-cert --insecure-skip-tls-verify' || :
 
     timedatectl set-ntp off
+    sleep 5
     timedatectl set-time "$DATE_BEFORE_CERT_END"
 
     docker container restart $RANCHER_CONTAINER_ID
