@@ -1,30 +1,48 @@
-#!/usr/bin/sudo /bin/bash
+#!/bin/bash
+if [ "$1" != "--do-run" ]; then exec sudo -E bash -- "$0" --do-run "$@"; fi
+shift
 
 set -e
 set -x
+
+echo "[Start] Starts the certificate renewal process."
 
 export LC_TIME=C
 DATE_ORIG="$(date -d 'now' '+%F %T')"
 
 function cleanup() {
     timedatectl set-ntp off
+    sleep 5
     timedatectl set-time "$DATE_ORIG"
+    sleep 5
     timedatectl set-ntp on
 }
 
 RANCHER_CONTAINER_ID=$(docker ps | grep 'rancher/rancher:' | awk '{print $1}')
 
-if [[ -z "$RANCHER_CONTAINER_ID" ]]; then
-    echo "Could not find Rancher container"
+if [[ -z $RANCHER_CONTAINER_ID ]]; then
+    echo "[Error] Could not find Rancher container."
     exit 1
 fi
 
-RANCHER_IMAGE_VERSION=$(docker exec -it $RANCHER_CONTAINER_ID sh -c 'echo -n $CATTLE_SERVER_VERSION | grep -oE "v[0-9]+\.[0-9]+"')
+RANCHER_IMAGE_VERSION=$(docker ps | grep 'rancher/rancher:' | awk '{print $2}')
 
-if [[ "$RANCHER_IMAGE_VERSION" =~ ^v2\.4 ]]; then
+if [[ -z $RANCHER_IMAGE_VERSION ]]; then
+    echo "[Error] Could not find Rancher Version."
+    exit 1
+fi
+
+if [[ $RANCHER_IMAGE_VERSION =~ ^rancher/rancher:v2\.4 ]]; then
 
     DATE_ORIG_ISO="$(date -Iseconds)"
-    CERT_END_DATE="$(openssl x509 -noout -enddate -in "/home/ericom/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
+    #CERT_END_DATE="$(openssl x509 -noout -enddate -in "/home/ericom/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
+    CERT_END_DATE="$(openssl x509 -noout -enddate -in "$HOME/ericomshield/rancher-store/k3s/server/tls/client-admin.crt" | sed -E 's/notAfter=(.*)/\1/')"
+
+    if [[ -z $CERT_END_DATE ]]; then
+        echo "[Error] Could not read certificate expiration date."
+        exit 1
+    fi
+
     DATE_BEFORE_CERT_END="$(date -d "$CERT_END_DATE - 1 months" '+%F %T')"
 
     trap cleanup EXIT
@@ -33,6 +51,7 @@ if [[ "$RANCHER_IMAGE_VERSION" =~ ^v2\.4 ]]; then
     docker exec -it $RANCHER_CONTAINER_ID sh -c 'kubectl delete secret -n kube-system k3s-serving --insecure-skip-tls-verify; kubectl delete secret -n cattle-system serving-cert --insecure-skip-tls-verify' || :
 
     timedatectl set-ntp off
+    sleep 5
     timedatectl set-time "$DATE_BEFORE_CERT_END"
 
     docker container restart $RANCHER_CONTAINER_ID
@@ -49,12 +68,13 @@ if [[ "$RANCHER_IMAGE_VERSION" =~ ^v2\.4 ]]; then
 
 else
 
+    docker container restart $RANCHER_CONTAINER_ID
     docker exec -it $RANCHER_CONTAINER_ID sh -c 'mv /var/lib/rancher/k3s/server/tls /var/lib/rancher/k3s/server/tls.$(date -Iseconds)'
     docker container stop $RANCHER_CONTAINER_ID
-    # sleep 150
     docker container rm -f $RANCHER_CONTAINER_ID
-    
-    export HOME="/home/ericom"
-    "$HOME/ericomshield/run-rancher.sh"
 
+    #export HOME="/home/ericom"
+    "$HOME/ericomshield/run-rancher.sh"
 fi
+
+echo "[End] Certificate renewal process has been completed."
