@@ -16,7 +16,7 @@ if ((EUID != 0)); then
     #    sudo su
     usage
     echo " Please run it as Root"
-    echo "sudo $0 $@"
+    echo "sudo -E $0 $@"
     exit
 fi
 
@@ -48,9 +48,9 @@ docker rm -f $(docker ps -qa)
 docker volume rm $(docker volume ls -q)
 
 if [ "$ES_ALL" == "true" ] || [ "$CLEAN_RANCHER_STORE" == "true" ]; then
-   cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $ES_RANCHER_STORE $HOME/.helm"
- else
-   cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $HOME/.helm"
+    cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $ES_RANCHER_STORE $HOME/.helm"
+else
+    cleanupdirs="/var/lib/etcd /etc/kubernetes /etc/cni /opt/cni /var/lib/cni /var/run/calico /var/run/flannel /opt/rke $HOME/.helm"
 fi
 
 for dir in $cleanupdirs; do
@@ -60,13 +60,11 @@ done
 
 if [ "$ES_ALL" == "true" ]; then
     docker system prune -a -f
-fi
-
-if [ "$ES_ALL" == "true" ]; then
-    docker system prune -a -f
     rm -f ~/.kube/config
-   else 
-    mv -f ~/.kube/config ~/.kube/config.org  
+else
+    if [ -f ~/.kube/config ]; then
+        mv -f ~/.kube/config ~/.kube/config.org
+    fi
 fi
 
 echo "Please reboot your system, to cleanup the machine"
