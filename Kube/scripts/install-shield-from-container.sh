@@ -23,9 +23,9 @@ ES_OFFLINE="false"
 
 function usage() {
     if ! [[ $0 != "$BASH_SOURCE" ]]; then
-      CMD=$(ps -o comm= $PPID)
-     else
-      CMD=$0 
+        CMD=$(ps -o comm= $PPID)
+    else
+        CMD=$0
     fi
     #these ones are un-documented: [-d|--dev] [-s|--staging] [-O|Offline]
     echo
@@ -94,7 +94,7 @@ function list_versions() {
     download_and_check $ES_repo_versions_file $ES_repo_versions
 
     if [ ! -z "$1" ]; then
-      OPTION="$1"
+        OPTION="$1"
     fi
 
     while [ -z "$OPTION" ]; do
@@ -125,9 +125,9 @@ function list_versions() {
     grep "$OPTION" $ES_repo_versions_file
     VERSION=$(grep "$OPTION" $ES_repo_versions_file | cut -d':' -f2)
     if [ -z "$VERSION" ]; then
-      log_message "Cannot find Version, exiting"
-      exit 1
-    fi 
+        log_message "Cannot find Version, exiting"
+        exit 1
+    fi
     echo -n $VERSION >"$ES_VERSION_FILE"
 }
 
@@ -181,23 +181,23 @@ fi
 
 #if version = latest check what is the latest
 if [ $VERSION = "latest" ]; then
-   list_versions "latest"
+    list_versions "latest"
 fi
 echo "Version:" "$VERSION"
 
 # Require Password if Not working with Offline Registry and if Docker is not logged in
 if [ -z "$ES_OFFLINE_REGISTRY" ] && [ "$PASSWORD" == "" ]; then
-    if ! [ -f  $DOCKER_LOGIN_FILE ] || [ $(grep -c auth $DOCKER_LOGIN_FILE) -lt 1 ]; then
-      echo " Error: Password is missing"
-      usage
-      exit 1
-     else
-      echo "Already logged in"
-   fi
+    if ! [ -f $DOCKER_LOGIN_FILE ] || [ $(grep -c auth $DOCKER_LOGIN_FILE) -lt 1 ]; then
+        echo " Error: Password is missing"
+        usage
+        exit 1
+    else
+        echo "Already logged in"
+    fi
 fi
 
 function docker_login() {
-    if ! [ -f  $DOCKER_LOGIN_FILE ] || [ $(grep -c auth $DOCKER_LOGIN_FILE) -lt 1 ]; then
+    if ! [ -f $DOCKER_LOGIN_FILE ] || [ $(grep -c auth $DOCKER_LOGIN_FILE) -lt 1 ]; then
         echo "docker login" $DOCKER_USER
         echo "$PASSWORD" | docker login --username=$DOCKER_USER --password-stdin
         if [ $? == 0 ]; then
@@ -211,9 +211,9 @@ function docker_login() {
 
 if [ ! -x "/usr/bin/docker" ]; then
     if [ ! -z "$ES_OFFLINE_REGISTRY" ] || [ $ES_OFFLINE = "true" ]; then
-       log_message "*************** Offline Deployment and Docker is not installed, Exiting!"
-       echo " Please run shield-prepare-servers from the registry node"
-       exit 1
+        log_message "*************** Offline Deployment and Docker is not installed, Exiting!"
+        echo " Please run shield-prepare-servers from the registry node"
+        exit 1
     fi
     download_and_check "$ES_file_docker" "$ES_repo_docker" "+x"
     log_message "***************     Installing Docker"
@@ -228,8 +228,8 @@ DOCKER_GID=$(getent group docker | awk -F: '{print $3}')
 
 if [ -z "$ES_OFFLINE_REGISTRY" ]; then
     if [ $ES_OFFLINE = "false" ]; then
-       docker_login
-    fi   
+        docker_login
+    fi
 else
     if [ ! -d /etc/docker ]; then
         mkdir /etc/docker
@@ -248,8 +248,8 @@ EOF
 fi
 
 if [ $ES_OFFLINE = "false" ] || [ ! -z "${ES_OFFLINE_REGISTRY_PREFIX}" ]; then
-   docker image pull "${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION"
-fi   
+    docker image pull "${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION"
+fi
 if [ $(docker image ls | grep -c $VERSION) -lt 1 ]; then
     echo
     echo "Error: Cannot Pull Docker image es-shield-cli: $VERSION"
@@ -271,10 +271,10 @@ SHIELD_DOCKER_CMD="docker run --rm -d -it --name shield-cli --privileged \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -v $DOCKER_BIN:/usr/bin/docker --user 1000:$DOCKER_GID ${ES_OFFLINE_REGISTRY_PREFIX}securebrowsing/es-shield-cli:$VERSION bash"
 
-if [ $(docker ps -a | grep -c shield-cli) -ge 1 ];then
-   # Remove running container
-   docker rm -f shield-cli
-fi   
+if [ $(docker ps -a | grep -c shield-cli) -ge 1 ]; then
+    # Remove running container
+    docker rm -f shield-cli
+fi
 # Running (new) container
 $SHIELD_DOCKER_CMD $@
 
@@ -288,7 +288,7 @@ if [ -d $ES_PATH/shield ]; then
     mv $ES_PATH/shield $ES_PATH/shield-old
 fi
 
-if [ "$(ls $ES_PATH/*.yaml 2> /dev/null | wc -l)" -ge "1" ]; then
+if [ "$(ls $ES_PATH/*.yaml 2>/dev/null | wc -l)" -ge "1" ]; then
     echo "Keeping Custom Yaml"
     mkdir -p /tmp/yaml
     mv $ES_PATH/*.yaml /tmp/yaml/
@@ -298,9 +298,9 @@ else
     docker cp shield-cli:/home/ericom/ericomshield .
 fi
 
-docker cp shield-cli:/usr/bin/kubectl   /usr/local/bin/
-docker cp shield-cli:/usr/bin/helm      /usr/local/bin/
-docker cp shield-cli:/usr/bin/rancher   /usr/local/bin/
+docker cp shield-cli:/usr/bin/kubectl /usr/local/bin/
+docker cp shield-cli:/usr/bin/helm /usr/local/bin/
+docker cp shield-cli:/usr/bin/rancher /usr/local/bin/
 
 export PATH="/usr/local/bin:$PATH"
 
