@@ -16,7 +16,7 @@ if ((EUID != 0)); then
     #    sudo su
     usage
     echo " Please run it as Root"
-    echo "sudo $0 $@"
+    echo "sudo -E $0 $@"
     exit
 fi
 
@@ -60,13 +60,11 @@ done
 
 if [ "$ES_ALL" == "true" ]; then
     docker system prune -a -f
-fi
-
-if [ "$ES_ALL" == "true" ]; then
-    docker system prune -a -f
     rm -f ~/.kube/config
    else 
-    mv -f ~/.kube/config ~/.kube/config.org  
+    if [ -f ~/.kube/config ]; then
+      mv -f ~/.kube/config ~/.kube/config.org  
+    fi
 fi
 
 echo "Please reboot your system, to cleanup the machine"

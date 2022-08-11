@@ -6,11 +6,13 @@
 ES_OFFLINE="false"
 FILE_SERVER="https://raw.githubusercontent.com/EricomSoftwareLtd/Shield/master/Kube/scripts"
 REGISTRY_FILE_SERVER_PORT=85
+ES_FORCE_INSTALL="false"
+
 #Check if we are root
 if ((EUID != 0)); then
     # sudo su
     echo " Please run it as Root"
-    echo "sudo $0 $@"
+    echo "sudo -E $0 $@"
     exit
 fi
 
@@ -28,9 +30,24 @@ while [ $# -ne 0 ]; do
     -O | --Offline) # Offline Mode
         ES_OFFLINE="true"
         ;;
+    -f | --force) # force installation
+        ES_FORCE_INSTALL="true"
+        ;;
     esac
     shift
 done
+
+if [ "$HOME" = "/root" ]; then
+    echo "WARNING: you are installing Shield to the /root directory!"
+    echo "Shield is supposed to be installed elsewhere (usually in /home/ericom)."
+    echo "Probably you need to run sudo -E instead of sudo."
+    if [ "$ES_FORCE_INSTALL" = "true" ]; then
+        echo "--force has been specified, continuing anyway..."
+    else
+        echo "Exiting... Use -f or --force to override."
+        exit 1
+    fi
+fi
 
 if [ $ES_OFFLINE = "false" ]; then
    wget "$FILE_SERVER/install-shield-from-container.sh" --tries 3 -O install-shield-from-container-new.sh

@@ -51,7 +51,7 @@ if ((EUID != 0)); then
     # sudo su
     usage
     echo " Please run it as Root"
-    echo "sudo $0 $@"
+    echo "sudo -E $0 $@"
     exit
 fi
 
@@ -210,6 +210,11 @@ function docker_login() {
 }
 
 if [ ! -x "/usr/bin/docker" ]; then
+    if [ ! -z "$ES_OFFLINE_REGISTRY" ] || [ $ES_OFFLINE = "true" ]; then
+       log_message "*************** Offline Deployment and Docker is not installed, Exiting!"
+       echo " Please run shield-prepare-servers from the registry node"
+       exit 1
+    fi
     download_and_check "$ES_file_docker" "$ES_repo_docker" "+x"
     log_message "***************     Installing Docker"
     source "./$ES_file_docker"
@@ -308,3 +313,5 @@ fi
 "./$ES_file_install_shield_local" $args
 
 docker rm -f shield-cli
+
+chown -R ericom:ericom "$HOME"
