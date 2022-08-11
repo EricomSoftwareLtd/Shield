@@ -18,7 +18,7 @@ while [ $# -ne 0 ]; do
         ES_FORCE=true
         ;;
     -h | --help)
-        #*)
+    #*)
         usage
         exit
         ;;
@@ -32,7 +32,7 @@ if [ ! -x "$APP_BIN" ] || [ "$($APP_BIN version | grep -c $APP_VERSION)" -le 0 ]
     curl -LJ --progress-bar $DOCKER_SCRIPT_URL | sh
     sudo systemctl enable docker
     sudo systemctl start docker
-    sudo usermod -aG docker "$USER"
+    sudo usermod -aG docker "$USER" 
     echo "Done!"
 else
     echo "$APP is already installed"

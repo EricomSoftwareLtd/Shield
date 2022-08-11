@@ -19,7 +19,7 @@ while [ $# -ne 0 ]; do
         ES_FORCE=true
         ;;
     -h | --help)
-        #*)
+    #*)
         usage
         exit
         ;;
