@@ -4,7 +4,7 @@
 #######################################BH###
 APP="docker"
 APP_BIN="/usr/bin/docker"
-APP_VERSION="20.10"
+APP_VERSION="19.03"
 DEB_APP_VERSION="5:$APP_VERSION"
 ES_FORCE=false
 

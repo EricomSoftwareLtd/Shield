@@ -8,12 +8,14 @@ if ((EUID != 0)); then
     #    sudo su
     echo "Usage: $0"
     echo " Please run it as Root"
-    echo "sudo -E $0 $@"
+    echo "sudo $0 $@"
     exit
 fi
 
 APP="docker"
 APP_BIN="/usr/bin/docker"
+APP_VERSION="19.03"
+CONTAINERD_VERSION="1.2"
 LOGFILE="${LOGFILE:-./shield-pre-install-check.log}"
 RESULTS="./results-pre-check.log"
 UPLOAD_ACCEPTED_FILE="./.upload_accepted"
@@ -23,7 +25,7 @@ NOUPLOAD=""
 DOCKER_USER="ericomshield1"
 DOCKER_SECRET="Ericom98765$"
 ES_PATH="/tmp/ericomshield"
-CONTAINER_TAG_DEFAULT="shield-collector:220706-08.25-1009"
+CONTAINER_TAG_DEFAULT="shield-collector:210317-13.38-38"
 
 HW_PLATFORM="$(uname -m)"
 if [ "$HW_PLATFORM" != "x86_64" ]; then
@@ -46,12 +48,22 @@ fi
 if ! declare -f install_docker >/dev/null; then
     function install_docker() {
 
-        if [ ! -x "$APP_BIN" ]; then
-            ./install-docker.sh
-        else
+      if [ ! -x "$APP_BIN" ] ; then
+           echo "Installing $APP ..."
+           sudo apt-get update || exit $?
+           sudo apt-get -y install software-properties-common || exit $?
+           sudo add-apt-repository universe || exit $?
+           sudo apt-get update || exit $?
+           sudo apt-mark unhold docker.io
+           sudo apt-get install -y "docker.io=${APP_VERSION}*" "containerd=${CONTAINERD_VERSION}*" || exit $?
+           sudo apt-mark hold docker.io
+           sudo systemctl enable --now docker || exit $?
+           sudo usermod -aG docker "$USER"
+           echo "Done!"
+         else
             echo " ******* docker is already installed"
         fi
-        if [ ! -x "$APP_BIN" ]; then
+        if [ ! -x "$APP_BIN" ] ; then
             log_message "Failed to Install/Update Docker, exiting"
             exit -1
         fi
@@ -115,9 +127,8 @@ function perform_env_test() {
         -e "HTTPS_PROXY=$HTTPS_PROXY" \
         -e "FTP_PROXY=$FTP_PROXY" \
         -e "RSYNC_PROXY=$RSYNC_PROXY" \
-        --entrypoint /bin/bash \
         --rm --name "shield-collector" \
-        "securebrowsing/$CONTAINER_TAG" /autorun.sh $NOUPLOAD | tee $RESULTS
+        "securebrowsing/$CONTAINER_TAG" /bin/bash /autorun.sh $NOUPLOAD | tee $RESULTS
 
     ERR=$(tail -n1 $RESULTS | grep -c $FAILED_STR)
 
