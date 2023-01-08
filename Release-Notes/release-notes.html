@@ -2,12 +2,15 @@
 <p>&nbsp;</p>
 <!-- The file name have to be release-notes.html-->
 <div>
-    <strong>Rel-22.12</strong>	
+    <strong>Rel-23.01</strong>	
     <br/><br/><br/>
 </div> 
 <div><strong>New Features</strong>
     <ul>
-        <li>Add "Certificate Validation" activity into session history report </li>
+        <li>New Admin UI Dashboards reports </li>
+        <li>Groups passed from third-party SAML IdP imported into ZTEdge IAM </li>
+        <li>Tenant-specific Admin Portal URL to bypass SAML login </li>
+        <li>MSSP partners can enable tenant features based on its license </li>
         
     </ul>
 </div>
@@ -15,11 +18,9 @@
 
 <div><br/><strong>Enhancements</strong>
     <ul>
-        <li>Enable network profile based also on client private IP (using header “Shield-RealClientIP’)</li>
-        <li>Exporting policies now includes 'Default' policies</li>
-        <li>New ZTNA "Users Devices" view</li>
-        <li>Improved phishing site detection</li>
-        <li>New Tenant Admin portal is now available for all customers</li>
+        <li>ZTEdge client connecting port is now configurable</li>
+        <li>Multi-PoP support for ZTEdge clients and connectors</li>
+        <li>Discontinued "Antivirus" from Download options - Replaced with "Fast-AV"</li>
 
     </ul>
     
@@ -28,13 +29,23 @@
 
 <div><br/><strong>Bug Fixes</strong>
     <ul>
-        <li>Fixed: Login to Twitter using Google authentication</li>
-        <li>Fixed: Login to Dropbox using Google authentication</li>
-        <li>Fixed: In some cases Automatic PAC file includes incorrect code</li>
-        <li>Fixed: Documentation link in admin portal doesn’t open the latest version</li>
-        <li>Fixed: Diagrams.net and draw.io browsing gets stuck</li>
-        <li>Fixed: Wrong display of Pop-up windows on Outlook Web (CA0000083267)</li>
-        <li>Fixed: Current location of map service is incorrect (CA0000079910)</li>
-        <li>Fixed: Certain PDFs are blocked and cannot be downloaded (CA0000083456)</li>
+        <li>Fixed: Teams reconnection stuck at White screen</li>
+        <li>Fixed: Stream Rendering - Live video does not play on yahoo.co.jp</li>
+        <li>Fixed: Double authentication when using ZTNA with RBI client and client SAML authentication is enabled</li>
+        <li>Fixed: White page while browsing </li>
+        <li>Fixed: Policy changes when new tab is opened (CA0000083775)</li>
+        <li>Fixed: Import failure in Google Maps (CA0000084205)</li>
+        <li>Fixed: Wrong display of Israeli Laws search engine (CA0000083922)</li>
+        <li>Fixed: PDF view tab gets stuck</li>
+        <li>Fixed: Whatsapp videos have choppy sound </li>
+        <li>Fixed: Maps website is not displayed (CA0000078917)</li>
+   
+    </ul>
+</div>
+
+
+<div><br/><strong>Note</strong>
+    <ul>
+        <li>Version 3.6 ZTEdge Client is recommended for use with ZTNA in this release</li>
     </ul>
 </div>
