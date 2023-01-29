@@ -1,51 +1,63 @@
 <!-- NOTE -->
 <p>&nbsp;</p>
 <!-- The file name have to be release-notes.html-->
+
 <div>
-    <strong>Rel-23.01</strong>	
+    <strong>Rel-23.02</strong>	
     <br/><br/><br/>
 </div> 
 <div><strong>New Features</strong>
     <ul>
-        <li>New Admin UI Dashboards reports </li>
-        <li>Groups passed from third-party SAML IdP imported into ZTEdge IAM </li>
-        <li>Tenant-specific Admin Portal URL to bypass SAML login </li>
-        <li>MSSP partners can enable tenant features based on its license </li>
-        
+        <li>New Report “Session History (Detailed Navigation)” which details navigation within isolated sessions</li>
+        <li>ZTNA Auto Update Client</li>
     </ul>
 </div>
 
 
 <div><br/><strong>Enhancements</strong>
     <ul>
-        <li>ZTEdge client connecting port is now configurable</li>
-        <li>Multi-PoP support for ZTEdge clients and connectors</li>
-        <li>Discontinued "Antivirus" from Download options - Replaced with "Fast-AV"</li>
-
+        <li>Policy types have been renamed:	</li>
+		<table style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">
+			<tr style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">
+				<th style="width:50%;width:232px;border: 1px solid black;border-collapse: collapse; text-align: center;">New Name</th>
+				<th style="width:50%;width:232px;border: 1px solid black;border-collapse: collapse; text-align: center;">Previous Name</th>
+			</tr>
+			<tr>
+				<td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Isolate</td>
+				<td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Shield</td>
+			</tr>
+			<tr>
+				<td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Inspect</td>
+				<td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Allow</td>
+			</tr>
+		</table>
+		
     </ul>
-    
 </div>
 
 
 <div><br/><strong>Bug Fixes</strong>
     <ul>
-        <li>Fixed: Teams reconnection stuck at White screen</li>
-        <li>Fixed: Stream Rendering - Live video does not play on yahoo.co.jp</li>
-        <li>Fixed: Double authentication when using ZTNA with RBI client and client SAML authentication is enabled</li>
-        <li>Fixed: White page while browsing </li>
-        <li>Fixed: Policy changes when new tab is opened (CA0000083775)</li>
-        <li>Fixed: Import failure in Google Maps (CA0000084205)</li>
-        <li>Fixed: Wrong display of Israeli Laws search engine (CA0000083922)</li>
-        <li>Fixed: PDF view tab gets stuck</li>
-        <li>Fixed: Whatsapp videos have choppy sound </li>
-        <li>Fixed: Maps website is not displayed (CA0000078917)</li>
-   
-    </ul>
-</div>
-
-
-<div><br/><strong>Note</strong>
-    <ul>
-        <li>Version 3.6 ZTEdge Client is recommended for use with ZTNA in this release</li>
+        <li>Fixed: Native Application rules being undeleted</li>
+        <li>Fixed: Native Application bypassing DENY policy</li>
+        <li>Fixed: Admin UI creation of Native Application rules: regex does not allow saving rules</li>
+        <li>Fixed: Certificate support does not allow "\r\n" line termination</li>
+        <li>Fixed: UPS receipt can't be printed</li>
+		<li>Fixed: DLP doesn't support files with capitalized extension</li>
+        <li>Fixed: CloudFlare security check fails on multiple websites</li>
+        <li>Fixed: Video does not play on yahoo news video page</li>
+        <li>Fixed: Need to login to google apps more than once</li>
+        <li>Fixed: 'Stream Devices Suffix' should appear only if Video conferencing feature is enabled</li>
+        <li>Fixed: AV in White does't block eicar malware files</li>
+        <li>Fixed: Gitlab gets stuck with browser checking</li>
+		<li>Fixed: + sign in URL causing issues with proxyless</li>
+		<li>Fixed: Pop-up window gets stuck in crystal rendering (CA0000085131)</li>
+        <li>Fixed: Resume can't be downloaded in Linkedin (CA0000083091)</li>
+		<li>Fixed: The predictive conversion field overlaps the text being typed (CA0000083914)</li>
+        <li>Fixed: The PDF viewer does not appear when Zoom button is pressed (CA0000083456)</li>
+		<li>Fixed: PDF is not reached when browsing with Forcepoint proxyless (CA0000085081)</li>
+		<li>Fixed: Numbers are displayed as dots (CA0000084768)</li>
+		<li>Fixed: Some sites don't display images when using Edge (CA0000084020)</li>
+		<li>Fixed: The language setting returns to default after re-login (CA0000085144)</li>
     </ul>
 </div>
