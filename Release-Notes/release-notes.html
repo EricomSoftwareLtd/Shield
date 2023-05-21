@@ -1,37 +1,50 @@
-<HTML>
+<html>
 <!-- NOTE -->
 <p>&nbsp;</p>
-<!-- The file name have to be release-notes.html-->
+<!-- The file name has to be release-notes.html -->
 <div>
-    <strong>Rel-23.05</strong>	
+    <strong>Rel-23.06</strong>	
     <br/><br/><br/>
 </div> 
-	
-<div><strong>New Feature</strong>
+​
+<div>
+    <strong>New Features</strong>
     <ul>
-		<li>MSSP e-mail alert before tenant's licence expiration</li>				
+        <li>Set end-user default language in tenant settings</li>
+		<li>Admin portal language will use the browser's language</li>
+        <li>Status of log shipping is shown on the dashboard (Beta)</li>				
+​
     </ul>	
 </div>
 	
-<div><strong>Enhancements</strong>
+<div>
+    <strong>Enhancements</strong>
     <ul>
-		<li>The size limit for DLP has been increased from 0.5MB to 50MB</li>
-		<li>Newly Added ZTNA rule destination type ‘any’ and rule action type ‘none' to make it easier to log traffic without impacting block/allow logic</li>
+        <li>DLP size is now configured by upload size limit</li>
+        <li>MSSP - control to add/delete admin users</li>
+        <li>MSSP - control to reset the admin password</li>
+        <li>Admin portal SSO dialog supports tenant name and email address</li>	
+        <li>Enable "Override sanitization file size limit"</li>			
+		
     </ul>
 </div>
 	
-<div><strong>Bugs Fixes</strong>
+<div>
+    <strong>Bug Fixes</strong>
     <ul>
-        <li>Fixed: Auto scrolling issue in Rocket chat</li>
-		<li>Fixed: Gmail.com is not directed in proxyless when using Cisco umbrella</li>
-		<li>Fixed: www.hartmann.info is not usable</li>
-		<li>Fixed: 3129 proxy certificate cannot be installed on Android</li>
-		<li>Fixed: Idp-intiated browser sessions should be more seamless</li>
-		<li>Fixed: Captchas appear unnecessarily on immobilienscout24 site</li>
-		<li>Fixed: Unwanted scroll issue on "outlook.live.com" in Chrystal</li>
-		<li>Fixed: XML file does not have style information (CA0000085328)</li>
-		<li>Fixed: PDF is not displayed in Chrystal rendering(CA0000086396)</li>
-   
+        <li>Fixed: Issues with clicking on links in Google apps while in Isolation</li>
+        <li>Fixed: Frequent Error 400 while accessing Google apps (CA0000083794/CA0000083797)</li>
+        <li>Fixed: Incorrect behavior of Ctrl+H in Google Sheets</li>
+        <li>Fixed: Auto spelling does not work</li>
+        <li>Fixed: Ctrl+K works improperly in Rocket Chat</li>
+        <li>Fixed: File Restriction does not block HTML files</li>
+        <li>Fixed: JPEG files were blocked where they should be allowed</li>
+        <li>Fixed: Unable to download/upload large files</li>
+        <li>Fixed: Page not found when trying to download a file from greenvoice.co.il (CA0000086698)</li>
+        <li>Fixed: Print button is unresponsive (CA0000086688)</li>		
+        <li>Fixed: Performance issues while browsing to walla.co.il</li>
+        <li>Fixed: theMarker.co.il and globes.co.il do not work (CA0000086089)</li> 
+		<li>Fixed: Back button issues while browsing</li>
     </ul>
 </div>
-</HTML>
+</html>
