@@ -3,42 +3,41 @@
 <p>&nbsp;</p>
 <!-- The file name has to be release-notes.html -->
 <div>
-    <strong>ZTEdge Release 23.12</strong>
+    <strong>ZTEdge Release 23.13</strong>
     <br /><br /><br />
 </div>
 <div>
     <strong>New Features</strong>
     <ul>
-        <li>RBI browser extension: A browser extension now allows for a seamless file download when using CDR: The file will be downloaded directly as it is being scanned for CDR. The extension is available for download through <a href="https://sc.ericom.com/ztedge/downloads/ztedge-extension-1.0.3.zip">this link</a>. </li>
-        <li>Improved usage of web categorization in policies: Enhanced the list of web categories to be much more specific and added a search option to quickly find the needed categories.</li>
-		<li>DLP granularity improvements: DLP is no longer a global rule. DLP schemas can now be defined, then associated per policy to comply with the different policies' needs.</li>
+        <li>Web Categorization: Multiple categories can now be used in a single policy. </li>
+        <li>Platform: More than one IPSec connections can now be set up for a single PoP. </li>
+		<li>Platform: Reports now contain information about DLP Schemas that were triggered. </li>
     </ul>
 </div>
 <div>
     <strong>Platform Fixes</strong>
     <ul>
-        <li>Added firewall activity logs to ZTNA reports.</li>
-		<li>Fixed a problem with the Native Applications and Session History reports.</li>
-		<li>Fixed an issue related to profiles import.</li>
-		<li>Fixed an issue in policies where an incorrect logic in file type restriction caused false-positives.</li>
+        <li>Fixed several security related issues on the Admin UI. </li>
+        <li>Fixed an issue with DLP not working when pasting content from the clipboard. </li>
     </ul>
 </div>
 <div>
     <strong>Proxy Fixes</strong>
     <ul>
-        <li>Fixed an issue scanning GZip and BIN files when using Inspect mode.</li>
-		<li>Fixed an authentication related issue causing some native applications to malfunction.</li>
+        <li>Fixed an issue downloading large files in inspect mode. </li>
+        <li>Fixed several compatibility issues with native applications not working properly with PAC file deployments. </li>
+        <li>Fixed an issue related to the configuration of IPSec connections. </li>
+        <li>Fixed a performance related issue when using DNS over HTTPS (DoH). </li>
+        <li>Fixed an issue with a block page not showing the website's category that caused the block. </li>
     </ul>
 </div>
 <div>
     <strong>Isolation Fixes</strong>
     <ul>
-        <li>Fixed an issue in the InCircle messaging application where old messages would not appear.</li>
-        <li>Fixed a problem logging into Jira using Google Authentication.</li>
-        <li>Fixed a scrolling issue on mobile for WAI users. </li>
-        <li>Fixed several issues around logging into Microsoft web application.</li>
-        <li>Fixed several UI issues that appeared when using the Rocket chat application.</li>
-		<li>Fixed an AdBlocker related issue where ads got blocked while the AdBlocker is disabled.</li>
+        <li>Fixed an instance in which isolated sessions would freeze. </li>
+        <li>Fixed a sanitization issue related to PDF documents. </li>
+        <li>Fixed an issue with a human verification challange from Cloudflare. </li>
+        <li>Fixed several minor issues on Microsoft 365 applications (Excel & Outlook Online) </li>
     </ul>
 </div>
 <div>
@@ -48,4 +47,3 @@
     </ul>
 </div>
 </html>
-
