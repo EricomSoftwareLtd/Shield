@@ -4,7 +4,697 @@
     <strong>ZTEdge Release 23.13</strong>
     <br /><br /><br />
 </div>
+<div><html>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
 <div>
+    <strong>ZTEdge Release 23.13</strong>
+    <br /><br /><br />
+</div>
+<div>
+    <strong>New Features</strong>
+    <ul>
+        <li>Web Categorization: Multiple categories can now be used in a single policy. </li>
+        <li>Platform: More than one IPSec connections can now be set up for a single PoP. </li>
+		<li>Platform: Reports now contain information about DLP Schemas that were triggered. </li>
+    </ul>
+</div>
+<div>
+    <strong>Platform Fixes</strong>
+    <ul>
+        <li>Fixed several security related issues on the Admin UI. </li>
+        <li>Fixed an issue with DLP not working when pasting content from the clipboard. </li>
+    </ul>
+</div>
+<div>
+    <strong>Proxy Fixes</strong>
+    <ul>
+        <li>Fixed an issue downloading large files in inspect mode. </li>
+        <li>Fixed an issue related to the configuration of IPSec connections. </li>
+        <li>Fixed a performance related issue when using DNS over HTTPS (DoH). </li>
+        <li>Fixed an issue with a block page not showing the website's category that caused the block. </li>
+    </ul>
+</div>
+<div>
+    <strong>Isolation Fixes</strong>
+    <ul>
+        <li>Fixed an instance in which isolated sessions would freeze. </li>
+        <li>Fixed a sanitization issue related to PDF documents. </li>
+        <li>Fixed an issue with a human verification challange from Cloudflare. </li>
+        <li>Fixed several minor issues on Microsoft 365 applications (Excel & Outlook Online) </li>
+    </ul>
+</div>
+<div>
+    <strong>System</strong>
+    <ul>
+        <li>Added several improvements to overall system stability and performance.</li>
+    </ul>
+</div>
+</html>
+<html>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
+<div>
+    <strong>ZTEdge Release 23.12</strong>
+    <br /><br /><br />
+</div>
+
+
+<div>
+    <strong>New Features</strong>
+    <ul>
+        <li>RBI browser extension: A browser extension now allows for a seamless file download when using CDR: The file will be downloaded directly as it is being scanned for CDR. The extension is available for download through <a href="https://sc.ericom.com/ztedge/downloads/ztedge-extension-1.0.3.zip">this link</a>. </li>
+        <li>Improved usage of web categorization in policies: Enhanced the list of web categories to be much more specific and added a search option to quickly find the needed categories.</li>
+		<li>DLP granularity improvements: DLP is no longer a global rule. DLP schemas can now be defined, then associated per policy to comply with the different policies' needs.</li>
+    </ul>
+</div>
+
+
+<div>
+    <strong>Platform Fixes</strong>
+    <ul>
+        <li>Added firewall activity logs to ZTNA reports.</li>
+		<li>Fixed a problem with the Native Applications and Session History reports.</li>
+		<li>Fixed an issue related to profiles import.</li>
+		<li>Fixed an issue in policies where an incorrect logic in file type restriction caused false-positives.</li>
+    </ul>
+</div>
+
+<div>
+    <strong>Proxy Fixes</strong>
+    <ul>
+        <li>Fixed an issue scanning GZip and BIN files when using Inspect mode.</li>
+		<li>Fixed an authentication related issue causing some native applications to malfunction.</li>
+    </ul>
+</div>
+
+<div>
+    <strong>Isolation Fixes</strong>
+    <ul>
+        <li>Fixed an issue in the InCircle messaging application where old messages would not appear.</li>
+        <li>Fixed a problem logging into Jira using Google Authentication.</li>
+        <li>Fixed a scrolling issue on mobile for WAI users. </li>
+        <li>Fixed several issues around logging into Microsoft web application.</li>
+        <li>Fixed several UI issues that appeared when using the Rocket chat application.</li>
+		<li>Fixed an AdBlocker related issue where ads got blocked while the AdBlocker is disabled.</li>
+    </ul>
+</div>
+
+<div>
+    <strong>System</strong>
+    <ul>
+	
+        <li>Added several improvements to overall system stability and performance.</li>
+    </ul>
+</div>
+
+</html>
+
+<html>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
+<div>
+    <strong>ZTEdge Release 23.11</strong>
+    <br /><br /><br />
+</div>
+
+<div>
+    <strong>Platform Fixes</strong>
+    <ul>
+        <li>Fixed an issue disallowing Administrators from using more than one sanitization URL for CDR.</li>
+        <li>Added a missing Firewall Activity logs report to the ZTNA reports.</li>
+    </ul>
+</div>
+
+<div>
+    <strong>Proxy Fixes</strong>
+    <ul>
+        <li>Fixed an issue with the ICAP service causing it to malfunction.</li>
+        <li>Resolved an issue related to the PAC file deployment that disallowed access to internal applications.</li>
+        <li>Addressed several authentication & login issues related to native desktop applications.</li>
+        <li>Fixed an issue causing incorrect retrieval of SAML groups.</li>
+        <li>Fixed an issue causing an error when downloading a file as part of the sanitization process.</li>
+    </ul>
+</div>
+
+<div>
+    <strong>Isolation Fixes</strong>
+    <ul>
+        <li>Fixed several issues causing incorrect behavior on Rocket Chat.</li>
+        <li>Resolved an issue causing problems when logging in to Jira through Google accounts.</li>
+        <li>Addressed several authentication and login issues related to Google Apps and websites using Google for authentication.</li>
+    </ul>
+</div>
+
+<div>
+    <strong>System</strong>
+    <ul>
+        <li>Added several improvements to overall system stability and performance.</li>
+    </ul>
+</div>
+
+</html>
+
+
+<!-- saved from url=(0124)file:///C:/Users/Efrat.belams.ERICOM2K3/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook/EIODOZCM/RN-Rel-23.10.html -->
+<html><!-- NOTE --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
+<div>
+    <strong>ZTEdge Release 23.10</strong>	
+    <br><br><br>
+</div> 
+
+<div>
+	<strong>Fixes: Platform</strong>
+	<ul>
+		<li>Fixed an issue with the Client IP and Username missing missing in several reports. </li>
+		<li>Added generative AI websites to the Gen AI category in the policy. </li>
+		<li>Fixed several issues with using IPSec Settings. </li>
+	</ul>
+</div>
+		
+<div>
+    <strong>Fixes: Isolation</strong>
+    <ul>
+        <li>Fixed an issue with the Help Desk application not rendering correctly in isolation. </li>
+        <li>Fixed an issue with Slack notifying it’s not supported in isolation. </li>
+        <li>Fixed several issues with authenticating through the Cloudflare service when using isolation. </li>
+        <li>Fixed several UI issues with Google sites when using isolation. </li>		
+	</ul> 
+</div>
+
+<div>
+    <strong>System</strong>
+    <ul>
+        <li>Added a new AWS PoP in Israel. </li>
+        <li>Added several improvements to overall system stability &amp; performance. </li>		
+	</ul> 
+</div>
+
+</body></html>
+<html>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
+<div>
+    <strong>ZTEdge Release 23.09</strong>	
+    <br/><br/><br/>
+</div> 
+
+<div>
+	<strong>New Features</strong>
+	<ul>
+	<li>Added an ability to allow copying from the protected clipboard to the local machine.</li>
+	<li>A new AI category has been added, which includes Generative AI websites.</li>
+	<li>MSSPs can now monitor the log shipping status for their customers.</li>
+	<li>The ZTEdge platform idle timeout is now configurable.</li>
+	<li>The “Copy Image” option in RBI can now be enabled / disabled. </li>
+	</ul>
+</div>
+		
+<div>
+    <strong>Fixes</strong>
+    <ul>
+        <li>Various performance improvements and bugs fixes.</li>	
+	</ul> 
+</div>
+
+</html><html>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
+<div>
+    <strong>Rel-23.08</strong>	
+    <br/><br/><br/>
+</div> 
+
+<div>
+    <strong>New Enhancement</strong>
+    <ul>
+        <li>CDR incidents are now reported on Statuspage</li>
+		<li>Performance improvements in Admin API</li>
+    </ul>	
+</div>
+		
+<div>
+    <strong>Bugs Fixes</strong>
+    <ul>
+        <li>Fixed: Videos couldn't be played on the Yahoo video page (CA0000087931)</li>
+		<li>Fixed: Captcha challenge would get stuck</li>
+		<li>Fixed: Login failure on www.fjyc.org</li>
+		<li>Fixed: Typing issue when using Japanese IME conversion (CA0000084279)</li>
+		<li>Fixed: Characters being cut off when using JP keyboard Hiragana type mode</li>
+		<li>Fixed: The first character was frequently not entered(CA0000083915)</li>
+		<li>Fixed: Adobe CC Desktop Application couldn't be launched</li>
+		<li>Fixed: Download of .exr and .hdr files was blocked</li>
+		<li>Fixed: Edge browser home page sometimes displayed a blank page</li>
+		<li>Fixed: Some Japanese notifications were not fully translated</li>
+		<li>Fixed: HTML files were sanitized and downloaded without moving to page (CA0000087149)</li>
+		<li>Fixed: Email notifications were not being sent with alerts</li>
+		<li>Fixed: Audio was not played in fm1.co.il</li>
+		<li>Fixed: Auto Spelling did not work</li>
+		<li>Fixed: Google Meeting launch via Gmail failed</li>
+		
+	</ul> 
+	
+<div>
+    <strong>Notes</strong>
+    <ul>
+        <li>The work on translating Japanese notifications will continue in future releases</li>		
+	</ul> 
+
+
+</div>
+</html><html>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
+<div>
+    <strong>Rel-23.07</strong>	
+    <br/><br/><br/>
+</div> 
+
+<div>
+    <strong>New Features</strong>
+    <ul>
+        <li>Inspect mode - CDR now supports password-protected files (zip, pdf, office files)</li>
+		<li>Profile - new "User Agent" type</li>
+    </ul>	
+</div>
+	
+<div>
+    <strong>Enhancements</strong>
+    <ul>
+        <li>Improved typing performance in Stream/Frame mode</li>				
+		<li>Policies now displayed based on Profile priority order</li>
+		<li>Audit reporting - clarified setting changes</li>
+		<li>Native application reporting - clarified Profile name</li>
+		<li>Support for Google Desktop notifications</li>
+		<li>Internal security improvements</li>
+    </ul>
+</div>
+	
+<div>
+    <strong>Bugs Fixes</strong>
+    <ul>
+        <li>Fixed: Back button issues while browsing</li>
+        <li>Fixed: Yahoo video wasn't shown in Crystal mode</li>
+        <li>Fixed: CSV Reports were generated with UTC dates</li>
+        <li>Fixed: Share screen functionality didn't work in Google Meetings</li>
+		<li>Fixed: Upload button didn't respond on boi.org.il</li>
+		<li>Fixed: Errors during file downloads using CDR in Inspect Mode</li>
+		<li>Fixed: Map wasn't displayed on acrevalue.com</li>
+		<li>Fixed: Notification pop-ups didn't appear in InCircle chat (CA0000085983)</li>
+	</ul> 
+
+
+</div>
+</html>
+<html>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name has to be release-notes.html -->
+<div>
+    <strong>Rel-23.06</strong>	
+    <br/><br/><br/>
+</div> 
+
+<div>
+    <strong>New Features</strong>
+    <ul>
+        <li>Set end-user default language in tenant settings</li>
+		<li>Admin portal language will use the browser's language</li>
+        <li>Status of log shipping is shown on the dashboard (Beta)</li>				
+
+    </ul>	
+</div>
+	
+<div>
+    <strong>Enhancements</strong>
+    <ul>
+        <li>DLP size is now configured by upload size limit</li>
+        <li>MSSP - control to add/delete admin users</li>
+        <li>MSSP - control to reset the admin password</li>
+        <li>Admin portal SSO dialog supports tenant name and email address</li>	
+        <li>Enable "Override sanitization file size limit"</li>			
+		
+    </ul>
+</div>
+	
+<div>
+    <strong>Bug Fixes</strong>
+    <ul>
+        <li>Fixed: Issues with clicking on links in Google apps while in Isolation</li>
+        <li>Fixed: Frequent Error 400 while accessing Google apps (CA0000083794/CA0000083797)</li>
+        <li>Fixed: Incorrect behavior of Ctrl+H in Google Sheets</li>
+        <li>Fixed: Auto spelling does not work</li>
+        <li>Fixed: Ctrl+K works improperly in Rocket Chat</li>
+        <li>Fixed: File Restriction does not block HTML files</li>
+        <li>Fixed: JPEG files were blocked where they should be allowed</li>
+        <li>Fixed: Unable to download/upload large files</li>
+        <li>Fixed: Page not found when trying to download a file from greenvoice.co.il (CA0000086698)</li>
+        <li>Fixed: Print button is unresponsive (CA0000086688)</li>		
+        <li>Fixed: Performance issues while browsing to walla.co.il</li>
+        <li>Fixed: theMarker.co.il and globes.co.il do not work (CA0000086089)</li> 
+		<li>Fixed: Back button issues while browsing</li>
+    </ul>
+</div>
+</html>
+<HTML>
+<!-- NOTE -->
+<p>&nbsp;</p>
+<!-- The file name have to be release-notes.html-->
+<div>
+    <strong>Rel-23.05</strong>	
+    <br/><br/><br/>
+</div> 
+
+<div><strong>New Feature</strong>
+    <ul>
+		<li>MSSP e-mail alert before tenant's licence expiration</li>				
+    </ul>	
+</div>
+	
+<div><strong>Enhancements</strong>
+    <ul>
+		<li>The size limit for DLP has been increased from 0.5MB to 50MB</li>
+		<li>Newly Added ZTNA rule destination type ‘any’ and rule action type ‘none' to make it easier to log traffic without impacting block/allow logic</li>
+
+    </ul>
+</div>
+	
+<div><strong>Bugs Fixes</strong>
+    <ul>
+        <li>Fixed: Auto scrolling issue in Rocket chat</li>
+		<li>Fixed: Gmail.com is not directed in proxyless when using Cisco umbrella</li>
+		<li>Fixed: www.hartmann.info is not usable</li>
+		<li>Fixed: 3129 proxy certificate cannot be installed on Android</li>
+		<li>Fixed: Idp-intiated browser sessions should be more seamless</li>
+		<li>Fixed: Captchas appear unnecessarily on immobilienscout24 site</li>
+		<li>Fixed: Unwanted scroll issue on "outlook.live.com" in Chrystal</li>
+		<li>Fixed: XML file does not have style information (CA0000085328)</li>
+		<li>Fixed: PDF is not displayed in Chrystal rendering(CA0000086396)</li>
+   
+    </ul>
+</div>
+  <div>
+        <strong>Rel-23.04</strong>   
+        <br/><br/><br/>
+	  </div> 
+
+	  <div><strong>New Feature</strong>
+        <ul>
+            <li>MSSP Administration - additional Audit and Reporting</li>       
+        </ul>
+	  </div>
+
+	  <div><strong>Enhancement</strong>
+        <ul>
+            <li>Show URL on policy dialog for Web application policies</li>
+        </ul>
+	  </div>
+
+	  <div><strong>Bugs Fixes</strong>
+        <ul>
+            <li>Fixed: hp.com site gets stuck (CA0000086142)</li>
+            <li>Fixed: File download process fails on certain sites (CA0000085315)</li>
+            <li>Fixed: Zoom-in and Zoom-out don't work for images (CA0000085180)</li>
+            <li>Fixed: Mouse wheel scrolling does not work properly in Crystal (CA0000085104)</li>
+            <li>Fixed: Random failures of upload files (CA0000085041)</li>
+            <li>Fixed: Map dragging doesn't work properly on Google Maps App (CA0000083286)</li>
+            <li>Fixed: Audio is interrupted on specific URL (CA0000083821)</li>
+            <li>Fixed: Display problem in isa.gov.il (CA0000086058)</li>
+            <li>Fixed: Partial display of swiftness.co.il</li>
+            <li>Fixed: Login failure to bdicoface.co.il</li>
+            <li>Fixed: Sessions randomly freeze in MatrixCare site</li>
+            <li>Fixed: False alarms security info</li>
+            <li>Fixed: .lic files are blocked for download</li>
+        </ul>
+	  </div>
+
+    <br/><br/>
+
+    <div>
+        <strong>Rel-23.03</strong>  
+        <br/><br/><br/>
+    </div> 
+    <div><strong>New Feature</strong>
+    <ul>
+        <li>The Google search menu option can be hidden</li>       
+    </ul>
+
+    <div><strong>Enhancements</strong>
+    <ul>
+        <li>ZTadmin Policy Administration screen is re-organized</li>
+        <li>MSSP Admin License features are re-organized</li>
+        <li>Improve UI tables user experience</li>
+        <li>Single Log Out for built-in & federated IdP</li>
+    </ul>
+
+    <div><strong>Bugs Fixes</strong>
+        <ul>
+            <li>Fixed: Certificate issues in log shipping</li>      
+            <li>Fixed: DLP likelihood option ("Unspecified") should be removed</li>     
+            <li>Fixed: Browsing to localhost is enabled</li>
+            <li>Fixed: Splunk site login is not working</li>
+            <li>Fixed: Buttons are partially responsive in a specific website (CA0000085105)</li>
+            <li>Fixed: Image quality is bad when using Indicator Frame Type (CA0000084434)</li>     
+            <li>Fixed: Mouse scrolling issues in Crystal Rendering (CA0000085104)</li>      
+        </ul>
+    </div>
+
+    <br/><br/>
+
+    <div>
+        <strong>Rel-23.02_post (February 8th, 2023)</strong>    
+        <br/><br/><br/>
+    </div> 
+    <div><strong>Bugs Fixes</strong>
+        <ul>
+            <li>Fixed: Blank or Black PDF print preview</li>
+            <li>Fixed: Login is not done in "grammarly.com"</li>
+            <li>Fixed: Browsing gets stuck in hp.com site"</li>
+            <li>Fixed: Control Headers don't accept more than 100 characters"</li>
+            <li>Fixed: Download Files with no extension is blocked"</li>
+            <li>Fixed: Download of .txt Files is blocked when they are in allow restriction list"</li>
+            <li>Fixed: Wrong detection of resources in CDR Inspect mode</li>        
+            <li>Fixed: Export data to Excel is not supported in "govmap.co.il" (CA0000085548)</li>
+            <li>Fixed: Multi-Domain can't be edited if its name contains a space at the end (CA0000085392)"</li>
+            <li>Fixed: SAML Login parameters are not URL-safe (CA0000085325)</li>   
+            <li>Fixed: Blank login dialog in "campus.gov.il" (CA0000085512)</li>                
+            <li>Fixed: ICAP protocol error (CA0000085744)</li>
+        </ul>
+    </div>
+
+    <br/><br/>
+
+    <div>
+        <strong>Rel-23.02  (January 29th, 2023) </strong>   
+        <br/><br/><br/>
+    </div> 
+    <div><strong>New Features</strong>
+        <ul>
+            <li>New Report "Session History (Detailed Navigation)" which details navigation within isolated sessions</li>
+            <li>ZTNA Auto Update Client</li>
+        </ul>
+    </div>
+
+    <div><br/><strong>Enhancements</strong>
+        <ul>
+            <li>Policy types have been renamed: </li>
+            <table style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">
+                <tr style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">
+                   <th style="width:50%;width:232px;border: 1px solid black;border-collapse: collapse; text-align: center;">New Name</th>
+                    <th style="width:50%;width:232px;border: 1px solid black;border-collapse: collapse; text-align: center;">Previous Name</th>
+                </tr>
+                <tr>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Isolate</td>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Shield</td>
+                </tr>
+                <tr>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Inspect</td>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Allow</td>
+                </tr>
+            </table>
+
+        </ul>
+    </div>
+
+    <div><br/><strong>Bugs Fixes</strong>
+        <ul>
+            <li>Fixed: Native Application rules being undeleted</li>
+            <li>Fixed: Native Application bypassing DENY policy</li>
+            <li>Fixed: Admin UI creation of Native Application rules: regex does not allow saving rules</li>
+            <li>Fixed: Certificate support does not allow "\r\n" line termination</li>
+            <li>Fixed: UPS receipt can't be printed</li>
+            <li>Fixed: DLP doesn't support files with capitalized extension</li>
+            <li>Fixed: CloudFlare security check fails on multiple websites</li>
+            <li>Fixed: Video does not play on Yahoo news video page</li>
+            <li>Fixed: Need to login to google apps more than once</li>
+            <li>Fixed: 'Stream Devices Suffix' should appear only if Video conferencing feature is enabled</li>
+            <li>Fixed: AV in White doesn't block eicar malware files</li>
+            <li>Fixed: Gitlab gets stuck with browser checking</li>
+            <li>Fixed: + sign-in URL causing issues with proxyless</li>
+            <li>Fixed: Pop-up window gets stuck in crystal rendering (CA0000085131)</li>
+            <li>Fixed: Resume can't be downloaded in Linkedin (CA0000083091)</li>
+            <li>Fixed: The predictive conversion field overlaps the text being typed (CA0000083914)</li>
+            <li>Fixed: The PDF viewer does not appear when Zoom button is pressed (CA0000083456)</li>
+            <li>Fixed: PDF is not reached when browsing with Forcepoint proxyless (CA0000085081)</li>
+            <li>Fixed: Numbers are displayed as dots (CA0000084768)</li>
+            <li>Fixed: Some sites don't display images when using Edge (CA0000084020)</li>
+            <li>Fixed: The language setting returns to default after re-login (CA0000085144)</li>
+
+        </ul>
+    </div>
+
+    <br/><br/>
+
+    <div>
+        <strong>Rel-23.02</strong>  
+        <br/><br/><br/>
+    </div> 
+    <div><strong>New Features</strong>
+        <ul>
+            <li>New Report “Session History (Detailed Navigation)” which details navigation within isolated sessions</li>
+            <li>ZTNA Auto Update Client</li>
+        </ul>
+    </div>
+
+    <div><br/><strong>Enhancements</strong>
+        <ul>
+            <li>Policy types have been renamed: </li>
+            <table style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">
+                <tr style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">
+                    <th style="width:50%;width:232px;border: 1px solid black;border-collapse: collapse; text-align: center;">New Name</th>
+                    <th style="width:50%;width:232px;border: 1px solid black;border-collapse: collapse; text-align: center;">Previous Name</th>
+                </tr>
+                <tr>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Isolate</td>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Shield</td>
+                </tr>
+                <tr>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Inspect</td>
+                    <td style="width:232px;border: 1px solid black;border-collapse: collapse; text-align: center; ">Allow</td>
+                </tr>
+            </table>
+
+        </ul>
+    </div>
+
+    <div><br/><strong>Bug Fixes</strong>
+        <ul>
+            <li>Fixed: Native Application rules being undeleted</li>
+            <li>Fixed: Native Application bypassing DENY policy</li>
+            <li>Fixed: Admin UI creation of Native Application rules: regex does not allow saving rules</li>
+            <li>Fixed: Certificate support does not allow "\r\n" line termination</li>
+            <li>Fixed: UPS receipt can't be printed</li>
+            <li>Fixed: DLP doesn't support files with capitalized extension</li>
+            <li>Fixed: CloudFlare security check fails on multiple websites</li>
+            <li>Fixed: Video does not play on yahoo news video page</li>
+            <li>Fixed: Need to login to google apps more than once</li>
+            <li>Fixed: 'Stream Devices Suffix' should appear only if Video conferencing feature is enabled</li>
+            <li>Fixed: AV in White does't block eicar malware files</li>
+            <li>Fixed: Gitlab gets stuck with browser checking</li>
+            <li>Fixed: + sign in URL causing issues with proxyless</li>
+            <li>Fixed: Pop-up window gets stuck in crystal rendering (CA0000085131)</li>
+            <li>Fixed: Resume can't be downloaded in Linkedin (CA0000083091)</li>
+            <li>Fixed: The predictive conversion field overlaps the text being typed (CA0000083914)</li>
+            <li>Fixed: The PDF viewer does not appear when Zoom button is pressed (CA0000083456)</li>
+            <li>Fixed: PDF is not reached when browsing with Forcepoint proxyless (CA0000085081)</li>
+            <li>Fixed: Numbers are displayed as dots (CA0000084768)</li>
+            <li>Fixed: Some sites don't display images when using Edge (CA0000084020)</li>
+            <li>Fixed: The language setting returns to default after re-login (CA0000085144)</li>
+        </ul>
+    </div>
+
+    <br/><br/>
+
+    <div>
+        <strong>Rel-23.01</strong>  
+        <br/><br/><br/>
+    </div> 
+    <div><strong>New Features</strong>
+        <ul>
+            <li>New Admin UI Dashboards reports </li>
+            <li>Groups passed from third-party SAML IdP imported into ZTEdge IAM </li>
+            <li>Tenant-specific Admin Portal URL to bypass SAML login </li>
+            <li>MSSP partners can enable tenant features based on its license </li>
+
+        </ul>
+    </div>
+
+    <div><br/><strong>Enhancements</strong>
+        <ul>
+            <li>ZTEdge client connecting port is now configurable</li>
+            <li>Multi-PoP support for ZTEdge clients and connectors</li>
+            <li>Discontinued "Antivirus" from Download options - Replaced with "Fast-AV"</li>
+
+        </ul>
+
+    </div>
+
+    <div><br/><strong>Bug Fixes</strong>
+        <ul>
+            <li>Fixed: Teams reconnection stuck at White screen</li>
+            <li>Fixed: Stream Rendering - Live video does not play on yahoo.co.jp</li>
+            <li>Fixed: Double authentication when using ZTNA with RBI client and client SAML authentication is enabled</li>
+            <li>Fixed: White page while browsing </li>
+            <li>Fixed: Policy changes when new tab is opened (CA0000083775)</li>
+            <li>Fixed: Import failure in Google Maps (CA0000084205)</li>
+            <li>Fixed: Wrong display of Israeli Laws search engine (CA0000083922)</li>
+            <li>Fixed: PDF view tab gets stuck</li>
+            <li>Fixed: Whatsapp videos have choppy sound </li>
+            <li>Fixed: Maps website is not displayed (CA0000078917)</li>
+
+        </ul>
+    </div>
+
+    <div><br/><strong>Note</strong>
+        <ul>
+            <li>Version 3.6 ZTEdge Client is recommended for use with ZTNA in this release</li>
+        </ul>
+    </div>
+
+    <br/><br/>
+
+    <div>
+        <strong>Rel-22.12</strong>  
+        <br/><br/><br/>
+    </div> 
+    <div><strong>New Features</strong>
+        <ul>
+            <li>Add "Certificate Validation" activity into session history report </li>
+
+        </ul>
+    </div>
+
+    <div><br/><strong>Enhancements</strong>
+        <ul>
+            <li>Enable network profile based also on client private IP (using header “Shield-RealClientIP’)</li>
+            <li>Exporting policies now includes 'Default' policies</li>
+            <li>New ZTNA "Users Devices" view</li>
+            <li>Improved phishing site detection</li>
+            <li>New Tenant Admin portal is now available for all customers</li>
+
+        </ul>   
+    </div>
+
+    <div><br/><strong>Bug Fixes</strong>
+        <ul>
+            <li>Fixed: Login to Twitter using Google authentication</li>
+            <li>Fixed: Login to Dropbox using Google authentication</li>
+            <li>Fixed: In some cases Automatic PAC file includes incorrect code</li>
+            <li>Fixed: Documentation link in admin portal doesn’t open the latest version</li>
+            <li>Fixed: Diagrams.net and draw.io browsing gets stuck</li>
+            <li>Fixed: Wrong display of Pop-up windows on Outlook Web (CA0000083267)</li>
+            <li>Fixed: Current location of map service is incorrect (CA0000079910)</li>
+            <li>Fixed: Certain PDFs are blocked and cannot be downloaded (CA0000083456)</li>
+        </ul>
+    </div>    
+</HTML>
     <strong>New Features</strong>
     <ul>
         <li>Web Categorization: Multiple categories can now be used in a single policy. </li>
