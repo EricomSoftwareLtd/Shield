@@ -3,7 +3,7 @@
 <p>&nbsp;</p>
 <!-- The file name has to be release-notes.html -->
 <div>
-    <strong>ZTEdge Release 24.02</strong>
+    <strong>ZTEdge Release 24.03</strong>
     <br /><br /><br />
 </div>
 
@@ -11,8 +11,8 @@
 <div>
     <strong>New Features</strong>
     <ul>
-        <li>Platform: Refined the usage of checkboxes when selecting multiple categories in category polices. </li>
-		<li>Platform: Added an option to bring and manage your own certificates when using inspect mode.  </li>
+        <li>Platform: Changed the order of the policies in the policy page to correspond to their order of execution in runtime.</li>
+		<li>Platform: Rebranded the Admin UI. </li>
     </ul>
 </div>
 
@@ -20,36 +20,17 @@
 <div>
     <strong>Platform Fixes</strong>
     <ul>
-        <li>Fixed the link to Certificate Instructions from Ericom's Admin UI. </li>
-        <li>Fixed an IdP configuration issue where underscore wasn't supported in IdP Audience. </li>
-		<li>Fixed an issue with policy import. </li>
-    </ul>
-</div>
+        <li>Issued a fix for websites not working well due to usage of IPs with bad reputation. </li>
 
-<div>
-    <strong>Proxy Fixes</strong>
-    <ul>
-        <li>Fixed several issues causing bad functionality in inspect mode in various websites (cnn.com, nordpass.com, f5.com, inforcloudesuite.me)  </li>
-        <li>Fixed an Anti Virus related issue causing false positives when using certain websites. </li>
     </ul>
 </div>
 
 <div>
     <strong>Isolation Fixes</strong>
     <ul>
-        <li>Fixed a CloudFlare authentication issue which caused authentication problems in several websites using CloudFlare. </li>
-        <li>Fixed a problem uploading files to websites using Drag & Drop to perform an upload operation. </li>
-        <li>Fixed a VMI related issue where the camera stopped working after a recent Zoom update. </li>
-        <li>Fixed an issue with email composing on the Outlook web app. </li>
-		<li>Fixed several more issues causing bad functionality in various websites (bbc.com, Kintone, greeneye.co.il, 1337x.to)  </li>
-    </ul>
-</div>
+        <li>Fixed a VMI issue causing texts to get blurred during an isolated Zoom session. </li>
+		<li>Fixed several UI and functional issues in websites opened in isolation.
 
-<div>
-    <strong>System</strong>
-    <ul>
-	
-        <li>Improved CDR performance in Japan Points of Presence and globally.</li>
     </ul>
 </div>
 
