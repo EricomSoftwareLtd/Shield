@@ -3,7 +3,7 @@
 <p>&nbsp;</p>
 <!-- The file name has to be release-notes.html -->
 <div>
-    <strong>ZTEdge Release 24.03</strong>
+    <strong>ZTEdge Release 24.04</strong>
     <br /><br /><br />
 </div>
 
@@ -11,25 +11,28 @@
 <div>
     <strong>New Features</strong>
     <ul>
-        <li>Platform: Changed the order of the policies in the policy page to correspond to their order of execution in runtime.</li>
-		<li>Platform: Rebranded the Admin UI. </li>
+        <li>Isolation (WAI): Add the ability to set up RDP, SSH, or VNC based applications in WAI. </li>
+		<li>Secure Web Gateway: Bring Your Own Certificate - the certificate can now be used in inspection mode. </li>
+		<li>Secure Web Gateway: New policy type allows administrators to block or allow traffic to specific geo-locations. </li>
+		<li>Platform: Built-in IdP users can now be imported into the platform in bulk, using a CSV file. </li>
+		<li>Platform: Block pages can now be customized and branded based on your company's needs. </li>
     </ul>
 </div>
-
 
 <div>
     <strong>Platform Fixes</strong>
     <ul>
-        <li>Issued a fix for websites not working well due to usage of IPs with bad reputation. </li>
-
+		<li>Fixed a problem causing an incorrect prioritization of uncategorized security policies. </li>
+		<li>Fixed a problem where DLP Schemas could not be created using Japanese characters. </li>
     </ul>
 </div>
 
 <div>
     <strong>Isolation Fixes</strong>
     <ul>
-        <li>Fixed a VMI issue causing texts to get blurred during an isolated Zoom session. </li>
-		<li>Fixed several UI and functional issues in websites opened in isolation.
+        <li>Fixed an issue with WhatsApp web causing the need to re-authenticate every day. </li>
+		<li>Fixed an issue which caused elements to be missing from the print menu, when using isolation. </li>
+		<li>Fixed several UI and functional issues in websites opened in isolation (chatgpt, Atlassian, CNN, and more). </li>
 
     </ul>
 </div>
